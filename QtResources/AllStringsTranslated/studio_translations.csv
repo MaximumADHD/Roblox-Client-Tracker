@@ -5722,6 +5722,7 @@ Studio.App.PropertyItems.RevertPackageChanges,,,Revert all overrides,Revert all 
 Studio.App.PinnedUpdateAvailableWithOverrides,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.RobloxExplorerWidget.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
+Studio.App.PropertyItems.AutoUpdateDisabledForNested,,,Auto Update disabled for nested packages,Auto Update disabled for nested packages
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -6363,6 +6364,8 @@ Studio.GameSettings.Places.VersionHistoryMovedHeader,,,Version History has moved
 Studio.GameSettings.Places.VersionHistoryMovedBody,,,"Now, you can find it under {location}","Now, you can find it under {location}"
 Studio.GameSettings.Places.Window,,,Window,Window
 Studio.GameSettings.General.ErrorFieldEmpty,,,This is a required field.,This is a required field.
+Studio.GameSettings.AvatarChat.AudioTitleV2,,,Enable Voice Chat,Enable Voice Chat
+Studio.GameSettings.AvatarChat.AudioBodyV2,,,Enabling Voice Chat allows eligible users to communicate using their voice in your experience. Users must be age-checked and 13+ to access Voice Chat within eligible regions. [link],Enabling Voice Chat allows eligible users to communicate using their voice in your experience. Users must be age-checked and 13+ to access Voice Chat within eligible regions. [link]
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8151,6 +8154,18 @@ Studio.Toolbox.ModelUploadWarning.ReasonNotFound,,,AssetId not found,AssetId not
 Studio.Toolbox.ModelUploadWarning.CopyToClipboard,,,Copy to Clipboard,Copy to Clipboard
 Studio.Toolbox.ModelUploadWarning.Copied,,,Copied!,Copied!
 Studio.Toolbox.ModelUploadWarning.AiAssistantTip,,,"Tip: After copying, ask Assistant to find these assets in Explorer","Tip: After copying, ask Assistant to find these assets in Explorer"
+Studio.Toolbox.General.SetAnimationPackProperties,,,Set Animation Pack Properties (Optional),Set Animation Pack Properties (Optional)
+Studio.Toolbox.General.ParentModelName,,,Parent model name,Parent model name
+Studio.Toolbox.General.EnterName,,,Enter name,Enter name
+Studio.Toolbox.General.AnimationType,,,Animation Type,Animation Type
+Studio.Toolbox.General.SelectOption,,,Select option,Select option
+Studio.Toolbox.General.SubAnimation,,,Sub animation,Sub animation
+Studio.Toolbox.General.Weight,,,Weight,Weight
+Studio.Toolbox.General.EnterWeight,,,Enter weight,Enter weight
+Studio.Toolbox.General.Swim,,,Swim,Swim
+Studio.Toolbox.General.SwimIdle,,,Swim Idle,Swim Idle
+Studio.Toolbox.General.AnimationSectionDescription,,,"If this animation is part of a UGC Animation Pack, filling out these fields will generate the model structure needed to upload it as part of the bundle. Selecting Emote will create the animation object with the ID in the Workspace.","If this animation is part of a UGC Animation Pack, filling out these fields will generate the model structure needed to upload it as part of the bundle. Selecting Emote will create the animation object with the ID in the Workspace."
+Studio.Toolbox.General.AnimationSectionTitle,,,Create Animation Object In Workspace,Create Animation Object In Workspace
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9480,6 +9495,9 @@ Studio.AssetManager.Dialogs.MoveTitleMultiple,,,Move {count} Assets,Move {count}
 Studio.AssetManager.ItemProperty.ItemId,,,ID,ID
 Studio.AssetManager.ItemProperty.ItemType,,,Type,Type
 Studio.AssetManager.ContextMenu.SelectAll,,,Select All,Select All
+Studio.AssetManager.Tooltip.FoldersNotReady,,,Folder organization is not available yet for this inventory,Folder organization is not available yet for this inventory
+Studio.AssetManager.Tooltip.FoldersNotReadyBody,,,Click to refresh,Click to refresh
+Studio.AssetManager.MouseHoverFeedback.InvalidDragTarget,,,You cannot move these items here.,You cannot move these items here.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11412,6 +11430,7 @@ Studio.StyleEditor.ContextMenu.New.Query,,,Query,Query
 Studio.StyleEditor.SourceSelect.Source,,,Source:,Source:
 Studio.StyleEditor.ContextMenu.Insert,,,Insert,Insert
 Studio.StyleEditor.ContextMenu.New.Transition,,,Transition,Transition
+Studio.StyleEditor.Label.PropertyNameErrorConflictsWithProperty,,,Property conflicts with {otherProperty},Property conflicts with {otherProperty}
 Studio.StyleEditor.Label.ValueErrorIncorrectType,,,Error: Incorrect value type for property,Error: Incorrect value type for property
 Studio.StyleEditor.ContextMenu.New.Query.Builtin,,,Builtin,Builtin
 Studio.StyleEditor.ContextMenu.New.Query.Custom,,,Custom,Custom
@@ -11628,6 +11647,7 @@ Studio.RobloxPropertiesWidget.Category.ServerAuthority,,,Server Authority,Server
 Studio.RobloxPropertiesWidget.Category.Conditions,,,Conditions,Conditions
 Studio.RobloxPropertiesWidget.AddConditionPopup.NoConditionsCreated,,,No Conditions have been created yet,No Conditions have been created yet
 Studio.RobloxPropertiesWidget.AddConditionPopup.LineEditText,,,Search for a condition,Search for a condition
+Studio.RobloxPropertiesWidget.Category.IndividualCorners,,,Individual Corners,Individual Corners
 Studio.RobloxPropertiesWidget.WorkspaceAuthorityModeDepProperty,,,This property is required given your Server Authority settings.,This property is required given your Server Authority settings.
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
@@ -14083,6 +14103,10 @@ Studio.Assistant.PrimitiveGen.RetryYes,,,Yes,Yes
 Studio.Assistant.PrimitiveGen.RetryNo,,,No,No
 Studio.Assistant.PrimitiveGen.GenerationCancelledPlayModeRetryPrompt,,,Generation cancelled (Studio left edit mode). <b>Try again?</b>,Generation cancelled (Studio left edit mode). <b>Try again?</b>
 Studio.Assistant.PrimitiveGen.InsertAgain,,,Insert again,Insert again
+Studio.Assistant.MeshGen.InputPartNamesTitle,,,Part Names,Part Names
+Studio.Assistant.HttpGet.Found,,,Found '{query}' in {url},Found '{query}' in {url}
+Studio.Assistant.HttpGet.NotFound,,,No match for '{query}' in {url},No match for '{query}' in {url}
+Studio.Assistant.HttpGet.Searching,,,Searching '{query}' in {url}...,Searching '{query}' in {url}...
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15282,9 +15306,9 @@ Studio.PropertiesLibrary.Tabs.General,,,General,General
 Studio.PropertiesLibrary.Tabs.AttributesAndTags,,,Attributes & Tags,Attributes & Tags
 Studio.PropertiesLibrary.Tabs.All,,,All,All
 Studio.PropertiesLibrary.SearchBar.PlaceholderText,,,Filter by name or value,Filter by name or value
-Studio.PublishPlace.Error.PublishEligibilityTitle,,,Unable to publish this experience,Unable to publish this experience
-Studio.PublishPlace.Error.PublishEligibilityDescription,,,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
-Studio.PublishPlace.Button.Manage,,,View eligibility,View eligibility
+Studio.PublishPlace.Error.PublishEligibilityTitle,,,Can't publish place,Can't publish place
+Studio.PublishPlace.Error.PublishEligibilityDescription,,,Check your publishing eligibility in Creator Hub,Check your publishing eligibility in Creator Hub
+Studio.PublishPlace.Button.Manage,,,Check eligibility,Check eligibility
 Studio.PublishPlace.Button.Close,,,Close,Close
 Studio.PublishPlace.Toast.ViewQuestionnaireLink,,,View questionnaire,View questionnaire
 Studio.PublishPlace.Toast.ViewQuestionnaireMessage,,,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
@@ -15312,6 +15336,9 @@ Studio.PublishPlace.Toast.PlacePublished.FriendsAndPlaytesters,,,Published. Frie
 Studio.PublishPlace.Message.PlacePublished.GroupmembersAndPlaytesters,,,Place published. Group members and playtesters can now play this place in Roblox.,Place published. Group members and playtesters can now play this place in Roblox.
 Studio.PublishPlace.Toast.ManageExperience,,,Manage experience,Manage experience
 Studio.PublishPlace.Message.PublishIneligible,,,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.
+Studio.PublishPlace.Error.SelectEligibilityTitle,,,Publishing is blocked to protect visibility,Publishing is blocked to protect visibility
+Studio.PublishPlace.Error.SelectEligibilityDescription,,,"The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings.","The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings."
+Studio.PublishPlace.Button.AudienceSettings,,,Manage audience,Manage audience
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -15442,3 +15469,9 @@ Studio.DialogPlugin.ScriptSyncConflictDialog.InstanceNounPlural,,,instances,inst
 Studio.DialogPlugin.ScriptSyncConflictDialog.AddTitle,,,Add {count:int} {noun},Add {count:int} {noun}
 Studio.DialogPlugin.ScriptSyncConflictDialog.ModifyTitle,,,Modify {count:int} {noun},Modify {count:int} {noun}
 Studio.DialogPlugin.ScriptSyncConflictDialog.DeleteTitle,,,Delete {count:int} {noun},Delete {count:int} {noun}
+Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
+Studio.LoginPage.Label.SignUp1,,,Don't have an account?,Don't have an account?
+Studio.LoginPage.Label.SignUp2,,,Create One,Create One
+Studio.LoginPage.Heading.SignIn,,,Sign in,Sign in
+Studio.LoginPage.Heading.SignInUpsell,,,Jump back into your experiences,Jump back into your experiences
+Studio.LoginPage.Button.SignIn,,,Sign in,Sign in

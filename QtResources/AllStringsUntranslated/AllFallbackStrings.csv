@@ -2247,6 +2247,7 @@ Studio.App.PropertyEnum.Vertical,,Vertical,Vertical
 Studio.App.PropertyEnum.VeryFast,,Very Fast,Very Fast
 Studio.App.PropertyEnum.VerySlow,,Very Slow,Very Slow
 Studio.App.PropertyEnum.Vulkan,,Vulkan,Vulkan
+Studio.App.PropertyItems.AutoUpdateDisabledForNested,Tooltip that displays when hovering over the AutoUpdate checkbox of a PackageLink that is nested inside another package,Auto Update disabled for nested packages,Auto Update disabled for nested packages
 Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,Warning message that displays in the Studio Output window when a user tries to alter the BrickColor property of a part while the Studio Lua Debugger is paused at a breakpoint.,BrickColor property cannot be edited. Please make sure debugger is not paused.,BrickColor property cannot be edited. Please make sure debugger is not paused.
 Studio.App.PropertyItems.ClickToExpand,Short message that appears in the Terrain.MaterialColors property in the Properties widget to let the user know that they can expand the property to see all the individual color values of each terrain material,[Click to expand],[Click to expand]
 Studio.App.PropertyItems.CollisionGroupName.MismatchIdName,,CollisionGroup and CollisionGroupId don't match. Please reset CollisionGroup to a different value to resolve it.,CollisionGroup and CollisionGroupId don't match. Please reset CollisionGroup to a different value to resolve it.
@@ -7319,20 +7320,38 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHub,Link to display after publish in
 Studio.PublishPlace.AfterPublish.ViewCreatorHubText,Message to display after publish in toast notification,Changes published.,Changes published.
 Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publish in toast notification,View questionnaire,View questionnaire
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
+Studio.PublishPlace.Button.AudienceSettings,Button title to redirect to Audience Settings.,Manage audience,Manage audience
 Studio.PublishPlace.Button.Close,Button to close,Close,Close
-Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user's ""eligibility""",View eligibility,View eligibility
-Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
-Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Unable to publish this experience,Unable to publish this experience
+Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user's ""eligibility""",Check eligibility,Check eligibility
+Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,Check your publishing eligibility in Creator Hub,Check your publishing eligibility in Creator Hub
+Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Can't publish place,Can't publish place
+Studio.PublishPlace.Error.SelectEligibilityDescription,Error dialog shown when publish is blocked to protect universe's select eligibility status.,"The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings.","The experience has lost Select eligibility for new versions. Publishing now may significantly reduce reach. To publish without Select eligibility, configure your audience settings."
+Studio.PublishPlace.Error.SelectEligibilityTitle,Title of error dialog when the user lost pro tier and the publish is blocked to protect the universe's select eligibility,Publishing is blocked to protect visibility,Publishing is blocked to protect visibility
 Studio.PublishPlace.Link.ViewErrorReports,Shown as a hyperlink to open a webpage,→ View error reports,→ View error reports
 Studio.PublishPlace.Link.ViewExperienceSettings,Shown as a hyperlink for user to open a webpage,→ Edit experience details & audience,→ Edit experience details & audience
 Studio.PublishPlace.Link.ViewUsageMetrics,Shown as a hyperlink to open a webpage,→ View performance,→ View performance
 Studio.PublishPlace.Message.AddNotes,"Hyperlink shown in output message after publish, to add version notes to that particular version number.",→ Add publish notes to v%1,→ Add publish notes to v%1
 Studio.PublishPlace.Message.NextStepsOnCreatorHub,Shown after the user publishes to Roblox. The following items are hyperlinks.,Next steps on Creator Hub:,Next steps on Creator Hub:
 Studio.PublishPlace.Message.PlacePublished.Anyone,"Message after publish, letting the status of who can play.",Place published. Eligible players can now play this place in Roblox.,Place published. Eligible players can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.Editors,Output message shown after publish with information on who can play.,Place published. Editors can now play this place in Roblox.,Place published. Editors can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.Friends,Message in output window after publish. Has information about who else can play in addition to Editors.,Place published. Friends can now play this place in Roblox.,Place published. Friends can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.FriendsAndPlaytesters,"Output message shown after place version publish, to show who in addition to Editors can play.",Place published. Friends and playtesters can now play this place in Roblox.,Place published. Friends and playtesters can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.GroupMembers,Output message shown after the place version published to show who can play in addition to Editors.,Place published. Group members can now play this place in Roblox.,Place published. Group members can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.GroupmembersAndPlaytesters,Message shown in output window after place version publish. Shows who in addition to Editors can play this place.,Place published. Group members and playtesters can now play this place in Roblox.,Place published. Group members and playtesters can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.Playtesters,Message in output window after publish showing who can play this version in Roblox in addition to Editors.,Place published. Playtesters can now play this place in Roblox.,Place published. Playtesters can now play this place in Roblox.
+Studio.PublishPlace.Message.PublishIneligible,Publish failed error in output window due to ineligibility of owner's account.,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.
 Studio.PublishPlace.Message.QuickLinks,showing the next steps and useful links after the publish,Quick Links:,Quick Links:
 Studio.PublishPlace.Toast.AddNotes,Shown as a hyperlink on a toast after the user publish their game to Roblox,Add notes,Add notes
 Studio.PublishPlace.Toast.ChangesPublished,Shown on a toast after the game is published to Roblox,Changes published.,Changes published.
-Studio.PublishPlace.Toast.PlacePublished.Anyone,Toast notification after publish to let users know who can publish,Place published. Eligible players can play now.,Place published. Eligible players can play now.
+Studio.PublishPlace.Toast.ManageExperience,Shown as a hyperlink to open the experience settings on creator hub to manage the who can play settings.,Manage experience,Manage experience
+Studio.PublishPlace.Toast.PlacePublished.Anyone,Toast notification after publish to let users know who can publish,Published. Eligible players can play now.,Published. Eligible players can play now.
+Studio.PublishPlace.Toast.PlacePublished.Editors,"Toast message after publish, showing who can play.",Published. Editors can play now.,Published. Editors can play now.
+Studio.PublishPlace.Toast.PlacePublished.Friends,Message shown on Toast after publish showing who can publish in addition to editors.,Published. Friends can play now.,Published. Friends can play now.
+Studio.PublishPlace.Toast.PlacePublished.FriendsAndPlaytesters,"Message shown on Toast notification after place version publish, to show who in addition to Editors can play the place.",Published. Friends and playtesters can play now.,Published. Friends and playtesters can play now.
+Studio.PublishPlace.Toast.PlacePublished.GroupMembers,Message shown in toast on publish to show who can play in addition to Editors of the place.,Published. Group members can play now.,Published. Group members can play now.
+Studio.PublishPlace.Toast.PlacePublished.GroupmembersAndPlaytesters,"Message shown in toast after publish, on who in addition to editors can play this version.",Published. Group members and playtesters can play now.,Published. Group members and playtesters can play now.
+Studio.PublishPlace.Toast.PlacePublished.Playtesters,Message shown on toast to show who can play this place in addition to Editors.,Published. Playtesters can play now.,Published. Playtesters can play now.
+Studio.PublishPlace.Toast.PublishIneligible,Error message shown on Toast when the publish hasn't met eligibility requirements.,Publish failed. This account isn't eligible.,Publish failed. This account isn't eligible.
 Studio.PublishPlace.Toast.ViewQuestionnaireLink,Shown as a hyperlink to open a web page,View questionnaire,View questionnaire
 Studio.PublishPlace.Toast.ViewQuestionnaireMessage,Shown in a toast next to a hyper link. Opens a web page,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
@@ -7352,10 +7371,14 @@ Studio.ReactDevTools.StartPage.RunContextLocal,"Label for the context in which a
 Studio.ReactDevTools.StartPage.RunContextRemote,"Label for the context in which a project is running under. Remote means the project is running on a separate device, like a mobile phone.",Remote,Remote
 Studio.ReactDevTools.StartPage.Search,Placeholder text for a search box on the start page.,Search...,Search...
 Studio.ReactDevTools.StartPage.Title,Title of the DevTools start page. Appears at the top of the window to inform what the page is for.,Select a Project,Select a Project
+Studio.Reimport.Actions.ClearReimportConfig,"in the explorer context menu, removes the reimport config id attribute from an instance",Remove reimport config,Remove reimport config
 Studio.Reimport.Actions.Configure,open configure dialog for reimport,Configure...,Configure...
 Studio.Reimport.Actions.Reimport,reimport action,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,reimport relative option for mesh parts,Reimport relative to this,Reimport relative to this
+Studio.Reimport.Actions.WatchInstanceFile,watch for changes to the file in the instance reimport configuration,Watch File,Watch File
+Studio.Reimport.Tooltips.ClearReimportConfig,shows when hovering over the clear config action,Clears the association between an instance and a reimport config. Will not affect duplicates.,Clears the association between an instance and a reimport config. Will not affect duplicates.
 Studio.Reimport.Tooltips.Configure,"This tooltip is used as the description for the Reimport > Configure tool in searches, and shows up when hovering over the tool.",Configure reimport settings,Configure reimport settings
+Studio.Reimport.Tooltips.WatchInstanceFile,"This tooltip is used as the description for the Reimport > Watch File tool in searches, and shows up when hovering over the tool.",Reimport this instance when the local file changes,Reimport this instance when the local file changes
 Studio.Ribbon.Action.AddTab,"Text appearing in a dropdown option that, when clicked, adds a new tab to the Ribbon. The dropdown is a dropdown of all the tabs in the Ribbon, so there is already an established context of tabs here, hence why the source text is just ""Add"".",Add,Add
 Studio.Ribbon.Action.CancelUpdate,Button text to cancel a pending update.,Cancel update,Cancel update
 Studio.Ribbon.Action.CollapseToolbar,"Action that when checked, will detach the Studio toolbar - Ribbon -  into a floating menu",Collapse toolbar,Collapse toolbar
@@ -7814,6 +7837,7 @@ Studio.SystemMenu.Title.Plugins,Menu that contains actions to take on Studio Plu
 Studio.SystemMenu.Title.PublishAsPlugin,Publish the selection to Roblox as a plugin,Publish as Plugin,Publish as Plugin
 Studio.SystemMenu.Title.PublishToRobloxAs,Publish active document to Roblox as,Publish to Roblox As,Publish to Roblox As
 Studio.SystemMenu.Title.Recent,The most recent files a user has opened in Roblox Studio,Recent,Recent
+Studio.SystemMenu.Title.ReportIllegalContent,System menu action that opens a web page to report illegal content,Report Illegal Content,Report Illegal Content
 Studio.SystemMenu.Title.ResetLayout,Reset Widget and Toolbar position,Reset Layout,Reset Layout
 Studio.SystemMenu.Title.SaveAsLocalPlugin,Create a local plugin from this script,Save as Local Plugin,Save as Local Plugin
 Studio.SystemMenu.Title.SaveToFileAs,Save the active local file with a new name,Save to File As,Save to File As
@@ -7842,6 +7866,7 @@ Studio.SystemMenu.Title.Untitled,"Label used in the Studio System Menu for any p
 Studio.SystemMenu.Title.View,"Menu in Roblox Studio offers tools and settings to control the display and presentation of the 3D workspace. It allows developers to customize how they view and interact with their game world, providing options for zoom, grid settings, rendering modes, UI visibility, and debugging aids",View,View
 Studio.SystemMenu.Title.Window,"The Window menu in Roblox Studio system menu, which provides access to various tools and panels that allow developers to manage the Studio interface, inspect game objects and performance, and access specialized editors for specific content types",Window,Window
 Studio.SystemMenu.Tooltip.Performance,A basic performance overlay,A basic performance overlay,A basic performance overlay
+Studio.SystemMenu.Tooltip.ReportIllegalContent,Tooltip shown on a system menu action that opens a report form web page,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
 Studio.SystemMenu.Tooltip.SaveToRobloxWithNotes,tooltip for saving with version notes,Save active document to Roblox with version notes,Save active document to Roblox with version notes
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingMessage,Urgent messsage to be shown when place upload is failing continuously for Team Create to show that there is a recovery file being generated,Auto recovery backup has started.,Auto recovery backup has started.
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingTip,Description message that gives users action to figure out where their recovery files are generated,Check console for auto-recovery details.,Check console for auto-recovery details.
