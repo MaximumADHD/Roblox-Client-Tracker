@@ -2,8 +2,10 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
+#include <FastClusterInstanceData.h>
 uniform vec4 CB0[61];
 uniform vec4 CB1[216];
+uniform vec4 CB11[512];
 in vec4 POSITION;
 in vec4 NORMAL;
 in vec2 TEXCOORD0;
@@ -81,7 +83,7 @@ void main()
     gl_Position = v28;
     VARYING0 = TEXCOORD0;
     VARYING1 = v30;
-    VARYING2 = COLOR0;
+    VARYING2 = COLOR0 * CB11[int(COLOR1.x) * 2 + 0];
     VARYING3 = v35;
     VARYING4 = vec4(v22, v28.w);
     VARYING5 = vec4(v18, v19, v20, COLOR1.z);
