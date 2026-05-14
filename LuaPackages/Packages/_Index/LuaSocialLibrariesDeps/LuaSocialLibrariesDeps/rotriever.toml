@@ -1,6 +1,6 @@
 [package]
 name = "LuaSocialLibrariesDeps"
-version = "1.8.1"
+version = "1.9.0"
 readme = "README.md"
 content_root = "src"
 files = ["*"]
@@ -106,7 +106,7 @@ version = "^4.2.4"
 
 [dependencies.RoduxGames]
 target = "https://github.com/roblox/rodux-games"
-version = "^1.4.1"
+version = "^1.4.3"
 
 [dependencies.RoduxNetworking]
 target = "https://github.com/roblox/rodux-networking"
@@ -130,7 +130,7 @@ version = "^1.6.0"
 
 [dependencies.SocialLibraries]
 target = "https://github.com/roblox/social-libraries"
-version = "^4.1.1"
+version = "^4.2.0"
 
 [dependencies.httpRequest]
 target = "https://github.com/roblox/http-request"

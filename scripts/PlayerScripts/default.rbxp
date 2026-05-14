@@ -87,7 +87,18 @@
             },
             "StarterPlayerScriptsCommon": {
                 "$className": "Folder",
-                "$path": "StarterPlayerScriptsCommon"
+                "RbxCharacterSounds": {
+                    "$className": "ModuleScript",
+                    "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds.lua",
+                    "AtomicBinding": {
+                        "$className": "ModuleScript",
+                        "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua"
+                    }
+                }
+            },
+            "PlayerScriptsTests": {
+                "$className": "Folder",
+                "$path": "../../../tests/PlayerScripts"
             },
             "jest.config": {
                 "$className": "ModuleScript",
