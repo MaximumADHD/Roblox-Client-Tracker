@@ -3,7 +3,7 @@ name = "Foundation"
 version = "1.86.0"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.35 registry",
+    "BuilderIcons BuilderIcons 0.1.36 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.4.4 registry",
     "FoundationImages FoundationImages 1.35.1 registry",
