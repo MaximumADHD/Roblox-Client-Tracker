@@ -17,10 +17,9 @@ if GetFFlagFixSettingshubImportOrder() and not (FFlagRemoveLoadingTimeout and Ch
 	CoreGui:WaitForChild("TopBarApp", if FFlagRemoveLoadingTimeout then math.huge else nil)
 end
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
-
-local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
-local renderCoreScriptInExperienceAppChat = AppChat.App.renderCoreScriptInExperienceAppChat
+local ParentContainer = require(CorePackages.Workspace.Packages.AppChat.ParentContainer)
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
+local renderCoreScriptInExperienceAppChat = require(CorePackages.Workspace.Packages.AppChat.renderCoreScriptInExperienceAppChat)
 local ViewportUtil = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ViewportUtil)
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
@@ -51,7 +50,7 @@ local updateAppChatUnreadMessagesCount = function(newCount)
 	InExperienceAppChatModal:setUnreadCount(newCount)
 end
 
-local parentContainerContext: AppChat.ParentContainerContextType = {
+local parentContainerContext: ParentContainer.ParentContainerContextType = {
 	getParentContainer = function()
 		return InExperienceAppChatModal.default.frame
 	end,

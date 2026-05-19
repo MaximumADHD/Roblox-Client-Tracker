@@ -21,6 +21,8 @@ type _Messages =
 		StaticInputData: _StaticInputDataMessage,
 		ExperienceDetailsFeedInputData: _ExperienceDetailsFeedInputDataMessage,
 		ExperienceDetailsFeedInputData_EntryMapEntry: _ExperienceDetailsFeedInputData_EntryMapEntryMessage,
+		ExperienceDetailsFeedInputData_EntryOrderMapEntry: _ExperienceDetailsFeedInputData_EntryOrderMapEntryMessage,
+		EntryOrder: _EntryOrderMessage,
 		ExperienceDetailsActionBarInputData: _ExperienceDetailsActionBarInputDataMessage,
 		ExperienceDetailsBannerImageInputData: _ExperienceDetailsBannerImageInputDataMessage,
 		ExperienceDetailsStickyHeaderInputData: _ExperienceDetailsStickyHeaderInputDataMessage,
@@ -514,6 +516,7 @@ type _ExperienceDetailsFeedInputDataFields = {
 	creator_key: string,
 	entry_map: { [string]: FeedEntry },
 	entry_order: { string },
+	entry_order_map: { [string]: EntryOrder },
 }
 
 type _ExperienceDetailsFeedInputDataPartialFields = {
@@ -521,6 +524,7 @@ type _ExperienceDetailsFeedInputDataPartialFields = {
 	creator_key: string?,
 	entry_map: { [string]: FeedEntry }?,
 	entry_order: { string }?,
+	entry_order_map: { [string]: EntryOrder }?,
 }
 
 export type ExperienceDetailsFeedInputData = typeof(setmetatable(
@@ -562,6 +566,58 @@ type _ExperienceDetailsFeedInputData_EntryMapEntryMessage = proto.Message<
 	ExperienceDetailsFeedInputData_EntryMapEntry,
 	_ExperienceDetailsFeedInputData_EntryMapEntryPartialFields
 >
+
+type _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl = {
+	__index: _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl,
+	new: (
+		fields: _ExperienceDetailsFeedInputData_EntryOrderMapEntryPartialFields?
+	) -> ExperienceDetailsFeedInputData_EntryOrderMapEntry,
+	encode: (self: ExperienceDetailsFeedInputData_EntryOrderMapEntry) -> buffer,
+	decode: (input: buffer) -> ExperienceDetailsFeedInputData_EntryOrderMapEntry,
+	jsonEncode: (self: ExperienceDetailsFeedInputData_EntryOrderMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceDetailsFeedInputData_EntryOrderMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceDetailsFeedInputData_EntryOrderMapEntryFields = {
+	key: string,
+	value: EntryOrder?,
+}
+
+type _ExperienceDetailsFeedInputData_EntryOrderMapEntryPartialFields = {
+	key: string?,
+	value: EntryOrder?,
+}
+
+export type ExperienceDetailsFeedInputData_EntryOrderMapEntry = typeof(setmetatable(
+	{} :: _ExperienceDetailsFeedInputData_EntryOrderMapEntryFields,
+	{} :: _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl
+))
+type _ExperienceDetailsFeedInputData_EntryOrderMapEntryMessage = proto.Message<
+	ExperienceDetailsFeedInputData_EntryOrderMapEntry,
+	_ExperienceDetailsFeedInputData_EntryOrderMapEntryPartialFields
+>
+
+type _EntryOrderImpl = {
+	__index: _EntryOrderImpl,
+	new: (fields: _EntryOrderPartialFields?) -> EntryOrder,
+	encode: (self: EntryOrder) -> buffer,
+	decode: (input: buffer) -> EntryOrder,
+	jsonEncode: (self: EntryOrder) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EntryOrder,
+	descriptor: proto.Descriptor,
+}
+
+type _EntryOrderFields = {
+	items: { string },
+}
+
+type _EntryOrderPartialFields = {
+	items: { string }?,
+}
+
+export type EntryOrder = typeof(setmetatable({} :: _EntryOrderFields, {} :: _EntryOrderImpl))
+type _EntryOrderMessage = proto.Message<EntryOrder, _EntryOrderPartialFields>
 
 type _ExperienceDetailsActionBarInputDataImpl = {
 	__index: _ExperienceDetailsActionBarInputDataImpl,
@@ -689,12 +745,14 @@ type _ExperienceActionModuleInputDataFields = {
 	universe_id: string,
 	root_place_id: string,
 	connection_played_display_name: string,
+	upsell_prompt: string,
 }
 
 type _ExperienceActionModuleInputDataPartialFields = {
 	universe_id: string?,
 	root_place_id: string?,
 	connection_played_display_name: string?,
+	upsell_prompt: string?,
 }
 
 export type ExperienceActionModuleInputData = typeof(setmetatable(
@@ -834,12 +892,14 @@ type _ExperienceInfoTableInputDataFields = {
 	universe_id: string,
 	has_store_items: boolean,
 	has_badges: boolean,
+	has_game_passes: boolean,
 }
 
 type _ExperienceInfoTableInputDataPartialFields = {
 	universe_id: string?,
 	has_store_items: boolean?,
 	has_badges: boolean?,
+	has_game_passes: boolean?,
 }
 
 export type ExperienceInfoTableInputData = typeof(setmetatable(
@@ -1048,8 +1108,8 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	is_content_locked: boolean,
 	title: string,
 	subtitle: string,
-	image_asset_id: number,
-	video_asset_id: number,
+	image_asset_id: string,
+	video_asset_id: string,
 	badge_text: string,
 }
 
@@ -1061,8 +1121,8 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	is_content_locked: boolean?,
 	title: string?,
 	subtitle: string?,
-	image_asset_id: number?,
-	video_asset_id: number?,
+	image_asset_id: string?,
+	video_asset_id: string?,
 	badge_text: string?,
 }
 
@@ -1214,11 +1274,13 @@ type _DevStoreFeedInputDataImpl = {
 type _DevStoreFeedInputDataFields = {
 	universe_id: string,
 	entry_map: { [string]: FeedEntry },
+	entry_order: { string },
 }
 
 type _DevStoreFeedInputDataPartialFields = {
 	universe_id: string?,
 	entry_map: { [string]: FeedEntry }?,
+	entry_order: { string }?,
 }
 
 export type DevStoreFeedInputData = typeof(setmetatable(
@@ -5311,6 +5373,7 @@ do
 			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
 			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
 			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
+			entry_order_map = if data == nil or data.entry_order_map == nil then {} else data.entry_order_map,
 		}, _ExperienceDetailsFeedInputDataImpl :: _ExperienceDetailsFeedInputDataImpl)
 	end
 
@@ -5346,6 +5409,20 @@ do
 			for _, value in self.entry_order do
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.entry_order_map ~= nil and next(self.entry_order_map) ~= nil then
+			for key, value in self.entry_order_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
 
@@ -5394,6 +5471,18 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.entry_order, buffer.tostring(value))
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.ExperienceDetailsFeedInputData_EntryOrderMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.EntryOrder.new()
+
+					self.entry_order_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
 					continue
 				end
 
@@ -5444,6 +5533,14 @@ do
 				table.insert(newOutput, value)
 			end
 			output.entryOrder = newOutput
+		end
+
+		if self.entry_order_map ~= nil and next(self.entry_order_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_order_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryOrderMap = newOutput
 		end
 
 		return output
@@ -5502,6 +5599,24 @@ do
 			end
 
 			self.entry_order = newOutput
+		end
+
+		if input.entry_order_map ~= nil then
+			local newOutput: { [string]: EntryOrder } = {}
+			for key, value in input.entry_order_map do
+				newOutput[key] = messages.EntryOrder.jsonDecode(value)
+			end
+
+			self.entry_order_map = newOutput
+		end
+
+		if input.entryOrderMap ~= nil then
+			local newOutput: { [string]: EntryOrder } = {}
+			for key, value in input.entryOrderMap do
+				newOutput[key] = messages.EntryOrder.jsonDecode(value)
+			end
+
+			self.entry_order_map = newOutput
 		end
 
 		return self
@@ -5642,6 +5757,246 @@ do
 	messages.ExperienceDetailsFeedInputData_EntryMapEntry = _ExperienceDetailsFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ExperienceDetailsFeedInputData_EntryMapEntry)
+end
+
+do
+	local _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl = {}
+	_ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.__index =
+		_ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl
+
+	function _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.new(
+		data: _ExperienceDetailsFeedInputData_EntryOrderMapEntryPartialFields?
+	): ExperienceDetailsFeedInputData_EntryOrderMapEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl :: _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl
+		)
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.encode(
+		self: ExperienceDetailsFeedInputData_EntryOrderMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.decode(
+		input: buffer
+	): ExperienceDetailsFeedInputData_EntryOrderMapEntry
+		local self = _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.EntryOrder.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.jsonEncode(
+		self: ExperienceDetailsFeedInputData_EntryOrderMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceDetailsFeedInputData_EntryOrderMapEntry
+		local self = _ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.EntryOrder.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl.descriptor = {
+		name = "ExperienceDetailsFeedInputData_EntryOrderMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryOrderMapEntry",
+	}
+
+	messages.ExperienceDetailsFeedInputData_EntryOrderMapEntry =
+		_ExperienceDetailsFeedInputData_EntryOrderMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceDetailsFeedInputData_EntryOrderMapEntry)
+end
+
+do
+	local _EntryOrderImpl = {}
+	_EntryOrderImpl.__index = _EntryOrderImpl
+
+	function _EntryOrderImpl.new(data: _EntryOrderPartialFields?): EntryOrder
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _EntryOrderImpl :: _EntryOrderImpl)
+	end
+
+	function _EntryOrderImpl.encode(self: EntryOrder): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EntryOrderImpl.decode(input: buffer): EntryOrder
+		local self = _EntryOrderImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, buffer.tostring(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EntryOrderImpl.jsonEncode(self: EntryOrder): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value)
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _EntryOrderImpl.jsonDecode(input: { [string]: any }): EntryOrder
+		local self = _EntryOrderImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.items do
+				table.insert(newOutput, value)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_EntryOrderImpl.descriptor = {
+		name = "EntryOrder",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryOrder",
+	}
+
+	messages.EntryOrder = _EntryOrderImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EntryOrder)
 end
 
 do
@@ -6125,6 +6480,7 @@ do
 			connection_played_display_name = if data == nil or data.connection_played_display_name == nil
 				then ""
 				else data.connection_played_display_name,
+			upsell_prompt = if data == nil or data.upsell_prompt == nil then "" else data.upsell_prompt,
 		}, _ExperienceActionModuleInputDataImpl :: _ExperienceActionModuleInputDataImpl)
 	end
 
@@ -6145,6 +6501,11 @@ do
 		if self.connection_played_display_name ~= nil and self.connection_played_display_name ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.connection_played_display_name)
+		end
+
+		if self.upsell_prompt ~= nil and self.upsell_prompt ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.upsell_prompt)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -6180,6 +6541,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.connection_played_display_name = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.upsell_prompt = buffer.tostring(value)
 					continue
 				end
 
@@ -6220,6 +6586,10 @@ do
 			output.connectionPlayedDisplayName = self.connection_played_display_name
 		end
 
+		if self.upsell_prompt ~= nil and self.upsell_prompt ~= "" then
+			output.upsellPrompt = self.upsell_prompt
+		end
+
 		return output
 	end
 
@@ -6248,6 +6618,14 @@ do
 
 		if input.connectionPlayedDisplayName ~= nil then
 			self.connection_played_display_name = input.connectionPlayedDisplayName
+		end
+
+		if input.upsell_prompt ~= nil then
+			self.upsell_prompt = input.upsell_prompt
+		end
+
+		if input.upsellPrompt ~= nil then
+			self.upsell_prompt = input.upsellPrompt
 		end
 
 		return self
@@ -6757,6 +7135,7 @@ do
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			has_store_items = if data == nil or data.has_store_items == nil then false else data.has_store_items,
 			has_badges = if data == nil or data.has_badges == nil then false else data.has_badges,
+			has_game_passes = if data == nil or data.has_game_passes == nil then false else data.has_game_passes,
 		}, _ExperienceInfoTableInputDataImpl :: _ExperienceInfoTableInputDataImpl)
 	end
 
@@ -6777,6 +7156,11 @@ do
 		if self.has_badges then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.has_badges then 1 else 0)
+		end
+
+		if self.has_game_passes then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_game_passes then 1 else 0)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -6802,6 +7186,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.has_badges = value ~= 0
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_game_passes = value ~= 0
 					continue
 				end
 
@@ -6852,6 +7241,10 @@ do
 			output.hasBadges = self.has_badges
 		end
 
+		if self.has_game_passes then
+			output.hasGamePasses = self.has_game_passes
+		end
+
 		return output
 	end
 
@@ -6880,6 +7273,14 @@ do
 
 		if input.hasBadges ~= nil then
 			self.has_badges = input.hasBadges
+		end
+
+		if input.has_game_passes ~= nil then
+			self.has_game_passes = input.has_game_passes
+		end
+
+		if input.hasGamePasses ~= nil then
+			self.has_game_passes = input.hasGamePasses
 		end
 
 		return self
@@ -7790,8 +8191,8 @@ do
 			is_content_locked = if data == nil or data.is_content_locked == nil then false else data.is_content_locked,
 			title = if data == nil or data.title == nil then "" else data.title,
 			subtitle = if data == nil or data.subtitle == nil then "" else data.subtitle,
-			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
-			video_asset_id = if data == nil or data.video_asset_id == nil then 0 else data.video_asset_id,
+			image_asset_id = if data == nil or data.image_asset_id == nil then "" else data.image_asset_id,
+			video_asset_id = if data == nil or data.video_asset_id == nil then "" else data.video_asset_id,
 			badge_text = if data == nil or data.badge_text == nil then "" else data.badge_text,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
@@ -7837,14 +8238,14 @@ do
 			output, cursor = proto.writeString(output, cursor, self.subtitle)
 		end
 
-		if self.image_asset_id ~= nil and self.image_asset_id ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.image_asset_id)
+		if self.image_asset_id ~= nil and self.image_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.image_asset_id)
 		end
 
-		if self.video_asset_id ~= nil and self.video_asset_id ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.video_asset_id)
+		if self.video_asset_id ~= nil and self.video_asset_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.video_asset_id)
 		end
 
 		if self.badge_text ~= nil and self.badge_text ~= "" then
@@ -7878,16 +8279,6 @@ do
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_content_locked = value ~= 0
 					continue
-				elseif field == 8 then
-					local value
-					value, cursor = proto.readVarIntI64(input, cursor)
-					self.image_asset_id = value
-					continue
-				elseif field == 9 then
-					local value
-					value, cursor = proto.readVarIntI64(input, cursor)
-					self.video_asset_id = value
-					continue
 				end
 
 				local _
@@ -7917,6 +8308,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_asset_id = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.video_asset_id = buffer.tostring(value)
 					continue
 				elseif field == 10 then
 					local value
@@ -7980,11 +8381,11 @@ do
 			output.subtitle = self.subtitle
 		end
 
-		if self.image_asset_id ~= nil and self.image_asset_id ~= 0 then
+		if self.image_asset_id ~= nil and self.image_asset_id ~= "" then
 			output.imageAssetId = self.image_asset_id
 		end
 
-		if self.video_asset_id ~= nil and self.video_asset_id ~= 0 then
+		if self.video_asset_id ~= nil and self.video_asset_id ~= "" then
 			output.videoAssetId = self.video_asset_id
 		end
 
@@ -8797,6 +9198,7 @@ do
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
 		}, _DevStoreFeedInputDataImpl :: _DevStoreFeedInputDataImpl)
 	end
 
@@ -8820,6 +9222,13 @@ do
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			for _, value in self.entry_order do
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
 			end
 		end
 
@@ -8858,6 +9267,11 @@ do
 
 					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.entry_order, buffer.tostring(value))
 					continue
 				end
 
@@ -8898,6 +9312,14 @@ do
 			output.entryMap = newOutput
 		end
 
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			local newOutput = {}
+			for _, value in self.entry_order do
+				table.insert(newOutput, value)
+			end
+			output.entryOrder = newOutput
+		end
+
 		return output
 	end
 
@@ -8928,6 +9350,24 @@ do
 			end
 
 			self.entry_map = newOutput
+		end
+
+		if input.entry_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_order do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
+		end
+
+		if input.entryOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryOrder do
+				table.insert(newOutput, value)
+			end
+
+			self.entry_order = newOutput
 		end
 
 		return self
@@ -15459,6 +15899,7 @@ return {
 	BadgeDetailsInputData_LocalizedLiterals_OverflowMenu = messages.BadgeDetailsInputData_LocalizedLiterals_OverflowMenu,
 	StaticInputData = messages.StaticInputData,
 	ExperienceDetailsFeedInputData = messages.ExperienceDetailsFeedInputData,
+	EntryOrder = messages.EntryOrder,
 	ExperienceDetailsActionBarInputData = messages.ExperienceDetailsActionBarInputData,
 	ExperienceDetailsBannerImageInputData = messages.ExperienceDetailsBannerImageInputData,
 	ExperienceDetailsStickyHeaderInputData = messages.ExperienceDetailsStickyHeaderInputData,

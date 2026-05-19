@@ -8,8 +8,12 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 
 type _Messages = {
 	AnalyticsDataField: _AnalyticsDataFieldMessage,
+	AnalyticsDataField_ConditionalOption: _AnalyticsDataField_ConditionalOptionMessage,
+	AnalyticsDataField_ConditionalOptions: _AnalyticsDataField_ConditionalOptionsMessage,
 }
 local messages: _Messages = {} :: _Messages
+
+local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
 
 type _AnalyticsDataFieldImpl = {
 	__index: _AnalyticsDataFieldImpl,
@@ -22,15 +26,79 @@ type _AnalyticsDataFieldImpl = {
 }
 
 type _AnalyticsDataFieldFields = {
-	kind: ({ type: "binding_path", value: string } | { type: "literal", value: string })?,
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: string }
+		| { type: "conditional", value: AnalyticsDataField_ConditionalOptions }
+	)?,
 }
 
 type _AnalyticsDataFieldPartialFields = {
-	kind: ({ type: "binding_path", value: string } | { type: "literal", value: string })?,
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: string }
+		| { type: "conditional", value: AnalyticsDataField_ConditionalOptions }
+	)?,
 }
 
 export type AnalyticsDataField = typeof(setmetatable({} :: _AnalyticsDataFieldFields, {} :: _AnalyticsDataFieldImpl))
 type _AnalyticsDataFieldMessage = proto.Message<AnalyticsDataField, _AnalyticsDataFieldPartialFields>
+
+type _AnalyticsDataField_ConditionalOptionImpl = {
+	__index: _AnalyticsDataField_ConditionalOptionImpl,
+	new: (fields: _AnalyticsDataField_ConditionalOptionPartialFields?) -> AnalyticsDataField_ConditionalOption,
+	encode: (self: AnalyticsDataField_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> AnalyticsDataField_ConditionalOption,
+	jsonEncode: (self: AnalyticsDataField_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AnalyticsDataField_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _AnalyticsDataField_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+}
+
+type _AnalyticsDataField_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
+}
+
+export type AnalyticsDataField_ConditionalOption = typeof(setmetatable(
+	{} :: _AnalyticsDataField_ConditionalOptionFields,
+	{} :: _AnalyticsDataField_ConditionalOptionImpl
+))
+type _AnalyticsDataField_ConditionalOptionMessage = proto.Message<
+	AnalyticsDataField_ConditionalOption,
+	_AnalyticsDataField_ConditionalOptionPartialFields
+>
+
+type _AnalyticsDataField_ConditionalOptionsImpl = {
+	__index: _AnalyticsDataField_ConditionalOptionsImpl,
+	new: (fields: _AnalyticsDataField_ConditionalOptionsPartialFields?) -> AnalyticsDataField_ConditionalOptions,
+	encode: (self: AnalyticsDataField_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> AnalyticsDataField_ConditionalOptions,
+	jsonEncode: (self: AnalyticsDataField_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AnalyticsDataField_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _AnalyticsDataField_ConditionalOptionsFields = {
+	options: { AnalyticsDataField_ConditionalOption },
+}
+
+type _AnalyticsDataField_ConditionalOptionsPartialFields = {
+	options: { AnalyticsDataField_ConditionalOption }?,
+}
+
+export type AnalyticsDataField_ConditionalOptions = typeof(setmetatable(
+	{} :: _AnalyticsDataField_ConditionalOptionsFields,
+	{} :: _AnalyticsDataField_ConditionalOptionsImpl
+))
+type _AnalyticsDataField_ConditionalOptionsMessage = proto.Message<
+	AnalyticsDataField_ConditionalOptions,
+	_AnalyticsDataField_ConditionalOptionsPartialFields
+>
 
 do
 	local _AnalyticsDataFieldImpl = {}
@@ -53,6 +121,10 @@ do
 			elseif self.kind.type == "literal" then
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -84,6 +156,12 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.AnalyticsDataField_ConditionalOptions.decode(value) }
 					continue
 				end
 
@@ -117,6 +195,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "literal" then
 				output.literal = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -138,6 +218,13 @@ do
 			self.kind = { type = "literal", value = input.literal }
 		end
 
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.AnalyticsDataField_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
 		return self
 	end
 
@@ -151,6 +238,265 @@ do
 	typeRegistry.default:register(messages.AnalyticsDataField)
 end
 
+do
+	local _AnalyticsDataField_ConditionalOptionImpl = {}
+	_AnalyticsDataField_ConditionalOptionImpl.__index = _AnalyticsDataField_ConditionalOptionImpl
+
+	function _AnalyticsDataField_ConditionalOptionImpl.new(
+		data: _AnalyticsDataField_ConditionalOptionPartialFields?
+	): AnalyticsDataField_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _AnalyticsDataField_ConditionalOptionImpl :: _AnalyticsDataField_ConditionalOptionImpl)
+	end
+
+	function _AnalyticsDataField_ConditionalOptionImpl.encode(self: AnalyticsDataField_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AnalyticsDataField_ConditionalOptionImpl.decode(input: buffer): AnalyticsDataField_ConditionalOption
+		local self = _AnalyticsDataField_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AnalyticsDataField_ConditionalOptionImpl.jsonEncode(self: AnalyticsDataField_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _AnalyticsDataField_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): AnalyticsDataField_ConditionalOption
+		local self = _AnalyticsDataField_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_AnalyticsDataField_ConditionalOptionImpl.descriptor = {
+		name = "AnalyticsDataField_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.AnalyticsDataField_ConditionalOption = _AnalyticsDataField_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AnalyticsDataField_ConditionalOption)
+end
+
+do
+	local _AnalyticsDataField_ConditionalOptionsImpl = {}
+	_AnalyticsDataField_ConditionalOptionsImpl.__index = _AnalyticsDataField_ConditionalOptionsImpl
+
+	function _AnalyticsDataField_ConditionalOptionsImpl.new(
+		data: _AnalyticsDataField_ConditionalOptionsPartialFields?
+	): AnalyticsDataField_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _AnalyticsDataField_ConditionalOptionsImpl :: _AnalyticsDataField_ConditionalOptionsImpl)
+	end
+
+	function _AnalyticsDataField_ConditionalOptionsImpl.encode(self: AnalyticsDataField_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AnalyticsDataField_ConditionalOptionsImpl.decode(input: buffer): AnalyticsDataField_ConditionalOptions
+		local self = _AnalyticsDataField_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.AnalyticsDataField_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AnalyticsDataField_ConditionalOptionsImpl.jsonEncode(self: AnalyticsDataField_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _AnalyticsDataField_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): AnalyticsDataField_ConditionalOptions
+		local self = _AnalyticsDataField_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { AnalyticsDataField_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.AnalyticsDataField_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_AnalyticsDataField_ConditionalOptionsImpl.descriptor = {
+		name = "AnalyticsDataField_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.AnalyticsDataField_ConditionalOptions = _AnalyticsDataField_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AnalyticsDataField_ConditionalOptions)
+end
+
 return {
 	AnalyticsDataField = messages.AnalyticsDataField,
+	AnalyticsDataField_ConditionalOption = messages.AnalyticsDataField_ConditionalOption,
+	AnalyticsDataField_ConditionalOptions = messages.AnalyticsDataField_ConditionalOptions,
 }

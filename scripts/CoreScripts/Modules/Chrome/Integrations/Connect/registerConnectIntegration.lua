@@ -5,9 +5,8 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeService = require(Chrome.Service)
 local ConnectIcon = require(script.Parent.ConnectIcon)
-local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
-local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 

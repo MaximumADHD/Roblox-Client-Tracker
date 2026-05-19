@@ -14,7 +14,6 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 local observeCurrentContextId = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeCurrentContextId
-local VoiceChatConstants = require(CorePackages.Workspace.Packages.VoiceChatCore).Constants
 local GetIcon = require(CorePackages.Workspace.Packages.VoiceChat).Utils.GetIcon
 local CEV_CONTEXT_ID =
 	require(CorePackages.Workspace.Packages.CrossExperience).Constants.AUDIO_FOCUS_MANAGEMENT.CEV.CONTEXT_ID
@@ -49,12 +48,8 @@ local wasJoinVoiceSeenInThisPlaySession = false
 local lastKnownIntegrationAvailability: number = ChromeService.AvailabilitySignal.Unavailable
 
 function getShouldShowJoinVoiceTooltip(): boolean
-	local likelySpeakingBubblesRemoved = VoiceChatServiceManager:HasSeamlessVoiceFeature(
-		VoiceChatConstants.SeamlessVoiceFeatures.LikelySpeakingBubblesRemoved
-	)
 	local ageVerificationOverlay = VoiceChatServiceManager:FetchAgeVerificationOverlay()
 	local shouldShow = not wasJoinVoiceSeenInThisPlaySession
-		and likelySpeakingBubblesRemoved
 		and ageVerificationOverlay
 		and ageVerificationOverlay.showJoinVoiceUpsellTooltip
 	wasJoinVoiceSeenInThisPlaySession = true

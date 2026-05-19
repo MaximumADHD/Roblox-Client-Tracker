@@ -25,6 +25,7 @@ local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCurso
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
+local EngineFeaturePTFBackButtonAlwaysAsButtonB = game:GetEngineFeature("PTFBackButtonAlwaysAsButtonB")
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
@@ -91,6 +92,7 @@ type GamepadConnectorImpl = {
 	_isTopBarFocused: (GamepadConnector) -> boolean,
 	_toggleUnibarMenu: (GamepadConnector) -> (),
 	_toggleTopbar: ActionBind,
+	_toggleUiSelector: ActionBind,
 	_focusGamepadToTopBar: (GamepadConnector) -> (),
 	_unfocusGamepadFromTopBar: (GamepadConnector) -> (),
 	_focusToastNotification: (GamepadConnector, Enum.UserInputState) -> boolean,
@@ -119,6 +121,7 @@ export type GamepadConnector = typeof(setmetatable(
 -- Constants
 local FOCUS_GAMEPAD_TO_TOPBAR: ContextActionName = "FocusGamepadToTopbar"
 local TOPBAR_MENU: ContextActionName = "TopbarMenu"
+local TOGGLE_UI_SELECTOR: ContextActionName = "ToggleUISelector"
 
 -- Helper functions
 local function createSelectedCoreObject(): ObservableValue<GuiObject?>
@@ -234,6 +237,14 @@ function GamepadConnector:connectToTopbar()
 			false,
 			Enum.KeyCode.ButtonStart
 		)
+		if EngineFeaturePTFBackButtonAlwaysAsButtonB then
+			ContextActionService:BindCoreAction(
+				TOGGLE_UI_SELECTOR,
+				self:_bindSelf(self._toggleUiSelector),
+				false,
+				Enum.KeyCode.ButtonB
+			)
+		end
 		local onFocusChanged = function()
 			-- Top bar menu being focused is dependent on either unibar or menu being focused.
 			local focused = self:_isTopBarFocused()
@@ -264,6 +275,9 @@ function GamepadConnector:disconnectFromTopbar()
 	self:_removeDismissFocusConnections()
 
 	ContextActionService:UnbindCoreAction(FOCUS_GAMEPAD_TO_TOPBAR)
+	if EngineFeaturePTFBackButtonAlwaysAsButtonB then
+		ContextActionService:UnbindCoreAction(TOGGLE_UI_SELECTOR)
+	end
 end
 
 function GamepadConnector:getSelectedCoreObject(): ObservableValue<GuiObject?>
@@ -320,22 +334,10 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 			or FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.Begin
 		)
 	then
-		if FFlagEnableUISelector and not UserInputService:GamepadSupports(UserInputService:GetLastInputType(), Enum.KeyCode.ButtonSelect) then
-			if GamepadService.GamepadCursorEnabled or GuiService.SelectedObject ~= nil then
-				GamepadService:DisableGamepadCursor()
-				GuiService.SelectedObject = nil
-				return Enum.ContextActionResult.Sink
-			end
-
-			local UISelectorStore = GetUiSelectorSignalStore(false)
-			if UISelectorStore.getVisibility(false) then
-				UISelectorStore.setVisibility(false)
-				return Enum.ContextActionResult.Sink
-			elseif not self:_isTopBarFocused() then
-				UISelectorStore.setVisibility(true)
-				return Enum.ContextActionResult.Sink
-			end
+		if not EngineFeaturePTFBackButtonAlwaysAsButtonB and FFlagEnableUISelector and not UserInputService:GamepadSupports(UserInputService:GetLastInputType(), Enum.KeyCode.ButtonSelect) then
+			return self:_toggleUiSelector(actionName, userInputState, input)
 		end
+		
 		if FFlagEnableConsoleExpControls then
 			if ChromeService:integrations().nine_dot == nil then
 				return Enum.ContextActionResult.Pass
@@ -361,6 +363,34 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 		end
 
 		return Enum.ContextActionResult.Sink
+	end
+
+	return Enum.ContextActionResult.Pass
+end
+
+function GamepadConnector:_toggleUiSelector(actionName, userInputState, input): Enum.ContextActionResult
+	if 
+		FFlagEnableUISelector and ChromeEnabled
+		and not self:_focusToastNotification(userInputState)
+		and (
+			not FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.End
+			or FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.Begin
+		)
+		and not UserInputService:GamepadSupports(UserInputService:GetLastInputType(), Enum.KeyCode.ButtonSelect) then
+		if GamepadService.GamepadCursorEnabled or GuiService.SelectedObject ~= nil then
+			GamepadService:DisableGamepadCursor()
+			GuiService.SelectedObject = nil
+			return Enum.ContextActionResult.Sink
+		end
+
+		local UISelectorStore = GetUiSelectorSignalStore(false)
+		if UISelectorStore.getVisibility(false) then
+			UISelectorStore.setVisibility(false)
+			return Enum.ContextActionResult.Sink
+		elseif not self:_isTopBarFocused() then
+			UISelectorStore.setVisibility(true)
+			return Enum.ContextActionResult.Sink
+		end
 	end
 
 	return Enum.ContextActionResult.Pass

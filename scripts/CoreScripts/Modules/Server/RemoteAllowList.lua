@@ -67,8 +67,6 @@ return function()
 
 	-- content/scripts/CoreScripts/ServerCoreScripts/VoiceDefault.lua
 	table.insert(allowList, "SetUserActive")
-	table.insert(allowList, "SendLikelySpeakingUsers")
-	table.insert(allowList, "ReceiveLikelySpeakingUsers")
 
 	-- content/scripts/CoreScripts/Modules/Server/VR/VRAvatarGesturesServer.lua
 	if game:DefineFastFlag("RemoteAllowListAddVR", false) then

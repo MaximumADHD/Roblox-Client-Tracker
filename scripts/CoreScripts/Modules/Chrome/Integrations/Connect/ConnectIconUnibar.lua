@@ -3,8 +3,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local ChromeService = require(Chrome.Service)
 
-local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
 local registerConnectIntegration = require(script.Parent.registerConnectIntegration)
 local isConnectUnibarEnabled = require(script.Parent.isConnectUnibarEnabled)

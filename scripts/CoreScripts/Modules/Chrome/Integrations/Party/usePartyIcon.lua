@@ -3,11 +3,10 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
-local SquadsCore = require(CorePackages.Workspace.Packages.SquadsCore)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
-local getColorFromUserId = SquadsCore.Common.getColorFromUserId
+local getColorFromUserId = require(CorePackages.Workspace.Packages.SquadsCore.getColorFromUserId)
 local useLastActiveParticipant = CrossExperienceVoice.Hooks.useLastActiveParticipant
 local useSequentialAnimation = CrossExperienceVoice.Hooks.useSequentialAnimation
 

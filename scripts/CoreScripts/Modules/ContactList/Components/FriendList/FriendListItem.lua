@@ -11,7 +11,6 @@ local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).Sound
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
-local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
@@ -36,9 +35,6 @@ local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
 local Pages = require(ContactList.Enums.Pages)
-
-local FFlagRemoveDependencyArrayAntipattern =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 
 local rng = Random.new()
 
@@ -82,16 +78,11 @@ local function FriendListItem(props: Props)
 		studioStatusLabel = "InGame.Presence.Label.RobloxStudio",
 	})
 
-	React.useEffect(
-		function()
-			if props.userPresenceType == nil then
-				dispatch(GetPresencesFromUserIds.API({ props.userId }))
-			end
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { props.userId :: any, props.userPresenceType }
-			else dependencyArray(props.userId, props.userPresenceType)
-	)
+	React.useEffect(function()
+		if props.userPresenceType == nil then
+			dispatch(GetPresencesFromUserIds.API({ props.userId }))
+		end
+	end, { props.userId :: any, props.userPresenceType })
 
 	local selectUserPresence = React.useCallback(function(state: any)
 		return state.Presence.byUserId[tostring(props.userId)]
@@ -190,28 +181,18 @@ local function FriendListItem(props: Props)
 		})
 	end, { presence, style, localized.offlineStatusLabel, localized.onlineStatusLabel, localized.studioStatusLabel })
 
-	local openOrUpdateCFM = React.useCallback(
-		function()
-			analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
-				eventTimestampMs = os.time() * 1000,
-				friendUserId = friend.userId,
-				searchQueryString = props.searchQueryString,
-				itemListIndex = props.itemListIndex,
-				isSuggestedUser = props.isSuggestedUser,
-				page = Pages.FriendList,
-			})
+	local openOrUpdateCFM = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
+			eventTimestampMs = os.time() * 1000,
+			friendUserId = friend.userId,
+			searchQueryString = props.searchQueryString,
+			itemListIndex = props.itemListIndex,
+			isSuggestedUser = props.isSuggestedUser,
+			page = Pages.FriendList,
+		})
 
-			dispatch(OpenOrUpdateCFM(friend))
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { friend.userId :: any, props.searchQueryString, props.itemListIndex, props.isSuggestedUser }
-			else dependencyArray(
-				friend.userId,
-				props.searchQueryString,
-				props.itemListIndex,
-				props.isSuggestedUser
-			)
-	)
+		dispatch(OpenOrUpdateCFM(friend))
+	end, { friend.userId :: any, props.searchQueryString, props.itemListIndex, props.isSuggestedUser })
 
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),

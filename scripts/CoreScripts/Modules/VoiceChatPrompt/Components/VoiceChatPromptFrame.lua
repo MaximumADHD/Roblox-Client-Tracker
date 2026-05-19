@@ -58,6 +58,8 @@ local GetFFlagUpdateVoiceConnectionToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
 local GetFFlagEnableVoiceTrustedConnectionsToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
+local FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle =
+	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceConnectToastCapturesTrustedFriendsSubtitle)
 local GetFFlagShowToastWhenAgeGatingVoice = SharedFlags.GetFFlagShowToastWhenAgeGatingVoice
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
@@ -210,12 +212,16 @@ local PromptSubTitle = {
 	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
 		else nil,
-	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
-		then locales:Format(unifiedJoinVoiceToastKey)
-		elseif GetFFlagUpdateVoiceConnectionToasts() then locales:Format(
-			"Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2"
+	[PromptType.UnifiedJoinVoiceToast] = if FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle then
+		RobloxTranslator:FormatByKey(
+			"Feature.Captures.Prompt.Subtitle.VoiceChatRecordingTrustedFriendsAgeGroup"
 		)
-		else nil,
+	elseif GetFFlagEnableVoiceTrustedConnectionsToasts() then
+		locales:Format(unifiedJoinVoiceToastKey)
+	elseif GetFFlagUpdateVoiceConnectionToasts() then
+		locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
+	else
+		nil,
 	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")
 		else nil,

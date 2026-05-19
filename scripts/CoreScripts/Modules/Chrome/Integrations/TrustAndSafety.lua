@@ -42,7 +42,7 @@ return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "trust_and_safety",
 	label = "CoreScripts.InGameMenu.QuickActions.Report",
-	sideSheetPlacement = SideSheetPlacement.Vertical,
+	sideSheetPlacement = SideSheetPlacement.Page,
 	activated = function(self)
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		if SettingsHub:GetVisibility() then

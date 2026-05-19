@@ -68,6 +68,7 @@ return {
 	}),
 	SocialLibraries = LuaSocialLibrariesDeps.SocialLibraries.config({}),
 	UIBlox = require(CorePackages.Packages.UIBlox),
+	Foundation = require(CorePackages.Packages.Foundation),
 	enumerate = require(CorePackages.Packages.enumerate),
 	getStandardSizeAvatarHeadShotRbxthumb = require(CorePackages.Workspace.Packages.UserLib).Utils.getStandardSizeAvatarHeadShotRbxthumb,
 	teleportToRootPlace = require(script.Parent.teleportToRootPlace),
