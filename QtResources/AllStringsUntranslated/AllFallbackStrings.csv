@@ -6556,10 +6556,6 @@ Studio.DeviceEmulator.Plugin.Description,,Toggles the Device Emulator plugin win
 Studio.DeviceEmulator.Plugin.Name,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,"When the 3D viewport is not active (Scripting, Object Browser), Device Emulator is disabled.",Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)
-Studio.DeviceEmulator.Shortcut.EnableMultitouch,Shortcut name for enabling multi-touch gesture simulation in Device Emulator,Enable Multi-touch,Enable Multi-touch
-Studio.DeviceEmulator.Shortcut.EnableMultitouchDescription,Description for the multi-touch shortcut shown in Keyboard Shortcuts settings,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator,Hold to simulate multi-touch gestures (rotate/pinch) in Device Emulator
-Studio.DeviceEmulator.Shortcut.EnableMultitouchPanning,Shortcut name for enabling multi-touch panning simulation in Device Emulator,Enable Multi-touch Panning,Enable Multi-touch Panning
-Studio.DeviceEmulator.Shortcut.EnableMultitouchPanningDescription,Description for the multi-touch panning shortcut shown in Keyboard Shortcuts settings,Hold to simulate two-finger panning in Device Emulator,Hold to simulate two-finger panning in Device Emulator
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,Displayed in the AddBehaviorBindingPopup to label a Behavior that will be newly created and bound to the selected Instances.,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,Text that appears in the text box of the AddBehaviorBindingPopup letting users know how to use it.,Search for a Behavior to bind to,Search for a Behavior to bind to
 Studio.DistributedScripts.AddBehaviorBindingPopup.NoBehaviorBindingsCreated,Displayed in the AddBehaviorBindingPopup when no behaviors have been bound yet.,No Behaviors have been bound yet,No Behaviors have been bound yet
@@ -7303,11 +7299,6 @@ Studio.PlaceVersionHistory.Error.VersionNotesFailedToSave,This message is displa
 Studio.PlaceVersionHistory.Label.PlaceVersionHistory,A title label for the feature,Place Version History,Place Version History
 Studio.PlaceVersionHistory.Label.VersionHistory,A title label for the feature,Version History,Version History
 Studio.PlaceVersionHistory.VersionHistory,A title label for the feature,Version History,Version History
-Studio.Platform.YouHaveBeenKicked1,"A notification that you have been kicked from your game. Users can pass in an extra message, which is why there is an additional argument. This translation should be identical to the string InGame.ConnectionError.DisconnectLuaKickWithMessage, except {RBX_STR} is replaced with %1.","You have been kicked by this experience or its moderators. Moderation message: 
-
-%1","You have been kicked by this experience or its moderators. Moderation message: 
-
-%1"
 Studio.PluginManagement.Entry.LastUpdatedDate,,Updated: {date:shortdate},Updated: {date:shortdate}
 Studio.PluginManagement.Entry.UpdateButton,,Update,Update
 Studio.PluginManagement.Entry.UpdateError,,Error. Try updating again.,Error. Try updating again.
@@ -7804,7 +7795,6 @@ Studio.SimulationStep.Plugin.Description,,Toggles the Template plugin window.,To
 Studio.SimulationStep.Plugin.Name,,SimulationStep,SimulationStep
 Studio.SimulationStep.Plugin.Text,,Example Text!,Example Text!
 Studio.SimulationStep.Plugin.Toolbar,,SimulationStep,SimulationStep
-Studio.SystemMenu.Help.OpenLogsFolder,Opens the Roblox logs folder in the system file explorer,Open Logs Folder,Open Logs Folder
 Studio.SystemMenu.Title.3D,"The 3D menu in Roblox Studio provides tools for manipulating and enhancing the 3D environment, including object alignment, collision management, material editing, and terrain sculpting.",3D,3D
 Studio.SystemMenu.Title.ActivityHistory,Opens the activity history widget which provides a log of significant changes and actions that have occurred within a specific place,Activity History,Activity History
 Studio.SystemMenu.Title.Anchor,Menu that contains anchor selection and anchor tool actions,Anchor,Anchor
@@ -7883,7 +7873,6 @@ Studio.TeamCreateStatusIndicator.PlaceUploadFailingTip,Description message that 
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingTitle,Urgent alert that shows to creator that place upload for Team Create is not working,Place upload is failing.,Place upload is failing.
 Studio.TeamCreate.DisconnectReasonUnknown,This message is presented to the user when they lose their connection to a server using Team Create.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,Title for a dialog that indicates a user has been disconnected from their Team Create server.,Disconnected,Disconnected
-Studio.TeamCreate.EvictDialog.CollaboratorRequestedEvictionDescription,description for dialog shown when a collaborator was evicted because a collaborator sent a request to evict them,You have been disconnected from Team Create due to a request from a collaborator.,You have been disconnected from Team Create due to a request from a collaborator.
 Studio.TeamCreate.SafetyEvictDialog.AskForParentPermission,title for dialog when users are disconnected from a Team Create session because they need parent permission,You need parent permission to work with older collaborators,You need parent permission to work with older collaborators
 Studio.TeamCreate.SafetyEvictDialog.AskForParentPermissionDescription,description for dialog when users are disconnected from a Team Create session because they need parent permission,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.,Some people in groups larger than 30 need parent permission to collaborate with older collaborators outside their age group.
 Studio.TeamCreate.SafetyEvictDialog.BecomeTCButton,button on dialog that links to start trusted connections process (dialog appears when users are disconnected from a Team Create session because they need to get trusted connections),Add,Add

@@ -5723,8 +5723,6 @@ Studio.App.PinnedUpdateAvailableWithOverrides,,,Pinned version with overrides (U
 Studio.App.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.RobloxExplorerWidget.UnpublishedChangesUpdateAvailable,,,Pinned version with overrides (Updates available),Pinned version with overrides (Updates available)
 Studio.App.PropertyItems.AutoUpdateDisabledForNested,,,Auto Update disabled for nested packages,Auto Update disabled for nested packages
-Studio.App.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
-Studio.App.PropertyItems.NoPermissionsAudio,,,Failed to load audio. User is not authorized to access asset.,Failed to load audio. User is not authorized to access asset.
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -7799,7 +7797,7 @@ Studio.Toolbox.AssetConfig.CreationContextDailyLimitReached,,,Error preparing bu
 Studio.Toolbox.AssetConfig.CreationContextServiceUnavailable,,,Error preparing bundle for upload. Service unavailable.,Error preparing bundle for upload. Service unavailable.
 Studio.Toolbox.AssetConfig.CreateBundleGenericError,,,Error encountered creating the bundle. Please try the upload again.,Error encountered creating the bundle. Please try the upload again.
 Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleName,,,Error creating bundle. Invalid bundle name.,Error creating bundle. Invalid bundle name.
-Studio.Toolbox.AssetConfig.CreateBundleInvalidAssetIds,,,Error creating bundle. Invalid bundle part asset IDs.,Error creating bundle. Invalid bundle part asset IDs.
+Studio.Toolbox.AssetConfig.CreateBundleInvalidAssetIds,,,Error creating bundle. Invalid body part asset IDs.,Error creating bundle. Invalid body part asset IDs.
 Studio.Toolbox.AssetConfig.CreateBundleInvalidOperationId,,,Error creating bundle. Invalid Operation ID.,Error creating bundle. Invalid Operation ID.
 Studio.Toolbox.AssetConfig.CreateBundleInvalidBundleType,,,Error creating bundle. Invalid bundle type.,Error creating bundle. Invalid bundle type.
 Studio.Toolbox.AssetConfig.CreateBundleInvalidCreateBundleRequest,,,Error creating bundle. Invalid create bundle request.,Error creating bundle. Invalid create bundle request.
@@ -8168,12 +8166,6 @@ Studio.Toolbox.General.Swim,,,Swim,Swim
 Studio.Toolbox.General.SwimIdle,,,Swim Idle,Swim Idle
 Studio.Toolbox.General.AnimationSectionDescription,,,"If this animation is part of a UGC Animation Pack, filling out these fields will generate the model structure needed to upload it as part of the bundle. Selecting Emote will create the animation object with the ID in the Workspace.","If this animation is part of a UGC Animation Pack, filling out these fields will generate the model structure needed to upload it as part of the bundle. Selecting Emote will create the animation object with the ID in the Workspace."
 Studio.Toolbox.General.AnimationSectionTitle,,,Create Animation Object In Workspace,Create Animation Object In Workspace
-Studio.Toolbox.AssetConfig.DynamicHeadBundlePartsUploadError,,,Error uploading all dynamic head parts.,Error uploading all dynamic head parts.
-Studio.Toolbox.AssetConfig.DynamicHeadBundleUploadAssetsStep,,,Uploading dynamic head parts...,Uploading dynamic head parts...
-Studio.Toolbox.AssetConfig.AvatarAnimationsBundleUploadAssetsStep,,,Uploading avatar animations...,Uploading avatar animations...
-Studio.Toolbox.AssetConfig.AvatarAnimationsBundlePartsUploadError,,,Error uploading all avatar animations.,Error uploading all avatar animations.
-Studio.Toolbox.AssetConfig.CreationContextBundleUploadQuotaExceeded,,,Error preparing bundle for upload. You can only upload {quota} {bundleType} bundles {quotaPeriod}.,Error preparing bundle for upload. You can only upload {quota} {bundleType} bundles {quotaPeriod}.
-Studio.Toolbox.AssetConfig.CreateAvatarAnimationsBundleInvalidAssetIds,,,Error creating bundle. Invalid avatar animations asset IDs.,Error creating bundle. Invalid avatar animations asset IDs.
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9199,7 +9191,6 @@ Studio.PublishPlaceAs.FooterButton.UpdateExistingExperience,,,Update existing ex
 Studio.PublishPlaceAs.General.SaveExperience,,,Save Experience,Save Experience
 Studio.PublishPlaceAs.General.PublishExperience,,,Publish Experience,Publish Experience
 Studio.PublishPlaceAs.General.UntitledExperience,,,Untitled Experience,Untitled Experience
-Studio.PublishPlaceAs.PrivacyType.Limited,,,Limited,Limited
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9507,10 +9498,6 @@ Studio.AssetManager.ContextMenu.SelectAll,,,Select All,Select All
 Studio.AssetManager.Tooltip.FoldersNotReady,,,Folder organization is not available yet for this inventory,Folder organization is not available yet for this inventory
 Studio.AssetManager.Tooltip.FoldersNotReadyBody,,,Click to refresh,Click to refresh
 Studio.AssetManager.MouseHoverFeedback.InvalidDragTarget,,,You cannot move these items here.,You cannot move these items here.
-Studio.AssetManager.Toast.PartialMoveFailure,,,Some items were not able to be moved. The folder may need to be refreshed.,Some items were not able to be moved. The folder may need to be refreshed.
-Studio.AssetManager.Toast.MoveFailure,,,Items were not able to be moved. The folder may need to be refreshed.,Items were not able to be moved. The folder may need to be refreshed.
-Studio.AssetManager.ContextMenu.NewStudioInstance,,,New Window,New Window
-Studio.AssetManager.ContextMenu.Open,,,Open,Open
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12413,38 +12400,6 @@ Studio.AvatarCompatibilityPreviewer.DisambiguationMenu.Rigid,,,Rigid,Rigid
 Studio.AvatarCompatibilityPreviewer.Categories.body_face,,,Body,Body
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TooltipItemCreatorMismatch,,,The creator of this item needs to match the creator of the makeup look,The creator of this item needs to match the creator of the makeup look
 Studio.AvatarCompatibilityPreviewer.CatalogItemButton.CopyAssetId,,,Copy Asset ID,Copy Asset ID
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_382537569,,,Black Jeans,Black Jeans
-Studio.AvatarCompatibilityPreviewer.SelectScreen.AddAssetID,,,Add AssetID,Add AssetID
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.ClassicShirts,,,Classic Shirts,Classic Shirts
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.ClassicTShirts,,,Classic T-Shirts,Classic T-Shirts
-Studio.AvatarCompatibilityPreviewer.AssetPalettes.ClassicPants,,,Classic Pants,Classic Pants
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicTShirts_1036727,,,Erik Is My Hero,Erik Is My Hero
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicTShirts_1031862,,,Suit With Purple Tie,Suit With Purple Tie
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicTShirts_1031864,,,Expensive Red Suit,Expensive Red Suit
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_607785314,,,ROBLOX Jacket,ROBLOX Jacket
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_144076358,,,Blue and Black Motorcycle Shirt,Blue and Black Motorcycle Shirt
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_3670737444,,,Roblox Shirt - Simple Pattern,Roblox Shirt - Simple Pattern
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_398633584,,,Denim Jacket with White Hoodie,Denim Jacket with White Hoodie
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_382538059,,,Green Jersey,Green Jersey
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_398635081,,,Blue Plaid Shirt,Blue Plaid Shirt
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_398634295,,,Pastel Starburst Top with Gray Jacket,Pastel Starburst Top with Gray Jacket
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_4047884939,,,My Favorite Pizza Shirt,My Favorite Pizza Shirt
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_4047886060,,,Purple and Teal Top,Purple and Teal Top
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_4047884046,,,Guitar Tee with Black Jacket,Guitar Tee with Black Jacket
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_144076436,,,Grey Striped Shirt with Denim Jacket,Grey Striped Shirt with Denim Jacket
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_382537702,,,Teal Shirt,Teal Shirt
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_382537085,,,I <3 Pizza Shirt,I <3 Pizza Shirt
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicShirts_382538295,,,Guitar Tee with Black Jacket,Guitar Tee with Black Jacket
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_398633812,,,Black Jeans with White Shoes,Black Jeans with White Shoes
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_398635338,,,Ripped Skater Pants,Ripped Skater Pants
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_398634487,,,Beautiful You Jeans,Beautiful You Jeans
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_144076760,,,Dark Green Jeans,Dark Green Jeans
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_382538503,,,Black Jeans with Sneakers,Black Jeans with Sneakers
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_382537950,,,Jean Shorts with White Shoes,Jean Shorts with White Shoes
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_382537806,,,Jean Shorts,Jean Shorts
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_129458426,,,Jeans,Jeans
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_129459077,,,Black Slacks,Black Slacks
-Studio.AvatarCompatibilityPreviewer.ItemNames2.ClassicPants_7231091126,,,Lime Boxing Shorts - KSI,Lime Boxing Shorts - KSI
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13943,21 +13898,6 @@ Studio.StartPage.Plugin.Tooltip.SelectAtRiskDescription,,,Your experience must m
 Studio.StartPage.Plugin.PrivacyType.FriendsShort,,,Friends,Friends
 Studio.StartPage.Plugin.Tooltip.AgeRestrictedCollaborationTitle,,,Needs trusted collaboration,Needs trusted collaboration
 Studio.StartPage.Plugin.Tooltip.AgeRestrictedCollaborationDescription,,,"To collaborate with everyone inside this experience, add them as a Trusted Connection.","To collaborate with everyone inside this experience, add them as a Trusted Connection."
-Studio.StartPage.Plugin.PrivacyType.Unplayable,,,Unplayable,Unplayable
-Studio.StartPage.Plugin.PrivacyType.NeedsAttention,,,Needs attention,Needs attention
-Studio.StartPage.Plugin.PrivacyType.Limited,,,Limited,Limited
-Studio.StartPage.Plugin.PrivacyType.PublicAgeGated,,,Public ({minAge}+),Public ({minAge}+)
-Studio.StartPage.Plugin.PrivacyType.PublicAllAges,,,Public (All ages),Public (All ages)
-Studio.StartPage.Plugin.Tooltip.LimitedFriends,,,Experience available to Friends,Experience available to Friends
-Studio.StartPage.Plugin.Tooltip.LimitedCommunity,,,Experience available to Community Members,Experience available to Community Members
-Studio.StartPage.Plugin.PrivacyType.LimitedDiscovery,,,Limited Discovery,Limited Discovery
-Studio.StartPage.Plugin.Tooltip.LimitedDiscoveryTitle,,,Hidden from search,Hidden from search
-Studio.StartPage.Plugin.Tooltip.LimitedDiscoveryDescription,,,This experience isn't surfaced in search or on browse pages while we review it. Players who already know the link can still play it.,This experience isn't surfaced in search or on browse pages while we review it. Players who already know the link can still play it.
-Studio.StartPage.Plugin.Tooltip.LimitedPlaytesters,,,Experience available to Playtesters,Experience available to Playtesters
-Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndCommunity,,,Experience available to Playtesters and Community Members,Experience available to Playtesters and Community Members
-Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndFriends,,,Experience available to Playtesters and Friends,Experience available to Playtesters and Friends
-Studio.StartPage.TrustedConnectionRequestSnackbar.Message,,,Your request has been sent.,Your request has been sent.
-Studio.StartPage.TrustedConnectionLinkCopiedSnackbar.Message,,,Link copied. Share it with others to make a trusted friend request.,Link copied. Share it with others to make a trusted friend request.
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14142,9 +14082,6 @@ Studio.Assistant.PrimitiveGen.StageResolvingDependencies,,,Resolving Dependencie
 Studio.Assistant.PrimitiveGen.StageSubmitting,,,Submitting,Submitting
 Studio.Assistant.Tools.PrimitiveGen,,,Generate Procedural Model,Generate Procedural Model
 Studio.Assistant.Tools.WaitJobFinished,,,Wait Job Finished,Wait Job Finished
-Studio.Assistant.FinalizePlan.Build,,,Build,Build
-Studio.Assistant.FinalizePlan.PreparingPlan,,,Preparing plan...,Preparing plan...
-Studio.Assistant.FinalizePlan.Reject,,,Reject,Reject
 Studio.Assistant.FromHistory.Retrieved,,,Retrieved {type} | {key},Retrieved {type} | {key}
 Studio.Assistant.Compaction.InProgress,,,Compacting conversation context...,Compacting conversation context...
 Studio.Assistant.Compaction.Complete,,,Conversation context compacted,Conversation context compacted
@@ -14170,38 +14107,6 @@ Studio.Assistant.MeshGen.InputPartNamesTitle,,,Part Names,Part Names
 Studio.Assistant.HttpGet.Found,,,Found '{query}' in {url},Found '{query}' in {url}
 Studio.Assistant.HttpGet.NotFound,,,No match for '{query}' in {url},No match for '{query}' in {url}
 Studio.Assistant.HttpGet.Searching,,,Searching '{query}' in {url}...,Searching '{query}' in {url}...
-Studio.Assistant.MeshGen.InputSegmentationTitle,,,Segmentation,Segmentation
-Studio.Assistant.MeshGen.InputHintImageTitle,,,Hint Image,Hint Image
-Studio.Assistant.AssetSearch.FoundSingularWithQuery,,,"Found 1 result for ""{query}""","Found 1 result for ""{query}"""
-Studio.Assistant.MeshGen.InputImageModelTitle,,,Image Model,Image Model
-Studio.Assistant.AssetSearch.ClickToInsertOrPurchase,,,Click to insert free results or purchase paid ones,Click to insert free results or purchase paid ones
-Studio.Assistant.AssetSearch.FoundSingular,,,Found 1 result,Found 1 result
-Studio.Assistant.AssetInsert.FailedToInsert,,,Failed to insert asset,Failed to insert asset
-Studio.Assistant.AssetInsert.Inserted,,,Inserted {name},Inserted {name}
-Studio.Assistant.AssetInsert.Inserting,,,Inserting {query},Inserting {query}
-Studio.Assistant.AssetInsert.Preparing,,,Preparing to insert asset,Preparing to insert asset
-Studio.Assistant.AssetInsert.UnknownError,,,Unknown error occurred during asset insertion,Unknown error occurred during asset insertion
-Studio.Assistant.AssetSearch.ClickToInsert,,,Click a result to insert it,Click a result to insert it
-Studio.Assistant.AssetSearch.FailedToSearch,,,Failed to search for assets,Failed to search for assets
-Studio.Assistant.AssetSearch.Found,,,Found {count:int} results,Found {count:int} results
-Studio.Assistant.AssetSearch.FoundWithQuery,,,"Found {count:int} results for ""{query}""","Found {count:int} results for ""{query}"""
-Studio.Assistant.AssetSearch.NoResults,,,No results found. Try a different search term.,No results found. Try a different search term.
-Studio.Assistant.AssetSearch.Preparing,,,Preparing search...,Preparing search...
-Studio.Assistant.AssetSearch.Promoted,,,Promoted,Promoted
-Studio.Assistant.AssetSearch.Searching,,,Searching for assets...,Searching for assets...
-Studio.Assistant.AssetSearch.SearchingWithQuery,,,"Searching for ""{query}""...","Searching for ""{query}""..."
-Studio.Assistant.AssetSearch.SourceFolder,,,Folder,Folder
-Studio.Assistant.AssetSearch.SourceFree,,,Free,Free
-Studio.Assistant.AssetSearch.SourceGame,,,Game,Game
-Studio.Assistant.AssetSearch.SourceGroup,,,Group,Group
-Studio.Assistant.AssetSearch.SourceInventory,,,Inventory,Inventory
-Studio.Assistant.AssetSearch.SourceMine,,,Mine,Mine
-Studio.Assistant.AssetSearch.SourceStore,,,Store,Store
-Studio.Assistant.FinalizePlan.Editor,,,Editor,Editor
-Studio.Assistant.FinalizePlan.OpenPlan,,,Open Plan,Open Plan
-Studio.Assistant.FinalizePlan.Versions,,,Versions,Versions
-Studio.Assistant.FinalizePlan.Save,,,Save,Save
-Studio.Assistant.FinalizePlan.Revert,,,Revert,Revert
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14877,10 +14782,10 @@ Studio.BetaFeatures.PlaytestSubagentTitle,,,Playtest Agent,Playtest Agent
 Studio.BetaFeatures.PlaytestSubagentDescription,,,Assistant subagent for automated playtesting.,Assistant subagent for automated playtesting.
 Studio.BetaFeatures.StylingTransitionsTitle,,,Styling Transitions,Styling Transitions
 Studio.BetaFeatures.StylingTransitionsDescription,,,Adds the ability to create UI transitions via the Styling system.,Adds the ability to create UI transitions via the Styling system.
-Studio.BetaFeatures.SceneAnalysisDescription,,,"Enables detailed performance statistics for scene composition including instance counts, triangle counts, script memory, and unparented instances.","Enables detailed performance statistics for scene composition including instance counts, triangle counts, script memory, and unparented instances."
+Studio.BetaFeatures.SceneAnalysisDescription,,,"Enables detailed performance statistics for scene composition including instance counts, triangle counts,     
+  script memory, and unparented instances.","Enables detailed performance statistics for scene composition including instance counts, triangle counts,     
+  script memory, and unparented instances."
 Studio.BetaFeatures.SceneAnalysisTitle,,,Scene Analysis,Scene Analysis
-Studio.BetaFeatures.PackageOverridesTitle,,,Package Overrides,Package Overrides
-Studio.BetaFeatures.PackageOverridesDescription,,,Shows local package changes that override the published package version.,Shows local package changes that override the published package version.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15239,7 +15144,6 @@ Studio.SystemMenu.Title.Untitled,,,Untitled,Untitled
 Studio.SystemMenu.Tooltip.Performance,,,A basic performance overlay,A basic performance overlay
 Studio.SystemMenu.Title.ReportIllegalContent,,,Report Illegal Content,Report Illegal Content
 Studio.SystemMenu.Tooltip.ReportIllegalContent,,,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
-Studio.SystemMenu.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
 Studio.PlaceUpload.ErrorMessage.BadRequest,,,Place save was rejected. Check your network and try again later.,Place save was rejected. Check your network and try again later.
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,,Search for a Behavior to bind to,Search for a Behavior to bind to
@@ -15389,19 +15293,6 @@ Studio.Reimport.Actions.Reimport,,,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,,,Reimport relative to this,Reimport relative to this
 Studio.Reimport.Actions.Configure,,,Configure...,Configure...
 Studio.Reimport.Tooltips.Configure,,,Configure reimport settings,Configure reimport settings
-Studio.Reimport.Actions.ClearReimportConfig,,,Remove reimport config,Remove reimport config
-Studio.Reimport.ConfigDialog.Creator,,,Creator,Creator
-Studio.Reimport.ErrorDialog.Body,,,Errors occurred during reimport,Errors occurred during reimport
-Studio.Reimport.ErrorDialog.Close,,,Close,Close
-Studio.Reimport.ErrorDialog.Configure,,,Configure Reimport Settings,Configure Reimport Settings
-Studio.Reimport.ConfigDialog.Cancel,,,Cancel,Cancel
-Studio.Reimport.ConfigDialog.Save,,,Save,Save
-Studio.Reimport.ConfigDialog.SaveAndReimport,,,Save and Reimport,Save and Reimport
-Studio.Reimport.ConfigDialog.FilePath,,,File Path,File Path
-Studio.Reimport.ConfigDialog.Preset,,,Import Preset,Import Preset
-Studio.Reimport.ConfigDialog.Me,,,Me,Me
-Studio.Reimport.ConfigDialog.Placeholder,,,Click to select file,Click to select file
-Studio.Reimport.Plugin.Name,,,Reimport,Reimport
 Studio.ParticleSystem.Tooltip.FlipbookLayout.IncompatibleTexture,,,The texture size must be an exact multiple of the flipbook layout size.,The texture size must be an exact multiple of the flipbook layout size.
 Studio.ShutdownManagement.ClosingStudio,,,Closing all Studio windows,Closing all Studio windows
 Studio.ShutdownManagement.Cancel,,,Cancel,Cancel
@@ -15514,16 +15405,8 @@ Studio.TeamCreate.SafetyEvictDialog.OKButton,,,OK,OK
 Studio.TeamCreate.SafetyEvictDialog.TermsOfUseButton,,,View Terms of Use,View Terms of Use
 Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedFriends,,,Add trusted friends,Add trusted friends
 Studio.TeamCreate.SafetyEvictDialog.ExperienceLocked,,,This Experience is locked,This Experience is locked
-Studio.TeamCreate.EvictDialog.CollaboratorRequestedEvictionDescription,,,You have been disconnected from Team Create due to a request from a collaborator.,You have been disconnected from Team Create due to a request from a collaborator.
 Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
 Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
-Studio.NetworkSettings.Property.InboundNetworkMinDelay,,,Min Inbound Delay (0-1000ms),Min Inbound Delay (0-1000ms)
-Studio.NetworkSettings.Property.OutboundNetworkMinDelay,,,Min Outbound Delay (0-1000ms),Min Outbound Delay (0-1000ms)
-Studio.NetworkSettings.Property.InboundPacketLoss,,,Inbound Packet Loss (0-0.5%),Inbound Packet Loss (0-0.5%)
-Studio.NetworkSettings.Property.OutboundPacketLoss,,,Outbound Packet Loss (0-0.5%),Outbound Packet Loss (0-0.5%)
-Studio.NetworkSettings.Property.OutboundNetworkJitter,,,Outbound Jitter (0-1000ms),Outbound Jitter (0-1000ms)
-Studio.NetworkSettings.Property.InboundNetworkJitter,,,Inbound Jitter (0-1000ms),Inbound Jitter (0-1000ms)
-Studio.NetworkSettings.SettingsCategory.NetworkSimulation,,,Network Simulation,Network Simulation
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForYears,,,Connected for {age:int} years,Connected for {age:int} years
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneYear,,,Connected for one year,Connected for one year
 Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForMonths,,,Connected for {age:int} months,Connected for {age:int} months
@@ -15557,9 +15440,6 @@ Parents, after linking, you’ll get access to parental controls and insights on
 Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.EmailLabel,,,Parent's email *,Parent's email *
 Studio.TeamCreateCollaborators.VPCRequestSentDialog.SuccessBannerMessage,,,Your request has been sent.,Your request has been sent.
 Studio.TeamCreateCollaborators.VPCRequestSentDialog.FailureBannerMessage,,,Unable to send request.,Unable to send request.
-Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.EmailError,,,Incorrect email format,Incorrect email format
-Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.CancelButton,,,Cancel,Cancel
-Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.SendButton,,,Send,Send
 Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
 Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
 Studio.AssetPicker.OptionMenuItem.List,,,List,List
