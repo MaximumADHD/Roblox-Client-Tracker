@@ -1,0 +1,86 @@
+PROTO_0:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Tile"]
+        4 GETTABLEKS                       R3 R1 K2 ["Style"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K3 ["createElement"]
+        9 GETUPVAL                         R5 1
+       10 DUPTABLE                         R6 K8 [{"HorizontalAlignment", "Layout", "Position", "Size"}]
+       11 GETIMPORT                        R7 K11 [Enum.HorizontalAlignment.Left]
+       13 SETTABLEKS                       R7 R6 K4 ["HorizontalAlignment"]
+       15 GETIMPORT                        R7 K14 [Enum.FillDirection.Horizontal]
+       17 SETTABLEKS                       R7 R6 K5 ["Layout"]
+       19 GETTABLEKS                       R7 R1 K6 ["Position"]
+       21 SETTABLEKS                       R7 R6 K6 ["Position"]
+       23 GETTABLEKS                       R7 R1 K7 ["Size"]
+       25 SETTABLEKS                       R7 R6 K7 ["Size"]
+       27 DUPTABLE                         R7 K17 [{"Icon", "Text"}]
+       28 GETTABLEKS                       R9 R2 K18 ["icon"]
+       30 JUMPIFNOT                        R9 ; [+8]
+       31 GETUPVAL                         R8 0
+       32 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       34 GETUPVAL                         R9 2
+       35 GETTABLEKS                       R10 R2 K18 ["icon"]
+       37 CALL                             R8 2 1
+       38 JUMP                             ; [+1]
+       39 LOADNIL                          R8
+       40 SETTABLEKS                       R8 R7 K15 ["Icon"]
+       42 GETUPVAL                         R8 0
+       43 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       45 GETUPVAL                         R9 3
+       46 DUPTABLE                         R10 K21 [{"Size", "LayoutOrder", "Text", "TextXAlignment"}]
+       47 GETIMPORT                        R11 K24 [UDim2.new]
+       49 LOADN                            R12 1
+       50 LOADN                            R13 0
+       51 LOADN                            R14 1
+       52 LOADN                            R15 0
+       53 CALL                             R11 4 1
+       54 SETTABLEKS                       R11 R10 K7 ["Size"]
+       56 LOADN                            R11 2
+       57 SETTABLEKS                       R11 R10 K19 ["LayoutOrder"]
+       59 GETTABLEKS                       R11 R2 K16 ["Text"]
+       61 SETTABLEKS                       R11 R10 K16 ["Text"]
+       63 GETTABLEKS                       R11 R3 K20 ["TextXAlignment"]
+       65 JUMPIF                           R11 ; [+2]
+       66 GETIMPORT                        R11 K26 [Enum.TextXAlignment.Center]
+       68 SETTABLEKS                       R11 R10 K20 ["TextXAlignment"]
+       70 CALL                             R8 2 1
+       71 SETTABLEKS                       R8 R7 K16 ["Text"]
+       73 CALL                             R4 3 -1
+       74 RETURN                           R4 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["UI"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R0 R0 K4 ["Parent"]
+        9 GETIMPORT                        R1 K6 [require]
+       11 GETTABLEKS                       R2 R0 K4 ["Parent"]
+       13 GETTABLEKS                       R2 R2 K7 ["Roact"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R0 K2 ["UI"]
+       18 GETIMPORT                        R3 K6 [require]
+       20 GETTABLEKS                       R4 R2 K8 ["Components"]
+       22 GETTABLEKS                       R4 R4 K9 ["Image"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K6 [require]
+       27 GETTABLEKS                       R5 R2 K8 ["Components"]
+       29 GETTABLEKS                       R5 R5 K10 ["Pane"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K6 [require]
+       34 GETTABLEKS                       R6 R2 K8 ["Components"]
+       36 GETTABLEKS                       R6 R6 K11 ["TextLabel"]
+       38 CALL                             R5 1 1
+       39 GETTABLEKS                       R6 R1 K12 ["PureComponent"]
+       41 LOADK                            R8 K13 ["TileBox"]
+       42 NAMECALL                         R6 R6 K14 ["extend"]
+       44 CALL                             R6 2 1
+       45 DUPCLOSURE                       R7 K15 [PROTO_0]
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R5
+       50 SETTABLEKS                       R7 R6 K16 ["render"]
+       52 RETURN                           R6 1

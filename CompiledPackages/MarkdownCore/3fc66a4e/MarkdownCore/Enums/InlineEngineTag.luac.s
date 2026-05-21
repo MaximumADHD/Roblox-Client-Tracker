@@ -1,0 +1,22 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 DUPTABLE                         R0 K9 [{"BOLD", "ITALIC", "UNDERLINE", "STRIKE", "FONT", "STROKE", "UPPERCASE", "SMALLCAPS", "MARK"}]
+        2 LOADK                            R1 K10 ["b"]
+        3 SETTABLEKS                       R1 R0 K0 ["BOLD"]
+        5 LOADK                            R1 K11 ["i"]
+        6 SETTABLEKS                       R1 R0 K1 ["ITALIC"]
+        8 LOADK                            R1 K12 ["u"]
+        9 SETTABLEKS                       R1 R0 K2 ["UNDERLINE"]
+       11 LOADK                            R1 K13 ["s"]
+       12 SETTABLEKS                       R1 R0 K3 ["STRIKE"]
+       14 LOADK                            R1 K14 ["font"]
+       15 SETTABLEKS                       R1 R0 K4 ["FONT"]
+       17 LOADK                            R1 K15 ["stroke"]
+       18 SETTABLEKS                       R1 R0 K5 ["STROKE"]
+       20 LOADK                            R1 K16 ["uc"]
+       21 SETTABLEKS                       R1 R0 K6 ["UPPERCASE"]
+       23 LOADK                            R1 K17 ["sc"]
+       24 SETTABLEKS                       R1 R0 K7 ["SMALLCAPS"]
+       26 LOADK                            R1 K18 ["mark"]
+       27 SETTABLEKS                       R1 R0 K8 ["MARK"]
+       29 RETURN                           R0 1
