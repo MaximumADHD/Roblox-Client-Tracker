@@ -48,8 +48,6 @@ local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSet
 local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
 local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false)
 	and game:GetEngineFeature("LuaGetCanManageAsync")
-local FFlagUserPresenceTokenRccCheckPermissionsLua =
-	require(RobloxGui.Modules.Common.Flags.FFlagUserPresenceTokenRccCheckPermissionsLua)
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
@@ -293,12 +291,7 @@ local function getPlayerCanManage(player)
 						},
 					},
 				})
-				local response
-				if FFlagUserPresenceTokenRccCheckPermissionsLua then
-					response = HttpRbxApiService:PostAsyncFullUrlForPlayer(url, request, player)
-				else
-					response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-				end
+				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
 				return HttpService:JSONDecode(response)
 			end)
 

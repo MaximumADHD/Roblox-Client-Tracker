@@ -120,5 +120,3 @@ Initialize()
 SoundService:GetPropertyChangedSignal("DefaultListenerLocation"):Connect(Initialize)
 VoiceChatService:GetPropertyChangedSignal("UseAudioApi"):Connect(Initialize)
 VoiceChatService:GetPropertyChangedSignal("EnableDefaultVoice"):Connect(Initialize)
-
-return {}

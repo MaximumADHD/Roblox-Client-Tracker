@@ -1,0 +1,71 @@
+return function(plugin)
+	local Framework = script:FindFirstAncestor("UI").Parent
+	local Roact = require(Framework.Parent.Roact)
+	local ContextServices = require(Framework.UI.ContextServices)
+	local Plugin = ContextServices.Plugin
+
+	local ScrollingFrame = require(Framework.UI.Components.ScrollingFrame)
+	local Dialog = require(Framework.UI.Components.Dialog)
+
+	local pluginItem = Plugin.new(plugin)
+
+	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
+
+	local theme = StudioTheme.new()
+
+	local ExampleButton = Roact.PureComponent:extend("ExampleButton")
+
+	function ExampleButton:init()
+		self.state = {
+			enabled = true,
+		}
+
+		self.close = function()
+			self:setState({
+				enabled = false,
+			})
+		end
+	end
+
+	function ExampleButton:render()
+		if self.state.enabled == false then
+			return nil
+		end
+
+		local children = {
+			Layout = Roact.createElement("UIListLayout"),
+		}
+		for i = 1, 10, 1 do
+			children[tostring(i)] = Roact.createElement("TextLabel", {
+				Text = "I'm an example child!",
+				Size = UDim2.new(1, 0, 0, 30),
+				LayoutOrder = i,
+			})
+		end
+
+		return ContextServices.provide({ pluginItem, theme }, {
+			Main = Roact.createElement(Dialog, {
+				Enabled = self.state.enabled,
+				Title = "ToggleButton Example",
+				Size = Vector2.new(200, 200),
+				Resizable = false,
+				OnClose = self.close,
+			}, {
+
+				-- TO DO : update example to be an infinite scroller
+				Scroller = Roact.createElement(ScrollingFrame, {
+					Size = UDim2.new(1, 0, 1, 0),
+				}, children),
+			}),
+		})
+	end
+
+	local element = Roact.createElement(ExampleButton)
+	local handle = Roact.mount(element)
+
+	local function stop()
+		Roact.unmount(handle)
+	end
+
+	return stop
+end

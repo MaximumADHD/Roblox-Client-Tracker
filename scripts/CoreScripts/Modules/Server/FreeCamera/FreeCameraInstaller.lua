@@ -27,8 +27,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
-local FFlagUserPresenceTokenRccCheckPermissionsLua =
-	require(RobloxGui.Modules.Common.Flags.FFlagUserPresenceTokenRccCheckPermissionsLua)
 
 local function Install()
 	local function WaitForChildOfClass(parent, class)
@@ -93,12 +91,7 @@ local function Install()
 						}
 					}
 				)
-				local response
-				if FFlagUserPresenceTokenRccCheckPermissionsLua then
-					response = HttpRbxApiService:PostAsyncFullUrlForPlayer(url, request, player)
-				else
-					response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-				end
+				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
 				return HttpService:JSONDecode(response)
 			end)
 

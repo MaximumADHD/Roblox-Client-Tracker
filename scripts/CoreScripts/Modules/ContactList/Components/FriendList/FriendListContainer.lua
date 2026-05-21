@@ -24,10 +24,7 @@ local useApolloClient = ApolloClientModule.useApolloClient
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local UIBlox = dependencies.UIBlox
-local Foundation = dependencies.Foundation
-local IconSize = Foundation.Enums.IconSize
-local LoadingSpinner = Foundation.Loading
-
+local dependencyArray = dependencies.Hooks.dependencyArray
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
 
@@ -38,6 +35,7 @@ local SearchFriendsByQuery = dependencies.NetworkingFriends.SearchFriendsByQuery
 local GetSuggestedCallees = dependencies.NetworkingCall.GetSuggestedCallees
 
 local useStyle = UIBlox.Core.Style.useStyle
+local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
@@ -47,6 +45,9 @@ local NoItemView = require(ContactList.Components.ContactListCommon.NoItemView)
 local Constants = require(ContactList.Components.ContactListCommon.Constants)
 
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
+
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
@@ -107,118 +108,127 @@ local function FriendListContainer(props: Props)
 
 	-- Note: Careful about dependencies to this function or else we might have
 	-- an infinite render.
-	local getFriends = React.useCallback(function(currentFriends, cursor)
-		if localUserId then
-			isLoading.current = true
-			setStatus(RetrievalStatus.Fetching)
+	local getFriends = React.useCallback(
+		function(currentFriends, cursor)
+			if localUserId then
+				isLoading.current = true
+				setStatus(RetrievalStatus.Fetching)
 
-			local secondTimeout = if currentGuid.current == "" then 0 else 0.5
-			local guid = HttpService:GenerateGUID(false)
-			currentGuid.current = guid
+				local secondTimeout = if currentGuid.current == "" then 0 else 0.5
+				local guid = HttpService:GenerateGUID(false)
+				currentGuid.current = guid
 
-			local request = function()
-				-- Used to debounce the requests so that we don't overload the server.
-				if currentGuid.current ~= guid then
-					return
-				end
-
-				analytics.fireEvent(EventNamesEnum.PhoneBookSearchAttempted, {
-					eventTimestampMs = os.time() * 1000,
-					searchQueryString = trimmedSearchText,
-				})
-
-				local requestFriends = dispatch(
-					if trimmedSearchText == ""
-						then FindFriendsFromUserId.API(
-							localUserId,
-							{ userSort = "CombinedName", cursor = cursor, limit = 20 }
-						)
-						else SearchFriendsByQuery.API(
-							localUserId,
-							{ userSort = "CombinedName", cursor = cursor, limit = 20, query = trimmedSearchText }
-						)
-				)
-
-				Promise.all({
-					requestFriends,
-					if GetFFlagSuggestedCalleeBugFixEnabled()
-						then requestSuggestedCallees
-						else requestSuggestedCallees.current,
-				}):andThen(function(result)
+				local request = function()
+					-- Used to debounce the requests so that we don't overload the server.
 					if currentGuid.current ~= guid then
 						return
 					end
 
-					local responseFriends = result[1]
-					local responseSuggestedCallees = result[2]
-
-					analytics.fireEvent(EventNamesEnum.PhoneBookSearchFinished, {
+					analytics.fireEvent(EventNamesEnum.PhoneBookSearchAttempted, {
 						eventTimestampMs = os.time() * 1000,
 						searchQueryString = trimmedSearchText,
-						searchResultCount = #responseFriends.responseBody.PageItems,
 					})
 
-					local updatedFriends = {}
-					for _, friend in ipairs(currentFriends) do
-						table.insert(updatedFriends, friend)
-					end
-					for _, friend in ipairs(responseFriends.responseBody.PageItems) do
-						table.insert(updatedFriends, friend)
-					end
+					local requestFriends = dispatch(
+						if trimmedSearchText == ""
+							then FindFriendsFromUserId.API(
+								localUserId,
+								{ userSort = "CombinedName", cursor = cursor, limit = 20 }
+							)
+							else SearchFriendsByQuery.API(
+								localUserId,
+								{ userSort = "CombinedName", cursor = cursor, limit = 20, query = trimmedSearchText }
+							)
+					)
 
-					local userIds = Cryo.List.map(updatedFriends, function(friend)
-						return tostring(friend.id)
-					end)
-
-					if trimmedSearchText == "" and responseSuggestedCallees ~= nil then
-						-- We catch this error. So we just know if it
-						-- succeeds based on whether the response exists.
-						for _, suggestedCallee in ipairs(responseSuggestedCallees.responseBody.suggestedCallees) do
-							table.insert(userIds, tostring(suggestedCallee.userId))
+					Promise.all({
+						requestFriends,
+						if GetFFlagSuggestedCalleeBugFixEnabled()
+							then requestSuggestedCallees
+							else requestSuggestedCallees.current,
+					}):andThen(function(result)
+						if currentGuid.current ~= guid then
+							return
 						end
-					end
 
-					apolloClient
-						:query({
-							query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
-							variables = {
-								userIds = userIds,
-							},
+						local responseFriends = result[1]
+						local responseSuggestedCallees = result[2]
+
+						analytics.fireEvent(EventNamesEnum.PhoneBookSearchFinished, {
+							eventTimestampMs = os.time() * 1000,
+							searchQueryString = trimmedSearchText,
+							searchResultCount = #responseFriends.responseBody.PageItems,
 						})
-						:andThen(function()
-							if currentGuid.current ~= guid then
-								return
-							end
-							-- Friend names fetched, update the list with this page.
-							setFriends(updatedFriends)
-							setNextPageCursor(responseFriends.responseBody.NextCursor)
-							setStatus(RetrievalStatus.Done)
-						end)
-						:catch(function(error)
-							if currentGuid.current ~= guid then
-								return
-							end
-							setStatus(RetrievalStatus.Failed)
-						end)
-				end, function()
-					if currentGuid.current ~= guid then
-						return
-					end
-					setStatus(RetrievalStatus.Failed)
-				end)
-			end
 
-			if secondTimeout == 0 then
-				request()
-			else
-				delay(secondTimeout, request)
+						local updatedFriends = {}
+						for _, friend in ipairs(currentFriends) do
+							table.insert(updatedFriends, friend)
+						end
+						for _, friend in ipairs(responseFriends.responseBody.PageItems) do
+							table.insert(updatedFriends, friend)
+						end
+
+						local userIds = Cryo.List.map(updatedFriends, function(friend)
+							return tostring(friend.id)
+						end)
+
+						if trimmedSearchText == "" and responseSuggestedCallees ~= nil then
+							-- We catch this error. So we just know if it
+							-- succeeds based on whether the response exists.
+							for _, suggestedCallee in ipairs(responseSuggestedCallees.responseBody.suggestedCallees) do
+								table.insert(userIds, tostring(suggestedCallee.userId))
+							end
+						end
+
+						apolloClient
+							:query({
+								query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
+								variables = {
+									userIds = userIds,
+								},
+							})
+							:andThen(function()
+								if currentGuid.current ~= guid then
+									return
+								end
+								-- Friend names fetched, update the list with this page.
+								setFriends(updatedFriends)
+								setNextPageCursor(responseFriends.responseBody.NextCursor)
+								setStatus(RetrievalStatus.Done)
+							end)
+							:catch(function(error)
+								if currentGuid.current ~= guid then
+									return
+								end
+								setStatus(RetrievalStatus.Failed)
+							end)
+					end, function()
+						if currentGuid.current ~= guid then
+							return
+						end
+						setStatus(RetrievalStatus.Failed)
+					end)
+				end
+
+				if secondTimeout == 0 then
+					request()
+				else
+					delay(secondTimeout, request)
+				end
 			end
-		end
-	end, {
-		trimmedSearchText :: any,
-		lastRemovedFriend,
-		if GetFFlagSuggestedCalleeBugFixEnabled() then requestSuggestedCallees else nil,
-	})
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				trimmedSearchText :: any,
+				lastRemovedFriend,
+				if GetFFlagSuggestedCalleeBugFixEnabled() then requestSuggestedCallees else nil,
+			}
+			else dependencyArray(
+				trimmedSearchText,
+				lastRemovedFriend,
+				if GetFFlagSuggestedCalleeBugFixEnabled() then requestSuggestedCallees else nil
+			)
+	)
 
 	React.useEffect(function()
 		getFriends({}, "")
@@ -228,7 +238,7 @@ local function FriendListContainer(props: Props)
 			setFriends({})
 			setNextPageCursor(nil)
 		end
-	end, { getFriends })
+	end, if FFlagRemoveDependencyArrayAntipattern then { getFriends } else dependencyArray(getFriends))
 
 	React.useEffect(function()
 		if status ~= RetrievalStatus.Fetching then
@@ -258,39 +268,53 @@ local function FriendListContainer(props: Props)
 		end
 	) or {}
 
-	local noFriendsText = React.useMemo(function()
-		local message
-		if status == RetrievalStatus.Failed then
-			message = localized.genericErrorLabel
-		elseif props.searchText ~= "" then
-			message = localized.noFriendsLabel
-		else
-			message = localized.addFriendsLabel
-		end
+	local noFriendsText = React.useMemo(
+		function()
+			local message
+			if status == RetrievalStatus.Failed then
+				message = localized.genericErrorLabel
+			elseif props.searchText ~= "" then
+				message = localized.noFriendsLabel
+			else
+				message = localized.addFriendsLabel
+			end
 
-		return React.createElement(NoItemView, {
-			isImageEnabled = status ~= RetrievalStatus.Failed,
-			imageName = if props.searchText == ""
-				then "icons/graphic/findfriends_xlarge"
-				else "icons/status/oof_xlarge",
-			isFailedButtonEnabled = status == RetrievalStatus.Failed,
-			onFailedButtonActivated = function()
-				getFriends(friends, nextPageCursor)
-			end,
-			isCallButtonEnabled = false,
-			onCallButtonActivated = function() end,
-			messageText = message,
-		})
-	end, {
-		props.searchText :: any,
-		friends,
-		getFriends,
-		localized.addFriendsLabel,
-		localized.genericErrorLabel,
-		localized.noFriendsLabel,
-		nextPageCursor,
-		status,
-	})
+			return React.createElement(NoItemView, {
+				isImageEnabled = status ~= RetrievalStatus.Failed,
+				imageName = if props.searchText == ""
+					then "icons/graphic/findfriends_xlarge"
+					else "icons/status/oof_xlarge",
+				isFailedButtonEnabled = status == RetrievalStatus.Failed,
+				onFailedButtonActivated = function()
+					getFriends(friends, nextPageCursor)
+				end,
+				isCallButtonEnabled = false,
+				onCallButtonActivated = function() end,
+				messageText = message,
+			})
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				props.searchText :: any,
+				friends,
+				getFriends,
+				localized.addFriendsLabel,
+				localized.genericErrorLabel,
+				localized.noFriendsLabel,
+				nextPageCursor,
+				status,
+			}
+			else dependencyArray(
+				props.searchText,
+				friends,
+				getFriends,
+				localized.addFriendsLabel,
+				localized.genericErrorLabel,
+				localized.noFriendsLabel,
+				nextPageCursor,
+				status
+			)
+	)
 
 	local touchStarted = React.useCallback(function(touch: InputObject)
 		initialPositionY.current = touch.Position.Y
@@ -326,149 +350,176 @@ local function FriendListContainer(props: Props)
 		setOverscrolling(false)
 	end, {})
 
-	local children: any = React.useMemo(function()
-		local entries: any = {}
-		entries["UIListLayout"] = React.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+	local children: any = React.useMemo(
+		function()
+			local entries: any = {}
+			entries["UIListLayout"] = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			})
 
-		if #suggestedCallees ~= 0 and trimmedSearchText == "" then
-			--[[
+			if #suggestedCallees ~= 0 and trimmedSearchText == "" then
+				--[[
 					Only incrementing numbers are counted when measuring the size of the entries table with #entries.
 					String keys like "suggestedHeader" do not contribute to the #entries count.
 				]]
-			entries[#entries + 1] = React.createElement(SectionHeader, {
-				name = localized.suggestedFriendsTitle,
-				description = localized.suggestedFriendsDescription,
-				layoutOrder = #entries + 1,
-			})
+				entries[#entries + 1] = React.createElement(SectionHeader, {
+					name = localized.suggestedFriendsTitle,
+					description = localized.suggestedFriendsDescription,
+					layoutOrder = #entries + 1,
+				})
 
-			local filteredSuggestedCallees = {}
-			for i, callee in ipairs(suggestedCallees) do
-				if not BlockingUtility:IsPlayerBlockedByUserId(callee.userId) then
-					table.insert(filteredSuggestedCallees, callee)
+				local filteredSuggestedCallees = {}
+				for i, callee in ipairs(suggestedCallees) do
+					if not BlockingUtility:IsPlayerBlockedByUserId(callee.userId) then
+						table.insert(filteredSuggestedCallees, callee)
+					end
+				end
+
+				for i, callee in ipairs(filteredSuggestedCallees) do
+					local combinedName = ""
+					local userName = ""
+
+					if namesFetch.data then
+						combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, callee.userId)
+						userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, callee.userId)
+					end
+
+					entries[#entries + 1] = React.createElement(FriendListItem, {
+						userId = callee.userId,
+						combinedName = combinedName,
+						userName = userName,
+						userPresenceType = callee.userPresenceType,
+						lastLocation = callee.lastLocation,
+						dismissCallback = props.dismissCallback,
+						layoutOrder = #entries + 1,
+						showDivider = i ~= #filteredSuggestedCallees,
+						itemListIndex = i,
+						isSuggestedUser = true,
+					})
 				end
 			end
 
-			for i, callee in ipairs(filteredSuggestedCallees) do
+			if #friends ~= 0 then
+				entries[#entries + 1] = React.createElement(SectionHeader, {
+					name = localized.friendsTitle,
+					description = localized.friendsDescription,
+					layoutOrder = #entries + 1,
+				})
+			end
+
+			local filteredFriends = {}
+			for i, friend in ipairs(friends) do
+				if not BlockingUtility:IsPlayerBlockedByUserId(friend.id) then
+					table.insert(filteredFriends, friend)
+				end
+			end
+
+			for i, friend in ipairs(filteredFriends) do
 				local combinedName = ""
 				local userName = ""
-
 				if namesFetch.data then
-					combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, callee.userId)
-					userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, callee.userId)
+					combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, friend.id)
+					userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, friend.id)
 				end
 
 				entries[#entries + 1] = React.createElement(FriendListItem, {
-					userId = callee.userId,
+					userId = friend.id,
 					combinedName = combinedName,
 					userName = userName,
-					userPresenceType = callee.userPresenceType,
-					lastLocation = callee.lastLocation,
 					dismissCallback = props.dismissCallback,
 					layoutOrder = #entries + 1,
-					showDivider = i ~= #filteredSuggestedCallees,
+					showDivider = i ~= #filteredFriends,
+					searchQueryString = trimmedSearchText,
 					itemListIndex = i,
-					isSuggestedUser = true,
+					isSuggestedUser = false,
 				})
 			end
-		end
 
-		if #friends ~= 0 then
-			entries[#entries + 1] = React.createElement(SectionHeader, {
-				name = localized.friendsTitle,
-				description = localized.friendsDescription,
-				layoutOrder = #entries + 1,
-			})
-		end
-
-		local filteredFriends = {}
-		for i, friend in ipairs(friends) do
-			if not BlockingUtility:IsPlayerBlockedByUserId(friend.id) then
-				table.insert(filteredFriends, friend)
-			end
-		end
-
-		for i, friend in ipairs(filteredFriends) do
-			local combinedName = ""
-			local userName = ""
-			if namesFetch.data then
-				combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, friend.id)
-				userName = UserProfiles.Selectors.getUsernameFromId(namesFetch.data, friend.id)
+			if nextPageCursor ~= nil then
+				-- This renders an extra component like refresh button or a loading
+				-- indicator. We do not want either when there is no next page.
+				local index = #entries + 1
+				if status == RetrievalStatus.Failed then
+					entries[index] = noFriendsText
+				else
+					entries[index] = React.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
+						BackgroundTransparency = 1,
+						LayoutOrder = index,
+					}, {
+						LoadingSpinner = React.createElement(LoadingSpinner, {
+							size = UDim2.fromOffset(48, 48),
+							position = UDim2.fromScale(0.5, 0.5),
+							anchorPoint = Vector2.new(0.5, 0.5),
+						}),
+					})
+				end
 			end
 
-			entries[#entries + 1] = React.createElement(FriendListItem, {
-				userId = friend.id,
-				combinedName = combinedName,
-				userName = userName,
-				dismissCallback = props.dismissCallback,
-				layoutOrder = #entries + 1,
-				showDivider = i ~= #filteredFriends,
-				searchQueryString = trimmedSearchText,
-				itemListIndex = i,
-				isSuggestedUser = false,
-			})
-		end
+			return entries
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				friends :: any,
+				nextPageCursor,
+				noFriendsText,
+				status,
+				namesFetch.data,
+				suggestedCallees,
+				trimmedSearchText,
+				localized.friendsDescription,
+				localized.friendsTitle,
+				localized.suggestedFriendsDescription,
+				localized.suggestedFriendsTitle,
+			}
+			else dependencyArray(
+				friends,
+				nextPageCursor,
+				noFriendsText,
+				status,
+				namesFetch.data,
+				suggestedCallees,
+				trimmedSearchText,
+				localized.friendsDescription,
+				localized.friendsTitle,
+				localized.suggestedFriendsDescription,
+				localized.suggestedFriendsTitle
+			)
+	)
 
-		if nextPageCursor ~= nil then
-			-- This renders an extra component like refresh button or a loading
-			-- indicator. We do not want either when there is no next page.
-			local index = #entries + 1
-			if status == RetrievalStatus.Failed then
-				entries[index] = noFriendsText
-			else
-				entries[index] = React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
-					BackgroundTransparency = 1,
-					LayoutOrder = index,
-				}, {
-					LoadingSpinner = React.createElement(LoadingSpinner, {
-						size = IconSize.Large,
-						Position = UDim2.fromScale(0.5, 0.5),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-					}),
-				})
+	local onFetchNextPage = React.useCallback(
+		function(f)
+			if
+				not isLoading.current
+				and status ~= RetrievalStatus.Failed
+				and nextPageCursor ~= nil
+				and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
+			then
+				getFriends(friends, nextPageCursor)
 			end
-		end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { friends :: any, getFriends, nextPageCursor, status }
+			else dependencyArray(friends, getFriends, nextPageCursor, status)
+	)
 
-		return entries
-	end, {
-		friends :: any,
-		nextPageCursor,
-		noFriendsText,
-		status,
-		namesFetch.data,
-		suggestedCallees,
-		trimmedSearchText,
-		localized.friendsDescription,
-		localized.friendsTitle,
-		localized.suggestedFriendsDescription,
-		localized.suggestedFriendsTitle,
-	})
+	React.useEffect(
+		function()
+			-- This is used to handle the case where the number of records is less
+			-- than the height of the list. That means the list will never be
+			-- scrollable to fetch more items. This does not check if there is a
+			-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
+			local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
 
-	local onFetchNextPage = React.useCallback(function(f)
-		if
-			not isLoading.current
-			and status ~= RetrievalStatus.Failed
-			and nextPageCursor ~= nil
-			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
-		then
-			getFriends(friends, nextPageCursor)
-		end
-	end, { friends :: any, getFriends, nextPageCursor, status })
-
-	React.useEffect(function()
-		-- This is used to handle the case where the number of records is less
-		-- than the height of the list. That means the list will never be
-		-- scrollable to fetch more items. This does not check if there is a
-		-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
-		local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
-
-		if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
-			onFetchNextPage(scrollingFrameRef.current)
-		end
-	end, { children :: any, onFetchNextPage })
+			if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
+				onFetchNextPage(scrollingFrameRef.current)
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { children :: any, onFetchNextPage }
+			else dependencyArray(children, onFetchNextPage)
+	)
 
 	return if #friends == 0 and status == RetrievalStatus.Fetching
 		then React.createElement("Frame", {
@@ -476,9 +527,9 @@ local function FriendListContainer(props: Props)
 			BackgroundTransparency = 1,
 		}, {
 			LoadingSpinner = React.createElement(LoadingSpinner, {
-				size = IconSize.Large,
-				Position = UDim2.fromScale(0.5, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5),
+				size = UDim2.fromOffset(48, 48),
+				position = UDim2.fromScale(0.5, 0.5),
+				anchorPoint = Vector2.new(0.5, 0.5),
 			}),
 		})
 		elseif #friends == 0 then noFriendsText

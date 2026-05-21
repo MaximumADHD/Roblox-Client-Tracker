@@ -23,7 +23,6 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
-local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -98,17 +97,8 @@ local function configureUnibar()
 	if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
 		table.insert(nineDot, "people")
 		table.insert(nineDot, "settings")
-
-		table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-		table.insert(nineDot, "trust_and_safety")
-
 		table.insert(nineDot, "gallery")
 		table.insert(nineDot, "help")
-	end
-
-	if FFlagEnableInExperienceShop then
-		-- Pin Shop to the 2nd position in the nine-dot menu.
-		table.insert(nineDot, 2, Constants.IN_EXPERIENCE_SHOP_ID)
 	end
 
 	ChromeService:configureSubMenu("nine_dot", nineDot)

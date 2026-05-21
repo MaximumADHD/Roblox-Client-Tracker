@@ -197,8 +197,6 @@ type _Messages =
 		PlayButtonContextualMessageSchema_Props: _PlayButtonContextualMessageSchema_PropsMessage,
 		ContentRowSchema: _ContentRowSchemaMessage,
 		ContentRowSchema_Props: _ContentRowSchema_PropsMessage,
-		AgeCheckUpsellRowSchema: _AgeCheckUpsellRowSchemaMessage,
-		AgeCheckUpsellRowSchema_Props: _AgeCheckUpsellRowSchema_PropsMessage,
 		FilterPillsCarouselSchema: _FilterPillsCarouselSchemaMessage,
 		FilterPillsCarouselSchema_Props: _FilterPillsCarouselSchema_PropsMessage,
 		CoachmarkActionProp: _CoachmarkActionPropMessage,
@@ -6773,79 +6771,6 @@ export type ContentRowSchema_Props = typeof(setmetatable(
 ))
 type _ContentRowSchema_PropsMessage = proto.Message<ContentRowSchema_Props, _ContentRowSchema_PropsPartialFields>
 
-type _AgeCheckUpsellRowSchemaImpl = {
-	__index: _AgeCheckUpsellRowSchemaImpl,
-	new: (fields: _AgeCheckUpsellRowSchemaPartialFields?) -> AgeCheckUpsellRowSchema,
-	encode: (self: AgeCheckUpsellRowSchema) -> buffer,
-	decode: (input: buffer) -> AgeCheckUpsellRowSchema,
-	jsonEncode: (self: AgeCheckUpsellRowSchema) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> AgeCheckUpsellRowSchema,
-	descriptor: proto.Descriptor,
-}
-
-type _AgeCheckUpsellRowSchemaFields = {
-	props: AgeCheckUpsellRowSchema_Props?,
-	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
-}
-
-type _AgeCheckUpsellRowSchemaPartialFields = {
-	props: AgeCheckUpsellRowSchema_Props?,
-	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
-}
-
-export type AgeCheckUpsellRowSchema = typeof(setmetatable(
-	{} :: _AgeCheckUpsellRowSchemaFields,
-	{} :: _AgeCheckUpsellRowSchemaImpl
-))
-type _AgeCheckUpsellRowSchemaMessage = proto.Message<AgeCheckUpsellRowSchema, _AgeCheckUpsellRowSchemaPartialFields>
-
-type _AgeCheckUpsellRowSchema_PropsImpl = {
-	__index: _AgeCheckUpsellRowSchema_PropsImpl,
-	new: (fields: _AgeCheckUpsellRowSchema_PropsPartialFields?) -> AgeCheckUpsellRowSchema_Props,
-	encode: (self: AgeCheckUpsellRowSchema_Props) -> buffer,
-	decode: (input: buffer) -> AgeCheckUpsellRowSchema_Props,
-	jsonEncode: (self: AgeCheckUpsellRowSchema_Props) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> AgeCheckUpsellRowSchema_Props,
-	descriptor: proto.Descriptor,
-}
-
-type _AgeCheckUpsellRowSchema_PropsFields = {
-	leading: NestedComponentListProp?,
-	content: NestedComponentListProp?,
-	trailing: NestedComponentListProp?,
-	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	leading_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	trailing_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
-	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
-	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
-}
-
-type _AgeCheckUpsellRowSchema_PropsPartialFields = {
-	leading: NestedComponentListProp?,
-	content: NestedComponentListProp?,
-	trailing: NestedComponentListProp?,
-	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	leading_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	trailing_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
-	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
-	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
-}
-
-export type AgeCheckUpsellRowSchema_Props = typeof(setmetatable(
-	{} :: _AgeCheckUpsellRowSchema_PropsFields,
-	{} :: _AgeCheckUpsellRowSchema_PropsImpl
-))
-type _AgeCheckUpsellRowSchema_PropsMessage = proto.Message<
-	AgeCheckUpsellRowSchema_Props,
-	_AgeCheckUpsellRowSchema_PropsPartialFields
->
-
 type _FilterPillsCarouselSchemaImpl = {
 	__index: _FilterPillsCarouselSchemaImpl,
 	new: (fields: _FilterPillsCarouselSchemaPartialFields?) -> FilterPillsCarouselSchema,
@@ -7964,7 +7889,6 @@ type _UiComponentSchemaFields = {
 		| { type: "system_banner", value: SystemBannerSchema }
 		| { type: "play_with_reward", value: PlayWithRewardSchema }
 		| { type: "icon_button", value: IconButtonSchema }
-		| { type: "age_check_upsell_row", value: AgeCheckUpsellRowSchema }
 	)?,
 }
 
@@ -8029,7 +7953,6 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "system_banner", value: SystemBannerSchema }
 		| { type: "play_with_reward", value: PlayWithRewardSchema }
 		| { type: "icon_button", value: IconButtonSchema }
-		| { type: "age_check_upsell_row", value: AgeCheckUpsellRowSchema }
 	)?,
 }
 
@@ -48301,456 +48224,6 @@ do
 end
 
 do
-	local _AgeCheckUpsellRowSchemaImpl = {}
-	_AgeCheckUpsellRowSchemaImpl.__index = _AgeCheckUpsellRowSchemaImpl
-
-	function _AgeCheckUpsellRowSchemaImpl.new(data: _AgeCheckUpsellRowSchemaPartialFields?): AgeCheckUpsellRowSchema
-		return setmetatable({
-			props = if data == nil or data.props == nil then nil else data.props,
-			shared = if data == nil or data.shared == nil then nil else data.shared,
-		}, _AgeCheckUpsellRowSchemaImpl :: _AgeCheckUpsellRowSchemaImpl)
-	end
-
-	function _AgeCheckUpsellRowSchemaImpl.encode(self: AgeCheckUpsellRowSchema): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.props ~= nil then
-			local encoded = self.props:encode()
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.shared ~= nil then
-			local encoded = self.shared:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _AgeCheckUpsellRowSchemaImpl.decode(input: buffer): AgeCheckUpsellRowSchema
-		local self = _AgeCheckUpsellRowSchemaImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.props = messages.AgeCheckUpsellRowSchema_Props.decode(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _AgeCheckUpsellRowSchemaImpl.jsonEncode(self: AgeCheckUpsellRowSchema): any
-		local output = {}
-
-		if self.props ~= nil then
-			output.props = self.props:jsonEncode()
-		end
-
-		if self.shared ~= nil then
-			output.shared = self.shared:jsonEncode()
-		end
-
-		return output
-	end
-
-	function _AgeCheckUpsellRowSchemaImpl.jsonDecode(input: { [string]: any }): AgeCheckUpsellRowSchema
-		local self = _AgeCheckUpsellRowSchemaImpl.new()
-
-		if input.props ~= nil then
-			self.props = messages.AgeCheckUpsellRowSchema_Props.jsonDecode(input.props)
-		end
-
-		if input.shared ~= nil then
-			self.shared =
-				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
-		end
-
-		return self
-	end
-
-	_AgeCheckUpsellRowSchemaImpl.descriptor = {
-		name = "AgeCheckUpsellRowSchema",
-		fullName = "roblox.apppageplatform.shared.v1beta1.AgeCheckUpsellRowSchema",
-	}
-
-	messages.AgeCheckUpsellRowSchema = _AgeCheckUpsellRowSchemaImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.AgeCheckUpsellRowSchema)
-end
-
-do
-	local _AgeCheckUpsellRowSchema_PropsImpl = {}
-	_AgeCheckUpsellRowSchema_PropsImpl.__index = _AgeCheckUpsellRowSchema_PropsImpl
-
-	function _AgeCheckUpsellRowSchema_PropsImpl.new(
-		data: _AgeCheckUpsellRowSchema_PropsPartialFields?
-	): AgeCheckUpsellRowSchema_Props
-		return setmetatable({
-			leading = if data == nil or data.leading == nil then nil else data.leading,
-			content = if data == nil or data.content == nil then nil else data.content,
-			trailing = if data == nil or data.trailing == nil then nil else data.trailing,
-			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
-			tag = if data == nil or data.tag == nil then nil else data.tag,
-			leading_tag = if data == nil or data.leading_tag == nil then nil else data.leading_tag,
-			content_tag = if data == nil or data.content_tag == nil then nil else data.content_tag,
-			trailing_tag = if data == nil or data.trailing_tag == nil then nil else data.trailing_tag,
-			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
-			position = if data == nil or data.position == nil then nil else data.position,
-			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
-		}, _AgeCheckUpsellRowSchema_PropsImpl :: _AgeCheckUpsellRowSchema_PropsImpl)
-	end
-
-	function _AgeCheckUpsellRowSchema_PropsImpl.encode(self: AgeCheckUpsellRowSchema_Props): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.leading ~= nil then
-			local encoded = self.leading:encode()
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.content ~= nil then
-			local encoded = self.content:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.trailing ~= nil then
-			local encoded = self.trailing:encode()
-			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.on_activated ~= nil then
-			local encoded = self.on_activated:encode()
-			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.tag ~= nil then
-			local encoded = self.tag:encode()
-			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.leading_tag ~= nil then
-			local encoded = self.leading_tag:encode()
-			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.content_tag ~= nil then
-			local encoded = self.content_tag:encode()
-			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.trailing_tag ~= nil then
-			local encoded = self.trailing_tag:encode()
-			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.layout_order ~= nil then
-			local encoded = self.layout_order:encode()
-			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.position ~= nil then
-			local encoded = self.position:encode()
-			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.z_index ~= nil then
-			local encoded = self.z_index:encode()
-			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _AgeCheckUpsellRowSchema_PropsImpl.decode(input: buffer): AgeCheckUpsellRowSchema_Props
-		local self = _AgeCheckUpsellRowSchema_PropsImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.leading = messages.NestedComponentListProp.decode(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.content = messages.NestedComponentListProp.decode(value)
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.trailing = messages.NestedComponentListProp.decode(value)
-					continue
-				elseif field == 4 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
-					continue
-				elseif field == 5 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 6 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.leading_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 7 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.content_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 8 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.trailing_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 9 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
-					continue
-				elseif field == 10 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
-					continue
-				elseif field == 11 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _AgeCheckUpsellRowSchema_PropsImpl.jsonEncode(self: AgeCheckUpsellRowSchema_Props): any
-		local output = {}
-
-		if self.leading ~= nil then
-			output.leading = self.leading:jsonEncode()
-		end
-
-		if self.content ~= nil then
-			output.content = self.content:jsonEncode()
-		end
-
-		if self.trailing ~= nil then
-			output.trailing = self.trailing:jsonEncode()
-		end
-
-		if self.on_activated ~= nil then
-			output.onActivated = self.on_activated:jsonEncode()
-		end
-
-		if self.tag ~= nil then
-			output.tag = self.tag:jsonEncode()
-		end
-
-		if self.leading_tag ~= nil then
-			output.leadingTag = self.leading_tag:jsonEncode()
-		end
-
-		if self.content_tag ~= nil then
-			output.contentTag = self.content_tag:jsonEncode()
-		end
-
-		if self.trailing_tag ~= nil then
-			output.trailingTag = self.trailing_tag:jsonEncode()
-		end
-
-		if self.layout_order ~= nil then
-			output.layoutOrder = self.layout_order:jsonEncode()
-		end
-
-		if self.position ~= nil then
-			output.position = self.position:jsonEncode()
-		end
-
-		if self.z_index ~= nil then
-			output.zIndex = self.z_index:jsonEncode()
-		end
-
-		return output
-	end
-
-	function _AgeCheckUpsellRowSchema_PropsImpl.jsonDecode(input: { [string]: any }): AgeCheckUpsellRowSchema_Props
-		local self = _AgeCheckUpsellRowSchema_PropsImpl.new()
-
-		if input.leading ~= nil then
-			self.leading = messages.NestedComponentListProp.jsonDecode(input.leading)
-		end
-
-		if input.content ~= nil then
-			self.content = messages.NestedComponentListProp.jsonDecode(input.content)
-		end
-
-		if input.trailing ~= nil then
-			self.trailing = messages.NestedComponentListProp.jsonDecode(input.trailing)
-		end
-
-		if input.on_activated ~= nil then
-			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_activated)
-		end
-
-		if input.onActivated ~= nil then
-			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onActivated)
-		end
-
-		if input.tag ~= nil then
-			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
-		end
-
-		if input.leading_tag ~= nil then
-			self.leading_tag =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.leading_tag)
-		end
-
-		if input.leadingTag ~= nil then
-			self.leading_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.leadingTag)
-		end
-
-		if input.content_tag ~= nil then
-			self.content_tag =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.content_tag)
-		end
-
-		if input.contentTag ~= nil then
-			self.content_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.contentTag)
-		end
-
-		if input.trailing_tag ~= nil then
-			self.trailing_tag =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.trailing_tag)
-		end
-
-		if input.trailingTag ~= nil then
-			self.trailing_tag =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.trailingTag)
-		end
-
-		if input.layout_order ~= nil then
-			self.layout_order =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layout_order)
-		end
-
-		if input.layoutOrder ~= nil then
-			self.layout_order =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
-		end
-
-		if input.position ~= nil then
-			self.position =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.position)
-		end
-
-		if input.z_index ~= nil then
-			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.z_index)
-		end
-
-		if input.zIndex ~= nil then
-			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
-		end
-
-		return self
-	end
-
-	_AgeCheckUpsellRowSchema_PropsImpl.descriptor = {
-		name = "AgeCheckUpsellRowSchema_Props",
-		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
-	}
-
-	messages.AgeCheckUpsellRowSchema_Props = _AgeCheckUpsellRowSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.AgeCheckUpsellRowSchema_Props)
-end
-
-do
 	local _FilterPillsCarouselSchemaImpl = {}
 	_FilterPillsCarouselSchemaImpl.__index = _FilterPillsCarouselSchemaImpl
 
@@ -55256,10 +54729,6 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 59, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "age_check_upsell_row" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 60, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -55597,12 +55066,6 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "icon_button", value = messages.IconButtonSchema.decode(value) }
 					continue
-				elseif field == 60 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "age_check_upsell_row", value = messages.AgeCheckUpsellRowSchema.decode(value) }
-					continue
 				end
 
 				local length
@@ -55749,8 +55212,6 @@ do
 				output.playWithReward = self.kind.value:jsonEncode()
 			elseif self.kind.type == "icon_button" then
 				output.iconButton = self.kind.value:jsonEncode()
-			elseif self.kind.type == "age_check_upsell_row" then
-				output.ageCheckUpsellRow = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -56280,20 +55741,6 @@ do
 			self.kind = { type = "icon_button", value = messages.IconButtonSchema.jsonDecode(input.iconButton) }
 		end
 
-		if input.age_check_upsell_row ~= nil then
-			self.kind = {
-				type = "age_check_upsell_row",
-				value = messages.AgeCheckUpsellRowSchema.jsonDecode(input.age_check_upsell_row),
-			}
-		end
-
-		if input.ageCheckUpsellRow ~= nil then
-			self.kind = {
-				type = "age_check_upsell_row",
-				value = messages.AgeCheckUpsellRowSchema.jsonDecode(input.ageCheckUpsellRow),
-			}
-		end
-
 		return self
 	end
 
@@ -56492,8 +55939,6 @@ return {
 	PlayButtonContextualMessageSchema_Props = messages.PlayButtonContextualMessageSchema_Props,
 	ContentRowSchema = messages.ContentRowSchema,
 	ContentRowSchema_Props = messages.ContentRowSchema_Props,
-	AgeCheckUpsellRowSchema = messages.AgeCheckUpsellRowSchema,
-	AgeCheckUpsellRowSchema_Props = messages.AgeCheckUpsellRowSchema_Props,
 	FilterPillsCarouselSchema = messages.FilterPillsCarouselSchema,
 	FilterPillsCarouselSchema_Props = messages.FilterPillsCarouselSchema_Props,
 	CoachmarkActionProp = messages.CoachmarkActionProp,

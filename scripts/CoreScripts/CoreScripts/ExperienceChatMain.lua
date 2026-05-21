@@ -38,6 +38,8 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
+local GetFFlagShowLikelySpeakingBubbles =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local IsSpatialRobloxGuiEnabled = require(RobloxGui.Modules.VR.IsSpatialRobloxGuiEnabled)
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
@@ -46,6 +48,11 @@ local getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.get
 local onClickedVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedVoiceIndicator)
 
 local getPermissions
+local onClickedLikelySpeakingBubble
+
+if GetFFlagShowLikelySpeakingBubbles() then
+	onClickedLikelySpeakingBubble = require(RobloxGui.Modules.VoiceChat.Components.onClickedLikelySpeakingBubble)
+end
 
 if ChromeEnabled then
 	getPermissions = require(RobloxGui.Modules.VoiceChat.Components.getPermissions)
@@ -119,6 +126,7 @@ ExperienceChat.mountClientApp({
 	validateLegacyBubbleChatSettings = if validateLegacyBubbleChatSettings
 		then validateLegacyBubbleChatSettings
 		else nil,
+	onClickedLikelySpeakingBubble = if onClickedLikelySpeakingBubble then onClickedLikelySpeakingBubble else nil,
 	translator = RobloxTranslator :: any,
 	gameTranslator = GameTranslator :: any,
 	parent = screenGui,

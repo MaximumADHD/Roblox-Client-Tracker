@@ -19,8 +19,6 @@ local FFlagRefactorPeoplePage = require(Modules.Settings.Flags.FFlagRefactorPeop
 local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
 local FFlagRelocateMobileMenuButtons = require(Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
-local FFlagIEMFocusNavPeoplePageToButtons =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagIEMFocusNavPeoplePageToButtons
 
 -- Chrome check
 local Chrome = RobloxGui.Modules.Chrome
@@ -37,7 +35,7 @@ local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCo
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local BlockingModalScreen = require(Modules.Settings.Components.Blocking.BlockingModalScreen)
-local migrationLookup = BuilderIcons.Migration["uiblox"]
+local migrationLookup = BuilderIcons.Migration['uiblox']
 local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
 
 -- Focus Navigation
@@ -69,9 +67,10 @@ local function PeopleFocusRoot(props)
 
 	return React.createElement(FocusRoot, {
 		surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
-		isAutoFocusRoot = if FFlagIEMFocusNavPeoplePageToButtons then false else shouldAutoFocus,
+		isAutoFocusRoot = shouldAutoFocus,
 	}, props.children)
 end
+
 
 -- Returns GameSettings Page with Settings Framework
 local function createPeoplePage()
@@ -107,18 +106,12 @@ local function createPeoplePage()
 			return
 		end
 
-		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards()
-				or FFlagEnablePeopleListLazyRender
-				or FFlagPeopleCardsEnableVirtualizedGrid
-			then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame")
-			else nil
+		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender or FFlagPeopleCardsEnableVirtualizedGrid then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
 
-		local function PeopleConditionalView()
-			-- lute-lint-ignore(rulesOfHooks)
+		local PeopleConditionalView = function()
 			local displayed = SignalsReact.useSignalState(getDisplayed)
 
-			local People = if displayed
-				then React.createElement(CoreScriptsRootProvider, {}, {
+			local People = if displayed then React.createElement(CoreScriptsRootProvider, {}, {
 					LocalizationProvider = React.createElement(LocalizationProvider, {
 						localization = locales,
 					}, {
@@ -126,47 +119,26 @@ local function createPeoplePage()
 							PeopleReactView = React.createElement(PeopleReactView, {
 								blockingModalScreen = BlockingModalScreen,
 								blockingFlags = {},
-								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards()
-										or FFlagEnablePeopleListLazyRender
-										or FFlagPeopleCardsEnableVirtualizedGrid
-									then scrollingFrame
-									else nil,
+								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender or FFlagPeopleCardsEnableVirtualizedGrid then scrollingFrame else nil,
 								chromeEnabled = ChromeEnabled,
-								getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore
-									then LocalStore.getUniversesExposedTo
-									else nil,
-								addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore
-									then LocalStore.addUniverseToExposureList
-									else nil,
-							}),
-						}),
-					}),
-				})
-				else nil
+								getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,
+								addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.addUniverseToExposureList else nil,
+							})
+						})
+					})
+				}) else nil
 
 			return People
 		end
 
 		tree = ReactRoblox.createRoot(PeoplePage.Page)
-		if tree then
-			tree:render(React.createElement(PeopleConditionalView))
-		end
+		if tree then tree:render(React.createElement(PeopleConditionalView)) end
 	end
 
 	PeoplePage.Displayed.Event:Connect(function()
 		if not FFlagRenderPeoplePageOnTabSwitch or not getDisplayed(false) then
 			createReactTree()
 			setDisplayed(true)
-		end
-
-		if FFlagIEMFocusNavPeoplePageToButtons then
-			local menuContainer = PeoplePage.Page:FindFirstAncestor("MenuContainer")
-			if menuContainer then
-				local bottomFrame = menuContainer:FindFirstChild("BottomButtonFrame", true)
-				if bottomFrame then
-					bottomFrame.SelectionBehaviorUp = Enum.SelectionBehavior.Escape
-				end
-			end
 		end
 	end)
 

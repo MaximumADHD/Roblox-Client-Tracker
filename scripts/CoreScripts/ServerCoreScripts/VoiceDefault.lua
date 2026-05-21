@@ -12,6 +12,8 @@ local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", fa
 local FFlagSetNewDeviceToFalse = game:DefineFastFlag("SetNewDeviceToFalse", false)
 local FFlagFixNewPlayerCheck = game:DefineFastFlag("FixNewPlayerCheck", false)
 local FFlagOnlyMakeInputsForVoiceUsers = game:DefineFastFlag("OnlyMakeInputsForVoiceUsers", false)
+local FFlagSendLikelySpeakingUsers = game:DefineFastFlag("SendLikelySpeakingUsers", false)
+local FFlagReceiveLikelySpeakingUsersEvent = game:DefineFastFlag("ReceiveLikelySpeakingUsersEventV3", false)
 local FFlagUseAudioInstanceAdded = game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
 local function log(...)
@@ -254,3 +256,48 @@ if (VoiceChatService :: any).UseNewAudioApi then
 	end)
 end
 
+if FFlagSendLikelySpeakingUsers then
+	-- We use an unreliable event here because it isn't a big deal if a user doesn't see the latest likely speaking users
+	local SendLikelySpeakingUsers = Instance.new("UnreliableRemoteEvent")
+	SendLikelySpeakingUsers.Name = "SendLikelySpeakingUsers"
+	SendLikelySpeakingUsers.Parent = RobloxReplicatedStorage
+	local likelySpeakingPlayers: { [number]: boolean } = {}
+	local canPollLikelySpeaking: { [number]: boolean } = {}
+	log("Setting up likely speaking users")
+	Players.PlayerAdded:Connect(function(player)
+		local ok, result = pcall(function()
+			return VoiceChatService:IsVoiceEnabledForUserIdAsync(player.UserId)
+		end)
+		canPollLikelySpeaking[player.UserId] = true
+		if ok and result then
+			log("Sending likely speaking user for ", player.Name)
+			likelySpeakingPlayers[player.UserId] = true
+			-- Is there a way to lower priority on this?
+			SendLikelySpeakingUsers:FireAllClients(likelySpeakingPlayers)
+		elseif not ok then
+			log("Error getting voice enabled status: ", result, " for ", player.Name)
+		end
+	end)
+	Players.PlayerRemoving:Connect(function(player)
+		-- We don't need to send any events here. This is only to stop likelySpeakingPlayers from growing excessively large
+		likelySpeakingPlayers[player.UserId] = nil
+		canPollLikelySpeaking[player.UserId] = nil
+	end)
+
+	if FFlagReceiveLikelySpeakingUsersEvent then
+		-- This allows clients to poll for LikelySpeakingUsers
+		log("Setting Up ReceiveLikelySpeakingUsers")
+		local ReceiveLikelySpeakingUsers = Instance.new("RemoteEvent")
+		ReceiveLikelySpeakingUsers.Name = "ReceiveLikelySpeakingUsers"
+		ReceiveLikelySpeakingUsers.Parent = RobloxReplicatedStorage
+		ReceiveLikelySpeakingUsers.OnServerEvent:Connect(function(player)
+			log("Got Ping Request from ", player.Name)
+			-- Players can only call this once per session
+			if canPollLikelySpeaking[player.UserId] then
+				canPollLikelySpeaking[player.UserId] = nil
+				SendLikelySpeakingUsers:FireClient(player, likelySpeakingPlayers)
+				log("Sending likely speaking users to ", player.Name)
+			end
+		end)
+	end
+end

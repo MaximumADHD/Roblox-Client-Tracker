@@ -5,7 +5,6 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
-local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 
 return {
 	OverflowMenu = require(script.OverflowMenu),
@@ -30,5 +29,4 @@ return {
 	Settings = if FFlagAddIGMToSideSheet then require(script.Pages.Settings) else nil,
 	Gallery = if FFlagAddIGMToSideSheet then require(script.Pages.Gallery) else nil,
 	Help = if FFlagAddIGMToSideSheet then require(script.Pages.Help) else nil,
-	ShopEntrypoint = if FFlagEnableInExperienceShop then require(script.InExperienceShop.ShopEntrypoint) else nil,
 }

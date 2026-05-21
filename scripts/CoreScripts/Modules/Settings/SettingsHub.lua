@@ -98,7 +98,6 @@ local GET_SERVER_CHANNEL_RETRIES = game:DefineFastInt("GetServerChannelRetries",
 -- [[ FAST FLAGS ]]
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SettingsFlags = require(script.Parent.Flags)
-local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePageToButtons
 
 local Flags = {
 	EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId"),
@@ -255,7 +254,7 @@ local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 local FFlagFixReportButtonCutOff = game:DefineFastFlag("FixReportButtonCutOff", false)
 
-local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 
 local SettingsShowSignal = if Flags.GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal else nil
 local SettingsUtility = if Flags.GetFFlagPackagifySettingsShowSignal() then require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsUtility else nil
@@ -1492,14 +1491,6 @@ local function CreateSettingsHub()
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Parent = this.MenuContainer
 		}
-
-		if FFlagIEMFocusNavPeoplePageToButtons then
-			this.Page.SelectionGroup = true
-			this.Page.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
-			this.Page.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
-			this.Page.SelectionBehaviorLeft = Enum.SelectionBehavior.Stop
-			this.Page.SelectionBehaviorRight = Enum.SelectionBehavior.Stop
-		end
 
 		local menuParent = this.Page
 		this.MenuContainerPadding = Create'UIPadding'

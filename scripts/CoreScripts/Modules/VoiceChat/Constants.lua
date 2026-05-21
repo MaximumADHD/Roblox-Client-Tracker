@@ -63,6 +63,7 @@ local MODAL_IDS = {
 
 local IN_EXP_UPSELL_ENTRYPOINTS = {
 	JOIN_VOICE = "joinVoiceButton",
+	LIKELY_SPEAKING = "likelySpeakingBubble",
 }
 
 local IN_EXP_PHONE_UPSELL_IXP_LAYER = "InExperience.UpsellCard"

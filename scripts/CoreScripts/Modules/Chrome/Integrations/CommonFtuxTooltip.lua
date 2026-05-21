@@ -8,6 +8,7 @@ local UserInputService = game:GetService("UserInputService")
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 
 local React = require(CorePackages.Packages.React)
+local dependencyArray = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.dependencyArray
 local Cryo = require(CorePackages.Packages.Cryo)
 local ChromeService = require(Chrome.Service)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
@@ -18,6 +19,9 @@ local useIsTooltipShown = require(Chrome.ChromeShared.Unibar.Tooltips.useIsToolt
 local menuIconHoveredSignal = require(Chrome.Parent.TopBar.Components.Presentation.menuIconHoveredSignal)
 
 local FtuxTooltipAnchor = require(Chrome.Integrations.FtuxTooltipAnchor)
+
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 
 type TooltipContextType = TooltipProvider.ContextType
 
@@ -112,21 +116,26 @@ local FtuxTooltip = function(props)
 		end
 	end, { dismissed, tooltipDelayPassed, canShowTooltip } :: { any })
 
-	React.useEffect(function()
-		if tooltipQueue and props.id and canShowTooltip then
-			tooltipQueue.registerTooltip(
-				props.id,
-				props.priority,
-				props.showDelay or defaultProps.showDelay,
-				props.dismissDelay or defaultProps.dismissDelay
-			)
-		end
-		return function()
+	React.useEffect(
+		function()
 			if tooltipQueue and props.id and canShowTooltip then
-				tooltipQueue.unregisterTooltip(props.id)
+				tooltipQueue.registerTooltip(
+					props.id,
+					props.priority,
+					props.showDelay or defaultProps.showDelay,
+					props.dismissDelay or defaultProps.dismissDelay
+				)
 			end
-		end
-	end, { canShowTooltip :: any, props.id })
+			return function()
+				if tooltipQueue and props.id and canShowTooltip then
+					tooltipQueue.unregisterTooltip(props.id)
+				end
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { canShowTooltip :: any, props.id }
+			else dependencyArray(canShowTooltip, props.id)
+	)
 
 	React.useEffect(function()
 		-- Currently, interacting with any Chrome element or the menu should dismiss the tooltip

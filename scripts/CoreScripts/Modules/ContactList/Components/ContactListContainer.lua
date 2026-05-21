@@ -21,6 +21,7 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 
+local dependencyArray = dependencies.Hooks.dependencyArray
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
 
@@ -42,6 +43,9 @@ local OpenOrUpdateDialog = require(ContactList.Actions.OpenOrUpdateDialog)
 local Pages = require(ContactList.Enums.Pages)
 
 local TopBarConstants = require(ContactList.Parent.TopBar.Constants)
+
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer :: Player
@@ -89,55 +93,60 @@ local function ContactListContainer()
 	end, {})
 	local currentPage = useSelector(selectCurrentPage)
 
-	React.useEffect(function()
-		local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
-			function(player: any, tag: string)
-				if localPlayer and localPlayer.UserId == player.UserId then
-					if not isSpatialMode then
-						dispatch(SetCurrentTag(tag))
-						analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
-							eventTimestampMs = os.time() * 1000,
-							startingPage = currentPage,
-							destinationPage = Pages.CallHistory,
-						})
-						dispatch(SetCurrentPage(Pages.CallHistory))
+	React.useEffect(
+		function()
+			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
+				function(player: any, tag: string)
+					if localPlayer and localPlayer.UserId == player.UserId then
+						if not isSpatialMode then
+							dispatch(SetCurrentTag(tag))
+							analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+								eventTimestampMs = os.time() * 1000,
+								startingPage = currentPage,
+								destinationPage = Pages.CallHistory,
+							})
+							dispatch(SetCurrentPage(Pages.CallHistory))
 
-						SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-					else
-						dispatch(
-							OpenOrUpdateDialog(
-								RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
-								RobloxTranslator:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"),
-								function()
-									SocialService:InvokeIrisInvitePromptClosed(localPlayer)
-								end
+							SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+						else
+							dispatch(
+								OpenOrUpdateDialog(
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Label.OhNo"),
+									RobloxTranslator:FormatByKey("Feature.Call.Error.Description.DeviceNotSupported"),
+									function()
+										SocialService:InvokeIrisInvitePromptClosed(localPlayer)
+									end
+								)
 							)
-						)
+						end
 					end
 				end
-			end
-		)
+			)
 
-		local closeEvent: any
-		closeEvent = SocialService.PhoneBookPromptClosed
-		local phoneBookPromptClosedConn = closeEvent:Connect(function(player: any)
-			if localPlayer and localPlayer.UserId == player.UserId then
-				analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
-					eventTimestampMs = os.time() * 1000,
-					startingPage = tostring(currentPage),
-					destinationPage = nil,
-				})
-				dispatch(SetCurrentPage(nil))
-				-- Increment the id so we create a new PeekView for the next open.
-				setContactListId(contactListId + 1)
-			end
-		end)
+			local closeEvent: any
+			closeEvent = SocialService.PhoneBookPromptClosed
+			local phoneBookPromptClosedConn = closeEvent:Connect(function(player: any)
+				if localPlayer and localPlayer.UserId == player.UserId then
+					analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+						eventTimestampMs = os.time() * 1000,
+						startingPage = tostring(currentPage),
+						destinationPage = nil,
+					})
+					dispatch(SetCurrentPage(nil))
+					-- Increment the id so we create a new PeekView for the next open.
+					setContactListId(contactListId + 1)
+				end
+			end)
 
-		return function()
-			promptIrisInviteRequestedConn:Disconnect()
-			phoneBookPromptClosedConn:Disconnect()
-		end
-	end, { contactListId :: any, currentPage })
+			return function()
+				promptIrisInviteRequestedConn:Disconnect()
+				phoneBookPromptClosedConn:Disconnect()
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { contactListId :: any, currentPage }
+			else dependencyArray(contactListId, currentPage)
+	)
 
 	local dismissCallback = React.useCallback(function()
 		if not isSmallScreen and contactListContainerRef.current then
@@ -248,78 +257,90 @@ local function ContactListContainer()
 	end, { currentPage })
 
 	-- Use an ImageButton here so that it acts as a click sink
-	local contactListContainerContent = React.useMemo(function()
-		local currentContainer
-		if currentPage == Pages.CallHistory then
-			currentContainer = React.createElement(CallHistoryContainer, {
-				dismissCallback = dismissCallback,
-				isSmallScreen = isSmallScreen,
-				scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
-				searchText = searchText,
-			}) :: any
-		elseif currentPage == Pages.FriendList then
-			currentContainer = React.createElement(FriendListContainer, {
-				dismissCallback = dismissCallback,
-				isSmallScreen = isSmallScreen,
-				scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
-				searchText = searchText,
-			}) :: any
-		end
+	local contactListContainerContent = React.useMemo(
+		function()
+			local currentContainer
+			if currentPage == Pages.CallHistory then
+				currentContainer = React.createElement(CallHistoryContainer, {
+					dismissCallback = dismissCallback,
+					isSmallScreen = isSmallScreen,
+					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
+					searchText = searchText,
+				}) :: any
+			elseif currentPage == Pages.FriendList then
+				currentContainer = React.createElement(FriendListContainer, {
+					dismissCallback = dismissCallback,
+					isSmallScreen = isSmallScreen,
+					scrollingEnabled = not isSmallScreen or expectedPeekViewState == PeekViewState.Full,
+					searchText = searchText,
+				}) :: any
+			end
 
-		return React.createElement("ImageButton", {
-			Size = if isSmallScreen
-				then UDim2.new(1, 0, 0, contactListContainerContentHeight - PEEK_HEADER_HEIGHT)
-				else UDim2.new(0, DOCKED_WIDTH, 1, -PHONEBOOK_CONTAINER_TOP_MARGIN),
-			Position = if isSmallScreen
-				then UDim2.new(0, 0, 0, 0)
-				else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
-			AutoButtonColor = false,
-			BackgroundColor3 = theme.BackgroundDefault.Color,
-			BackgroundTransparency = theme.BackgroundDefault.Transparency,
-			BorderSizePixel = 0,
-			ref = contactListContainerRef,
-		}, {
-			UICorner = if isSmallScreen
-				then nil
-				else React.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 12),
+			return React.createElement("ImageButton", {
+				Size = if isSmallScreen
+					then UDim2.new(1, 0, 0, contactListContainerContentHeight - PEEK_HEADER_HEIGHT)
+					else UDim2.new(0, DOCKED_WIDTH, 1, -PHONEBOOK_CONTAINER_TOP_MARGIN),
+				Position = if isSmallScreen
+					then UDim2.new(0, 0, 0, 0)
+					else UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
+				AutoButtonColor = false,
+				BackgroundColor3 = theme.BackgroundDefault.Color,
+				BackgroundTransparency = theme.BackgroundDefault.Transparency,
+				BorderSizePixel = 0,
+				ref = contactListContainerRef,
+			}, {
+				UICorner = if isSmallScreen
+					then nil
+					else React.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 12),
+					}),
+				UIPadding = React.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, PADDING),
 				}),
-			UIPadding = React.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, PADDING),
-			}),
-			Layout = React.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, PADDING),
-			}),
-			Header = React.createElement(ContactListHeader, {
-				currentPage = currentPage,
-				headerHeight = HEADER_HEIGHT,
-				layoutOrder = 1,
-				dismissCallback = dismissCallback,
-			}),
-			SearchBar = React.createElement(ContactListSearchBar, {
-				layoutOrder = 2,
-				onSearchChanged = onSearchChanged,
-				searchBarHeight = SEARCH_BAR_HEIGHT,
-				searchText = searchText,
-				onFocused = onSearchBarFocused,
-			}),
-			ContentContainer = React.createElement("Frame", {
-				BackgroundTransparency = 1,
-				LayoutOrder = 3,
-				Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING * 2)),
-			}, currentContainer),
-		})
-	end, {
-		contactListContainerContentHeight :: any,
-		currentPage,
-		dismissCallback,
-		expectedPeekViewState,
-		isSmallScreen,
-		searchText,
-	})
+				Layout = React.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, PADDING),
+				}),
+				Header = React.createElement(ContactListHeader, {
+					currentPage = currentPage,
+					headerHeight = HEADER_HEIGHT,
+					layoutOrder = 1,
+					dismissCallback = dismissCallback,
+				}),
+				SearchBar = React.createElement(ContactListSearchBar, {
+					layoutOrder = 2,
+					onSearchChanged = onSearchChanged,
+					searchBarHeight = SEARCH_BAR_HEIGHT,
+					searchText = searchText,
+					onFocused = onSearchBarFocused,
+				}),
+				ContentContainer = React.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = 3,
+					Size = UDim2.new(1, 0, 1, -(HEADER_HEIGHT + SEARCH_BAR_HEIGHT + PADDING * 2)),
+				}, currentContainer),
+			})
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				contactListContainerContentHeight :: any,
+				currentPage,
+				dismissCallback,
+				expectedPeekViewState,
+				isSmallScreen,
+				searchText,
+			}
+			else dependencyArray(
+				contactListContainerContentHeight,
+				currentPage,
+				dismissCallback,
+				expectedPeekViewState,
+				isSmallScreen,
+				searchText
+			)
+	)
 
 	local children: any = {}
 	if isSmallScreen then

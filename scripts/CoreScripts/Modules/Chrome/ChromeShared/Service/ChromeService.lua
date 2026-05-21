@@ -37,7 +37,6 @@ local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", fals
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagRequireSideSheetPackage = SharedFlags.FFlagRequireSideSheetPackage
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
-local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
@@ -782,7 +781,7 @@ end
 if FFlagEnableSideSheet then
 	function ChromeService:updateSideSheet()
 		local order = 0 -- A general order that items are adding to the menu. Can be used to control LayoutOrder
-		local toggle = {}
+		local vertical = {}
 		local unibar = {}
 		local page = {}
 
@@ -802,7 +801,7 @@ if FFlagEnableSideSheet then
 			elseif FFlagAddIGMToSideSheet and integration.sideSheetPlacement == SideSheetPlacement.Page then
 				table.insert(page, self:createIconProps(id, order))
 			else
-				table.insert(toggle, self:createIconProps(id, order))
+				table.insert(vertical, self:createIconProps(id, order))
 			end
 		end
 
@@ -824,17 +823,9 @@ if FFlagEnableSideSheet then
 			unibar = reverse(unibar)
 		end
 
-		if FIntSideSheetVariant == 0 then
-			for _, item in toggle do
-				table.insert(unibar, item)
-			end
-			toggle = unibar
-			unibar = {}
-		end
-
 		registerSideSheetIntegrations({
 			unibarIntegrations = unibar,
-			toggleIntegrations = toggle,
+			verticalIntegrations = vertical,
 			pageIntegrations = if FFlagAddIGMToSideSheet then page else {},
 		})
 	end

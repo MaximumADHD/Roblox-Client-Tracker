@@ -66,7 +66,6 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_SYSTEM_BANNER"
 	| "UI_COMPONENT_TYPE_PLAY_WITH_REWARD"
 	| "UI_COMPONENT_TYPE_ICON_BUTTON"
-	| "UI_COMPONENT_TYPE_AGE_CHECK_UPSELL_ROW"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -186,8 +185,6 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLAY_WITH_REWARD"
 		elseif value == 241 then
 			return "UI_COMPONENT_TYPE_ICON_BUTTON"
-		elseif value == 242 then
-			return "UI_COMPONENT_TYPE_AGE_CHECK_UPSELL_ROW"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -318,8 +315,6 @@ messages.UiComponentType = {
 			return 240
 		elseif self == "UI_COMPONENT_TYPE_ICON_BUTTON" then
 			return 241
-		elseif self == "UI_COMPONENT_TYPE_AGE_CHECK_UPSELL_ROW" then
-			return 242
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -450,8 +445,6 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLAY_WITH_REWARD"
 		elseif name == "UI_COMPONENT_TYPE_ICON_BUTTON" then
 			return "UI_COMPONENT_TYPE_ICON_BUTTON"
-		elseif name == "UI_COMPONENT_TYPE_AGE_CHECK_UPSELL_ROW" then
-			return "UI_COMPONENT_TYPE_AGE_CHECK_UPSELL_ROW"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

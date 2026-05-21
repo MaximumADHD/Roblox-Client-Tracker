@@ -21,16 +21,14 @@ local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 local Pages = require(ContactList.Enums.Pages)
 local dependencies = require(ContactList.dependencies)
 local NetworkingCall = dependencies.NetworkingCall
+local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
-local Foundation = dependencies.Foundation
-local IconSize = Foundation.Enums.IconSize
-local LoadingSpinner = Foundation.Loading
-
 local useLocalization = dependencies.Hooks.useLocalization
 local useSelector = dependencies.Hooks.useSelector
 
 local useStyle = UIBlox.Core.Style.useStyle
+local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
@@ -39,6 +37,9 @@ local NoItemView = require(ContactList.Components.ContactListCommon.NoItemView)
 local Constants = require(ContactList.Components.ContactListCommon.Constants)
 
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
+
+local FFlagRemoveDependencyArrayAntipattern =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -147,34 +148,47 @@ local function CallHistoryContainer(props: Props)
 		end
 	end, { status })
 
-	local noRecordsComponent = React.useMemo(function()
-		local message
-		if status == RetrievalStatus.Failed then
-			message = localized.genericErrorLabel
-		else
-			message = localized.noCallsLabel
-		end
+	local noRecordsComponent = React.useMemo(
+		function()
+			local message
+			if status == RetrievalStatus.Failed then
+				message = localized.genericErrorLabel
+			else
+				message = localized.noCallsLabel
+			end
 
-		return React.createElement(NoItemView, {
-			isImageEnabled = status ~= RetrievalStatus.Failed,
-			imageName = "icons/graphic/findfriends_xlarge",
-			isFailedButtonEnabled = status == RetrievalStatus.Failed,
-			onFailedButtonActivated = function()
-				getCallRecords(callRecords, nextPageCursor)
-			end,
-			isCallButtonEnabled = status == RetrievalStatus.Done,
-			onCallButtonActivated = navigateToNewCall,
-			messageText = message,
-		})
-	end, {
-		callRecords :: any,
-		getCallRecords,
-		localized.genericErrorLabel,
-		localized.noCallsLabel,
-		navigateToNewCall,
-		nextPageCursor,
-		status,
-	})
+			return React.createElement(NoItemView, {
+				isImageEnabled = status ~= RetrievalStatus.Failed,
+				imageName = "icons/graphic/findfriends_xlarge",
+				isFailedButtonEnabled = status == RetrievalStatus.Failed,
+				onFailedButtonActivated = function()
+					getCallRecords(callRecords, nextPageCursor)
+				end,
+				isCallButtonEnabled = status == RetrievalStatus.Done,
+				onCallButtonActivated = navigateToNewCall,
+				messageText = message,
+			})
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then {
+				callRecords :: any,
+				getCallRecords,
+				localized.genericErrorLabel,
+				localized.noCallsLabel,
+				navigateToNewCall,
+				nextPageCursor,
+				status,
+			}
+			else dependencyArray(
+				callRecords,
+				getCallRecords,
+				localized.genericErrorLabel,
+				localized.noCallsLabel,
+				navigateToNewCall,
+				nextPageCursor,
+				status
+			)
+	)
 
 	local touchStarted = React.useCallback(function(touch: InputObject)
 		initialPositionY.current = touch.Position.Y
@@ -199,81 +213,96 @@ local function CallHistoryContainer(props: Props)
 		setOverscrolling(false)
 	end, {})
 
-	local children: { any } = React.useMemo(function()
-		local entries: any = {}
-		entries["UIListLayout"] = React.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
-
-		local filteredCallRecords = {}
-		for i, callRecord in ipairs(callRecords) do
-			-- Get the participant that is not the local user
-			local otherParticipantId = callRecord.participants[1].userId
-			if otherParticipantId == localUserId then
-				otherParticipantId = callRecord.participants[2].userId
-			end
-
-			if not BlockingUtility:IsPlayerBlockedByUserId(otherParticipantId) then
-				table.insert(filteredCallRecords, callRecord)
-			end
-		end
-
-		for i, callRecord in ipairs(filteredCallRecords) do
-			entries[i] = React.createElement(CallHistoryItem, {
-				callRecord = callRecord,
-				localUserId = localUserId,
-				showDivider = i ~= #filteredCallRecords,
-				dismissCallback = props.dismissCallback,
-				layoutOrder = i,
+	local children: { any } = React.useMemo(
+		function()
+			local entries: any = {}
+			entries["UIListLayout"] = React.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
 			})
-		end
-		if nextPageCursor ~= "" then
-			-- This renders an extra component like refresh button or a loading
-			-- indicator. We do not want either when there is no next page.
-			local index = #entries + 1
-			if status == RetrievalStatus.Failed then
-				entries[index] = noRecordsComponent
-			else
-				entries[index] = React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
-					BackgroundTransparency = 1,
-					LayoutOrder = index,
-				}, {
-					LoadingSpinner = React.createElement(LoadingSpinner, {
-						size = IconSize.Large,
-						Position = UDim2.fromScale(0.5, 0.5),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-					}),
+
+			local filteredCallRecords = {}
+			for i, callRecord in ipairs(callRecords) do
+				-- Get the participant that is not the local user
+				local otherParticipantId = callRecord.participants[1].userId
+				if otherParticipantId == localUserId then
+					otherParticipantId = callRecord.participants[2].userId
+				end
+
+				if not BlockingUtility:IsPlayerBlockedByUserId(otherParticipantId) then
+					table.insert(filteredCallRecords, callRecord)
+				end
+			end
+
+			for i, callRecord in ipairs(filteredCallRecords) do
+				entries[i] = React.createElement(CallHistoryItem, {
+					callRecord = callRecord,
+					localUserId = localUserId,
+					showDivider = i ~= #filteredCallRecords,
+					dismissCallback = props.dismissCallback,
+					layoutOrder = i,
 				})
 			end
-		end
+			if nextPageCursor ~= "" then
+				-- This renders an extra component like refresh button or a loading
+				-- indicator. We do not want either when there is no next page.
+				local index = #entries + 1
+				if status == RetrievalStatus.Failed then
+					entries[index] = noRecordsComponent
+				else
+					entries[index] = React.createElement("Frame", {
+						Size = UDim2.new(1, 0, 0, Constants.ITEM_HEIGHT),
+						BackgroundTransparency = 1,
+						LayoutOrder = index,
+					}, {
+						LoadingSpinner = React.createElement(LoadingSpinner, {
+							size = UDim2.fromOffset(48, 48),
+							position = UDim2.fromScale(0.5, 0.5),
+							anchorPoint = Vector2.new(0.5, 0.5),
+						}),
+					})
+				end
+			end
 
-		return entries
-	end, { callRecords :: any, nextPageCursor, noRecordsComponent, status })
+			return entries
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { callRecords :: any, nextPageCursor, noRecordsComponent, status }
+			else dependencyArray(callRecords, nextPageCursor, noRecordsComponent, status)
+	)
 
-	local onFetchNextPage = React.useCallback(function(f)
-		if
-			not isLoading.current
-			and status ~= RetrievalStatus.Failed
-			and nextPageCursor ~= ""
-			and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
-		then
-			getCallRecords(callRecords, nextPageCursor)
-		end
-	end, { callRecords :: any, getCallRecords, nextPageCursor, status })
+	local onFetchNextPage = React.useCallback(
+		function(f)
+			if
+				not isLoading.current
+				and status ~= RetrievalStatus.Failed
+				and nextPageCursor ~= ""
+				and f.CanvasPosition.Y >= f.AbsoluteCanvasSize.Y :: number - f.AbsoluteSize.Y :: number - 50
+			then
+				getCallRecords(callRecords, nextPageCursor)
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { callRecords :: any, getCallRecords, nextPageCursor, status }
+			else dependencyArray(callRecords, getCallRecords, nextPageCursor, status)
+	)
 
-	React.useEffect(function()
-		-- This is used to handle the case where the number of records is less
-		-- than the height of the list. That means the list will never be
-		-- scrollable to fetch more items. This does not check if there is a
-		-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
-		local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
+	React.useEffect(
+		function()
+			-- This is used to handle the case where the number of records is less
+			-- than the height of the list. That means the list will never be
+			-- scrollable to fetch more items. This does not check if there is a
+			-- next page or if we are in a failure state. We'll check that in onFetchNextPage.
+			local totalHeight = (#children - 1) * Constants.ITEM_HEIGHT
 
-		if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
-			onFetchNextPage(scrollingFrameRef.current)
-		end
-	end, { children :: any, onFetchNextPage })
+			if scrollingFrameRef.current and totalHeight <= scrollingFrameRef.current.AbsoluteSize.Y then
+				onFetchNextPage(scrollingFrameRef.current)
+			end
+		end,
+		if FFlagRemoveDependencyArrayAntipattern
+			then { children :: any, onFetchNextPage }
+			else dependencyArray(children, onFetchNextPage)
+	)
 
 	return if #callRecords == 0 and status == RetrievalStatus.Fetching
 		then React.createElement("Frame", {
@@ -281,9 +310,9 @@ local function CallHistoryContainer(props: Props)
 			BackgroundTransparency = 1,
 		}, {
 			LoadingSpinner = React.createElement(LoadingSpinner, {
-				size = IconSize.Large,
-				Position = UDim2.fromScale(0.5, 0.5),
-				AnchorPoint = Vector2.new(0.5, 0.5),
+				size = UDim2.fromOffset(48, 48),
+				position = UDim2.fromScale(0.5, 0.5),
+				anchorPoint = Vector2.new(0.5, 0.5),
 			}),
 		})
 		elseif #callRecords == 0 then noRecordsComponent

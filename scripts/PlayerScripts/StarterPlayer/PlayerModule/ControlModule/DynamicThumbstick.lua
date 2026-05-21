@@ -2,8 +2,8 @@
 --[[ Constants ]]--
 local TOUCH_CONTROLS_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 
-local DYNAMIC_THUMBSTICK_ACTION_NAME = "DynamicThumbstickAction" -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-local DYNAMIC_THUMBSTICK_ACTION_PRIORITY = Enum.ContextActionPriority.High.Value -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
+local DYNAMIC_THUMBSTICK_ACTION_NAME = "DynamicThumbstickAction"
+local DYNAMIC_THUMBSTICK_ACTION_PRIORITY = Enum.ContextActionPriority.High.Value
 
 local MIDDLE_TRANSPARENCIES = {
 	1 - 0.89,
@@ -18,7 +18,6 @@ local NUM_MIDDLE_IMAGES = #MIDDLE_TRANSPARENCIES
 
 local FADE_IN_OUT_BACKGROUND = true
 local FADE_IN_OUT_MAX_ALPHA = 0.35
-local INACTIVE_VIEWPORT_POSITION = Vector2.new(-1, -1)
 
 local SAFE_AREA_INSET_MAX = 100
 
@@ -30,7 +29,6 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
-local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
@@ -38,13 +36,6 @@ local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
-
-local thumbstickAction
-if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-	local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-	local characterContext = inputContexts:WaitForChild("CharacterContext")
-	thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
-end
 
 local AvatarAbilitiesInterface
 if FFlagUserAllowAbilityControls then
@@ -68,12 +59,8 @@ function DynamicThumbstick.new(playerData)
 	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 	self.enabled = false
 
-	if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-		self.isTouchActive = false
-	else
-		self.moveTouchObject = nil -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-		self.moveTouchLockedIn = false -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-	end
+	self.moveTouchObject = nil
+	self.moveTouchLockedIn = false
 	self.moveTouchFirstChanged = false
 	self.moveTouchStartPosition = nil
 
@@ -121,22 +108,10 @@ function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean?
 		if not self.thumbstickFrame then
 			self:Create(uiParentFrame)
 		end
-		if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-			self.thumbstickStateChangedConn = thumbstickAction.StateChanged:Connect(self.onStateChanged)
-			thumbstickAction.Enabled = true
-		else
-			self:BindContextActions()
-		end
+
+		self:BindContextActions()
 	else
-		if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-			thumbstickAction.Enabled = false
-			if self.thumbstickStateChangedConn then
-				self.thumbstickStateChangedConn:Disconnect()
-				self.thumbstickStateChangedConn = nil
-			end
-		else
-			self:UnbindContextActions()
-		end
+		self:UnbindContextActions()
 
 		-- Disable
 		self:OnInputEnded() -- Cleanup
@@ -149,17 +124,13 @@ end
 
 -- Was called OnMoveTouchEnded in previous version
 function DynamicThumbstick:OnInputEnded()
-	if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-		self.isTouchActive = false
-	else
-		self.moveTouchObject = nil
-	end
+	self.moveTouchObject = nil
 	self.playerData.actions.MoveAction:Fire(Vector2.zero)
 	self:FadeThumbstick(false)
 end
 
 function DynamicThumbstick:FadeThumbstick(visible: boolean?)
-	if not visible and (FFlagUserPlayerScriptsDynamicThumbstickUsesIAS and self.isTouchActive or self.moveTouchObject) then
+	if not visible and self.moveTouchObject then
 		return
 	end
 	if self.isFirstTouch then return end
@@ -207,8 +178,7 @@ function DynamicThumbstick:FadeThumbstickFrame(fadeDuration: number, fadeRatio: 
 	self.tweenInAlphaStart = tick()
 end
 
-function DynamicThumbstick:InputInFrame(inputObject: InputObject) -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-	assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
+function DynamicThumbstick:InputInFrame(inputObject: InputObject)
 	local frameCornerTopLeft: Vector2 = self.thumbstickFrame.AbsolutePosition
 	local frameCornerBottomRight = frameCornerTopLeft + self.thumbstickFrame.AbsoluteSize
 	local inputPosition = inputObject.Position
@@ -299,11 +269,8 @@ function DynamicThumbstick:MoveStick(pos)
 	self:LayoutMiddleImages(startPos, endPos)
 end
 
--- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-local inputBegan, inputChanged, inputEnded, handleInput
-if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-	inputBegan = function(self, inputObject)
-		assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
+function DynamicThumbstick:BindContextActions()
+	local function inputBegan(inputObject)
 		if self.moveTouchObject then
 			return Enum.ContextActionResult.Pass
 		end
@@ -335,8 +302,7 @@ if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 		return Enum.ContextActionResult.Pass
 	end
 
-	inputChanged = function(self, inputObject: InputObject)
-		assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
+	local function inputChanged(inputObject: InputObject)
 		if inputObject == self.moveTouchObject then
 			if self.moveTouchFirstChanged then
 				self.moveTouchFirstChanged = false
@@ -369,8 +335,7 @@ if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 		return Enum.ContextActionResult.Pass
 	end
 
-	inputEnded = function(self, inputObject)
-		assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
+	local function inputEnded(inputObject)
 		if inputObject == self.moveTouchObject then
 			self:OnInputEnded()
 			if self.moveTouchLockedIn then
@@ -380,10 +345,9 @@ if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 		return Enum.ContextActionResult.Pass
 	end
 
-	handleInput = function(self, actionName, inputState, inputObject)
-		assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
+	local function handleInput(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.Begin then
-			return inputBegan(self, inputObject)
+			return inputBegan(inputObject)
 		elseif inputState == Enum.UserInputState.Change then
 			if inputObject == self.moveTouchObject then
 				return Enum.ContextActionResult.Sink
@@ -391,34 +355,25 @@ if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 				return Enum.ContextActionResult.Pass
 			end
 		elseif inputState == Enum.UserInputState.End then
-			return inputEnded(self, inputObject)
+			return inputEnded(inputObject)
 		elseif inputState == Enum.UserInputState.Cancel then
 			self:OnInputEnded()
 		end
 	end
-end
 
-
--- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-function DynamicThumbstick:BindContextActions()
-	assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
 	ContextActionService:BindActionAtPriority(
 		DYNAMIC_THUMBSTICK_ACTION_NAME,
-		function(actionName, inputState, inputObject)
-			return handleInput(self, actionName, inputState, inputObject)
-		end,
+		handleInput,
 		false,
 		DYNAMIC_THUMBSTICK_ACTION_PRIORITY,
 		Enum.UserInputType.Touch)
 
 	self.TouchMovedCon = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, _gameProcessedEvent: boolean)
-		inputChanged(self, inputObject)
+		inputChanged(inputObject)
 	end)
 end
 
--- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
 function DynamicThumbstick:UnbindContextActions()
-	assert(not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS)
 	ContextActionService:UnbindAction(DYNAMIC_THUMBSTICK_ACTION_NAME)
 
 	if self.TouchMovedCon then
@@ -428,13 +383,6 @@ end
 
 function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 	if self.thumbstickFrame then
-		if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-			thumbstickAction.Enabled = false
-			if self.thumbstickStateChangedConn then
-				self.thumbstickStateChangedConn:Disconnect()
-				self.thumbstickStateChangedConn = nil
-			end
-		end
 		self.thumbstickFrame:Destroy()
 		self.thumbstickFrame = nil
 		if self.onRenderSteppedConn then
@@ -472,24 +420,6 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 	self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	self.thumbstickFrame.Active = false
 	layoutThumbstickFrame(false)
-
-	if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-		self.thumbstickButton = Instance.new("ImageButton")
-		self.thumbstickButton.Name = "DynamicThumbstickUIModifier"
-		self.thumbstickButton.BackgroundTransparency = 1
-		self.thumbstickButton.ImageTransparency = 1
-		self.thumbstickButton.AutoButtonColor = false
-		self.thumbstickButton.Size = UDim2.new(1, 0, 1, 0)
-		self.thumbstickButton.ZIndex = self.thumbstickFrame.ZIndex
-		self.thumbstickButton.Visible = true
-		self.thumbstickButton.Parent = self.thumbstickFrame
-
-		local touchBinding = Instance.new("InputBinding")
-		touchBinding.Name = "DynamicTouchBinding"
-		touchBinding.KeyCode = Enum.KeyCode.TouchPosition
-		touchBinding.UIModifier = self.thumbstickButton
-		touchBinding.Parent = thumbstickAction
-	end
 
 	self.startImage = Instance.new("ImageLabel")
 	self.startImage.Name = "ThumbstickStart"
@@ -642,81 +572,15 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		end
 	end)
 
-	if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-		self.onStateChanged = function(newPos: Vector2)
-			if newPos ~= INACTIVE_VIEWPORT_POSITION then
-				local guiInsetMin = GuiService:GetInsetArea(Enum.ScreenInsets.None).Min
-				local screenPos = Vector3.new(newPos.X + guiInsetMin.X, newPos.Y + guiInsetMin.Y, 0)
-
-				if not self.isTouchActive then
-					self.isTouchActive = true
-
-					if self.isFirstTouch then
-						self.isFirstTouch = false
-						local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
-						TweenService:Create(self.startImage, tweenInfo, {Size = UDim2.new(0, 0, 0, 0)}):Play()
-						TweenService:Create(
-							self.endImage,
-							tweenInfo,
-							{Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize), ImageColor3 = Color3.new(0, 0, 0)}
-						):Play()
-					end
-
-					self.moveTouchStartPosition = screenPos
-					self.moveTouchFirstChanged = true
-
-					if FADE_IN_OUT_BACKGROUND then
-						self:DoFadeInBackground()
-					end
-				else
-					if self.moveTouchFirstChanged then
-						self.moveTouchFirstChanged = false
-
-						local startPosVec2 = Vector2.new(
-							self.moveTouchStartPosition.X - self.thumbstickFrame.AbsolutePosition.X,
-							self.moveTouchStartPosition.Y - self.thumbstickFrame.AbsolutePosition.Y
-						)
-						self.startImage.Visible = true
-						self.startImage.Position = UDim2.new(0, startPosVec2.X, 0, startPosVec2.Y)
-						self.endImage.Visible = true
-						self.endImage.Position = self.startImage.Position
-
-						self:FadeThumbstick(true)
-						self:MoveStick(self.moveTouchStartPosition)
-					end
-
-					local direction = Vector2.new(
-						screenPos.X - self.moveTouchStartPosition.X,
-						screenPos.Y - self.moveTouchStartPosition.Y
-					)
-					if direction.Magnitude > 0 then
-						self:DoMove(direction)
-						self:MoveStick(screenPos)
-					end
-				end
-			else
-				if self.isTouchActive then
-					self:OnInputEnded()
-				end
-			end
+	self.onTouchEndedConn = UserInputService.TouchEnded:Connect(function(inputObject: InputObject)
+		if inputObject == self.moveTouchObject then
+			self:OnInputEnded()
 		end
-	else -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
-		self.onTouchEndedConn = UserInputService.TouchEnded:Connect(function(inputObject: InputObject)
-			if inputObject == self.moveTouchObject then
-				self:OnInputEnded()
-			end
-		end)
-	end
+	end)
 
 	GuiService.MenuOpened:Connect(function()
-		if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
-			if self.isTouchActive then
-				self:OnInputEnded()
-			end
-		else
-			if self.moveTouchObject then
-				self:OnInputEnded()
-			end
+		if self.moveTouchObject then
+			self:OnInputEnded()
 		end
 	end)
 

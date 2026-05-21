@@ -5,18 +5,9 @@ local UserInputService = game:GetService("UserInputService")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
-local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
-
-local thumbstickAction
-if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-	local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-	local characterContext = inputContexts:WaitForChild("CharacterContext")
-	thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
-end
 
 --[[ Constants ]]--
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
-local INACTIVE_VIEWPORT_POSITION = Vector2.new(-1, -1)
 
 local AvatarAbilitiesInterface
 if FFlagUserAllowAbilityControls then
@@ -34,16 +25,12 @@ function TouchThumbstick.new(playerData)
 	self.playerData = playerData -- DONT DO THIS THE MODULES SHOULD NOT BE STATEFUL
 	self.enabled = false
 
-	if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-		self.isTouchActive = false
-	else
-		self.moveTouchObject = nil
-		self.onTouchMovedConn = nil
-		self.onTouchEndedConn = nil
-	end
 	self.isFollowStick = false
 
 	self.thumbstickFrame = nil
+	self.moveTouchObject = nil
+	self.onTouchMovedConn = nil
+	self.onTouchEndedConn = nil
 	self.screenPos = nil
 	self.stickImage = nil
 	self.thumbstickSize = nil -- Float
@@ -64,31 +51,15 @@ function TouchThumbstick:Enable(enable: boolean?, uiParentFrame)
 		if not self.thumbstickFrame then
 			self:Create(uiParentFrame)
 		end
-		if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-			self.thumbstickStateChangedConn = thumbstickAction.StateChanged:Connect(self.onStateChanged)
-			thumbstickAction.Enabled = true
-		end
 		self.thumbstickFrame.Visible = true
 	else
 		-- Disable
-		if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-			thumbstickAction.Enabled = false
-			if self.thumbstickStateChangedConn then
-				self.thumbstickStateChangedConn:Disconnect()
-				self.thumbstickStateChangedConn = nil
-			end
-		end
 		self.thumbstickFrame.Visible = false
 		self:OnInputEnded()
 	end
 	self.enabled = enable
 end
-
-
 function TouchThumbstick:OnInputEnded()
-	if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-		self.isTouchActive = false
-	end
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
@@ -96,19 +67,10 @@ function TouchThumbstick:OnInputEnded()
 
 	self.isJumping = false
 	self.thumbstickFrame.Position = self.screenPos
-	if not FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-		self.moveTouchObject = nil
-	end
+	self.moveTouchObject = nil
 end
 function TouchThumbstick:Create(parentFrame)
 	if self.thumbstickFrame then
-		if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-			thumbstickAction.Enabled = false
-			if self.thumbstickStateChangedConn then
-				self.thumbstickStateChangedConn:Disconnect()
-				self.thumbstickStateChangedConn = nil
-			end
-		end
 		self.thumbstickFrame:Destroy()
 		self.thumbstickFrame = nil
 		if self.onTouchMovedConn then
@@ -123,7 +85,7 @@ function TouchThumbstick:Create(parentFrame)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
-		if FFlagUserAllowAbilityControls then
+		if FFlagUserAllowAbilityControls then		
 			if self.avatarAbilitiesEnabledChangedConn then
 				self.avatarAbilitiesEnabledChangedConn:Disconnect()
 				self.avatarAbilitiesEnabledChangedConn = nil
@@ -184,24 +146,6 @@ function TouchThumbstick:Create(parentFrame)
 	outerImage.Parent = self.thumbstickFrame
 	self.stickImage.Parent = self.thumbstickFrame
 
-	if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-		self.thumbstickButton = Instance.new("ImageButton")
-		self.thumbstickButton.Name = "ClassicThumbstickUIModifier"
-		self.thumbstickButton.BackgroundTransparency = 1
-		self.thumbstickButton.ImageTransparency = 1
-		self.thumbstickButton.AutoButtonColor = false
-		self.thumbstickButton.Size = UDim2.new(1, 0, 1, 0)
-		self.thumbstickButton.ZIndex = self.thumbstickFrame.ZIndex
-		self.thumbstickButton.Visible = true
-		self.thumbstickButton.Parent = self.thumbstickFrame
-
-		local touchBinding = Instance.new("InputBinding")
-		touchBinding.Name = "ClassicTouchBinding"
-		touchBinding.KeyCode = Enum.KeyCode.TouchPosition
-		touchBinding.UIModifier = self.thumbstickButton
-		touchBinding.Parent = thumbstickAction
-	end
-
 	local centerPosition = nil
 	local deadZone = 0.05
 
@@ -238,73 +182,39 @@ function TouchThumbstick:Create(parentFrame)
 		self.stickImage.Position = UDim2.new(0, relativePosition.X + self.stickImage.AbsoluteSize.X/2, 0, relativePosition.Y + self.stickImage.AbsoluteSize.Y/2)
 	end
 
-	if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
-		self.onStateChanged = function(newPos: Vector2)
-			if newPos ~= INACTIVE_VIEWPORT_POSITION then
-				local guiInsetMin = GuiService:GetInsetArea(Enum.ScreenInsets.None).Min
-				local screenPos = Vector3.new(newPos.X + guiInsetMin.X, newPos.Y + guiInsetMin.Y, 0)
-
-				if not self.isTouchActive then
-					self.isTouchActive = true
-					self.thumbstickFrame.Position = UDim2.new(
-						0, screenPos.X - self.thumbstickFrame.Size.X.Offset / 2,
-						0, screenPos.Y - self.thumbstickFrame.Size.Y.Offset / 2
-					)
-					centerPosition = Vector2.new(
-						self.thumbstickFrame.AbsolutePosition.X + self.thumbstickFrame.AbsoluteSize.X / 2,
-						self.thumbstickFrame.AbsolutePosition.Y + self.thumbstickFrame.AbsoluteSize.Y / 2
-					)
-				else
-					centerPosition = Vector2.new(
-						self.thumbstickFrame.AbsolutePosition.X + self.thumbstickFrame.AbsoluteSize.X / 2,
-						self.thumbstickFrame.AbsolutePosition.Y + self.thumbstickFrame.AbsoluteSize.Y / 2
-					)
-					local direction = Vector2.new(screenPos.X - centerPosition.X, screenPos.Y - centerPosition.Y)
-					DoMove(direction)
-					MoveStick(screenPos)
-				end
-			else
-				if self.isTouchActive then
-					self:OnInputEnded()
-				end
-			end
+	-- input connections
+	self.thumbstickFrame.InputBegan:Connect(function(inputObject: InputObject)
+		--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
+		--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
+		if self.moveTouchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
+			or inputObject.UserInputState ~= Enum.UserInputState.Begin then
+			return
 		end
-	else -- Remove with FFlagUserPlayerScriptsClassicThumbstickUsesIAS
-		assert(not FFlagUserPlayerScriptsClassicThumbstickUsesIAS)
-		-- input connections
-		self.thumbstickFrame.InputBegan:Connect(function(inputObject: InputObject)
-			--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
-			--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
-			if self.moveTouchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
-				or inputObject.UserInputState ~= Enum.UserInputState.Begin then
-				return
-			end
 
-			self.moveTouchObject = inputObject
-			self.thumbstickFrame.Position = UDim2.new(0, inputObject.Position.X - self.thumbstickFrame.Size.X.Offset/2, 0, inputObject.Position.Y - self.thumbstickFrame.Size.Y.Offset/2)
+		self.moveTouchObject = inputObject
+		self.thumbstickFrame.Position = UDim2.new(0, inputObject.Position.X - self.thumbstickFrame.Size.X.Offset/2, 0, inputObject.Position.Y - self.thumbstickFrame.Size.Y.Offset/2)
+		centerPosition = Vector2.new(self.thumbstickFrame.AbsolutePosition.X + self.thumbstickFrame.AbsoluteSize.X/2,
+			self.thumbstickFrame.AbsolutePosition.Y + self.thumbstickFrame.AbsoluteSize.Y/2)
+	end)
+
+	self.onTouchMovedConn = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, isProcessed: boolean)
+		if inputObject == self.moveTouchObject then
 			centerPosition = Vector2.new(self.thumbstickFrame.AbsolutePosition.X + self.thumbstickFrame.AbsoluteSize.X/2,
 				self.thumbstickFrame.AbsolutePosition.Y + self.thumbstickFrame.AbsoluteSize.Y/2)
-		end)
+			local direction = Vector2.new(inputObject.Position.X - centerPosition.X, inputObject.Position.Y - centerPosition.Y)
+			DoMove(direction)
+			MoveStick(inputObject.Position)
+		end
+	end)
 
-		self.onTouchMovedConn = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, isProcessed: boolean)
-			if inputObject == self.moveTouchObject then
-				centerPosition = Vector2.new(self.thumbstickFrame.AbsolutePosition.X + self.thumbstickFrame.AbsoluteSize.X/2,
-					self.thumbstickFrame.AbsolutePosition.Y + self.thumbstickFrame.AbsoluteSize.Y/2)
-				local direction = Vector2.new(inputObject.Position.X - centerPosition.X, inputObject.Position.Y - centerPosition.Y)
-				DoMove(direction)
-				MoveStick(inputObject.Position)
-			end
-		end)
-
-		self.onTouchEndedConn = UserInputService.TouchEnded:Connect(function(inputObject, isProcessed)
-			if inputObject == self.moveTouchObject then
-				self:OnInputEnded()
-			end
-		end)
-	end
+	self.onTouchEndedConn = UserInputService.TouchEnded:Connect(function(inputObject, isProcessed)
+		if inputObject == self.moveTouchObject then
+			self:OnInputEnded()
+		end
+	end)
 
 	GuiService.MenuOpened:Connect(function()
-		if FFlagUserPlayerScriptsClassicThumbstickUsesIAS and self.isTouchActive or self.moveTouchObject then
+		if self.moveTouchObject then
 			self:OnInputEnded()
 		end
 	end)
