@@ -13662,6 +13662,62 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#ResetScrollVelocity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainWriteOperation": {
+    "documentation": "",
+    "keys": {
+      "CommitBlock": "@roblox/globaltype/TerrainWriteOperation.CommitBlock",
+      "GetBlock": "@roblox/globaltype/TerrainWriteOperation.GetBlock"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0"
+      },
+      {
+        "name": "block",
+        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#CommitBlock",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.GetBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#GetBlock",
+    "code_sample": ""
+  },
   "@roblox/globaltype/PackageService": {
     "documentation": "",
     "keys": {},
@@ -15198,7 +15254,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities": {
-    "documentation": "Calcula las velocidades relativas entre partes y las aplica a <code>Motor6D.Part1</code>.",
+    "documentation": "Computa velocidades relativas entre partes y las aplica a <code>Motor6D.Part1</code>. Estos cálculos y asignaciones de velocidad relativa tienen lugar en el orden proporcionado.",
     "params": [
       {
         "name": "self",
@@ -15220,7 +15276,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.GetPlayingAnimationTracks": {
-    "documentation": "Devuelve la lista de <code>AnimationTracks</code> actualmente activas.",
+    "documentation": "Devuelve la lista de las <code>AnimationTracks</code> que están reproduciéndose actualmente.",
     "params": [
       {
         "name": "self",
@@ -15237,13 +15293,13 @@
     "documentation": "Responsable de la reproducción y replicación de <code>Animations</code>."
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/param/1": {
-    "documentation": "El ID de recurso de la <code>Animation</code> cuya pista cargada debería ser recuperada."
+    "documentation": ""
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/return/0": {
-    "documentation": "La primera <code>AnimationTrack</code> en este <code>Animator</code> que fue cargada con el ID de animación dado, o <code>nil</code> si no se ha cargado ninguna."
+    "documentation": ""
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId": {
-    "documentation": "Devuelve una <code>AnimationTrack</code> existente en este <code>Animator</code> que fue cargada de una <code>Animation</code> con el ID de animación dado. A diferencia de <code>LoadAnimation()</code>, este método no crea una nueva instancia de <code>AnimationTrack</code>.",
+    "documentation": "",
     "params": [
       {
         "name": "self",
@@ -15270,7 +15326,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.LoadAnimation": {
-    "documentation": "Carga una <code>Animation</code> en un <code>Animator</code>, devolviendo un <code>AnimationTrack</code>.",
+    "documentation": "Carga un <code>Animation</code> en un <code>Animator</code>, devolviendo un <code>AnimationTrack</code>.",
     "params": [
       {
         "name": "self",
@@ -15316,7 +15372,7 @@
     "documentation": "La cantidad de tiempo en segundos que se incrementará la reproducción de la animación."
   },
   "@roblox/globaltype/Animator.StepAnimations": {
-    "documentation": "Incrementa el <code>AnimationTrack.TimePosition</code> de todos los <code>AnimationTracks</code> que están cargados en el <code>Animator</code>, aplicando los desplazamientos al modelo asociado con el <code>Animator</code>. Solo para uso en la barra de comandos o por plugins.",
+    "documentation": "Incrementa el <code>AnimationTrack.TimePosition</code> de todas las <code>AnimationTracks</code> en reproducción que están cargadas en el <code>Animator</code>, aplicando los desplazamientos al modelo asociado con el <code>Animator</code>. Para uso en la barra de comandos o solo por plugins.",
     "params": [
       {
         "name": "self",
@@ -15409,7 +15465,7 @@
     "returns": []
   },
   "@roblox/globaltype/Animator.AnimationPlayed": {
-    "documentation": "Se activa cuando el <code>Animator</code> comienza a reproducir un <code>AnimationTrack</code>.",
+    "documentation": "Se activa cuando el Animator comienza a reproducir un AnimationTrack.",
     "keys": {
       "Connect": "@roblox/globaltype/Animator.AnimationPlayed.Connect",
       "ConnectParallel": "@roblox/globaltype/Animator.AnimationPlayed.ConnectParallel",
@@ -15932,7 +15988,6 @@
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
-      "LogPreferenceEvent": "@roblox/globaltype/RecommendationService.LogPreferenceEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
       "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
       "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
@@ -16080,64 +16135,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
     "code_sample": ""
   },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0": {
-    "documentation": "Un servicio que proporciona una interfaz para que gestionen y muestren recomendaciones de contenido personalizadas."
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0"
-      },
-      {
-        "name": "preferenceType",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1"
-      },
-      {
-        "name": "targetType",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2"
-      },
-      {
-        "name": "targetId",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3"
-      },
-      {
-        "name": "tracingId",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4"
-      },
-      {
-        "name": "itemId",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogPreferenceEvent",
-    "code_sample": ""
-  },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
     "documentation": "Un servicio que proporciona una interfaz para que gestionen y muestren recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": "El jugador que creó el artículo."
+    "documentation": "El jugador que creó el elemento."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>ContentType</code> &mdash; El <code>RecommendationItemContentType</code> que especifica el tipo de contenido. El tipo está definido de manera genérica. Por ejemplo, puedes usar <code>Static</code> para imágenes, <code>Dynamic</code> para videos, y <code>Interactive</code> para modelos 3D que soportan interacción.</li> <li><code>ReferenceId</code> &mdash; La cadena definida por el desarrollador que identifica de manera única el artículo.</li> <li><code>Duration</code> &mdash; La duración del contenido en segundos.</li> <li><code>Attributes</code> &mdash; La tabla de atributos para el artículo, como <code>AssetId</code> o <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; La lista de etiquetas de cadena para filtrado y promoción.</li> <li><code>Visibility</code> &mdash; El enum <code>RecommendationItemVisibility</code> que controla la visibilidad del artículo, como <code>Public</code> o <code>Private</code>.</li> </ul>"
+    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>ContentType</code> &mdash; El <code>RecommendationItemContentType</code>   que especifica el tipo de contenido. El tipo se define de una manera genérica.   Por ejemplo, pueden usar <code>Static</code> para imágenes, <code>Dynamic</code> para videos,   y <code>Interactive</code> para modelos 3D que soporten interacción.</li> <li><code>ReferenceId</code> &mdash; La cadena definida por el desarrollador que identifica   de forma única el elemento.</li> <li><code>Duration</code> &mdash; La duración del contenido en segundos.</li> <li><code>Attributes</code> &mdash; La tabla de atributos para el elemento, como   <code>AssetId</code> o <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; La lista de etiquetas en cadena para filtrar y   promover.</li> <li><code>Visibility</code> &mdash; El   <code>RecommendationItemVisibility</code>   enum que controla la visibilidad del elemento, como <code>Public</code> o   <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "Una tabla con solo dos campos: <code>ItemId</code> y <code>ReferenceId</code>."
@@ -16190,7 +16195,7 @@
     "documentation": "Un servicio que proporciona una interfaz para que gestionen y muestren recomendaciones de contenido personalizadas."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>ItemId</code> &mdash; El ID del artículo a actualizar.</li> <li><code>ReferenceId</code> &mdash; La nueva cadena definida por el desarrollador para identificar el artículo.</li> <li><code>Creator</code> &mdash; El nuevo creador del artículo. Creator es una tabla que contiene dos campos: <code>CreatorId: number</code> y <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; La nueva duración para el contenido en segundos.</li> <li><code>Visibility</code> &mdash; La nueva configuración de visibilidad para el artículo.</li> <li><code>Attributes</code> &mdash; La nueva tabla de atributos para el artículo.</li> <li><code>CustomTags</code> &mdash; La nueva lista de etiquetas de cadena.</li> </ul>"
+    "documentation": "Un diccionario que contiene los siguientes campos: <ul> <li><code>ItemId</code> &mdash; La ID del elemento a actualizar.</li> <li><code>ReferenceId</code> &mdash; La nueva cadena definida por el desarrollador para identificar   el elemento.</li> <li><code>Creator</code> &mdash; El nuevo creador para el elemento. Creator es una tabla   que contiene dos campos: <code>CreatorId: number</code> y   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; La nueva duración para el contenido en segundos.</li> <li><code>Visibility</code> &mdash; La nueva configuración de visibilidad para el elemento.</li> <li><code>Attributes</code> &mdash; La nueva tabla de atributos para el elemento.</li> <li><code>CustomTags</code> &mdash; La nueva lista de etiquetas en cadena.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -19480,7 +19485,7 @@
     "documentation": "Un objeto especial que otorga a los modelos la funcionalidad de un personaje."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "La instancia de <code>HumanoidDescription</code> que deseas que el personaje coincida."
+    "documentation": "La instancia <code>HumanoidDescription</code> que deseas que el personaje coincida."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
     "documentation": "El modo de verificación del tipo de activo."
@@ -19509,13 +19514,13 @@
     "documentation": "Un objeto especial que otorga a los modelos la funcionalidad de un personaje."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/1": {
-    "documentation": "La instancia de <code>HumanoidDescription</code> que deseas que el personaje coincida."
+    "documentation": "La instancia <code>HumanoidDescription</code> que deseas que el personaje coincida."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/2": {
     "documentation": "El modo de verificación del tipo de activo."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync": {
-    "documentation": "Hace que la apariencia del personaje coincida con la de la <code>HumanoidDescription</code> pasada. Si <code>UseAvatarSettings</code> es verdadero, también se aplicarán las configuraciones de avatar para la experiencia al personaje.",
+    "documentation": "Hace que la apariencia del personaje coincida con la de la <code>HumanoidDescription</code> pasada. Si <code>UseAvatarSettings</code> es verdadero, las configuraciones de Avatar para la experiencia también se aplicarán al personaje.",
     "params": [
       {
         "name": "self",
@@ -19538,7 +19543,7 @@
     "documentation": "Un objeto especial que otorga a los modelos la funcionalidad de un personaje."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/1": {
-    "documentation": "La instancia de <code>HumanoidDescription</code> que deseas que el personaje coincida."
+    "documentation": "La instancia <code>HumanoidDescription</code> que deseas que el personaje coincida."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
     "documentation": "El modo de verificación del tipo de activo."
@@ -19567,7 +19572,7 @@
     "documentation": "Un objeto especial que otorga a los modelos la funcionalidad de un personaje."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/1": {
-    "documentation": "La instancia de <code>HumanoidDescription</code> que deseas que el personaje coincida."
+    "documentation": "La instancia <code>HumanoidDescription</code> que deseas que el personaje coincida."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/2": {
     "documentation": "El modo de verificación del tipo de activo."
@@ -19792,7 +19797,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Humanoid.GetRelativeVelocityAtFloor": {
-    "documentation": "Devuelve la velocidad física actual del humanoide en relación con la superficie sobre la que está de pie como un <code>Vector3</code> en orientación del espacio del mundo.",
+    "documentation": "",
     "params": [
       {
         "name": "self",
@@ -23212,7 +23217,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Path.GetPointCoordinates": {
-    "documentation": "<strong>Deprecated:</strong> Este elemento ha sido reemplazado por <code>GetWaypoints()</code> que debe ser utilizado en todo nuevo trabajo en su lugar.<br>Devuelve una tabla de instancias de <code>Path</code>.",
+    "documentation": "<strong>Deprecated:</strong> Este elemento ha sido reemplazado por <code>GetWaypoints()</code> el cual debería usarse en todo trabajo nuevo en su lugar.<br>Devuelve una tabla de instancias de <code>Path</code>.",
     "params": [
       {
         "name": "self",
@@ -25811,7 +25816,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox.",
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox.",
     "keys": {
       "CreatorId": "@roblox/globaltype/DataModel.CreatorId",
       "CreatorType": "@roblox/globaltype/DataModel.CreatorType",
@@ -25847,12 +25852,12 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal Lighting = game:GetService(\"Lighting\")\n\n-- Ejemplos de modificar propiedades de estos servicios\nWorkspace.Gravity = 20\nLighting.ClockTime = 4"
   },
   "@roblox/globaltype/DataModel.CreatorId": {
-    "documentation": "Describe el ID del usuario o grupo que posee el lugar.",
+    "documentation": "Describe la ID del usuario o grupo que posee el lugar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"¡El propietario del lugar se ha unido al juego!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"¡Un miembro del grupo que posee el lugar se ha unido al juego!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
-    "documentation": "Describe el <code>CreatorType</code> del lugar, ya sea que el lugar sea propiedad de un usuario o de un grupo.",
+    "documentation": "Describe el <code>CreatorType</code> del lugar, ya sea que el lugar sea poseído por un usuario o un grupo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"¡El propietario del lugar se ha unido al juego!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"¡Un miembro del grupo que posee el lugar se ha unido al juego!\")\n\t\tend\n\tend\nend)"
   },
@@ -25862,12 +25867,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GameId": {
-    "documentation": "Describe el ID de la experiencia a la que pertenece el lugar que se está ejecutando en el servidor.",
+    "documentation": "Describe la ID de la experiencia a la que pertenece el lugar que se ejecuta en el servidor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GameId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GearGenreSetting": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad está obsoleta y ya no es funcional. No debe ser usada.<br>No funcional. Históricamente describía los permisos de equipamiento del lugar como se estableció en el sitio web de Roblox.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad está en desuso y ya no es funcional. No debe ser usada.<br>No funcional. Históricamente describía los permisos de equipo del lugar establecidos en el sitio web de Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GearGenreSetting",
     "code_sample": ""
   },
@@ -25882,17 +25887,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.lighting": {
-    "documentation": "<strong>Deprecated:</strong> Este elemento ha sido sustituido por <code>game:GetService(\"Lighting\")</code>, que se debe usar en su lugar.<br>Se refiere al servicio <code>Lighting</code> del juego.",
+    "documentation": "<strong>Deprecated:</strong> Este elemento ha sido reemplazado por <code>game:GetService(\"Lighting\")</code>, que se debe usar en su lugar.<br>Se refiere al servicio <code>Lighting</code> del juego.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#lighting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.MatchmakingType": {
-    "documentation": "Representa cómo los jugadores en el servidor son manejados por el sistema de emparejamiento.",
+    "documentation": "Representa cómo se gestionan los jugadores en el servidor mediante la búsqueda de partidas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#MatchmakingType",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceId": {
-    "documentation": "Describe el ID del lugar que se está ejecutando en el servidor.",
+    "documentation": "Describe la ID del lugar que se está ejecutando en el servidor.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceId",
     "code_sample": ""
   },
@@ -25902,7 +25907,7 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"Versión del servidor: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "Describe el ID del servidor privado del servidor, si el servidor es un servidor privado o un <code>servidor reservado</code>.",
+    "documentation": "Describe el ID del servidor privado del servidor, si el servidor es un servidor privado  o un <code>servidor reservado</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -25917,12 +25922,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerId": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido obsoleta. Usa <code>DataModel.PrivateServerId</code> en su lugar.<br>Una cadena que podría identificar al servidor actual como un servidor privado.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido descontinuada. Usa <code>DataModel.PrivateServerId</code>  en su lugar.<br>Una cadena que podría identificar el servidor actual como un servidor privado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerOwnerId": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido obsoleta. Usa <code>DataModel.PrivateServerOwnerId</code> en su lugar.<br>El <code>UserId</code> de la cuenta que posee el servidor privado.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido descontinuada. Usa <code>DataModel.PrivateServerOwnerId</code> en su lugar.<br>El <code>UserId</code> de la cuenta que posee el servidor privado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerOwnerId",
     "code_sample": ""
   },
@@ -25932,15 +25937,15 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.workspace": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad obsoleta es una variante de <code>DataModel.Workspace</code> que se debe usar en su lugar.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad descontinuada es una variante de <code>DataModel.Workspace</code> que debería ser utilizada en su lugar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.BindToClose/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.BindToClose/param/1": {
-    "documentation": "Una función llamada antes de que el servidor de experiencias se apague. Si la función vinculada acepta un parámetro, pasa <code>CloseReason</code> especificando la razón del apagado del servidor."
+    "documentation": "Una función llamada antes de que el servidor de experiencia se apague. Si la función vinculada acepta un parámetro, pasa <code>CloseReason</code> especificando el motivo del apagado del servidor."
   },
   "@roblox/globaltype/DataModel.BindToClose": {
     "documentation": "Vincula una función para que se llame antes de que el servidor se apague.",
@@ -25959,7 +25964,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/return/0": {
     "documentation": "Una tabla que contiene información sobre los trabajos realizados por el programador de tareas, ver arriba para el formato."
@@ -25979,13 +25984,13 @@
     "code_sample": "local jobInfo = game:GetJobsInfo()\nlocal jobTitles = jobInfo[1]\n\ntable.remove(jobInfo, 1)\n\nlocal divider = string.rep(\"-\", 120)\nprint(divider)\nwarn(\"INFORMACIÓN DE TRABAJOS:\")\nprint(divider)\n\nfor _, job in pairs(jobInfo) do\n\tfor jobIndex, jobValue in pairs(job) do\n\t\tlocal jobTitle = jobTitles[jobIndex]\n\t\twarn(jobTitle, \"=\", jobValue)\n\tend\n\tprint(divider)\nend"
   },
   "@roblox/globaltype/DataModel.GetMessage/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.GetMessage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetMessage": {
-    "documentation": "<strong>Deprecated:</strong> Este elemento está obsoleto desde que el sistema se eliminó hace mucho tiempo, y recientemente se eliminaron las APIs para establecer este mensaje.<br><strong><em>[OBSOLETO]:</em></strong> Esta función siempre devolverá una cadena vacía.",
+    "documentation": "<strong>Deprecated:</strong> Este elemento está en desuso desde que el sistema fue eliminado hace mucho tiempo, y recientemente las APIs para establecer este mensaje fueron eliminadas.<br><strong><em>[OBSOLETO]:</em></strong> Esta función siempre devolverá una cadena vacía.",
     "params": [
       {
         "name": "self",
@@ -25999,16 +26004,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetObjects/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.GetObjects/param/1": {
     "documentation": "La URL de contenido dada."
   },
   "@roblox/globaltype/DataModel.GetObjects/return/0": {
-    "documentation": "Un array de <code>Instances</code> asociados con el contenido URL."
+    "documentation": "Un array de <code>Instances</code> asociadas con la URL de contenido."
   },
   "@roblox/globaltype/DataModel.GetObjects": {
-    "documentation": "Devuelve un array de <code>Instances</code> asociados con la URL de contenido dada.",
+    "documentation": "Devuelve un array de <code>Instances</code> asociadas con la URL de contenido dada.",
     "params": [
       {
         "name": "self",
@@ -26026,13 +26031,13 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nlocal WEB_URL = \"plugin URL aquí\"\n\nlocal function downloadPlugin(webURL)\n\t-- obtener la URL de contenido\n\tlocal contentID = string.match(webURL, \"%d+\")\n\tlocal contentURL = \"rbxassetid://\" .. contentID\n\n\t-- descargar los objetos\n\tlocal objects = game:GetObjects(contentURL)\n\n\t-- decidir dónde parentearlos\n\tlocal selection = Selection:Get()\n\tlocal parent = #selection == 1 and selection[1] or workspace\n\n\t-- parentear los objetos\n\tfor _, object in pairs(objects) do\n\t\tobject.Parent = parent\n\tend\nend\n\ndownloadPlugin(WEB_URL)"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode": {
-    "documentation": "<strong>Deprecated:</strong> Este elemento está obsoleto. Usa <code>RunService:IsServer()</code> para ver si tu código se está ejecutando en el servidor.<br>Este método ya no es útil y siempre devolverá falso.",
+    "documentation": "<strong>Deprecated:</strong> Este elemento está en desuso. Usa <code>RunService:IsServer()</code> para ver si tu código se está ejecutando en el servidor.<br>Este método ya no es útil y siempre devolverá falso.",
     "params": [
       {
         "name": "self",
@@ -26046,7 +26051,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/1": {
     "documentation": "El <code>GearType</code> dado."
@@ -26055,7 +26060,7 @@
     "documentation": "Si el equipo del <code>GearType</code> dado está permitido en el juego."
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad está obsoleta y ya no es funcional. No debe ser usada.<br>Devuelve si el equipo del <code>GearType</code> dado está permitido para ser añadido a <code>Players'</code> <code>StarterGears</code>.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad está en desuso y ya no es funcional. No debe ser usada.<br>Devuelve si el equipo del <code>GearType</code> dado tiene permiso para ser añadido a <code>Players'</code> <code>StarterGears</code>.",
     "params": [
       {
         "name": "self",
@@ -26073,7 +26078,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsLoaded/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.IsLoaded/return/0": {
     "documentation": "Si el cliente ha terminado de cargar el juego por primera vez."
@@ -26093,7 +26098,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.SavePlace/param/1": {
     "documentation": ""
@@ -26102,7 +26107,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.SavePlace": {
-    "documentation": "<strong>Deprecated:</strong> Este elemento está obsoleto. No lo uses para nuevos trabajos.<br>Guarda el lugar actual.",
+    "documentation": "<strong>Deprecated:</strong> Este elemento está en desuso. No lo uses para nuevo trabajo.<br>Guarda el lugar actual.",
     "params": [
       {
         "name": "self",
@@ -26120,10 +26125,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/1": {
-    "documentation": "El ID para establecer el <code>DataModel.PlaceId</code>."
+    "documentation": "La ID que se establecerá en el <code>DataModel.PlaceId</code>."
   },
   "@roblox/globaltype/DataModel.SetPlaceId": {
     "documentation": "Establece el <code>DataModel.PlaceId</code> de la instancia del juego actual.",
@@ -26142,13 +26147,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/0": {
-    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales de un juego de Roblox."
+    "documentation": "La raíz de la jerarquía padre-hijo de Roblox. Sus hijos directos son los servicios, como <code>Workspace</code> y <code>Lighting</code>, que actúan como los componentes fundamentales  de un juego de Roblox."
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/1": {
-    "documentation": "El ID para establecer el <code>DataModel.GameId</code>."
+    "documentation": "La ID que se establecerá en el <code>DataModel.GameId</code>."
   },
   "@roblox/globaltype/DataModel.SetUniverseId": {
-    "documentation": "Establece el <code>DataModel.GameId</code> de la instancia de juego actual al dado <code>universeId</code>.",
+    "documentation": "Establece el <code>DataModel.GameId</code> de la instancia del juego actual a la dada <code>universeId</code>.",
     "params": [
       {
         "name": "self",
@@ -26167,7 +26172,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.OnClose": {
-    "documentation": "<strong>Deprecated:</strong> Esta función está obsoleta. Se recomienda usar <code>DataModel:BindToClose()</code> en su lugar.<br>Invocado antes de que el juego se apague. Cuando este callback devuelve, o el período de tiempo de espera se cumple, el juego termina de apagarse.",
+    "documentation": "<strong>Deprecated:</strong> Esta función está en desuso. Se recomienda usar <code>DataModel:BindToClose()</code> en su lugar.<br>Invocado antes de que el juego se apague. Cuando este callback devuelve, o se alcanza el período de espera, el juego termina de apagarse.",
     "params": [],
     "returns": [
       "@roblox/globaltype/DataModel.OnClose/return/0"
@@ -26253,7 +26258,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.AllowedGearTypeChanged": {
-    "documentation": "<strong>Deprecated:</strong> Este elemento está obsoleto. No lo uses para nuevos trabajos.<br>Se activa cuando SetGearSettings se llama con un valor diferente para <code>allowedGenres</code>.",
+    "documentation": "<strong>Deprecated:</strong> Este elemento está en desuso. No lo uses para nuevo trabajo.<br>Se activa cuando SetGearSettings es llamado con un valor diferente para <code>allowedGenres</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.ConnectParallel",
@@ -26341,7 +26346,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest": {
-    "documentation": "Se activa cuando el usuario solicita un aumento o disminución en la calidad gráfica usando las teclas de acceso rápido.",
+    "documentation": "Se activa cuando el usuario solicita un aumento o disminución de la calidad gráfica usando las teclas de acceso rápido.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.ConnectParallel",
@@ -26429,7 +26434,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.ItemChanged": {
-    "documentation": "<strong>Deprecated:</strong> Esta función ha sido sustituida por <code>Object.Changed</code>, que debe ser usada en nuevos trabajos.<br>Se activa cuando se cambia una propiedad de cualquier objeto en el <code>DataModel</code>.",
+    "documentation": "<strong>Deprecated:</strong> Esta función ha sido reemplazada por <code>Object.Changed</code>, que debe usarse en nuevo trabajo en su lugar.<br>Se activa cuando se cambia una propiedad de cualquier objeto en el <code>DataModel</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.ItemChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.ItemChanged.ConnectParallel",
@@ -26525,94 +26530,6 @@
       "Wait": "@roblox/globaltype/DataModel.Loaded.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Loaded",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0": {
-    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect": {
-    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0": {
-    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel": {
-    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0": {
-    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once": {
-    "documentation": "Conecta la función dada al evento (para una sola invocación) y devuelve un <code>RBXScriptConnection</code> que lo representa.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0": {
-    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait": {
-    "documentation": "Cede el hilo actual hasta que se dispare la señal y devuelve los argumentos proporcionados por la señal.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect",
-      "ConnectParallel": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel",
-      "Once": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once",
-      "Wait": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#ServerLifecycleChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageLabel": {
@@ -31202,38 +31119,14 @@
   "@roblox/globaltype/UICorner": {
     "documentation": "Modificador de UI que aplica deformación a las esquinas de su padre <code>GuiObject</code>.",
     "keys": {
-      "BottomLeftRadius": "@roblox/globaltype/UICorner.BottomLeftRadius",
-      "BottomRightRadius": "@roblox/globaltype/UICorner.BottomRightRadius",
-      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius",
-      "TopLeftRadius": "@roblox/globaltype/UICorner.TopLeftRadius",
-      "TopRightRadius": "@roblox/globaltype/UICorner.TopRightRadius"
+      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner",
     "code_sample": ""
   },
-  "@roblox/globaltype/UICorner.BottomLeftRadius": {
-    "documentation": "Determina el radio de la esquina inferior izquierda.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomLeftRadius",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/UICorner.BottomRightRadius": {
-    "documentation": "Determina el radio de la esquina inferior derecha.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomRightRadius",
-    "code_sample": ""
-  },
   "@roblox/globaltype/UICorner.CornerRadius": {
-    "documentation": "Establece los cuatro radios de esquina a la vez y lee de <code>TopLeftRadius</code>.",
+    "documentation": "Establece todos los radios de esquina a la vez y lee desde <code>TopLeftRadius</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#CornerRadius",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/UICorner.TopLeftRadius": {
-    "documentation": "Determina el radio de la esquina superior izquierda.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopLeftRadius",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/UICorner.TopRightRadius": {
-    "documentation": "Determina el radio de la esquina superior derecha.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopRightRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioChannelMixer": {
@@ -38850,12 +38743,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Always Save Script Changes": {
-    "documentation": "Si se establece en verdadero, Roblox Studio intentará transferir los cambios de script que se realizaron durante una sesión de juego en solitario al lugar abierto.",
+    "documentation": "Si se establece en verdadero, Roblox Studio intentará transferir los cambios de script que se realizaron durante una sesión de Juego en Solo al lugar abierto.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Always Save Script Changes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Animate Hover Over": {
-    "documentation": "Si se establece en verdadero, el cuadro de selección que se muestra al pasar el ratón sobre los objetos seleccionables en el <code>Workspace</code> parpadeará entre el <code>Hover Over Color</code> y el <code>Select Color</code> según la <code>Hover Animate Speed</code>.",
+    "documentation": "Si se establece en verdadero, el cuadro de selección que se muestra al pasar el mouse sobre los objetos seleccionables en <code>Workspace</code> parpadeará entre <code>Hover Over Color</code> y <code>Select Color</code> según la <code>Hover Animate Speed</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Animate Hover Over",
     "code_sample": ""
   },
@@ -38940,7 +38833,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Mouse Wheel Speed": {
-    "documentation": "Establece cuántos studs se moverá la cámara hacia adelante o hacia atrás al usar la rueda del ratón.",
+    "documentation": "Establece cuántos studs se moverá la cámara hacia adelante o hacia atrás al usar la rueda del mouse.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Mouse Wheel Speed",
     "code_sample": ""
   },
@@ -38950,12 +38843,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Shift Speed": {
-    "documentation": "Establece la velocidad en studs/seg que la cámara se mueve mientras se mantiene presionada la tecla Shift con las teclas de movimiento.",
+    "documentation": "Establece la velocidad en studs/seg que la cámara se mueve mientras se mantiene presionado Shift con las teclas de movimiento.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Shift Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Speed": {
-    "documentation": "Establece la velocidad en studs/seg que la cámara se mueve al presionar las teclas de movimiento.",
+    "documentation": "Establece la velocidad en studs/seg que la cámara se mueve cuando las teclas de movimiento son presionadas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Speed",
     "code_sample": ""
   },
@@ -39005,7 +38898,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Clear Output On Start": {
-    "documentation": "Si se establece en verdadero, la salida se borrará automáticamente al cambiar de sesiones de juego.",
+    "documentation": "Si se establece en verdadero, la salida se borrará automáticamente cuando se cambien las sesiones del juego.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Clear Output On Start",
     "code_sample": ""
   },
@@ -39150,7 +39043,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Autocomplete": {
-    "documentation": "Cuando se establece en verdadero, el editor de scripts y la barra de comandos mostrarán un menú de autocompletar mientras se escribe.",
+    "documentation": "Cuando se establece en verdadero, el editor de scripts y la barra de comandos mostrarán un menú de autocompletar mientras escriben.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Autocomplete",
     "code_sample": ""
   },
@@ -39240,7 +39133,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Error Color": {
-    "documentation": "Especifica el color del subrayado ondulado que se muestra cuando se detecta un código mal formado en el editor de scripts.",
+    "documentation": "Especifica el color del subrayado ondulado que se muestra cuando se detecta código malformado en el editor de scripts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Error Color",
     "code_sample": ""
   },
@@ -39260,7 +39153,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Font": {
-    "documentation": "Especifica la fuente utilizada en el editor de scripts.",
+    "documentation": "Especifica la fuente que se utiliza en el editor de scripts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Font",
     "code_sample": ""
   },
@@ -39295,7 +39188,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "Especifica con qué frecuencia parpadea la animación de desplazamiento cuando el ratón está suspendido sobre un objeto seleccionable en el <code>Workspace</code>.",
+    "documentation": "Especifica con qué frecuencia parpadea la animación de hover cuando el ratón está sobre un objeto seleccionable en el <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
@@ -39310,7 +39203,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Over Color": {
-    "documentation": "Especifica el color que utiliza el cuadro de selección al pasar el ratón sobre un objeto.",
+    "documentation": "Especifica el color que utiliza el cuadro de selección de hover.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Over Color",
     "code_sample": ""
   },
@@ -39335,7 +39228,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Keyword Color": {
-    "documentation": "Establece el color de texto de las palabras clave integradas de Luau.",
+    "documentation": "Establece el color del texto de las palabras clave integradas de Luau.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Keyword Color",
     "code_sample": ""
   },
@@ -39350,7 +39243,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "Establece el grosor del adorno de selección de <code>Model.PrimaryPart</code>. Este valor está limitado entre 0 y 0.05.",
+    "documentation": "Establece el grosor del adornee de selección de <code>Model.PrimaryPart</code>. Este valor está restringido entre 0 y 0.05.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
@@ -39375,7 +39268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LuaDebuggerEnabled": {
-    "documentation": "Especifica si la función del depurador de Lua está habilitada.",
+    "documentation": "Especifica si la característica del depurador Lua está habilitada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LuaDebuggerEnabled",
     "code_sample": ""
   },
@@ -39395,7 +39288,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Matching Word Background Color": {
-    "documentation": "Establece el color de resaltado de las variables de doble clic en el editor de scripts.",
+    "documentation": "Establece el color de resaltado de las variables seleccionadas por doble clic en el editor de scripts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Matching Word Background Color",
     "code_sample": ""
   },
@@ -39425,12 +39318,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Only Play Audio from Window in Focus": {
-    "documentation": "Si se establece en verdadero, el audio que se reproduce solo se escuchará si la ventana del juego está en foco.",
+    "documentation": "Si se establece en verdadero, el audio que se reproduce solo será audible si la ventana del juego está siendo enfocada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Only Play Audio from Window in Focus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Operator Color": {
-    "documentation": "Establece el color de texto de los caracteres de operador en el editor de scripts.",
+    "documentation": "Establece el color del texto de los caracteres de operador en el editor de scripts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Operator Color",
     "code_sample": ""
   },
@@ -39445,7 +39338,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PermissionLevelShown": {
-    "documentation": "Establece el nivel de permiso más alto que las API deben tener para ser mostradas en el Navegador de Objetos. Consulta <code>PermissionLevelShown</code> para más información.",
+    "documentation": "Establece el nivel de permiso más alto que las APIs deben tener para ser mostradas en el Navegador de Objetos. Consulta <code>PermissionLevelShown</code> para más información.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PermissionLevelShown",
     "code_sample": ""
   },
@@ -39490,7 +39383,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "Cuando se establece en verdadero, los accesos directos de Roblox Studio tendrán prioridad sobre las entradas que se capturan en la ventana del juego.",
+    "documentation": "Cuando se establece en verdadero, los atajos de Roblox Studio tendrán prioridad sobre los inputs que se capturan en la ventana del juego.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
@@ -39525,7 +39418,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ScriptTimeoutLength": {
-    "documentation": "El tiempo (en segundos) que un script puede esperar para ser reanudado antes de expirar.",
+    "documentation": "El tiempo (en segundos) que un script puede esperar a ser reanudado antes de que se agote el tiempo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ScriptTimeoutLength",
     "code_sample": ""
   },
@@ -39540,7 +39433,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select Color": {
-    "documentation": "El color del cuadro de selección utilizado con selecciones de objetos en el <code>Workspace</code>.",
+    "documentation": "El color del cuadro de selección utilizado con las selecciones de objetos en el <code>Workspace</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select Color",
     "code_sample": ""
   },
@@ -39585,12 +39478,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Core GUI in Explorer while Playing": {
-    "documentation": "Si se establece en verdadero, el <code>CoreGui</code> será visible en el Explorador mientras el juego esté en ejecución.",
+    "documentation": "Si se establece en verdadero, el <code>CoreGui</code> será visible en el Explorador mientras el juego se esté ejecutando.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Core GUI in Explorer while Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Diagnostics Bar": {
-    "documentation": "Si se establece en verdadero, se mostrará información de diagnóstico básica en la parte inferior derecha.",
+    "documentation": "Si se establece en verdadero, la información de diagnóstico básica se mostrará en la esquina inferior derecha.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Diagnostics Bar",
     "code_sample": ""
   },
@@ -39605,7 +39498,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hover Over": {
-    "documentation": "Si se establece en verdadero, pasar el ratón sobre un objeto en el <code>Workspace</code> mostrará un cuadro de selección.",
+    "documentation": "Si se establece en verdadero, al pasar el ratón sobre un objeto en el <code>Workspace</code> se mostrará un cuadro de selección.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hover Over",
     "code_sample": ""
   },
@@ -39620,7 +39513,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Mesh": {
-    "documentation": "Cuando se establece en verdadero, la malla de navegación utilizada por el <code>PathfindingService</code> se visualizará.",
+    "documentation": "Cuando se establece en verdadero, la malla de navegación utilizada por el <code>PathfindingService</code> será visualizada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Mesh",
     "code_sample": ""
   },
@@ -39665,7 +39558,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Tab Width": {
-    "documentation": "Especifica cuántos espacios se utilizan para representar una pestaña en el editor de scripts.",
+    "documentation": "Especifica cuántos espacios se utilizan para representar una tabulación en el editor de scripts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Tab Width",
     "code_sample": ""
   },
@@ -39675,12 +39568,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Wrapping": {
-    "documentation": "Si se establece en verdadero, el texto en el editor de scripts se ajustará.",
+    "documentation": "Si se establece en verdadero, el texto en el editor de scripts será ajustado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Wrapping",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Theme": {
-    "documentation": "Se utiliza para obtener/establecer el <code>tema</code> actual utilizado por Studio.",
+    "documentation": "Usado para obtener/establecer el actual <code>theme</code> utilizado por Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Theme",
     "code_sample": ""
   },
@@ -39710,7 +39603,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "Especifica el color del subrayado ondulado que se muestra cuando el analizador de scripts detecta un problema que debe abordarse en el editor de scripts.",
+    "documentation": "Especifica el color de la subrayado ondulado que se muestra cuando el analizador de scripts detecta un problema que debe resolverse en el editor de scripts.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
@@ -39832,7 +39725,7 @@
     "returns": []
   },
   "@roblox/globaltype/Studio.ThemeChanged": {
-    "documentation": "Evento llamado cuando cambia el <code>tema</code> de Studio.",
+    "documentation": "Evento llamado cuando el <code>tema</code> de Studio cambia.",
     "keys": {
       "Connect": "@roblox/globaltype/Studio.ThemeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Studio.ThemeChanged.ConnectParallel",
@@ -56847,6 +56740,129 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#StudsPerTile",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainIterateOperation": {
+    "documentation": "",
+    "keys": {
+      "CommitBlock": "@roblox/globaltype/TerrainIterateOperation.CommitBlock"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0"
+      },
+      {
+        "name": "block",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#CommitBlock",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect": {
+    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel": {
+    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Once": {
+    "documentation": "Conecta la función dada al evento (para una sola invocación) y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait": {
+    "documentation": "Cede el hilo actual hasta que se dispare la señal y devuelve los argumentos proporcionados por la señal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect",
+      "ConnectParallel": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel",
+      "Once": "@roblox/globaltype/TerrainIterateOperation.Ready.Once",
+      "Wait": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#Ready",
+    "code_sample": ""
+  },
   "@roblox/globaltype/WrapTarget": {
     "documentation": "El objeto WrapTarget define un objetivo. Un objetivo es el cuerpo 3D con solo una superficie exterior, o una Jaula Externa.",
     "keys": {
@@ -58092,7 +58108,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Configuration": {
-    "documentation": "Un objeto contenedor diseñado para contener objetos de valor. Hace que los valores utilizados en <code>Tools</code> o cualquier modelo que use <code>Scripts</code> sean más accesibles.",
+    "documentation": "El objeto Configuration es un objeto contenedor diseñado para contener objetos de valor para hacer que los valores utilizados en <code>Tools</code> o cualquier modelo que usa <code>Scripts</code> sean más accesibles.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Configuration",
     "code_sample": ""
@@ -62319,10 +62335,10 @@
     "documentation": "Define propiedades de estilo que sobrescriben las propiedades en las instancias afectadas por la propiedad <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/return/0": {
-    "documentation": "La transición por defecto como <code>TweenInfo</code> o token de cadena, o <code>nil</code> si no se establece una transición por defecto."
+    "documentation": "La transición predeterminada como <code>TweenInfo</code> o token de cadena, o <code>nil</code> si no se establece una transición predeterminada."
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition": {
-    "documentation": "Devuelve la transición por defecto aplicada a todas las propiedades del <code>StyleRule</code> que no tienen una transición explícita establecida.",
+    "documentation": "Devuelve la transición predeterminada aplicada a todas las propiedades de la <code>StyleRule</code> que no tienen una transición explícita establecida.",
     "params": [
       {
         "name": "self",
@@ -62386,7 +62402,7 @@
     "documentation": "Define propiedades de estilo que sobrescriben las propiedades en las instancias afectadas por la propiedad <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions/return/0": {
-    "documentation": "Diccionario de pares clave-valor que mapea nombres de propiedad a sus parámetros de transición."
+    "documentation": "Diccionario de pares clave-valor que asigna los nombres de las propiedades a sus parámetros de transición."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions": {
     "documentation": "Devuelve un diccionario de todas las transiciones de propiedad establecidas en el <code>StyleRule</code>.",
@@ -62406,7 +62422,7 @@
     "documentation": "Define propiedades de estilo que sobrescriben las propiedades en las instancias afectadas por la propiedad <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/1": {
-    "documentation": "Ya sea un <code>TweenInfo</code>, un token de cadena que define el cronometrado de la transición por defecto, o <code>nil</code> para eliminar la transición por defecto."
+    "documentation": "Ya sea un <code>TweenInfo</code>, una cadena de token que define el predeterminado temporizador de la transición, o <code>nil</code> para eliminar la transición predeterminada."
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition": {
     "documentation": "Establece o borra una transición predeterminada que se aplica a todas las propiedades del <code>StyleRule</code> que no tienen una transición explícita establecida.",
@@ -62479,7 +62495,7 @@
     "documentation": "Define propiedades de estilo que sobrescriben las propiedades en las instancias afectadas por la propiedad <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/1": {
-    "documentation": "Nombre de cadena de la propiedad para la que establecer una transición, por ejemplo <code>\"BackgroundColor3\"</code> o <code>\"Size\"</code>."
+    "documentation": "Nombre de la propiedad en cadena para establecer una transición, por ejemplo <code>\"BackgroundColor3\"</code> o <code>\"Size\"</code>."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/2": {
     "documentation": "Un <code>TweenInfo</code> o token string que define el tiempo de la transición, o <code>nil</code> para eliminar la transición para esta propiedad."
@@ -77242,6 +77258,129 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/IKControl#GetSmoothedFinalTarget",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainModifyOperation": {
+    "documentation": "",
+    "keys": {
+      "CommitBlock": "@roblox/globaltype/TerrainModifyOperation.CommitBlock"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0"
+      },
+      {
+        "name": "block",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#CommitBlock",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect": {
+    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel": {
+    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Once": {
+    "documentation": "Conecta la función dada al evento (para una sola invocación) y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait": {
+    "documentation": "Cede el hilo actual hasta que se dispare la señal y devuelve los argumentos proporcionados por la señal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect",
+      "ConnectParallel": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel",
+      "Once": "@roblox/globaltype/TerrainModifyOperation.Ready.Once",
+      "Wait": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#Ready",
+    "code_sample": ""
+  },
   "@roblox/globaltype/BodyForce": {
     "documentation": "<strong>Deprecated:</strong> Este objeto está obsoleto y no debe ser utilizado para nuevos trabajos. Usa <code>VectorForce</code> en su lugar, y consulta las <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">notas de conversión heredadas</a>.<br>Aplica una fuerza constante a un objeto.",
     "keys": {
@@ -86166,6 +86305,100 @@
     "documentation": "Clase contenedor para el <code>HumanoidController</code> entre otras clases.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ControllerService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Connect": {
+    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel": {
+    "documentation": "Conecta la función dada al evento y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Once": {
+    "documentation": "Conecta la función dada al evento (para una sola invocación) y devuelve un <code>RBXScriptConnection</code> que lo representa.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0": {
+    "documentation": "Un objeto que ejecuta funciones conectadas ante una ocurrencia específica."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Wait": {
+    "documentation": "Cede el hilo actual hasta que se dispare la señal y devuelve los argumentos proporcionados por la señal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/TerrainReadOperation.Ready.Connect",
+      "ConnectParallel": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel",
+      "Once": "@roblox/globaltype/TerrainReadOperation.Ready.Once",
+      "Wait": "@roblox/globaltype/TerrainReadOperation.Ready.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation#Ready",
     "code_sample": ""
   },
   "@roblox/globaltype/InventoryPages": {
@@ -97422,7 +97655,7 @@
     "documentation": "Utilizado para encontrar caminos lógicos entre dos puntos."
   },
   "@roblox/globaltype/PathfindingService.CreatePath/param/1": {
-    "documentation": "Tabla de Lua que te permite ajustar el camino en función de varios parámetros del agente."
+    "documentation": "Tabla de Lua que te permite ajustar el camino según varios parámetros del agente."
   },
   "@roblox/globaltype/PathfindingService.CreatePath/return/0": {
     "documentation": "Un objeto <code>Path</code>."
@@ -112802,7 +113035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
-    "documentation": "Ajusta automáticamente el nivel de aceleración según el rendimiento.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112812,7 +113045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Disabled": {
-    "documentation": "Sin limitación; cada paso físico se ejecuta.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112822,7 +113055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Always": {
-    "documentation": "Aceleración máxima; la física está efectivamente congelada.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112832,7 +113065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip2": {
-    "documentation": "Ejecuta 1 de cada 2 pasos (reducción del 50%). Si <code>Workspace.PhysicsSteppingMethod</code> está configurado a <code>Adaptive</code>, el omitir se basa en grupos de 4 pasos en lugar de pasos individuales.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112842,7 +113075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip4": {
-    "documentation": "Ejecuta 1 de cada 4 pasos (reducción del 75%). Si <code>Workspace.PhysicsSteppingMethod</code> está configurado a <code>Adaptive</code>, el omitir se basa en grupos de 4 pasos en lugar de pasos individuales.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112852,7 +113085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip8": {
-    "documentation": "Ejecuta 1 de cada 8 pasos (reducción del 87.5%). Si <code>Workspace.PhysicsSteppingMethod</code> está configurado a <code>Adaptive</code>, el omitir se basa en grupos de 4 pasos en lugar de pasos individuales.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112862,7 +113095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip16": {
-    "documentation": "Ejecuta 1 de cada 16 pasos (reducción del 93.75%). Si <code>Workspace.PhysicsSteppingMethod</code> está configurado a <code>Adaptive</code>, el omitir se basa en grupos de 4 pasos en lugar de pasos individuales.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112872,7 +113105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.EnviromentalPhysicsThrottle": {
-    "documentation": "Se utiliza para controlar la tasa de aceleración del motor físico de Roblox.",
+    "documentation": "",
     "keys": {
       "DefaultAuto": "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto",
       "Disabled": "@roblox/enum/EnviromentalPhysicsThrottle.Disabled",
@@ -115113,16 +115346,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchUserPrivacyUnauthorized",
     "code_sample": ""
   },
-  "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchVipOwnerNotPresent",
-    "code_sample": ""
-  },
   "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired": {
     "documentation": "",
     "keys": {
@@ -115358,7 +115581,6 @@
       "PlacelaunchPartyCannotFit": "@roblox/enum/ConnectionError.PlacelaunchPartyCannotFit",
       "PlacelaunchHttpError": "@roblox/enum/ConnectionError.PlacelaunchHttpError",
       "PlacelaunchUserPrivacyUnauthorized": "@roblox/enum/ConnectionError.PlacelaunchUserPrivacyUnauthorized",
-      "PlacelaunchVipOwnerNotPresent": "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent",
       "PlacelaunchAgeVerificationRequired": "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired",
       "PlacelaunchParentalApprovalRequired": "@roblox/enum/ConnectionError.PlacelaunchParentalApprovalRequired",
       "PlacelaunchCoreGated": "@roblox/enum/ConnectionError.PlacelaunchCoreGated",

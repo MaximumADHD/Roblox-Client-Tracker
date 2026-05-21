@@ -13662,6 +13662,62 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#ResetScrollVelocity",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainWriteOperation": {
+    "documentation": "",
+    "keys": {
+      "CommitBlock": "@roblox/globaltype/TerrainWriteOperation.CommitBlock",
+      "GetBlock": "@roblox/globaltype/TerrainWriteOperation.GetBlock"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.CommitBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0"
+      },
+      {
+        "name": "block",
+        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#CommitBlock",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainWriteOperation.GetBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#GetBlock",
+    "code_sample": ""
+  },
   "@roblox/globaltype/PackageService": {
     "documentation": "",
     "keys": {},
@@ -15198,7 +15254,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities": {
-    "documentation": "Tính toán vận tốc tương đối giữa các phần và áp dụng chúng vào <code>Motor6D.Part1</code>.",
+    "documentation": "Tính toán các vận tốc tương đối giữa các phần và áp dụng chúng vào <code>Motor6D.Part1</code>. Các tính toán và gán vận tốc tương đối này diễn ra theo thứ tự được cung cấp.",
     "params": [
       {
         "name": "self",
@@ -15220,7 +15276,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.GetPlayingAnimationTracks": {
-    "documentation": "Trả về danh sách các <code>AnimationTracks</code> đang hoạt động hiện tại.",
+    "documentation": "Trả về danh sách các <code>AnimationTracks</code> đang phát.",
     "params": [
       {
         "name": "self",
@@ -15237,13 +15293,13 @@
     "documentation": "Chịu trách nhiệm phát lại và sao chép <code>Animations</code>."
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/param/1": {
-    "documentation": "ID tài sản của <code>Animation</code> mà track đã tải nên được truy xuất."
+    "documentation": ""
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/return/0": {
-    "documentation": "<code>AnimationTrack</code> đầu tiên trên <code>Animator</code> này được tải từ ID hoạt ảnh cho trước, hoặc <code>nil</code> nếu không có track nào đã được tải."
+    "documentation": ""
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId": {
-    "documentation": "Trả về một <code>AnimationTrack</code> đã tồn tại trên <code>Animator</code> này được tải từ một <code>Animation</code> với ID hoạt ảnh cho trước. Khác với <code>LoadAnimation()</code>, phương thức này không tạo một instance mới của <code>AnimationTrack</code>.",
+    "documentation": "",
     "params": [
       {
         "name": "self",
@@ -15270,7 +15326,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.LoadAnimation": {
-    "documentation": "Tải một <code>Animation</code> lên một <code>Animator</code>, trả về một <code>AnimationTrack</code>.",
+    "documentation": "Tải lên một <code>Animation</code> vào một <code>Animator</code>, trả về một <code>AnimationTrack</code>.",
     "params": [
       {
         "name": "self",
@@ -15313,10 +15369,10 @@
     "documentation": "Chịu trách nhiệm phát lại và sao chép <code>Animations</code>."
   },
   "@roblox/globaltype/Animator.StepAnimations/param/1": {
-    "documentation": "Số thời gian tính bằng giây mà việc phát hoạt ảnh sẽ được tăng lên."
+    "documentation": "Số thời gian tính bằng giây mà việc phát animation sẽ được tăng lên."
   },
   "@roblox/globaltype/Animator.StepAnimations": {
-    "documentation": "Tăng <code>AnimationTrack.TimePosition</code> của tất cả các <code>AnimationTracks</code> đang phát được tải lên <code>Animator</code>, áp dụng các độ lệch vào mô hình liên kết với <code>Animator</code>. Chỉ sử dụng trong thanh lệnh hoặc bởi các plugin.",
+    "documentation": "Tăng <code>AnimationTrack.TimePosition</code> của tất cả các <code>AnimationTracks</code> đang phát được tải vào <code>Animator</code>, áp dụng các bù trừ cho mô hình liên kết với <code>Animator</code>. Chỉ để sử dụng trong thanh lệnh hoặc bởi các plugin.",
     "params": [
       {
         "name": "self",
@@ -15409,7 +15465,7 @@
     "returns": []
   },
   "@roblox/globaltype/Animator.AnimationPlayed": {
-    "documentation": "Kích hoạt khi <code>Animator</code> bắt đầu phát một <code>AnimationTrack</code>.",
+    "documentation": "Kích hoạt khi Animator bắt đầu phát một AnimationTrack.",
     "keys": {
       "Connect": "@roblox/globaltype/Animator.AnimationPlayed.Connect",
       "ConnectParallel": "@roblox/globaltype/Animator.AnimationPlayed.ConnectParallel",
@@ -15932,7 +15988,6 @@
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
-      "LogPreferenceEvent": "@roblox/globaltype/RecommendationService.LogPreferenceEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
       "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
       "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
@@ -16080,56 +16135,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
     "code_sample": ""
   },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0": {
-    "documentation": "Một dịch vụ cung cấp giao diện để bạn quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/RecommendationService.LogPreferenceEvent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0"
-      },
-      {
-        "name": "preferenceType",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1"
-      },
-      {
-        "name": "targetType",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2"
-      },
-      {
-        "name": "targetId",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3"
-      },
-      {
-        "name": "tracingId",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4"
-      },
-      {
-        "name": "itemId",
-        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogPreferenceEvent",
-    "code_sample": ""
-  },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
     "documentation": "Một dịch vụ cung cấp giao diện để bạn quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
@@ -16137,7 +16142,7 @@
     "documentation": "Người chơi đã tạo mục."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code>   chỉ định loại nội dung. Loại được định nghĩa một cách tổng quát.   Ví dụ, bạn có thể sử dụng <code>Static</code> cho hình ảnh, <code>Dynamic</code> cho video,   và <code>Interactive</code> cho các mô hình 3D hỗ trợ tương tác.</li> <li><code>ReferenceId</code> &mdash; Chuỗi do nhà phát triển xác định để xác định một cách độc nhất   mục.</li> <li><code>Duration</code> &mdash; Thời gian của nội dung tính bằng giây.</li> <li><code>Attributes</code> &mdash; Bảng các thuộc tính cho mục, chẳng hạn như   <code>AssetId</code> hoặc <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Danh sách các thẻ chuỗi để lọc và   tăng cường.</li> <li><code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code>   enum kiểm soát độ hiển thị của mục, chẳng hạn như <code>Công khai</code> hoặc   <code>Riêng tư</code>.</li> </ul>"
+    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code>   xác định loại nội dung. Loại được định nghĩa theo cách tổng quát.   Ví dụ, bạn có thể sử dụng <code>Static</code> cho hình ảnh, <code>Dynamic</code> cho video,   và <code>Interactive</code> cho các mô hình 3D hỗ trợ tương tác.</li> <li><code>ReferenceId</code> &mdash; Chuỗi do nhà phát triển định nghĩa giúp định danh   mục một cách duy nhất.</li> <li><code>Duration</code> &mdash; Thời gian của nội dung tính bằng giây.</li> <li><code>Attributes</code> &mdash; Bảng các thuộc tính cho mục, chẳng hạn như   <code>AssetId</code> hoặc <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; Danh sách các nhãn chuỗi để lọc và   nâng cao.</li> <li><code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code>   enum kiểm soát tính khả dụng của mục, chẳng hạn như <code>Công khai</code> hoặc   <code>Riêng tư</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "Một bảng chỉ có hai trường: <code>ItemId</code> và <code>ReferenceId</code>."
@@ -16168,7 +16173,7 @@
     "documentation": "Một dịch vụ cung cấp giao diện để bạn quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync/param/1": {
-    "documentation": "itemId cần xóa."
+    "documentation": "itemId để xóa."
   },
   "@roblox/globaltype/RecommendationService.RemoveItemAsync": {
     "documentation": "",
@@ -16190,7 +16195,7 @@
     "documentation": "Một dịch vụ cung cấp giao diện để bạn quản lý và hiển thị các gợi ý nội dung cá nhân hóa."
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>ItemId</code> &mdash; ID của mục cần cập nhật.</li> <li><code>ReferenceId</code> &mdash; Chuỗi do nhà phát triển định nghĩa mới để xác định   mục.</li> <li><code>Creator</code> &mdash; Người sáng tạo mới cho mục. Người sáng tạo là một bảng   chứa hai trường: <code>CreatorId: number</code> và   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Thời gian mới cho nội dung tính bằng giây.</li> <li><code>Visibility</code> &mdash; Cài đặt khả năng hiển thị mới cho mục.</li> <li><code>Attributes</code> &mdash; Bảng thuộc tính mới cho mục.</li> <li><code>CustomTags</code> &mdash; Danh sách thẻ chuỗi mới.</li> </ul>"
+    "documentation": "Một từ điển chứa các trường sau: <ul> <li><code>ItemId</code> &mdash; ID của mục cần cập nhật.</li> <li><code>ReferenceId</code> &mdash; Chuỗi mới do nhà phát triển định danh   mục.</li> <li><code>Creator</code> &mdash; Người tạo mới cho mục. Người tạo là một bảng   chứa hai trường: <code>CreatorId: number</code> và   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; Thời gian mới cho nội dung tính bằng giây.</li> <li><code>Visibility</code> &mdash; Cài đặt khả dụng mới cho mục.</li> <li><code>Attributes</code> &mdash; Bảng mới các thuộc tính cho mục.</li> <li><code>CustomTags</code> &mdash; Danh sách mới các nhãn chuỗi.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -19486,7 +19491,7 @@
     "documentation": "Chế độ xác minh loại tài sản."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "<strong>Deprecated:</strong> Phương pháp này đã bị thay thế bởi <code>ApplyDescriptionAsync()</code>.<br>Khiến cho vẻ ngoài của nhân vật khớp với <code>HumanoidDescription</code> đã được truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>ApplyDescriptionAsync()</code>.<br>Khiến cho vẻ ngoài của nhân vật khớp với <code>HumanoidDescription</code> đã được truyền vào.",
     "params": [
       {
         "name": "self",
@@ -19515,7 +19520,7 @@
     "documentation": "Chế độ xác minh loại tài sản."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync": {
-    "documentation": "Làm cho ngoại hình của nhân vật khớp với ngoại hình của <code>HumanoidDescription</code> đã truyền. Nếu <code>UseAvatarSettings</code> là true, các cài đặt Avatar cho trải nghiệm cũng sẽ được áp dụng cho nhân vật.",
+    "documentation": "Làm cho kiểu dáng của nhân vật khớp với kiểu dáng của <code>HumanoidDescription</code> đã được truyền vào. Nếu <code>UseAvatarSettings</code> là đúng, Cài đặt Avatar cho trải nghiệm sẽ cũng được áp dụng cho nhân vật.",
     "params": [
       {
         "name": "self",
@@ -19544,7 +19549,7 @@
     "documentation": "Chế độ xác minh loại tài sản."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "<strong>Deprecated:</strong> Phương pháp này đã bị thay thế bởi <code>ApplyDescriptionResetAsync()</code>.<br>Khiến cho vẻ ngoài của nhân vật khớp với <code>HumanoidDescription</code> đã được truyền vào, ngay cả sau khi có thay đổi bên ngoài.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>ApplyDescriptionResetAsync()</code>.<br>Khiến cho vẻ ngoài của nhân vật khớp với <code>HumanoidDescription</code> đã được truyền vào, ngay cả sau khi có thay đổi bên ngoài.",
     "params": [
       {
         "name": "self",
@@ -19792,7 +19797,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Humanoid.GetRelativeVelocityAtFloor": {
-    "documentation": "Trả về vận tốc thực tế của humanoid so với bề mặt mà nó đang đứng trên dưới dạng <code>Vector3</code> trong định hướng không gian thế giới.",
+    "documentation": "",
     "params": [
       {
         "name": "self",
@@ -20048,7 +20053,7 @@
     "documentation": "đã phát thành công."
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "<strong>Deprecated:</strong> Phương pháp này đã bị thay thế bởi <code>PlayEmoteAsync()</code>.<br>Chơi các biểu hiện và trả về nếu đã được chạy thành công.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị thay thế bởi <code>PlayEmoteAsync()</code>.<br>Chơi các biểu hiện và trả về nếu đã được chạy thành công.",
     "params": [
       {
         "name": "self",
@@ -23212,7 +23217,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Path.GetPointCoordinates": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã được thay thế bởi <code>GetWaypoints()</code> và nên được sử dụng trong tất cả các công việc mới.<br>Trả về một bảng các instances của <code>Path</code>.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã bị thay thế bởi <code>GetWaypoints()</code> mà nên được sử dụng trong tất cả các công việc mới.<br>Trả về một bảng các instances của <code>Path</code>.",
     "params": [
       {
         "name": "self",
@@ -26527,94 +26532,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Loaded",
     "code_sample": ""
   },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0": {
-    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect": {
-    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0": {
-    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel": {
-    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0": {
-    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once": {
-    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0": {
-    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait": {
-    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/DataModel.ServerLifecycleChanged": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect",
-      "ConnectParallel": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel",
-      "Once": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once",
-      "Wait": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#ServerLifecycleChanged",
-    "code_sample": ""
-  },
   "@roblox/globaltype/ImageLabel": {
     "documentation": "Một phần tử giao diện người dùng 2D hiển thị một hình ảnh không tương tác đơn lẻ.",
     "keys": {
@@ -28252,7 +28169,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PathfindingModifier.Label": {
-    "documentation": "Tên của khu vực điều hướng bên trong hoặc trên các phần được bao quanh bởi bộ điều chỉnh.",
+    "documentation": "Tên của khu vực điều hướng bên trong hoặc trên các phần được bao bởi bộ sửa đổi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PathfindingModifier#Label",
     "code_sample": ""
   },
@@ -31202,38 +31119,14 @@
   "@roblox/globaltype/UICorner": {
     "documentation": "Bộ điều chỉnh giao diện người dùng áp dụng biến dạng cho các góc của cha mẹ <code>GuiObject</code>.",
     "keys": {
-      "BottomLeftRadius": "@roblox/globaltype/UICorner.BottomLeftRadius",
-      "BottomRightRadius": "@roblox/globaltype/UICorner.BottomRightRadius",
-      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius",
-      "TopLeftRadius": "@roblox/globaltype/UICorner.TopLeftRadius",
-      "TopRightRadius": "@roblox/globaltype/UICorner.TopRightRadius"
+      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner",
     "code_sample": ""
   },
-  "@roblox/globaltype/UICorner.BottomLeftRadius": {
-    "documentation": "Xác định bán kính của góc dưới trái.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomLeftRadius",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/UICorner.BottomRightRadius": {
-    "documentation": "Xác định bán kính của góc dưới phải.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomRightRadius",
-    "code_sample": ""
-  },
   "@roblox/globaltype/UICorner.CornerRadius": {
-    "documentation": "Thiết lập tất cả bốn bán kính góc cùng một lúc và đọc từ <code>TopLeftRadius</code>.",
+    "documentation": "Đặt tất cả bốn bán kính góc cùng một lúc và đọc từ <code>TopLeftRadius</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#CornerRadius",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/UICorner.TopLeftRadius": {
-    "documentation": "Xác định bán kính của góc trên trái.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopLeftRadius",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/UICorner.TopRightRadius": {
-    "documentation": "Xác định bán kính của góc trên phải.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopRightRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioChannelMixer": {
@@ -56847,6 +56740,129 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#StudsPerTile",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainIterateOperation": {
+    "documentation": "",
+    "keys": {
+      "CommitBlock": "@roblox/globaltype/TerrainIterateOperation.CommitBlock"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.CommitBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0"
+      },
+      {
+        "name": "block",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#CommitBlock",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainIterateOperation.Ready": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect",
+      "ConnectParallel": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel",
+      "Once": "@roblox/globaltype/TerrainIterateOperation.Ready.Once",
+      "Wait": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#Ready",
+    "code_sample": ""
+  },
   "@roblox/globaltype/WrapTarget": {
     "documentation": "Đối tượng WrapTarget định nghĩa một mục tiêu. Một mục tiêu là cơ thể 3D chỉ có bề mặt ngoài, hoặc một Outer Cage.",
     "keys": {
@@ -58092,7 +58108,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Configuration": {
-    "documentation": "Một đối tượng chứa được thiết kế để giữ các đối tượng giá trị. Giúp giá trị được sử dụng trong <code>Tools</code> hoặc bất kỳ mô hình nào sử dụng <code>Scripts</code> dễ tiếp cận hơn.",
+    "documentation": "Đối tượng Configuration là một đối tượng container được thiết kế để chứa các đối tượng giá trị để làm cho các giá trị được sử dụng trong <code>Tools</code> hoặc bất kỳ mô hình nào sử dụng <code>Scripts</code> dễ tiếp cận hơn.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Configuration",
     "code_sample": ""
@@ -62319,10 +62335,10 @@
     "documentation": "Định nghĩa các thuộc tính kiểu mà ghi đè các thuộc tính trên các thể hiện bị ảnh hưởng bởi thuộc tính <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/return/0": {
-    "documentation": "Chuyển tiếp mặc định dưới dạng <code>TweenInfo</code> hoặc token chuỗi, hoặc <code>nil</code> nếu không có chuyển tiếp mặc định nào được thiết lập."
+    "documentation": "Chuyển tiếp mặc định dưới dạng <code>TweenInfo</code> hoặc mã chuỗi, hoặc <code>nil</code> nếu không có chuyển tiếp mặc định nào được thiết lập."
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition": {
-    "documentation": "Trả về chuyển tiếp mặc định áp dụng cho tất cả các thuộc tính của <code>StyleRule</code> không có chuyển tiếp rõ ràng được thiết lập.",
+    "documentation": "Trả về chuyển tiếp mặc định được áp dụng cho tất cả các thuộc tính của <code>StyleRule</code> mà không có chuyển tiếp rõ ràng nào được đặt.",
     "params": [
       {
         "name": "self",
@@ -62386,7 +62402,7 @@
     "documentation": "Định nghĩa các thuộc tính kiểu mà ghi đè các thuộc tính trên các thể hiện bị ảnh hưởng bởi thuộc tính <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions/return/0": {
-    "documentation": "Từ điển các cặp khóa-giá trị ánh xạ tên thuộc tính tới các thông số chuyển tiếp của chúng."
+    "documentation": "Từ điển của các cặp khóa-giá trị ánh xạ tên thuộc tính với các tham số chuyển tiếp của chúng."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions": {
     "documentation": "Trả về từ điển tất cả các chuyển tiếp thuộc tính được thiết lập trên <code>StyleRule</code>.",
@@ -62406,7 +62422,7 @@
     "documentation": "Định nghĩa các thuộc tính kiểu mà ghi đè các thuộc tính trên các thể hiện bị ảnh hưởng bởi thuộc tính <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/1": {
-    "documentation": "Có thể là một <code>TweenInfo</code>, một chuỗi token xác định thời gian chuyển tiếp mặc định, hoặc <code>nil</code> để xóa chuyển tiếp mặc định."
+    "documentation": "Có thể là một <code>TweenInfo</code>, một chuỗi mã định nghĩa thời gian chuyển tiếp mặc định, hoặc <code>nil</code> để xóa chuyển tiếp mặc định."
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition": {
     "documentation": "Thiết lập hoặc xóa chuyển tiếp mặc định áp dụng cho tất cả các thuộc tính của <code>StyleRule</code> mà không có chuyển tiếp rõ ràng được thiết lập.",
@@ -62479,7 +62495,7 @@
     "documentation": "Định nghĩa các thuộc tính kiểu mà ghi đè các thuộc tính trên các thể hiện bị ảnh hưởng bởi thuộc tính <code>Selector</code>."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/1": {
-    "documentation": "Tên chuỗi của thuộc tính để thiết lập chuyển tiếp, ví dụ như <code>\"BackgroundColor3\"</code> hoặc <code>\"Size\"</code>."
+    "documentation": "Tên chuỗi của thuộc tính để thiết lập một chuyển tiếp cho, ví dụ <code>\"BackgroundColor3\"</code> hoặc <code>\"Size\"</code>."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/2": {
     "documentation": "Một <code>TweenInfo</code> hoặc token chuỗi định nghĩa thời gian chuyển tiếp, hoặc <code>nil</code> để xóa chuyển tiếp cho thuộc tính này."
@@ -77242,6 +77258,129 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/IKControl#GetSmoothedFinalTarget",
     "code_sample": ""
   },
+  "@roblox/globaltype/TerrainModifyOperation": {
+    "documentation": "",
+    "keys": {
+      "CommitBlock": "@roblox/globaltype/TerrainModifyOperation.CommitBlock"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.CommitBlock": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0"
+      },
+      {
+        "name": "block",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#CommitBlock",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainModifyOperation.Ready": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect",
+      "ConnectParallel": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel",
+      "Once": "@roblox/globaltype/TerrainModifyOperation.Ready.Once",
+      "Wait": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#Ready",
+    "code_sample": ""
+  },
   "@roblox/globaltype/BodyForce": {
     "documentation": "<strong>Deprecated:</strong> Đối tượng này đã lỗi thời và không nên được sử dụng cho công việc mới. Sử dụng <code>VectorForce</code> thay vào đó, và xem <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">các ghi chú chuyển đổi di sản</a>.<br>Áp dụng một lực không đổi lên một đối tượng.",
     "keys": {
@@ -86166,6 +86305,100 @@
     "documentation": "Lớp chứa cho <code>HumanoidController</code> cùng với các lớp khác.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ControllerService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation": {
+    "documentation": "",
+    "keys": {},
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Connect": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Once": {
+    "documentation": "Kết nối hàm được cung cấp với sự kiện (cho một lần gọi duy nhất) và trả về một <code>RBXScriptConnection</code> đại diện cho nó.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0": {
+    "documentation": "Một đối tượng chạy các hàm kết nối khi xảy ra một sự kiện cụ thể."
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready.Wait": {
+    "documentation": "Chờ luồng hiện tại cho đến khi tín hiệu kích hoạt và trả về các tham số được cung cấp bởi tín hiệu.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/TerrainReadOperation.Ready": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/TerrainReadOperation.Ready.Connect",
+      "ConnectParallel": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel",
+      "Once": "@roblox/globaltype/TerrainReadOperation.Ready.Once",
+      "Wait": "@roblox/globaltype/TerrainReadOperation.Ready.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation#Ready",
     "code_sample": ""
   },
   "@roblox/globaltype/InventoryPages": {
@@ -97422,7 +97655,7 @@
     "documentation": "Được sử dụng để tìm các con đường logic giữa hai điểm."
   },
   "@roblox/globaltype/PathfindingService.CreatePath/param/1": {
-    "documentation": "Bảng Lua cho phép bạn điều chỉnh đường đi dựa trên các tham số tác nhân khác nhau."
+    "documentation": "Bảng Lua cho phép bạn điều chỉnh đường đi dựa trên các tham số của tác nhân khác nhau."
   },
   "@roblox/globaltype/PathfindingService.CreatePath/return/0": {
     "documentation": "Một đối tượng <code>Path</code>."
@@ -112802,7 +113035,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
-    "documentation": "Tự động điều chỉnh mức ga dựa trên hiệu suất.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112812,7 +113045,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Disabled": {
-    "documentation": "Không có hạn chế; mọi bước vật lý đều được thực hiện.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112822,7 +113055,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Always": {
-    "documentation": "Hạn chế tối đa; vật lý thực sự bị đóng băng.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112832,7 +113065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip2": {
-    "documentation": "Chạy 1 trong mỗi 2 bước (giảm 50%). Nếu <code>Workspace.PhysicsSteppingMethod</code> được đặt thành <code>Adaptive</code>, việc bỏ qua dựa trên nhóm 4 bước thay vì các bước riêng lẻ.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112842,7 +113075,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip4": {
-    "documentation": "Chạy 1 trong mỗi 4 bước (giảm 75%). Nếu <code>Workspace.PhysicsSteppingMethod</code> được đặt thành <code>Adaptive</code>, việc bỏ qua dựa trên nhóm 4 bước thay vì các bước riêng lẻ.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112852,7 +113085,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip8": {
-    "documentation": "Chạy 1 trong mỗi 8 bước (giảm 87.5%). Nếu <code>Workspace.PhysicsSteppingMethod</code> được đặt thành <code>Adaptive</code>, việc bỏ qua dựa trên nhóm 4 bước thay vì các bước riêng lẻ.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112862,7 +113095,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip16": {
-    "documentation": "Chạy 1 trong mỗi 16 bước (giảm 93.75%). Nếu <code>Workspace.PhysicsSteppingMethod</code> được đặt thành <code>Adaptive</code>, việc bỏ qua dựa trên nhóm 4 bước thay vì các bước riêng lẻ.",
+    "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112872,7 +113105,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.EnviromentalPhysicsThrottle": {
-    "documentation": "Được sử dụng để điều khiển tỷ lệ ga của động cơ vật lý của Roblox.",
+    "documentation": "",
     "keys": {
       "DefaultAuto": "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto",
       "Disabled": "@roblox/enum/EnviromentalPhysicsThrottle.Disabled",
@@ -115113,16 +115346,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchUserPrivacyUnauthorized",
     "code_sample": ""
   },
-  "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent": {
-    "documentation": "",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchVipOwnerNotPresent",
-    "code_sample": ""
-  },
   "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired": {
     "documentation": "",
     "keys": {
@@ -115358,7 +115581,6 @@
       "PlacelaunchPartyCannotFit": "@roblox/enum/ConnectionError.PlacelaunchPartyCannotFit",
       "PlacelaunchHttpError": "@roblox/enum/ConnectionError.PlacelaunchHttpError",
       "PlacelaunchUserPrivacyUnauthorized": "@roblox/enum/ConnectionError.PlacelaunchUserPrivacyUnauthorized",
-      "PlacelaunchVipOwnerNotPresent": "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent",
       "PlacelaunchAgeVerificationRequired": "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired",
       "PlacelaunchParentalApprovalRequired": "@roblox/enum/ConnectionError.PlacelaunchParentalApprovalRequired",
       "PlacelaunchCoreGated": "@roblox/enum/ConnectionError.PlacelaunchCoreGated",
