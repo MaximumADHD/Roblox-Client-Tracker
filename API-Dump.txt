@@ -447,6 +447,14 @@ Class Animator : Instance
 	Property Animator.Looped5: boolean {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.Looped6: boolean {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.Looped7: boolean {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId0: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId1: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId2: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId3: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId4: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId5: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId6: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlayStartStepId7: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.PlaybackSpeed0: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.PlaybackSpeed1: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.PlaybackSpeed2: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -479,6 +487,14 @@ Class Animator : Instance
 	Property Animator.RefStepIdForWeight5: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.RefStepIdForWeight6: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.RefStepIdForWeight7: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent0: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent1: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent2: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent3: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent4: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent5: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent6: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent7: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.WeightTarget0: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.WeightTarget1: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property Animator.WeightTarget2: number {🚧Animation} {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -596,11 +612,8 @@ Class AssetImportService : Instance {🔒RobloxScript} [NotCreatable] [Service] 
 	Function AssetImportService:SavePreset(name: string, preset: { [string]: any }) -> boolean {🔒RobloxScript}
 	Function AssetImportService:StartSessionWithPath(filePath: string) -> AssetImportSession {🔒RobloxScript}
 	Function AssetImportService:StartSessionWithPathAsync(filePath: string) -> AssetImportSession {🔒RobloxScript} [Yields]
-	Function AssetImportService:StartSingleFileWatch(filePath: string) -> () {🔒RobloxScript}
-	Function AssetImportService:StopSingleFileWatch(filePath: string) -> () {🔒RobloxScript}
 	Function AssetImportService:UploadAssetFromContentAsync(content: string, createAssetRequest: { [string]: any }) -> ...any {🔒RobloxScript} [Yields]
 	Function AssetImportService:UploadAssetFromPathAsync(filepath: string, createAssetRequest: { [string]: any }) -> ...any {🔒RobloxScript} [Yields]
-	Event AssetImportService.SingleFileChanged(filePath: string) {🔒RobloxScript}
 	Event AssetImportService.StartSingleMeshImport(fileName: string) {🔒RobloxScript}
 Class AssetManagerService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:AddNewPlace() -> number {🔒RobloxScript} [Yields]
@@ -755,9 +768,6 @@ Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.AccessList: BinaryString {🚧Audio + Input} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property AudioDeviceInput.IsReady: boolean {🚧Audio + Input} {🔒RobloxScript} [ReadOnly]
 	Property AudioDeviceInput.MutedByLocalUser: boolean {🚧Audio + Input} {🔒RobloxScript} [Hidden] [NotReplicated]
-	Property AudioDeviceInput.EchoCancellation: boolean {🚧Audio + Input} {🔒RobloxScript} [Hidden] [NotReplicated]
-	Property AudioDeviceInput.GainControl: boolean {🚧Audio + Input} {🔒RobloxScript} [Hidden] [NotReplicated]
-	Property AudioDeviceInput.NoiseSuppression: boolean {🚧Audio + Input} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { Instance } {🚧Audio + Input}
 	Function AudioDeviceInput:GetInputPins() -> { any } {🚧Audio + Input}
 	Function AudioDeviceInput:GetOutputPins() -> { any } {🚧Audio + Input}
@@ -972,7 +982,6 @@ Class AudioSpeechToText : Instance
 	Property AudioSpeechToText.Enabled: boolean {🚧Audio}
 	Property AudioSpeechToText.Text: string {🚧Audio}
 	Property AudioSpeechToText.VoiceDetected: boolean {🚧Audio} [ReadOnly]
-	Property AudioSpeechToText.IsDictationEnabled: boolean {🚧Audio} {🔒RobloxScript}
 	Function AudioSpeechToText:GetConnectedWires(pin: string) -> { Instance } {🚧Audio}
 	Event AudioSpeechToText.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioTextToSpeech : Instance
@@ -1208,8 +1217,6 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCFullBodyAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
-	Function AvatarCreationService:CreateAvatar2DPreviewAsync(createAvatar2DPreviewParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function AvatarCreationService:CreateAvatarModelAsync(createAvatar2DPreviewParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function AvatarCreationService:CreateCageMeshPartsWithScaleForExportAsync(model: Model) -> Folder {🔒RobloxScript} [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {🔒RobloxScript}
 	Function AvatarCreationService:HandleSelfieConsentResult(consentAccepted: boolean) -> () {🔒RobloxScript}
@@ -1232,7 +1239,6 @@ Class AvatarEditorService : Instance [NotCreatable] [Service]
 	Function AvatarEditorService:GetAccessoryType(avatarAssetType: Enum.AvatarAssetType) -> Enum.AccessoryType
 	Function AvatarEditorService:GetAvatarRulesAsync() -> { [string]: any } [Yields]
 	Function AvatarEditorService:GetBatchItemDetailsAsync(itemIds: { any }, itemType: Enum.AvatarItemType) -> { any } {🚧AssetRead} [Yields]
-	Function AvatarEditorService:GetBundlesByAssetIdAsync(assetId: number, limit: number? = 10) -> CatalogPages {🚧AssetRead} [Yields]
 	Function AvatarEditorService:GetFavoriteAsync(itemId: number, itemType: Enum.AvatarItemType) -> boolean {🚧AssetRead + Players} [Yields]
 	Function AvatarEditorService:GetHeadShapesAsync() -> { any } {🚧AssetRead + Players} [Yields]
 	Function AvatarEditorService:GetInventoryAsync(assetTypes: { any }) -> InventoryPages {🚧AssetRead + Players} [Yields]
@@ -1430,7 +1436,6 @@ Class PlayerGui : BasePlayerGui [NotCreatable] [PlayerReplicated]
 	Function PlayerGui:SetTopbarTransparency(transparency: number) -> () {🚧UI} [Deprecated]
 	Event PlayerGui.TopbarTransparencyChangedSignal(transparency: number) {🚧UI} [Deprecated]
 Class StarterGui : BasePlayerGui [NotCreatable] [Service]
-	Property StarterGui.ClipsDescendantsSupportsRotation: Enum.RolloutState {🚧UI} [NotScriptable]
 	Property StarterGui.RtlTextSupport: Enum.RtlTextSupport {🚧UI} [NotScriptable]
 	Property StarterGui.VirtualCursorMode: Enum.VirtualCursorMode {🚧UI} [NotScriptable]
 	Property StarterGui.ScreenOrientation: Enum.ScreenOrientation {🚧UI}
@@ -2596,8 +2601,7 @@ Class ExperienceStateCaptureService : Instance {🔒RobloxScript} [NotCreatable]
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {🔒RobloxScript}
 	Function ExperienceStateCaptureService:ToggleCaptureMode() -> () {🔒RobloxScript}
 	Event ExperienceStateCaptureService.ItemSelectedInCaptureMode(instance: Instance) {🔒RobloxScript}
-Class ExperienceStateRecordingService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
-	Property ExperienceStateRecordingService.IsServerDataModelRecorderActive: boolean {🔒RobloxEngine} [Hidden] [NotScriptable]
+Class ExperienceStateRecordingService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 	Function ExperienceStateRecordingService:ExitPlayback() -> () {🔒RobloxScript}
 	Function ExperienceStateRecordingService:GetCurrentPlaybackRestartFrames() -> { any } {🔒RobloxScript}
 	Function ExperienceStateRecordingService:GetPlaybackCurrentFrame() -> number {🔒RobloxScript}
@@ -2771,9 +2775,6 @@ Class FileManagerService : Instance {🔒RobloxScript} [NotCreatable] [Service] 
 	Function FileManagerService:OpenFileInWebBrowser(folder: Enum.EngineFolder, fileName: string) -> () {🔒RobloxScript}
 	Function FileManagerService:OpenFolder(folder: Enum.EngineFolder) -> () {🔒RobloxScript}
 	Function FileManagerService:RevealFileInFolder(folder: Enum.EngineFolder, fileName: string) -> () {🔒RobloxScript}
-Class FileSyncReplicationService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
-	Event FileSyncReplicationService.BroadcastPlayerSyncState(userId: number, instanceStatusPairs: { any }) {🔒RobloxEngine} [Hidden]
-	Event FileSyncReplicationService.UpdateSyncInstances(instanceStatusPairs: { any }) {🔒RobloxEngine} [Hidden]
 Class Fire : Instance
 	Property Fire.Color: Color3 {🚧Basic}
 	Property Fire.Enabled: boolean {🚧Basic}
@@ -3600,7 +3601,6 @@ Class HeapProfilerService : Instance [NotCreatable] [Service]
 	Function HeapProfilerService:ServerRequestDataAsync() -> string {🔒Plugin} [Yields]
 	Event HeapProfilerService.OnNewData(player: Player, jsonString: buffer, id: number, compressedLength: number, uncompressedLength: number) {🔒Plugin}
 	Event HeapProfilerService.RequestData(id: number) {🔒RobloxEngine} [Hidden]
-Class HeatmapQueryService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 Class HeatmapService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function HeightmapImporterService:CancelImportHeightmap() -> () {🔒RobloxScript}
@@ -4072,7 +4072,6 @@ Class InputBinding : Instance
 	Property InputBinding.Scale: number {🚧Input}
 	Property InputBinding.SecondaryModifier: Enum.KeyCode {🚧Input}
 	Property InputBinding.UIButton: GuiButton? {🚧Input}
-	Property InputBinding.UIModifier: GuiButton? {🚧Input}
 	Property InputBinding.Vector2Scale: Vector2 {🚧Input}
 	Property InputBinding.Vector3Scale: Vector3 {🚧Input}
 	Property InputBinding.Backward: Enum.KeyCode {🚧Input}
@@ -4126,10 +4125,8 @@ Class InstanceFileSyncService : Instance {🔒Plugin} [NotCreatable] [Service] [
 	Function InstanceFileSyncService:GetAllInstances() -> { Instance } {🔒Plugin}
 	Function InstanceFileSyncService:GetStatus(instance: Instance) -> Enum.InstanceFileSyncStatus {🔒Plugin}
 	Function InstanceFileSyncService:GetSyncedInstance(filePath: string) -> Instance? {🔒Plugin}
-	Function InstanceFileSyncService:GetSyncingCollaborators(instance: Instance) -> { any } {🔒RobloxScript}
 	Function InstanceFileSyncService:GetTooltip(instance: Instance) -> string? {🔒RobloxScript}
 	Event InstanceFileSyncService.StatusChanged(instance: Instance, status: Enum.InstanceFileSyncStatus) {🔒Plugin}
-	Event InstanceFileSyncService.SyncingCollaboratorsChanged(instance: Instance) {🔒RobloxScript}
 Class InternalMessagingService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class InternalMessagingServiceVerifier : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class InternalSyncItem : Instance {🔒RobloxScript} [NotReplicated]
@@ -4379,7 +4376,6 @@ Class LogService : Instance [NotCreatable] [Service]
 	Event LogService.RequestServerHttpResultSignal(requestingPlayer: Instance) {🚧Logging} {🔒RobloxEngine} [Hidden]
 	Event LogService.RequestServerOutputSignal(requestingPlayer: Instance) {🚧Logging} {🔒RobloxEngine} [Hidden]
 	Event LogService.RequestSettingsChange(requestingPlayer: Instance, expressivePrinting: boolean) {🚧Logging} {🔒RobloxEngine} [Hidden]
-	Event LogService.ServerContextOut(contextData: { [string]: any }) {🚧Logging} {🔒RobloxScript}
 	Event LogService.ServerHttpResultOut(httpResult: { [string]: any }) {🚧Logging} {🔒RobloxScript}
 	Event LogService.ServerMessageOut(message: string, messageType: Enum.MessageType, timestamp: number) {🚧Logging} {🔒RobloxScript}
 	Event LogService.ServerVariantMessageOut(data: { [string]: any }) {🚧Logging} {🔒RobloxEngine} [Hidden]
@@ -5407,7 +5403,6 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.VersionIdSerialize: number {🚧AssetRead} [Hidden] [NotScriptable]
 	Property PackageLink.CanAutoUpdate: boolean {🚧AssetRead} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function PackageService:UpdateAsync(packageRoot: Instance, version: number? = 0) -> Instance? {🔒RobloxScript} [Yields]
 Class PackageUIService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function PackageUIService:ConvertToMockPackage(instance: Instance) -> () {🔒RobloxScript}
 	Function PackageUIService:ConvertToPackageAsync(sourceRoot: Instance, name: string, cloneRoot: Instance) -> Instance? {🔒RobloxScript} [Yields]
@@ -7735,7 +7730,6 @@ Class TextChannel : Instance
 	Function TextChannel:DisplaySystemMessage(systemMessage: string, metadata: string? = "") -> TextChatMessage {🚧Chat}
 	Function TextChannel:SendAsync(message: string, metadata: string? = "") -> TextChatMessage {🚧Chat} [Yields]
 	Function TextChannel:SetDirectChatRequester(requester: Player) -> () {🚧Chat}
-	Function TextChannel:SendPresetAsync(presetId: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Event TextChannel.MessageReceived(incomingMessage: TextChatMessage) {🚧Chat}
 	Callback TextChannel.OnIncomingMessage(message: TextChatMessage) -> ...any {🚧Chat}
 	Callback TextChannel.ShouldDeliverCallback(message: TextChatMessage, textSource: TextSource) -> ...any {🚧Chat}
@@ -7832,8 +7826,6 @@ Class TextChatMessage : Instance [NotCreatable]
 	Property TextChatMessage.ForModeration: boolean {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.IsHiddenMessage: boolean {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.OriginalText: string {🚧Chat} {🔒RobloxScript} [Hidden]
-	Property TextChatMessage.PresetChatVersion: string {🚧Chat} {🔒RobloxScript} [Hidden]
-	Property TextChatMessage.PresetId: string {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.RewrittenText: string {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.RewrittenTranslation: string {🚧Chat} {🔒RobloxScript} [Hidden]
 	Property TextChatMessage.Verified: boolean {🚧Chat} {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -7871,7 +7863,6 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🚧Chat}
 	Function TextChatService:GetChatGroupsAsync(players: { Instance }) -> { any } {🚧Chat} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
-	Function TextChatService:GetPresetsAsync() -> { [string]: any } {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:HasAllocatedUniverseChatContext(context: string) -> boolean {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:OnUserChatSettingUpdateAsync(featureName: string, featureValue: string) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
@@ -7888,7 +7879,6 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ChatActionReceived(chatActionMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
-	Event TextChatService.ClientToServerMessageReplicateSignalV4(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean, presetId: string, presetChatVersion: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ExpChatFeatureValueChanged(userId: number, featureName: string, featureValue: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
@@ -7897,8 +7887,6 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ServerToClientChatActionReplicateSignal(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignalV2(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
-	Event TextChatService.ServerToClientPresetChatConfigChangedSignal(enabled: boolean, version: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
-	Event TextChatService.ServerToClientPresetChatUserAccessChangedSignal(accessLevel: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientUniverseChatChannelAllocatedSignalV1(context: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientUniverseChatMessageSignalV1(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.UniverseChatChannelAllocated(context: string) {🚧Chat} {🔒RobloxScript}
@@ -8587,7 +8575,6 @@ Class VideoPlayer : Instance
 Class VideoScreenCaptureService : Instance [NotCreatable] [Service]
 Class VideoService : Instance [NotCreatable] [Service]
 	Function VideoService:CreateVideoSamplerAsync(content: Content, options: { [string]: any }?) -> VideoSampler {🚧UI} [Yields]
-	Event VideoService.GameStreamingResolutionReady() {🚧UI} {🔒RobloxScript}
 	Event VideoService.PlaybackReport(timePlayedMs: { [string]: any }, timeDownloadedMs: { [string]: any }, timeVisibleMs: { [string]: any }) {🚧UI} {🔒RobloxEngine} [Hidden]
 Class VirtualInputManager : Instance [Service]
 	Property VirtualInputManager.AdditionalLuaState: string {🔒RobloxScript} [Hidden] [NotReplicated]
@@ -9188,7 +9175,6 @@ Enum AssetType
 	EnumItem AssetType.LipMakeup : 89
 	EnumItem AssetType.EyeMakeup : 90
 	EnumItem AssetType.VoxelFragment : 91
-	EnumItem AssetType.AvatarBackground : 92
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -9285,7 +9271,6 @@ Enum AvatarAssetType
 	EnumItem AvatarAssetType.FaceMakeup : 88
 	EnumItem AvatarAssetType.LipMakeup : 89
 	EnumItem AvatarAssetType.EyeMakeup : 90
-	EnumItem AvatarAssetType.AvatarBackground : 92
 Enum AvatarChatServiceFeature
 	EnumItem AvatarChatServiceFeature.None : 0
 	EnumItem AvatarChatServiceFeature.UniverseAudio : 1
@@ -9751,8 +9736,6 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectCollaboratorOwnerActionRequired : 312
 	EnumItem ConnectionError.DisconnectCollaboratorTooManyCollaborators : 313
 	EnumItem ConnectionError.DisconnectCollaboratorUnknownError : 314
-	EnumItem ConnectionError.DisconnectCollaboratorRequestedEviction : 315
-	EnumItem ConnectionError.DisconnectCollaboratorTrustedConnectionsRequiredPC : 316
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -10073,12 +10056,6 @@ Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1
 	EnumItem ElasticBehavior.Never : 2
-Enum EngagementLevel
-	EnumItem EngagementLevel.Unknown : 0
-	EnumItem EngagementLevel.Inactive : 1
-	EnumItem EngagementLevel.Low : 2
-	EnumItem EngagementLevel.Medium : 3
-	EnumItem EngagementLevel.High : 4
 Enum EngineFolder
 	EnumItem EngineFolder.Screenshots : 0
 	EnumItem EngineFolder.Videos : 1
@@ -10091,12 +10068,6 @@ Enum EnviromentalPhysicsThrottle
 	EnumItem EnviromentalPhysicsThrottle.Skip4 : 4
 	EnumItem EnviromentalPhysicsThrottle.Skip8 : 5
 	EnumItem EnviromentalPhysicsThrottle.Skip16 : 6
-Enum ExperienceActivationStatus
-	EnumItem ExperienceActivationStatus.Unknown : 0
-	EnumItem ExperienceActivationStatus.New : 1
-	EnumItem ExperienceActivationStatus.Active : 2
-	EnumItem ExperienceActivationStatus.Lapsed : 3
-	EnumItem ExperienceActivationStatus.Reactivated : 4
 Enum ExperienceAuthScope
 	EnumItem ExperienceAuthScope.DefaultScope : 0
 	EnumItem ExperienceAuthScope.CreatorAssetsCreate : 1
@@ -11368,12 +11339,6 @@ Enum PlayerExitReason
 	EnumItem PlayerExitReason.Unknown : 0
 	EnumItem PlayerExitReason.PlatformKick : 1
 	EnumItem PlayerExitReason.CreatorKick : 2
-Enum PlayerPlatformActivationStatus
-	EnumItem PlayerPlatformActivationStatus.Unknown : 0
-	EnumItem PlayerPlatformActivationStatus.New : 1
-	EnumItem PlayerPlatformActivationStatus.Active : 2
-	EnumItem PlayerPlatformActivationStatus.Lapsed : 3
-	EnumItem PlayerPlatformActivationStatus.Reactivated : 4
 Enum PlayerPlatformSpenderStatus
 	EnumItem PlayerPlatformSpenderStatus.Unknown : 0
 	EnumItem PlayerPlatformSpenderStatus.Active : 1

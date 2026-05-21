@@ -3,7 +3,7 @@ name = "MomentsCreationFlow"
 version = "0.1.9"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.36 registry",
+    "BuilderIcons BuilderIcons 0.1.35 registry",
     "Cryo Cryo 1.1.0 registry",
     "Dash <patched> Dash 3.3.1 registry",
     "Foundation Foundation 1.86.0 registry",

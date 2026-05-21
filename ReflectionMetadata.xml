@@ -6967,7 +6967,6 @@
         <string name="Name">Preloaded</string>
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">70</string>
-        <token name="ServiceVisibility">2</token>
       </Properties>
     </Item>
 
