@@ -13662,62 +13662,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#ResetScrollVelocity",
     "code_sample": ""
   },
-  "@roblox/globaltype/TerrainWriteOperation": {
-    "documentation": "",
-    "keys": {
-      "CommitBlock": "@roblox/globaltype/TerrainWriteOperation.CommitBlock",
-      "GetBlock": "@roblox/globaltype/TerrainWriteOperation.GetBlock"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0"
-      },
-      {
-        "name": "block",
-        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#CommitBlock",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.GetBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#GetBlock",
-    "code_sample": ""
-  },
   "@roblox/globaltype/PackageService": {
     "documentation": "",
     "keys": {},
@@ -15254,7 +15198,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities": {
-    "documentation": "計算零件之間的相對速度並將其應用於 <code>Motor6D.Part1</code>。這些相對速度計算和分配按提供的順序發生。",
+    "documentation": "計算部件之間的相對速度並將其應用於 <code>Motor6D.Part1</code>。",
     "params": [
       {
         "name": "self",
@@ -15276,7 +15220,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.GetPlayingAnimationTracks": {
-    "documentation": "返回當前播放的 <code>AnimationTracks</code> 列表。",
+    "documentation": "返回當前活動的 <code>AnimationTracks</code> 列表。",
     "params": [
       {
         "name": "self",
@@ -15293,13 +15237,13 @@
     "documentation": "負責播放和複製 <code>Animations</code>。"
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/param/1": {
-    "documentation": ""
+    "documentation": "應該檢索的已加載軌道的 <code>Animation</code> 的資產 ID。"
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/return/0": {
-    "documentation": ""
+    "documentation": "在此 <code>Animator</code> 上從給定動畫 ID 加載的第一個 <code>AnimationTrack</code>，若無已加載則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId": {
-    "documentation": "",
+    "documentation": "返回此 <code>Animator</code> 上從給定動畫 ID 加載的現有 <code>AnimationTrack</code>。 與 <code>LoadAnimation()</code> 不同，此方法不會創建新的 <code>AnimationTrack</code> 實例。",
     "params": [
       {
         "name": "self",
@@ -15326,7 +15270,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.LoadAnimation": {
-    "documentation": "將 <code>Animation</code> 載入到 <code>Animator</code>，並返回 <code>AnimationTrack</code>。",
+    "documentation": "將 <code>Animation</code> 加載到 <code>Animator</code> 上，返回 <code>AnimationTrack</code>。",
     "params": [
       {
         "name": "self",
@@ -15369,10 +15313,10 @@
     "documentation": "負責播放和複製 <code>Animations</code>。"
   },
   "@roblox/globaltype/Animator.StepAnimations/param/1": {
-    "documentation": "動畫播放時間要增加的秒數。"
+    "documentation": "以秒為單位的動畫播放增量時間。"
   },
   "@roblox/globaltype/Animator.StepAnimations": {
-    "documentation": "增加所有載入到 <code>Animator</code> 上的播放中的 <code>AnimationTracks</code> 的 <code>AnimationTrack.TimePosition</code>，將偏移應用到與 <code>Animator</code> 相關的模型。僅用於命令欄或插件。",
+    "documentation": "增量增加所有加載到 <code>Animator</code> 上的正在播放的 <code>AnimationTracks</code> 的 <code>AnimationTrack.TimePosition</code>，將增量應用於與 <code>Animator</code> 相關聯的模型。僅用於命令列或插件。",
     "params": [
       {
         "name": "self",
@@ -15465,7 +15409,7 @@
     "returns": []
   },
   "@roblox/globaltype/Animator.AnimationPlayed": {
-    "documentation": "當 Animator 開始播放 AnimationTrack 時觸發。",
+    "documentation": "當 <code>Animator</code> 開始播放 <code>AnimationTrack</code> 時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/Animator.AnimationPlayed.Connect",
       "ConnectParallel": "@roblox/globaltype/Animator.AnimationPlayed.ConnectParallel",
@@ -15988,6 +15932,7 @@
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
+      "LogPreferenceEvent": "@roblox/globaltype/RecommendationService.LogPreferenceEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
       "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
       "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
@@ -16135,14 +16080,64 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0": {
+    "documentation": "一個提供介面讓您管理和顯示個性化內容推薦的服務。"
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0"
+      },
+      {
+        "name": "preferenceType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1"
+      },
+      {
+        "name": "targetType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2"
+      },
+      {
+        "name": "targetId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3"
+      },
+      {
+        "name": "tracingId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogPreferenceEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
     "documentation": "一個提供介面讓您管理和顯示個性化內容推薦的服務。"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": "創建該項目的玩家。"
+    "documentation": "創建項目的玩家。"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "一個字典，包含以下字段： <ul> <li><code>ContentType</code> &mdash; 指定內容類型的 <code>RecommendationItemContentType</code>。類型以通用方式定義。例如，您可以使用 <code>Static</code> 表示圖像，<code>Dynamic</code> 表示視頻，<code>Interactive</code> 表示支持互動的 3D 模型。</li> <li><code>ReferenceId</code> &mdash; 開發者定義的唯一標識項目的字符串。</li> <li><code>Duration</code> &mdash; 內容的持續時間（秒）。</li> <li><code>Attributes</code> &mdash; 該項目的屬性表，如 <code>AssetId</code> 或 <code>Description</code>。</li> <li><code>CustomTags</code> &mdash; 用於過濾和提升的字符串標籤列表。</li> <li><code>Visibility</code> &mdash; 控制項目可見性的 <code>RecommendationItemVisibility</code> 枚舉，例如 <code>Public</code> 或 <code>Private</code>。</li> </ul>"
+    "documentation": "包含以下字段的字典： <ul> <li><code>ContentType</code> &mdash; 指定內容類型的 <code>RecommendationItemContentType</code>。類型以通用方式定義。例如，您可以將 <code>Static</code> 用於圖像，<code>Dynamic</code> 用於視頻，<code>Interactive</code> 用於支持互動的 3D 模型。</li> <li><code>ReferenceId</code> &mdash; 唯一標識該項目的開發者定義字符串。</li> <li><code>Duration</code> &mdash; 內容的持續時間（以秒為單位）。</li> <li><code>Attributes</code> &mdash; 該項目的屬性表，例如 <code>AssetId</code> 或 <code>Description</code>。</li> <li><code>CustomTags</code> &mdash; 用於過濾和提升的字符串標籤列表。</li> <li><code>Visibility</code> &mdash; 控制項目可見性的 <code>RecommendationItemVisibility</code> 列舉，例如 <code>Public</code> 或 <code>Private</code>。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
     "documentation": "一個僅包含兩個字段的表：<code>ItemId</code> 和 <code>ReferenceId</code>。"
@@ -16195,7 +16190,7 @@
     "documentation": "一個提供介面讓您管理和顯示個性化內容推薦的服務。"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "一個字典，包含以下字段： <ul> <li><code>ItemId</code> &mdash; 要更新的項目 ID。</li> <li><code>ReferenceId</code> &mdash; 用於標識項目的新的開發者定義字符串。</li> <li><code>Creator</code> &mdash; 項目的新創建者。<code>Creator</code> 是一個包含兩個字段的表：<code>CreatorId: number</code> 和 <code>CreatorType: Enum.CreatorType</code>。</li> <li><code>Duration</code> &mdash; 內容的新持續時間（秒）。</li> <li><code>Visibility</code> &mdash; 項目的新可見性設置。</li> <li><code>Attributes</code> &mdash; 該項目的新屬性表。</li> <li><code>CustomTags</code> &mdash; 新的字符串標籤列表。</li> </ul>"
+    "documentation": "包含以下字段的字典： <ul> <li><code>ItemId</code> &mdash; 要更新的項目的 ID。</li> <li><code>ReferenceId</code> &mdash; 用於唯一標識該項目的新開發者定義字符串。</li> <li><code>Creator</code> &mdash; 該項目的新創建者。創建者是一個包含兩個字段的表：<code>CreatorId: number</code> 和 <code>CreatorType: Enum.CreatorType</code>。</li> <li><code>Duration</code> &mdash; 內容的新持續時間（以秒為單位）。</li> <li><code>Visibility</code> &mdash; 項目的新可見性設置。</li> <li><code>Attributes</code> &mdash; 該項目的新屬性表。</li> <li><code>CustomTags</code> &mdash; 新的字符串標籤列表。</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -19485,7 +19480,7 @@
     "documentation": "一個特殊物件，使模型具有角色的功能。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "要設置角色匹配的 <code>HumanoidDescription</code> 實例。"
+    "documentation": "您希望角色匹配的 <code>HumanoidDescription</code> 實例。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
     "documentation": "資產類型驗證模式。"
@@ -19514,13 +19509,13 @@
     "documentation": "一個特殊物件，使模型具有角色的功能。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/1": {
-    "documentation": "要設置角色匹配的 <code>HumanoidDescription</code> 實例。"
+    "documentation": "您希望角色匹配的 <code>HumanoidDescription</code> 實例。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/2": {
     "documentation": "資產類型驗證模式。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync": {
-    "documentation": "使角色的外觀與傳入的 <code>HumanoidDescription</code> 匹配。如果 <code>UseAvatarSettings</code> 為真，經驗的虛擬設定也將應用於角色。",
+    "documentation": "使角色的外觀與傳入的 <code>HumanoidDescription</code> 相匹配。如果 <code>UseAvatarSettings</code> 為 true，將會把體驗的 Avatar 設置應用於角色。",
     "params": [
       {
         "name": "self",
@@ -19543,7 +19538,7 @@
     "documentation": "一個特殊物件，使模型具有角色的功能。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/1": {
-    "documentation": "要設置角色匹配的 <code>HumanoidDescription</code> 實例。"
+    "documentation": "您希望角色匹配的 <code>HumanoidDescription</code> 實例。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
     "documentation": "資產類型驗證模式。"
@@ -19572,7 +19567,7 @@
     "documentation": "一個特殊物件，使模型具有角色的功能。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/1": {
-    "documentation": "要設置角色匹配的 <code>HumanoidDescription</code> 實例。"
+    "documentation": "您希望角色匹配的 <code>HumanoidDescription</code> 實例。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/2": {
     "documentation": "資產類型驗證模式。"
@@ -19797,7 +19792,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Humanoid.GetRelativeVelocityAtFloor": {
-    "documentation": "",
+    "documentation": "返回 humanoid 相對於其所站表面的實際物理速度，作為世界空間方向中的 <code>Vector3</code>。",
     "params": [
       {
         "name": "self",
@@ -23217,7 +23212,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Path.GetPointCoordinates": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被 <code>GetWaypoints()</code> 取代，應在所有新的工作中使用。<br>返回一個 <code>Path</code> 實例的表格。",
+    "documentation": "<strong>Deprecated:</strong> 此項已被 <code>GetWaypoints()</code> 取代，應在所有新工作中使用。<br>返回一個 <code>Path</code> 實例的表格。",
     "params": [
       {
         "name": "self",
@@ -25816,7 +25811,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。",
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。",
     "keys": {
       "CreatorId": "@roblox/globaltype/DataModel.CreatorId",
       "CreatorType": "@roblox/globaltype/DataModel.CreatorType",
@@ -25852,12 +25847,12 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n    local Lighting = game:GetService(\"Lighting\")\n\n\n    -- 修改這些服務屬性的範例\n\n    Workspace.Gravity = 20\n\n    Lighting.ClockTime = 4"
   },
   "@roblox/globaltype/DataModel.CreatorId": {
-    "documentation": "描述擁有該場所的使用者或群組的ID。",
+    "documentation": "描述擁有該地點的用戶或群組的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"地圖擁有者已加入遊戲！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"擁有該地圖的群組成員已加入遊戲！\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
-    "documentation": "描述該場所的<code>CreatorType</code>，即該場所是由使用者還是群組擁有。",
+    "documentation": "描述該地點的 <code>CreatorType</code>，該地點是由用戶還是群組擁有。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"地圖擁有者已加入遊戲！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"擁有該地圖的群組成員已加入遊戲！\")\n\t\tend\n\tend\nend)"
   },
@@ -25867,52 +25862,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GameId": {
-    "documentation": "描述該服務器上運行的場所所屬的經驗ID。",
+    "documentation": "描述正在伺服器上運行的體驗的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GameId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GearGenreSetting": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用，且不再功能性。應不要使用它。<br>不再功能性。歷史上描述在Roblox網站上設定的場所裝備權限。",
+    "documentation": "<strong>Deprecated:</strong> 該屬性已被淘汰且不再具功能性。應該不使用它。<br>不具功能性。歷史上描述了在 Roblox 網站上設置的地點裝備權限。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GearGenreSetting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Genre": {
-    "documentation": "不再功能性。歷史上描述在Roblox網站上設定的場所<code>Genre</code>。",
+    "documentation": "不具功能性。歷史上描述了在 Roblox 網站上設置的該地點的 <code>Genre</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Genre",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.JobId": {
-    "documentation": "運行中的遊戲伺服器實例的唯一標識符。",
+    "documentation": "正在運行的遊戲伺服器實例的唯一標識符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#JobId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.lighting": {
-    "documentation": "<strong>Deprecated:</strong> 這個項目已被取代為 <code>game:GetService(\"Lighting\")</code>，應該改為使用它。<br>指的是遊戲的 <code>Lighting</code> 服務。",
+    "documentation": "<strong>Deprecated:</strong> 該項目已被 <code>game:GetService(\"Lighting\")</code> 替代， 應該使用其。<br>指向遊戲的 <code>Lighting</code> 服務。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#lighting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.MatchmakingType": {
-    "documentation": "代表伺服器中玩家的配對處理方式。",
+    "documentation": "表示伺服器中玩家的配對處理方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#MatchmakingType",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceId": {
-    "documentation": "描述正在伺服器上運行的地方的 ID。",
+    "documentation": "描述正在伺服器上運行的地點的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceVersion": {
-    "documentation": "描述伺服器運行的地方版本。",
+    "documentation": "描述伺服器正在運行的地點的版本。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceVersion",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "描述伺服器的私人伺服器 ID，如果伺服器是私人伺服器或 <code>保留伺服器</code>。",
+    "documentation": "描述該伺服器的私有伺服器 ID，如果該伺服器是私有伺服器或 <code>保留的伺服器</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\" -- 返回 \"VIP伺服器\"\n\t\telse\n\t\t\treturn \"ReservedServer\" -- 返回 \"保留伺服器\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\" -- 返回 \"標準伺服器\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.PrivateServerOwnerId": {
-    "documentation": "描述擁有私有伺服器的 <code>Player</code> 的 <code>UserId</code>，如果伺服器是私有的。",
+    "documentation": "描述擁有私有伺服器的 <code>Player</code> 的 <code>UserId</code>，如果該伺服器是私有的。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerOwnerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\" -- 返回 \"VIP伺服器\"\n\t\telse\n\t\t\treturn \"ReservedServer\" -- 返回 \"保留伺服器\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\" -- 返回 \"標準伺服器\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -25922,33 +25917,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerId": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用。請改用 <code>DataModel.PrivateServerId</code>。<br>可以識別當前伺服器為私人伺服器的字串。",
+    "documentation": "<strong>Deprecated:</strong> 該屬性已被淘汰。請改用 <code>DataModel.PrivateServerId</code>。<br>一個可識別當前伺服器是否為私有伺服器的字符串。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerOwnerId": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用。請改用 <code>DataModel.PrivateServerOwnerId</code>。<br>擁有私人伺服器的帳戶的 <code>UserId</code>。",
+    "documentation": "<strong>Deprecated:</strong> 該屬性已被淘汰。請改用 <code>DataModel.PrivateServerOwnerId</code>。<br>擁有私有伺服器的帳戶的 <code>UserId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerOwnerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Workspace": {
-    "documentation": "指向 <code>Workspace</code> 服務的參考。",
+    "documentation": "對 <code>Workspace</code> 服務的引用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.workspace": {
-    "documentation": "<strong>Deprecated:</strong> 此已棄用的屬性是 <code>DataModel.Workspace</code> 的變體，應改用該屬性。",
+    "documentation": "<strong>Deprecated:</strong> 此淘汰屬性是 <code>DataModel.Workspace</code> 的變體，應該改用該屬性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.BindToClose/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.BindToClose/param/1": {
-    "documentation": "在經驗伺服器關閉之前調用的函數。如果綁定的函數接受參數，則它傳遞<code>CloseReason</code>以指定伺服器關閉的原因。"
+    "documentation": "在體驗伺服器關閉之前調用的函數。如果綁定的函數接受一個參數，則它傳遞 <code>CloseReason</code> 指定伺服器關閉的原因。"
   },
   "@roblox/globaltype/DataModel.BindToClose": {
-    "documentation": "綁定一個函數，在伺服器關閉之前調用。",
+    "documentation": "將函數綁定到在伺服器關閉之前調用。",
     "params": [
       {
         "name": "self",
@@ -25964,13 +25959,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/return/0": {
-    "documentation": "一個包含由任務調度器執行的作業的資訊的表，具體格式見上。"
+    "documentation": "一個表，包含有關任務調度程序執行的工作的信息，格式見上。"
   },
   "@roblox/globaltype/DataModel.GetJobsInfo": {
-    "documentation": "返回一個包含任務調度器執行的作業的基本信息的表。",
+    "documentation": "返回一個表，包含任務調度程序執行的基本信息。",
     "params": [
       {
         "name": "self",
@@ -25984,13 +25979,13 @@
     "code_sample": "local jobInfo = game:GetJobsInfo()\nlocal jobTitles = jobInfo[1]\n\ntable.remove(jobInfo, 1)\n\nlocal divider = string.rep(\"-\", 120)\nprint(divider)\nwarn(\"工作信息:\")\nprint(divider)\n\nfor _, job in pairs(jobInfo) do\n\tfor jobIndex, jobValue in pairs(job) do\n\t\tlocal jobTitle = jobTitles[jobIndex]\n\t\twarn(jobTitle, \"=\", jobValue)\n\tend\n\tprint(divider)\nend"
   },
   "@roblox/globaltype/DataModel.GetMessage/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.GetMessage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetMessage": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被棄用，因為該系統早已被淘汰，最近設置此消息的API被刪除了。<br><strong><em>[過時]:</em></strong> 此函數將始終返回空字符串。",
+    "documentation": "<strong>Deprecated:</strong> 該項目已被淘汰，因為該系統早已被淘汰，並且最近為設置此消息的 API 已被移除。<br><strong><em>[過時]:</em></strong> 此函數將始終返回空字符串。",
     "params": [
       {
         "name": "self",
@@ -26004,16 +25999,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetObjects/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.GetObjects/param/1": {
-    "documentation": "給定內容URL。"
+    "documentation": "給定的內容 URL。"
   },
   "@roblox/globaltype/DataModel.GetObjects/return/0": {
-    "documentation": "與內容URL相關聯的<code>Instances</code>的數組。"
+    "documentation": "與內容 URL 相關聯的 <code>Instances</code> 的數組。"
   },
   "@roblox/globaltype/DataModel.GetObjects": {
-    "documentation": "返回與給定內容URL相關聯的<code>Instances</code>的數組。",
+    "documentation": "返回與給定內容 URL 相關聯的 <code>Instances</code> 的數組。",
     "params": [
       {
         "name": "self",
@@ -26031,13 +26026,13 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nlocal WEB_URL = \"plugin URL here\"\n\nlocal function downloadPlugin(webURL)\n\t-- 獲取內容 URL\n\tlocal contentID = string.match(webURL, \"%d+\")\n\tlocal contentURL = \"rbxassetid://\" .. contentID\n\n\t-- 下載物件\n\tlocal objects = game:GetObjects(contentURL)\n\n\t-- 決定將它們父對應在哪裡\n\tlocal selection = Selection:Get()\n\tlocal parent = #selection == 1 and selection[1] or workspace\n\n\t-- 將物件父對應\n\tfor _, object in pairs(objects) do\n\t\tobject.Parent = parent\n\tend\nend\n\ndownloadPlugin(WEB_URL)"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被棄用。使用<code>RunService:IsServer()</code>檢查您的代碼是否在伺服器上運行。<br>此方法不再有用，將始終返回false。",
+    "documentation": "<strong>Deprecated:</strong> 該項目已被淘汰。使用 <code>RunService:IsServer()</code> 以查看您的代碼是否在伺服器上運行。<br>此方法不再有用，將始終返回 false。",
     "params": [
       {
         "name": "self",
@@ -26051,16 +26046,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/1": {
-    "documentation": "給定的<code>GearType</code>。"
+    "documentation": "給定的 <code>GearType</code>。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/return/0": {
-    "documentation": "給定<code>GearType</code>的裝備是否被允許在遊戲中。"
+    "documentation": "該給定的 <code>GearType</code> 的裝備是否在遊戲中被允許。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用，且不再功能性。應不要使用它。<br>返回給定<code>GearType</code>的裝備是否允許添加到<code>Players</code>的<code>StarterGears</code>中。",
+    "documentation": "<strong>Deprecated:</strong> 該屬性已被淘汰且不再具功能性。應該不使用它。<br>返回給定的 <code>GearType</code> 的裝備是否允許被添加到 <code>Players'</code> <code>StarterGears</code>。",
     "params": [
       {
         "name": "self",
@@ -26078,13 +26073,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsLoaded/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.IsLoaded/return/0": {
-    "documentation": "客戶端是否已首次加載遊戲完成。"
+    "documentation": "客戶端是否已完成第一次加載遊戲。"
   },
   "@roblox/globaltype/DataModel.IsLoaded": {
-    "documentation": "如果客戶端首次加載遊戲完成，則返回true。",
+    "documentation": "如果客戶端已完成第一次加載遊戲，則返回 true。",
     "params": [
       {
         "name": "self",
@@ -26098,7 +26093,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 創建一個基本的載入畫面\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"載入中\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 將整個畫面 GUI 置於玩家 GUI 下\nscreenGui.Parent = playerGui\n\n-- 移除預設載入畫面\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 可選擇性地強制畫面最少顯示幾秒\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/1": {
     "documentation": ""
@@ -26107,7 +26102,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.SavePlace": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被棄用。請勿在新工作中使用。<br>保存當前場所。",
+    "documentation": "<strong>Deprecated:</strong> 該項目已被淘汰。請勿將其用於新工作。<br>保存當前的地點。",
     "params": [
       {
         "name": "self",
@@ -26125,13 +26120,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/1": {
-    "documentation": "要設置的<code>DataModel.PlaceId</code>的ID。"
+    "documentation": "要設置的 <code>DataModel.PlaceId</code> 的 ID。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId": {
-    "documentation": "設置當前遊戲實例的<code>DataModel.PlaceId</code>。",
+    "documentation": "設置當前遊戲實例的 <code>DataModel.PlaceId</code>。",
     "params": [
       {
         "name": "self",
@@ -26147,13 +26142,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/0": {
-    "documentation": "Roblox的父子層級結構的根。它的直接子項是服務，例如<code>Workspace</code>和<code>Lighting</code>，這些服務作為Roblox遊戲的基本組件。"
+    "documentation": "Roblox 的父子層級結構的根結點。其直接子項是服務， 例如 <code>Workspace</code> 和 <code>Lighting</code>，它們作為 Roblox 遊戲的基本組成部分。"
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/1": {
-    "documentation": "要設置的<code>DataModel.GameId</code>的ID。"
+    "documentation": "要設置的 <code>DataModel.GameId</code> 的 ID。"
   },
   "@roblox/globaltype/DataModel.SetUniverseId": {
-    "documentation": "將當前遊戲實例的<code>DataModel.GameId</code>設置為給定的<code>universeId</code>。",
+    "documentation": "將當前遊戲實例的 <code>DataModel.GameId</code> 設置為給定的 <code>universeId</code>。",
     "params": [
       {
         "name": "self",
@@ -26172,7 +26167,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.OnClose": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被棄用。建議改用<code>DataModel:BindToClose()</code>。<br>在遊戲關閉之前調用的函數。當此回調返回或超時期間到達時，遊戲完成關閉。",
+    "documentation": "<strong>Deprecated:</strong> 該函數已被淘汰。建議改用 <code>DataModel:BindToClose()</code>。<br>在遊戲關閉之前調用。當此回調返回或超時期間到達時，遊戲完成關閉。",
     "params": [],
     "returns": [
       "@roblox/globaltype/DataModel.OnClose/return/0"
@@ -26258,7 +26253,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.AllowedGearTypeChanged": {
-    "documentation": "<strong>Deprecated:</strong> 此項已被棄用。請勿在新工作中使用。<br>當以不同值調用SetGearSettings時觸發。",
+    "documentation": "<strong>Deprecated:</strong> 該項目已被淘汰。請勿將其用於新工作。<br>在 SetGearSettings 用其他值呼叫 <code>allowedGenres</code> 時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.ConnectParallel",
@@ -26346,7 +26341,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest": {
-    "documentation": "當用戶使用熱鍵提示提高或降低圖形質量時觸發。",
+    "documentation": "當用戶通過熱鍵提示增加或減少圖形質量時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.ConnectParallel",
@@ -26434,7 +26429,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.ItemChanged": {
-    "documentation": "<strong>Deprecated:</strong> 此函數已被<code>Object.Changed</code>取代，應在新工作中使用。<br>當任何<code>DataModel</code>中的對象的屬性發生更改時觸發。",
+    "documentation": "<strong>Deprecated:</strong> 該函數已被 <code>Object.Changed</code> 取代，應在新工作中使用。<br>當 <code>DataModel</code> 中的任何對象的屬性更改時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.ItemChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.ItemChanged.ConnectParallel",
@@ -26522,7 +26517,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.Loaded": {
-    "documentation": "當遊戲首次加載完成時在客戶端觸發。",
+    "documentation": "當遊戲第一次加載完成時在客戶端觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.Loaded.ConnectParallel",
@@ -26530,6 +26525,94 @@
       "Wait": "@roblox/globaltype/DataModel.Loaded.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Loaded",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect": {
+    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel": {
+    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once": {
+    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0": {
+    "documentation": "在特定事件發生時運行連接的函數的對象。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait": {
+    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once",
+      "Wait": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#ServerLifecycleChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageLabel": {
@@ -28169,7 +28252,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PathfindingModifier.Label": {
-    "documentation": "修飾符所包圍的零件內部或上方的導航區域名稱。",
+    "documentation": "修飾符所包圍的部件內部或上方的導航區域名稱。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PathfindingModifier#Label",
     "code_sample": ""
   },
@@ -31119,14 +31202,38 @@
   "@roblox/globaltype/UICorner": {
     "documentation": "UI 修飾器，對其父級 <code>GuiObject</code> 的角落應用變形",
     "keys": {
-      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius"
+      "BottomLeftRadius": "@roblox/globaltype/UICorner.BottomLeftRadius",
+      "BottomRightRadius": "@roblox/globaltype/UICorner.BottomRightRadius",
+      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius",
+      "TopLeftRadius": "@roblox/globaltype/UICorner.TopLeftRadius",
+      "TopRightRadius": "@roblox/globaltype/UICorner.TopRightRadius"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner",
     "code_sample": ""
   },
+  "@roblox/globaltype/UICorner.BottomLeftRadius": {
+    "documentation": "確定底部左側角的半徑。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomLeftRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UICorner.BottomRightRadius": {
+    "documentation": "確定底部右側角的半徑。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomRightRadius",
+    "code_sample": ""
+  },
   "@roblox/globaltype/UICorner.CornerRadius": {
-    "documentation": "一次性設置所有四個角的半徑，並從 <code>TopLeftRadius</code> 讀取。",
+    "documentation": "同時設置所有四個角的半徑，並從 <code>TopLeftRadius</code> 中讀取。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#CornerRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UICorner.TopLeftRadius": {
+    "documentation": "確定頂部左側角的半徑。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopLeftRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UICorner.TopRightRadius": {
+    "documentation": "確定頂部右側角的半徑。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopRightRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioChannelMixer": {
@@ -56740,129 +56847,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#StudsPerTile",
     "code_sample": ""
   },
-  "@roblox/globaltype/TerrainIterateOperation": {
-    "documentation": "",
-    "keys": {
-      "CommitBlock": "@roblox/globaltype/TerrainIterateOperation.CommitBlock"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0"
-      },
-      {
-        "name": "block",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#CommitBlock",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Once": {
-    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait": {
-    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect",
-      "ConnectParallel": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel",
-      "Once": "@roblox/globaltype/TerrainIterateOperation.Ready.Once",
-      "Wait": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#Ready",
-    "code_sample": ""
-  },
   "@roblox/globaltype/WrapTarget": {
     "documentation": "WrapTarget 物件定義了一個目標。一個目標是只有外部表面的 3D 體，或稱為外部框架。",
     "keys": {
@@ -58108,7 +58092,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Configuration": {
-    "documentation": "Configuration 物件是一個容器物件，旨在儲存值物件，以使在 <code>Tools</code> 或任何使用 <code>Scripts</code> 的模型中使用的值更容易訪問。",
+    "documentation": "一個旨在容納值對象的容器物件。使得在 <code>Tools</code> 或任何使用 <code>Scripts</code> 的模型中使用的值更加易於訪問。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Configuration",
     "code_sample": ""
@@ -62335,10 +62319,10 @@
     "documentation": "定義樣式屬性，這些屬性會覆蓋受 <code>Selector</code> 屬性影響的實例的屬性。"
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/return/0": {
-    "documentation": "默認過渡作為 <code>TweenInfo</code> 或字符串令牌，如果未設置默認過渡，則為 <code>nil</code>。"
+    "documentation": "返回作為 <code>TweenInfo</code> 或字符串標記的預設過渡，如果未設定預設過渡則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition": {
-    "documentation": "返回應用於所有未設置明確過渡的 <code>StyleRule</code> 屬性的默認過渡。",
+    "documentation": "返回應用於所有沒有明確設定過渡的 <code>StyleRule</code> 屬性的預設過渡。",
     "params": [
       {
         "name": "self",
@@ -62402,7 +62386,7 @@
     "documentation": "定義樣式屬性，這些屬性會覆蓋受 <code>Selector</code> 屬性影響的實例的屬性。"
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions/return/0": {
-    "documentation": "鍵值對字典，將屬性名稱映射到它們的過渡參數。"
+    "documentation": "一個鍵值對的字典，將屬性名稱映射到它們的過渡參數。"
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions": {
     "documentation": "返回在 <code>StyleRule</code> 上設置的所有屬性過渡的字典。",
@@ -62422,7 +62406,7 @@
     "documentation": "定義樣式屬性，這些屬性會覆蓋受 <code>Selector</code> 屬性影響的實例的屬性。"
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/1": {
-    "documentation": "可以是 <code>TweenInfo</code>、定義默認過渡時序的令牌字符串，或 <code>nil</code>以移除默認過渡。"
+    "documentation": "可以是 <code>TweenInfo</code>、定義預設過渡時序的標記字符串，或者 <code>nil</code> 以刪除預設過渡。"
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition": {
     "documentation": "設置或清除默認過渡，該過渡應用於所有未設置顯式過渡的 <code>StyleRule</code> 屬性。",
@@ -62495,7 +62479,7 @@
     "documentation": "定義樣式屬性，這些屬性會覆蓋受 <code>Selector</code> 屬性影響的實例的屬性。"
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/1": {
-    "documentation": "要設置過渡的屬性字符串名稱，例如 <code>\"BackgroundColor3\"</code> 或 <code>\"Size\"</code>。"
+    "documentation": "要為其設定過渡的屬性的字符串名稱，例如 <code>\"BackgroundColor3\"</code> 或 <code>\"Size\"</code>。"
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/2": {
     "documentation": "定義過渡時間的 <code>TweenInfo</code> 或標記字符串，或 <code>nil</code> 以移除該屬性的過渡。"
@@ -77258,129 +77242,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/IKControl#GetSmoothedFinalTarget",
     "code_sample": ""
   },
-  "@roblox/globaltype/TerrainModifyOperation": {
-    "documentation": "",
-    "keys": {
-      "CommitBlock": "@roblox/globaltype/TerrainModifyOperation.CommitBlock"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0"
-      },
-      {
-        "name": "block",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#CommitBlock",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Once": {
-    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait": {
-    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect",
-      "ConnectParallel": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel",
-      "Once": "@roblox/globaltype/TerrainModifyOperation.Ready.Once",
-      "Wait": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#Ready",
-    "code_sample": ""
-  },
   "@roblox/globaltype/BodyForce": {
     "documentation": "<strong>Deprecated:</strong> 此物件已被淘汰，並不應用於新的工作中。請改用 <code>VectorForce</code> ，並參閱 <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">舊版轉換說明</a>。<br>對物體施加恆定的力量。",
     "keys": {
@@ -86305,100 +86166,6 @@
     "documentation": "作為其他類別中的 <code>HumanoidController</code> 的容器類別。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ControllerService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Connect": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel": {
-    "documentation": "將給定的函數連接到事件並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Once": {
-    "documentation": "將給定的函數連接到事件（單次調用）並返回一個 <code>RBXScriptConnection</code> 來表示它。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0": {
-    "documentation": "在特定事件發生時運行連接的函數的對象。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Wait": {
-    "documentation": "使當前線程暫停，直到信號觸發並返回信號提供的參數。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/TerrainReadOperation.Ready.Connect",
-      "ConnectParallel": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel",
-      "Once": "@roblox/globaltype/TerrainReadOperation.Ready.Once",
-      "Wait": "@roblox/globaltype/TerrainReadOperation.Ready.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation#Ready",
     "code_sample": ""
   },
   "@roblox/globaltype/InventoryPages": {
@@ -113035,7 +112802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
-    "documentation": "",
+    "documentation": "根據性能自動調整節流級別。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113045,7 +112812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Disabled": {
-    "documentation": "",
+    "documentation": "無節流；每個物理步驟都運行。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113055,7 +112822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Always": {
-    "documentation": "",
+    "documentation": "最大節流；物理實際上被凍結。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113065,7 +112832,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip2": {
-    "documentation": "",
+    "documentation": "每2個步驟運行1個（減少50%）。如果 <code>Workspace.PhysicsSteppingMethod</code> 設置為 <code>Adaptive</code>，則跳過是基於4個步驟的組，而不是單個步驟。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113075,7 +112842,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip4": {
-    "documentation": "",
+    "documentation": "每4個步驟運行1個（減少75%）。如果 <code>Workspace.PhysicsSteppingMethod</code> 設置為 <code>Adaptive</code>，則跳過是基於4個步驟的組，而不是單個步驟。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113085,7 +112852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip8": {
-    "documentation": "",
+    "documentation": "每8個步驟運行1個（減少87.5%）。如果 <code>Workspace.PhysicsSteppingMethod</code> 設置為 <code>Adaptive</code>，則跳過是基於4個步驟的組，而不是單個步驟。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113095,7 +112862,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip16": {
-    "documentation": "",
+    "documentation": "每16個步驟運行1個（減少93.75%）。如果 <code>Workspace.PhysicsSteppingMethod</code> 設置為 <code>Adaptive</code>，則跳過是基於4個步驟的組，而不是單個步驟。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113105,7 +112872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.EnviromentalPhysicsThrottle": {
-    "documentation": "",
+    "documentation": "用於控制Roblox物理引擎的節流率。",
     "keys": {
       "DefaultAuto": "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto",
       "Disabled": "@roblox/enum/EnviromentalPhysicsThrottle.Disabled",
@@ -115346,6 +115113,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchUserPrivacyUnauthorized",
     "code_sample": ""
   },
+  "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchVipOwnerNotPresent",
+    "code_sample": ""
+  },
   "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired": {
     "documentation": "",
     "keys": {
@@ -115581,6 +115358,7 @@
       "PlacelaunchPartyCannotFit": "@roblox/enum/ConnectionError.PlacelaunchPartyCannotFit",
       "PlacelaunchHttpError": "@roblox/enum/ConnectionError.PlacelaunchHttpError",
       "PlacelaunchUserPrivacyUnauthorized": "@roblox/enum/ConnectionError.PlacelaunchUserPrivacyUnauthorized",
+      "PlacelaunchVipOwnerNotPresent": "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent",
       "PlacelaunchAgeVerificationRequired": "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired",
       "PlacelaunchParentalApprovalRequired": "@roblox/enum/ConnectionError.PlacelaunchParentalApprovalRequired",
       "PlacelaunchCoreGated": "@roblox/enum/ConnectionError.PlacelaunchCoreGated",

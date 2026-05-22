@@ -13662,62 +13662,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ScrollingFrame#ResetScrollVelocity",
     "code_sample": ""
   },
-  "@roblox/globaltype/TerrainWriteOperation": {
-    "documentation": "",
-    "keys": {
-      "CommitBlock": "@roblox/globaltype/TerrainWriteOperation.CommitBlock",
-      "GetBlock": "@roblox/globaltype/TerrainWriteOperation.GetBlock"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.CommitBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/0"
-      },
-      {
-        "name": "block",
-        "documentation": "@roblox/globaltype/TerrainWriteOperation.CommitBlock/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainWriteOperation.CommitBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#CommitBlock",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainWriteOperation.GetBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainWriteOperation.GetBlock/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainWriteOperation.GetBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainWriteOperation#GetBlock",
-    "code_sample": ""
-  },
   "@roblox/globaltype/PackageService": {
     "documentation": "",
     "keys": {},
@@ -15254,7 +15198,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities": {
-    "documentation": "คำนวณความเร็วสัมพัทธ์ระหว่างชิ้นส่วนและนำไปใช้กับ <code>Motor6D.Part1</code> การคำนวณและการมอบหมายความเร็วสัมพัทธ์เหล่านี้ จะเกิดขึ้นตามลำดับที่ให้มา。",
+    "documentation": "คำนวณความเร็วสัมพัทธ์ระหว่างชิ้นส่วนและนำไปใช้กับ <code>Motor6D.Part1</code>.",
     "params": [
       {
         "name": "self",
@@ -15276,7 +15220,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.GetPlayingAnimationTracks": {
-    "documentation": "ส่งคืนรายการของ <code>AnimationTracks</code> ที่กำลังเล่นอยู่ในขณะนี้。",
+    "documentation": "คืนค่ารายการของ <code>AnimationTracks</code> ที่กำลังทำงานอยู่ในปัจจุบัน.",
     "params": [
       {
         "name": "self",
@@ -15293,13 +15237,13 @@
     "documentation": "รับผิดชอบการเล่นและการทำซ้ำของ <code>Animations</code>。"
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/param/1": {
-    "documentation": ""
+    "documentation": "ID ของ asset ของ <code>Animation</code> ที่แทร็กที่โหลดควรจะ นำกลับมา."
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId/return/0": {
-    "documentation": ""
+    "documentation": "แทร็ก <code>AnimationTrack</code> แรกบน <code>Animator</code> ที่โหลด จาก ID อนิเมชันที่กำหนด หรือ <code>nil</code> หากไม่มีการโหลด."
   },
   "@roblox/globaltype/Animator.GetTrackByAnimationId": {
-    "documentation": "",
+    "documentation": "คืนค่า <code>AnimationTrack</code> ที่มีอยู่แล้วบน <code>Animator</code> ที่ โหลดจาก <code>Animation</code> ตาม ID อนิเมชันที่กำหนด แตกต่างจาก <code>LoadAnimation()</code>, วิธีนี้ไม่ สร้างอินสแตนซ์ <code>AnimationTrack</code> ใหม่.",
     "params": [
       {
         "name": "self",
@@ -15326,7 +15270,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.LoadAnimation": {
-    "documentation": "โหลด <code>Animation</code> ลงบน <code>Animator</code> และคืนค่า <code>AnimationTrack</code>。",
+    "documentation": "โหลด <code>Animation</code> ลงบน <code>Animator</code>, คืนค่า <code>AnimationTrack</code>.",
     "params": [
       {
         "name": "self",
@@ -15369,10 +15313,10 @@
     "documentation": "รับผิดชอบการเล่นและการทำซ้ำของ <code>Animations</code>。"
   },
   "@roblox/globaltype/Animator.StepAnimations/param/1": {
-    "documentation": "จำนวนเวลาเป็นวินาทีที่การเล่นการเคลื่อนไหวจะเพิ่มขึ้น โดย。"
+    "documentation": "จำนวนเวลาหน่วยเป็นวินาทีที่ต้องเพิ่มในขณะเล่นอนิเมชัน."
   },
   "@roblox/globaltype/Animator.StepAnimations": {
-    "documentation": "เพิ่มค่า <code>AnimationTrack.TimePosition</code> ของการเล่นทั้งหมด <code>AnimationTracks</code> ที่ถูกโหลดลงบน <code>Animator</code> โดยการนำผลต่างไปใช้กับโมเดลที่เกี่ยวข้องกับ <code>Animator</code> ใช้สำหรับในบาร์คำสั่งหรือโดยปลั๊กอินเท่านั้น。",
+    "documentation": "เพิ่ม <code>AnimationTrack.TimePosition</code> ของ <code>AnimationTracks</code> ทั้งหมดที่กำลังเล่นอยู่และโหลดลงบน <code>Animator</code>, โดยนำ การเปลี่ยนแปลงมาประยุกต์ใช้กับโมเดลที่เกี่ยวข้องกับ <code>Animator</code>. สำหรับการใช้ใน command bar หรือโดยปลั๊กอินเท่านั้น.",
     "params": [
       {
         "name": "self",
@@ -15465,7 +15409,7 @@
     "returns": []
   },
   "@roblox/globaltype/Animator.AnimationPlayed": {
-    "documentation": "เกิดขึ้นเมื่อ Animator เริ่มเล่น AnimationTrack。",
+    "documentation": "เกิดขึ้นเมื่อ <code>Animator</code> เริ่มเล่น <code>AnimationTrack</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/Animator.AnimationPlayed.Connect",
       "ConnectParallel": "@roblox/globaltype/Animator.AnimationPlayed.ConnectParallel",
@@ -15988,6 +15932,7 @@
       "GetRecommendationItemAsync": "@roblox/globaltype/RecommendationService.GetRecommendationItemAsync",
       "LogActionEvent": "@roblox/globaltype/RecommendationService.LogActionEvent",
       "LogImpressionEvent": "@roblox/globaltype/RecommendationService.LogImpressionEvent",
+      "LogPreferenceEvent": "@roblox/globaltype/RecommendationService.LogPreferenceEvent",
       "RegisterItemAsync": "@roblox/globaltype/RecommendationService.RegisterItemAsync",
       "RemoveItemAsync": "@roblox/globaltype/RecommendationService.RemoveItemAsync",
       "UpdateItemAsync": "@roblox/globaltype/RecommendationService.UpdateItemAsync"
@@ -16135,17 +16080,67 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogImpressionEvent",
     "code_sample": ""
   },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0": {
+    "documentation": "บริการที่ให้การจัดการและแสดงผลคำแนะนำเนื้อหาที่ปรับแต่งตามคุณ"
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RecommendationService.LogPreferenceEvent": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/0"
+      },
+      {
+        "name": "preferenceType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1"
+      },
+      {
+        "name": "targetType",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2"
+      },
+      {
+        "name": "targetId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3"
+      },
+      {
+        "name": "tracingId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RecommendationService#LogPreferenceEvent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/0": {
     "documentation": "บริการที่ให้การจัดการและแสดงผลคำแนะนำเนื้อหาที่ปรับแต่งตามคุณ"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/1": {
-    "documentation": "ผู้เล่นที่สร้างไอเท็ม"
+    "documentation": "ผู้เล่นที่สร้างรายการ"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/param/2": {
-    "documentation": "พจนานุกรมที่มีฟิลด์ต่อไปนี้: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code> ที่ระบุประเภทของเนื้อหา ประเภทถูกกำหนดในลักษณะทั่วไป ตัวอย่างเช่น คุณสามารถใช้ <code>Static</code> สำหรับรูปภาพ <code>Dynamic</code> สำหรับวิดีโอ และ <code>Interactive</code> สำหรับโมเดล 3D ที่สนับสนุนการโต้ตอบ</li> <li><code>ReferenceId</code> &mdash; สตริงที่กำหนดโดยนักพัฒนาซึ่งระบุไอเท็มอย่างไม่ซ้ำกัน</li> <li><code>Duration</code> &mdash; ระยะเวลาเนื้อหาเป็นวินาที</li> <li><code>Attributes</code> &mdash; ตารางของแอตทริบิวต์สำหรับไอเท็ม เช่น <code>AssetId</code> หรือ <code>Description</code></li> <li><code>CustomTags</code> &mdash; รายการแท็กสตริงสำหรับการกรองและการปรับ</li> <li><code>Visibility</code> &mdash; enum <code>RecommendationItemVisibility</code> ที่ควบคุมความสามารถในการมองเห็นของไอเท็ม เช่น <code>Public</code> หรือ <code>Private</code></li> </ul>"
+    "documentation": "พจนานุกรมที่มีฟิลด์ต่อไปนี้: <ul> <li><code>ContentType</code> &mdash; <code>RecommendationItemContentType</code>   ระบุประเภทของเนื้อหา ประเภทถูกกำหนดในลักษณะทั่วไป   ตัวอย่างเช่น คุณสามารถใช้ <code>Static</code> สำหรับภาพ, <code>Dynamic</code> สำหรับวิดีโอ,   และ <code>Interactive</code> สำหรับโมเดล 3D ที่รองรับการมีส่วนร่วม</li> <li><code>ReferenceId</code> &mdash; สตริงที่นักพัฒนากำหนดซึ่งใช้ในการระบุ   รายการอย่างเฉพาะเจาะจง</li> <li><code>Duration</code> &mdash; ความยาวของเนื้อหาเป็นวินาที</li> <li><code>Attributes</code> &mdash; ตารางของแอตทริบิวต์สำหรับรายการ เช่น   <code>AssetId</code> หรือ <code>Description</code>.</li> <li><code>CustomTags</code> &mdash; รายการแท็กสตริงสำหรับการกรองและ   การกระตุ้น.</li> <li><code>Visibility</code> &mdash; <code>RecommendationItemVisibility</code>   enum ที่ควบคุมการมองเห็นของรายการ เช่น <code>Public</code> หรือ   <code>Private</code>.</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync/return/0": {
-    "documentation": "ตารางที่มีเพียงสองฟิลด์: <code>ItemId</code> และ <code>ReferenceId</code>"
+    "documentation": "ตารางที่มีฟิลด์เพียงสองฟิลด์: <code>ItemId</code> และ <code>ReferenceId</code>."
   },
   "@roblox/globaltype/RecommendationService.RegisterItemAsync": {
     "documentation": "",
@@ -16195,7 +16190,7 @@
     "documentation": "บริการที่ให้การจัดการและแสดงผลคำแนะนำเนื้อหาที่ปรับแต่งตามคุณ"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync/param/1": {
-    "documentation": "พจนานุกรมที่มีฟิลด์ต่อไปนี้: <ul> <li><code>ItemId</code> &mdash; ID ของไอเท็มที่จะอัปเดต</li> <li><code>ReferenceId</code> &mdash; สตริงที่กำหนดโดยนักพัฒนาสำหรับระบุไอเท็ม</li> <li><code>Creator</code> &mdash; ผู้สร้างใหม่สำหรับไอเท็ม Creator เป็นตารางที่มีสองฟิลด์: <code>CreatorId: number</code> และ <code>CreatorType: Enum.CreatorType</code></li> <li><code>Duration</code> &mdash; ระยะเวลาใหม่สำหรับเนื้อหาเป็นวินาที</li> <li><code>Visibility</code> &mdash; การตั้งค่าความสามารถในการมองเห็นใหม่สำหรับไอเท็ม</li> <li><code>Attributes</code> &mdash; ตารางใหม่ของแอตทริบิวต์สำหรับไอเท็ม</li> <li><code>CustomTags</code> &mdash; รายการใหม่ของแท็กสตริง</li> </ul>"
+    "documentation": "พจนานุกรมที่มีฟิลด์ต่อไปนี้: <ul> <li><code>ItemId</code> &mdash; ID ของรายการที่จะอัปเดต</li> <li><code>ReferenceId</code> &mdash; สตริงใหม่ที่กำหนดโดยนักพัฒนาสำหรับระบุ   รายการ</li> <li><code>Creator</code> &mdash; ผู้สร้างใหม่สำหรับรายการ ผู้สร้างเป็นตาราง   ที่มีฟิลด์สองฟิลด์: <code>CreatorId: number</code> และ   <code>CreatorType: Enum.CreatorType</code>.</li> <li><code>Duration</code> &mdash; ระยะเวลาใหม่สำหรับเนื้อหาเป็นวินาที</li> <li><code>Visibility</code> &mdash; การตั้งค่าใหม่สำหรับการมองเห็นรายการ</li> <li><code>Attributes</code> &mdash; ตารางใหม่ของแอตทริบิวต์สำหรับรายการ</li> <li><code>CustomTags</code> &mdash; รายการแท็กสตริงใหม่</li> </ul>"
   },
   "@roblox/globaltype/RecommendationService.UpdateItemAsync": {
     "documentation": "",
@@ -19485,13 +19480,13 @@
     "documentation": "วัตถุพิเศษที่ให้ฟังก์ชันของโมเดลในรูปแบบของตัวละคร."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/1": {
-    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการให้ตัวละครตรงกัน."
+    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการตั้งค่าตัวละครให้ตรงกัน"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/2": {
     "documentation": "โหมดการยืนยันประเภทสินทรัพย์."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่ด้วย <code>ApplyDescriptionAsync()</code>.<br>ทำให้รูปลักษณ์ของตัวละครตรงกับที่กำหนดใน <code>HumanoidDescription</code> ที่ส่งเข้าไป.",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่โดย <code>ApplyDescriptionAsync()</code><br>ทำให้รูปลักษณ์ของตัวละครตรงกับที่กำหนดใน <code>HumanoidDescription</code> ที่ส่งเข้าไป.",
     "params": [
       {
         "name": "self",
@@ -19514,13 +19509,13 @@
     "documentation": "วัตถุพิเศษที่ให้ฟังก์ชันของโมเดลในรูปแบบของตัวละคร."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/1": {
-    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการให้ตัวละครตรงกัน."
+    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการตั้งค่าตัวละครให้ตรงกัน"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/2": {
     "documentation": "โหมดการยืนยันประเภทสินทรัพย์."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionAsync": {
-    "documentation": "ทำให้รูปลักษณ์ของตัวละครตรงกับที่ของ <code>HumanoidDescription</code> ที่ส่งเข้าไป. ถ้า <code>UseAvatarSettings</code> เป็น True, การตั้งค่าอวตารสำหรับประสบการณ์ จะถูกนำไปใช้กับตัวละครด้วย.",
+    "documentation": "ทำให้รูปลักษณ์ของตัวละครตรงกับรูปลักษณ์ของ <code>HumanoidDescription</code> ที่ส่งเข้ามา หาก <code>UseAvatarSettings</code> เป็นจริง ค่า Avatar Settings สำหรับประสบการณ์นี้จะถูกนำไปใช้กับตัวละครด้วย",
     "params": [
       {
         "name": "self",
@@ -19543,13 +19538,13 @@
     "documentation": "วัตถุพิเศษที่ให้ฟังก์ชันของโมเดลในรูปแบบของตัวละคร."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/1": {
-    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการให้ตัวละครตรงกัน."
+    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการตั้งค่าตัวละครให้ตรงกัน"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/2": {
     "documentation": "โหมดการยืนยันประเภทสินทรัพย์."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่ด้วย <code>ApplyDescriptionResetAsync()</code>.<br>ทำให้รูปลักษณ์ของตัวละครตรงกับที่กำหนดใน <code>HumanoidDescription</code>, แม้หลังจากการเปลี่ยนแปลงจากภายนอก.",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่โดย <code>ApplyDescriptionResetAsync()</code><br>ทำให้รูปลักษณ์ของตัวละครตรงกับที่กำหนดใน <code>HumanoidDescription</code>, แม้หลังจากการเปลี่ยนแปลงจากภายนอก.",
     "params": [
       {
         "name": "self",
@@ -19572,7 +19567,7 @@
     "documentation": "วัตถุพิเศษที่ให้ฟังก์ชันของโมเดลในรูปแบบของตัวละคร."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/1": {
-    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการให้ตัวละครตรงกัน."
+    "documentation": "อินสแตนซ์ <code>HumanoidDescription</code> ที่คุณต้องการตั้งค่าตัวละครให้ตรงกัน"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/2": {
     "documentation": "โหมดการยืนยันประเภทสินทรัพย์."
@@ -19797,7 +19792,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Humanoid.GetRelativeVelocityAtFloor": {
-    "documentation": "",
+    "documentation": "คืนค่าอัตราเร็วที่แท้จริงของ Humanoid ที่สัมพันธ์กับผิวที่ มันยืนอยู่ในรูปแบบ <code>Vector3</code> ในการจัดแนวของโลก.",
     "params": [
       {
         "name": "self",
@@ -20053,7 +20048,7 @@
     "documentation": "เล่นสำเร็จ"
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกเลิกใช้แล้วและถูกแทนที่ด้วย <code>PlayEmoteAsync()</code>.<br>เล่นอีโมตและคืนค่าหากทำงานสำเร็จ",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่โดย <code>PlayEmoteAsync()</code>.<br>เล่นอีโมตและคืนค่าหากทำงานสำเร็จ",
     "params": [
       {
         "name": "self",
@@ -23217,7 +23212,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Path.GetPointCoordinates": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกแทนที่โดย <code>GetWaypoints()</code> ซึ่งควรใช้ในการทำงานใหม่ทั้งหมดแทน.<br>คืนค่าตารางของอินสแตนซ์ <code>Path</code>.",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกแทนที่โดย <code>GetWaypoints()</code> ซึ่งควรใช้ในงานทุกงานใหม่.<br>คืนค่าตารางของอินสแตนซ์ <code>Path</code>.",
     "params": [
       {
         "name": "self",
@@ -25816,7 +25811,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox",
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。",
     "keys": {
       "CreatorId": "@roblox/globaltype/DataModel.CreatorId",
       "CreatorType": "@roblox/globaltype/DataModel.CreatorType",
@@ -25852,12 +25847,12 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal Lighting = game:GetService(\"Lighting\")\n\n-- ตัวอย่างการปรับคุณสมบัติของบริการนี้\nWorkspace.Gravity = 20\nLighting.ClockTime = 4"
   },
   "@roblox/globaltype/DataModel.CreatorId": {
-    "documentation": "คำอธิบาย ID ของผู้ใช้หรือกลุ่มที่เป็นเจ้าของสถานที่",
+    "documentation": "อธิบาย ID ของผู้ใช้หรือกลุ่มที่เป็นเจ้าของสถานที่นั้น。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"เจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"สมาชิกของกลุ่มที่เป็นเจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
-    "documentation": "คำอธิบาย <code>CreatorType</code> ของสถานที่ ว่าสถานที่นั้นเป็นของผู้ใช้หรือกลุ่ม",
+    "documentation": "อธิบาย <code>CreatorType</code> ของสถานที่นั้นว่ามีเจ้าของเป็นผู้ใช้หรือกลุ่ม。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"เจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"สมาชิกของกลุ่มที่เป็นเจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\tend\nend)"
   },
@@ -25867,52 +25862,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GameId": {
-    "documentation": "คำอธิบาย ID ของประสบการณ์ที่สถานที่ทำงานบนเซิร์ฟเวอร์เป็นของ",
+    "documentation": "อธิบาย ID ของประสบการณ์ที่สถานที่กำลังทำงานอยู่บนเซิร์ฟเวอร์。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GameId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GearGenreSetting": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้งานและไม่ทำงานอีกต่อไป ควรจะไม่ถูกใช้<br>ไม่ทำงาน ในอดีตคำอธิบายสิทธิ์อุปกรณ์ของสถานที่ตามที่ตั้งค่าในเว็บไซต์ Roblox",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้วและไม่ทำงานอีกต่อไป ควรหลีกเลี่ยงการใช้<br>ไม่ทำงาน ตามประวัติพรรณนาสิทธิในการใช้เกียร์ของสถานที่ ตามที่ตั้งค่าในเว็บไซต์ Roblox。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#GearGenreSetting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Genre": {
-    "documentation": "ไม่ทำงาน ในอดีตคำอธิบาย <code>Genre</code> ของสถานที่ตามที่ตั้งค่าในเว็บไซต์ Roblox",
+    "documentation": "ไม่ทำงาน ตามประวัติพรรณนาของ <code>Genre</code> ของสถานที่ตามที่ตั้งค่าในเว็บไซต์ Roblox。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Genre",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.JobId": {
-    "documentation": "ตัวระบุเฉพาะสำหรับเซิร์ฟเวอร์เกมที่ทำงาน",
+    "documentation": "ตัวระบุที่ไม่ซ้ำกันสำหรับการทำงานของเซิร์ฟเวอร์เกม。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#JobId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.lighting": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกแทนที่ด้วย <code>game:GetService(\"Lighting\")</code> ซึ่ง ควรใช้แทน<br>หมายถึงบริการ <code>Lighting</code> ของเกม",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกแซงหน้าโดย <code>game:GetService(\"Lighting\")</code> ซึ่ง ควรใช้แทน。<br>อ้างอิงถึงบริการ <code>Lighting</code> ของเกม。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#lighting",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.MatchmakingType": {
-    "documentation": "แสดงถึงวิธีการที่ผู้เล่นในเซิร์ฟเวอร์ถูกจัดการโดยการจับคู่",
+    "documentation": "แสดงถึงวิธีจัดการผู้เล่นในเซิร์ฟเวอร์ผ่านการจับคู่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#MatchmakingType",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceId": {
-    "documentation": "อธิบาย ID ของสถานที่ที่รันอยู่บนเซิร์ฟเวอร์",
+    "documentation": "อธิบาย ID ของสถานที่ที่กำลังทำงานบนเซิร์ฟเวอร์。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.PlaceVersion": {
-    "documentation": "อธิบายเวอร์ชันของสถานที่ที่เซิร์ฟเวอร์กำลังรันอยู่",
+    "documentation": "อธิบายเวอร์ชันของสถานที่ที่เซิร์ฟเวอร์กำลังทำงานอยู่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PlaceVersion",
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"หมายเลขเวอร์ชันเซิร์ฟเวอร์: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "อธิบาย ID เซิร์ฟเวอร์ส่วนตัวของเซิร์ฟเวอร์ หากเซิร์ฟเวอร์เป็นเซิร์ฟเวอร์ส่วนตัว หรือเป็น <code>เซิร์ฟเวอร์ที่สำรอง</code>.",
+    "documentation": "อธิบาย ID ของเซิร์ฟเวอร์ส่วนตัว หากเซิร์ฟเวอร์นั้นเป็นเซิร์ฟเวอร์ส่วนตัว หรือเซิร์ฟเวอร์ที่ถูก <code>จองไว้</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
   "@roblox/globaltype/DataModel.PrivateServerOwnerId": {
-    "documentation": "อธิบาย <code>UserId</code> ของ <code>Player</code> ที่เป็นเจ้าของ เซิร์ฟเวอร์ส่วนตัวหากเซิร์ฟเวอร์เป็นส่วนตัว",
+    "documentation": "อธิบาย <code>UserId</code> ของ <code>Player</code> ที่เป็นเจ้าของ เซิร์ฟเวอร์ส่วนตัวหากเซิร์ฟเวอร์นั้นเป็นส่วนตัว。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerOwnerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -25922,33 +25917,33 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerId": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้ว ขอให้ใช้ <code>DataModel.PrivateServerId</code> แทน。<br>สตริงที่สามารถระบุเซิร์ฟเวอร์ปัจจุบันว่าเป็นเซิร์ฟเวอร์ส่วนตัวได้。",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้ว ควรใช้ <code>DataModel.PrivateServerId</code> แทน。<br>สตริงที่สามารถระบุเซิร์ฟเวอร์ปัจจุบันว่าเป็นเซิร์ฟเวอร์ส่วนตัว。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.VIPServerOwnerId": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้ว ขอให้ใช้ <code>DataModel.PrivateServerOwnerId</code> แทน。<br><code>UserId</code> ของบัญชีที่เป็นเจ้าของเซิร์ฟเวอร์ ส่วนตัว。",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้ว ควรใช้ <code>DataModel.PrivateServerOwnerId</code> แทน。<br>ID ของบัญชีผู้ที่เป็นเจ้าของเซิร์ฟเวอร์ส่วนตัว。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#VIPServerOwnerId",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.Workspace": {
-    "documentation": "การอ้างอิงถึงบริการ <code>Workspace</code>。",
+    "documentation": "อ้างอิงถึงบริการ <code>Workspace</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.workspace": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้ว เป็นรูปแบบของ <code>DataModel.Workspace</code> ที่ควรใช้แทน。",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้ และเป็นตัวแปรของ <code>DataModel.Workspace</code> ซึ่งควรใช้แทน。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#workspace",
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.BindToClose/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.BindToClose/param/1": {
-    "documentation": "ฟังก์ชันที่ถูกเรียกก่อนที่เซิร์ฟเวอร์ประสบการณ์จะปิดตัว หากฟังก์ชันที่ผูกไว้ยอมรับพารามิเตอร์มันจะส่ง <code>CloseReason</code> โดยระบุสาเหตุในการปิดเซิร์ฟเวอร์"
+    "documentation": "ฟังก์ชันที่ถูกเรียกก่อนที่เซิร์ฟเวอร์ประสบการณ์จะปิดตัวลง หากฟังก์ชัน ที่ถูกผูกรับพารามิเตอร์ จะส่ง <code>CloseReason</code> เพื่อระบุสาเหตุของการปิดเซิร์ฟเวอร์。"
   },
   "@roblox/globaltype/DataModel.BindToClose": {
-    "documentation": "ผูกฟังก์ชันที่จะถูกเรียกก่อนที่เซิร์ฟเวอร์จะปิดตัว",
+    "documentation": "ผูกฟังก์ชันที่จะถูกเรียกก่อนที่เซิร์ฟเวอร์จะปิดตัวลง。",
     "params": [
       {
         "name": "self",
@@ -25964,13 +25959,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.GetJobsInfo/return/0": {
-    "documentation": "ตารางที่มีข้อมูลเกี่ยวกับงานที่ดำเนินการโดยงานที่จัดตาราง ดูข้างต้นสำหรับรูปแบบ"
+    "documentation": "ตารางที่มีข้อมูลเกี่ยวกับงานที่ทำโดยตัวจัดตาราง เว้นว่างไว้สำหรับรูปแบบข้างต้น。"
   },
   "@roblox/globaltype/DataModel.GetJobsInfo": {
-    "documentation": "คืนค่าตารางที่มีข้อมูลพื้นฐานเกี่ยวกับงานที่ดำเนินการโดยงานที่จัดตาราง",
+    "documentation": "ส่งกลับตารางที่มีข้อมูลพื้นฐานเกี่ยวกับงานที่ทำโดย ตัวจัดตารางเวลา。",
     "params": [
       {
         "name": "self",
@@ -25984,13 +25979,13 @@
     "code_sample": "local jobInfo = game:GetJobsInfo()\nlocal jobTitles = jobInfo[1]\n\ntable.remove(jobInfo, 1)\n\nlocal divider = string.rep(\"-\", 120)\nprint(divider)\nwarn(\"ข้อมูลงาน:\")\nprint(divider)\n\nfor _, job in pairs(jobInfo) do\n\tfor jobIndex, jobValue in pairs(job) do\n\t\tlocal jobTitle = jobTitles[jobIndex]\n\t\twarn(jobTitle, \"=\", jobValue)\n\tend\n\tprint(divider)\nend"
   },
   "@roblox/globaltype/DataModel.GetMessage/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.GetMessage/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetMessage": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้เนื่องจากระบบถูกหมดอายุไปเป็นเวลานานมากแล้ว และเมื่อไม่นานมานี้ APIs สำหรับการตั้งค่าข้อความนี้ถูกลบออก<br><strong><em>[เลิกใช้]:</em></strong> ฟังก์ชันนี้จะคืนค่าชุดสตริงเปล่าเสมอ",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้แล้วตั้งแต่ระบบถูกยกเลิกเมื่อเวลาผ่านไปนานแล้ว และล่าสุด API สำหรับการตั้งค่าข้อความนี้ถูกลบออกไป。<br><strong><em>[ไม่ใช้แล้ว]:</em></strong> ฟังก์ชันนี้จะส่งคืนสตริงว่างเสมอ。",
     "params": [
       {
         "name": "self",
@@ -26004,16 +25999,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.GetObjects/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.GetObjects/param/1": {
-    "documentation": "URL เนื้อหาที่กำหนด"
+    "documentation": "URL เนื้อหาที่กำหนด。"
   },
   "@roblox/globaltype/DataModel.GetObjects/return/0": {
-    "documentation": "รายการของ <code>Instances</code> ที่เกี่ยวข้องกับ URL เนื้อหา"
+    "documentation": "อาร์เรย์ของ <code>Instances</code> ที่เชื่อมโยงกับ URL เนื้อหา。"
   },
   "@roblox/globaltype/DataModel.GetObjects": {
-    "documentation": "คืนค่ารายการของ <code>Instances</code> ที่เกี่ยวข้องกับ URL เนื้อหาที่กำหนด",
+    "documentation": "ส่งคืนอาร์เรย์ของ <code>Instances</code> ที่เชื่อมโยงกับ URL เนื้อหาที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -26031,13 +26026,13 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nlocal WEB_URL = \"plugin URL here\"\n\nlocal function downloadPlugin(webURL)\n\t-- รับ URL ของเนื้อหา\n\tlocal contentID = string.match(webURL, \"%d+\")\n\tlocal contentURL = \"rbxassetid://\" .. contentID\n\n\t-- ดาวน์โหลดวัตถุ\n\tlocal objects = game:GetObjects(contentURL)\n\n\t-- ตัดสินใจว่าจะขึ้นต้นที่ไหน\n\tlocal selection = Selection:Get()\n\tlocal parent = #selection == 1 and selection[1] or workspace\n\n\t-- ขึ้นต้นวัตถุ\n\tfor _, object in pairs(objects) do\n\t\tobject.Parent = parent\n\tend\nend\n\ndownloadPlugin(WEB_URL)"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.GetRemoteBuildMode": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้ ใช้ <code>RunService:IsServer()</code> เพื่อดูว่ารหัสของคุณกำลังทำงานบนเซิร์ฟเวอร์<br>วิธีนี้ไม่เป็นประโยชน์อีกต่อไปและจะคืนค่าความผิดพลาดเสมอ",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้แล้ว ใช้ <code>RunService:IsServer()</code> เพื่อตรวจสอบว่ารหัสของคุณ ทำงานอยู่ในเซิร์ฟเวอร์หรือไม่。<br>วิธีนี้ไม่เป็นประโยชน์อีกต่อไปและจะส่งคืนค่า false เสมอ。",
     "params": [
       {
         "name": "self",
@@ -26051,16 +26046,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/param/1": {
-    "documentation": "<code>GearType</code> ที่กำหนด"
+    "documentation": "ประเภท <code>GearType</code> ที่กำหนด。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed/return/0": {
-    "documentation": "ไม่ว่าจะอนุญาตให้อุปกรณ์ของ <code>GearType</code> ที่กำหนดในเกมหรือไม่"
+    "documentation": "ชุดเกียร์ของ <code>GearType</code> ที่กำหนดได้รับอนุญาตในเกมหรือไม่。"
   },
   "@roblox/globaltype/DataModel.IsGearTypeAllowed": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้และไม่มีการทำงานอีกต่อไป ควรจะไม่ถูกใช้<br>คืนค่าการอนุญาตว่าอุปกรณ์ของ <code>GearType</code> ที่กำหนดสามารถเพิ่มลงใน <code>Players'</code> <code>StarterGears</code> ได้หรือไม่",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้แล้วและไม่ทำงานอีกต่อไป ควรหลีกเลี่ยงการใช้<br>ส่งคืนว่าชุดเกียร์ของ <code>GearType</code> ที่กำหนดสามารถเพิ่มลงใน <code>Players'</code> <code>StarterGears</code> ได้หรือไม่。",
     "params": [
       {
         "name": "self",
@@ -26078,13 +26073,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.IsLoaded/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.IsLoaded/return/0": {
-    "documentation": "ไม่ว่าไคลเอนท์จะเสร็จสิ้นการโหลดเกมเป็นครั้งแรกหรือไม่"
+    "documentation": "ไคลเอนต์โหลดเกมเสร็จแล้วเป็นครั้งแรกหรือไม่。"
   },
   "@roblox/globaltype/DataModel.IsLoaded": {
-    "documentation": "คืนค่าความจริงหากไคลเอนต์โหลดเกมเสร็จสมบูรณ์เป็นครั้งแรก",
+    "documentation": "ส่งคืน true หากไคลเอนต์ได้โหลดเกมเสร็จเรียบร้อยแล้วเป็นครั้งแรก。",
     "params": [
       {
         "name": "self",
@@ -26098,7 +26093,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- สร้างหน้าจอโหลดพื้นฐาน\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"กำลังโหลด\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- ตั้งหน้าจอ GUI ทั้งหมดไปยัง player GUI\nscreenGui.Parent = playerGui\n\n-- ลบหน้าจอโหลดเริ่มต้น\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- บังคับให้หน้าจอแสดงอย่างน้อยเป็นเวลาหลายวินาที\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.SavePlace/param/1": {
     "documentation": ""
@@ -26107,7 +26102,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.SavePlace": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้ ไม่ควรใช้ในการทำงานใหม่<br>บันทึกสถานที่ปัจจุบัน",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้แล้ว หลีกเลี่ยงการใช้ในการทำงานใหม่。<br>บันทึกสถานที่ปัจจุบัน。",
     "params": [
       {
         "name": "self",
@@ -26125,13 +26120,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/1": {
-    "documentation": "ID ที่ตั้งค่า <code>DataModel.PlaceId</code> ให้"
+    "documentation": "ID ที่ตั้งค่าให้กับ <code>DataModel.PlaceId</code>。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId": {
-    "documentation": "ตั้งค่า <code>DataModel.PlaceId</code> ของอินสแตนซ์เกมที่ปัจจุบัน",
+    "documentation": "ตั้งค่า <code>DataModel.PlaceId</code> ของอินสแตนซ์เกมปัจจุบัน。",
     "params": [
       {
         "name": "self",
@@ -26147,13 +26142,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/0": {
-    "documentation": "รากฐานของลำดับชั้นพ่อแม่-ลูกใน Roblox ลูกของมันที่มีความสัมพันธ์โดยตรงคือบริการต่างๆ เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐานของเกม Roblox"
+    "documentation": "รากของลำดับชั้นระหว่างพ่อแม่และลูกของ Roblox ลูกของมันโดยตรงคือบริการต่างๆ, เช่น <code>Workspace</code> และ <code>Lighting</code> ซึ่งทำหน้าที่เป็นส่วนประกอบพื้นฐาน ของเกม Roblox。"
   },
   "@roblox/globaltype/DataModel.SetUniverseId/param/1": {
-    "documentation": "ID ที่ตั้งค่า <code>DataModel.GameId</code> ให้"
+    "documentation": "ID ที่ตั้งค่าให้กับ <code>DataModel.GameId</code>。"
   },
   "@roblox/globaltype/DataModel.SetUniverseId": {
-    "documentation": "ตั้งค่า <code>DataModel.GameId</code> ของอินสแตนซ์เกมที่ปัจจุบันให้กับ <code>universeId</code> ที่กำหนด",
+    "documentation": "ตั้งค่า <code>DataModel.GameId</code> ของอินสแตนซ์เกมปัจจุบันเป็น <code>universeId</code> ที่กำหนด。",
     "params": [
       {
         "name": "self",
@@ -26172,7 +26167,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/DataModel.OnClose": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้ ขอแนะนำให้ใช้ <code>DataModel:BindToClose()</code> แทน<br>เรียกก่อนที่เกมจะถูกปิด เมื่อการเรียกกลับนี้ส่งคืนหรือหมดเวลาจะทำให้เกมเสร็จสิ้นการปิด",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกเลิกใช้ ควรใช้ <code>DataModel:BindToClose()</code> แทน。<br>ถูกเรียกก่อนที่เกมจะถูกปิด เมื่อ callback นี้คืนค่า หรือหมดเวลา เกมจะเสร็จสิ้นการปิดตัวลง。",
     "params": [],
     "returns": [
       "@roblox/globaltype/DataModel.OnClose/return/0"
@@ -26258,7 +26253,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.AllowedGearTypeChanged": {
-    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้ ไม่ควรใช้ในการทำงานใหม่<br>เกิดขึ้นเมื่อ SetGearSettings ถูกเรียกด้วยค่าอื่นสำหรับ <code>allowedGenres</code>.",
+    "documentation": "<strong>Deprecated:</strong> รายการนี้ถูกเลิกใช้แล้ว ไม่ควรใช้ในการทำงานใหม่。<br>เกิดขึ้นเมื่อเรียก SetGearSettings ด้วยค่าที่ต่างไปสำหรับ <code>allowedGenres</code>。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.AllowedGearTypeChanged.ConnectParallel",
@@ -26346,7 +26341,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest": {
-    "documentation": "เกิดขึ้นเมื่อผู้ใช้สั่งเพิ่มหรือลดคุณภาพกราฟิกโดยใช้ปุ่มลัด",
+    "documentation": "เกิดขึ้นเมื่อผู้ใช้กระตุ้นให้เพิ่มหรือลดคุณภาพกราฟิก โดยใช้คีย์ลัด。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.GraphicsQualityChangeRequest.ConnectParallel",
@@ -26434,7 +26429,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.ItemChanged": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกแทนที่ด้วย <code>Object.Changed</code> ซึ่งควรใช้ในงานใหม่แทน<br>เกิดขึ้นเมื่อคุณสมบัติของวัตถุใดๆ ใน <code>DataModel</code> ถูกเปลี่ยน",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกแทนที่ด้วย <code>Object.Changed</code> ซึ่งควร ใช้แทนในการทำงานใหม่。<br>เกิดขึ้นเมื่อมีการเปลี่ยนแปลงคุณสมบัติของวัตถุใด ๆ ใน <code>DataModel</code>。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.ItemChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.ItemChanged.ConnectParallel",
@@ -26522,7 +26517,7 @@
     "returns": []
   },
   "@roblox/globaltype/DataModel.Loaded": {
-    "documentation": "เกิดขึ้นในลูกค้าเมื่อเกมเสร็จสมบูรณ์การโหลดเป็นครั้งแรก",
+    "documentation": "เกิดขึ้นที่ไคลเอนต์เมื่อเกมเสร็จสิ้นการโหลดเป็นครั้งแรก。",
     "keys": {
       "Connect": "@roblox/globaltype/DataModel.Loaded.Connect",
       "ConnectParallel": "@roblox/globaltype/DataModel.Loaded.ConnectParallel",
@@ -26530,6 +26525,94 @@
       "Wait": "@roblox/globaltype/DataModel.Loaded.Wait"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#Loaded",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect": {
+    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel": {
+    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once": {
+    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์ (สำหรับการเรียกใช้งานครั้งเดียว) และ ส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait": {
+    "documentation": "หยุดการทำงานของเธรดปัจจุบันจนกว่าสัญญาณจะถูกเรียกใช้งานและส่งคืนอาร์กิวเมนต์ ที่ถูกส่งมาจากสัญญาณ。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/DataModel.ServerLifecycleChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/DataModel.ServerLifecycleChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Once",
+      "Wait": "@roblox/globaltype/DataModel.ServerLifecycleChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#ServerLifecycleChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageLabel": {
@@ -28169,7 +28252,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PathfindingModifier.Label": {
-    "documentation": "ชื่อของพื้นที่นำทางภายในหรือตรงจุดบนชิ้นส่วนที่อยู่ภายใต้ modifier.",
+    "documentation": "ชื่อของพื้นที่นำทางภายในหรือบนชิ้นส่วนที่ถูกหุ้มโดยตัวปรับค่า",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PathfindingModifier#Label",
     "code_sample": ""
   },
@@ -31119,14 +31202,38 @@
   "@roblox/globaltype/UICorner": {
     "documentation": "โมดิฟายเออร์ UI ที่ใช้ในการปรับรูปแบบมุมของพาเรนต์ของมัน <code>GuiObject</code>。",
     "keys": {
-      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius"
+      "BottomLeftRadius": "@roblox/globaltype/UICorner.BottomLeftRadius",
+      "BottomRightRadius": "@roblox/globaltype/UICorner.BottomRightRadius",
+      "CornerRadius": "@roblox/globaltype/UICorner.CornerRadius",
+      "TopLeftRadius": "@roblox/globaltype/UICorner.TopLeftRadius",
+      "TopRightRadius": "@roblox/globaltype/UICorner.TopRightRadius"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner",
     "code_sample": ""
   },
+  "@roblox/globaltype/UICorner.BottomLeftRadius": {
+    "documentation": "กำหนดรัศมีของมุมล่างซ้าย.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomLeftRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UICorner.BottomRightRadius": {
+    "documentation": "กำหนดรัศมีของมุมล่างขวา.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#BottomRightRadius",
+    "code_sample": ""
+  },
   "@roblox/globaltype/UICorner.CornerRadius": {
-    "documentation": "ตั้งค่ารัศมีทุกมุมทั้งสี่พร้อมกันและอ่านจาก <code>TopLeftRadius</code>.",
+    "documentation": "ตั้งค่ารัศมีของมุมทั้งสี่ในครั้งเดียวและอ่านจาก <code>TopLeftRadius</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#CornerRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UICorner.TopLeftRadius": {
+    "documentation": "กำหนดรัศมีของมุมบนซ้าย.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopLeftRadius",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UICorner.TopRightRadius": {
+    "documentation": "กำหนดรัศมีของมุมบนขวา.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#TopRightRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioChannelMixer": {
@@ -38743,12 +38850,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Always Save Script Changes": {
-    "documentation": "หากตั้งค่าเป็นจริง Roblox Studio จะพยายามถ่ายโอนการเปลี่ยนแปลงสคริปต์ที่ทำในระหว่างเซสชั่น Play Solo ไปยังสถานที่ที่เปิดอยู่。",
+    "documentation": "ถ้าตั้งค่าเป็นจริง Roblox Studio จะพยายามถ่ายโอนการเปลี่ยนแปลงสคริปต์ที่ทำในระหว่างการเล่นโหมด Solo ไปยังสถานที่ที่เปิดอยู่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Always Save Script Changes",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Animate Hover Over": {
-    "documentation": "หากตั้งค่าเป็นจริง กล่องเลือกที่ปรากฏเมื่อเลื่อนเมาส์ไปยังวัตถุที่เลือกได้ใน <code>Workspace</code> จะกะพริบระหว่าง <code>Hover Over Color</code> และ <code>Select Color</code> ขึ้นอยู่กับ <code>Hover Animate Speed</code>。",
+    "documentation": "ถ้าตั้งค่าเป็นจริง กล่องการเลือกที่ปรากฏเมื่อเลื่อนเมาส์ไปเหนือวัตถุที่สามารถเลือกได้ใน <code>Workspace</code> จะกระพริบระหว่าง <code>Hover Over Color</code> และ <code>Select Color</code> ตาม <code>Hover Animate Speed</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Animate Hover Over",
     "code_sample": ""
   },
@@ -38808,12 +38915,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Background Color": {
-    "documentation": "กำหนดสีพื้นหลังของตัวแก้ไขสคริปต์ใน Roblox Studio。",
+    "documentation": "กำหนดสีพื้นหลังของตัวแก้ไขสคริปต์ใน Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Basic Objects Display Mode": {
-    "documentation": "ตั้งค่าโหมดการเลื่อนของแท็บ <code>Advanced Objects</code> ใน Roblox Studio。",
+    "documentation": "ตั้งค่าโหมดการเลื่อนของแท็บ <code>Advanced Objects</code> ใน Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Basic Objects Display Mode",
     "code_sample": ""
   },
@@ -38828,12 +38935,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Built-in Function Color": {
-    "documentation": "ตั้งค่าสีของฟังก์ชันและคำสำคัญในตัวแก้ไขสคริปต์。",
+    "documentation": "ตั้งค่าสีของฟังก์ชันในตัวและคำสำคัญในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Built-in Function Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Mouse Wheel Speed": {
-    "documentation": "ตั้งค่าจำนวนสตัดที่กล้องจะเคลื่อนที่ไปข้างหน้าหรือถอยหลังเมื่อใช้ ล้อเมาส์。",
+    "documentation": "ตั้งจำนวนสตั๊ดที่กล้องจะเคลื่อนที่ไปข้างหน้าหรือถอยหลังเมื่อใช้ล้อเมาส์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Mouse Wheel Speed",
     "code_sample": ""
   },
@@ -38843,12 +38950,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Shift Speed": {
-    "documentation": "ตั้งความเร็วในหน่วยสตัด/วินาทีที่กล้องเคลื่อนที่เมื่อกด Shift พร้อมกับปุ่มเคลื่อนที่。",
+    "documentation": "ตั้งความเร็วในสตั๊ด/วินาทีที่กล้องเคลื่อนที่ขณะกด Shift พร้อมกับปุ่มการเคลื่อนไหว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Shift Speed",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Camera Speed": {
-    "documentation": "ตั้งความเร็วในหน่วยสตัด/วินาทีที่กล้องเคลื่อนที่เมื่อมีการกดปุ่ม เคลื่อนที่。",
+    "documentation": "ตั้งความเร็วในสตั๊ด/วินาทีที่กล้องเคลื่อนที่เมื่อกดปุ่มการเคลื่อนไหว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Camera Speed",
     "code_sample": ""
   },
@@ -38898,7 +39005,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Clear Output On Start": {
-    "documentation": "ถ้าตั้งค่าเป็นจริง ผลลัพธ์จะถูกล้างโดยอัตโนมัติเมื่อมีการเปลี่ยนเซสชันเกม",
+    "documentation": "ถ้าตั้งค่าเป็นจริง เอาต์พุตจะถูกล้างอัตโนมัติเมื่อเปลี่ยนเกมเซสชัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Clear Output On Start",
     "code_sample": ""
   },
@@ -38918,7 +39025,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Comment Color": {
-    "documentation": "กำหนดสีของความคิดเห็นในโปรแกรมแก้ไขสคริปต์ของ Roblox Studio",
+    "documentation": "กำหนดสีของความคิดเห็นในตัวแก้ไขสคริปต์ของ Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Comment Color",
     "code_sample": ""
   },
@@ -38948,7 +39055,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.DeprecatedObjectsShown": {
-    "documentation": "ถ้าตั้งค่าเป็นจริง วัตถุที่ไม่ได้ใช้งานจะถูกแสดงในหน้าต่าง Advanced Objects และใน Object Browser ด้วย",
+    "documentation": "ถ้าตั้งค่าเป็นจริง วัตถุที่เลิกใช้งานจะปรากฏในหน้าต่างวัตถุขั้นสูง เช่นเดียวกับเบราว์เซอร์วัตถุ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#DeprecatedObjectsShown",
     "code_sample": ""
   },
@@ -39043,7 +39150,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Enable Autocomplete": {
-    "documentation": "เมื่อถูกตั้งค่าเป็นจริง โปรแกรมแก้ไขสคริปต์และแถบคำสั่งจะแสดงเมนู การเติมคำอัตโนมัติในขณะเขียน",
+    "documentation": "เมื่อถูกตั้งค่าเป็นจริง ตัวแก้ไขสคริปต์และแถบคำสั่งจะแสดงเมนูช่วยเติมข้อความขณะเขียน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Enable Autocomplete",
     "code_sample": ""
   },
@@ -39133,7 +39240,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Error Color": {
-    "documentation": "กำหนดสีของเส้นใต้หยักที่แสดงเมื่อมีโค้ดที่ผิดรูปแบบถูกตรวจพบในโปรแกรมแก้ไขสคริปต์",
+    "documentation": "กำหนดสีของเส้นใต้คลื่นที่แสดงเมื่อมีการตรวจพบรหัสที่ผิดพลาดในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Error Color",
     "code_sample": ""
   },
@@ -39148,12 +39255,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Find Selection Background Color": {
-    "documentation": "ตั้งค่าความเน้นสีของข้อความที่ตรงกันในตัวแก้ไขสคริปต์ในการค้นหาเลือก (Ctrl+F).",
+    "documentation": "ตั้งค่าสีของไฮไลท์ที่ตรงกันในฟังก์ชันค้นหาเลือกของตัวแก้ไขสคริปต์ (Ctrl+F)",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Find Selection Background Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Font": {
-    "documentation": "ระบุฟอนต์ที่ใช้ในตัวแก้ไขสคริปต์.",
+    "documentation": "กำหนดฟอนต์ที่ใช้ในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Font",
     "code_sample": ""
   },
@@ -39188,7 +39295,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Animate Speed": {
-    "documentation": "ระบุความถี่ที่อนิเมชั่นการโฮเวอร์แฟลชเมื่อเมาส์ ชี้ไปที่วัตถุที่เลือกใน <code>Workspace</code>.",
+    "documentation": "กำหนดความถี่ที่อนิเมชั่น hover จะกระพริบเมื่อเมาส์อยู่เหนือตัวเลือกที่สามารถเลือกได้ใน <code>Workspace</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Animate Speed",
     "code_sample": ""
   },
@@ -39203,7 +39310,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Hover Over Color": {
-    "documentation": "ระบุสีที่กล่องเลือกโฮเวอร์ใช้.",
+    "documentation": "กำหนดสีที่กล่องการเลือก hover ใช้",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Hover Over Color",
     "code_sample": ""
   },
@@ -39228,7 +39335,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Keyword Color": {
-    "documentation": "ตั้งค่าสีข้อความของคำสำคัญในตัวแก้ไข Luau.",
+    "documentation": "ตั้งค่าสีข้อความของคำหลักในตัวแก้ไข Luau",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Keyword Color",
     "code_sample": ""
   },
@@ -39243,7 +39350,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Line Thickness": {
-    "documentation": "ตั้งค่าความหนาของการเลือก adornee ของ <code>Model.PrimaryPart</code>. ค่าต้องอยู่ระหว่าง 0 ถึง 0.05.",
+    "documentation": "ตั้งความหนาของตัวเลือก <code>Model.PrimaryPart</code> ค่าของมันถูกจำกัดระหว่าง 0 ถึง 0.05",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Line Thickness",
     "code_sample": ""
   },
@@ -39268,7 +39375,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.LuaDebuggerEnabled": {
-    "documentation": "ระบุว่าเปิดใช้งานคุณสมบัติ Lua Debugger หรือไม่.",
+    "documentation": "กำหนดว่าใช้ฟีเจอร์ Lua Debugger หรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#LuaDebuggerEnabled",
     "code_sample": ""
   },
@@ -39288,7 +39395,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Matching Word Background Color": {
-    "documentation": "ตั้งค่าความเน้นสีของตัวแปรที่ถูกคลิกสองครั้งในตัวแก้ไขสคริปต์.",
+    "documentation": "ตั้งค่าสีไฮไลท์สำหรับตัวแปรที่ดับเบิลคลิกในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Matching Word Background Color",
     "code_sample": ""
   },
@@ -39298,7 +39405,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Maximum Output Lines": {
-    "documentation": "จำนวนบรรทัดสูงสุดที่สามารถแสดงในผลลัพธ์ได้.",
+    "documentation": "จำนวนบรรทัดสูงสุดที่สามารถแสดงในผลลัพธ์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Maximum Output Lines",
     "code_sample": ""
   },
@@ -39313,32 +39420,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Number Color": {
-    "documentation": "ระบุสีของตัวเลขในตัวแก้ไขสคริปต์ของ Roblox Studio.",
+    "documentation": "กำหนดสีของตัวเลขในตัวแก้ไขสคริปต์ของ Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Number Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Only Play Audio from Window in Focus": {
-    "documentation": "หากตั้งค่าเป็นจริง เสียงที่กำลังเล่นจะได้ยินเฉพาะเมื่อหน้าต่างเกม ถูกโฟกัส.",
+    "documentation": "ถ้าตั้งค่าเป็นจริง เสียงที่เล่นจะได้ยินก็ต่อเมื่อหน้าต่างเกมถูกให้ความสนใจ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Only Play Audio from Window in Focus",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Operator Color": {
-    "documentation": "ตั้งค่าสีข้อความของตัวอักษรตัวดำเนินการในตัวแก้ไขสคริปต์.",
+    "documentation": "ตั้งค่าสีข้อความของตัวอักษรผู้ดำเนินการในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Operator Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Output Font": {
-    "documentation": "ระบุฟอนต์ที่ใช้โดยผลลัพธ์.",
+    "documentation": "กำหนดฟอนต์ที่ใช้โดยผลลัพธ์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Output Font",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Output Layout Mode": {
-    "documentation": "ตั้งค่ารูปแบบการจัดเรียงของผลลัพธ์.",
+    "documentation": "ตั้งค่าโหมดเลย์เอาต์ของผลลัพธ์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Output Layout Mode",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PermissionLevelShown": {
-    "documentation": "ตั้งค่าระดับสิทธิ์สูงสุดที่ APIs ต้องมีเพื่อแสดงใน Object Browser. ดู <code>PermissionLevelShown</code> สำหรับข้อมูลเพิ่มเติม.",
+    "documentation": "ตั้งระดับอนุญาตสูงสุดที่ APIs ต้องมีเพื่อให้แสดงในเบราว์เซอร์วัตถุ ดู <code>PermissionLevelShown</code> สำหรับข้อมูลเพิ่มเติม",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PermissionLevelShown",
     "code_sample": ""
   },
@@ -39358,7 +39465,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.PluginsDir": {
-    "documentation": "ไดเรกทอรีที่เก็บปลั๊กอินท้องถิ่น.",
+    "documentation": "ไดเรกทอรีที่มีปลั๊กอินในเครื่องถูกจัดเก็บ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#PluginsDir",
     "code_sample": ""
   },
@@ -39383,7 +39490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Respect Studio shortcuts when game has focus": {
-    "documentation": "เมื่อตั้งค่าเป็นจริง ช็อตคัตของ Roblox Studio จะมีลำดับความสำคัญเหนือการป้อนข้อมูล ที่ถูกจับในหน้าต่างเกม.",
+    "documentation": "เมื่อถูกตั้งค่าเป็นจริง ชอร์ตคัต Roblox Studio จะมีความสำคัญเหนือการป้อนข้อมูลที่ถูกจับในหน้าต่างเกม",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Respect Studio shortcuts when game has focus",
     "code_sample": ""
   },
@@ -39418,7 +39525,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.ScriptTimeoutLength": {
-    "documentation": "เวลา (เป็นวินาที) ที่สคริปต์สามารถรอเพื่อให้กลับมาทำงานได้ก่อนที่จะหมดเวลา.",
+    "documentation": "เวลาที่สคริปต์สามารถรอให้กลับมาทำงานได้ก่อนที่จะหมดเวลา (เป็นวินาที)",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#ScriptTimeoutLength",
     "code_sample": ""
   },
@@ -39433,12 +39540,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select Color": {
-    "documentation": "สีของกล่องเลือกที่ใช้กับการเลือกวัตถุใน <code>Workspace</code>.",
+    "documentation": "สีของกล่องการเลือกที่ใช้ในการเลือกวัตถุใน <code>Workspace</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Select": {
-    "documentation": "ตั้งค่าสีของกล่องเลือก <code>Model.PrimaryPart</code>.",
+    "documentation": "ตั้งค่าสีของกล่องการเลือก <code>Model.PrimaryPart</code>",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Select",
     "code_sample": ""
   },
@@ -39453,7 +39560,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Background Color": {
-    "documentation": "ตั้งค่าสีพื้นหลังของข้อความที่เลือกในตัวแก้ไขสคริปต์.",
+    "documentation": "ตั้งสีพื้นหลังของข้อความที่เลือกในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Background Color",
     "code_sample": ""
   },
@@ -39463,7 +39570,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Selection Color": {
-    "documentation": "ตั้งค่าสีข้อความของข้อความที่เลือกในตัวแก้ไขสคริปต์.",
+    "documentation": "ตั้งสีข้อความของข้อความที่เลือกในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Selection Color",
     "code_sample": ""
   },
@@ -39478,12 +39585,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Core GUI in Explorer while Playing": {
-    "documentation": "หากตั้งค่าเป็นจริง <code>CoreGui</code> จะมองเห็นได้ใน Explorer ในขณะที่ เกมกำลังทำงาน.",
+    "documentation": "ถ้าตั้งค่าเป็นจริง <code>CoreGui</code> จะมองเห็นใน Explorer ขณะเกมกำลังทำงาน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Core GUI in Explorer while Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Diagnostics Bar": {
-    "documentation": "หากตั้งค่าเป็นจริง ข้อมูลการวินิจฉัยพื้นฐานจะแสดงในมุมขวาล่าง.",
+    "documentation": "ถ้าตั้งค่าเป็นจริง ข้อมูลการวินิจฉัยพื้นฐานจะแสดงในมุมล่างขวา",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Diagnostics Bar",
     "code_sample": ""
   },
@@ -39498,7 +39605,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Hover Over": {
-    "documentation": "หากตั้งค่าเป็นจริง การชี้ไปที่วัตถุใน <code>Workspace</code> จะแสดง กล่องเลือก.",
+    "documentation": "ถ้าตั้งค่าเป็นจริง การเลื่อนเมาส์ไปเหนือวัตถุใน <code>Workspace</code> จะมีการแสดงกล่องการเลือก",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Hover Over",
     "code_sample": ""
   },
@@ -39513,7 +39620,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Navigation Mesh": {
-    "documentation": "เมื่อตั้งค่าเป็นจริง เมชนำทางที่ใช้โดย <code>PathfindingService</code> จะถูกแสดง.",
+    "documentation": "เมื่อถูกตั้งค่าเป็นจริง, เมชการนำทางที่ใช้โดย <code>PathfindingService</code> จะถูกแสดง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Navigation Mesh",
     "code_sample": ""
   },
@@ -39523,7 +39630,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Show Plugin GUI Service in Explorer": {
-    "documentation": "เมื่อตั้งค่าเป็นจริง <code>PluginGuiService</code> จะถูกแสดงใน Explorer ของ Roblox Studio.",
+    "documentation": "เมื่อถูกตั้งค่าเป็นจริง, <code>PluginGuiService</code> จะถูกแสดงใน Explorer ของ Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Show Plugin GUI Service in Explorer",
     "code_sample": ""
   },
@@ -39553,27 +39660,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.String Color": {
-    "documentation": "ระบุสีของสตริงในตัวแก้ไขสคริปต์.",
+    "documentation": "กำหนดสีของสตริงในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#String Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Tab Width": {
-    "documentation": "ระบุจำนวนช่องว่างที่ใช้แทนแท็บในตัวแก้ไข สคริปต์.",
+    "documentation": "กำหนดจำนวนช่องว่างที่ใช้แทนแท็บในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Tab Width",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Color": {
-    "documentation": "ระบุสีของข้อความทั่วไปในตัวแก้ไขสคริปต์.",
+    "documentation": "กำหนดสีของข้อความธรรมดาในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Color",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Text Wrapping": {
-    "documentation": "หากตั้งค่าเป็นจริง ข้อความในตัวแก้ไขสคริปต์จะถูกห่อ.",
+    "documentation": "ถ้าตั้งค่าเป็นจริง ข้อความในตัวแก้ไขสคริปต์จะถูกพัน",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Text Wrapping",
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Theme": {
-    "documentation": "ใช้เพื่อดึง/ตั้งค่า <code>theme</code> ปัจจุบันที่ใช้โดย Studio.",
+    "documentation": "ใช้เพื่อรับ/ตั้งค่า <code>theme</code> ปัจจุบันที่ใช้โดย Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Theme",
     "code_sample": ""
   },
@@ -39583,7 +39690,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.UI Theme": {
-    "documentation": "<strong>Deprecated:</strong> <br>ระบุรูปแบบสีของ Roblox Studio.",
+    "documentation": "<strong>Deprecated:</strong> <br>กำหนดสีของธีมใน Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#UI Theme",
     "code_sample": ""
   },
@@ -39603,7 +39710,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Studio.Warning Color": {
-    "documentation": "ระบุสีของเส้นใต้คลื่นที่แสดงเมื่อสคริปต์วิเคราะห์แจ้งปัญหาที่ควรแก้ไขในตัวแก้ไขสคริปต์.",
+    "documentation": "กำหนดสีของเส้นใต้คลื่นที่แสดงเมื่อโปรแกรมวิเคราะห์สคริปต์พบปัญหาที่ควรต้องได้รับการแก้ไขในตัวแก้ไขสคริปต์",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Studio#Warning Color",
     "code_sample": ""
   },
@@ -39631,10 +39738,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/Studio.GetAvailableThemes/return/0": {
-    "documentation": "รายการธีมที่มีใน Studio。"
+    "documentation": "รายการของธีมที่มีอยู่ใน Studio"
   },
   "@roblox/globaltype/Studio.GetAvailableThemes": {
-    "documentation": "ส่งกลับรายการของ <code>themes</code> ที่มีใน Studio。",
+    "documentation": "ส่งคืนรายการของ <code>ธีม</code> ที่มีอยู่ใน Studio",
     "params": [
       {
         "name": "self",
@@ -39725,7 +39832,7 @@
     "returns": []
   },
   "@roblox/globaltype/Studio.ThemeChanged": {
-    "documentation": "เหตุการณ์ที่เรียกเมื่อธีมของ Studio มีการเปลี่ยนแปลง。",
+    "documentation": "เหตุการณ์ที่ถูกเรียกเมื่อธีม <code>ธีม</code> ของ Studio เปลี่ยน",
     "keys": {
       "Connect": "@roblox/globaltype/Studio.ThemeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Studio.ThemeChanged.ConnectParallel",
@@ -56740,129 +56847,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#StudsPerTile",
     "code_sample": ""
   },
-  "@roblox/globaltype/TerrainIterateOperation": {
-    "documentation": "",
-    "keys": {
-      "CommitBlock": "@roblox/globaltype/TerrainIterateOperation.CommitBlock"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.CommitBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/0"
-      },
-      {
-        "name": "block",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.CommitBlock/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainIterateOperation.CommitBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#CommitBlock",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Connect": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Once": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์ (สำหรับการเรียกใช้งานครั้งเดียว) และ ส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready.Wait": {
-    "documentation": "หยุดการทำงานของเธรดปัจจุบันจนกว่าสัญญาณจะถูกเรียกใช้งานและส่งคืนอาร์กิวเมนต์ ที่ถูกส่งมาจากสัญญาณ。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainIterateOperation.Ready": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/TerrainIterateOperation.Ready.Connect",
-      "ConnectParallel": "@roblox/globaltype/TerrainIterateOperation.Ready.ConnectParallel",
-      "Once": "@roblox/globaltype/TerrainIterateOperation.Ready.Once",
-      "Wait": "@roblox/globaltype/TerrainIterateOperation.Ready.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainIterateOperation#Ready",
-    "code_sample": ""
-  },
   "@roblox/globaltype/WrapTarget": {
     "documentation": "วัตถุ WrapTarget กำหนดเป้าหมาย เป้าหมายคือร่างกาย 3D ที่มีเฉพาะ พื้นผิวด้านนอก หรือกรงด้านนอก",
     "keys": {
@@ -58108,7 +58092,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Configuration": {
-    "documentation": "ออบเจ็กต์ Configuration เป็นออบเจ็กต์ที่ทำหน้าที่เป็นภาชนะซึ่งออกแบบมาเพื่อเก็บออบเจ็กต์ค่าต่างๆ เพื่อให้เข้าถึงค่า ที่ใช้ใน <code>Tools</code> หรือโมเดลใดๆ ที่ใช้ <code>Scripts</code> ได้ง่ายขึ้น。",
+    "documentation": "วัตถุที่ออกแบบมาเป็นภาชนะสำหรับเก็บวัตถุค่า ทำให้ค่าที่ใช้ใน <code>Tools</code> หรือโมเดลใด ๆ ที่ใช้ <code>Scripts</code> เข้าถึงได้ง่ายขึ้น",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Configuration",
     "code_sample": ""
@@ -62335,10 +62319,10 @@
     "documentation": "กำหนดคุณสมบัติของสไตล์ที่เขียนทับคุณสมบัติในอินสแตนซ์ที่ได้รับผลกระทบ โดย <code>Selector</code> property。"
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/return/0": {
-    "documentation": "การเปลี่ยนแปลงเริ่มต้นในรูปแบบ <code>TweenInfo</code> หรือ token string หรือ <code>nil</code> หากไม่มีการตั้งค่าเปลี่ยนแปลงเริ่มต้น"
+    "documentation": "การเปลี่ยนแปลงเริ่มต้นในรูปแบบของ <code>TweenInfo</code> หรือสตริงโทเค็น หรือ <code>nil</code> หากไม่มีการตั้งค่าการเปลี่ยนแปลงเริ่มต้น"
   },
   "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition": {
-    "documentation": "ส่งคืนการเปลี่ยนแปลงเริ่มต้นที่ใช้กับคุณสมบัติทั้งหมดของ <code>StyleRule</code> ที่ไม่มีการเปลี่ยนแปลงที่ตั้งไว้อย่างชัดเจน",
+    "documentation": "คืนค่าการเปลี่ยนแปลงเริ่มต้นที่ใช้กับคุณสมบัติทั้งหมดของ <code>StyleRule</code> ที่ไม่มีการตั้งค่าการเปลี่ยนแปลงอย่างชัดเจน",
     "params": [
       {
         "name": "self",
@@ -62402,7 +62386,7 @@
     "documentation": "กำหนดคุณสมบัติของสไตล์ที่เขียนทับคุณสมบัติในอินสแตนซ์ที่ได้รับผลกระทบ โดย <code>Selector</code> property。"
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions/return/0": {
-    "documentation": "พจนานุกรมของคู่คีย์-ค่าแมพชื่อคุณสมบัติไปยังพารามิเตอร์ การเปลี่ยนแปลงของพวกเขา"
+    "documentation": "พจนานุกรมของคู่คีย์-ค่า mapping ชื่อคุณสมบัติไปยังพารามิเตอร์การเปลี่ยนแปลงของพวกเขา."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions": {
     "documentation": "ส่งพจนานุกรมของการเปลี่ยนแปลงคุณสมบัติทั้งหมดที่ตั้งค่าใน <code>StyleRule</code>.",
@@ -62422,7 +62406,7 @@
     "documentation": "กำหนดคุณสมบัติของสไตล์ที่เขียนทับคุณสมบัติในอินสแตนซ์ที่ได้รับผลกระทบ โดย <code>Selector</code> property。"
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/1": {
-    "documentation": "สามารถเป็น <code>TweenInfo</code> หรือ token string ที่กำหนดเวลา การเปลี่ยนแปลงเริ่มต้น หรือ <code>nil</code> เพื่อลบการเปลี่ยนแปลงเริ่มต้น"
+    "documentation": "เป็น <code>TweenInfo</code>, สตริงโทเค็นที่กำหนดช่วงเวลาเริ่มต้น การเปลี่ยนแปลง หรือ <code>nil</code> เพื่อเอาการเปลี่ยนแปลงเริ่มต้นออก."
   },
   "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition": {
     "documentation": "ตั้งค่าหรือเคลียร์การเปลี่ยนแปลงเริ่มต้นที่ใช้กับคุณสมบัติทั้งหมดของ <code>StyleRule</code> ที่ไม่มีการกำหนดการเปลี่ยนแปลงแบบชัดเจน.",
@@ -62495,7 +62479,7 @@
     "documentation": "กำหนดคุณสมบัติของสไตล์ที่เขียนทับคุณสมบัติในอินสแตนซ์ที่ได้รับผลกระทบ โดย <code>Selector</code> property。"
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/1": {
-    "documentation": "ชื่อ String ของคุณสมบัติที่จะตั้งค่าการเปลี่ยนแปลง เช่น <code>\"BackgroundColor3\"</code> หรือ <code>\"Size\"</code>"
+    "documentation": "ชื่อคุณสมบัติในรูปแบบสตริงเพื่อเปิดใช้งานการเปลี่ยนแปลงสำหรับ, เช่น <code>\"BackgroundColor3\"</code> หรือ <code>\"Size\"</code>."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransition/param/2": {
     "documentation": "เป็น <code>TweenInfo</code> หรือโทเค็นสตริงที่กำหนดจังหวะการเปลี่ยนแปลง, หรือ <code>nil</code> เพื่อเอาการเปลี่ยนแปลงออกสำหรับคุณสมบัตินี้."
@@ -77258,129 +77242,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/IKControl#GetSmoothedFinalTarget",
     "code_sample": ""
   },
-  "@roblox/globaltype/TerrainModifyOperation": {
-    "documentation": "",
-    "keys": {
-      "CommitBlock": "@roblox/globaltype/TerrainModifyOperation.CommitBlock"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.CommitBlock": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/0"
-      },
-      {
-        "name": "block",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.CommitBlock/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/TerrainModifyOperation.CommitBlock/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#CommitBlock",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Connect": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Once": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์ (สำหรับการเรียกใช้งานครั้งเดียว) และ ส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready.Wait": {
-    "documentation": "หยุดการทำงานของเธรดปัจจุบันจนกว่าสัญญาณจะถูกเรียกใช้งานและส่งคืนอาร์กิวเมนต์ ที่ถูกส่งมาจากสัญญาณ。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainModifyOperation.Ready": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/TerrainModifyOperation.Ready.Connect",
-      "ConnectParallel": "@roblox/globaltype/TerrainModifyOperation.Ready.ConnectParallel",
-      "Once": "@roblox/globaltype/TerrainModifyOperation.Ready.Once",
-      "Wait": "@roblox/globaltype/TerrainModifyOperation.Ready.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainModifyOperation#Ready",
-    "code_sample": ""
-  },
   "@roblox/globaltype/BodyForce": {
     "documentation": "<strong>Deprecated:</strong> วัตถุนี้ถูกเลิกใช้และไม่ควรใช้ในงานใหม่ ใช้ <code>VectorForce</code> แทน และดู <a href=\"../../../physics/mover-constraints.md#legacy-mover-conversion\">บันทึกการแปลงแบบเก่า</a>.<br>ใช้แรงคงที่กับวัตถุ.",
     "keys": {
@@ -86305,100 +86166,6 @@
     "documentation": "คลาส container สำหรับ <code>HumanoidController</code> ร่วมกับคลาสอื่นๆ。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ControllerService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation": {
-    "documentation": "",
-    "keys": {},
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Connect": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Connect/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Once": {
-    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์ (สำหรับการเรียกใช้งานครั้งเดียว) และ ส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/0"
-      },
-      {
-        "name": "func",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Once/param/1"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0": {
-    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready.Wait": {
-    "documentation": "หยุดการทำงานของเธรดปัจจุบันจนกว่าสัญญาณจะถูกเรียกใช้งานและส่งคืนอาร์กิวเมนต์ ที่ถูกส่งมาจากสัญญาณ。",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/TerrainReadOperation.Ready.Wait/param/0"
-      }
-    ],
-    "returns": []
-  },
-  "@roblox/globaltype/TerrainReadOperation.Ready": {
-    "documentation": "",
-    "keys": {
-      "Connect": "@roblox/globaltype/TerrainReadOperation.Ready.Connect",
-      "ConnectParallel": "@roblox/globaltype/TerrainReadOperation.Ready.ConnectParallel",
-      "Once": "@roblox/globaltype/TerrainReadOperation.Ready.Once",
-      "Wait": "@roblox/globaltype/TerrainReadOperation.Ready.Wait"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TerrainReadOperation#Ready",
     "code_sample": ""
   },
   "@roblox/globaltype/InventoryPages": {
@@ -97655,7 +97422,7 @@
     "documentation": "ใช้ในการค้นหาเส้นทางที่มีเหตุผลระหว่างสองจุด。"
   },
   "@roblox/globaltype/PathfindingService.CreatePath/param/1": {
-    "documentation": "ตาราง Lua ที่ช่วยให้คุณปรับแต่งเส้นทางตามพารามิเตอร์ของตัวแทนที่แตกต่างกัน"
+    "documentation": "Lua ตารางที่ช่วยให้คุณปรับแต่งเส้นทางตามตัวแปรต่าง ๆ ของเอเจนต์"
   },
   "@roblox/globaltype/PathfindingService.CreatePath/return/0": {
     "documentation": "อ็อบเจ็กต์ <code>Path</code>。"
@@ -113035,7 +112802,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto": {
-    "documentation": "",
+    "documentation": "ปรับระดับการเร่งอัตโนมัติตามประสิทธิภาพ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113045,7 +112812,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Disabled": {
-    "documentation": "",
+    "documentation": "ไม่มีการลดอัตรา; ทุกขั้นตอนทางฟิสิกส์จะทำงาน.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113055,7 +112822,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Always": {
-    "documentation": "",
+    "documentation": "การลดสูงสุด; ฟิสิกส์จะถูกแช่แข็งอย่างมีประสิทธิภาพ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113065,7 +112832,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip2": {
-    "documentation": "",
+    "documentation": "ทำงาน 1 จากทุก 2 ขั้นตอน (ลดลง 50%). หาก <code>Workspace.PhysicsSteppingMethod</code> ถูกตั้งค่าเป็น <code>Adaptive</code> การข้ามจะขึ้นอยู่กับ กลุ่มของ 4 ขั้นตอนแทนที่จะเป็นขั้นตอนแต่ละขั้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113075,7 +112842,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip4": {
-    "documentation": "",
+    "documentation": "ทำงาน 1 จากทุก 4 ขั้นตอน (ลดลง 75%). หาก <code>Workspace.PhysicsSteppingMethod</code> ถูกตั้งค่าเป็น <code>Adaptive</code> การข้ามจะขึ้นอยู่กับ กลุ่มของ 4 ขั้นตอนแทนที่จะเป็นขั้นตอนแต่ละขั้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113085,7 +112852,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip8": {
-    "documentation": "",
+    "documentation": "ทำงาน 1 จากทุก 8 ขั้นตอน (ลดลง 87.5%). หาก <code>Workspace.PhysicsSteppingMethod</code> ถูกตั้งค่าเป็น <code>Adaptive</code> การข้ามจะขึ้นอยู่กับ กลุ่มของ 4 ขั้นตอนแทนที่จะเป็นขั้นตอนแต่ละขั้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113095,7 +112862,7 @@
     "code_sample": ""
   },
   "@roblox/enum/EnviromentalPhysicsThrottle.Skip16": {
-    "documentation": "",
+    "documentation": "ทำงาน 1 จากทุก 16 ขั้นตอน (ลดลง 93.75%). หาก <code>Workspace.PhysicsSteppingMethod</code> ถูกตั้งค่าเป็น <code>Adaptive</code> การข้ามจะขึ้นอยู่กับ กลุ่มของ 4 ขั้นตอนแทนที่จะเป็นขั้นตอนแต่ละขั้น.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -113105,7 +112872,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.EnviromentalPhysicsThrottle": {
-    "documentation": "",
+    "documentation": "ใช้ควบคุมอัตราการเร่งของเอนจินฟิสิกส์ของ Roblox.",
     "keys": {
       "DefaultAuto": "@roblox/enum/EnviromentalPhysicsThrottle.DefaultAuto",
       "Disabled": "@roblox/enum/EnviromentalPhysicsThrottle.Disabled",
@@ -115346,6 +115113,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchUserPrivacyUnauthorized",
     "code_sample": ""
   },
+  "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent": {
+    "documentation": "",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ConnectionError#PlacelaunchVipOwnerNotPresent",
+    "code_sample": ""
+  },
   "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired": {
     "documentation": "",
     "keys": {
@@ -115581,6 +115358,7 @@
       "PlacelaunchPartyCannotFit": "@roblox/enum/ConnectionError.PlacelaunchPartyCannotFit",
       "PlacelaunchHttpError": "@roblox/enum/ConnectionError.PlacelaunchHttpError",
       "PlacelaunchUserPrivacyUnauthorized": "@roblox/enum/ConnectionError.PlacelaunchUserPrivacyUnauthorized",
+      "PlacelaunchVipOwnerNotPresent": "@roblox/enum/ConnectionError.PlacelaunchVipOwnerNotPresent",
       "PlacelaunchAgeVerificationRequired": "@roblox/enum/ConnectionError.PlacelaunchAgeVerificationRequired",
       "PlacelaunchParentalApprovalRequired": "@roblox/enum/ConnectionError.PlacelaunchParentalApprovalRequired",
       "PlacelaunchCoreGated": "@roblox/enum/ConnectionError.PlacelaunchCoreGated",
