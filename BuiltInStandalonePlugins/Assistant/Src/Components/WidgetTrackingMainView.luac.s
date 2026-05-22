@@ -38,38 +38,32 @@ PROTO_2:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 2
         6 LOADK                            R4 K0 ["Frame"]
-        7 DUPTABLE                         R5 K5 [{"BackgroundColor3", "BackgroundTransparency", "Size", "ref"}]
-        8 GETIMPORT                        R6 K8 [Color3.new]
-       10 LOADN                            R7 1
-       11 LOADN                            R8 0
-       12 LOADN                            R9 1
-       13 CALL                             R6 3 1
-       14 SETTABLEKS                       R6 R5 K1 ["BackgroundColor3"]
-       16 LOADN                            R6 1
-       17 SETTABLEKS                       R6 R5 K2 ["BackgroundTransparency"]
-       19 GETIMPORT                        R6 K11 [UDim2.fromScale]
-       21 LOADN                            R7 1
-       22 LOADN                            R8 1
-       23 CALL                             R6 2 1
-       24 SETTABLEKS                       R6 R5 K3 ["Size"]
-       26 SETTABLEKS                       R2 R5 K4 ["ref"]
-       28 DUPTABLE                         R6 K14 [{"UIListLayout", "MainView"}]
-       29 GETUPVAL                         R7 2
-       30 LOADK                            R8 K12 ["UIListLayout"]
-       31 DUPTABLE                         R9 K16 [{"FillDirection"}]
-       32 GETIMPORT                        R10 K19 [Enum.FillDirection.Vertical]
-       34 SETTABLEKS                       R10 R9 K15 ["FillDirection"]
-       36 CALL                             R7 2 1
-       37 SETTABLEKS                       R7 R6 K12 ["UIListLayout"]
-       39 GETUPVAL                         R7 2
-       40 GETUPVAL                         R8 3
-       41 DUPTABLE                         R9 K21 [{"textBoxRef"}]
-       42 GETTABLEKS                       R10 R0 K20 ["textBoxRef"]
-       44 SETTABLEKS                       R10 R9 K20 ["textBoxRef"]
-       46 CALL                             R7 2 1
-       47 SETTABLEKS                       R7 R6 K13 ["MainView"]
-       49 CALL                             R3 3 -1
-       50 RETURN                           R3 -1
+        7 DUPTABLE                         R5 K4 [{"BackgroundTransparency", "Size", "ref"}]
+        8 LOADN                            R6 1
+        9 SETTABLEKS                       R6 R5 K1 ["BackgroundTransparency"]
+       11 GETIMPORT                        R6 K7 [UDim2.fromScale]
+       13 LOADN                            R7 1
+       14 LOADN                            R8 1
+       15 CALL                             R6 2 1
+       16 SETTABLEKS                       R6 R5 K2 ["Size"]
+       18 SETTABLEKS                       R2 R5 K3 ["ref"]
+       20 DUPTABLE                         R6 K10 [{"UIListLayout", "MainView"}]
+       21 GETUPVAL                         R7 2
+       22 LOADK                            R8 K8 ["UIListLayout"]
+       23 DUPTABLE                         R9 K12 [{"FillDirection"}]
+       24 GETIMPORT                        R10 K15 [Enum.FillDirection.Vertical]
+       26 SETTABLEKS                       R10 R9 K11 ["FillDirection"]
+       28 CALL                             R7 2 1
+       29 SETTABLEKS                       R7 R6 K8 ["UIListLayout"]
+       31 GETUPVAL                         R7 2
+       32 GETUPVAL                         R8 3
+       33 DUPTABLE                         R9 K17 [{"textBoxRef"}]
+       34 GETTABLEKS                       R10 R0 K16 ["textBoxRef"]
+       36 SETTABLEKS                       R10 R9 K16 ["textBoxRef"]
+       38 CALL                             R7 2 1
+       39 SETTABLEKS                       R7 R6 K9 ["MainView"]
+       41 CALL                             R3 3 -1
+       42 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -81,36 +75,36 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R1 K8 ["Components"]
-       16 GETTABLEKS                       R2 R2 K9 ["MainView"]
-       18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R4 R0 K6 ["Packages"]
-       22 GETTABLEKS                       R4 R4 K10 ["Framework"]
-       24 CALL                             R3 1 1
-       25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R5 R0 K6 ["Packages"]
-       29 GETTABLEKS                       R5 R5 K11 ["React"]
-       31 CALL                             R4 1 1
-       32 GETIMPORT                        R5 K5 [require]
-       34 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       36 GETTABLEKS                       R6 R6 K12 ["StudioFoundation"]
-       38 CALL                             R5 1 1
-       39 GETTABLEKS                       R6 R3 K13 ["ContextServices"]
-       41 GETTABLEKS                       R7 R6 K14 ["Plugin"]
-       43 GETTABLEKS                       R8 R5 K15 ["Util"]
-       45 GETTABLEKS                       R8 R8 K16 ["StudioUri"]
-       47 GETTABLEKS                       R9 R5 K17 ["Hooks"]
-       49 GETTABLEKS                       R9 R9 K18 ["useWidgetRef"]
-       51 GETTABLEKS                       R10 R4 K19 ["createElement"]
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R5 K10 ["StudioFoundation"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R2 K11 ["ContextServices"]
+       37 GETTABLEKS                       R6 R5 K12 ["Plugin"]
+       39 GETTABLEKS                       R7 R4 K13 ["Util"]
+       41 GETTABLEKS                       R7 R7 K14 ["StudioUri"]
+       43 GETTABLEKS                       R8 R4 K15 ["Hooks"]
+       45 GETTABLEKS                       R8 R8 K16 ["useWidgetRef"]
+       47 GETTABLEKS                       R9 R1 K17 ["Components"]
+       49 GETTABLEKS                       R9 R9 K18 ["MainView"]
+       51 GETTABLEKS                       R10 R3 K19 ["createElement"]
        53 DUPCLOSURE                       R11 K20 [PROTO_1]
-       54 CAPTURE                          VAL R7
-       55 CAPTURE                          VAL R4
-       56 CAPTURE                          VAL R8
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R7
        57 DUPCLOSURE                       R12 K21 [PROTO_2]
        58 CAPTURE                          VAL R11
-       59 CAPTURE                          VAL R9
+       59 CAPTURE                          VAL R8
        60 CAPTURE                          VAL R10
-       61 CAPTURE                          VAL R2
+       61 CAPTURE                          VAL R9
        62 DUPTABLE                         R13 K24 [{"WidgetTrackingMainView", "useMainViewWidgetUri"}]
        63 SETTABLEKS                       R12 R13 K22 ["WidgetTrackingMainView"]
        65 SETTABLEKS                       R11 R13 K23 ["useMainViewWidgetUri"]

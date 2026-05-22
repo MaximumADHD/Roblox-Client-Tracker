@@ -47,41 +47,36 @@ PROTO_2:
        24 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 -1
-        2 FASTCALL                         ASSERT ; [+2]
-        3 GETIMPORT                        R1 K1 [assert]
-        5 CALL                             R1 -1 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R1 R1 K2 ["use"]
-        9 CALL                             R1 0 1
-       10 NAMECALL                         R1 R1 K3 ["get"]
-       12 CALL                             R1 1 1
-       13 GETUPVAL                         R2 2
-       14 GETTABLEKS                       R2 R2 K4 ["child"]
-       16 GETTABLEKS                       R3 R0 K5 ["WidgetUri"]
-       18 GETTABLEKS                       R4 R0 K6 ["Item"]
-       20 GETTABLEKS                       R4 R4 K7 ["Id"]
-       22 CALL                             R2 2 1
-       23 GETUPVAL                         R3 3
-       24 MOVE                             R4 R1
-       25 CALL                             R3 1 1
-       26 GETUPVAL                         R4 4
-       27 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       29 GETUPVAL                         R5 5
-       30 DUPTABLE                         R6 K13 [{"Uri", "LayoutOrder", "UpdateState", "onActivated"}]
-       31 SETTABLEKS                       R2 R6 K9 ["Uri"]
-       33 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
-       35 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
-       37 SETTABLEKS                       R3 R6 K11 ["UpdateState"]
-       39 NEWCLOSURE                       R7 P0
-       40 CAPTURE                          UPVAL U6
-       41 CAPTURE                          VAL R2
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          UPVAL U7
-       44 SETTABLEKS                       R7 R6 K12 ["onActivated"]
-       46 CALL                             R4 2 -1
-       47 RETURN                           R4 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["use"]
+        3 CALL                             R1 0 1
+        4 NAMECALL                         R1 R1 K1 ["get"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 1
+        8 GETTABLEKS                       R2 R2 K2 ["child"]
+       10 GETTABLEKS                       R3 R0 K3 ["WidgetUri"]
+       12 GETTABLEKS                       R4 R0 K4 ["Item"]
+       14 GETTABLEKS                       R4 R4 K5 ["Id"]
+       16 CALL                             R2 2 1
+       17 GETUPVAL                         R3 2
+       18 MOVE                             R4 R1
+       19 CALL                             R3 1 1
+       20 GETUPVAL                         R4 3
+       21 GETTABLEKS                       R4 R4 K6 ["createElement"]
+       23 GETUPVAL                         R5 4
+       24 DUPTABLE                         R6 K11 [{"Uri", "LayoutOrder", "UpdateState", "onActivated"}]
+       25 SETTABLEKS                       R2 R6 K7 ["Uri"]
+       27 GETTABLEKS                       R7 R0 K8 ["LayoutOrder"]
+       29 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
+       31 SETTABLEKS                       R3 R6 K9 ["UpdateState"]
+       33 NEWCLOSURE                       R7 P0
+       34 CAPTURE                          UPVAL U5
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          UPVAL U6
+       38 SETTABLEKS                       R7 R6 K10 ["onActivated"]
+       40 CALL                             R4 2 -1
+       41 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -103,37 +98,31 @@ MAIN:
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
        30 GETTABLEKS                       R5 R0 K10 ["Src"]
-       32 GETTABLEKS                       R5 R5 K11 ["SharedFlags"]
-       34 GETTABLEKS                       R5 R5 K12 ["getFeatureStudioBackgroundUpdates"]
+       32 GETTABLEKS                       R5 R5 K11 ["Hooks"]
+       34 GETTABLEKS                       R5 R5 K12 ["useUpdateState"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
        39 GETTABLEKS                       R6 R0 K10 ["Src"]
-       41 GETTABLEKS                       R6 R6 K13 ["Hooks"]
-       43 GETTABLEKS                       R6 R6 K14 ["useUpdateState"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K10 ["Src"]
-       50 GETTABLEKS                       R7 R7 K15 ["Components"]
-       52 GETTABLEKS                       R7 R7 K16 ["UpdateStatus"]
-       54 GETTABLEKS                       R7 R7 K17 ["UpdateStatusButtonV2"]
-       56 CALL                             R6 1 1
-       57 GETIMPORT                        R7 K5 [require]
-       59 GETTABLEKS                       R8 R0 K10 ["Src"]
-       61 GETTABLEKS                       R8 R8 K18 ["Types"]
-       63 CALL                             R7 1 1
-       64 GETTABLEKS                       R8 R3 K19 ["Util"]
-       66 GETTABLEKS                       R8 R8 K20 ["StudioUri"]
-       68 GETTABLEKS                       R9 R2 K21 ["ContextServices"]
-       70 GETTABLEKS                       R10 R9 K22 ["Plugin"]
-       72 DUPCLOSURE                       R11 K23 [PROTO_1]
-       73 CAPTURE                          VAL R8
-       74 DUPCLOSURE                       R12 K24 [PROTO_3]
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R10
-       77 CAPTURE                          VAL R8
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R1
-       80 CAPTURE                          VAL R6
-       81 CAPTURE                          VAL R11
-       82 CAPTURE                          VAL R2
-       83 RETURN                           R12 1
+       41 GETTABLEKS                       R6 R6 K13 ["Components"]
+       43 GETTABLEKS                       R6 R6 K14 ["UpdateStatus"]
+       45 GETTABLEKS                       R6 R6 K15 ["UpdateStatusButtonV2"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R7 R0 K10 ["Src"]
+       52 GETTABLEKS                       R7 R7 K16 ["Types"]
+       54 CALL                             R6 1 1
+       55 GETTABLEKS                       R7 R3 K17 ["Util"]
+       57 GETTABLEKS                       R7 R7 K18 ["StudioUri"]
+       59 GETTABLEKS                       R8 R2 K19 ["ContextServices"]
+       61 GETTABLEKS                       R9 R8 K20 ["Plugin"]
+       63 DUPCLOSURE                       R10 K21 [PROTO_1]
+       64 CAPTURE                          VAL R7
+       65 DUPCLOSURE                       R11 K22 [PROTO_3]
+       66 CAPTURE                          VAL R9
+       67 CAPTURE                          VAL R7
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R1
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R10
+       72 CAPTURE                          VAL R2
+       73 RETURN                           R11 1

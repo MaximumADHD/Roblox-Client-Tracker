@@ -1,39 +1,46 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+20]
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R1 R1 K0 ["store"]
-        6 GETUPVAL                         R3 2
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R4 R4 K1 ["pluginManagementApi"]
-       10 LOADNIL                          R5
-       11 GETUPVAL                         R6 1
-       12 GETTABLEKS                       R6 R6 K2 ["api"]
-       14 GETUPVAL                         R7 1
-       15 GETTABLEKS                       R7 R7 K3 ["analytics"]
-       17 MOVE                             R8 R0
-       18 CALL                             R3 5 -1
-       19 NAMECALL                         R1 R1 K4 ["dispatch"]
-       21 CALL                             R1 -1 0
-       22 JUMP                             ; [+17]
-       23 GETUPVAL                         R1 1
-       24 GETTABLEKS                       R1 R1 K0 ["store"]
-       26 GETUPVAL                         R3 2
-       27 LOADNIL                          R4
-       28 GETUPVAL                         R5 3
-       29 GETUPVAL                         R6 1
-       30 GETTABLEKS                       R6 R6 K2 ["api"]
-       32 GETUPVAL                         R7 1
-       33 GETTABLEKS                       R7 R7 K3 ["analytics"]
-       35 MOVE                             R8 R0
-       36 CALL                             R3 5 -1
-       37 NAMECALL                         R1 R1 K4 ["dispatch"]
-       39 CALL                             R1 -1 0
-       40 GETUPVAL                         R1 4
-       41 MOVE                             R2 R0
-       42 CALL                             R1 1 0
-       43 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 NOT                              R2 R3
+        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        5 LOADK                            R3 K0 ["DEPRECATED_installPlugin is deprecated with FFlagStudioRemoveOldPluginInstallFromWebLua"]
+        6 GETIMPORT                        R1 K2 [assert]
+        8 CALL                             R1 2 0
+        9 GETUPVAL                         R1 1
+       10 CALL                             R1 0 1
+       11 JUMPIFNOT                        R1 ; [+20]
+       12 GETUPVAL                         R1 2
+       13 GETTABLEKS                       R1 R1 K3 ["store"]
+       15 GETUPVAL                         R3 3
+       16 GETUPVAL                         R4 2
+       17 GETTABLEKS                       R4 R4 K4 ["pluginManagementApi"]
+       19 LOADNIL                          R5
+       20 GETUPVAL                         R6 2
+       21 GETTABLEKS                       R6 R6 K5 ["api"]
+       23 GETUPVAL                         R7 2
+       24 GETTABLEKS                       R7 R7 K6 ["analytics"]
+       26 MOVE                             R8 R0
+       27 CALL                             R3 5 -1
+       28 NAMECALL                         R1 R1 K7 ["dispatch"]
+       30 CALL                             R1 -1 0
+       31 JUMP                             ; [+17]
+       32 GETUPVAL                         R1 2
+       33 GETTABLEKS                       R1 R1 K3 ["store"]
+       35 GETUPVAL                         R3 3
+       36 LOADNIL                          R4
+       37 GETUPVAL                         R5 4
+       38 GETUPVAL                         R6 2
+       39 GETTABLEKS                       R6 R6 K5 ["api"]
+       41 GETUPVAL                         R7 2
+       42 GETTABLEKS                       R7 R7 K6 ["analytics"]
+       44 MOVE                             R8 R0
+       45 CALL                             R3 5 -1
+       46 NAMECALL                         R1 R1 K7 ["dispatch"]
+       48 CALL                             R1 -1 0
+       49 GETUPVAL                         R1 5
+       50 MOVE                             R2 R0
+       51 CALL                             R1 1 0
+       52 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [ipairs]
@@ -84,99 +91,102 @@ PROTO_4:
         3 SETTABLEKS                       R1 R0 K3 ["Name"]
         5 GETUPVAL                         R0 0
         6 CALL                             R0 0 1
-        7 JUMPIFNOT                        R0 ; [+15]
-        8 GETUPVAL                         R1 1
-        9 GETUPVAL                         R2 2
-       10 GETTABLEKS                       R2 R2 K4 ["pluginManagementApi"]
-       12 GETTABLEKS                       R2 R2 K5 ["OnPluginInstalledFromWeb"]
-       14 GETUPVAL                         R4 3
-       15 NAMECALL                         R2 R2 K6 ["Connect"]
-       17 CALL                             R2 2 -1
-       18 FASTCALL                         TABLE_INSERT ; [+2]
-       19 GETIMPORT                        R0 K9 [table.insert]
-       21 CALL                             R0 -1 0
-       22 JUMP                             ; [+12]
-       23 GETUPVAL                         R1 1
-       24 GETUPVAL                         R2 4
-       25 GETTABLEKS                       R2 R2 K5 ["OnPluginInstalledFromWeb"]
-       27 GETUPVAL                         R4 3
-       28 NAMECALL                         R2 R2 K6 ["Connect"]
-       30 CALL                             R2 2 -1
-       31 FASTCALL                         TABLE_INSERT ; [+2]
-       32 GETIMPORT                        R0 K9 [table.insert]
-       34 CALL                             R0 -1 0
-       35 LOADNIL                          R0
-       36 GETIMPORT                        R1 K1 [plugin]
-       38 GETTABLEKS                       R1 R1 K10 ["Unloading"]
-       40 NEWCLOSURE                       R3 P0
-       41 CAPTURE                          UPVAL U1
-       42 CAPTURE                          REF R0
-       43 CAPTURE                          UPVAL U5
-       44 NAMECALL                         R1 R1 K6 ["Connect"]
-       46 CALL                             R1 2 0
-       47 GETUPVAL                         R1 0
-       48 CALL                             R1 0 1
-       49 JUMPIFNOT                        R1 ; [+19]
-       50 GETUPVAL                         R2 1
-       51 GETUPVAL                         R3 2
-       52 GETTABLEKS                       R3 R3 K4 ["pluginManagementApi"]
-       54 LOADK                            R5 K11 ["InstalledPluginData"]
-       55 NAMECALL                         R3 R3 K12 ["GetPropertyChangedSignal"]
-       57 CALL                             R3 2 1
-       58 DUPCLOSURE                       R5 K13 [PROTO_2]
-       59 CAPTURE                          UPVAL U2
-       60 CAPTURE                          UPVAL U6
-       61 NAMECALL                         R3 R3 K6 ["Connect"]
-       63 CALL                             R3 2 -1
-       64 FASTCALL                         TABLE_INSERT ; [+2]
-       65 GETIMPORT                        R1 K9 [table.insert]
-       67 CALL                             R1 -1 0
-       68 JUMP                             ; [+17]
-       69 GETUPVAL                         R2 1
-       70 GETUPVAL                         R3 4
-       71 LOADK                            R5 K11 ["InstalledPluginData"]
-       72 NAMECALL                         R3 R3 K12 ["GetPropertyChangedSignal"]
-       74 CALL                             R3 2 1
-       75 DUPCLOSURE                       R5 K14 [PROTO_3]
-       76 CAPTURE                          UPVAL U2
-       77 CAPTURE                          UPVAL U6
-       78 CAPTURE                          UPVAL U7
-       79 NAMECALL                         R3 R3 K6 ["Connect"]
-       81 CALL                             R3 2 -1
-       82 FASTCALL                         TABLE_INSERT ; [+2]
-       83 GETIMPORT                        R1 K9 [table.insert]
-       85 CALL                             R1 -1 0
-       86 GETUPVAL                         R1 5
-       87 GETTABLEKS                       R1 R1 K15 ["createElement"]
-       89 GETUPVAL                         R2 8
-       90 DUPTABLE                         R3 K19 [{"plugin", "store", "api", "analytics", "pluginManagementApi"}]
-       91 GETIMPORT                        R4 K1 [plugin]
-       93 SETTABLEKS                       R4 R3 K0 ["plugin"]
-       95 GETUPVAL                         R4 2
-       96 GETTABLEKS                       R4 R4 K16 ["store"]
-       98 SETTABLEKS                       R4 R3 K16 ["store"]
-      100 GETUPVAL                         R4 2
-      101 GETTABLEKS                       R4 R4 K17 ["api"]
-      103 SETTABLEKS                       R4 R3 K17 ["api"]
-      105 GETUPVAL                         R4 2
-      106 GETTABLEKS                       R4 R4 K18 ["analytics"]
-      108 SETTABLEKS                       R4 R3 K18 ["analytics"]
-      110 GETUPVAL                         R5 0
-      111 CALL                             R5 0 1
-      112 JUMPIFNOT                        R5 ; [+4]
-      113 GETUPVAL                         R4 2
-      114 GETTABLEKS                       R4 R4 K4 ["pluginManagementApi"]
-      116 JUMPIF                           R4 ; [+1]
-      117 LOADNIL                          R4
-      118 SETTABLEKS                       R4 R3 K4 ["pluginManagementApi"]
-      120 CALL                             R1 2 1
-      121 GETUPVAL                         R2 5
-      122 GETTABLEKS                       R2 R2 K20 ["mount"]
-      124 MOVE                             R3 R1
-      125 CALL                             R2 1 1
-      126 MOVE                             R0 R2
-      127 CLOSEUPVALS                      R0
-      128 RETURN                           R0 0
+        7 JUMPIF                           R0 ; [+30]
+        8 GETUPVAL                         R0 1
+        9 CALL                             R0 0 1
+       10 JUMPIFNOT                        R0 ; [+15]
+       11 GETUPVAL                         R1 2
+       12 GETUPVAL                         R2 3
+       13 GETTABLEKS                       R2 R2 K4 ["pluginManagementApi"]
+       15 GETTABLEKS                       R2 R2 K5 ["OnPluginInstalledFromWeb"]
+       17 GETUPVAL                         R4 4
+       18 NAMECALL                         R2 R2 K6 ["Connect"]
+       20 CALL                             R2 2 -1
+       21 FASTCALL                         TABLE_INSERT ; [+2]
+       22 GETIMPORT                        R0 K9 [table.insert]
+       24 CALL                             R0 -1 0
+       25 JUMP                             ; [+12]
+       26 GETUPVAL                         R1 2
+       27 GETUPVAL                         R2 5
+       28 GETTABLEKS                       R2 R2 K5 ["OnPluginInstalledFromWeb"]
+       30 GETUPVAL                         R4 4
+       31 NAMECALL                         R2 R2 K6 ["Connect"]
+       33 CALL                             R2 2 -1
+       34 FASTCALL                         TABLE_INSERT ; [+2]
+       35 GETIMPORT                        R0 K9 [table.insert]
+       37 CALL                             R0 -1 0
+       38 LOADNIL                          R0
+       39 GETIMPORT                        R1 K1 [plugin]
+       41 GETTABLEKS                       R1 R1 K10 ["Unloading"]
+       43 NEWCLOSURE                       R3 P0
+       44 CAPTURE                          UPVAL U2
+       45 CAPTURE                          REF R0
+       46 CAPTURE                          UPVAL U6
+       47 NAMECALL                         R1 R1 K6 ["Connect"]
+       49 CALL                             R1 2 0
+       50 GETUPVAL                         R1 1
+       51 CALL                             R1 0 1
+       52 JUMPIFNOT                        R1 ; [+19]
+       53 GETUPVAL                         R2 2
+       54 GETUPVAL                         R3 3
+       55 GETTABLEKS                       R3 R3 K4 ["pluginManagementApi"]
+       57 LOADK                            R5 K11 ["InstalledPluginData"]
+       58 NAMECALL                         R3 R3 K12 ["GetPropertyChangedSignal"]
+       60 CALL                             R3 2 1
+       61 DUPCLOSURE                       R5 K13 [PROTO_2]
+       62 CAPTURE                          UPVAL U3
+       63 CAPTURE                          UPVAL U7
+       64 NAMECALL                         R3 R3 K6 ["Connect"]
+       66 CALL                             R3 2 -1
+       67 FASTCALL                         TABLE_INSERT ; [+2]
+       68 GETIMPORT                        R1 K9 [table.insert]
+       70 CALL                             R1 -1 0
+       71 JUMP                             ; [+17]
+       72 GETUPVAL                         R2 2
+       73 GETUPVAL                         R3 5
+       74 LOADK                            R5 K11 ["InstalledPluginData"]
+       75 NAMECALL                         R3 R3 K12 ["GetPropertyChangedSignal"]
+       77 CALL                             R3 2 1
+       78 DUPCLOSURE                       R5 K14 [PROTO_3]
+       79 CAPTURE                          UPVAL U3
+       80 CAPTURE                          UPVAL U7
+       81 CAPTURE                          UPVAL U8
+       82 NAMECALL                         R3 R3 K6 ["Connect"]
+       84 CALL                             R3 2 -1
+       85 FASTCALL                         TABLE_INSERT ; [+2]
+       86 GETIMPORT                        R1 K9 [table.insert]
+       88 CALL                             R1 -1 0
+       89 GETUPVAL                         R1 6
+       90 GETTABLEKS                       R1 R1 K15 ["createElement"]
+       92 GETUPVAL                         R2 9
+       93 DUPTABLE                         R3 K19 [{"plugin", "store", "api", "analytics", "pluginManagementApi"}]
+       94 GETIMPORT                        R4 K1 [plugin]
+       96 SETTABLEKS                       R4 R3 K0 ["plugin"]
+       98 GETUPVAL                         R4 3
+       99 GETTABLEKS                       R4 R4 K16 ["store"]
+      101 SETTABLEKS                       R4 R3 K16 ["store"]
+      103 GETUPVAL                         R4 3
+      104 GETTABLEKS                       R4 R4 K17 ["api"]
+      106 SETTABLEKS                       R4 R3 K17 ["api"]
+      108 GETUPVAL                         R4 3
+      109 GETTABLEKS                       R4 R4 K18 ["analytics"]
+      111 SETTABLEKS                       R4 R3 K18 ["analytics"]
+      113 GETUPVAL                         R5 1
+      114 CALL                             R5 0 1
+      115 JUMPIFNOT                        R5 ; [+4]
+      116 GETUPVAL                         R4 3
+      117 GETTABLEKS                       R4 R4 K4 ["pluginManagementApi"]
+      119 JUMPIF                           R4 ; [+1]
+      120 LOADNIL                          R4
+      121 SETTABLEKS                       R4 R3 K4 ["pluginManagementApi"]
+      123 CALL                             R1 2 1
+      124 GETUPVAL                         R2 6
+      125 GETTABLEKS                       R2 R2 K20 ["mount"]
+      127 MOVE                             R3 R1
+      128 CALL                             R2 1 1
+      129 MOVE                             R0 R2
+      130 CLOSEUPVALS                      R0
+      131 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -199,66 +209,72 @@ MAIN:
        28 GETTABLEKS                       R4 R2 K10 ["Bin"]
        30 GETTABLEKS                       R4 R4 K12 ["getFFlagStudioFixPluginManagementPluginTests"]
        32 CALL                             R3 1 1
-       33 MOVE                             R4 R3
-       34 CALL                             R4 0 1
-       35 JUMPIFNOT                        R4 ; [+11]
-       36 GETIMPORT                        R4 K9 [require]
-       38 GETTABLEKS                       R5 R2 K10 ["Bin"]
-       40 GETTABLEKS                       R5 R5 K13 ["isCli"]
-       42 CALL                             R4 1 1
-       43 MOVE                             R5 R4
-       44 CALL                             R5 0 1
-       45 JUMPIFNOT                        R5 ; [+1]
-       46 RETURN                           R0 0
-       47 GETIMPORT                        R4 K9 [require]
-       49 GETTABLEKS                       R5 R2 K14 ["Packages"]
-       51 GETTABLEKS                       R5 R5 K15 ["Roact"]
-       53 CALL                             R4 1 1
+       33 GETIMPORT                        R4 K9 [require]
+       35 GETTABLEKS                       R5 R2 K10 ["Bin"]
+       37 GETTABLEKS                       R5 R5 K13 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       39 CALL                             R4 1 1
+       40 MOVE                             R5 R3
+       41 CALL                             R5 0 1
+       42 JUMPIFNOT                        R5 ; [+11]
+       43 GETIMPORT                        R5 K9 [require]
+       45 GETTABLEKS                       R6 R2 K10 ["Bin"]
+       47 GETTABLEKS                       R6 R6 K14 ["isCli"]
+       49 CALL                             R5 1 1
+       50 MOVE                             R6 R5
+       51 CALL                             R6 0 1
+       52 JUMPIFNOT                        R6 ; [+1]
+       53 RETURN                           R0 0
        54 GETIMPORT                        R5 K9 [require]
-       56 GETTABLEKS                       R6 R2 K16 ["Src"]
-       58 GETTABLEKS                       R6 R6 K17 ["Util"]
-       60 GETTABLEKS                       R6 R6 K18 ["getPluginGlobals"]
-       62 CALL                             R5 1 1
-       63 GETIMPORT                        R6 K9 [require]
-       65 GETTABLEKS                       R7 R2 K16 ["Src"]
-       67 GETTABLEKS                       R7 R7 K17 ["Util"]
-       69 GETTABLEKS                       R7 R7 K19 ["showDialog"]
-       71 CALL                             R6 1 1
-       72 GETIMPORT                        R7 K9 [require]
-       74 GETTABLEKS                       R8 R2 K16 ["Src"]
-       76 GETTABLEKS                       R8 R8 K20 ["Thunks"]
-       78 GETTABLEKS                       R8 R8 K21 ["InstallPluginFromWeb"]
-       80 CALL                             R7 1 1
-       81 GETIMPORT                        R8 K9 [require]
-       83 GETTABLEKS                       R9 R2 K16 ["Src"]
-       85 GETTABLEKS                       R9 R9 K20 ["Thunks"]
-       87 GETTABLEKS                       R9 R9 K22 ["RefreshPlugins"]
-       89 CALL                             R8 1 1
-       90 GETIMPORT                        R9 K9 [require]
-       92 GETTABLEKS                       R10 R2 K16 ["Src"]
-       94 GETTABLEKS                       R10 R10 K23 ["Components"]
-       96 GETTABLEKS                       R10 R10 K24 ["ManagementApp"]
-       98 CALL                             R9 1 1
-       99 MOVE                             R10 R5
-      100 GETIMPORT                        R11 K26 [plugin]
-      102 CALL                             R10 1 1
-      103 NEWTABLE                         R11 0 0
-      105 DUPCLOSURE                       R12 K27 [PROTO_0]
-      106 CAPTURE                          VAL R3
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R7
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          VAL R6
-      111 DUPCLOSURE                       R13 K28 [PROTO_4]
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R11
-      114 CAPTURE                          VAL R10
-      115 CAPTURE                          VAL R12
-      116 CAPTURE                          VAL R0
-      117 CAPTURE                          VAL R4
-      118 CAPTURE                          VAL R8
-      119 CAPTURE                          VAL R1
-      120 CAPTURE                          VAL R9
-      121 MOVE                             R14 R13
-      122 CALL                             R14 0 0
-      123 RETURN                           R0 0
+       56 GETTABLEKS                       R6 R2 K15 ["Packages"]
+       58 GETTABLEKS                       R6 R6 K16 ["Roact"]
+       60 CALL                             R5 1 1
+       61 GETIMPORT                        R6 K9 [require]
+       63 GETTABLEKS                       R7 R2 K17 ["Src"]
+       65 GETTABLEKS                       R7 R7 K18 ["Util"]
+       67 GETTABLEKS                       R7 R7 K19 ["getPluginGlobals"]
+       69 CALL                             R6 1 1
+       70 GETIMPORT                        R7 K9 [require]
+       72 GETTABLEKS                       R8 R2 K17 ["Src"]
+       74 GETTABLEKS                       R8 R8 K18 ["Util"]
+       76 GETTABLEKS                       R8 R8 K20 ["showDialog"]
+       78 CALL                             R7 1 1
+       79 GETIMPORT                        R8 K9 [require]
+       81 GETTABLEKS                       R9 R2 K17 ["Src"]
+       83 GETTABLEKS                       R9 R9 K21 ["Thunks"]
+       85 GETTABLEKS                       R9 R9 K22 ["InstallPluginFromWeb"]
+       87 CALL                             R8 1 1
+       88 GETIMPORT                        R9 K9 [require]
+       90 GETTABLEKS                       R10 R2 K17 ["Src"]
+       92 GETTABLEKS                       R10 R10 K21 ["Thunks"]
+       94 GETTABLEKS                       R10 R10 K23 ["RefreshPlugins"]
+       96 CALL                             R9 1 1
+       97 GETIMPORT                        R10 K9 [require]
+       99 GETTABLEKS                       R11 R2 K17 ["Src"]
+      101 GETTABLEKS                       R11 R11 K24 ["Components"]
+      103 GETTABLEKS                       R11 R11 K25 ["ManagementApp"]
+      105 CALL                             R10 1 1
+      106 MOVE                             R11 R6
+      107 GETIMPORT                        R12 K27 [plugin]
+      109 CALL                             R11 1 1
+      110 NEWTABLE                         R12 0 0
+      112 DUPCLOSURE                       R13 K28 [PROTO_0]
+      113 CAPTURE                          VAL R4
+      114 CAPTURE                          VAL R3
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R0
+      118 CAPTURE                          VAL R7
+      119 DUPCLOSURE                       R14 K29 [PROTO_4]
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R12
+      123 CAPTURE                          VAL R11
+      124 CAPTURE                          VAL R13
+      125 CAPTURE                          VAL R0
+      126 CAPTURE                          VAL R5
+      127 CAPTURE                          VAL R9
+      128 CAPTURE                          VAL R1
+      129 CAPTURE                          VAL R10
+      130 MOVE                             R15 R14
+      131 CALL                             R15 0 0
+      132 RETURN                           R0 0

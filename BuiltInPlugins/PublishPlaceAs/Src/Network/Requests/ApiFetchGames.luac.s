@@ -68,39 +68,44 @@ PROTO_1:
        32 LOADK                            R9 K16 ["StudioPublishPlace"]
        33 JUMP                             ; [+1]
        34 LOADK                            R9 K17 ["StudioSavePlace"]
-       35 DUPTABLE                         R10 K21 [{"Url", "Method", "Params"}]
-       36 GETUPVAL                         R11 1
-       37 GETTABLEKS                       R11 R11 K22 ["BuildRobloxUrl"]
-       39 LOADK                            R12 K23 ["apis"]
-       40 LOADK                            R13 K24 ["universes/v1/search"]
-       41 CALL                             R11 2 1
-       42 SETTABLEKS                       R11 R10 K18 ["Url"]
-       44 LOADK                            R11 K25 ["GET"]
-       45 SETTABLEKS                       R11 R10 K19 ["Method"]
-       47 DUPTABLE                         R11 K33 [{"creatorType", "creatorTargetId", "isArchived", "pageIndex", "pageSize", "search", "sortOrder", "sortParam", "surface"}]
-       48 SETTABLEKS                       R2 R11 K26 ["creatorType"]
-       50 SETTABLEKS                       R3 R11 K27 ["creatorTargetId"]
-       52 LOADK                            R12 K34 ["false"]
-       53 SETTABLEKS                       R12 R11 K28 ["isArchived"]
-       55 SETTABLEKS                       R4 R11 K29 ["pageIndex"]
-       57 SETTABLEKS                       R5 R11 K30 ["pageSize"]
-       59 SETTABLEKS                       R6 R11 K10 ["search"]
-       61 SETTABLEKS                       R7 R11 K12 ["sortOrder"]
-       63 SETTABLEKS                       R8 R11 K31 ["sortParam"]
-       65 SETTABLEKS                       R9 R11 K32 ["surface"]
-       67 SETTABLEKS                       R11 R10 K20 ["Params"]
-       69 MOVE                             R1 R10
-       70 GETUPVAL                         R10 1
-       71 GETTABLEKS                       R10 R10 K35 ["Request"]
-       73 MOVE                             R11 R1
-       74 CALL                             R10 1 1
-       75 NEWCLOSURE                       R12 P0
-       76 CAPTURE                          UPVAL U2
-       77 CAPTURE                          VAL R0
-       78 CAPTURE                          UPVAL U3
-       79 NAMECALL                         R10 R10 K36 ["andThen"]
-       81 CALL                             R10 2 -1
-       82 RETURN                           R10 -1
+       35 DUPTABLE                         R10 K25 [{"creatorType", "creatorTargetId", "isArchived", "pageIndex", "pageSize", "search", "sortOrder", "sortParam", "surface"}]
+       36 SETTABLEKS                       R2 R10 K18 ["creatorType"]
+       38 SETTABLEKS                       R3 R10 K19 ["creatorTargetId"]
+       40 LOADK                            R11 K26 ["false"]
+       41 SETTABLEKS                       R11 R10 K20 ["isArchived"]
+       43 SETTABLEKS                       R4 R10 K21 ["pageIndex"]
+       45 SETTABLEKS                       R5 R10 K22 ["pageSize"]
+       47 SETTABLEKS                       R6 R10 K10 ["search"]
+       49 SETTABLEKS                       R7 R10 K12 ["sortOrder"]
+       51 SETTABLEKS                       R8 R10 K23 ["sortParam"]
+       53 SETTABLEKS                       R9 R10 K24 ["surface"]
+       55 GETUPVAL                         R11 1
+       56 CALL                             R11 0 1
+       57 JUMPIFNOT                        R11 ; [+3]
+       58 LOADK                            R11 K27 ["true"]
+       59 SETTABLEKS                       R11 R10 K28 ["needsAssetOptions"]
+       61 DUPTABLE                         R11 K32 [{"Url", "Method", "Params"}]
+       62 GETUPVAL                         R12 2
+       63 GETTABLEKS                       R12 R12 K33 ["BuildRobloxUrl"]
+       65 LOADK                            R13 K34 ["apis"]
+       66 LOADK                            R14 K35 ["universes/v1/search"]
+       67 CALL                             R12 2 1
+       68 SETTABLEKS                       R12 R11 K29 ["Url"]
+       70 LOADK                            R12 K36 ["GET"]
+       71 SETTABLEKS                       R12 R11 K30 ["Method"]
+       73 SETTABLEKS                       R10 R11 K31 ["Params"]
+       75 MOVE                             R1 R11
+       76 GETUPVAL                         R11 2
+       77 GETTABLEKS                       R11 R11 K37 ["Request"]
+       79 MOVE                             R12 R1
+       80 CALL                             R11 1 1
+       81 NEWCLOSURE                       R13 P0
+       82 CAPTURE                          UPVAL U3
+       83 CAPTURE                          VAL R0
+       84 CAPTURE                          UPVAL U4
+       85 NAMECALL                         R11 R11 K38 ["andThen"]
+       87 CALL                             R11 2 -1
+       88 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -129,9 +134,15 @@ MAIN:
        41 GETTABLEKS                       R5 R5 K14 ["Resources"]
        43 GETTABLEKS                       R5 R5 K15 ["Constants"]
        45 CALL                             R4 1 1
-       46 DUPCLOSURE                       R5 K16 [PROTO_1]
-       47 CAPTURE                          VAL R4
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          VAL R2
-       51 RETURN                           R5 1
+       46 GETIMPORT                        R5 K8 [require]
+       48 GETTABLEKS                       R6 R1 K9 ["Src"]
+       50 GETTABLEKS                       R6 R6 K16 ["Flags"]
+       52 GETTABLEKS                       R6 R6 K17 ["getFFlagPublishPlaceAsAudiencesReplacement"]
+       54 CALL                             R5 1 1
+       55 DUPCLOSURE                       R6 K18 [PROTO_1]
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          VAL R5
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R0
+       60 CAPTURE                          VAL R2
+       61 RETURN                           R6 1

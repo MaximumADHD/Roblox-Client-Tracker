@@ -97,122 +97,6 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 NOT                              R2 R3
-        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
-        6 GETIMPORT                        R1 K2 [assert]
-        8 CALL                             R1 2 0
-        9 GETUPVAL                         R1 1
-       10 GETTABLEKS                       R1 R1 K3 ["UserSubjectKey"]
-       12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R1 2
-       15 GETTABLEKS                       R1 R1 K4 ["UserSubject"]
-       17 RETURN                           R1 1
-       18 GETUPVAL                         R1 1
-       19 GETTABLEKS                       R1 R1 K5 ["GroupSubjectKey"]
-       21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R1 2
-       24 GETTABLEKS                       R1 R1 K6 ["GroupSubject"]
-       26 RETURN                           R1 1
-       27 GETUPVAL                         R1 1
-       28 GETTABLEKS                       R1 R1 K7 ["RoleSubjectKey"]
-       30 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       32 GETUPVAL                         R1 2
-       33 GETTABLEKS                       R1 R1 K8 ["RoleSubject"]
-       35 RETURN                           R1 1
-       36 GETIMPORT                        R1 K10 [error]
-       38 LOADK                            R3 K11 ["Invalid SubjectType: "]
-       39 FASTCALL1                        TOSTRING R0 ; [+3]
-       40 MOVE                             R5 R0
-       41 GETIMPORT                        R4 K13 [tostring]
-       43 CALL                             R4 1 1
-       44 CONCAT                           R2 R3 R4
-       45 CALL                             R1 1 0
-       46 RETURN                           R0 0
-
-PROTO_4:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 NOT                              R2 R3
-        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
-        6 GETIMPORT                        R1 K2 [assert]
-        8 CALL                             R1 2 0
-        9 GETUPVAL                         R1 1
-       10 GETTABLEKS                       R1 R1 K3 ["UseViewKey"]
-       12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R1 2
-       15 GETTABLEKS                       R1 R1 K4 ["UseViewAction"]
-       17 RETURN                           R1 1
-       18 GETUPVAL                         R1 1
-       19 GETTABLEKS                       R1 R1 K5 ["EditKey"]
-       21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R1 2
-       24 GETTABLEKS                       R1 R1 K6 ["EditAction"]
-       26 RETURN                           R1 1
-       27 GETUPVAL                         R1 1
-       28 GETTABLEKS                       R1 R1 K7 ["NoAccessKey"]
-       30 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       32 GETUPVAL                         R1 2
-       33 GETTABLEKS                       R1 R1 K8 ["RevokedAction"]
-       35 RETURN                           R1 1
-       36 GETUPVAL                         R1 1
-       37 GETTABLEKS                       R1 R1 K9 ["RevokedKey"]
-       39 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       41 GETUPVAL                         R1 2
-       42 GETTABLEKS                       R1 R1 K8 ["RevokedAction"]
-       44 RETURN                           R1 1
-       45 GETIMPORT                        R1 K11 [error]
-       47 LOADK                            R3 K12 ["Invalid Action: "]
-       48 FASTCALL1                        TOSTRING R0 ; [+3]
-       49 MOVE                             R5 R0
-       50 GETIMPORT                        R4 K14 [tostring]
-       52 CALL                             R4 1 1
-       53 CONCAT                           R2 R3 R4
-       54 CALL                             R1 1 0
-       55 RETURN                           R0 0
-
-PROTO_5:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 NOT                              R2 R3
-        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
-        6 GETIMPORT                        R1 K2 [assert]
-        8 CALL                             R1 2 0
-        9 GETUPVAL                         R1 1
-       10 GETTABLEKS                       R1 R1 K3 ["UseViewAction"]
-       12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R1 R1 K4 ["UseAction"]
-       17 RETURN                           R1 1
-       18 GETUPVAL                         R1 1
-       19 GETTABLEKS                       R1 R1 K5 ["OwnAction"]
-       21 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       23 GETUPVAL                         R1 1
-       24 GETTABLEKS                       R1 R1 K6 ["EditAction"]
-       26 RETURN                           R1 1
-       27 RETURN                           R0 1
-
-PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 NOT                              R2 R3
-        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        5 LOADK                            R3 K0 ["Deprecated by FFlagAACPermissionsPage"]
-        6 GETIMPORT                        R1 K2 [assert]
-        8 CALL                             R1 2 0
-        9 GETUPVAL                         R1 1
-       10 GETTABLEKS                       R1 R1 K3 ["RoleSubject"]
-       12 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R1 R1 K4 ["GroupRolesetSubject"]
-       17 RETURN                           R1 1
-       18 RETURN                           R0 1
-
-PROTO_7:
-        0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["UnknownError"]
         3 JUMPIFNOTEQ                      R1 R3 ; [+32]
         5 GETUPVAL                         R3 1
@@ -309,51 +193,28 @@ MAIN:
        34 CALL                             R2 1 1
        35 GETTABLEKS                       R3 R2 K12 ["webKeys"]
        37 GETTABLEKS                       R4 R2 K13 ["webValues"]
-       39 GETIMPORT                        R5 K4 [require]
-       41 GETTABLEKS                       R6 R0 K5 ["Src"]
-       43 GETTABLEKS                       R6 R6 K14 ["Flags"]
-       45 GETTABLEKS                       R6 R6 K15 ["getFFlagAACPermissionsPage"]
-       47 CALL                             R5 1 1
-       48 NEWTABLE                         R6 8 0
-       50 GETIMPORT                        R7 K4 [require]
-       52 GETTABLEKS                       R8 R0 K5 ["Src"]
-       54 GETTABLEKS                       R8 R8 K10 ["Util"]
-       56 GETTABLEKS                       R8 R8 K16 ["DebugFlags"]
-       58 CALL                             R7 1 1
-       59 DUPCLOSURE                       R8 K17 [PROTO_0]
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R1
-       62 SETTABLEKS                       R8 R6 K18 ["getInternalAction"]
-       64 DUPCLOSURE                       R8 K19 [PROTO_1]
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R1
-       67 SETTABLEKS                       R8 R6 K20 ["getPermissionLevel"]
-       69 DUPCLOSURE                       R8 K21 [PROTO_2]
-       70 CAPTURE                          VAL R4
-       71 CAPTURE                          VAL R1
-       72 SETTABLEKS                       R8 R6 K22 ["getPermissionSource"]
-       74 DUPCLOSURE                       R8 K23 [PROTO_3]
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          VAL R3
-       78 SETTABLEKS                       R8 R6 K24 ["getWebSubjectType"]
-       80 DUPCLOSURE                       R8 K25 [PROTO_4]
-       81 CAPTURE                          VAL R5
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R3
-       84 SETTABLEKS                       R8 R6 K26 ["getWebAction"]
-       86 DUPCLOSURE                       R8 K27 [PROTO_5]
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R3
-       89 SETTABLEKS                       R8 R6 K28 ["getAssetPermissionAction"]
-       91 DUPCLOSURE                       R8 K29 [PROTO_6]
-       92 CAPTURE                          VAL R5
-       93 CAPTURE                          VAL R3
-       94 SETTABLEKS                       R8 R6 K30 ["getAssetPermissionSubjectType"]
-       96 DUPCLOSURE                       R8 K31 [PROTO_7]
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          VAL R7
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R6
-      101 SETTABLEKS                       R8 R6 K32 ["resolveActionPermission"]
-      103 RETURN                           R6 1
+       39 NEWTABLE                         R5 4 0
+       41 GETIMPORT                        R6 K4 [require]
+       43 GETTABLEKS                       R7 R0 K5 ["Src"]
+       45 GETTABLEKS                       R7 R7 K10 ["Util"]
+       47 GETTABLEKS                       R7 R7 K14 ["DebugFlags"]
+       49 CALL                             R6 1 1
+       50 DUPCLOSURE                       R7 K15 [PROTO_0]
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R1
+       53 SETTABLEKS                       R7 R5 K16 ["getInternalAction"]
+       55 DUPCLOSURE                       R7 K17 [PROTO_1]
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          VAL R1
+       58 SETTABLEKS                       R7 R5 K18 ["getPermissionLevel"]
+       60 DUPCLOSURE                       R7 K19 [PROTO_2]
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R1
+       63 SETTABLEKS                       R7 R5 K20 ["getPermissionSource"]
+       65 DUPCLOSURE                       R7 K21 [PROTO_3]
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R5
+       70 SETTABLEKS                       R7 R5 K22 ["resolveActionPermission"]
+       72 RETURN                           R5 1

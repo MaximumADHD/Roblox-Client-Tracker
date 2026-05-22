@@ -110,83 +110,68 @@ PROTO_1:
       125 MOVE                             R14 R17
       126 JUMP                             ; [+1]
       127 LOADNIL                          R14
-      128 LOADNIL                          R15
-      129 GETUPVAL                         R16 4
-      130 CALL                             R16 0 1
-      131 JUMPIFNOT                        R16 ; [+13]
-      132 GETUPVAL                         R16 1
-      133 GETTABLEKS                       R16 R16 K36 ["categoryIsModel"]
-      135 MOVE                             R17 R8
-      136 CALL                             R16 1 1
-      137 JUMPIFNOT                        R16 ; [+7]
-      138 GETUPVAL                         R16 5
-      139 GETTABLEKS                       R16 R16 K37 ["convertQualityFilterDataToTagsCSV"]
-      141 GETTABLEKS                       R17 R2 K38 ["qualityFilterData"]
-      143 CALL                             R16 1 1
-      144 MOVE                             R15 R16
-      145 DUPTABLE                         R16 K51 [{"assetType", "categoryName", "creatorID", "creatorIDs", "excludeGroupCreations", "groupIDs", "originalUserQuery", "originalCorrection", "previousSearchId", "querySource", "searchId", "sort", "toolboxTab", "includeOnlyVerifiedCreators", "qualityFilterTags"}]
-      146 SETTABLEKS                       R11 R16 K12 ["assetType"]
-      148 SETTABLEKS                       R8 R16 K8 ["categoryName"]
-      150 GETUPVAL                         R18 3
-      151 CALL                             R18 0 1
-      152 JUMPIFNOT                        R18 ; [+2]
-      153 LOADNIL                          R17
+      128 DUPTABLE                         R15 K47 [{"assetType", "categoryName", "creatorID", "creatorIDs", "excludeGroupCreations", "groupIDs", "originalUserQuery", "originalCorrection", "previousSearchId", "querySource", "searchId", "sort", "toolboxTab", "includeOnlyVerifiedCreators"}]
+      129 SETTABLEKS                       R11 R15 K12 ["assetType"]
+      131 SETTABLEKS                       R8 R15 K8 ["categoryName"]
+      133 GETUPVAL                         R17 3
+      134 CALL                             R17 0 1
+      135 JUMPIFNOT                        R17 ; [+2]
+      136 LOADNIL                          R16
+      137 JUMP                             ; [+1]
+      138 MOVE                             R16 R6
+      139 SETTABLEKS                       R16 R15 K36 ["creatorID"]
+      141 GETUPVAL                         R17 3
+      142 CALL                             R17 0 1
+      143 JUMPIFNOT                        R17 ; [+2]
+      144 OR                               R16 R13 R6
+      145 JUMP                             ; [+1]
+      146 LOADNIL                          R16
+      147 SETTABLEKS                       R16 R15 K37 ["creatorIDs"]
+      149 GETUPVAL                         R17 3
+      150 CALL                             R17 0 1
+      151 JUMPIFNOT                        R17 ; [+3]
+      152 GETTABLEKS                       R16 R2 K38 ["excludeGroupCreations"]
       154 JUMP                             ; [+1]
-      155 MOVE                             R17 R6
-      156 SETTABLEKS                       R17 R16 K39 ["creatorID"]
-      158 GETUPVAL                         R18 3
-      159 CALL                             R18 0 1
-      160 JUMPIFNOT                        R18 ; [+2]
-      161 OR                               R17 R13 R6
+      155 LOADNIL                          R16
+      156 SETTABLEKS                       R16 R15 K38 ["excludeGroupCreations"]
+      158 GETUPVAL                         R17 3
+      159 CALL                             R17 0 1
+      160 JUMPIFNOT                        R17 ; [+2]
+      161 MOVE                             R16 R14
       162 JUMP                             ; [+1]
-      163 LOADNIL                          R17
-      164 SETTABLEKS                       R17 R16 K40 ["creatorIDs"]
-      166 GETUPVAL                         R18 3
-      167 CALL                             R18 0 1
-      168 JUMPIFNOT                        R18 ; [+3]
-      169 GETTABLEKS                       R17 R2 K41 ["excludeGroupCreations"]
-      171 JUMP                             ; [+1]
-      172 LOADNIL                          R17
-      173 SETTABLEKS                       R17 R16 K41 ["excludeGroupCreations"]
-      175 GETUPVAL                         R18 3
-      176 CALL                             R18 0 1
-      177 JUMPIFNOT                        R18 ; [+2]
-      178 MOVE                             R17 R14
-      179 JUMP                             ; [+1]
-      180 LOADNIL                          R17
-      181 SETTABLEKS                       R17 R16 K42 ["groupIDs"]
-      183 GETUPVAL                         R18 6
-      184 ORK                              R17 R18 K6 [""]
-      185 SETTABLEKS                       R17 R16 K43 ["originalUserQuery"]
-      187 GETUPVAL                         R18 7
-      188 ORK                              R17 R18 K6 [""]
-      189 SETTABLEKS                       R17 R16 K44 ["originalCorrection"]
-      191 SETTABLEKS                       R12 R16 K45 ["previousSearchId"]
-      193 GETUPVAL                         R17 8
-      194 JUMPIF                           R17 ; [+5]
-      195 GETUPVAL                         R17 9
-      196 GETTABLEKS                       R17 R17 K52 ["QuerySource"]
-      198 GETTABLEKS                       R17 R17 K53 ["OriginalUserQuery"]
-      200 SETTABLEKS                       R17 R16 K46 ["querySource"]
-      202 SETTABLEKS                       R7 R16 K7 ["searchId"]
-      204 SETTABLEKS                       R4 R16 K47 ["sort"]
-      206 SETTABLEKS                       R3 R16 K48 ["toolboxTab"]
-      208 NOT                              R17 R9
-      209 SETTABLEKS                       R17 R16 K49 ["includeOnlyVerifiedCreators"]
-      211 SETTABLEKS                       R15 R16 K50 ["qualityFilterTags"]
-      213 GETUPVAL                         R17 10
-      214 GETTABLEKS                       R17 R17 K54 ["marketplaceSearch"]
-      216 GETUPVAL                         R18 11
-      217 GETUPVAL                         R20 12
-      218 ORK                              R19 R20 K55 [False]
-      219 MOVE                             R20 R16
-      220 CALL                             R17 3 0
-      221 GETUPVAL                         R19 13
-      222 MOVE                             R20 R7
-      223 CALL                             R19 1 -1
-      224 NAMECALL                         R17 R0 K56 ["dispatch"]
-      226 CALL                             R17 -1 0
-      227 RETURN                           R0 0
+      163 LOADNIL                          R16
+      164 SETTABLEKS                       R16 R15 K39 ["groupIDs"]
+      166 GETUPVAL                         R17 4
+      167 ORK                              R16 R17 K6 [""]
+      168 SETTABLEKS                       R16 R15 K40 ["originalUserQuery"]
+      170 GETUPVAL                         R17 5
+      171 ORK                              R16 R17 K6 [""]
+      172 SETTABLEKS                       R16 R15 K41 ["originalCorrection"]
+      174 SETTABLEKS                       R12 R15 K42 ["previousSearchId"]
+      176 GETUPVAL                         R16 6
+      177 JUMPIF                           R16 ; [+5]
+      178 GETUPVAL                         R16 7
+      179 GETTABLEKS                       R16 R16 K48 ["QuerySource"]
+      181 GETTABLEKS                       R16 R16 K49 ["OriginalUserQuery"]
+      183 SETTABLEKS                       R16 R15 K43 ["querySource"]
+      185 SETTABLEKS                       R7 R15 K7 ["searchId"]
+      187 SETTABLEKS                       R4 R15 K44 ["sort"]
+      189 SETTABLEKS                       R3 R15 K45 ["toolboxTab"]
+      191 NOT                              R16 R9
+      192 SETTABLEKS                       R16 R15 K46 ["includeOnlyVerifiedCreators"]
+      194 GETUPVAL                         R16 8
+      195 GETTABLEKS                       R16 R16 K50 ["marketplaceSearch"]
+      197 GETUPVAL                         R17 9
+      198 GETUPVAL                         R19 10
+      199 ORK                              R18 R19 K51 [False]
+      200 MOVE                             R19 R15
+      201 CALL                             R16 3 0
+      202 GETUPVAL                         R18 11
+      203 MOVE                             R19 R7
+      204 CALL                             R18 1 -1
+      205 NAMECALL                         R16 R0 K52 ["dispatch"]
+      207 CALL                             R16 -1 0
+      208 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R5 P0
@@ -194,17 +179,15 @@ PROTO_2:
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
-        5 CAPTURE                          UPVAL U4
-        6 CAPTURE                          UPVAL U5
-        7 CAPTURE                          VAL R3
-        8 CAPTURE                          VAL R4
-        9 CAPTURE                          VAL R2
-       10 CAPTURE                          UPVAL U6
-       11 CAPTURE                          UPVAL U7
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          VAL R1
-       14 CAPTURE                          UPVAL U8
-       15 RETURN                           R5 1
+        5 CAPTURE                          VAL R3
+        6 CAPTURE                          VAL R4
+        7 CAPTURE                          VAL R2
+        8 CAPTURE                          UPVAL U4
+        9 CAPTURE                          UPVAL U5
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          VAL R1
+       12 CAPTURE                          UPVAL U6
+       13 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -230,43 +213,33 @@ MAIN:
        36 GETTABLEKS                       R6 R1 K11 ["PageInfoHelper"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K6 [require]
-       41 GETTABLEKS                       R7 R1 K12 ["AssetQualityUtil"]
-       43 CALL                             R6 1 1
-       44 GETIMPORT                        R7 K6 [require]
-       46 GETTABLEKS                       R8 R0 K3 ["Src"]
-       48 GETTABLEKS                       R8 R8 K13 ["Actions"]
-       50 GETTABLEKS                       R8 R8 K14 ["UpdateLastLoggedSearchId"]
-       52 CALL                             R7 1 1
-       53 GETIMPORT                        R8 K6 [require]
-       55 GETTABLEKS                       R9 R0 K3 ["Src"]
-       57 GETTABLEKS                       R9 R9 K8 ["Types"]
-       59 GETTABLEKS                       R9 R9 K15 ["AutocorrectTypes"]
-       61 CALL                             R8 1 1
-       62 GETIMPORT                        R9 K6 [require]
-       64 GETTABLEKS                       R10 R0 K3 ["Src"]
-       66 GETTABLEKS                       R10 R10 K8 ["Types"]
-       68 GETTABLEKS                       R10 R10 K16 ["Category"]
-       70 CALL                             R9 1 1
-       71 GETIMPORT                        R10 K6 [require]
-       73 GETTABLEKS                       R11 R0 K3 ["Src"]
-       75 GETTABLEKS                       R11 R11 K4 ["Util"]
-       77 GETTABLEKS                       R11 R11 K17 ["SharedFlags"]
-       79 GETTABLEKS                       R11 R11 K18 ["getFFlagToolboxAddCreationsFilterToListView"]
-       81 CALL                             R10 1 1
-       82 GETIMPORT                        R11 K6 [require]
-       84 GETTABLEKS                       R12 R0 K3 ["Src"]
-       86 GETTABLEKS                       R12 R12 K19 ["Flags"]
-       88 GETTABLEKS                       R12 R12 K20 ["getFFlagQualityFiltersInToolboxSearch"]
-       90 CALL                             R11 1 1
-       91 DUPCLOSURE                       R12 K21 [PROTO_0]
-       92 DUPCLOSURE                       R13 K22 [PROTO_2]
-       93 CAPTURE                          VAL R5
-       94 CAPTURE                          VAL R9
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R11
-       98 CAPTURE                          VAL R6
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R2
-      101 CAPTURE                          VAL R7
-      102 RETURN                           R13 1
+       41 GETTABLEKS                       R7 R0 K3 ["Src"]
+       43 GETTABLEKS                       R7 R7 K12 ["Actions"]
+       45 GETTABLEKS                       R7 R7 K13 ["UpdateLastLoggedSearchId"]
+       47 CALL                             R6 1 1
+       48 GETIMPORT                        R7 K6 [require]
+       50 GETTABLEKS                       R8 R0 K3 ["Src"]
+       52 GETTABLEKS                       R8 R8 K8 ["Types"]
+       54 GETTABLEKS                       R8 R8 K14 ["AutocorrectTypes"]
+       56 CALL                             R7 1 1
+       57 GETIMPORT                        R8 K6 [require]
+       59 GETTABLEKS                       R9 R0 K3 ["Src"]
+       61 GETTABLEKS                       R9 R9 K8 ["Types"]
+       63 GETTABLEKS                       R9 R9 K15 ["Category"]
+       65 CALL                             R8 1 1
+       66 GETIMPORT                        R9 K6 [require]
+       68 GETTABLEKS                       R10 R0 K3 ["Src"]
+       70 GETTABLEKS                       R10 R10 K4 ["Util"]
+       72 GETTABLEKS                       R10 R10 K16 ["SharedFlags"]
+       74 GETTABLEKS                       R10 R10 K17 ["getFFlagToolboxAddCreationsFilterToListView"]
+       76 CALL                             R9 1 1
+       77 DUPCLOSURE                       R10 K18 [PROTO_0]
+       78 DUPCLOSURE                       R11 K19 [PROTO_2]
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R7
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R6
+       86 RETURN                           R11 1

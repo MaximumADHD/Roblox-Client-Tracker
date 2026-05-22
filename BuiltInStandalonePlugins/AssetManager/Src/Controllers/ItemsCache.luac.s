@@ -534,7 +534,7 @@ PROTO_19:
        16 GETTABLE                         R5 R4 R1
        17 JUMPIF                           R5 ; [+10]
        18 GETUPVAL                         R6 0
-       19 LOADK                            R8 K5 ["ItemsCache: No item found at path %* when trying to remove item"]
+       19 LOADK                            R8 K5 ["ItemsCache: No item found at path \"%*\" when trying to remove item"]
        20 MOVE                             R10 R1
        21 NAMECALL                         R8 R8 K2 ["format"]
        23 CALL                             R8 2 1

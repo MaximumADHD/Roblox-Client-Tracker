@@ -10,14 +10,19 @@ MAIN:
        14 GETTABLEKS                       R2 R2 K4 ["Parent"]
        16 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagement429"]
        18 CALL                             R1 1 1
-       19 MOVE                             R2 R1
-       20 CALL                             R2 0 1
-       21 JUMPIFNOT                        R2 ; [+8]
-       22 MOVE                             R3 R0
-       23 CALL                             R3 0 1
-       24 FASTCALL2K                       ASSERT R3 K7 ; [+4]
-       26 LOADK                            R4 K7 ["FFlagStudioFixPluginManagement429 requires FFlagStudioFixPluginManagementPluginTests"]
-       27 GETIMPORT                        R2 K9 [assert]
-       29 CALL                             R2 2 0
-       30 LOADNIL                          R2
-       31 RETURN                           R2 1
+       19 GETIMPORT                        R2 K1 [require]
+       21 GETIMPORT                        R3 K3 [script]
+       23 GETTABLEKS                       R3 R3 K4 ["Parent"]
+       25 GETTABLEKS                       R3 R3 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       27 CALL                             R2 1 1
+       28 MOVE                             R3 R1
+       29 CALL                             R3 0 1
+       30 JUMPIFNOT                        R3 ; [+8]
+       31 MOVE                             R4 R0
+       32 CALL                             R4 0 1
+       33 FASTCALL2K                       ASSERT R4 K8 ; [+4]
+       35 LOADK                            R5 K8 ["FFlagStudioFixPluginManagement429 requires FFlagStudioFixPluginManagementPluginTests"]
+       36 GETIMPORT                        R3 K10 [assert]
+       38 CALL                             R3 2 0
+       39 LOADNIL                          R3
+       40 RETURN                           R3 1

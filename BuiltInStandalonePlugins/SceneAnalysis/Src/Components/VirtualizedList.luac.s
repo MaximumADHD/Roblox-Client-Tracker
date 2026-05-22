@@ -552,54 +552,56 @@ PROTO_27:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 LOADK                            R3 K1 ["Frame"]
-        4 DUPTABLE                         R4 K6 [{"BackgroundTransparency", "Position", "Size", "ZIndex"}]
+        4 DUPTABLE                         R4 K7 [{"BackgroundTransparency", "ClipsDescendants", "Position", "Size", "ZIndex"}]
         5 LOADN                            R5 1
         6 SETTABLEKS                       R5 R4 K2 ["BackgroundTransparency"]
-        8 GETTABLEKS                       R5 R0 K7 ["getBinding"]
-       10 CALL                             R5 0 1
-       11 DUPCLOSURE                       R7 K8 [PROTO_26]
-       12 NAMECALL                         R5 R5 K9 ["map"]
-       14 CALL                             R5 2 1
-       15 SETTABLEKS                       R5 R4 K3 ["Position"]
-       17 GETIMPORT                        R5 K12 [UDim2.new]
-       19 LOADN                            R6 1
-       20 LOADN                            R7 253
-       21 LOADN                            R8 0
-       22 GETUPVAL                         R9 1
-       23 GETTABLEKS                       R9 R9 K13 ["rowHeight"]
-       25 CALL                             R5 4 1
-       26 SETTABLEKS                       R5 R4 K4 ["Size"]
-       28 GETUPVAL                         R5 2
-       29 GETTABLEKS                       R5 R5 K5 ["ZIndex"]
-       31 SETTABLEKS                       R5 R4 K5 ["ZIndex"]
-       33 GETUPVAL                         R5 0
-       34 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       36 GETUPVAL                         R6 3
-       37 DUPTABLE                         R7 K23 [{"visibleNodeObservable", "hoveredNodeId", "selectedNodeId", "selectedIdsHash", "columnWidths", "onNodeClicked", "onNodeRightClicked", "query", "queryInfo"}]
-       38 SETTABLEKS                       R0 R7 K14 ["visibleNodeObservable"]
-       40 GETUPVAL                         R8 4
-       41 SETTABLEKS                       R8 R7 K15 ["hoveredNodeId"]
-       43 GETUPVAL                         R8 5
-       44 SETTABLEKS                       R8 R7 K16 ["selectedNodeId"]
-       46 GETUPVAL                         R8 6
-       47 SETTABLEKS                       R8 R7 K17 ["selectedIdsHash"]
-       49 GETUPVAL                         R8 7
-       50 SETTABLEKS                       R8 R7 K18 ["columnWidths"]
-       52 GETUPVAL                         R8 2
-       53 GETTABLEKS                       R8 R8 K19 ["onNodeClicked"]
-       55 SETTABLEKS                       R8 R7 K19 ["onNodeClicked"]
-       57 GETUPVAL                         R8 2
-       58 GETTABLEKS                       R8 R8 K20 ["onNodeRightClicked"]
-       60 SETTABLEKS                       R8 R7 K20 ["onNodeRightClicked"]
-       62 GETUPVAL                         R8 2
-       63 GETTABLEKS                       R8 R8 K21 ["query"]
-       65 SETTABLEKS                       R8 R7 K21 ["query"]
-       67 GETUPVAL                         R8 2
-       68 GETTABLEKS                       R8 R8 K22 ["queryInfo"]
-       70 SETTABLEKS                       R8 R7 K22 ["queryInfo"]
-       72 CALL                             R5 2 -1
-       73 CALL                             R2 -1 -1
-       74 RETURN                           R2 -1
+        8 LOADB                            R5 1
+        9 SETTABLEKS                       R5 R4 K3 ["ClipsDescendants"]
+       11 GETTABLEKS                       R5 R0 K8 ["getBinding"]
+       13 CALL                             R5 0 1
+       14 DUPCLOSURE                       R7 K9 [PROTO_26]
+       15 NAMECALL                         R5 R5 K10 ["map"]
+       17 CALL                             R5 2 1
+       18 SETTABLEKS                       R5 R4 K4 ["Position"]
+       20 GETIMPORT                        R5 K13 [UDim2.new]
+       22 LOADN                            R6 1
+       23 LOADN                            R7 253
+       24 LOADN                            R8 0
+       25 GETUPVAL                         R9 1
+       26 GETTABLEKS                       R9 R9 K14 ["rowHeight"]
+       28 CALL                             R5 4 1
+       29 SETTABLEKS                       R5 R4 K5 ["Size"]
+       31 GETUPVAL                         R5 2
+       32 GETTABLEKS                       R5 R5 K6 ["ZIndex"]
+       34 SETTABLEKS                       R5 R4 K6 ["ZIndex"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       39 GETUPVAL                         R6 3
+       40 DUPTABLE                         R7 K24 [{"visibleNodeObservable", "hoveredNodeId", "selectedNodeId", "selectedIdsHash", "columnWidths", "onNodeClicked", "onNodeRightClicked", "query", "queryInfo"}]
+       41 SETTABLEKS                       R0 R7 K15 ["visibleNodeObservable"]
+       43 GETUPVAL                         R8 4
+       44 SETTABLEKS                       R8 R7 K16 ["hoveredNodeId"]
+       46 GETUPVAL                         R8 5
+       47 SETTABLEKS                       R8 R7 K17 ["selectedNodeId"]
+       49 GETUPVAL                         R8 6
+       50 SETTABLEKS                       R8 R7 K18 ["selectedIdsHash"]
+       52 GETUPVAL                         R8 7
+       53 SETTABLEKS                       R8 R7 K19 ["columnWidths"]
+       55 GETUPVAL                         R8 2
+       56 GETTABLEKS                       R8 R8 K20 ["onNodeClicked"]
+       58 SETTABLEKS                       R8 R7 K20 ["onNodeClicked"]
+       60 GETUPVAL                         R8 2
+       61 GETTABLEKS                       R8 R8 K21 ["onNodeRightClicked"]
+       63 SETTABLEKS                       R8 R7 K21 ["onNodeRightClicked"]
+       65 GETUPVAL                         R8 2
+       66 GETTABLEKS                       R8 R8 K22 ["query"]
+       68 SETTABLEKS                       R8 R7 K22 ["query"]
+       70 GETUPVAL                         R8 2
+       71 GETTABLEKS                       R8 R8 K23 ["queryInfo"]
+       73 SETTABLEKS                       R8 R7 K23 ["queryInfo"]
+       75 CALL                             R5 2 -1
+       76 CALL                             R2 -1 -1
+       77 RETURN                           R2 -1
 
 PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["query"]

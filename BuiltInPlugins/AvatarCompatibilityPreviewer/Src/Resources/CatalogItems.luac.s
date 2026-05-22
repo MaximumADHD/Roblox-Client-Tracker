@@ -54,667 +54,738 @@ MAIN:
        66 GETIMPORT                        R8 K5 [require]
        68 GETTABLEKS                       R9 R0 K8 ["Src"]
        70 GETTABLEKS                       R9 R9 K17 ["Flags"]
-       72 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerMakeup"]
+       72 GETTABLEKS                       R9 R9 K18 ["getFFlagAvatarPreviewerClassicClothingPalettes"]
        74 CALL                             R8 1 1
        75 GETIMPORT                        R9 K5 [require]
        77 GETTABLEKS                       R10 R0 K8 ["Src"]
        79 GETTABLEKS                       R10 R10 K17 ["Flags"]
-       81 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
+       81 GETTABLEKS                       R10 R10 K19 ["getFFlagAvatarPreviewerMakeup"]
        83 CALL                             R9 1 1
-       84 DUPCLOSURE                       R10 K20 [PROTO_0]
-       85 DUPTABLE                         R11 K29 [{"accessories", "animations", "body", "clothing", "animations_face", "body_face", "accessories_face", "makeup"}]
-       86 NEWTABLE                         R12 0 12
-       88 GETTABLEKS                       R13 R5 K30 ["layeredClothingPalette"]
-       90 LOADK                            R14 K31 ["Hair"]
-       91 GETIMPORT                        R15 K35 [Enum.AssetType.HairAccessory]
-       93 GETTABLEKS                       R17 R3 K36 ["hair"]
-       95 NEWTABLE                         R18 0 0
-       97 MOVE                             R19 R17
-       98 LOADNIL                          R20
-       99 LOADNIL                          R21
-      100 FORGPREP                         R19
-      101 GETTABLEKS                       R26 R23 K37 ["id"]
-      103 FASTCALL2                        TABLE_INSERT R18 R26 ; [+4]
-      105 MOVE                             R25 R18
-      106 GETIMPORT                        R24 K40 [table.insert]
-      108 CALL                             R24 2 0
-      109 FORGLOOP                         R19 2 ; [-9]
-      111 MOVE                             R16 R18
-      112 GETTABLEKS                       R17 R6 K41 ["PREFERRED_LAYERS"]
-      114 GETTABLEKS                       R17 R17 K31 ["Hair"]
-      116 CALL                             R13 4 1
-      117 GETTABLEKS                       R14 R5 K42 ["basicAccessoryPalette"]
-      119 LOADK                            R15 K43 ["Head"]
-      120 GETIMPORT                        R16 K45 [Enum.AssetType.Hat]
-      122 GETTABLEKS                       R18 R3 K46 ["head"]
-      124 NEWTABLE                         R19 0 0
-      126 MOVE                             R20 R18
-      127 LOADNIL                          R21
-      128 LOADNIL                          R22
-      129 FORGPREP                         R20
-      130 GETTABLEKS                       R27 R24 K37 ["id"]
-      132 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
-      134 MOVE                             R26 R19
-      135 GETIMPORT                        R25 K40 [table.insert]
-      137 CALL                             R25 2 0
-      138 FORGLOOP                         R20 2 ; [-9]
-      140 MOVE                             R17 R19
-      141 CALL                             R14 3 1
-      142 GETTABLEKS                       R15 R5 K30 ["layeredClothingPalette"]
-      144 LOADK                            R16 K47 ["Face"]
-      145 GETIMPORT                        R17 K49 [Enum.AssetType.FaceAccessory]
-      147 GETTABLEKS                       R19 R3 K50 ["face"]
-      149 NEWTABLE                         R20 0 0
-      151 MOVE                             R21 R19
-      152 LOADNIL                          R22
-      153 LOADNIL                          R23
-      154 FORGPREP                         R21
-      155 GETTABLEKS                       R28 R25 K37 ["id"]
-      157 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
-      159 MOVE                             R27 R20
-      160 GETIMPORT                        R26 K40 [table.insert]
-      162 CALL                             R26 2 0
-      163 FORGLOOP                         R21 2 ; [-9]
-      165 MOVE                             R18 R20
-      166 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
-      168 GETTABLEKS                       R19 R19 K47 ["Face"]
-      170 CALL                             R15 4 1
-      171 GETTABLEKS                       R16 R5 K30 ["layeredClothingPalette"]
-      173 LOADK                            R17 K51 ["Eyebrows"]
-      174 GETIMPORT                        R18 K53 [Enum.AssetType.EyebrowAccessory]
-      176 GETTABLEKS                       R20 R3 K54 ["eyebrows"]
-      178 NEWTABLE                         R21 0 0
-      180 MOVE                             R22 R20
-      181 LOADNIL                          R23
-      182 LOADNIL                          R24
-      183 FORGPREP                         R22
-      184 GETTABLEKS                       R29 R26 K37 ["id"]
-      186 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
-      188 MOVE                             R28 R21
-      189 GETIMPORT                        R27 K40 [table.insert]
-      191 CALL                             R27 2 0
-      192 FORGLOOP                         R22 2 ; [-9]
-      194 MOVE                             R19 R21
-      195 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-      197 GETTABLEKS                       R20 R20 K51 ["Eyebrows"]
-      199 CALL                             R16 4 1
-      200 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
-      202 LOADK                            R18 K55 ["Eyelashes"]
-      203 GETIMPORT                        R19 K57 [Enum.AssetType.EyelashAccessory]
-      205 GETTABLEKS                       R21 R3 K58 ["eyelashes"]
-      207 NEWTABLE                         R22 0 0
-      209 MOVE                             R23 R21
-      210 LOADNIL                          R24
-      211 LOADNIL                          R25
-      212 FORGPREP                         R23
-      213 GETTABLEKS                       R30 R27 K37 ["id"]
-      215 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
-      217 MOVE                             R29 R22
-      218 GETIMPORT                        R28 K40 [table.insert]
-      220 CALL                             R28 2 0
-      221 FORGLOOP                         R23 2 ; [-9]
-      223 MOVE                             R20 R22
-      224 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-      226 GETTABLEKS                       R21 R21 K55 ["Eyelashes"]
-      228 CALL                             R17 4 1
-      229 GETTABLEKS                       R18 R5 K42 ["basicAccessoryPalette"]
-      231 LOADK                            R19 K59 ["Front"]
-      232 GETIMPORT                        R20 K61 [Enum.AssetType.FrontAccessory]
-      234 GETTABLEKS                       R22 R3 K62 ["front"]
-      236 NEWTABLE                         R23 0 0
-      238 MOVE                             R24 R22
-      239 LOADNIL                          R25
-      240 LOADNIL                          R26
-      241 FORGPREP                         R24
-      242 GETTABLEKS                       R31 R28 K37 ["id"]
-      244 FASTCALL2                        TABLE_INSERT R23 R31 ; [+4]
-      246 MOVE                             R30 R23
-      247 GETIMPORT                        R29 K40 [table.insert]
-      249 CALL                             R29 2 0
-      250 FORGLOOP                         R24 2 ; [-9]
-      252 MOVE                             R21 R23
-      253 CALL                             R18 3 1
-      254 GETTABLEKS                       R19 R5 K42 ["basicAccessoryPalette"]
-      256 LOADK                            R20 K63 ["Neck"]
-      257 GETIMPORT                        R21 K65 [Enum.AssetType.NeckAccessory]
-      259 GETTABLEKS                       R23 R3 K66 ["neck"]
-      261 NEWTABLE                         R24 0 0
-      263 MOVE                             R25 R23
-      264 LOADNIL                          R26
-      265 LOADNIL                          R27
-      266 FORGPREP                         R25
-      267 GETTABLEKS                       R32 R29 K37 ["id"]
-      269 FASTCALL2                        TABLE_INSERT R24 R32 ; [+4]
-      271 MOVE                             R31 R24
-      272 GETIMPORT                        R30 K40 [table.insert]
-      274 CALL                             R30 2 0
-      275 FORGLOOP                         R25 2 ; [-9]
-      277 MOVE                             R22 R24
-      278 CALL                             R19 3 1
-      279 GETTABLEKS                       R20 R5 K42 ["basicAccessoryPalette"]
-      281 LOADK                            R21 K67 ["Shoulder"]
-      282 GETIMPORT                        R22 K69 [Enum.AssetType.ShoulderAccessory]
-      284 GETTABLEKS                       R24 R3 K70 ["shoulder"]
-      286 NEWTABLE                         R25 0 0
-      288 MOVE                             R26 R24
-      289 LOADNIL                          R27
-      290 LOADNIL                          R28
-      291 FORGPREP                         R26
-      292 GETTABLEKS                       R33 R30 K37 ["id"]
-      294 FASTCALL2                        TABLE_INSERT R25 R33 ; [+4]
-      296 MOVE                             R32 R25
-      297 GETIMPORT                        R31 K40 [table.insert]
-      299 CALL                             R31 2 0
-      300 FORGLOOP                         R26 2 ; [-9]
-      302 MOVE                             R23 R25
-      303 CALL                             R20 3 1
-      304 GETTABLEKS                       R21 R5 K42 ["basicAccessoryPalette"]
-      306 LOADK                            R22 K71 ["Back"]
-      307 GETIMPORT                        R23 K73 [Enum.AssetType.BackAccessory]
-      309 GETTABLEKS                       R25 R3 K74 ["back"]
-      311 NEWTABLE                         R26 0 0
-      313 MOVE                             R27 R25
-      314 LOADNIL                          R28
-      315 LOADNIL                          R29
-      316 FORGPREP                         R27
-      317 GETTABLEKS                       R34 R31 K37 ["id"]
-      319 FASTCALL2                        TABLE_INSERT R26 R34 ; [+4]
-      321 MOVE                             R33 R26
-      322 GETIMPORT                        R32 K40 [table.insert]
-      324 CALL                             R32 2 0
-      325 FORGLOOP                         R27 2 ; [-9]
-      327 MOVE                             R24 R26
-      328 CALL                             R21 3 1
-      329 GETTABLEKS                       R22 R5 K42 ["basicAccessoryPalette"]
-      331 LOADK                            R23 K75 ["Waist"]
-      332 GETIMPORT                        R24 K77 [Enum.AssetType.WaistAccessory]
-      334 GETTABLEKS                       R26 R3 K78 ["waist"]
-      336 NEWTABLE                         R27 0 0
-      338 MOVE                             R28 R26
-      339 LOADNIL                          R29
-      340 LOADNIL                          R30
-      341 FORGPREP                         R28
-      342 GETTABLEKS                       R35 R32 K37 ["id"]
-      344 FASTCALL2                        TABLE_INSERT R27 R35 ; [+4]
-      346 MOVE                             R34 R27
-      347 GETIMPORT                        R33 K40 [table.insert]
-      349 CALL                             R33 2 0
-      350 FORGLOOP                         R28 2 ; [-9]
-      352 MOVE                             R25 R27
-      353 CALL                             R22 3 1
-      354 GETTABLEKS                       R23 R5 K79 ["gearPalette"]
-      356 GETTABLEKS                       R25 R3 K80 ["gearLeft"]
-      358 NEWTABLE                         R26 0 0
-      360 MOVE                             R27 R25
-      361 LOADNIL                          R28
-      362 LOADNIL                          R29
-      363 FORGPREP                         R27
-      364 GETTABLEKS                       R34 R31 K37 ["id"]
-      366 FASTCALL2                        TABLE_INSERT R26 R34 ; [+4]
-      368 MOVE                             R33 R26
-      369 GETIMPORT                        R32 K40 [table.insert]
-      371 CALL                             R32 2 0
-      372 FORGLOOP                         R27 2 ; [-9]
-      374 MOVE                             R24 R26
-      375 LOADK                            R25 K81 ["left"]
-      376 CALL                             R23 2 1
-      377 GETTABLEKS                       R24 R5 K79 ["gearPalette"]
-      379 GETTABLEKS                       R26 R3 K82 ["gearRight"]
-      381 NEWTABLE                         R27 0 0
-      383 MOVE                             R28 R26
-      384 LOADNIL                          R29
-      385 LOADNIL                          R30
-      386 FORGPREP                         R28
-      387 GETTABLEKS                       R35 R32 K37 ["id"]
-      389 FASTCALL2                        TABLE_INSERT R27 R35 ; [+4]
-      391 MOVE                             R34 R27
-      392 GETIMPORT                        R33 K40 [table.insert]
-      394 CALL                             R33 2 0
-      395 FORGLOOP                         R28 2 ; [-9]
-      397 MOVE                             R25 R27
-      398 LOADK                            R26 K83 ["right"]
-      399 CALL                             R24 2 -1
-      400 SETLIST                          R12 R13 -1 [1]
-      402 SETTABLEKS                       R12 R11 K21 ["accessories"]
-      404 NEWTABLE                         R12 0 2
-      406 GETTABLEKS                       R13 R5 K84 ["createBodyAnimationPalette"]
-      408 LOADK                            R14 K85 ["Movement"]
-      409 NEWTABLE                         R15 0 8
-      411 LOADK                            R16 K86 [16540596584]
-      412 LOADK                            R17 K87 [16562317918]
-      413 LOADK                            R18 K88 [16562332340]
-      414 LOADK                            R19 K89 [16562326358]
-      415 LOADK                            R20 K90 [16562321958]
-      416 LOADK                            R21 K91 [16562307212]
-      417 LOADK                            R22 K92 [16562311455]
-      418 LOADK                            R23 K93 [16562329379]
-      419 SETLIST                          R15 R16 8 [1]
-      421 CALL                             R13 2 1
-      422 GETTABLEKS                       R14 R5 K84 ["createBodyAnimationPalette"]
-      424 LOADK                            R15 K94 ["BodyEmotes"]
-      425 NEWTABLE                         R16 0 10
-      427 LOADK                            R17 K95 [16569676514]
-      428 LOADK                            R18 K96 [16569175989]
-      429 LOADK                            R19 K97 [16569548328]
-      430 LOADK                            R20 K98 [16569163126]
-      431 LOADK                            R21 K99 [10714358528]
-      432 LOADK                            R22 K100 [10714395441]
-      433 LOADK                            R23 K101 [10714383856]
-      434 LOADK                            R24 K102 [4940563117]
-      435 LOADK                            R25 K103 [10714347256]
-      436 LOADK                            R26 K104 [10714369325]
-      437 SETLIST                          R16 R17 10 [1]
-      439 CALL                             R14 2 -1
-      440 SETLIST                          R12 R13 -1 [1]
-      442 SETTABLEKS                       R12 R11 K22 ["animations"]
-      444 GETTABLEKS                       R12 R1 K105 ["List"]
-      446 GETTABLEKS                       R12 R12 K106 ["join"]
-      448 NEWTABLE                         R13 0 2
-      450 GETTABLEKS                       R14 R5 K107 ["skinPalette"]
-      452 MOVE                             R15 R4
-      453 CALL                             R14 1 1
-      454 GETTABLEKS                       R15 R5 K108 ["createHeadPalette"]
-      456 GETTABLEKS                       R16 R2 K109 ["heads"]
-      458 CALL                             R15 1 -1
-      459 SETLIST                          R13 R14 -1 [1]
-      461 GETTABLEKS                       R14 R5 K110 ["createBodyCategory"]
-      463 GETTABLEKS                       R15 R2 K111 ["bodies"]
-      465 CALL                             R14 1 -1
-      466 CALL                             R12 -1 1
-      467 SETTABLEKS                       R12 R11 K23 ["body"]
-      469 NEWTABLE                         R12 0 8
-      471 GETTABLEKS                       R13 R5 K30 ["layeredClothingPalette"]
-      473 LOADK                            R14 K112 ["Shirts"]
-      474 GETIMPORT                        R15 K114 [Enum.AssetType.ShirtAccessory]
-      476 GETTABLEKS                       R17 R3 K115 ["shirts"]
-      478 NEWTABLE                         R18 0 0
-      480 MOVE                             R19 R17
-      481 LOADNIL                          R20
-      482 LOADNIL                          R21
-      483 FORGPREP                         R19
-      484 GETTABLEKS                       R26 R23 K37 ["id"]
-      486 FASTCALL2                        TABLE_INSERT R18 R26 ; [+4]
-      488 MOVE                             R25 R18
-      489 GETIMPORT                        R24 K40 [table.insert]
-      491 CALL                             R24 2 0
-      492 FORGLOOP                         R19 2 ; [-9]
-      494 MOVE                             R16 R18
-      495 GETTABLEKS                       R17 R6 K41 ["PREFERRED_LAYERS"]
-      497 GETTABLEKS                       R17 R17 K116 ["Tops"]
-      499 CALL                             R13 4 1
-      500 GETTABLEKS                       R14 R5 K30 ["layeredClothingPalette"]
-      502 LOADK                            R15 K117 ["TShirts"]
-      503 GETIMPORT                        R16 K119 [Enum.AssetType.TShirtAccessory]
-      505 GETTABLEKS                       R18 R3 K120 ["tshirts"]
-      507 NEWTABLE                         R19 0 0
-      509 MOVE                             R20 R18
-      510 LOADNIL                          R21
-      511 LOADNIL                          R22
-      512 FORGPREP                         R20
-      513 GETTABLEKS                       R27 R24 K37 ["id"]
-      515 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
-      517 MOVE                             R26 R19
-      518 GETIMPORT                        R25 K40 [table.insert]
-      520 CALL                             R25 2 0
-      521 FORGLOOP                         R20 2 ; [-9]
-      523 MOVE                             R17 R19
-      524 GETTABLEKS                       R18 R6 K41 ["PREFERRED_LAYERS"]
-      526 GETTABLEKS                       R18 R18 K116 ["Tops"]
-      528 CALL                             R14 4 1
-      529 GETTABLEKS                       R15 R5 K30 ["layeredClothingPalette"]
-      531 LOADK                            R16 K121 ["Jackets"]
-      532 GETIMPORT                        R17 K123 [Enum.AssetType.JacketAccessory]
-      534 GETTABLEKS                       R19 R3 K124 ["jackets"]
-      536 NEWTABLE                         R20 0 0
-      538 MOVE                             R21 R19
-      539 LOADNIL                          R22
-      540 LOADNIL                          R23
-      541 FORGPREP                         R21
-      542 GETTABLEKS                       R28 R25 K37 ["id"]
-      544 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
-      546 MOVE                             R27 R20
-      547 GETIMPORT                        R26 K40 [table.insert]
-      549 CALL                             R26 2 0
-      550 FORGLOOP                         R21 2 ; [-9]
-      552 MOVE                             R18 R20
-      553 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
-      555 GETTABLEKS                       R19 R19 K125 ["Outerwear"]
-      557 CALL                             R15 4 1
-      558 GETTABLEKS                       R16 R5 K30 ["layeredClothingPalette"]
-      560 LOADK                            R17 K126 ["Sweaters"]
-      561 GETIMPORT                        R18 K128 [Enum.AssetType.SweaterAccessory]
-      563 GETTABLEKS                       R20 R3 K129 ["sweaters"]
-      565 NEWTABLE                         R21 0 0
-      567 MOVE                             R22 R20
-      568 LOADNIL                          R23
-      569 LOADNIL                          R24
-      570 FORGPREP                         R22
-      571 GETTABLEKS                       R29 R26 K37 ["id"]
-      573 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
-      575 MOVE                             R28 R21
-      576 GETIMPORT                        R27 K40 [table.insert]
-      578 CALL                             R27 2 0
-      579 FORGLOOP                         R22 2 ; [-9]
-      581 MOVE                             R19 R21
-      582 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-      584 GETTABLEKS                       R20 R20 K116 ["Tops"]
-      586 CALL                             R16 4 1
-      587 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
-      589 LOADK                            R18 K130 ["Pants"]
-      590 GETIMPORT                        R19 K132 [Enum.AssetType.PantsAccessory]
-      592 GETTABLEKS                       R21 R3 K133 ["pants"]
-      594 NEWTABLE                         R22 0 0
-      596 MOVE                             R23 R21
-      597 LOADNIL                          R24
-      598 LOADNIL                          R25
-      599 FORGPREP                         R23
-      600 GETTABLEKS                       R30 R27 K37 ["id"]
-      602 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
-      604 MOVE                             R29 R22
-      605 GETIMPORT                        R28 K40 [table.insert]
-      607 CALL                             R28 2 0
-      608 FORGLOOP                         R23 2 ; [-9]
-      610 MOVE                             R20 R22
-      611 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-      613 GETTABLEKS                       R21 R21 K134 ["Bottoms"]
-      615 CALL                             R17 4 1
-      616 GETTABLEKS                       R18 R5 K30 ["layeredClothingPalette"]
-      618 LOADK                            R19 K135 ["Shorts"]
-      619 GETIMPORT                        R20 K137 [Enum.AssetType.ShortsAccessory]
-      621 GETTABLEKS                       R22 R3 K138 ["shorts"]
-      623 NEWTABLE                         R23 0 0
-      625 MOVE                             R24 R22
-      626 LOADNIL                          R25
-      627 LOADNIL                          R26
-      628 FORGPREP                         R24
-      629 GETTABLEKS                       R31 R28 K37 ["id"]
-      631 FASTCALL2                        TABLE_INSERT R23 R31 ; [+4]
-      633 MOVE                             R30 R23
-      634 GETIMPORT                        R29 K40 [table.insert]
-      636 CALL                             R29 2 0
-      637 FORGLOOP                         R24 2 ; [-9]
-      639 MOVE                             R21 R23
-      640 GETTABLEKS                       R22 R6 K41 ["PREFERRED_LAYERS"]
-      642 GETTABLEKS                       R22 R22 K134 ["Bottoms"]
-      644 CALL                             R18 4 1
-      645 GETTABLEKS                       R19 R5 K30 ["layeredClothingPalette"]
-      647 LOADK                            R20 K139 ["Skirts"]
-      648 GETIMPORT                        R21 K141 [Enum.AssetType.DressSkirtAccessory]
-      650 GETTABLEKS                       R23 R3 K142 ["skirts"]
-      652 NEWTABLE                         R24 0 0
-      654 MOVE                             R25 R23
-      655 LOADNIL                          R26
-      656 LOADNIL                          R27
-      657 FORGPREP                         R25
-      658 GETTABLEKS                       R32 R29 K37 ["id"]
-      660 FASTCALL2                        TABLE_INSERT R24 R32 ; [+4]
-      662 MOVE                             R31 R24
-      663 GETIMPORT                        R30 K40 [table.insert]
-      665 CALL                             R30 2 0
-      666 FORGLOOP                         R25 2 ; [-9]
-      668 MOVE                             R22 R24
-      669 GETTABLEKS                       R23 R6 K41 ["PREFERRED_LAYERS"]
-      671 GETTABLEKS                       R23 R23 K134 ["Bottoms"]
-      673 CALL                             R19 4 1
-      674 GETTABLEKS                       R20 R5 K143 ["shoesPalette"]
-      676 NEWTABLE                         R21 0 3
-      678 DUPTABLE                         R22 K144 [{"left", "right"}]
-      679 LOADK                            R23 K145 [8722031289]
-      680 SETTABLEKS                       R23 R22 K81 ["left"]
-      682 LOADK                            R23 K146 [8722020587]
-      683 SETTABLEKS                       R23 R22 K83 ["right"]
-      685 DUPTABLE                         R23 K144 [{"left", "right"}]
-      686 LOADK                            R24 K147 [7193170137]
-      687 SETTABLEKS                       R24 R23 K81 ["left"]
-      689 LOADK                            R24 K148 [7193171232]
-      690 SETTABLEKS                       R24 R23 K83 ["right"]
-      692 DUPTABLE                         R24 K144 [{"left", "right"}]
-      693 LOADK                            R25 K149 [7193104827]
-      694 SETTABLEKS                       R25 R24 K81 ["left"]
-      696 LOADK                            R25 K150 [7193106211]
-      697 SETTABLEKS                       R25 R24 K83 ["right"]
-      699 SETLIST                          R21 R22 3 [1]
-      701 CALL                             R20 1 1
-      702 SETLIST                          R12 R13 8 [1]
-      704 SETTABLEKS                       R12 R11 K24 ["clothing"]
-      706 NEWTABLE                         R12 0 1
-      708 GETTABLEKS                       R13 R5 K151 ["emotionPalette"]
-      710 NEWTABLE                         R14 0 6
-      712 LOADK                            R15 K152 [13965126930]
-      713 LOADK                            R16 K153 [13965139478]
-      714 LOADK                            R17 K154 [13965076233]
-      715 LOADK                            R18 K155 [13965039145]
-      716 LOADK                            R19 K156 [13965064041]
-      717 LOADK                            R20 K157 [13965162732]
-      718 SETLIST                          R14 R15 6 [1]
-      720 CALL                             R13 1 -1
-      721 SETLIST                          R12 R13 -1 [1]
-      723 SETTABLEKS                       R12 R11 K25 ["animations_face"]
-      725 NEWTABLE                         R12 0 2
-      727 GETTABLEKS                       R13 R5 K107 ["skinPalette"]
-      729 MOVE                             R14 R4
-      730 CALL                             R13 1 1
-      731 GETTABLEKS                       R14 R5 K108 ["createHeadPalette"]
-      733 GETTABLEKS                       R15 R2 K109 ["heads"]
-      735 CALL                             R14 1 -1
-      736 SETLIST                          R12 R13 -1 [1]
-      738 SETTABLEKS                       R12 R11 K26 ["body_face"]
-      740 NEWTABLE                         R12 0 5
-      742 GETTABLEKS                       R13 R5 K30 ["layeredClothingPalette"]
-      744 LOADK                            R14 K31 ["Hair"]
-      745 GETIMPORT                        R15 K35 [Enum.AssetType.HairAccessory]
-      747 GETTABLEKS                       R17 R3 K36 ["hair"]
-      749 NEWTABLE                         R18 0 0
-      751 MOVE                             R19 R17
-      752 LOADNIL                          R20
-      753 LOADNIL                          R21
-      754 FORGPREP                         R19
-      755 GETTABLEKS                       R26 R23 K37 ["id"]
-      757 FASTCALL2                        TABLE_INSERT R18 R26 ; [+4]
-      759 MOVE                             R25 R18
-      760 GETIMPORT                        R24 K40 [table.insert]
-      762 CALL                             R24 2 0
-      763 FORGLOOP                         R19 2 ; [-9]
-      765 MOVE                             R16 R18
-      766 GETTABLEKS                       R17 R6 K41 ["PREFERRED_LAYERS"]
-      768 GETTABLEKS                       R17 R17 K31 ["Hair"]
-      770 CALL                             R13 4 1
-      771 GETTABLEKS                       R14 R5 K42 ["basicAccessoryPalette"]
-      773 LOADK                            R15 K43 ["Head"]
-      774 GETIMPORT                        R16 K45 [Enum.AssetType.Hat]
-      776 GETTABLEKS                       R18 R3 K46 ["head"]
-      778 NEWTABLE                         R19 0 0
-      780 MOVE                             R20 R18
-      781 LOADNIL                          R21
-      782 LOADNIL                          R22
-      783 FORGPREP                         R20
-      784 GETTABLEKS                       R27 R24 K37 ["id"]
-      786 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
-      788 MOVE                             R26 R19
-      789 GETIMPORT                        R25 K40 [table.insert]
-      791 CALL                             R25 2 0
-      792 FORGLOOP                         R20 2 ; [-9]
-      794 MOVE                             R17 R19
-      795 CALL                             R14 3 1
-      796 GETTABLEKS                       R15 R5 K30 ["layeredClothingPalette"]
-      798 LOADK                            R16 K47 ["Face"]
-      799 GETIMPORT                        R17 K49 [Enum.AssetType.FaceAccessory]
-      801 GETTABLEKS                       R19 R3 K50 ["face"]
-      803 NEWTABLE                         R20 0 0
-      805 MOVE                             R21 R19
-      806 LOADNIL                          R22
-      807 LOADNIL                          R23
-      808 FORGPREP                         R21
-      809 GETTABLEKS                       R28 R25 K37 ["id"]
-      811 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
-      813 MOVE                             R27 R20
-      814 GETIMPORT                        R26 K40 [table.insert]
-      816 CALL                             R26 2 0
-      817 FORGLOOP                         R21 2 ; [-9]
-      819 MOVE                             R18 R20
-      820 GETTABLEKS                       R19 R6 K41 ["PREFERRED_LAYERS"]
-      822 GETTABLEKS                       R19 R19 K47 ["Face"]
-      824 CALL                             R15 4 1
-      825 MOVE                             R17 R8
-      826 CALL                             R17 0 1
-      827 JUMPIF                           R17 ; [+30]
-      828 GETTABLEKS                       R16 R5 K30 ["layeredClothingPalette"]
-      830 LOADK                            R17 K51 ["Eyebrows"]
-      831 GETIMPORT                        R18 K53 [Enum.AssetType.EyebrowAccessory]
-      833 GETTABLEKS                       R20 R3 K54 ["eyebrows"]
-      835 NEWTABLE                         R21 0 0
-      837 MOVE                             R22 R20
-      838 LOADNIL                          R23
-      839 LOADNIL                          R24
-      840 FORGPREP                         R22
-      841 GETTABLEKS                       R29 R26 K37 ["id"]
-      843 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
-      845 MOVE                             R28 R21
-      846 GETIMPORT                        R27 K40 [table.insert]
-      848 CALL                             R27 2 0
-      849 FORGLOOP                         R22 2 ; [-9]
-      851 MOVE                             R19 R21
-      852 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-      854 GETTABLEKS                       R20 R20 K51 ["Eyebrows"]
-      856 CALL                             R16 4 1
-      857 JUMP                             ; [+1]
-      858 LOADNIL                          R16
-      859 MOVE                             R18 R8
-      860 CALL                             R18 0 1
-      861 JUMPIF                           R18 ; [+30]
-      862 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
-      864 LOADK                            R18 K55 ["Eyelashes"]
-      865 GETIMPORT                        R19 K57 [Enum.AssetType.EyelashAccessory]
-      867 GETTABLEKS                       R21 R3 K58 ["eyelashes"]
-      869 NEWTABLE                         R22 0 0
-      871 MOVE                             R23 R21
-      872 LOADNIL                          R24
-      873 LOADNIL                          R25
-      874 FORGPREP                         R23
-      875 GETTABLEKS                       R30 R27 K37 ["id"]
-      877 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
-      879 MOVE                             R29 R22
-      880 GETIMPORT                        R28 K40 [table.insert]
-      882 CALL                             R28 2 0
-      883 FORGLOOP                         R23 2 ; [-9]
-      885 MOVE                             R20 R22
-      886 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-      888 GETTABLEKS                       R21 R21 K55 ["Eyelashes"]
-      890 CALL                             R17 4 1
-      891 JUMP                             ; [+1]
-      892 LOADNIL                          R17
-      893 SETLIST                          R12 R13 5 [1]
-      895 SETTABLEKS                       R12 R11 K27 ["accessories_face"]
-      897 MOVE                             R13 R8
-      898 CALL                             R13 0 1
-      899 JUMPIFNOT                        R13 ; [+156]
-      900 NEWTABLE                         R12 0 5
-      902 GETTABLEKS                       R13 R5 K158 ["createMakeupPalette"]
-      904 LOADK                            R14 K159 ["FaceMakeup"]
-      905 GETIMPORT                        R15 K160 [Enum.AssetType.FaceMakeup]
-      907 MOVE                             R17 R9
-      908 CALL                             R17 0 1
-      909 JUMPIFNOT                        R17 ; [+20]
-      910 GETTABLEKS                       R17 R3 K161 ["faceMakeup"]
-      912 NEWTABLE                         R18 0 0
-      914 MOVE                             R19 R17
-      915 LOADNIL                          R20
-      916 LOADNIL                          R21
-      917 FORGPREP                         R19
-      918 GETTABLEKS                       R26 R23 K37 ["id"]
-      920 FASTCALL2                        TABLE_INSERT R18 R26 ; [+4]
-      922 MOVE                             R25 R18
-      923 GETIMPORT                        R24 K40 [table.insert]
-      925 CALL                             R24 2 0
-      926 FORGLOOP                         R19 2 ; [-9]
-      928 MOVE                             R16 R18
-      929 JUMP                             ; [+2]
-      930 NEWTABLE                         R16 0 0
-      932 CALL                             R13 3 1
-      933 GETTABLEKS                       R14 R5 K158 ["createMakeupPalette"]
-      935 LOADK                            R15 K162 ["LipMakeup"]
-      936 GETIMPORT                        R16 K163 [Enum.AssetType.LipMakeup]
-      938 MOVE                             R18 R9
-      939 CALL                             R18 0 1
-      940 JUMPIFNOT                        R18 ; [+20]
-      941 GETTABLEKS                       R18 R3 K164 ["lipMakeup"]
-      943 NEWTABLE                         R19 0 0
-      945 MOVE                             R20 R18
-      946 LOADNIL                          R21
-      947 LOADNIL                          R22
-      948 FORGPREP                         R20
-      949 GETTABLEKS                       R27 R24 K37 ["id"]
-      951 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
-      953 MOVE                             R26 R19
-      954 GETIMPORT                        R25 K40 [table.insert]
-      956 CALL                             R25 2 0
-      957 FORGLOOP                         R20 2 ; [-9]
-      959 MOVE                             R17 R19
-      960 JUMP                             ; [+2]
-      961 NEWTABLE                         R17 0 0
-      963 CALL                             R14 3 1
-      964 GETTABLEKS                       R15 R5 K158 ["createMakeupPalette"]
-      966 LOADK                            R16 K165 ["EyeMakeup"]
-      967 GETIMPORT                        R17 K166 [Enum.AssetType.EyeMakeup]
-      969 MOVE                             R19 R9
-      970 CALL                             R19 0 1
-      971 JUMPIFNOT                        R19 ; [+20]
-      972 GETTABLEKS                       R19 R3 K167 ["eyeMakeup"]
-      974 NEWTABLE                         R20 0 0
-      976 MOVE                             R21 R19
-      977 LOADNIL                          R22
-      978 LOADNIL                          R23
-      979 FORGPREP                         R21
-      980 GETTABLEKS                       R28 R25 K37 ["id"]
-      982 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
-      984 MOVE                             R27 R20
-      985 GETIMPORT                        R26 K40 [table.insert]
-      987 CALL                             R26 2 0
-      988 FORGLOOP                         R21 2 ; [-9]
-      990 MOVE                             R18 R20
-      991 JUMP                             ; [+2]
-      992 NEWTABLE                         R18 0 0
-      994 CALL                             R15 3 1
-      995 GETTABLEKS                       R16 R5 K30 ["layeredClothingPalette"]
-      997 LOADK                            R17 K51 ["Eyebrows"]
-      998 GETIMPORT                        R18 K53 [Enum.AssetType.EyebrowAccessory]
-     1000 GETTABLEKS                       R20 R3 K54 ["eyebrows"]
-     1002 NEWTABLE                         R21 0 0
-     1004 MOVE                             R22 R20
-     1005 LOADNIL                          R23
-     1006 LOADNIL                          R24
-     1007 FORGPREP                         R22
-     1008 GETTABLEKS                       R29 R26 K37 ["id"]
-     1010 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
-     1012 MOVE                             R28 R21
-     1013 GETIMPORT                        R27 K40 [table.insert]
-     1015 CALL                             R27 2 0
-     1016 FORGLOOP                         R22 2 ; [-9]
-     1018 MOVE                             R19 R21
-     1019 GETTABLEKS                       R20 R6 K41 ["PREFERRED_LAYERS"]
-     1021 GETTABLEKS                       R20 R20 K51 ["Eyebrows"]
-     1023 CALL                             R16 4 1
-     1024 GETTABLEKS                       R17 R5 K30 ["layeredClothingPalette"]
-     1026 LOADK                            R18 K55 ["Eyelashes"]
-     1027 GETIMPORT                        R19 K57 [Enum.AssetType.EyelashAccessory]
-     1029 GETTABLEKS                       R21 R3 K58 ["eyelashes"]
-     1031 NEWTABLE                         R22 0 0
-     1033 MOVE                             R23 R21
-     1034 LOADNIL                          R24
-     1035 LOADNIL                          R25
-     1036 FORGPREP                         R23
-     1037 GETTABLEKS                       R30 R27 K37 ["id"]
-     1039 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
-     1041 MOVE                             R29 R22
-     1042 GETIMPORT                        R28 K40 [table.insert]
-     1044 CALL                             R28 2 0
-     1045 FORGLOOP                         R23 2 ; [-9]
-     1047 MOVE                             R20 R22
-     1048 GETTABLEKS                       R21 R6 K41 ["PREFERRED_LAYERS"]
-     1050 GETTABLEKS                       R21 R21 K55 ["Eyelashes"]
-     1052 CALL                             R17 4 -1
-     1053 SETLIST                          R12 R13 -1 [1]
-     1055 JUMP                             ; [+1]
-     1056 LOADNIL                          R12
-     1057 SETTABLEKS                       R12 R11 K28 ["makeup"]
-     1059 RETURN                           R11 1
+       84 GETIMPORT                        R10 K5 [require]
+       86 GETTABLEKS                       R11 R0 K8 ["Src"]
+       88 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       90 GETTABLEKS                       R11 R11 K20 ["getFFlagAvatarPreviewerMakeupDescription"]
+       92 CALL                             R10 1 1
+       93 DUPCLOSURE                       R11 K21 [PROTO_0]
+       94 DUPTABLE                         R12 K30 [{"accessories", "animations", "body", "clothing", "animations_face", "body_face", "accessories_face", "makeup"}]
+       95 NEWTABLE                         R13 0 12
+       97 GETTABLEKS                       R14 R5 K31 ["layeredClothingPalette"]
+       99 LOADK                            R15 K32 ["Hair"]
+      100 GETIMPORT                        R16 K36 [Enum.AssetType.HairAccessory]
+      102 GETTABLEKS                       R18 R3 K37 ["hair"]
+      104 NEWTABLE                         R19 0 0
+      106 MOVE                             R20 R18
+      107 LOADNIL                          R21
+      108 LOADNIL                          R22
+      109 FORGPREP                         R20
+      110 GETTABLEKS                       R27 R24 K38 ["id"]
+      112 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
+      114 MOVE                             R26 R19
+      115 GETIMPORT                        R25 K41 [table.insert]
+      117 CALL                             R25 2 0
+      118 FORGLOOP                         R20 2 ; [-9]
+      120 MOVE                             R17 R19
+      121 GETTABLEKS                       R18 R6 K42 ["PREFERRED_LAYERS"]
+      123 GETTABLEKS                       R18 R18 K32 ["Hair"]
+      125 CALL                             R14 4 1
+      126 GETTABLEKS                       R15 R5 K43 ["basicAccessoryPalette"]
+      128 LOADK                            R16 K44 ["Head"]
+      129 GETIMPORT                        R17 K46 [Enum.AssetType.Hat]
+      131 GETTABLEKS                       R19 R3 K47 ["head"]
+      133 NEWTABLE                         R20 0 0
+      135 MOVE                             R21 R19
+      136 LOADNIL                          R22
+      137 LOADNIL                          R23
+      138 FORGPREP                         R21
+      139 GETTABLEKS                       R28 R25 K38 ["id"]
+      141 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
+      143 MOVE                             R27 R20
+      144 GETIMPORT                        R26 K41 [table.insert]
+      146 CALL                             R26 2 0
+      147 FORGLOOP                         R21 2 ; [-9]
+      149 MOVE                             R18 R20
+      150 CALL                             R15 3 1
+      151 GETTABLEKS                       R16 R5 K31 ["layeredClothingPalette"]
+      153 LOADK                            R17 K48 ["Face"]
+      154 GETIMPORT                        R18 K50 [Enum.AssetType.FaceAccessory]
+      156 GETTABLEKS                       R20 R3 K51 ["face"]
+      158 NEWTABLE                         R21 0 0
+      160 MOVE                             R22 R20
+      161 LOADNIL                          R23
+      162 LOADNIL                          R24
+      163 FORGPREP                         R22
+      164 GETTABLEKS                       R29 R26 K38 ["id"]
+      166 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
+      168 MOVE                             R28 R21
+      169 GETIMPORT                        R27 K41 [table.insert]
+      171 CALL                             R27 2 0
+      172 FORGLOOP                         R22 2 ; [-9]
+      174 MOVE                             R19 R21
+      175 GETTABLEKS                       R20 R6 K42 ["PREFERRED_LAYERS"]
+      177 GETTABLEKS                       R20 R20 K48 ["Face"]
+      179 CALL                             R16 4 1
+      180 GETTABLEKS                       R17 R5 K31 ["layeredClothingPalette"]
+      182 LOADK                            R18 K52 ["Eyebrows"]
+      183 GETIMPORT                        R19 K54 [Enum.AssetType.EyebrowAccessory]
+      185 GETTABLEKS                       R21 R3 K55 ["eyebrows"]
+      187 NEWTABLE                         R22 0 0
+      189 MOVE                             R23 R21
+      190 LOADNIL                          R24
+      191 LOADNIL                          R25
+      192 FORGPREP                         R23
+      193 GETTABLEKS                       R30 R27 K38 ["id"]
+      195 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
+      197 MOVE                             R29 R22
+      198 GETIMPORT                        R28 K41 [table.insert]
+      200 CALL                             R28 2 0
+      201 FORGLOOP                         R23 2 ; [-9]
+      203 MOVE                             R20 R22
+      204 GETTABLEKS                       R21 R6 K42 ["PREFERRED_LAYERS"]
+      206 GETTABLEKS                       R21 R21 K52 ["Eyebrows"]
+      208 CALL                             R17 4 1
+      209 GETTABLEKS                       R18 R5 K31 ["layeredClothingPalette"]
+      211 LOADK                            R19 K56 ["Eyelashes"]
+      212 GETIMPORT                        R20 K58 [Enum.AssetType.EyelashAccessory]
+      214 GETTABLEKS                       R22 R3 K59 ["eyelashes"]
+      216 NEWTABLE                         R23 0 0
+      218 MOVE                             R24 R22
+      219 LOADNIL                          R25
+      220 LOADNIL                          R26
+      221 FORGPREP                         R24
+      222 GETTABLEKS                       R31 R28 K38 ["id"]
+      224 FASTCALL2                        TABLE_INSERT R23 R31 ; [+4]
+      226 MOVE                             R30 R23
+      227 GETIMPORT                        R29 K41 [table.insert]
+      229 CALL                             R29 2 0
+      230 FORGLOOP                         R24 2 ; [-9]
+      232 MOVE                             R21 R23
+      233 GETTABLEKS                       R22 R6 K42 ["PREFERRED_LAYERS"]
+      235 GETTABLEKS                       R22 R22 K56 ["Eyelashes"]
+      237 CALL                             R18 4 1
+      238 GETTABLEKS                       R19 R5 K43 ["basicAccessoryPalette"]
+      240 LOADK                            R20 K60 ["Front"]
+      241 GETIMPORT                        R21 K62 [Enum.AssetType.FrontAccessory]
+      243 GETTABLEKS                       R23 R3 K63 ["front"]
+      245 NEWTABLE                         R24 0 0
+      247 MOVE                             R25 R23
+      248 LOADNIL                          R26
+      249 LOADNIL                          R27
+      250 FORGPREP                         R25
+      251 GETTABLEKS                       R32 R29 K38 ["id"]
+      253 FASTCALL2                        TABLE_INSERT R24 R32 ; [+4]
+      255 MOVE                             R31 R24
+      256 GETIMPORT                        R30 K41 [table.insert]
+      258 CALL                             R30 2 0
+      259 FORGLOOP                         R25 2 ; [-9]
+      261 MOVE                             R22 R24
+      262 CALL                             R19 3 1
+      263 GETTABLEKS                       R20 R5 K43 ["basicAccessoryPalette"]
+      265 LOADK                            R21 K64 ["Neck"]
+      266 GETIMPORT                        R22 K66 [Enum.AssetType.NeckAccessory]
+      268 GETTABLEKS                       R24 R3 K67 ["neck"]
+      270 NEWTABLE                         R25 0 0
+      272 MOVE                             R26 R24
+      273 LOADNIL                          R27
+      274 LOADNIL                          R28
+      275 FORGPREP                         R26
+      276 GETTABLEKS                       R33 R30 K38 ["id"]
+      278 FASTCALL2                        TABLE_INSERT R25 R33 ; [+4]
+      280 MOVE                             R32 R25
+      281 GETIMPORT                        R31 K41 [table.insert]
+      283 CALL                             R31 2 0
+      284 FORGLOOP                         R26 2 ; [-9]
+      286 MOVE                             R23 R25
+      287 CALL                             R20 3 1
+      288 GETTABLEKS                       R21 R5 K43 ["basicAccessoryPalette"]
+      290 LOADK                            R22 K68 ["Shoulder"]
+      291 GETIMPORT                        R23 K70 [Enum.AssetType.ShoulderAccessory]
+      293 GETTABLEKS                       R25 R3 K71 ["shoulder"]
+      295 NEWTABLE                         R26 0 0
+      297 MOVE                             R27 R25
+      298 LOADNIL                          R28
+      299 LOADNIL                          R29
+      300 FORGPREP                         R27
+      301 GETTABLEKS                       R34 R31 K38 ["id"]
+      303 FASTCALL2                        TABLE_INSERT R26 R34 ; [+4]
+      305 MOVE                             R33 R26
+      306 GETIMPORT                        R32 K41 [table.insert]
+      308 CALL                             R32 2 0
+      309 FORGLOOP                         R27 2 ; [-9]
+      311 MOVE                             R24 R26
+      312 CALL                             R21 3 1
+      313 GETTABLEKS                       R22 R5 K43 ["basicAccessoryPalette"]
+      315 LOADK                            R23 K72 ["Back"]
+      316 GETIMPORT                        R24 K74 [Enum.AssetType.BackAccessory]
+      318 GETTABLEKS                       R26 R3 K75 ["back"]
+      320 NEWTABLE                         R27 0 0
+      322 MOVE                             R28 R26
+      323 LOADNIL                          R29
+      324 LOADNIL                          R30
+      325 FORGPREP                         R28
+      326 GETTABLEKS                       R35 R32 K38 ["id"]
+      328 FASTCALL2                        TABLE_INSERT R27 R35 ; [+4]
+      330 MOVE                             R34 R27
+      331 GETIMPORT                        R33 K41 [table.insert]
+      333 CALL                             R33 2 0
+      334 FORGLOOP                         R28 2 ; [-9]
+      336 MOVE                             R25 R27
+      337 CALL                             R22 3 1
+      338 GETTABLEKS                       R23 R5 K43 ["basicAccessoryPalette"]
+      340 LOADK                            R24 K76 ["Waist"]
+      341 GETIMPORT                        R25 K78 [Enum.AssetType.WaistAccessory]
+      343 GETTABLEKS                       R27 R3 K79 ["waist"]
+      345 NEWTABLE                         R28 0 0
+      347 MOVE                             R29 R27
+      348 LOADNIL                          R30
+      349 LOADNIL                          R31
+      350 FORGPREP                         R29
+      351 GETTABLEKS                       R36 R33 K38 ["id"]
+      353 FASTCALL2                        TABLE_INSERT R28 R36 ; [+4]
+      355 MOVE                             R35 R28
+      356 GETIMPORT                        R34 K41 [table.insert]
+      358 CALL                             R34 2 0
+      359 FORGLOOP                         R29 2 ; [-9]
+      361 MOVE                             R26 R28
+      362 CALL                             R23 3 1
+      363 GETTABLEKS                       R24 R5 K80 ["gearPalette"]
+      365 GETTABLEKS                       R26 R3 K81 ["gearLeft"]
+      367 NEWTABLE                         R27 0 0
+      369 MOVE                             R28 R26
+      370 LOADNIL                          R29
+      371 LOADNIL                          R30
+      372 FORGPREP                         R28
+      373 GETTABLEKS                       R35 R32 K38 ["id"]
+      375 FASTCALL2                        TABLE_INSERT R27 R35 ; [+4]
+      377 MOVE                             R34 R27
+      378 GETIMPORT                        R33 K41 [table.insert]
+      380 CALL                             R33 2 0
+      381 FORGLOOP                         R28 2 ; [-9]
+      383 MOVE                             R25 R27
+      384 LOADK                            R26 K82 ["left"]
+      385 CALL                             R24 2 1
+      386 GETTABLEKS                       R25 R5 K80 ["gearPalette"]
+      388 GETTABLEKS                       R27 R3 K83 ["gearRight"]
+      390 NEWTABLE                         R28 0 0
+      392 MOVE                             R29 R27
+      393 LOADNIL                          R30
+      394 LOADNIL                          R31
+      395 FORGPREP                         R29
+      396 GETTABLEKS                       R36 R33 K38 ["id"]
+      398 FASTCALL2                        TABLE_INSERT R28 R36 ; [+4]
+      400 MOVE                             R35 R28
+      401 GETIMPORT                        R34 K41 [table.insert]
+      403 CALL                             R34 2 0
+      404 FORGLOOP                         R29 2 ; [-9]
+      406 MOVE                             R26 R28
+      407 LOADK                            R27 K84 ["right"]
+      408 CALL                             R25 2 -1
+      409 SETLIST                          R13 R14 -1 [1]
+      411 SETTABLEKS                       R13 R12 K22 ["accessories"]
+      413 NEWTABLE                         R13 0 2
+      415 GETTABLEKS                       R14 R5 K85 ["createBodyAnimationPalette"]
+      417 LOADK                            R15 K86 ["Movement"]
+      418 NEWTABLE                         R16 0 8
+      420 LOADK                            R17 K87 [16540596584]
+      421 LOADK                            R18 K88 [16562317918]
+      422 LOADK                            R19 K89 [16562332340]
+      423 LOADK                            R20 K90 [16562326358]
+      424 LOADK                            R21 K91 [16562321958]
+      425 LOADK                            R22 K92 [16562307212]
+      426 LOADK                            R23 K93 [16562311455]
+      427 LOADK                            R24 K94 [16562329379]
+      428 SETLIST                          R16 R17 8 [1]
+      430 CALL                             R14 2 1
+      431 GETTABLEKS                       R15 R5 K85 ["createBodyAnimationPalette"]
+      433 LOADK                            R16 K95 ["BodyEmotes"]
+      434 NEWTABLE                         R17 0 10
+      436 LOADK                            R18 K96 [16569676514]
+      437 LOADK                            R19 K97 [16569175989]
+      438 LOADK                            R20 K98 [16569548328]
+      439 LOADK                            R21 K99 [16569163126]
+      440 LOADK                            R22 K100 [10714358528]
+      441 LOADK                            R23 K101 [10714395441]
+      442 LOADK                            R24 K102 [10714383856]
+      443 LOADK                            R25 K103 [4940563117]
+      444 LOADK                            R26 K104 [10714347256]
+      445 LOADK                            R27 K105 [10714369325]
+      446 SETLIST                          R17 R18 10 [1]
+      448 CALL                             R15 2 -1
+      449 SETLIST                          R13 R14 -1 [1]
+      451 SETTABLEKS                       R13 R12 K23 ["animations"]
+      453 GETTABLEKS                       R13 R1 K106 ["List"]
+      455 GETTABLEKS                       R13 R13 K107 ["join"]
+      457 NEWTABLE                         R14 0 2
+      459 GETTABLEKS                       R15 R5 K108 ["skinPalette"]
+      461 MOVE                             R16 R4
+      462 CALL                             R15 1 1
+      463 GETTABLEKS                       R16 R5 K109 ["createHeadPalette"]
+      465 GETTABLEKS                       R17 R2 K110 ["heads"]
+      467 CALL                             R16 1 -1
+      468 SETLIST                          R14 R15 -1 [1]
+      470 GETTABLEKS                       R15 R5 K111 ["createBodyCategory"]
+      472 GETTABLEKS                       R16 R2 K112 ["bodies"]
+      474 CALL                             R15 1 -1
+      475 CALL                             R13 -1 1
+      476 SETTABLEKS                       R13 R12 K24 ["body"]
+      478 NEWTABLE                         R13 0 11
+      480 GETTABLEKS                       R14 R5 K31 ["layeredClothingPalette"]
+      482 LOADK                            R15 K113 ["Shirts"]
+      483 GETIMPORT                        R16 K115 [Enum.AssetType.ShirtAccessory]
+      485 GETTABLEKS                       R18 R3 K116 ["shirts"]
+      487 NEWTABLE                         R19 0 0
+      489 MOVE                             R20 R18
+      490 LOADNIL                          R21
+      491 LOADNIL                          R22
+      492 FORGPREP                         R20
+      493 GETTABLEKS                       R27 R24 K38 ["id"]
+      495 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
+      497 MOVE                             R26 R19
+      498 GETIMPORT                        R25 K41 [table.insert]
+      500 CALL                             R25 2 0
+      501 FORGLOOP                         R20 2 ; [-9]
+      503 MOVE                             R17 R19
+      504 GETTABLEKS                       R18 R6 K42 ["PREFERRED_LAYERS"]
+      506 GETTABLEKS                       R18 R18 K117 ["Tops"]
+      508 CALL                             R14 4 1
+      509 GETTABLEKS                       R15 R5 K31 ["layeredClothingPalette"]
+      511 LOADK                            R16 K118 ["TShirts"]
+      512 GETIMPORT                        R17 K120 [Enum.AssetType.TShirtAccessory]
+      514 GETTABLEKS                       R19 R3 K121 ["tshirts"]
+      516 NEWTABLE                         R20 0 0
+      518 MOVE                             R21 R19
+      519 LOADNIL                          R22
+      520 LOADNIL                          R23
+      521 FORGPREP                         R21
+      522 GETTABLEKS                       R28 R25 K38 ["id"]
+      524 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
+      526 MOVE                             R27 R20
+      527 GETIMPORT                        R26 K41 [table.insert]
+      529 CALL                             R26 2 0
+      530 FORGLOOP                         R21 2 ; [-9]
+      532 MOVE                             R18 R20
+      533 GETTABLEKS                       R19 R6 K42 ["PREFERRED_LAYERS"]
+      535 GETTABLEKS                       R19 R19 K117 ["Tops"]
+      537 CALL                             R15 4 1
+      538 GETTABLEKS                       R16 R5 K31 ["layeredClothingPalette"]
+      540 LOADK                            R17 K122 ["Jackets"]
+      541 GETIMPORT                        R18 K124 [Enum.AssetType.JacketAccessory]
+      543 GETTABLEKS                       R20 R3 K125 ["jackets"]
+      545 NEWTABLE                         R21 0 0
+      547 MOVE                             R22 R20
+      548 LOADNIL                          R23
+      549 LOADNIL                          R24
+      550 FORGPREP                         R22
+      551 GETTABLEKS                       R29 R26 K38 ["id"]
+      553 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
+      555 MOVE                             R28 R21
+      556 GETIMPORT                        R27 K41 [table.insert]
+      558 CALL                             R27 2 0
+      559 FORGLOOP                         R22 2 ; [-9]
+      561 MOVE                             R19 R21
+      562 GETTABLEKS                       R20 R6 K42 ["PREFERRED_LAYERS"]
+      564 GETTABLEKS                       R20 R20 K126 ["Outerwear"]
+      566 CALL                             R16 4 1
+      567 GETTABLEKS                       R17 R5 K31 ["layeredClothingPalette"]
+      569 LOADK                            R18 K127 ["Sweaters"]
+      570 GETIMPORT                        R19 K129 [Enum.AssetType.SweaterAccessory]
+      572 GETTABLEKS                       R21 R3 K130 ["sweaters"]
+      574 NEWTABLE                         R22 0 0
+      576 MOVE                             R23 R21
+      577 LOADNIL                          R24
+      578 LOADNIL                          R25
+      579 FORGPREP                         R23
+      580 GETTABLEKS                       R30 R27 K38 ["id"]
+      582 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
+      584 MOVE                             R29 R22
+      585 GETIMPORT                        R28 K41 [table.insert]
+      587 CALL                             R28 2 0
+      588 FORGLOOP                         R23 2 ; [-9]
+      590 MOVE                             R20 R22
+      591 GETTABLEKS                       R21 R6 K42 ["PREFERRED_LAYERS"]
+      593 GETTABLEKS                       R21 R21 K117 ["Tops"]
+      595 CALL                             R17 4 1
+      596 GETTABLEKS                       R18 R5 K31 ["layeredClothingPalette"]
+      598 LOADK                            R19 K131 ["Pants"]
+      599 GETIMPORT                        R20 K133 [Enum.AssetType.PantsAccessory]
+      601 GETTABLEKS                       R22 R3 K134 ["pants"]
+      603 NEWTABLE                         R23 0 0
+      605 MOVE                             R24 R22
+      606 LOADNIL                          R25
+      607 LOADNIL                          R26
+      608 FORGPREP                         R24
+      609 GETTABLEKS                       R31 R28 K38 ["id"]
+      611 FASTCALL2                        TABLE_INSERT R23 R31 ; [+4]
+      613 MOVE                             R30 R23
+      614 GETIMPORT                        R29 K41 [table.insert]
+      616 CALL                             R29 2 0
+      617 FORGLOOP                         R24 2 ; [-9]
+      619 MOVE                             R21 R23
+      620 GETTABLEKS                       R22 R6 K42 ["PREFERRED_LAYERS"]
+      622 GETTABLEKS                       R22 R22 K135 ["Bottoms"]
+      624 CALL                             R18 4 1
+      625 GETTABLEKS                       R19 R5 K31 ["layeredClothingPalette"]
+      627 LOADK                            R20 K136 ["Shorts"]
+      628 GETIMPORT                        R21 K138 [Enum.AssetType.ShortsAccessory]
+      630 GETTABLEKS                       R23 R3 K139 ["shorts"]
+      632 NEWTABLE                         R24 0 0
+      634 MOVE                             R25 R23
+      635 LOADNIL                          R26
+      636 LOADNIL                          R27
+      637 FORGPREP                         R25
+      638 GETTABLEKS                       R32 R29 K38 ["id"]
+      640 FASTCALL2                        TABLE_INSERT R24 R32 ; [+4]
+      642 MOVE                             R31 R24
+      643 GETIMPORT                        R30 K41 [table.insert]
+      645 CALL                             R30 2 0
+      646 FORGLOOP                         R25 2 ; [-9]
+      648 MOVE                             R22 R24
+      649 GETTABLEKS                       R23 R6 K42 ["PREFERRED_LAYERS"]
+      651 GETTABLEKS                       R23 R23 K135 ["Bottoms"]
+      653 CALL                             R19 4 1
+      654 GETTABLEKS                       R20 R5 K31 ["layeredClothingPalette"]
+      656 LOADK                            R21 K140 ["Skirts"]
+      657 GETIMPORT                        R22 K142 [Enum.AssetType.DressSkirtAccessory]
+      659 GETTABLEKS                       R24 R3 K143 ["skirts"]
+      661 NEWTABLE                         R25 0 0
+      663 MOVE                             R26 R24
+      664 LOADNIL                          R27
+      665 LOADNIL                          R28
+      666 FORGPREP                         R26
+      667 GETTABLEKS                       R33 R30 K38 ["id"]
+      669 FASTCALL2                        TABLE_INSERT R25 R33 ; [+4]
+      671 MOVE                             R32 R25
+      672 GETIMPORT                        R31 K41 [table.insert]
+      674 CALL                             R31 2 0
+      675 FORGLOOP                         R26 2 ; [-9]
+      677 MOVE                             R23 R25
+      678 GETTABLEKS                       R24 R6 K42 ["PREFERRED_LAYERS"]
+      680 GETTABLEKS                       R24 R24 K135 ["Bottoms"]
+      682 CALL                             R20 4 1
+      683 GETTABLEKS                       R21 R5 K144 ["shoesPalette"]
+      685 NEWTABLE                         R22 0 3
+      687 DUPTABLE                         R23 K145 [{"left", "right"}]
+      688 LOADK                            R24 K146 [8722031289]
+      689 SETTABLEKS                       R24 R23 K82 ["left"]
+      691 LOADK                            R24 K147 [8722020587]
+      692 SETTABLEKS                       R24 R23 K84 ["right"]
+      694 DUPTABLE                         R24 K145 [{"left", "right"}]
+      695 LOADK                            R25 K148 [7193170137]
+      696 SETTABLEKS                       R25 R24 K82 ["left"]
+      698 LOADK                            R25 K149 [7193171232]
+      699 SETTABLEKS                       R25 R24 K84 ["right"]
+      701 DUPTABLE                         R25 K145 [{"left", "right"}]
+      702 LOADK                            R26 K150 [7193104827]
+      703 SETTABLEKS                       R26 R25 K82 ["left"]
+      705 LOADK                            R26 K151 [7193106211]
+      706 SETTABLEKS                       R26 R25 K84 ["right"]
+      708 SETLIST                          R22 R23 3 [1]
+      710 CALL                             R21 1 1
+      711 MOVE                             R23 R8
+      712 CALL                             R23 0 1
+      713 JUMPIFNOT                        R23 ; [+26]
+      714 GETTABLEKS                       R22 R5 K152 ["classicClothingPalette"]
+      716 LOADK                            R23 K153 ["ClassicShirts"]
+      717 GETIMPORT                        R24 K155 [Enum.AssetType.Shirt]
+      719 GETTABLEKS                       R26 R3 K156 ["classicShirts"]
+      721 NEWTABLE                         R27 0 0
+      723 MOVE                             R28 R26
+      724 LOADNIL                          R29
+      725 LOADNIL                          R30
+      726 FORGPREP                         R28
+      727 GETTABLEKS                       R35 R32 K38 ["id"]
+      729 FASTCALL2                        TABLE_INSERT R27 R35 ; [+4]
+      731 MOVE                             R34 R27
+      732 GETIMPORT                        R33 K41 [table.insert]
+      734 CALL                             R33 2 0
+      735 FORGLOOP                         R28 2 ; [-9]
+      737 MOVE                             R25 R27
+      738 CALL                             R22 3 1
+      739 JUMP                             ; [+1]
+      740 LOADNIL                          R22
+      741 MOVE                             R24 R8
+      742 CALL                             R24 0 1
+      743 JUMPIFNOT                        R24 ; [+26]
+      744 GETTABLEKS                       R23 R5 K152 ["classicClothingPalette"]
+      746 LOADK                            R24 K157 ["ClassicTShirts"]
+      747 GETIMPORT                        R25 K159 [Enum.AssetType.TShirt]
+      749 GETTABLEKS                       R27 R3 K160 ["classicTShirts"]
+      751 NEWTABLE                         R28 0 0
+      753 MOVE                             R29 R27
+      754 LOADNIL                          R30
+      755 LOADNIL                          R31
+      756 FORGPREP                         R29
+      757 GETTABLEKS                       R36 R33 K38 ["id"]
+      759 FASTCALL2                        TABLE_INSERT R28 R36 ; [+4]
+      761 MOVE                             R35 R28
+      762 GETIMPORT                        R34 K41 [table.insert]
+      764 CALL                             R34 2 0
+      765 FORGLOOP                         R29 2 ; [-9]
+      767 MOVE                             R26 R28
+      768 CALL                             R23 3 1
+      769 JUMP                             ; [+1]
+      770 LOADNIL                          R23
+      771 MOVE                             R25 R8
+      772 CALL                             R25 0 1
+      773 JUMPIFNOT                        R25 ; [+26]
+      774 GETTABLEKS                       R24 R5 K152 ["classicClothingPalette"]
+      776 LOADK                            R25 K161 ["ClassicPants"]
+      777 GETIMPORT                        R26 K162 [Enum.AssetType.Pants]
+      779 GETTABLEKS                       R28 R3 K163 ["classicPants"]
+      781 NEWTABLE                         R29 0 0
+      783 MOVE                             R30 R28
+      784 LOADNIL                          R31
+      785 LOADNIL                          R32
+      786 FORGPREP                         R30
+      787 GETTABLEKS                       R37 R34 K38 ["id"]
+      789 FASTCALL2                        TABLE_INSERT R29 R37 ; [+4]
+      791 MOVE                             R36 R29
+      792 GETIMPORT                        R35 K41 [table.insert]
+      794 CALL                             R35 2 0
+      795 FORGLOOP                         R30 2 ; [-9]
+      797 MOVE                             R27 R29
+      798 CALL                             R24 3 1
+      799 JUMP                             ; [+1]
+      800 LOADNIL                          R24
+      801 SETLIST                          R13 R14 11 [1]
+      803 SETTABLEKS                       R13 R12 K25 ["clothing"]
+      805 NEWTABLE                         R13 0 1
+      807 GETTABLEKS                       R14 R5 K164 ["emotionPalette"]
+      809 NEWTABLE                         R15 0 6
+      811 LOADK                            R16 K165 [13965126930]
+      812 LOADK                            R17 K166 [13965139478]
+      813 LOADK                            R18 K167 [13965076233]
+      814 LOADK                            R19 K168 [13965039145]
+      815 LOADK                            R20 K169 [13965064041]
+      816 LOADK                            R21 K170 [13965162732]
+      817 SETLIST                          R15 R16 6 [1]
+      819 CALL                             R14 1 -1
+      820 SETLIST                          R13 R14 -1 [1]
+      822 SETTABLEKS                       R13 R12 K26 ["animations_face"]
+      824 NEWTABLE                         R13 0 2
+      826 GETTABLEKS                       R14 R5 K108 ["skinPalette"]
+      828 MOVE                             R15 R4
+      829 CALL                             R14 1 1
+      830 GETTABLEKS                       R15 R5 K109 ["createHeadPalette"]
+      832 GETTABLEKS                       R16 R2 K110 ["heads"]
+      834 CALL                             R15 1 -1
+      835 SETLIST                          R13 R14 -1 [1]
+      837 SETTABLEKS                       R13 R12 K27 ["body_face"]
+      839 NEWTABLE                         R13 0 5
+      841 GETTABLEKS                       R14 R5 K31 ["layeredClothingPalette"]
+      843 LOADK                            R15 K32 ["Hair"]
+      844 GETIMPORT                        R16 K36 [Enum.AssetType.HairAccessory]
+      846 GETTABLEKS                       R18 R3 K37 ["hair"]
+      848 NEWTABLE                         R19 0 0
+      850 MOVE                             R20 R18
+      851 LOADNIL                          R21
+      852 LOADNIL                          R22
+      853 FORGPREP                         R20
+      854 GETTABLEKS                       R27 R24 K38 ["id"]
+      856 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
+      858 MOVE                             R26 R19
+      859 GETIMPORT                        R25 K41 [table.insert]
+      861 CALL                             R25 2 0
+      862 FORGLOOP                         R20 2 ; [-9]
+      864 MOVE                             R17 R19
+      865 GETTABLEKS                       R18 R6 K42 ["PREFERRED_LAYERS"]
+      867 GETTABLEKS                       R18 R18 K32 ["Hair"]
+      869 CALL                             R14 4 1
+      870 GETTABLEKS                       R15 R5 K43 ["basicAccessoryPalette"]
+      872 LOADK                            R16 K44 ["Head"]
+      873 GETIMPORT                        R17 K46 [Enum.AssetType.Hat]
+      875 GETTABLEKS                       R19 R3 K47 ["head"]
+      877 NEWTABLE                         R20 0 0
+      879 MOVE                             R21 R19
+      880 LOADNIL                          R22
+      881 LOADNIL                          R23
+      882 FORGPREP                         R21
+      883 GETTABLEKS                       R28 R25 K38 ["id"]
+      885 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
+      887 MOVE                             R27 R20
+      888 GETIMPORT                        R26 K41 [table.insert]
+      890 CALL                             R26 2 0
+      891 FORGLOOP                         R21 2 ; [-9]
+      893 MOVE                             R18 R20
+      894 CALL                             R15 3 1
+      895 GETTABLEKS                       R16 R5 K31 ["layeredClothingPalette"]
+      897 LOADK                            R17 K48 ["Face"]
+      898 GETIMPORT                        R18 K50 [Enum.AssetType.FaceAccessory]
+      900 GETTABLEKS                       R20 R3 K51 ["face"]
+      902 NEWTABLE                         R21 0 0
+      904 MOVE                             R22 R20
+      905 LOADNIL                          R23
+      906 LOADNIL                          R24
+      907 FORGPREP                         R22
+      908 GETTABLEKS                       R29 R26 K38 ["id"]
+      910 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
+      912 MOVE                             R28 R21
+      913 GETIMPORT                        R27 K41 [table.insert]
+      915 CALL                             R27 2 0
+      916 FORGLOOP                         R22 2 ; [-9]
+      918 MOVE                             R19 R21
+      919 GETTABLEKS                       R20 R6 K42 ["PREFERRED_LAYERS"]
+      921 GETTABLEKS                       R20 R20 K48 ["Face"]
+      923 CALL                             R16 4 1
+      924 MOVE                             R18 R9
+      925 CALL                             R18 0 1
+      926 JUMPIF                           R18 ; [+30]
+      927 GETTABLEKS                       R17 R5 K31 ["layeredClothingPalette"]
+      929 LOADK                            R18 K52 ["Eyebrows"]
+      930 GETIMPORT                        R19 K54 [Enum.AssetType.EyebrowAccessory]
+      932 GETTABLEKS                       R21 R3 K55 ["eyebrows"]
+      934 NEWTABLE                         R22 0 0
+      936 MOVE                             R23 R21
+      937 LOADNIL                          R24
+      938 LOADNIL                          R25
+      939 FORGPREP                         R23
+      940 GETTABLEKS                       R30 R27 K38 ["id"]
+      942 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
+      944 MOVE                             R29 R22
+      945 GETIMPORT                        R28 K41 [table.insert]
+      947 CALL                             R28 2 0
+      948 FORGLOOP                         R23 2 ; [-9]
+      950 MOVE                             R20 R22
+      951 GETTABLEKS                       R21 R6 K42 ["PREFERRED_LAYERS"]
+      953 GETTABLEKS                       R21 R21 K52 ["Eyebrows"]
+      955 CALL                             R17 4 1
+      956 JUMP                             ; [+1]
+      957 LOADNIL                          R17
+      958 MOVE                             R19 R9
+      959 CALL                             R19 0 1
+      960 JUMPIF                           R19 ; [+30]
+      961 GETTABLEKS                       R18 R5 K31 ["layeredClothingPalette"]
+      963 LOADK                            R19 K56 ["Eyelashes"]
+      964 GETIMPORT                        R20 K58 [Enum.AssetType.EyelashAccessory]
+      966 GETTABLEKS                       R22 R3 K59 ["eyelashes"]
+      968 NEWTABLE                         R23 0 0
+      970 MOVE                             R24 R22
+      971 LOADNIL                          R25
+      972 LOADNIL                          R26
+      973 FORGPREP                         R24
+      974 GETTABLEKS                       R31 R28 K38 ["id"]
+      976 FASTCALL2                        TABLE_INSERT R23 R31 ; [+4]
+      978 MOVE                             R30 R23
+      979 GETIMPORT                        R29 K41 [table.insert]
+      981 CALL                             R29 2 0
+      982 FORGLOOP                         R24 2 ; [-9]
+      984 MOVE                             R21 R23
+      985 GETTABLEKS                       R22 R6 K42 ["PREFERRED_LAYERS"]
+      987 GETTABLEKS                       R22 R22 K56 ["Eyelashes"]
+      989 CALL                             R18 4 1
+      990 JUMP                             ; [+1]
+      991 LOADNIL                          R18
+      992 SETLIST                          R13 R14 5 [1]
+      994 SETTABLEKS                       R13 R12 K28 ["accessories_face"]
+      996 MOVE                             R14 R9
+      997 CALL                             R14 0 1
+      998 JUMPIFNOT                        R14 ; [+156]
+      999 NEWTABLE                         R13 0 5
+     1001 GETTABLEKS                       R14 R5 K171 ["createMakeupPalette"]
+     1003 LOADK                            R15 K172 ["FaceMakeup"]
+     1004 GETIMPORT                        R16 K173 [Enum.AssetType.FaceMakeup]
+     1006 MOVE                             R18 R10
+     1007 CALL                             R18 0 1
+     1008 JUMPIFNOT                        R18 ; [+20]
+     1009 GETTABLEKS                       R18 R3 K174 ["faceMakeup"]
+     1011 NEWTABLE                         R19 0 0
+     1013 MOVE                             R20 R18
+     1014 LOADNIL                          R21
+     1015 LOADNIL                          R22
+     1016 FORGPREP                         R20
+     1017 GETTABLEKS                       R27 R24 K38 ["id"]
+     1019 FASTCALL2                        TABLE_INSERT R19 R27 ; [+4]
+     1021 MOVE                             R26 R19
+     1022 GETIMPORT                        R25 K41 [table.insert]
+     1024 CALL                             R25 2 0
+     1025 FORGLOOP                         R20 2 ; [-9]
+     1027 MOVE                             R17 R19
+     1028 JUMP                             ; [+2]
+     1029 NEWTABLE                         R17 0 0
+     1031 CALL                             R14 3 1
+     1032 GETTABLEKS                       R15 R5 K171 ["createMakeupPalette"]
+     1034 LOADK                            R16 K175 ["LipMakeup"]
+     1035 GETIMPORT                        R17 K176 [Enum.AssetType.LipMakeup]
+     1037 MOVE                             R19 R10
+     1038 CALL                             R19 0 1
+     1039 JUMPIFNOT                        R19 ; [+20]
+     1040 GETTABLEKS                       R19 R3 K177 ["lipMakeup"]
+     1042 NEWTABLE                         R20 0 0
+     1044 MOVE                             R21 R19
+     1045 LOADNIL                          R22
+     1046 LOADNIL                          R23
+     1047 FORGPREP                         R21
+     1048 GETTABLEKS                       R28 R25 K38 ["id"]
+     1050 FASTCALL2                        TABLE_INSERT R20 R28 ; [+4]
+     1052 MOVE                             R27 R20
+     1053 GETIMPORT                        R26 K41 [table.insert]
+     1055 CALL                             R26 2 0
+     1056 FORGLOOP                         R21 2 ; [-9]
+     1058 MOVE                             R18 R20
+     1059 JUMP                             ; [+2]
+     1060 NEWTABLE                         R18 0 0
+     1062 CALL                             R15 3 1
+     1063 GETTABLEKS                       R16 R5 K171 ["createMakeupPalette"]
+     1065 LOADK                            R17 K178 ["EyeMakeup"]
+     1066 GETIMPORT                        R18 K179 [Enum.AssetType.EyeMakeup]
+     1068 MOVE                             R20 R10
+     1069 CALL                             R20 0 1
+     1070 JUMPIFNOT                        R20 ; [+20]
+     1071 GETTABLEKS                       R20 R3 K180 ["eyeMakeup"]
+     1073 NEWTABLE                         R21 0 0
+     1075 MOVE                             R22 R20
+     1076 LOADNIL                          R23
+     1077 LOADNIL                          R24
+     1078 FORGPREP                         R22
+     1079 GETTABLEKS                       R29 R26 K38 ["id"]
+     1081 FASTCALL2                        TABLE_INSERT R21 R29 ; [+4]
+     1083 MOVE                             R28 R21
+     1084 GETIMPORT                        R27 K41 [table.insert]
+     1086 CALL                             R27 2 0
+     1087 FORGLOOP                         R22 2 ; [-9]
+     1089 MOVE                             R19 R21
+     1090 JUMP                             ; [+2]
+     1091 NEWTABLE                         R19 0 0
+     1093 CALL                             R16 3 1
+     1094 GETTABLEKS                       R17 R5 K31 ["layeredClothingPalette"]
+     1096 LOADK                            R18 K52 ["Eyebrows"]
+     1097 GETIMPORT                        R19 K54 [Enum.AssetType.EyebrowAccessory]
+     1099 GETTABLEKS                       R21 R3 K55 ["eyebrows"]
+     1101 NEWTABLE                         R22 0 0
+     1103 MOVE                             R23 R21
+     1104 LOADNIL                          R24
+     1105 LOADNIL                          R25
+     1106 FORGPREP                         R23
+     1107 GETTABLEKS                       R30 R27 K38 ["id"]
+     1109 FASTCALL2                        TABLE_INSERT R22 R30 ; [+4]
+     1111 MOVE                             R29 R22
+     1112 GETIMPORT                        R28 K41 [table.insert]
+     1114 CALL                             R28 2 0
+     1115 FORGLOOP                         R23 2 ; [-9]
+     1117 MOVE                             R20 R22
+     1118 GETTABLEKS                       R21 R6 K42 ["PREFERRED_LAYERS"]
+     1120 GETTABLEKS                       R21 R21 K52 ["Eyebrows"]
+     1122 CALL                             R17 4 1
+     1123 GETTABLEKS                       R18 R5 K31 ["layeredClothingPalette"]
+     1125 LOADK                            R19 K56 ["Eyelashes"]
+     1126 GETIMPORT                        R20 K58 [Enum.AssetType.EyelashAccessory]
+     1128 GETTABLEKS                       R22 R3 K59 ["eyelashes"]
+     1130 NEWTABLE                         R23 0 0
+     1132 MOVE                             R24 R22
+     1133 LOADNIL                          R25
+     1134 LOADNIL                          R26
+     1135 FORGPREP                         R24
+     1136 GETTABLEKS                       R31 R28 K38 ["id"]
+     1138 FASTCALL2                        TABLE_INSERT R23 R31 ; [+4]
+     1140 MOVE                             R30 R23
+     1141 GETIMPORT                        R29 K41 [table.insert]
+     1143 CALL                             R29 2 0
+     1144 FORGLOOP                         R24 2 ; [-9]
+     1146 MOVE                             R21 R23
+     1147 GETTABLEKS                       R22 R6 K42 ["PREFERRED_LAYERS"]
+     1149 GETTABLEKS                       R22 R22 K56 ["Eyelashes"]
+     1151 CALL                             R18 4 -1
+     1152 SETLIST                          R13 R14 -1 [1]
+     1154 JUMP                             ; [+1]
+     1155 LOADNIL                          R13
+     1156 SETTABLEKS                       R13 R12 K29 ["makeup"]
+     1158 RETURN                           R12 1

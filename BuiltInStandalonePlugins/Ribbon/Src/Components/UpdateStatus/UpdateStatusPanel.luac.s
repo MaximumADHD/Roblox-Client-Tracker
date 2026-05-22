@@ -163,74 +163,69 @@ PROTO_9:
        28 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 -1
-        2 FASTCALL                         ASSERT ; [+2]
-        3 GETIMPORT                        R1 K1 [assert]
-        5 CALL                             R1 -1 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R1 R1 K2 ["use"]
-        9 CALL                             R1 0 1
-       10 NAMECALL                         R1 R1 K3 ["get"]
-       12 CALL                             R1 1 1
-       13 GETUPVAL                         R2 2
-       14 GETUPVAL                         R3 3
-       15 CALL                             R2 1 2
-       16 GETUPVAL                         R4 4
-       17 NEWCLOSURE                       R5 P0
-       18 CAPTURE                          VAL R3
-       19 NEWTABLE                         R6 0 0
-       21 CALL                             R4 2 0
-       22 LOADK                            R6 K4 ["Panels"]
-       23 NAMECALL                         R4 R1 K5 ["GetPluginComponent"]
-       25 CALL                             R4 2 1
-       26 GETUPVAL                         R5 5
-       27 NEWCLOSURE                       R6 P1
-       28 CAPTURE                          VAL R1
-       29 CAPTURE                          VAL R0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["use"]
+        3 CALL                             R1 0 1
+        4 NAMECALL                         R1 R1 K1 ["get"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 1
+        8 GETUPVAL                         R3 2
+        9 CALL                             R2 1 2
+       10 GETUPVAL                         R4 3
+       11 NEWCLOSURE                       R5 P0
+       12 CAPTURE                          VAL R3
+       13 NEWTABLE                         R6 0 0
+       15 CALL                             R4 2 0
+       16 LOADK                            R6 K2 ["Panels"]
+       17 NAMECALL                         R4 R1 K3 ["GetPluginComponent"]
+       19 CALL                             R4 2 1
+       20 GETUPVAL                         R5 4
+       21 NEWCLOSURE                       R6 P1
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R4
+       25 NEWTABLE                         R7 0 0
+       27 CALL                             R5 2 1
+       28 GETUPVAL                         R6 3
+       29 NEWCLOSURE                       R7 P2
        30 CAPTURE                          VAL R4
-       31 NEWTABLE                         R7 0 0
-       33 CALL                             R5 2 1
-       34 GETUPVAL                         R6 4
-       35 NEWCLOSURE                       R7 P2
-       36 CAPTURE                          VAL R4
-       37 CAPTURE                          VAL R0
-       38 NEWTABLE                         R8 0 2
-       40 GETTABLEKS                       R9 R0 K6 ["PanelUri"]
-       42 GETTABLEKS                       R10 R0 K7 ["ButtonUri"]
-       44 SETLIST                          R8 R9 2 [1]
-       46 CALL                             R6 2 0
-       47 GETTABLEKS                       R6 R0 K8 ["Enabled"]
-       49 SETTABLEKS                       R6 R5 K8 ["Enabled"]
-       51 GETUPVAL                         R6 6
-       52 GETTABLEKS                       R6 R6 K9 ["createPortal"]
-       54 GETUPVAL                         R7 7
-       55 GETTABLEKS                       R7 R7 K10 ["createElement"]
-       57 GETUPVAL                         R8 8
-       58 DUPTABLE                         R9 K13 [{"device", "theme"}]
-       59 GETUPVAL                         R10 9
-       60 GETTABLEKS                       R10 R10 K14 ["Device"]
-       62 GETTABLEKS                       R10 R10 K15 ["Desktop"]
-       64 SETTABLEKS                       R10 R9 K11 ["device"]
-       66 SETTABLEKS                       R2 R9 K12 ["theme"]
-       68 DUPTABLE                         R10 K17 [{"Container"}]
-       69 GETUPVAL                         R11 7
-       70 GETTABLEKS                       R11 R11 K10 ["createElement"]
-       72 GETUPVAL                         R12 10
-       73 DUPTABLE                         R13 K19 [{"onAbsoluteSizeChanged"}]
-       74 NEWCLOSURE                       R14 P3
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R0
-       77 SETTABLEKS                       R14 R13 K18 ["onAbsoluteSizeChanged"]
-       79 NEWTABLE                         R14 0 1
-       81 GETTABLEKS                       R15 R0 K20 ["children"]
-       83 SETLIST                          R14 R15 1 [1]
-       85 CALL                             R11 3 1
-       86 SETTABLEKS                       R11 R10 K16 ["Container"]
-       88 CALL                             R7 3 1
-       89 MOVE                             R8 R5
-       90 CALL                             R6 2 -1
-       91 RETURN                           R6 -1
+       31 CAPTURE                          VAL R0
+       32 NEWTABLE                         R8 0 2
+       34 GETTABLEKS                       R9 R0 K4 ["PanelUri"]
+       36 GETTABLEKS                       R10 R0 K5 ["ButtonUri"]
+       38 SETLIST                          R8 R9 2 [1]
+       40 CALL                             R6 2 0
+       41 GETTABLEKS                       R6 R0 K6 ["Enabled"]
+       43 SETTABLEKS                       R6 R5 K6 ["Enabled"]
+       45 GETUPVAL                         R6 5
+       46 GETTABLEKS                       R6 R6 K7 ["createPortal"]
+       48 GETUPVAL                         R7 6
+       49 GETTABLEKS                       R7 R7 K8 ["createElement"]
+       51 GETUPVAL                         R8 7
+       52 DUPTABLE                         R9 K11 [{"device", "theme"}]
+       53 GETUPVAL                         R10 8
+       54 GETTABLEKS                       R10 R10 K12 ["Device"]
+       56 GETTABLEKS                       R10 R10 K13 ["Desktop"]
+       58 SETTABLEKS                       R10 R9 K9 ["device"]
+       60 SETTABLEKS                       R2 R9 K10 ["theme"]
+       62 DUPTABLE                         R10 K15 [{"Container"}]
+       63 GETUPVAL                         R11 6
+       64 GETTABLEKS                       R11 R11 K8 ["createElement"]
+       66 GETUPVAL                         R12 9
+       67 DUPTABLE                         R13 K17 [{"onAbsoluteSizeChanged"}]
+       68 NEWCLOSURE                       R14 P3
+       69 CAPTURE                          VAL R4
+       70 CAPTURE                          VAL R0
+       71 SETTABLEKS                       R14 R13 K16 ["onAbsoluteSizeChanged"]
+       73 NEWTABLE                         R14 0 1
+       75 GETTABLEKS                       R15 R0 K18 ["children"]
+       77 SETLIST                          R14 R15 1 [1]
+       79 CALL                             R11 3 1
+       80 SETTABLEKS                       R11 R10 K14 ["Container"]
+       82 CALL                             R7 3 1
+       83 MOVE                             R8 R5
+       84 CALL                             R6 2 -1
+       85 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -254,36 +249,30 @@ MAIN:
        30 GETTABLEKS                       R5 R0 K6 ["Packages"]
        32 GETTABLEKS                       R5 R5 K10 ["Framework"]
        34 CALL                             R4 1 1
-       35 GETIMPORT                        R5 K5 [require]
-       37 GETTABLEKS                       R6 R0 K11 ["Src"]
-       39 GETTABLEKS                       R6 R6 K12 ["SharedFlags"]
-       41 GETTABLEKS                       R6 R6 K13 ["getFeatureStudioBackgroundUpdates"]
-       43 CALL                             R5 1 1
-       44 GETTABLEKS                       R6 R1 K14 ["useEffect"]
-       46 GETTABLEKS                       R7 R1 K15 ["useMemo"]
-       48 GETTABLEKS                       R8 R1 K16 ["useState"]
-       50 GETTABLEKS                       R9 R3 K17 ["FoundationProvider"]
-       52 GETTABLEKS                       R10 R3 K18 ["Enums"]
-       54 GETTABLEKS                       R11 R3 K19 ["View"]
-       56 GETTABLEKS                       R12 R3 K20 ["Hooks"]
-       58 GETTABLEKS                       R12 R12 K21 ["useTokens"]
-       60 GETTABLEKS                       R13 R4 K22 ["ContextServices"]
-       62 GETTABLEKS                       R14 R13 K23 ["Plugin"]
-       64 DUPCLOSURE                       R15 K24 [PROTO_1]
-       65 DUPCLOSURE                       R16 K25 [PROTO_2]
-       66 CAPTURE                          VAL R12
+       35 GETTABLEKS                       R5 R1 K11 ["useEffect"]
+       37 GETTABLEKS                       R6 R1 K12 ["useMemo"]
+       39 GETTABLEKS                       R7 R1 K13 ["useState"]
+       41 GETTABLEKS                       R8 R3 K14 ["FoundationProvider"]
+       43 GETTABLEKS                       R9 R3 K15 ["Enums"]
+       45 GETTABLEKS                       R10 R3 K16 ["View"]
+       47 GETTABLEKS                       R11 R3 K17 ["Hooks"]
+       49 GETTABLEKS                       R11 R11 K18 ["useTokens"]
+       51 GETTABLEKS                       R12 R4 K19 ["ContextServices"]
+       53 GETTABLEKS                       R13 R12 K20 ["Plugin"]
+       55 DUPCLOSURE                       R14 K21 [PROTO_1]
+       56 DUPCLOSURE                       R15 K22 [PROTO_2]
+       57 CAPTURE                          VAL R11
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R10
+       60 DUPCLOSURE                       R16 K23 [PROTO_10]
+       61 CAPTURE                          VAL R13
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R14
+       64 CAPTURE                          VAL R5
+       65 CAPTURE                          VAL R6
+       66 CAPTURE                          VAL R2
        67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R11
-       69 DUPCLOSURE                       R17 K26 [PROTO_10]
-       70 CAPTURE                          VAL R5
-       71 CAPTURE                          VAL R14
-       72 CAPTURE                          VAL R8
-       73 CAPTURE                          VAL R15
-       74 CAPTURE                          VAL R6
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R2
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R9
-       79 CAPTURE                          VAL R10
-       80 CAPTURE                          VAL R16
-       81 RETURN                           R17 1
+       68 CAPTURE                          VAL R8
+       69 CAPTURE                          VAL R9
+       70 CAPTURE                          VAL R15
+       71 RETURN                           R16 1

@@ -132,7 +132,7 @@ MAIN:
       212 MOVE                             R10 R3
       213 CALL                             R10 0 1
       214 SETTABLEKS                       R10 R9 K60 ["ItemFetchMax"]
-      216 LOADN                            R10 3
+      216 LOADN                            R10 5
       217 SETTABLEKS                       R10 R9 K61 ["FolderReadinessRetryCount"]
       219 NEWTABLE                         R10 16 0
       221 LOADB                            R11 1
@@ -156,20 +156,22 @@ MAIN:
       248 SETTABLEKS                       R10 R9 K71 ["FolderForbiddenChars"]
       250 LOADN                            R10 3
       251 SETTABLEKS                       R10 R9 K72 ["SearchFoldersResultCountDefault"]
-      253 DUPTABLE                         R10 K76 [{"DeleteFolder", "GetItems", "CreateFolder"}]
-      254 NEWTABLE                         R11 2 0
-      256 LOADK                            R12 K77 ["DeleteFolderFailedNotEmpty"]
-      257 SETTABLEN                        R12 R11 1
-      258 LOADK                            R12 K78 ["FolderNotFound"]
-      259 SETTABLEN                        R12 R11 5
-      260 SETTABLEKS                       R11 R10 K73 ["DeleteFolder"]
-      262 NEWTABLE                         R11 1 0
-      264 LOADK                            R12 K78 ["FolderNotFound"]
-      265 SETTABLEN                        R12 R11 5
-      266 SETTABLEKS                       R11 R10 K74 ["GetItems"]
-      268 NEWTABLE                         R11 0 1
-      270 LOADK                            R12 K79 ["CreateFolderDepthLimitExceeded"]
-      271 SETTABLEN                        R12 R11 1
-      272 SETTABLEKS                       R11 R10 K75 ["CreateFolder"]
-      274 SETTABLEKS                       R10 R9 K80 ["ErrorTypeLookup"]
-      276 RETURN                           R9 1
+      253 LOADK                            R10 K73 [1.5]
+      254 SETTABLEKS                       R10 R9 K74 ["RecentlyCreatedFolderHighlightTime"]
+      256 DUPTABLE                         R10 K78 [{"DeleteFolder", "GetItems", "CreateFolder"}]
+      257 NEWTABLE                         R11 2 0
+      259 LOADK                            R12 K79 ["DeleteFolderFailedNotEmpty"]
+      260 SETTABLEN                        R12 R11 1
+      261 LOADK                            R12 K80 ["FolderNotFound"]
+      262 SETTABLEN                        R12 R11 5
+      263 SETTABLEKS                       R11 R10 K75 ["DeleteFolder"]
+      265 NEWTABLE                         R11 1 0
+      267 LOADK                            R12 K80 ["FolderNotFound"]
+      268 SETTABLEN                        R12 R11 5
+      269 SETTABLEKS                       R11 R10 K76 ["GetItems"]
+      271 NEWTABLE                         R11 0 1
+      273 LOADK                            R12 K81 ["CreateFolderDepthLimitExceeded"]
+      274 SETTABLEN                        R12 R11 1
+      275 SETTABLEKS                       R11 R10 K77 ["CreateFolder"]
+      277 SETTABLEKS                       R10 R9 K82 ["ErrorTypeLookup"]
+      279 RETURN                           R9 1

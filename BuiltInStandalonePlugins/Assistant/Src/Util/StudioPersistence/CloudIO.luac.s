@@ -39,7 +39,7 @@ PROTO_2:
        20 GETTABLEKS                       R2 R1 K5 ["data"]
        22 GETTABLEKS                       R3 R2 K6 ["threads"]
        24 LOADNIL                          R4
-       25 JUMPIFNOT                        R3 ; [+150]
+       25 JUMPIFNOT                        R3 ; [+155]
        26 GETIMPORT                        R5 K9 [table.create]
        28 LENGTH                           R6 R3
        29 CALL                             R5 1 1
@@ -89,7 +89,7 @@ PROTO_2:
        83 JUMPIF                           R12 ; [+15]
        84 GETUPVAL                         R13 3
        85 CALL                             R13 0 1
-       86 JUMPIFNOT                        R13 ; [+86]
+       86 JUMPIFNOT                        R13 ; [+91]
        87 GETIMPORT                        R13 K17 [warn]
        89 LOADK                            R15 K22 ["[CloudIO] threadId missing for thread with title \"%*\" and metadata \"%*\". Skipping this thread."]
        90 GETTABLEKS                       R17 R9 K19 ["title"]
@@ -98,18 +98,18 @@ PROTO_2:
        95 CALL                             R15 3 1
        96 MOVE                             R14 R15
        97 CALL                             R13 1 0
-       98 JUMP                             ; [+74]
-       99 DUPTABLE                         R15 K37 [{"threadId", "sourceId", "rootId", "createdAt", "updatedAt", "ephemeral", "isDirty", "isDeleted", "lastActivityAt", "title", "isPinned", "messages", "messageLoadState", "messagePageState", "messageCountAdded", "messageCountLoaded"}]
+       98 JUMP                             ; [+79]
+       99 DUPTABLE                         R15 K38 [{"threadId", "sourceId", "rootId", "createdAt", "updatedAt", "ephemeral", "isDirty", "isDeleted", "lastActivityAt", "title", "isPinned", "lastViewedAt", "messages", "messageLoadState", "messagePageState", "messageCountAdded", "messageCountLoaded"}]
       100 SETTABLEKS                       R12 R15 K21 ["threadId"]
       102 GETTABLEKS                       R16 R10 K23 ["sourceId"]
       104 SETTABLEKS                       R16 R15 K23 ["sourceId"]
       106 GETTABLEKS                       R16 R10 K24 ["rootId"]
       108 SETTABLEKS                       R16 R15 K24 ["rootId"]
-      110 GETTABLEKS                       R17 R9 K39 ["createdUtc"]
-      112 ORK                              R16 R17 K38 [0]
+      110 GETTABLEKS                       R17 R9 K40 ["createdUtc"]
+      112 ORK                              R16 R17 K39 [0]
       113 SETTABLEKS                       R16 R15 K25 ["createdAt"]
-      115 GETTABLEKS                       R17 R9 K40 ["updatedUtc"]
-      117 ORK                              R16 R17 K38 [0]
+      115 GETTABLEKS                       R17 R9 K41 ["updatedUtc"]
+      117 ORK                              R16 R17 K39 [0]
       118 SETTABLEKS                       R16 R15 K26 ["updatedAt"]
       120 LOADB                            R16 0
       121 SETTABLEKS                       R16 R15 K27 ["ephemeral"]
@@ -117,43 +117,46 @@ PROTO_2:
       124 SETTABLEKS                       R16 R15 K28 ["isDirty"]
       126 GETTABLEKS                       R16 R9 K29 ["isDeleted"]
       128 SETTABLEKS                       R16 R15 K29 ["isDeleted"]
-      130 GETTABLEKS                       R17 R9 K41 ["lastActivityUtc"]
-      132 ORK                              R16 R17 K38 [0]
+      130 GETTABLEKS                       R17 R9 K42 ["lastActivityUtc"]
+      132 ORK                              R16 R17 K39 [0]
       133 SETTABLEKS                       R16 R15 K30 ["lastActivityAt"]
       135 GETTABLEKS                       R16 R9 K19 ["title"]
       137 JUMPIF                           R16 ; [+6]
-      138 LOADK                            R17 K42 ["IMPORTED_THREAD_%*"]
+      138 LOADK                            R17 K43 ["IMPORTED_THREAD_%*"]
       139 MOVE                             R19 R12
       140 NAMECALL                         R17 R17 K20 ["format"]
       142 CALL                             R17 2 1
       143 MOVE                             R16 R17
       144 SETTABLEKS                       R16 R15 K19 ["title"]
       146 GETTABLEKS                       R17 R9 K31 ["isPinned"]
-      148 ORK                              R16 R17 K43 [False]
+      148 ORK                              R16 R17 K44 [False]
       149 SETTABLEKS                       R16 R15 K31 ["isPinned"]
-      151 NEWTABLE                         R16 0 0
-      153 SETTABLEKS                       R16 R15 K32 ["messages"]
-      155 LOADNIL                          R16
-      156 SETTABLEKS                       R16 R15 K33 ["messageLoadState"]
-      158 LOADNIL                          R16
-      159 SETTABLEKS                       R16 R15 K34 ["messagePageState"]
-      161 LOADN                            R16 0
-      162 SETTABLEKS                       R16 R15 K35 ["messageCountAdded"]
-      164 LOADN                            R16 0
-      165 SETTABLEKS                       R16 R15 K36 ["messageCountLoaded"]
-      167 FASTCALL2                        TABLE_INSERT R4 R15 ; [+4]
-      169 MOVE                             R14 R4
-      170 GETIMPORT                        R13 K45 [table.insert]
-      172 CALL                             R13 2 0
-      173 FORGLOOP                         R5 2 ; [-139]
-      175 JUMP                             ; [+2]
-      176 NEWTABLE                         R4 0 0
-      178 LOADB                            R5 1
-      179 DUPTABLE                         R6 K47 [{"threads", "cursor"}]
-      180 SETTABLEKS                       R4 R6 K6 ["threads"]
-      182 GETTABLEKS                       R7 R2 K46 ["cursor"]
-      184 SETTABLEKS                       R7 R6 K46 ["cursor"]
-      186 RETURN                           R5 2
+      151 GETTABLEKS                       R17 R10 K32 ["lastViewedAt"]
+      153 ORK                              R16 R17 K45 [-1]
+      154 SETTABLEKS                       R16 R15 K32 ["lastViewedAt"]
+      156 NEWTABLE                         R16 0 0
+      158 SETTABLEKS                       R16 R15 K33 ["messages"]
+      160 LOADNIL                          R16
+      161 SETTABLEKS                       R16 R15 K34 ["messageLoadState"]
+      163 LOADNIL                          R16
+      164 SETTABLEKS                       R16 R15 K35 ["messagePageState"]
+      166 LOADN                            R16 0
+      167 SETTABLEKS                       R16 R15 K36 ["messageCountAdded"]
+      169 LOADN                            R16 0
+      170 SETTABLEKS                       R16 R15 K37 ["messageCountLoaded"]
+      172 FASTCALL2                        TABLE_INSERT R4 R15 ; [+4]
+      174 MOVE                             R14 R4
+      175 GETIMPORT                        R13 K47 [table.insert]
+      177 CALL                             R13 2 0
+      178 FORGLOOP                         R5 2 ; [-144]
+      180 JUMP                             ; [+2]
+      181 NEWTABLE                         R4 0 0
+      183 LOADB                            R5 1
+      184 DUPTABLE                         R6 K49 [{"threads", "cursor"}]
+      185 SETTABLEKS                       R4 R6 K6 ["threads"]
+      187 GETTABLEKS                       R7 R2 K48 ["cursor"]
+      189 SETTABLEKS                       R7 R6 K48 ["cursor"]
+      191 RETURN                           R5 2
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -183,73 +186,76 @@ PROTO_5:
         5 LOADNIL                          R4
         6 LOADNIL                          R5
         7 FORGPREP                         R3
-        8 DUPTABLE                         R8 K5 [{"sourceId", "rootId"}]
+        8 DUPTABLE                         R8 K6 [{"sourceId", "rootId", "lastViewedAt"}]
         9 GETTABLEKS                       R10 R7 K3 ["sourceId"]
-       11 ORK                              R9 R10 K6 []
+       11 ORK                              R9 R10 K7 []
        12 SETTABLEKS                       R9 R8 K3 ["sourceId"]
        14 GETTABLEKS                       R10 R7 K4 ["rootId"]
-       16 ORK                              R9 R10 K6 []
+       16 ORK                              R9 R10 K7 []
        17 SETTABLEKS                       R9 R8 K4 ["rootId"]
-       19 GETIMPORT                        R9 K8 [pcall]
-       21 NEWCLOSURE                       R10 P0
-       22 CAPTURE                          UPVAL U0
-       23 CAPTURE                          VAL R8
-       24 CALL                             R9 1 2
-       25 JUMPIF                           R9 ; [+16]
-       26 GETUPVAL                         R11 1
-       27 CALL                             R11 0 1
-       28 JUMPIFNOT                        R11 ; [+13]
-       29 GETIMPORT                        R11 K10 [warn]
-       31 LOADK                            R13 K11 ["[CloudIO] Failed to serialize metadata for thread with threadId \"%*\" and title \"%*\". Error was \"%*\". Skipping this thread."]
-       32 GETTABLEKS                       R15 R7 K12 ["threadId"]
-       34 GETTABLEKS                       R16 R7 K13 ["title"]
-       36 MOVE                             R17 R10
-       37 NAMECALL                         R13 R13 K14 ["format"]
-       39 CALL                             R13 4 1
-       40 MOVE                             R12 R13
-       41 CALL                             R11 1 0
-       42 DUPTABLE                         R13 K21 [{"threadId", "createdUtc", "updatedUtc", "isDeleted", "lastActivityUtc", "isPinned", "title", "metadata"}]
-       43 GETTABLEKS                       R14 R7 K12 ["threadId"]
-       45 SETTABLEKS                       R14 R13 K12 ["threadId"]
-       47 GETTABLEKS                       R14 R7 K22 ["createdAt"]
-       49 SETTABLEKS                       R14 R13 K15 ["createdUtc"]
-       51 GETTABLEKS                       R14 R7 K23 ["updatedAt"]
-       53 SETTABLEKS                       R14 R13 K16 ["updatedUtc"]
-       55 GETTABLEKS                       R14 R7 K17 ["isDeleted"]
-       57 SETTABLEKS                       R14 R13 K17 ["isDeleted"]
-       59 GETTABLEKS                       R14 R7 K24 ["lastActivityAt"]
-       61 SETTABLEKS                       R14 R13 K18 ["lastActivityUtc"]
-       63 GETTABLEKS                       R14 R7 K19 ["isPinned"]
-       65 SETTABLEKS                       R14 R13 K19 ["isPinned"]
-       67 GETTABLEKS                       R14 R7 K13 ["title"]
-       69 SETTABLEKS                       R14 R13 K13 ["title"]
-       71 JUMPIFNOT                        R9 ; [+2]
-       72 MOVE                             R14 R10
-       73 JUMP                             ; [+1]
-       74 LOADNIL                          R14
-       75 SETTABLEKS                       R14 R13 K20 ["metadata"]
-       77 FASTCALL2                        TABLE_INSERT R2 R13 ; [+4]
-       79 MOVE                             R12 R2
-       80 GETIMPORT                        R11 K26 [table.insert]
-       82 CALL                             R11 2 0
-       83 FORGLOOP                         R3 2 ; [-76]
-       85 GETUPVAL                         R3 2
-       86 GETTABLEKS                       R3 R3 K27 ["callWithOptions"]
-       88 NEWCLOSURE                       R4 P1
-       89 CAPTURE                          UPVAL U3
-       90 CAPTURE                          VAL R1
-       91 CAPTURE                          VAL R2
-       92 NEWTABLE                         R5 0 0
-       94 CALL                             R3 2 1
-       95 GETTABLEKS                       R4 R3 K28 ["success"]
-       97 JUMPIF                           R4 ; [+6]
-       98 GETUPVAL                         R4 2
-       99 GETTABLEKS                       R4 R4 K29 ["throwError"]
-      101 MOVE                             R5 R3
-      102 CALL                             R4 1 -1
-      103 RETURN                           R4 -1
-      104 GETTABLEKS                       R4 R3 K28 ["success"]
-      106 RETURN                           R4 1
+       19 GETTABLEKS                       R10 R7 K5 ["lastViewedAt"]
+       21 ORK                              R9 R10 K7 []
+       22 SETTABLEKS                       R9 R8 K5 ["lastViewedAt"]
+       24 GETIMPORT                        R9 K9 [pcall]
+       26 NEWCLOSURE                       R10 P0
+       27 CAPTURE                          UPVAL U0
+       28 CAPTURE                          VAL R8
+       29 CALL                             R9 1 2
+       30 JUMPIF                           R9 ; [+16]
+       31 GETUPVAL                         R11 1
+       32 CALL                             R11 0 1
+       33 JUMPIFNOT                        R11 ; [+13]
+       34 GETIMPORT                        R11 K11 [warn]
+       36 LOADK                            R13 K12 ["[CloudIO] Failed to serialize metadata for thread with threadId \"%*\" and title \"%*\". Error was \"%*\". Skipping this thread."]
+       37 GETTABLEKS                       R15 R7 K13 ["threadId"]
+       39 GETTABLEKS                       R16 R7 K14 ["title"]
+       41 MOVE                             R17 R10
+       42 NAMECALL                         R13 R13 K15 ["format"]
+       44 CALL                             R13 4 1
+       45 MOVE                             R12 R13
+       46 CALL                             R11 1 0
+       47 DUPTABLE                         R13 K22 [{"threadId", "createdUtc", "updatedUtc", "isDeleted", "lastActivityUtc", "isPinned", "title", "metadata"}]
+       48 GETTABLEKS                       R14 R7 K13 ["threadId"]
+       50 SETTABLEKS                       R14 R13 K13 ["threadId"]
+       52 GETTABLEKS                       R14 R7 K23 ["createdAt"]
+       54 SETTABLEKS                       R14 R13 K16 ["createdUtc"]
+       56 GETTABLEKS                       R14 R7 K24 ["updatedAt"]
+       58 SETTABLEKS                       R14 R13 K17 ["updatedUtc"]
+       60 GETTABLEKS                       R14 R7 K18 ["isDeleted"]
+       62 SETTABLEKS                       R14 R13 K18 ["isDeleted"]
+       64 GETTABLEKS                       R14 R7 K25 ["lastActivityAt"]
+       66 SETTABLEKS                       R14 R13 K19 ["lastActivityUtc"]
+       68 GETTABLEKS                       R14 R7 K20 ["isPinned"]
+       70 SETTABLEKS                       R14 R13 K20 ["isPinned"]
+       72 GETTABLEKS                       R14 R7 K14 ["title"]
+       74 SETTABLEKS                       R14 R13 K14 ["title"]
+       76 JUMPIFNOT                        R9 ; [+2]
+       77 MOVE                             R14 R10
+       78 JUMP                             ; [+1]
+       79 LOADNIL                          R14
+       80 SETTABLEKS                       R14 R13 K21 ["metadata"]
+       82 FASTCALL2                        TABLE_INSERT R2 R13 ; [+4]
+       84 MOVE                             R12 R2
+       85 GETIMPORT                        R11 K27 [table.insert]
+       87 CALL                             R11 2 0
+       88 FORGLOOP                         R3 2 ; [-81]
+       90 GETUPVAL                         R3 2
+       91 GETTABLEKS                       R3 R3 K28 ["callWithOptions"]
+       93 NEWCLOSURE                       R4 P1
+       94 CAPTURE                          UPVAL U3
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R2
+       97 NEWTABLE                         R5 0 0
+       99 CALL                             R3 2 1
+      100 GETTABLEKS                       R4 R3 K29 ["success"]
+      102 JUMPIF                           R4 ; [+6]
+      103 GETUPVAL                         R4 2
+      104 GETTABLEKS                       R4 R4 K30 ["throwError"]
+      106 MOVE                             R5 R3
+      107 CALL                             R4 1 -1
+      108 RETURN                           R4 -1
+      109 GETTABLEKS                       R4 R3 K29 ["success"]
+      111 RETURN                           R4 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

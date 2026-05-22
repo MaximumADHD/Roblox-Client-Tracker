@@ -865,16 +865,23 @@ PROTO_50:
         9 RETURN                           R3 -1
 
 PROTO_51:
-        0 JUMPIFNOT                        R0 ; [+3]
-        1 GETUPVAL                         R1 0
-        2 LOADK                            R2 K0 ["Test moveItemsAsync error"]
-        3 CALL                             R1 1 0
-        4 GETUPVAL                         R1 1
-        5 DUPTABLE                         R2 K2 [{"errors"}]
-        6 NEWTABLE                         R3 0 0
-        8 SETTABLEKS                       R3 R2 K1 ["errors"]
-       10 CALL                             R1 1 0
-       11 RETURN                           R0 0
+        0 JUMPIFNOT                        R0 ; [+10]
+        1 GETUPVAL                         R2 0
+        2 DUPTABLE                         R3 K2 [{"code", "message"}]
+        3 LOADN                            R4 144
+        4 SETTABLEKS                       R4 R3 K0 ["code"]
+        6 LOADK                            R4 K3 ["Test moveItemsAsync error"]
+        7 SETTABLEKS                       R4 R3 K1 ["message"]
+        9 CALL                             R2 1 0
+       10 RETURN                           R0 0
+       11 GETUPVAL                         R2 1
+       12 DUPTABLE                         R3 K5 [{"errors"}]
+       13 MOVE                             R4 R1
+       14 JUMPIF                           R4 ; [+2]
+       15 NEWTABLE                         R4 0 0
+       17 SETTABLEKS                       R4 R3 K4 ["errors"]
+       19 CALL                             R2 1 0
+       20 RETURN                           R0 0
 
 PROTO_52:
         0 NEWCLOSURE                       R2 P0

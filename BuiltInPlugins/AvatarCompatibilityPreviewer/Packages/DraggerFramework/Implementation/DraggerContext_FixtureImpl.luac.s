@@ -5,15 +5,15 @@ PROTO_0:
         4 FASTCALL1                        ASSERT R4 ; [+2]
         5 GETIMPORT                        R3 K1 [assert]
         7 CALL                             R3 1 0
-        8 DUPTABLE                         R4 K30 [{"_realCamera", "_workspace", "_guiTarget", "_useLocalSpace", "_areCollisionsEnabled", "_areConstraintsEnabled", "_areConstraintDetailsShown", "_drawConstraintsOnTop", "_shouldJoinSurfaces", "_shouldAlignDraggedObjects", "_mouseLocation", "_mouseUnitRay", "_cameraCFrame", "_cameraSize", "_mouseIcon", "_isSimulating", "_gridSize", "_gridSnapEnabled", "_partSnapEnabled", "_rotateIncrement", "_rotateSnapEnabled", "_selection", "_undoWaypoints", "_isTabDown", "_isAltDown", "_isCtrlDown", "_isShiftDown", "_settingValues"}]
+        8 DUPTABLE                         R4 K32 [{"_realCamera", "_workspace", "_guiTarget", "_useLocalSpace", "_areCollisionsEnabled", "_areConstraintsEnabled", "_areConstraintDetailsShown", "_drawConstraintsOnTop", "_shouldJoinSurfaces", "_shouldAlignDraggedObjects", "_mouseLocation", "_mouseUnitRay", "_cameraCFrame", "_cameraSize", "_mouseIcon", "_isSimulating", "_gridSize", "_gridSnapEnabled", "_partSnapEnabled", "_rotateIncrement", "_rotateSnapEnabled", "_selection", "_undoWaypoints", "_isTabDown", "_isAltDown", "_isCtrlDown", "_isShiftDown", "_settingValues", "_navigationModel", "_newCameraControlsBetaUpdate"}]
         9 JUMPIFEQKB                       R2 TRUE ; [+2]
        11 LOADB                            R5 0 +1
        12 LOADB                            R5 1
        13 SETTABLEKS                       R5 R4 K2 ["_realCamera"]
        15 JUMPIFNOTEQKB                    R2 TRUE ; [+8]
-       17 GETIMPORT                        R5 K32 [game]
-       19 LOADK                            R7 K33 ["Workspace"]
-       20 NAMECALL                         R5 R5 K34 ["GetService"]
+       17 GETIMPORT                        R5 K34 [game]
+       19 LOADK                            R7 K35 ["Workspace"]
+       20 NAMECALL                         R5 R5 K36 ["GetService"]
        22 CALL                             R5 2 1
        23 JUMP                             ; [+1]
        24 LOADNIL                          R5
@@ -33,24 +33,24 @@ PROTO_0:
        45 SETTABLEKS                       R5 R4 K10 ["_shouldJoinSurfaces"]
        47 LOADB                            R5 1
        48 SETTABLEKS                       R5 R4 K11 ["_shouldAlignDraggedObjects"]
-       50 GETIMPORT                        R5 K37 [Vector2.new]
+       50 GETIMPORT                        R5 K39 [Vector2.new]
        52 CALL                             R5 0 1
        53 SETTABLEKS                       R5 R4 K12 ["_mouseLocation"]
-       55 GETIMPORT                        R5 K39 [Ray.new]
+       55 GETIMPORT                        R5 K41 [Ray.new]
        57 FASTCALL                         VECTOR ; [+2]
-       58 GETIMPORT                        R6 K41 [Vector3.new]
+       58 GETIMPORT                        R6 K43 [Vector3.new]
        60 CALL                             R6 0 1
        61 FASTCALL                         VECTOR ; [+2]
-       62 GETIMPORT                        R7 K41 [Vector3.new]
+       62 GETIMPORT                        R7 K43 [Vector3.new]
        64 CALL                             R7 0 1
        65 CALL                             R5 2 1
        66 SETTABLEKS                       R5 R4 K13 ["_mouseUnitRay"]
-       68 GETIMPORT                        R5 K43 [CFrame.new]
+       68 GETIMPORT                        R5 K45 [CFrame.new]
        70 CALL                             R5 0 1
        71 SETTABLEKS                       R5 R4 K14 ["_cameraCFrame"]
        73 LOADN                            R5 10
        74 SETTABLEKS                       R5 R4 K15 ["_cameraSize"]
-       76 LOADK                            R5 K44 [""]
+       76 LOADK                            R5 K46 [""]
        77 SETTABLEKS                       R5 R4 K16 ["_mouseIcon"]
        79 LOADB                            R5 0
        80 SETTABLEKS                       R5 R4 K17 ["_isSimulating"]
@@ -60,7 +60,7 @@ PROTO_0:
        86 SETTABLEKS                       R5 R4 K19 ["_gridSnapEnabled"]
        88 LOADB                            R5 1
        89 SETTABLEKS                       R5 R4 K20 ["_partSnapEnabled"]
-       91 LOADK                            R5 K45 [0.523598775598299]
+       91 LOADK                            R5 K47 [0.523598775598299]
        92 SETTABLEKS                       R5 R4 K21 ["_rotateIncrement"]
        94 LOADB                            R5 1
        95 SETTABLEKS                       R5 R4 K22 ["_rotateSnapEnabled"]
@@ -77,11 +77,15 @@ PROTO_0:
       113 SETTABLEKS                       R5 R4 K28 ["_isShiftDown"]
       115 NEWTABLE                         R5 0 0
       117 SETTABLEKS                       R5 R4 K29 ["_settingValues"]
-      119 GETUPVAL                         R5 0
-      120 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-      122 GETIMPORT                        R3 K47 [setmetatable]
-      124 CALL                             R3 2 1
-      125 RETURN                           R3 1
+      119 LOADNIL                          R5
+      120 SETTABLEKS                       R5 R4 K30 ["_navigationModel"]
+      122 GETUPVAL                         R5 0
+      123 SETTABLEKS                       R5 R4 K31 ["_newCameraControlsBetaUpdate"]
+      125 GETUPVAL                         R5 1
+      126 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+      128 GETIMPORT                        R3 K49 [setmetatable]
+      130 CALL                             R3 2 1
+      131 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_guiTarget"]
@@ -561,40 +565,57 @@ PROTO_71:
         2 RETURN                           R1 1
 
 PROTO_72:
-        0 NAMECALL                         R1 R0 K0 ["isCtrlKeyDown"]
-        2 CALL                             R1 1 1
-        3 JUMPIF                           R1 ; [+3]
-        4 NAMECALL                         R1 R0 K1 ["isShiftKeyDown"]
-        6 CALL                             R1 1 1
-        7 RETURN                           R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_navigationModel"]
+        2 RETURN                           R1 1
 
 PROTO_73:
+        0 SETTABLEKS                       R1 R0 K0 ["_navigationModel"]
+        2 RETURN                           R0 0
+
+PROTO_74:
+        0 SETTABLEKS                       R1 R0 K0 ["_newCameraControlsBetaUpdate"]
+        2 RETURN                           R0 0
+
+PROTO_75:
+        0 GETTABLEKS                       R1 R0 K0 ["_newCameraControlsBetaUpdate"]
+        2 JUMPIFNOT                        R1 ; [+4]
+        3 NAMECALL                         R1 R0 K1 ["isShiftKeyDown"]
+        5 CALL                             R1 1 -1
+        6 RETURN                           R1 -1
+        7 NAMECALL                         R1 R0 K2 ["isCtrlKeyDown"]
+        9 CALL                             R1 1 1
+       10 JUMPIF                           R1 ; [+3]
+       11 NAMECALL                         R1 R0 K1 ["isShiftKeyDown"]
+       13 CALL                             R1 1 1
+       14 RETURN                           R1 1
+
+PROTO_76:
         0 SETTABLEKS                       R1 R0 K0 ["_isCtrlDown"]
         2 SETTABLEKS                       R2 R0 K1 ["_isAltDown"]
         4 SETTABLEKS                       R3 R0 K2 ["_isShiftDown"]
         6 RETURN                           R0 0
 
-PROTO_74:
+PROTO_77:
         0 SETTABLEKS                       R1 R0 K0 ["_isTabDown"]
         2 RETURN                           R0 0
 
-PROTO_75:
+PROTO_78:
         0 GETTABLEKS                       R1 R0 K0 ["_gridSize"]
         2 RETURN                           R1 1
 
-PROTO_76:
+PROTO_79:
         0 GETTABLEKS                       R1 R0 K0 ["_gridSnapEnabled"]
         2 RETURN                           R1 1
 
-PROTO_77:
+PROTO_80:
         0 SETTABLEKS                       R1 R0 K0 ["_partSnapEnabled"]
         2 RETURN                           R0 0
 
-PROTO_78:
+PROTO_81:
         0 GETTABLEKS                       R1 R0 K0 ["_partSnapEnabled"]
         2 RETURN                           R1 1
 
-PROTO_79:
+PROTO_82:
         0 NAMECALL                         R1 R0 K0 ["getPartSnapEnabled"]
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+4]
@@ -603,7 +624,7 @@ PROTO_79:
         7 NOT                              R1 R2
         8 RETURN                           R1 1
 
-PROTO_80:
+PROTO_83:
         0 NAMECALL                         R1 R0 K0 ["getGridSnapEnabled"]
         2 CALL                             R1 1 1
         3 JUMPIFNOT                        R1 ; [+4]
@@ -612,7 +633,7 @@ PROTO_80:
         7 NOT                              R1 R2
         8 RETURN                           R1 1
 
-PROTO_81:
+PROTO_84:
         0 GETTABLEKS                       R1 R0 K0 ["_rotateSnapEnabled"]
         2 JUMPIFNOT                        R1 ; [+4]
         3 NAMECALL                         R2 R0 K1 ["isShiftKeyDown"]
@@ -620,7 +641,7 @@ PROTO_81:
         6 NOT                              R1 R2
         7 RETURN                           R1 1
 
-PROTO_82:
+PROTO_85:
         0 GETTABLEKS                       R2 R0 K0 ["_gridSnapEnabled"]
         2 JUMPIFNOT                        R2 ; [+12]
         3 GETTABLEKS                       R6 R0 K2 ["_gridSize"]
@@ -634,11 +655,11 @@ PROTO_82:
        14 RETURN                           R2 1
        15 RETURN                           R1 1
 
-PROTO_83:
+PROTO_86:
         0 GETTABLEKS                       R1 R0 K0 ["_rotateIncrement"]
         2 RETURN                           R1 1
 
-PROTO_84:
+PROTO_87:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 LOADB                            R4 0 +1
         3 LOADB                            R4 1
@@ -657,7 +678,7 @@ PROTO_84:
        22 SETTABLEKS                       R2 R0 K5 ["_gridSize"]
        24 RETURN                           R0 0
 
-PROTO_85:
+PROTO_88:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 LOADB                            R4 0 +1
         3 LOADB                            R4 1
@@ -676,11 +697,11 @@ PROTO_85:
        22 SETTABLEKS                       R2 R0 K5 ["_rotateIncrement"]
        24 RETURN                           R0 0
 
-PROTO_86:
+PROTO_89:
         0 GETUPVAL                         R1 0
         1 RETURN                           R1 1
 
-PROTO_87:
+PROTO_90:
         0 GETUPVAL                         R4 0
         1 MOVE                             R6 R1
         2 MOVE                             R7 R2
@@ -689,11 +710,11 @@ PROTO_87:
         6 CALL                             R4 4 -1
         7 RETURN                           R4 -1
 
-PROTO_88:
+PROTO_91:
         0 SETTABLEKS                       R1 R0 K0 ["_insertPoint"]
         2 RETURN                           R0 0
 
-PROTO_89:
+PROTO_92:
         0 GETTABLEKS                       R2 R0 K0 ["_insertPoint"]
         2 JUMPIFEQ                         R2 R1 ; [+20]
         4 FASTCALL1                        TOSTRING R1 ; [+3]
@@ -713,19 +734,19 @@ PROTO_89:
        22 CALL                             R4 1 0
        23 RETURN                           R0 0
 
-PROTO_90:
+PROTO_93:
         0 LOADB                            R1 1
         1 RETURN                           R1 1
 
-PROTO_91:
+PROTO_94:
         0 GETTABLEKS                       R1 R0 K0 ["_shouldAlignDraggedObjects"]
         2 RETURN                           R1 1
 
-PROTO_92:
+PROTO_95:
         0 SETTABLEKS                       R1 R0 K0 ["_shouldAlignDraggedObjects"]
         2 RETURN                           R0 0
 
-PROTO_93:
+PROTO_96:
         0 GETUPVAL                         R3 0
         1 JUMPIFNOT                        R3 ; [+5]
         2 GETUPVAL                         R3 0
@@ -748,7 +769,7 @@ PROTO_93:
        27 JUMPBACK                         ; [-13]
        28 RETURN                           R0 0
 
-PROTO_94:
+PROTO_97:
         0 GETTABLEKS                       R3 R0 K0 ["_undoWaypoints"]
         2 GETTABLEKS                       R5 R0 K0 ["_undoWaypoints"]
         4 LENGTH                           R4 R5
@@ -763,7 +784,7 @@ PROTO_94:
        15 CALL                             R3 1 0
        16 RETURN                           R0 0
 
-PROTO_95:
+PROTO_98:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["expectMostRecentUndoWaypoint"]
         3 CALL                             R2 2 0
@@ -779,7 +800,7 @@ PROTO_95:
        16 CALL                             R2 1 0
        17 RETURN                           R0 0
 
-PROTO_96:
+PROTO_99:
         0 JUMPIFNOT                        R3 ; [+12]
         1 LOADK                            R4 K0 ["%s.%s (%s)"]
         2 GETTABLEKS                       R4 R4 K1 ["format"]
@@ -798,7 +819,7 @@ PROTO_96:
        18 CALL                             R4 2 -1
        19 RETURN                           R4 -1
 
-PROTO_97:
+PROTO_100:
         0 GETIMPORT                        R3 K3 [Enum.StudioStyleGuideColor.MainBackground]
         2 JUMPIFNOTEQ                      R1 R3 ; [+5]
         4 GETUPVAL                         R3 0
@@ -808,21 +829,21 @@ PROTO_97:
         9 GETTABLEKS                       R3 R3 K5 ["BLACK"]
        11 RETURN                           R3 1
 
-PROTO_98:
+PROTO_101:
         0 LOADK                            R1 K0 ["Dark"]
         1 RETURN                           R1 1
 
-PROTO_99:
+PROTO_102:
         0 GETTABLEKS                       R3 R0 K0 ["_settingValues"]
         2 GETTABLE                         R2 R3 R1
         3 RETURN                           R2 1
 
-PROTO_100:
+PROTO_103:
         0 GETTABLEKS                       R3 R0 K0 ["_settingValues"]
         2 SETTABLE                         R2 R3 R1
         3 RETURN                           R0 0
 
-PROTO_101:
+PROTO_104:
         0 LOADB                            R2 0
         1 RETURN                           R2 1
 
@@ -836,240 +857,251 @@ MAIN:
         9 LOADK                            R3 K4 ["ChangeHistoryService"]
        10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K6 [script]
-       15 GETTABLEKS                       R2 R2 K7 ["Parent"]
-       17 GETTABLEKS                       R2 R2 K7 ["Parent"]
-       19 GETIMPORT                        R3 K9 [require]
-       21 GETTABLEKS                       R4 R2 K10 ["Utility"]
-       23 GETTABLEKS                       R4 R4 K11 ["Colors"]
-       25 CALL                             R3 1 1
-       26 GETIMPORT                        R4 K9 [require]
-       28 GETTABLEKS                       R5 R2 K10 ["Utility"]
-       30 GETTABLEKS                       R5 R5 K12 ["MockAnalytics"]
-       32 CALL                             R4 1 1
-       33 GETIMPORT                        R5 K9 [require]
-       35 GETTABLEKS                       R6 R2 K13 ["Flags"]
-       37 GETTABLEKS                       R6 R6 K14 ["getFFlagNextGenDraggers"]
-       39 CALL                             R5 1 1
-       40 NEWTABLE                         R6 128 0
-       42 SETTABLEKS                       R6 R6 K15 ["__index"]
-       44 MOVE                             R8 R5
-       45 CALL                             R8 0 1
-       46 JUMPIFNOT                        R8 ; [+2]
-       47 LOADK                            R7 K16 [0.033]
-       48 JUMP                             ; [+1]
-       49 LOADK                            R7 K17 [0.05]
-       50 DUPCLOSURE                       R8 K18 [PROTO_0]
-       51 CAPTURE                          VAL R6
-       52 SETTABLEKS                       R8 R6 K19 ["new"]
-       54 DUPCLOSURE                       R8 K20 [PROTO_1]
-       55 SETTABLEKS                       R8 R6 K21 ["getGuiParent"]
-       57 DUPCLOSURE                       R8 K22 [PROTO_2]
-       58 SETTABLEKS                       R8 R6 K23 ["setHoverInstance"]
-       60 DUPCLOSURE                       R8 K24 [PROTO_4]
-       61 SETTABLEKS                       R8 R6 K25 ["onInstanceHovered"]
-       63 DUPCLOSURE                       R8 K26 [PROTO_5]
-       64 SETTABLEKS                       R8 R6 K27 ["invokeInstanceHovered"]
-       66 DUPCLOSURE                       R8 K28 [PROTO_6]
-       67 SETTABLEKS                       R8 R6 K29 ["expectHoverInstance"]
-       69 DUPCLOSURE                       R8 K30 [PROTO_7]
-       70 SETTABLEKS                       R8 R6 K31 ["shouldUseLocalSpace"]
-       72 DUPCLOSURE                       R8 K32 [PROTO_8]
-       73 SETTABLEKS                       R8 R6 K33 ["setUseLocalSpace"]
-       75 DUPCLOSURE                       R8 K34 [PROTO_9]
-       76 SETTABLEKS                       R8 R6 K35 ["areCollisionsEnabled"]
-       78 DUPCLOSURE                       R8 K36 [PROTO_10]
-       79 SETTABLEKS                       R8 R6 K37 ["setCollisionsEnabled"]
-       81 DUPCLOSURE                       R8 K38 [PROTO_11]
-       82 SETTABLEKS                       R8 R6 K39 ["areConstraintsEnabled"]
-       84 DUPCLOSURE                       R8 K40 [PROTO_12]
-       85 SETTABLEKS                       R8 R6 K41 ["setConstraintsEnabled"]
-       87 DUPCLOSURE                       R8 K42 [PROTO_13]
-       88 SETTABLEKS                       R8 R6 K43 ["areConstraintDetailsShown"]
-       90 DUPCLOSURE                       R8 K44 [PROTO_14]
-       91 SETTABLEKS                       R8 R6 K45 ["setConstraintDetailsShown"]
-       93 DUPCLOSURE                       R8 K46 [PROTO_15]
-       94 SETTABLEKS                       R8 R6 K47 ["shouldDrawConstraintsOnTop"]
-       96 DUPCLOSURE                       R8 K48 [PROTO_16]
-       97 SETTABLEKS                       R8 R6 K49 ["setDrawConstraintsOnTop"]
-       99 DUPCLOSURE                       R8 K50 [PROTO_17]
-      100 SETTABLEKS                       R8 R6 K51 ["shouldJoinSurfaces"]
-      102 DUPCLOSURE                       R8 K52 [PROTO_18]
-      103 SETTABLEKS                       R8 R6 K53 ["setJoinSurfaces"]
-      105 DUPCLOSURE                       R8 K54 [PROTO_19]
-      106 SETTABLEKS                       R8 R6 K55 ["getShowBoundingBox"]
-      108 DUPCLOSURE                       R8 K56 [PROTO_20]
-      109 SETTABLEKS                       R8 R6 K57 ["getShowOutline"]
-      111 DUPCLOSURE                       R8 K58 [PROTO_21]
-      112 SETTABLEKS                       R8 R6 K59 ["shouldShowHover"]
-      114 DUPCLOSURE                       R8 K60 [PROTO_22]
-      115 SETTABLEKS                       R8 R6 K61 ["shouldAnimateHover"]
-      117 DUPCLOSURE                       R8 K62 [PROTO_23]
-      118 SETTABLEKS                       R8 R6 K63 ["shouldSelectScopeByDefault"]
-      120 DUPCLOSURE                       R8 K64 [PROTO_24]
-      121 SETTABLEKS                       R8 R6 K65 ["getHoverAnimationSpeedInSeconds"]
-      123 DUPCLOSURE                       R8 K66 [PROTO_25]
-      124 SETTABLEKS                       R8 R6 K67 ["getHoverBoxColor"]
-      126 DUPCLOSURE                       R8 K68 [PROTO_26]
-      127 SETTABLEKS                       R8 R6 K69 ["getHoverThickness"]
-      129 DUPCLOSURE                       R8 K70 [PROTO_27]
-      130 SETTABLEKS                       R8 R6 K71 ["getHoverLineThickness"]
-      132 DUPCLOSURE                       R8 K72 [PROTO_28]
-      133 SETTABLEKS                       R8 R6 K73 ["getSelectionBoxColor"]
-      135 DUPCLOSURE                       R8 K74 [PROTO_29]
-      136 SETTABLEKS                       R8 R6 K75 ["useBoundingBoxMoveHandles"]
-      138 DUPCLOSURE                       R8 K76 [PROTO_30]
-      139 SETTABLEKS                       R8 R6 K77 ["getGeometrySnapColor"]
-      141 DUPCLOSURE                       R8 K78 [PROTO_31]
-      142 SETTABLEKS                       R8 R6 K79 ["getGridColor"]
-      144 DUPCLOSURE                       R8 K80 [PROTO_32]
-      145 SETTABLEKS                       R8 R6 K81 ["getChosenColor"]
-      147 DUPCLOSURE                       R8 K82 [PROTO_33]
-      148 CAPTURE                          VAL R3
-      149 SETTABLEKS                       R8 R6 K83 ["getXAxisColor"]
-      151 DUPCLOSURE                       R8 K84 [PROTO_34]
-      152 CAPTURE                          VAL R3
-      153 SETTABLEKS                       R8 R6 K85 ["getYAxisColor"]
-      155 DUPCLOSURE                       R8 K86 [PROTO_35]
-      156 CAPTURE                          VAL R3
-      157 SETTABLEKS                       R8 R6 K87 ["getZAxisColor"]
-      159 DUPCLOSURE                       R8 K88 [PROTO_36]
-      160 CAPTURE                          VAL R3
-      161 SETTABLEKS                       R8 R6 K89 ["getVAxisColor"]
-      163 DUPCLOSURE                       R8 K90 [PROTO_37]
-      164 SETTABLEKS                       R8 R6 K91 ["shouldShowHoverGrids"]
-      166 DUPCLOSURE                       R8 K92 [PROTO_38]
-      167 SETTABLEKS                       R8 R6 K93 ["shouldShowTargetGrids"]
-      169 DUPCLOSURE                       R8 K94 [PROTO_39]
-      170 SETTABLEKS                       R8 R6 K95 ["shouldShowPreciseInput"]
-      172 DUPCLOSURE                       R8 K96 [PROTO_40]
-      173 SETTABLEKS                       R8 R6 K97 ["getMajorGridIncrement"]
-      175 DUPCLOSURE                       R8 K98 [PROTO_41]
-      176 SETTABLEKS                       R8 R6 K99 ["getDraggerScaleFactor"]
-      178 DUPCLOSURE                       R8 K100 [PROTO_42]
-      179 SETTABLEKS                       R8 R6 K101 ["getDraggerLengthFactor"]
-      181 DUPCLOSURE                       R8 K102 [PROTO_43]
-      182 SETTABLEKS                       R8 R6 K103 ["getDraggerShowNegativeAxes"]
-      184 DUPCLOSURE                       R8 K104 [PROTO_44]
-      185 SETTABLEKS                       R8 R6 K105 ["getDraggerShowPlanes"]
-      187 DUPCLOSURE                       R8 K106 [PROTO_45]
-      188 SETTABLEKS                       R8 R6 K107 ["getDraggerShowTrackball"]
-      190 DUPCLOSURE                       R8 K108 [PROTO_46]
-      191 SETTABLEKS                       R8 R6 K109 ["getDraggerShowWhileDragging"]
-      193 DUPCLOSURE                       R8 K110 [PROTO_47]
-      194 SETTABLEKS                       R8 R6 K111 ["getDraggerShowAxisTicks"]
-      196 DUPCLOSURE                       R8 K112 [PROTO_48]
-      197 SETTABLEKS                       R8 R6 K113 ["getTiltRotateDuration"]
-      199 DUPCLOSURE                       R8 K114 [PROTO_49]
-      200 SETTABLEKS                       R8 R6 K115 ["getMaxSoftSnaps"]
-      202 DUPCLOSURE                       R8 K116 [PROTO_50]
-      203 SETTABLEKS                       R8 R6 K117 ["getSoftSnapMarginFactor"]
-      205 DUPCLOSURE                       R8 K118 [PROTO_51]
-      206 SETTABLEKS                       R8 R6 K119 ["getSummonMarginFactor"]
-      208 DUPCLOSURE                       R8 K120 [PROTO_52]
-      209 SETTABLEKS                       R8 R6 K121 ["getCameraCFrame"]
-      211 DUPCLOSURE                       R8 K122 [PROTO_53]
-      212 SETTABLEKS                       R8 R6 K123 ["getCamera"]
-      214 DUPCLOSURE                       R8 K124 [PROTO_54]
-      215 SETTABLEKS                       R8 R6 K125 ["setCamera"]
-      217 DUPCLOSURE                       R8 K126 [PROTO_55]
-      218 CAPTURE                          VAL R7
-      219 SETTABLEKS                       R8 R6 K127 ["getHandleScale"]
-      221 DUPCLOSURE                       R8 K128 [PROTO_56]
-      222 SETTABLEKS                       R8 R6 K129 ["getMouseUnitRay"]
-      224 DUPCLOSURE                       R8 K130 [PROTO_57]
-      225 SETTABLEKS                       R8 R6 K131 ["getMouseRay"]
-      227 DUPCLOSURE                       R8 K132 [PROTO_58]
-      228 SETTABLEKS                       R8 R6 K133 ["getMouseLocation"]
-      230 DUPCLOSURE                       R8 K134 [PROTO_59]
-      231 SETTABLEKS                       R8 R6 K135 ["setMouseLocation"]
-      233 DUPCLOSURE                       R8 K136 [PROTO_60]
-      234 SETTABLEKS                       R8 R6 K137 ["viewportPointToRay"]
-      236 DUPCLOSURE                       R8 K138 [PROTO_61]
-      237 SETTABLEKS                       R8 R6 K139 ["worldToViewportPoint"]
-      239 DUPCLOSURE                       R8 K140 [PROTO_62]
-      240 SETTABLEKS                       R8 R6 K141 ["getViewportSize"]
-      242 DUPCLOSURE                       R8 K142 [PROTO_63]
-      243 SETTABLEKS                       R8 R6 K143 ["setMouseIcon"]
-      245 DUPCLOSURE                       R8 K144 [PROTO_64]
-      246 SETTABLEKS                       R8 R6 K145 ["expectMouseIcon"]
-      248 DUPCLOSURE                       R8 K146 [PROTO_65]
-      249 SETTABLEKS                       R8 R6 K147 ["getSelection"]
-      251 DUPCLOSURE                       R8 K148 [PROTO_66]
-      252 SETTABLEKS                       R8 R6 K149 ["isSimulating"]
-      254 DUPCLOSURE                       R8 K150 [PROTO_67]
-      255 SETTABLEKS                       R8 R6 K151 ["setSimulating"]
-      257 DUPCLOSURE                       R8 K152 [PROTO_68]
-      258 SETTABLEKS                       R8 R6 K153 ["isTabKeyDown"]
-      260 DUPCLOSURE                       R8 K154 [PROTO_69]
-      261 SETTABLEKS                       R8 R6 K155 ["isAltKeyDown"]
-      263 DUPCLOSURE                       R8 K156 [PROTO_70]
-      264 SETTABLEKS                       R8 R6 K157 ["isCtrlKeyDown"]
-      266 DUPCLOSURE                       R8 K158 [PROTO_71]
-      267 SETTABLEKS                       R8 R6 K159 ["isShiftKeyDown"]
-      269 DUPCLOSURE                       R8 K160 [PROTO_72]
-      270 SETTABLEKS                       R8 R6 K161 ["shouldExtendSelection"]
-      272 DUPCLOSURE                       R8 K162 [PROTO_73]
-      273 SETTABLEKS                       R8 R6 K163 ["setCtrlAltShift"]
-      275 DUPCLOSURE                       R8 K164 [PROTO_74]
-      276 SETTABLEKS                       R8 R6 K165 ["setTab"]
-      278 DUPCLOSURE                       R8 K166 [PROTO_75]
-      279 SETTABLEKS                       R8 R6 K167 ["getGridSize"]
-      281 DUPCLOSURE                       R8 K168 [PROTO_76]
-      282 SETTABLEKS                       R8 R6 K169 ["getGridSnapEnabled"]
-      284 DUPCLOSURE                       R8 K170 [PROTO_77]
-      285 SETTABLEKS                       R8 R6 K171 ["setPartSnapEnabled"]
-      287 DUPCLOSURE                       R8 K172 [PROTO_78]
-      288 SETTABLEKS                       R8 R6 K173 ["getPartSnapEnabled"]
-      290 DUPCLOSURE                       R8 K174 [PROTO_79]
-      291 SETTABLEKS                       R8 R6 K175 ["shouldPartSnap"]
-      293 DUPCLOSURE                       R8 K176 [PROTO_80]
-      294 SETTABLEKS                       R8 R6 K177 ["shouldGridSnap"]
-      296 DUPCLOSURE                       R8 K178 [PROTO_81]
-      297 SETTABLEKS                       R8 R6 K179 ["shouldAngleSnap"]
-      299 DUPCLOSURE                       R8 K180 [PROTO_82]
-      300 SETTABLEKS                       R8 R6 K181 ["snapToGridSize"]
-      302 DUPCLOSURE                       R8 K182 [PROTO_83]
-      303 SETTABLEKS                       R8 R6 K183 ["getRotateIncrement"]
-      305 DUPCLOSURE                       R8 K184 [PROTO_84]
-      306 SETTABLEKS                       R8 R6 K185 ["setGridSnap"]
-      308 DUPCLOSURE                       R8 K186 [PROTO_85]
-      309 SETTABLEKS                       R8 R6 K187 ["setRotateSnap"]
-      311 DUPCLOSURE                       R8 K188 [PROTO_86]
-      312 CAPTURE                          VAL R4
-      313 SETTABLEKS                       R8 R6 K189 ["getAnalytics"]
-      315 DUPCLOSURE                       R8 K190 [PROTO_87]
-      316 CAPTURE                          VAL R0
-      317 SETTABLEKS                       R8 R6 K191 ["gizmoRaycast"]
-      319 DUPCLOSURE                       R8 K192 [PROTO_88]
-      320 SETTABLEKS                       R8 R6 K193 ["setInsertPoint"]
-      322 DUPCLOSURE                       R8 K194 [PROTO_89]
-      323 SETTABLEKS                       R8 R6 K195 ["expectInsertPoint"]
-      325 DUPCLOSURE                       R8 K196 [PROTO_90]
-      326 SETTABLEKS                       R8 R6 K197 ["shouldShowActiveInstanceHighlight"]
-      328 DUPCLOSURE                       R8 K198 [PROTO_91]
-      329 SETTABLEKS                       R8 R6 K199 ["shouldAlignDraggedObjects"]
-      331 DUPCLOSURE                       R8 K200 [PROTO_92]
-      332 SETTABLEKS                       R8 R6 K201 ["setAlignDraggedObjects"]
-      334 DUPCLOSURE                       R8 K202 [PROTO_93]
-      335 CAPTURE                          VAL R1
-      336 SETTABLEKS                       R8 R6 K203 ["addUndoWaypoint"]
-      338 DUPCLOSURE                       R8 K204 [PROTO_94]
-      339 SETTABLEKS                       R8 R6 K205 ["expectMostRecentUndoWaypoint"]
-      341 DUPCLOSURE                       R8 K206 [PROTO_95]
-      342 CAPTURE                          VAL R1
-      343 SETTABLEKS                       R8 R6 K207 ["expectAndUndo"]
-      345 DUPCLOSURE                       R8 K208 [PROTO_96]
-      346 SETTABLEKS                       R8 R6 K209 ["getText"]
-      348 DUPCLOSURE                       R8 K210 [PROTO_97]
-      349 CAPTURE                          VAL R3
-      350 SETTABLEKS                       R8 R6 K211 ["getThemeColor"]
-      352 DUPCLOSURE                       R8 K212 [PROTO_98]
-      353 SETTABLEKS                       R8 R6 K213 ["getTheme"]
-      355 DUPCLOSURE                       R8 K214 [PROTO_99]
-      356 SETTABLEKS                       R8 R6 K215 ["getSetting"]
-      358 DUPCLOSURE                       R8 K216 [PROTO_100]
-      359 SETTABLEKS                       R8 R6 K217 ["setSetting"]
-      361 DUPCLOSURE                       R8 K218 [PROTO_101]
-      362 SETTABLEKS                       R8 R6 K219 ["setPivotIndicator"]
-      364 RETURN                           R6 1
+       13 GETIMPORT                        R2 K1 [game]
+       15 LOADK                            R4 K5 ["NewCameraControls_BetaUpdate"]
+       16 NAMECALL                         R2 R2 K6 ["GetEngineFeature"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R3 K8 [script]
+       21 GETTABLEKS                       R3 R3 K9 ["Parent"]
+       23 GETTABLEKS                       R3 R3 K9 ["Parent"]
+       25 GETIMPORT                        R4 K11 [require]
+       27 GETTABLEKS                       R5 R3 K12 ["Utility"]
+       29 GETTABLEKS                       R5 R5 K13 ["Colors"]
+       31 CALL                             R4 1 1
+       32 GETIMPORT                        R5 K11 [require]
+       34 GETTABLEKS                       R6 R3 K12 ["Utility"]
+       36 GETTABLEKS                       R6 R6 K14 ["MockAnalytics"]
+       38 CALL                             R5 1 1
+       39 GETIMPORT                        R6 K11 [require]
+       41 GETTABLEKS                       R7 R3 K15 ["Flags"]
+       43 GETTABLEKS                       R7 R7 K16 ["getFFlagNextGenDraggers"]
+       45 CALL                             R6 1 1
+       46 NEWTABLE                         R7 128 0
+       48 SETTABLEKS                       R7 R7 K17 ["__index"]
+       50 MOVE                             R9 R6
+       51 CALL                             R9 0 1
+       52 JUMPIFNOT                        R9 ; [+2]
+       53 LOADK                            R8 K18 [0.033]
+       54 JUMP                             ; [+1]
+       55 LOADK                            R8 K19 [0.05]
+       56 DUPCLOSURE                       R9 K20 [PROTO_0]
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R7
+       59 SETTABLEKS                       R9 R7 K21 ["new"]
+       61 DUPCLOSURE                       R9 K22 [PROTO_1]
+       62 SETTABLEKS                       R9 R7 K23 ["getGuiParent"]
+       64 DUPCLOSURE                       R9 K24 [PROTO_2]
+       65 SETTABLEKS                       R9 R7 K25 ["setHoverInstance"]
+       67 DUPCLOSURE                       R9 K26 [PROTO_4]
+       68 SETTABLEKS                       R9 R7 K27 ["onInstanceHovered"]
+       70 DUPCLOSURE                       R9 K28 [PROTO_5]
+       71 SETTABLEKS                       R9 R7 K29 ["invokeInstanceHovered"]
+       73 DUPCLOSURE                       R9 K30 [PROTO_6]
+       74 SETTABLEKS                       R9 R7 K31 ["expectHoverInstance"]
+       76 DUPCLOSURE                       R9 K32 [PROTO_7]
+       77 SETTABLEKS                       R9 R7 K33 ["shouldUseLocalSpace"]
+       79 DUPCLOSURE                       R9 K34 [PROTO_8]
+       80 SETTABLEKS                       R9 R7 K35 ["setUseLocalSpace"]
+       82 DUPCLOSURE                       R9 K36 [PROTO_9]
+       83 SETTABLEKS                       R9 R7 K37 ["areCollisionsEnabled"]
+       85 DUPCLOSURE                       R9 K38 [PROTO_10]
+       86 SETTABLEKS                       R9 R7 K39 ["setCollisionsEnabled"]
+       88 DUPCLOSURE                       R9 K40 [PROTO_11]
+       89 SETTABLEKS                       R9 R7 K41 ["areConstraintsEnabled"]
+       91 DUPCLOSURE                       R9 K42 [PROTO_12]
+       92 SETTABLEKS                       R9 R7 K43 ["setConstraintsEnabled"]
+       94 DUPCLOSURE                       R9 K44 [PROTO_13]
+       95 SETTABLEKS                       R9 R7 K45 ["areConstraintDetailsShown"]
+       97 DUPCLOSURE                       R9 K46 [PROTO_14]
+       98 SETTABLEKS                       R9 R7 K47 ["setConstraintDetailsShown"]
+      100 DUPCLOSURE                       R9 K48 [PROTO_15]
+      101 SETTABLEKS                       R9 R7 K49 ["shouldDrawConstraintsOnTop"]
+      103 DUPCLOSURE                       R9 K50 [PROTO_16]
+      104 SETTABLEKS                       R9 R7 K51 ["setDrawConstraintsOnTop"]
+      106 DUPCLOSURE                       R9 K52 [PROTO_17]
+      107 SETTABLEKS                       R9 R7 K53 ["shouldJoinSurfaces"]
+      109 DUPCLOSURE                       R9 K54 [PROTO_18]
+      110 SETTABLEKS                       R9 R7 K55 ["setJoinSurfaces"]
+      112 DUPCLOSURE                       R9 K56 [PROTO_19]
+      113 SETTABLEKS                       R9 R7 K57 ["getShowBoundingBox"]
+      115 DUPCLOSURE                       R9 K58 [PROTO_20]
+      116 SETTABLEKS                       R9 R7 K59 ["getShowOutline"]
+      118 DUPCLOSURE                       R9 K60 [PROTO_21]
+      119 SETTABLEKS                       R9 R7 K61 ["shouldShowHover"]
+      121 DUPCLOSURE                       R9 K62 [PROTO_22]
+      122 SETTABLEKS                       R9 R7 K63 ["shouldAnimateHover"]
+      124 DUPCLOSURE                       R9 K64 [PROTO_23]
+      125 SETTABLEKS                       R9 R7 K65 ["shouldSelectScopeByDefault"]
+      127 DUPCLOSURE                       R9 K66 [PROTO_24]
+      128 SETTABLEKS                       R9 R7 K67 ["getHoverAnimationSpeedInSeconds"]
+      130 DUPCLOSURE                       R9 K68 [PROTO_25]
+      131 SETTABLEKS                       R9 R7 K69 ["getHoverBoxColor"]
+      133 DUPCLOSURE                       R9 K70 [PROTO_26]
+      134 SETTABLEKS                       R9 R7 K71 ["getHoverThickness"]
+      136 DUPCLOSURE                       R9 K72 [PROTO_27]
+      137 SETTABLEKS                       R9 R7 K73 ["getHoverLineThickness"]
+      139 DUPCLOSURE                       R9 K74 [PROTO_28]
+      140 SETTABLEKS                       R9 R7 K75 ["getSelectionBoxColor"]
+      142 DUPCLOSURE                       R9 K76 [PROTO_29]
+      143 SETTABLEKS                       R9 R7 K77 ["useBoundingBoxMoveHandles"]
+      145 DUPCLOSURE                       R9 K78 [PROTO_30]
+      146 SETTABLEKS                       R9 R7 K79 ["getGeometrySnapColor"]
+      148 DUPCLOSURE                       R9 K80 [PROTO_31]
+      149 SETTABLEKS                       R9 R7 K81 ["getGridColor"]
+      151 DUPCLOSURE                       R9 K82 [PROTO_32]
+      152 SETTABLEKS                       R9 R7 K83 ["getChosenColor"]
+      154 DUPCLOSURE                       R9 K84 [PROTO_33]
+      155 CAPTURE                          VAL R4
+      156 SETTABLEKS                       R9 R7 K85 ["getXAxisColor"]
+      158 DUPCLOSURE                       R9 K86 [PROTO_34]
+      159 CAPTURE                          VAL R4
+      160 SETTABLEKS                       R9 R7 K87 ["getYAxisColor"]
+      162 DUPCLOSURE                       R9 K88 [PROTO_35]
+      163 CAPTURE                          VAL R4
+      164 SETTABLEKS                       R9 R7 K89 ["getZAxisColor"]
+      166 DUPCLOSURE                       R9 K90 [PROTO_36]
+      167 CAPTURE                          VAL R4
+      168 SETTABLEKS                       R9 R7 K91 ["getVAxisColor"]
+      170 DUPCLOSURE                       R9 K92 [PROTO_37]
+      171 SETTABLEKS                       R9 R7 K93 ["shouldShowHoverGrids"]
+      173 DUPCLOSURE                       R9 K94 [PROTO_38]
+      174 SETTABLEKS                       R9 R7 K95 ["shouldShowTargetGrids"]
+      176 DUPCLOSURE                       R9 K96 [PROTO_39]
+      177 SETTABLEKS                       R9 R7 K97 ["shouldShowPreciseInput"]
+      179 DUPCLOSURE                       R9 K98 [PROTO_40]
+      180 SETTABLEKS                       R9 R7 K99 ["getMajorGridIncrement"]
+      182 DUPCLOSURE                       R9 K100 [PROTO_41]
+      183 SETTABLEKS                       R9 R7 K101 ["getDraggerScaleFactor"]
+      185 DUPCLOSURE                       R9 K102 [PROTO_42]
+      186 SETTABLEKS                       R9 R7 K103 ["getDraggerLengthFactor"]
+      188 DUPCLOSURE                       R9 K104 [PROTO_43]
+      189 SETTABLEKS                       R9 R7 K105 ["getDraggerShowNegativeAxes"]
+      191 DUPCLOSURE                       R9 K106 [PROTO_44]
+      192 SETTABLEKS                       R9 R7 K107 ["getDraggerShowPlanes"]
+      194 DUPCLOSURE                       R9 K108 [PROTO_45]
+      195 SETTABLEKS                       R9 R7 K109 ["getDraggerShowTrackball"]
+      197 DUPCLOSURE                       R9 K110 [PROTO_46]
+      198 SETTABLEKS                       R9 R7 K111 ["getDraggerShowWhileDragging"]
+      200 DUPCLOSURE                       R9 K112 [PROTO_47]
+      201 SETTABLEKS                       R9 R7 K113 ["getDraggerShowAxisTicks"]
+      203 DUPCLOSURE                       R9 K114 [PROTO_48]
+      204 SETTABLEKS                       R9 R7 K115 ["getTiltRotateDuration"]
+      206 DUPCLOSURE                       R9 K116 [PROTO_49]
+      207 SETTABLEKS                       R9 R7 K117 ["getMaxSoftSnaps"]
+      209 DUPCLOSURE                       R9 K118 [PROTO_50]
+      210 SETTABLEKS                       R9 R7 K119 ["getSoftSnapMarginFactor"]
+      212 DUPCLOSURE                       R9 K120 [PROTO_51]
+      213 SETTABLEKS                       R9 R7 K121 ["getSummonMarginFactor"]
+      215 DUPCLOSURE                       R9 K122 [PROTO_52]
+      216 SETTABLEKS                       R9 R7 K123 ["getCameraCFrame"]
+      218 DUPCLOSURE                       R9 K124 [PROTO_53]
+      219 SETTABLEKS                       R9 R7 K125 ["getCamera"]
+      221 DUPCLOSURE                       R9 K126 [PROTO_54]
+      222 SETTABLEKS                       R9 R7 K127 ["setCamera"]
+      224 DUPCLOSURE                       R9 K128 [PROTO_55]
+      225 CAPTURE                          VAL R8
+      226 SETTABLEKS                       R9 R7 K129 ["getHandleScale"]
+      228 DUPCLOSURE                       R9 K130 [PROTO_56]
+      229 SETTABLEKS                       R9 R7 K131 ["getMouseUnitRay"]
+      231 DUPCLOSURE                       R9 K132 [PROTO_57]
+      232 SETTABLEKS                       R9 R7 K133 ["getMouseRay"]
+      234 DUPCLOSURE                       R9 K134 [PROTO_58]
+      235 SETTABLEKS                       R9 R7 K135 ["getMouseLocation"]
+      237 DUPCLOSURE                       R9 K136 [PROTO_59]
+      238 SETTABLEKS                       R9 R7 K137 ["setMouseLocation"]
+      240 DUPCLOSURE                       R9 K138 [PROTO_60]
+      241 SETTABLEKS                       R9 R7 K139 ["viewportPointToRay"]
+      243 DUPCLOSURE                       R9 K140 [PROTO_61]
+      244 SETTABLEKS                       R9 R7 K141 ["worldToViewportPoint"]
+      246 DUPCLOSURE                       R9 K142 [PROTO_62]
+      247 SETTABLEKS                       R9 R7 K143 ["getViewportSize"]
+      249 DUPCLOSURE                       R9 K144 [PROTO_63]
+      250 SETTABLEKS                       R9 R7 K145 ["setMouseIcon"]
+      252 DUPCLOSURE                       R9 K146 [PROTO_64]
+      253 SETTABLEKS                       R9 R7 K147 ["expectMouseIcon"]
+      255 DUPCLOSURE                       R9 K148 [PROTO_65]
+      256 SETTABLEKS                       R9 R7 K149 ["getSelection"]
+      258 DUPCLOSURE                       R9 K150 [PROTO_66]
+      259 SETTABLEKS                       R9 R7 K151 ["isSimulating"]
+      261 DUPCLOSURE                       R9 K152 [PROTO_67]
+      262 SETTABLEKS                       R9 R7 K153 ["setSimulating"]
+      264 DUPCLOSURE                       R9 K154 [PROTO_68]
+      265 SETTABLEKS                       R9 R7 K155 ["isTabKeyDown"]
+      267 DUPCLOSURE                       R9 K156 [PROTO_69]
+      268 SETTABLEKS                       R9 R7 K157 ["isAltKeyDown"]
+      270 DUPCLOSURE                       R9 K158 [PROTO_70]
+      271 SETTABLEKS                       R9 R7 K159 ["isCtrlKeyDown"]
+      273 DUPCLOSURE                       R9 K160 [PROTO_71]
+      274 SETTABLEKS                       R9 R7 K161 ["isShiftKeyDown"]
+      276 DUPCLOSURE                       R9 K162 [PROTO_72]
+      277 SETTABLEKS                       R9 R7 K163 ["getNavigationModel"]
+      279 DUPCLOSURE                       R9 K164 [PROTO_73]
+      280 SETTABLEKS                       R9 R7 K165 ["setNavigationModel"]
+      282 DUPCLOSURE                       R9 K166 [PROTO_74]
+      283 SETTABLEKS                       R9 R7 K167 ["setNewCameraControlsBetaUpdate"]
+      285 DUPCLOSURE                       R9 K168 [PROTO_75]
+      286 SETTABLEKS                       R9 R7 K169 ["shouldExtendSelection"]
+      288 DUPCLOSURE                       R9 K170 [PROTO_76]
+      289 SETTABLEKS                       R9 R7 K171 ["setCtrlAltShift"]
+      291 DUPCLOSURE                       R9 K172 [PROTO_77]
+      292 SETTABLEKS                       R9 R7 K173 ["setTab"]
+      294 DUPCLOSURE                       R9 K174 [PROTO_78]
+      295 SETTABLEKS                       R9 R7 K175 ["getGridSize"]
+      297 DUPCLOSURE                       R9 K176 [PROTO_79]
+      298 SETTABLEKS                       R9 R7 K177 ["getGridSnapEnabled"]
+      300 DUPCLOSURE                       R9 K178 [PROTO_80]
+      301 SETTABLEKS                       R9 R7 K179 ["setPartSnapEnabled"]
+      303 DUPCLOSURE                       R9 K180 [PROTO_81]
+      304 SETTABLEKS                       R9 R7 K181 ["getPartSnapEnabled"]
+      306 DUPCLOSURE                       R9 K182 [PROTO_82]
+      307 SETTABLEKS                       R9 R7 K183 ["shouldPartSnap"]
+      309 DUPCLOSURE                       R9 K184 [PROTO_83]
+      310 SETTABLEKS                       R9 R7 K185 ["shouldGridSnap"]
+      312 DUPCLOSURE                       R9 K186 [PROTO_84]
+      313 SETTABLEKS                       R9 R7 K187 ["shouldAngleSnap"]
+      315 DUPCLOSURE                       R9 K188 [PROTO_85]
+      316 SETTABLEKS                       R9 R7 K189 ["snapToGridSize"]
+      318 DUPCLOSURE                       R9 K190 [PROTO_86]
+      319 SETTABLEKS                       R9 R7 K191 ["getRotateIncrement"]
+      321 DUPCLOSURE                       R9 K192 [PROTO_87]
+      322 SETTABLEKS                       R9 R7 K193 ["setGridSnap"]
+      324 DUPCLOSURE                       R9 K194 [PROTO_88]
+      325 SETTABLEKS                       R9 R7 K195 ["setRotateSnap"]
+      327 DUPCLOSURE                       R9 K196 [PROTO_89]
+      328 CAPTURE                          VAL R5
+      329 SETTABLEKS                       R9 R7 K197 ["getAnalytics"]
+      331 DUPCLOSURE                       R9 K198 [PROTO_90]
+      332 CAPTURE                          VAL R0
+      333 SETTABLEKS                       R9 R7 K199 ["gizmoRaycast"]
+      335 DUPCLOSURE                       R9 K200 [PROTO_91]
+      336 SETTABLEKS                       R9 R7 K201 ["setInsertPoint"]
+      338 DUPCLOSURE                       R9 K202 [PROTO_92]
+      339 SETTABLEKS                       R9 R7 K203 ["expectInsertPoint"]
+      341 DUPCLOSURE                       R9 K204 [PROTO_93]
+      342 SETTABLEKS                       R9 R7 K205 ["shouldShowActiveInstanceHighlight"]
+      344 DUPCLOSURE                       R9 K206 [PROTO_94]
+      345 SETTABLEKS                       R9 R7 K207 ["shouldAlignDraggedObjects"]
+      347 DUPCLOSURE                       R9 K208 [PROTO_95]
+      348 SETTABLEKS                       R9 R7 K209 ["setAlignDraggedObjects"]
+      350 DUPCLOSURE                       R9 K210 [PROTO_96]
+      351 CAPTURE                          VAL R1
+      352 SETTABLEKS                       R9 R7 K211 ["addUndoWaypoint"]
+      354 DUPCLOSURE                       R9 K212 [PROTO_97]
+      355 SETTABLEKS                       R9 R7 K213 ["expectMostRecentUndoWaypoint"]
+      357 DUPCLOSURE                       R9 K214 [PROTO_98]
+      358 CAPTURE                          VAL R1
+      359 SETTABLEKS                       R9 R7 K215 ["expectAndUndo"]
+      361 DUPCLOSURE                       R9 K216 [PROTO_99]
+      362 SETTABLEKS                       R9 R7 K217 ["getText"]
+      364 DUPCLOSURE                       R9 K218 [PROTO_100]
+      365 CAPTURE                          VAL R4
+      366 SETTABLEKS                       R9 R7 K219 ["getThemeColor"]
+      368 DUPCLOSURE                       R9 K220 [PROTO_101]
+      369 SETTABLEKS                       R9 R7 K221 ["getTheme"]
+      371 DUPCLOSURE                       R9 K222 [PROTO_102]
+      372 SETTABLEKS                       R9 R7 K223 ["getSetting"]
+      374 DUPCLOSURE                       R9 K224 [PROTO_103]
+      375 SETTABLEKS                       R9 R7 K225 ["setSetting"]
+      377 DUPCLOSURE                       R9 K226 [PROTO_104]
+      378 SETTABLEKS                       R9 R7 K227 ["setPivotIndicator"]
+      380 RETURN                           R7 1

@@ -115,7 +115,7 @@ PROTO_2:
       139 MOVE                             R4 R5
       140 RETURN                           R4 1
       141 GETTABLEKS                       R5 R1 K4 ["avatar"]
-      143 JUMPIFNOT                        R5 ; [+152]
+      143 JUMPIFNOT                        R5 ; [+168]
       144 NEWTABLE                         R5 0 0
       146 MOVE                             R7 R5
       147 GETUPVAL                         R8 0
@@ -206,33 +206,46 @@ PROTO_2:
       257 CALL                             R6 -1 0
       258 GETUPVAL                         R6 12
       259 CALL                             R6 0 1
-      260 JUMPIFNOT                        R6 ; [+12]
-      261 MOVE                             R7 R5
-      262 GETUPVAL                         R8 0
-      263 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      265 GETUPVAL                         R9 21
-      266 GETTABLEKS                       R9 R9 K12 ["Provider"]
-      268 CALL                             R8 1 -1
-      269 FASTCALL                         TABLE_INSERT ; [+2]
-      270 GETIMPORT                        R6 K20 [table.insert]
-      272 CALL                             R6 -1 0
-      273 GETUPVAL                         R6 0
-      274 GETTABLEKS                       R6 R6 K6 ["createElement"]
-      276 GETUPVAL                         R7 7
-      277 DUPTABLE                         R8 K11 [{"providers"}]
-      278 SETTABLEKS                       R5 R8 K10 ["providers"]
-      280 GETUPVAL                         R9 0
-      281 GETTABLEKS                       R9 R9 K6 ["createElement"]
-      283 GETUPVAL                         R10 22
-      284 DUPTABLE                         R11 K26 [{"Avatar", "IsSelected"}]
-      285 GETTABLEKS                       R12 R1 K4 ["avatar"]
-      287 SETTABLEKS                       R12 R11 K24 ["Avatar"]
-      289 GETTABLEKS                       R12 R1 K27 ["isSelected"]
-      291 SETTABLEKS                       R12 R11 K25 ["IsSelected"]
-      293 CALL                             R9 2 -1
-      294 CALL                             R6 -1 1
-      295 MOVE                             R4 R6
-      296 RETURN                           R4 1
+      260 JUMPIFNOT                        R6 ; [+28]
+      261 GETUPVAL                         R6 21
+      262 CALL                             R6 0 1
+      263 JUMPIFNOT                        R6 ; [+13]
+      264 MOVE                             R7 R5
+      265 GETUPVAL                         R8 0
+      266 GETTABLEKS                       R8 R8 K6 ["createElement"]
+      268 GETUPVAL                         R9 22
+      269 GETTABLEKS                       R9 R9 K12 ["Provider"]
+      271 CALL                             R8 1 -1
+      272 FASTCALL                         TABLE_INSERT ; [+2]
+      273 GETIMPORT                        R6 K20 [table.insert]
+      275 CALL                             R6 -1 0
+      276 JUMP                             ; [+12]
+      277 MOVE                             R7 R5
+      278 GETUPVAL                         R8 0
+      279 GETTABLEKS                       R8 R8 K6 ["createElement"]
+      281 GETUPVAL                         R9 23
+      282 GETTABLEKS                       R9 R9 K12 ["Provider"]
+      284 CALL                             R8 1 -1
+      285 FASTCALL                         TABLE_INSERT ; [+2]
+      286 GETIMPORT                        R6 K20 [table.insert]
+      288 CALL                             R6 -1 0
+      289 GETUPVAL                         R6 0
+      290 GETTABLEKS                       R6 R6 K6 ["createElement"]
+      292 GETUPVAL                         R7 7
+      293 DUPTABLE                         R8 K11 [{"providers"}]
+      294 SETTABLEKS                       R5 R8 K10 ["providers"]
+      296 GETUPVAL                         R9 0
+      297 GETTABLEKS                       R9 R9 K6 ["createElement"]
+      299 GETUPVAL                         R10 24
+      300 DUPTABLE                         R11 K26 [{"Avatar", "IsSelected"}]
+      301 GETTABLEKS                       R12 R1 K4 ["avatar"]
+      303 SETTABLEKS                       R12 R11 K24 ["Avatar"]
+      305 GETTABLEKS                       R12 R1 K27 ["isSelected"]
+      307 SETTABLEKS                       R12 R11 K25 ["IsSelected"]
+      309 CALL                             R9 2 -1
+      310 CALL                             R6 -1 1
+      311 MOVE                             R4 R6
+      312 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -330,57 +343,69 @@ MAIN:
       164 GETIMPORT                        R18 K5 [require]
       166 GETTABLEKS                       R19 R0 K9 ["Src"]
       168 GETTABLEKS                       R19 R19 K10 ["Components"]
-      170 GETTABLEKS                       R19 R19 K27 ["ContextStack"]
+      170 GETTABLEKS                       R19 R19 K27 ["DEPRECATED_LookContext"]
       172 CALL                             R18 1 1
       173 GETIMPORT                        R19 K5 [require]
       175 GETTABLEKS                       R20 R0 K9 ["Src"]
-      177 GETTABLEKS                       R20 R20 K28 ["Flags"]
-      179 GETTABLEKS                       R20 R20 K29 ["getFFlagAvatarAutosetupOptionsInput"]
+      177 GETTABLEKS                       R20 R20 K10 ["Components"]
+      179 GETTABLEKS                       R20 R20 K28 ["ContextStack"]
       181 CALL                             R19 1 1
       182 GETIMPORT                        R20 K5 [require]
       184 GETTABLEKS                       R21 R0 K9 ["Src"]
-      186 GETTABLEKS                       R21 R21 K28 ["Flags"]
-      188 GETTABLEKS                       R21 R21 K30 ["getFFlagAvatarPreviewerLookComposer"]
+      186 GETTABLEKS                       R21 R21 K29 ["Flags"]
+      188 GETTABLEKS                       R21 R21 K30 ["getFFlagAvatarAutosetupOptionsInput"]
       190 CALL                             R20 1 1
       191 GETIMPORT                        R21 K5 [require]
       193 GETTABLEKS                       R22 R0 K9 ["Src"]
-      195 GETTABLEKS                       R22 R22 K28 ["Flags"]
-      197 GETTABLEKS                       R22 R22 K31 ["getFFlagAvatarPreviewerOpenLastEquippedPalette"]
+      195 GETTABLEKS                       R22 R22 K29 ["Flags"]
+      197 GETTABLEKS                       R22 R22 K31 ["getFFlagAvatarPreviewerLookComposer"]
       199 CALL                             R21 1 1
       200 GETIMPORT                        R22 K5 [require]
       202 GETTABLEKS                       R23 R0 K9 ["Src"]
-      204 GETTABLEKS                       R23 R23 K32 ["Hooks"]
-      206 GETTABLEKS                       R23 R23 K33 ["useAutoSetupState"]
+      204 GETTABLEKS                       R23 R23 K29 ["Flags"]
+      206 GETTABLEKS                       R23 R23 K32 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
       208 CALL                             R22 1 1
       209 GETIMPORT                        R23 K5 [require]
       211 GETTABLEKS                       R24 R0 K9 ["Src"]
-      213 GETTABLEKS                       R24 R24 K32 ["Hooks"]
-      215 GETTABLEKS                       R24 R24 K34 ["useMostRecentSelected"]
+      213 GETTABLEKS                       R24 R24 K29 ["Flags"]
+      215 GETTABLEKS                       R24 R24 K33 ["getFFlagAvatarPreviewerOpenLastEquippedPalette"]
       217 CALL                             R23 1 1
-      218 GETTABLEKS                       R24 R1 K35 ["ContextServices"]
-      220 GETTABLEKS                       R24 R24 K36 ["Analytics"]
-      222 DUPCLOSURE                       R25 K37 [PROTO_2]
-      223 CAPTURE                          VAL R2
-      224 CAPTURE                          VAL R10
-      225 CAPTURE                          VAL R23
-      226 CAPTURE                          VAL R22
-      227 CAPTURE                          VAL R24
-      228 CAPTURE                          VAL R6
-      229 CAPTURE                          VAL R19
-      230 CAPTURE                          VAL R18
-      231 CAPTURE                          VAL R7
-      232 CAPTURE                          VAL R4
-      233 CAPTURE                          VAL R5
-      234 CAPTURE                          VAL R12
-      235 CAPTURE                          VAL R20
-      236 CAPTURE                          VAL R13
-      237 CAPTURE                          VAL R11
-      238 CAPTURE                          VAL R8
-      239 CAPTURE                          VAL R14
-      240 CAPTURE                          VAL R9
-      241 CAPTURE                          VAL R15
-      242 CAPTURE                          VAL R21
-      243 CAPTURE                          VAL R16
-      244 CAPTURE                          VAL R17
-      245 CAPTURE                          VAL R3
-      246 RETURN                           R25 1
+      218 GETIMPORT                        R24 K5 [require]
+      220 GETTABLEKS                       R25 R0 K9 ["Src"]
+      222 GETTABLEKS                       R25 R25 K34 ["Hooks"]
+      224 GETTABLEKS                       R25 R25 K35 ["useAutoSetupState"]
+      226 CALL                             R24 1 1
+      227 GETIMPORT                        R25 K5 [require]
+      229 GETTABLEKS                       R26 R0 K9 ["Src"]
+      231 GETTABLEKS                       R26 R26 K34 ["Hooks"]
+      233 GETTABLEKS                       R26 R26 K36 ["useMostRecentSelected"]
+      235 CALL                             R25 1 1
+      236 GETTABLEKS                       R26 R1 K37 ["ContextServices"]
+      238 GETTABLEKS                       R26 R26 K38 ["Analytics"]
+      240 DUPCLOSURE                       R27 K39 [PROTO_2]
+      241 CAPTURE                          VAL R2
+      242 CAPTURE                          VAL R10
+      243 CAPTURE                          VAL R25
+      244 CAPTURE                          VAL R24
+      245 CAPTURE                          VAL R26
+      246 CAPTURE                          VAL R6
+      247 CAPTURE                          VAL R20
+      248 CAPTURE                          VAL R19
+      249 CAPTURE                          VAL R7
+      250 CAPTURE                          VAL R4
+      251 CAPTURE                          VAL R5
+      252 CAPTURE                          VAL R12
+      253 CAPTURE                          VAL R21
+      254 CAPTURE                          VAL R13
+      255 CAPTURE                          VAL R11
+      256 CAPTURE                          VAL R8
+      257 CAPTURE                          VAL R14
+      258 CAPTURE                          VAL R9
+      259 CAPTURE                          VAL R15
+      260 CAPTURE                          VAL R23
+      261 CAPTURE                          VAL R16
+      262 CAPTURE                          VAL R22
+      263 CAPTURE                          VAL R17
+      264 CAPTURE                          VAL R18
+      265 CAPTURE                          VAL R3
+      266 RETURN                           R27 1

@@ -221,6 +221,144 @@ PROTO_11:
        67 CALL                             R7 3 -1
        68 RETURN                           R7 -1
 
+PROTO_12:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onAutoSetup"]
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["signal"]
+        7 JUMPIFEQKNIL                     R0 ; [+7]
+        9 GETUPVAL                         R0 0
+       10 GETTABLEKS                       R0 R0 K1 ["signal"]
+       12 NAMECALL                         R0 R0 K2 ["Wait"]
+       14 CALL                             R0 1 0
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K3 ["result"]
+       18 RETURN                           R0 1
+
+PROTO_13:
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R4 R4 K0 ["onAutoSetup"]
+        3 CALL                             R4 0 0
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K1 ["signal"]
+        7 JUMPIFEQKNIL                     R4 ; [+7]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K1 ["signal"]
+       12 NAMECALL                         R4 R4 K2 ["Wait"]
+       14 CALL                             R4 1 0
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K3 ["result"]
+       18 RETURN                           R3 1
+
+PROTO_14:
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["onAutoSetup"]
+        3 CALL                             R5 0 0
+        4 GETUPVAL                         R5 0
+        5 GETTABLEKS                       R5 R5 K1 ["signal"]
+        7 JUMPIFEQKNIL                     R5 ; [+7]
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R5 R5 K1 ["signal"]
+       12 NAMECALL                         R5 R5 K2 ["Wait"]
+       14 CALL                             R5 1 0
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K3 ["result"]
+       18 RETURN                           R4 1
+
+PROTO_15:
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["onAutoSetup"]
+        3 CALL                             R3 0 0
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["signal"]
+        7 JUMPIFEQKNIL                     R3 ; [+7]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K1 ["signal"]
+       12 NAMECALL                         R3 R3 K2 ["Wait"]
+       14 CALL                             R3 1 0
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K3 ["result"]
+       18 RETURN                           R2 1
+
+PROTO_16:
+        0 LOADK                            R1 K0 ["SERIALIZED_MODEL_DUMMY"]
+        1 RETURN                           R1 1
+
+PROTO_17:
+        0 LOADK                            R1 K0 ["rbxasset://mock"]
+        1 RETURN                           R1 1
+
+PROTO_18:
+        0 RETURN                           R0 0
+
+PROTO_19:
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          VAL R0
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K0 ["useCallback"]
+        5 NEWCLOSURE                       R3 P1
+        6 CAPTURE                          VAL R0
+        7 NEWTABLE                         R4 0 3
+        9 GETTABLEKS                       R5 R0 K1 ["signal"]
+       11 GETTABLEKS                       R6 R0 K2 ["result"]
+       13 GETTABLEKS                       R7 R0 K3 ["onAutoSetup"]
+       15 SETLIST                          R4 R5 3 [1]
+       17 CALL                             R2 2 1
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K0 ["useCallback"]
+       21 NEWCLOSURE                       R4 P2
+       22 CAPTURE                          VAL R0
+       23 NEWTABLE                         R5 0 3
+       25 GETTABLEKS                       R6 R0 K1 ["signal"]
+       27 GETTABLEKS                       R7 R0 K2 ["result"]
+       29 GETTABLEKS                       R8 R0 K3 ["onAutoSetup"]
+       31 SETLIST                          R5 R6 3 [1]
+       33 CALL                             R3 2 1
+       34 GETUPVAL                         R4 0
+       35 GETTABLEKS                       R4 R4 K0 ["useCallback"]
+       37 NEWCLOSURE                       R5 P3
+       38 CAPTURE                          VAL R0
+       39 NEWTABLE                         R6 0 3
+       41 GETTABLEKS                       R7 R0 K1 ["signal"]
+       43 GETTABLEKS                       R8 R0 K2 ["result"]
+       45 GETTABLEKS                       R9 R0 K3 ["onAutoSetup"]
+       47 SETLIST                          R6 R7 3 [1]
+       49 CALL                             R4 2 1
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K0 ["useCallback"]
+       53 DUPCLOSURE                       R6 K4 [PROTO_16]
+       54 NEWTABLE                         R7 0 0
+       56 CALL                             R5 2 1
+       57 GETUPVAL                         R6 0
+       58 GETTABLEKS                       R6 R6 K0 ["useCallback"]
+       60 DUPCLOSURE                       R7 K5 [PROTO_17]
+       61 NEWTABLE                         R8 0 0
+       63 CALL                             R6 2 1
+       64 GETUPVAL                         R7 0
+       65 GETTABLEKS                       R7 R7 K0 ["useCallback"]
+       67 DUPCLOSURE                       R8 K6 [PROTO_18]
+       68 NEWTABLE                         R9 0 0
+       70 CALL                             R7 2 1
+       71 DUPTABLE                         R8 K14 [{"serializeModel", "uploadModelAsync", "startAutoSetupAsync", "startSerializedAutoSetupAsync", "DEPRECATED_startAutoSetupAsync", "autoSetupClickedSignal", "cancelAutoSetup"}]
+       72 SETTABLEKS                       R5 R8 K7 ["serializeModel"]
+       74 SETTABLEKS                       R6 R8 K8 ["uploadModelAsync"]
+       76 SETTABLEKS                       R2 R8 K9 ["startAutoSetupAsync"]
+       78 SETTABLEKS                       R3 R8 K10 ["startSerializedAutoSetupAsync"]
+       80 SETTABLEKS                       R4 R8 K11 ["DEPRECATED_startAutoSetupAsync"]
+       82 GETTABLEKS                       R9 R0 K12 ["autoSetupClickedSignal"]
+       84 SETTABLEKS                       R9 R8 K12 ["autoSetupClickedSignal"]
+       86 SETTABLEKS                       R7 R8 K13 ["cancelAutoSetup"]
+       88 GETUPVAL                         R9 0
+       89 GETTABLEKS                       R9 R9 K15 ["createElement"]
+       91 GETUPVAL                         R10 1
+       92 GETTABLEKS                       R10 R10 K16 ["Provider"]
+       94 DUPTABLE                         R11 K18 [{"value"}]
+       95 SETTABLEKS                       R8 R11 K17 ["value"]
+       97 GETTABLEKS                       R12 R0 K19 ["children"]
+       99 CALL                             R9 3 -1
+      100 RETURN                           R9 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -246,7 +384,11 @@ MAIN:
        33 DUPCLOSURE                       R5 K13 [PROTO_11]
        34 CAPTURE                          VAL R2
        35 CAPTURE                          VAL R1
-       36 DUPTABLE                         R6 K16 [{"Success", "FailsOnce"}]
-       37 SETTABLEKS                       R4 R6 K14 ["Success"]
-       39 SETTABLEKS                       R5 R6 K15 ["FailsOnce"]
-       41 RETURN                           R6 1
+       36 DUPCLOSURE                       R6 K14 [PROTO_19]
+       37 CAPTURE                          VAL R2
+       38 CAPTURE                          VAL R1
+       39 DUPTABLE                         R7 K18 [{"Success", "FailsOnce", "Trackable"}]
+       40 SETTABLEKS                       R4 R7 K15 ["Success"]
+       42 SETTABLEKS                       R5 R7 K16 ["FailsOnce"]
+       44 SETTABLEKS                       R6 R7 K17 ["Trackable"]
+       46 RETURN                           R7 1

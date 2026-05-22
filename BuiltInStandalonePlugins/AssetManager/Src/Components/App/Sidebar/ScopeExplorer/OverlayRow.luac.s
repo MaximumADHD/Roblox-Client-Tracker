@@ -24,7 +24,7 @@ PROTO_1:
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K1 ["Image"]
         6 DUPTABLE                         R2 K4 [{"tag", "testId"}]
-        7 LOADK                            R3 K5 ["icon-notification size-full"]
+        7 LOADK                            R3 K5 ["icon-notification size-300"]
         8 SETTABLEKS                       R3 R2 K2 ["tag"]
        10 LOADK                            R3 K6 ["scope-overlay-notification-icon"]
        11 SETTABLEKS                       R3 R2 K3 ["testId"]
@@ -72,33 +72,38 @@ PROTO_3:
        39 GETTABLEKS                       R6 R6 K1 ["createElement"]
        41 GETUPVAL                         R7 3
        42 GETTABLEKS                       R7 R7 K13 ["IconButton"]
-       44 DUPTABLE                         R8 K19 [{"icon", "size", "onActivated", "stateLayer", "testId"}]
+       44 DUPTABLE                         R8 K20 [{"icon", "size", "variant", "onActivated", "stateLayer", "testId"}]
        45 GETUPVAL                         R9 3
        46 GETTABLEKS                       R9 R9 K10 ["Enums"]
-       48 GETTABLEKS                       R9 R9 K20 ["IconName"]
-       50 GETTABLEKS                       R9 R9 K21 ["TriangleExclamation"]
+       48 GETTABLEKS                       R9 R9 K21 ["IconName"]
+       50 GETTABLEKS                       R9 R9 K22 ["TriangleExclamation"]
        52 SETTABLEKS                       R9 R8 K14 ["icon"]
        54 GETUPVAL                         R9 3
        55 GETTABLEKS                       R9 R9 K10 ["Enums"]
-       57 GETTABLEKS                       R9 R9 K22 ["IconSize"]
-       59 GETTABLEKS                       R9 R9 K23 ["XSmall"]
+       57 GETTABLEKS                       R9 R9 K23 ["InputSize"]
+       59 GETTABLEKS                       R9 R9 K24 ["XSmall"]
        61 SETTABLEKS                       R9 R8 K15 ["size"]
-       63 NEWCLOSURE                       R9 P0
-       64 CAPTURE                          VAL R1
-       65 CAPTURE                          VAL R0
-       66 SETTABLEKS                       R9 R8 K16 ["onActivated"]
-       68 DUPTABLE                         R9 K25 [{"affordance"}]
-       69 GETUPVAL                         R10 3
-       70 GETTABLEKS                       R10 R10 K10 ["Enums"]
-       72 GETTABLEKS                       R10 R10 K26 ["StateLayerAffordance"]
-       74 GETTABLEKS                       R10 R10 K27 ["None"]
-       76 SETTABLEKS                       R10 R9 K24 ["affordance"]
-       78 SETTABLEKS                       R9 R8 K17 ["stateLayer"]
-       80 LOADK                            R9 K28 ["scope-overlay-folder-not-ready-icon"]
-       81 SETTABLEKS                       R9 R8 K18 ["testId"]
-       83 CALL                             R6 2 -1
-       84 CALL                             R3 -1 -1
-       85 RETURN                           R3 -1
+       63 GETUPVAL                         R9 3
+       64 GETTABLEKS                       R9 R9 K10 ["Enums"]
+       66 GETTABLEKS                       R9 R9 K25 ["ButtonVariant"]
+       68 GETTABLEKS                       R9 R9 K26 ["Utility"]
+       70 SETTABLEKS                       R9 R8 K16 ["variant"]
+       72 NEWCLOSURE                       R9 P0
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R0
+       75 SETTABLEKS                       R9 R8 K17 ["onActivated"]
+       77 DUPTABLE                         R9 K28 [{"affordance"}]
+       78 GETUPVAL                         R10 3
+       79 GETTABLEKS                       R10 R10 K10 ["Enums"]
+       81 GETTABLEKS                       R10 R10 K29 ["StateLayerAffordance"]
+       83 GETTABLEKS                       R10 R10 K30 ["None"]
+       85 SETTABLEKS                       R10 R9 K27 ["affordance"]
+       87 SETTABLEKS                       R9 R8 K18 ["stateLayer"]
+       89 LOADK                            R9 K31 ["scope-overlay-folder-not-ready-icon"]
+       90 SETTABLEKS                       R9 R8 K19 ["testId"]
+       92 CALL                             R6 2 -1
+       93 CALL                             R3 -1 -1
+       94 RETURN                           R3 -1
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["IsSelected"]
@@ -140,23 +145,15 @@ PROTO_4:
        50 SETTABLEKS                       R6 R5 K12 ["LayoutOrder"]
        52 GETTABLEKS                       R6 R0 K13 ["Position"]
        54 SETTABLEKS                       R6 R5 K13 ["Position"]
-       56 LOADK                            R7 K17 ["radius-small size-full-600 padding-right-xsmall %*"]
+       56 LOADK                            R7 K17 ["radius-small size-600 align-x-center align-y-center %*"]
        57 MOVE                             R9 R1
        58 NAMECALL                         R7 R7 K18 ["format"]
        60 CALL                             R7 2 1
        61 MOVE                             R6 R7
        62 SETTABLEKS                       R6 R5 K14 ["tag"]
-       64 GETUPVAL                         R6 0
-       65 GETTABLEKS                       R6 R6 K7 ["createElement"]
-       67 GETUPVAL                         R7 4
-       68 GETTABLEKS                       R7 R7 K11 ["View"]
-       70 DUPTABLE                         R8 K19 [{"tag"}]
-       71 LOADK                            R9 K20 ["radius-small gui-object-defaults align-y-center anchor-center-right size-400 position-center-right"]
-       72 SETTABLEKS                       R9 R8 K14 ["tag"]
-       74 MOVE                             R9 R2
-       75 CALL                             R6 3 -1
-       76 CALL                             R3 -1 -1
-       77 RETURN                           R3 -1
+       64 MOVE                             R6 R2
+       65 CALL                             R3 3 -1
+       66 RETURN                           R3 -1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["Item"]

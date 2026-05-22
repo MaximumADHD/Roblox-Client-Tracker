@@ -210,44 +210,39 @@ MAIN:
        52 GETTABLEKS                       R14 R14 K10 ["Util"]
        54 GETTABLEKS                       R14 R14 K18 ["Images"]
        56 CALL                             R13 1 1
-       57 GETIMPORT                        R14 K5 [require]
-       59 GETTABLEKS                       R15 R0 K16 ["Src"]
-       61 GETTABLEKS                       R15 R15 K19 ["Flags"]
-       63 GETTABLEKS                       R15 R15 K20 ["getFFlagEnableUploadingGroupBundles"]
-       65 CALL                             R14 1 1
-       66 GETIMPORT                        R15 K23 [Vector2.new]
-       68 LOADN                            R16 144
-       69 LOADN                            R17 70
-       70 CALL                             R15 2 1
-       71 GETTABLEKS                       R16 R3 K24 ["PureComponent"]
-       73 LOADK                            R18 K25 ["WarningDialog"]
-       74 NAMECALL                         R16 R16 K26 ["extend"]
-       76 CALL                             R16 2 1
-       77 DUPTABLE                         R17 K29 [{"Accept", "Cancel"}]
-       78 LOADB                            R18 1
-       79 SETTABLEKS                       R18 R17 K27 ["Accept"]
-       81 LOADB                            R18 0
-       82 SETTABLEKS                       R18 R17 K28 ["Cancel"]
-       84 DUPCLOSURE                       R18 K30 [PROTO_1]
-       85 CAPTURE                          VAL R17
-       86 SETTABLEKS                       R18 R16 K31 ["init"]
-       88 DUPCLOSURE                       R18 K32 [PROTO_2]
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R3
-       91 CAPTURE                          VAL R9
-       92 CAPTURE                          VAL R17
-       93 CAPTURE                          VAL R15
-       94 CAPTURE                          VAL R8
-       95 CAPTURE                          VAL R13
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R12
-       98 SETTABLEKS                       R18 R16 K33 ["render"]
-      100 MOVE                             R18 R5
-      101 DUPTABLE                         R19 K35 [{"Stylizer"}]
-      102 GETTABLEKS                       R20 R4 K34 ["Stylizer"]
-      104 SETTABLEKS                       R20 R19 K34 ["Stylizer"]
-      106 CALL                             R18 1 1
-      107 MOVE                             R19 R16
-      108 CALL                             R18 1 1
-      109 MOVE                             R16 R18
-      110 RETURN                           R16 1
+       57 GETIMPORT                        R14 K21 [Vector2.new]
+       59 LOADN                            R15 144
+       60 LOADN                            R16 70
+       61 CALL                             R14 2 1
+       62 GETTABLEKS                       R15 R3 K22 ["PureComponent"]
+       64 LOADK                            R17 K23 ["WarningDialog"]
+       65 NAMECALL                         R15 R15 K24 ["extend"]
+       67 CALL                             R15 2 1
+       68 DUPTABLE                         R16 K27 [{"Accept", "Cancel"}]
+       69 LOADB                            R17 1
+       70 SETTABLEKS                       R17 R16 K25 ["Accept"]
+       72 LOADB                            R17 0
+       73 SETTABLEKS                       R17 R16 K26 ["Cancel"]
+       75 DUPCLOSURE                       R17 K28 [PROTO_1]
+       76 CAPTURE                          VAL R16
+       77 SETTABLEKS                       R17 R15 K29 ["init"]
+       79 DUPCLOSURE                       R17 K30 [PROTO_2]
+       80 CAPTURE                          VAL R6
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R16
+       84 CAPTURE                          VAL R14
+       85 CAPTURE                          VAL R8
+       86 CAPTURE                          VAL R13
+       87 CAPTURE                          VAL R10
+       88 CAPTURE                          VAL R12
+       89 SETTABLEKS                       R17 R15 K31 ["render"]
+       91 MOVE                             R17 R5
+       92 DUPTABLE                         R18 K33 [{"Stylizer"}]
+       93 GETTABLEKS                       R19 R4 K32 ["Stylizer"]
+       95 SETTABLEKS                       R19 R18 K32 ["Stylizer"]
+       97 CALL                             R17 1 1
+       98 MOVE                             R18 R15
+       99 CALL                             R17 1 1
+      100 MOVE                             R15 R17
+      101 RETURN                           R15 1

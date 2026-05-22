@@ -160,58 +160,101 @@ MAIN:
        38 GETTABLEKS                       R5 R5 K12 ["PublishPlaceAsUtilities"]
        40 CALL                             R4 1 1
        41 GETTABLEKS                       R4 R4 K13 ["shouldShowDevPublishLocations"]
-       43 LOADNIL                          R5
-       44 MOVE                             R6 R4
-       45 CALL                             R6 0 1
-       46 JUMPIFNOT                        R6 ; [+2]
-       47 NEWTABLE                         R5 0 0
-       49 DUPCLOSURE                       R6 K14 [PROTO_0]
-       50 CAPTURE                          VAL R3
-       51 DUPTABLE                         R7 K18 [{"current", "changed", "errors"}]
-       52 NEWTABLE                         R8 0 0
-       54 SETTABLEKS                       R8 R7 K15 ["current"]
-       56 DUPTABLE                         R8 K28 [{"name", "creatorId", "description", "genre", "playableDevices", "teamCreateEnabled", "OptInLocations", "isActive", "isFriendsOnly"}]
-       57 LOADK                            R9 K29 ["Untitled Game"]
-       58 SETTABLEKS                       R9 R8 K19 ["name"]
-       60 LOADN                            R9 0
-       61 SETTABLEKS                       R9 R8 K20 ["creatorId"]
-       63 LOADK                            R9 K30 [""]
-       64 SETTABLEKS                       R9 R8 K21 ["description"]
-       66 GETTABLEKS                       R10 R1 K31 ["GENRE_IDS"]
-       68 GETTABLEN                        R9 R10 1
-       69 SETTABLEKS                       R9 R8 K22 ["genre"]
-       71 DUPTABLE                         R9 K36 [{"Computer", "Phone", "Tablet", "VR"}]
-       72 LOADB                            R10 1
-       73 SETTABLEKS                       R10 R9 K32 ["Computer"]
-       75 LOADB                            R10 1
-       76 SETTABLEKS                       R10 R9 K33 ["Phone"]
-       78 LOADB                            R10 1
-       79 SETTABLEKS                       R10 R9 K34 ["Tablet"]
-       81 LOADB                            R10 1
-       82 SETTABLEKS                       R10 R9 K35 ["VR"]
-       84 SETTABLEKS                       R9 R8 K23 ["playableDevices"]
-       86 LOADB                            R9 1
-       87 SETTABLEKS                       R9 R8 K24 ["teamCreateEnabled"]
-       89 SETTABLEKS                       R5 R8 K25 ["OptInLocations"]
-       91 LOADB                            R9 0
-       92 SETTABLEKS                       R9 R8 K26 ["isActive"]
-       94 LOADB                            R9 0
-       95 SETTABLEKS                       R9 R8 K27 ["isFriendsOnly"]
-       97 SETTABLEKS                       R8 R7 K16 ["changed"]
-       99 NEWTABLE                         R8 0 0
-      101 SETTABLEKS                       R8 R7 K17 ["errors"]
-      103 GETTABLEKS                       R8 R2 K37 ["createReducer"]
-      105 MOVE                             R9 R7
-      106 DUPTABLE                         R10 K41 [{"AddChange", "AddErrors", "ResetInfo"}]
-      107 DUPCLOSURE                       R11 K42 [PROTO_1]
-      108 CAPTURE                          VAL R3
-      109 CAPTURE                          VAL R6
-      110 SETTABLEKS                       R11 R10 K38 ["AddChange"]
-      112 DUPCLOSURE                       R11 K43 [PROTO_2]
-      113 CAPTURE                          VAL R3
-      114 SETTABLEKS                       R11 R10 K39 ["AddErrors"]
-      116 DUPCLOSURE                       R11 K44 [PROTO_3]
-      117 CAPTURE                          VAL R3
-      118 SETTABLEKS                       R11 R10 K40 ["ResetInfo"]
-      120 CALL                             R8 2 -1
-      121 RETURN                           R8 -1
+       43 GETIMPORT                        R5 K4 [require]
+       45 GETTABLEKS                       R6 R0 K5 ["Src"]
+       47 GETTABLEKS                       R6 R6 K14 ["Flags"]
+       49 GETTABLEKS                       R6 R6 K15 ["getFFlagPublishPlaceAsAudiencesReplacement"]
+       51 CALL                             R5 1 1
+       52 LOADNIL                          R6
+       53 MOVE                             R7 R4
+       54 CALL                             R7 0 1
+       55 JUMPIFNOT                        R7 ; [+2]
+       56 NEWTABLE                         R6 0 0
+       58 DUPCLOSURE                       R7 K16 [PROTO_0]
+       59 CAPTURE                          VAL R3
+       60 MOVE                             R9 R5
+       61 CALL                             R9 0 1
+       62 JUMPIFNOT                        R9 ; [+57]
+       63 DUPTABLE                         R8 K20 [{"current", "changed", "errors"}]
+       64 NEWTABLE                         R9 0 0
+       66 SETTABLEKS                       R9 R8 K17 ["current"]
+       68 DUPTABLE                         R9 K29 [{"name", "creatorId", "description", "genre", "playableDevices", "teamCreateEnabled", "OptInLocations", "audiences"}]
+       69 LOADK                            R10 K30 ["Untitled Game"]
+       70 SETTABLEKS                       R10 R9 K21 ["name"]
+       72 LOADN                            R10 0
+       73 SETTABLEKS                       R10 R9 K22 ["creatorId"]
+       75 LOADK                            R10 K31 [""]
+       76 SETTABLEKS                       R10 R9 K23 ["description"]
+       78 GETTABLEKS                       R11 R1 K32 ["GENRE_IDS"]
+       80 GETTABLEN                        R10 R11 1
+       81 SETTABLEKS                       R10 R9 K24 ["genre"]
+       83 DUPTABLE                         R10 K37 [{"Computer", "Phone", "Tablet", "VR"}]
+       84 LOADB                            R11 1
+       85 SETTABLEKS                       R11 R10 K33 ["Computer"]
+       87 LOADB                            R11 1
+       88 SETTABLEKS                       R11 R10 K34 ["Phone"]
+       90 LOADB                            R11 1
+       91 SETTABLEKS                       R11 R10 K35 ["Tablet"]
+       93 LOADB                            R11 1
+       94 SETTABLEKS                       R11 R10 K36 ["VR"]
+       96 SETTABLEKS                       R10 R9 K25 ["playableDevices"]
+       98 LOADB                            R10 1
+       99 SETTABLEKS                       R10 R9 K26 ["teamCreateEnabled"]
+      101 SETTABLEKS                       R6 R9 K27 ["OptInLocations"]
+      103 NEWTABLE                         R10 0 1
+      105 GETTABLEKS                       R11 R1 K38 ["AUDIENCE"]
+      107 GETTABLEKS                       R11 R11 K39 ["EDITORS"]
+      109 SETLIST                          R10 R11 1 [1]
+      111 SETTABLEKS                       R10 R9 K28 ["audiences"]
+      113 SETTABLEKS                       R9 R8 K18 ["changed"]
+      115 NEWTABLE                         R9 0 0
+      117 SETTABLEKS                       R9 R8 K19 ["errors"]
+      119 JUMP                             ; [+52]
+      120 DUPTABLE                         R8 K20 [{"current", "changed", "errors"}]
+      121 NEWTABLE                         R9 0 0
+      123 SETTABLEKS                       R9 R8 K17 ["current"]
+      125 DUPTABLE                         R9 K42 [{"name", "creatorId", "description", "genre", "playableDevices", "teamCreateEnabled", "OptInLocations", "isActive", "isFriendsOnly"}]
+      126 LOADK                            R10 K30 ["Untitled Game"]
+      127 SETTABLEKS                       R10 R9 K21 ["name"]
+      129 LOADN                            R10 0
+      130 SETTABLEKS                       R10 R9 K22 ["creatorId"]
+      132 LOADK                            R10 K31 [""]
+      133 SETTABLEKS                       R10 R9 K23 ["description"]
+      135 GETTABLEKS                       R11 R1 K32 ["GENRE_IDS"]
+      137 GETTABLEN                        R10 R11 1
+      138 SETTABLEKS                       R10 R9 K24 ["genre"]
+      140 DUPTABLE                         R10 K37 [{"Computer", "Phone", "Tablet", "VR"}]
+      141 LOADB                            R11 1
+      142 SETTABLEKS                       R11 R10 K33 ["Computer"]
+      144 LOADB                            R11 1
+      145 SETTABLEKS                       R11 R10 K34 ["Phone"]
+      147 LOADB                            R11 1
+      148 SETTABLEKS                       R11 R10 K35 ["Tablet"]
+      150 LOADB                            R11 1
+      151 SETTABLEKS                       R11 R10 K36 ["VR"]
+      153 SETTABLEKS                       R10 R9 K25 ["playableDevices"]
+      155 LOADB                            R10 1
+      156 SETTABLEKS                       R10 R9 K26 ["teamCreateEnabled"]
+      158 SETTABLEKS                       R6 R9 K27 ["OptInLocations"]
+      160 LOADB                            R10 0
+      161 SETTABLEKS                       R10 R9 K40 ["isActive"]
+      163 LOADB                            R10 0
+      164 SETTABLEKS                       R10 R9 K41 ["isFriendsOnly"]
+      166 SETTABLEKS                       R9 R8 K18 ["changed"]
+      168 NEWTABLE                         R9 0 0
+      170 SETTABLEKS                       R9 R8 K19 ["errors"]
+      172 GETTABLEKS                       R9 R2 K43 ["createReducer"]
+      174 MOVE                             R10 R8
+      175 DUPTABLE                         R11 K47 [{"AddChange", "AddErrors", "ResetInfo"}]
+      176 DUPCLOSURE                       R12 K48 [PROTO_1]
+      177 CAPTURE                          VAL R3
+      178 CAPTURE                          VAL R7
+      179 SETTABLEKS                       R12 R11 K44 ["AddChange"]
+      181 DUPCLOSURE                       R12 K49 [PROTO_2]
+      182 CAPTURE                          VAL R3
+      183 SETTABLEKS                       R12 R11 K45 ["AddErrors"]
+      185 DUPCLOSURE                       R12 K50 [PROTO_3]
+      186 CAPTURE                          VAL R3
+      187 SETTABLEKS                       R12 R11 K46 ["ResetInfo"]
+      189 CALL                             R9 2 -1
+      190 RETURN                           R9 -1

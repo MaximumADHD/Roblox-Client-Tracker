@@ -11,18 +11,21 @@ PROTO_0:
        13 SETTABLEKS                       R2 R5 K5 ["_permissionsService"]
        15 SETTABLEKS                       R3 R5 K6 ["_marketplaceService"]
        17 SETTABLEKS                       R4 R5 K7 ["_pluginPolicyService"]
-       19 GETTABLEKS                       R6 R5 K3 ["_studioService"]
-       21 GETTABLEKS                       R6 R6 K9 ["OnPluginInstalledFromWeb"]
-       23 SETTABLEKS                       R6 R5 K9 ["OnPluginInstalledFromWeb"]
-       25 GETTABLEKS                       R6 R5 K3 ["_studioService"]
-       27 GETTABLEKS                       R6 R6 K10 ["OnPluginInstalledFromToolbox"]
-       29 SETTABLEKS                       R6 R5 K10 ["OnPluginInstalledFromToolbox"]
-       31 GETUPVAL                         R8 1
-       32 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
-       34 MOVE                             R7 R5
-       35 GETIMPORT                        R6 K12 [setmetatable]
-       37 CALL                             R6 2 1
-       38 RETURN                           R6 1
+       19 GETUPVAL                         R6 1
+       20 CALL                             R6 0 1
+       21 JUMPIF                           R6 ; [+6]
+       22 GETTABLEKS                       R6 R5 K3 ["_studioService"]
+       24 GETTABLEKS                       R6 R6 K9 ["OnPluginInstalledFromWeb"]
+       26 SETTABLEKS                       R6 R5 K9 ["OnPluginInstalledFromWeb"]
+       28 GETTABLEKS                       R6 R5 K3 ["_studioService"]
+       30 GETTABLEKS                       R6 R6 K10 ["OnPluginInstalledFromToolbox"]
+       32 SETTABLEKS                       R6 R5 K10 ["OnPluginInstalledFromToolbox"]
+       34 GETUPVAL                         R8 2
+       35 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
+       37 MOVE                             R7 R5
+       38 GETIMPORT                        R6 K12 [setmetatable]
+       40 CALL                             R6 2 1
+       41 RETURN                           R6 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_studioService"]
@@ -37,10 +40,17 @@ PROTO_2:
         6 RETURN                           R2 -1
 
 PROTO_3:
-        0 GETTABLEKS                       R1 R0 K0 ["_studioService"]
-        2 NAMECALL                         R1 R1 K1 ["GetUserId"]
-        4 CALL                             R1 1 -1
-        5 RETURN                           R1 -1
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 NOT                              R2 R3
+        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        5 LOADK                            R3 K0 ["PluginManagementApi:GetUserId is deprecated with FFlagStudioRemoveOldPluginInstallFromWebLua"]
+        6 GETIMPORT                        R1 K2 [assert]
+        8 CALL                             R1 2 0
+        9 GETTABLEKS                       R1 R0 K3 ["_studioService"]
+       11 NAMECALL                         R1 R1 K4 ["GetUserId"]
+       13 CALL                             R1 1 -1
+       14 RETURN                           R1 -1
 
 PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["_studioService"]
@@ -128,42 +138,48 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K8 ["Framework"]
+       18 GETTABLEKS                       R3 R0 K5 ["Bin"]
+       20 GETTABLEKS                       R3 R3 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
        22 CALL                             R2 1 1
-       23 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
-       25 GETTABLEKS                       R3 R3 K10 ["ContextItem"]
-       27 LOADK                            R6 K11 ["PluginManagementApi"]
-       28 NAMECALL                         R4 R3 K12 ["extend"]
-       30 CALL                             R4 2 1
-       31 DUPCLOSURE                       R5 K13 [PROTO_0]
-       32 CAPTURE                          VAL R1
-       33 CAPTURE                          VAL R4
-       34 SETTABLEKS                       R5 R4 K14 ["new"]
-       36 DUPCLOSURE                       R5 K15 [PROTO_1]
-       37 SETTABLEKS                       R5 R4 K16 ["GetInstalledPluginData"]
-       39 DUPCLOSURE                       R5 K17 [PROTO_2]
-       40 SETTABLEKS                       R5 R4 K18 ["GetPropertyChangedSignal"]
-       42 DUPCLOSURE                       R5 K19 [PROTO_3]
-       43 SETTABLEKS                       R5 R4 K20 ["GetUserId"]
-       45 DUPCLOSURE                       R5 K21 [PROTO_4]
-       46 SETTABLEKS                       R5 R4 K22 ["TryInstallPlugin"]
-       48 DUPCLOSURE                       R5 K23 [PROTO_5]
-       49 SETTABLEKS                       R5 R4 K24 ["UninstallPlugin"]
-       51 DUPCLOSURE                       R5 K25 [PROTO_6]
-       52 SETTABLEKS                       R5 R4 K26 ["IsPluginUpToDate"]
-       54 DUPCLOSURE                       R5 K27 [PROTO_7]
-       55 SETTABLEKS                       R5 R4 K28 ["SetPluginEnabled"]
-       57 DUPCLOSURE                       R5 K29 [PROTO_8]
-       58 SETTABLEKS                       R5 R4 K30 ["SetAutoUpdate"]
-       60 DUPCLOSURE                       R5 K31 [PROTO_9]
-       61 SETTABLEKS                       R5 R4 K32 ["OpenInBrowser_DONOTUSE"]
-       63 DUPCLOSURE                       R5 K33 [PROTO_10]
-       64 SETTABLEKS                       R5 R4 K34 ["GetPermissions"]
-       66 DUPCLOSURE                       R5 K35 [PROTO_11]
-       67 SETTABLEKS                       R5 R4 K36 ["SetPermissions"]
-       69 DUPCLOSURE                       R5 K37 [PROTO_12]
-       70 SETTABLEKS                       R5 R4 K38 ["GetProductInfoAsync"]
-       72 DUPCLOSURE                       R5 K39 [PROTO_13]
-       73 SETTABLEKS                       R5 R4 K40 ["GetPluginPolicy"]
-       75 RETURN                           R4 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       27 GETTABLEKS                       R4 R4 K9 ["Framework"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
+       32 GETTABLEKS                       R4 R4 K11 ["ContextItem"]
+       34 LOADK                            R7 K12 ["PluginManagementApi"]
+       35 NAMECALL                         R5 R4 K13 ["extend"]
+       37 CALL                             R5 2 1
+       38 DUPCLOSURE                       R6 K14 [PROTO_0]
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R5
+       42 SETTABLEKS                       R6 R5 K15 ["new"]
+       44 DUPCLOSURE                       R6 K16 [PROTO_1]
+       45 SETTABLEKS                       R6 R5 K17 ["GetInstalledPluginData"]
+       47 DUPCLOSURE                       R6 K18 [PROTO_2]
+       48 SETTABLEKS                       R6 R5 K19 ["GetPropertyChangedSignal"]
+       50 DUPCLOSURE                       R6 K20 [PROTO_3]
+       51 CAPTURE                          VAL R2
+       52 SETTABLEKS                       R6 R5 K21 ["GetUserId"]
+       54 DUPCLOSURE                       R6 K22 [PROTO_4]
+       55 SETTABLEKS                       R6 R5 K23 ["TryInstallPlugin"]
+       57 DUPCLOSURE                       R6 K24 [PROTO_5]
+       58 SETTABLEKS                       R6 R5 K25 ["UninstallPlugin"]
+       60 DUPCLOSURE                       R6 K26 [PROTO_6]
+       61 SETTABLEKS                       R6 R5 K27 ["IsPluginUpToDate"]
+       63 DUPCLOSURE                       R6 K28 [PROTO_7]
+       64 SETTABLEKS                       R6 R5 K29 ["SetPluginEnabled"]
+       66 DUPCLOSURE                       R6 K30 [PROTO_8]
+       67 SETTABLEKS                       R6 R5 K31 ["SetAutoUpdate"]
+       69 DUPCLOSURE                       R6 K32 [PROTO_9]
+       70 SETTABLEKS                       R6 R5 K33 ["OpenInBrowser_DONOTUSE"]
+       72 DUPCLOSURE                       R6 K34 [PROTO_10]
+       73 SETTABLEKS                       R6 R5 K35 ["GetPermissions"]
+       75 DUPCLOSURE                       R6 K36 [PROTO_11]
+       76 SETTABLEKS                       R6 R5 K37 ["SetPermissions"]
+       78 DUPCLOSURE                       R6 K38 [PROTO_12]
+       79 SETTABLEKS                       R6 R5 K39 ["GetProductInfoAsync"]
+       81 DUPCLOSURE                       R6 K40 [PROTO_13]
+       82 SETTABLEKS                       R6 R5 K41 ["GetPluginPolicy"]
+       84 RETURN                           R5 1

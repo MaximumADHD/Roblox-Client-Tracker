@@ -132,11 +132,11 @@ PROTO_3:
       134 RETURN                           R3 1
 
 PROTO_4:
-        0 DUPTABLE                         R1 K2 [{"uuid", "actions"}]
-        1 GETTABLEKS                       R2 R0 K3 ["UniqueId"]
-        3 SETTABLEKS                       R2 R1 K0 ["uuid"]
-        5 NEWTABLE                         R2 0 0
-        7 SETTABLEKS                       R2 R1 K1 ["actions"]
+        0 DUPTABLE                         R1 K2 [{"actions", "uuid"}]
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K0 ["actions"]
+        5 GETTABLEKS                       R2 R0 K3 ["UniqueId"]
+        7 SETTABLEKS                       R2 R1 K1 ["uuid"]
         9 GETUPVAL                         R2 0
        10 LOADNIL                          R3
        11 LOADNIL                          R4
@@ -151,11 +151,11 @@ PROTO_4:
        22 RETURN                           R1 1
 
 PROTO_5:
-        0 DUPTABLE                         R1 K2 [{"uuid", "bindings"}]
-        1 GETTABLEKS                       R2 R0 K3 ["UniqueId"]
-        3 SETTABLEKS                       R2 R1 K0 ["uuid"]
-        5 NEWTABLE                         R2 0 0
-        7 SETTABLEKS                       R2 R1 K1 ["bindings"]
+        0 DUPTABLE                         R1 K2 [{"bindings", "uuid"}]
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K0 ["bindings"]
+        5 GETTABLEKS                       R2 R0 K3 ["UniqueId"]
+        7 SETTABLEKS                       R2 R1 K1 ["uuid"]
         9 GETUPVAL                         R2 0
        10 LOADNIL                          R3
        11 LOADNIL                          R4
@@ -389,42 +389,6 @@ PROTO_12:
        11 FORGLOOP                         R2 2 ; [-8]
        13 RETURN                           R0 0
 
-PROTO_13:
-        0 GETIMPORT                        R0 K2 [Instance.new]
-        2 LOADK                            R1 K3 ["InputContext"]
-        3 CALL                             R0 1 1
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R1 R1 K4 ["serializeContext"]
-        7 MOVE                             R2 R0
-        8 CALL                             R1 1 1
-        9 NAMECALL                         R2 R0 K5 ["Destroy"]
-       11 CALL                             R2 1 0
-       12 RETURN                           R1 1
-
-PROTO_14:
-        0 GETIMPORT                        R0 K2 [Instance.new]
-        2 LOADK                            R1 K3 ["InputAction"]
-        3 CALL                             R0 1 1
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R1 R1 K4 ["serializeAction"]
-        7 MOVE                             R2 R0
-        8 CALL                             R1 1 1
-        9 NAMECALL                         R2 R0 K5 ["Destroy"]
-       11 CALL                             R2 1 0
-       12 RETURN                           R1 1
-
-PROTO_15:
-        0 GETIMPORT                        R0 K2 [Instance.new]
-        2 LOADK                            R1 K3 ["InputBinding"]
-        3 CALL                             R0 1 1
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R1 R1 K4 ["serializeBinding"]
-        7 MOVE                             R2 R0
-        8 CALL                             R1 1 1
-        9 NAMECALL                         R2 R0 K5 ["Destroy"]
-       11 CALL                             R2 1 0
-       12 RETURN                           R1 1
-
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -435,7 +399,7 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 NEWTABLE                         R2 32 0
+       14 NEWTABLE                         R2 16 0
        16 NEWTABLE                         R3 0 4
        18 LOADK                            R4 K8 ["Name"]
        19 LOADK                            R5 K9 ["Enabled"]
@@ -504,16 +468,7 @@ MAIN:
        99 CAPTURE                          VAL R5
       100 CAPTURE                          VAL R2
       101 SETTABLEKS                       R7 R2 K53 ["deserializeBinding"]
-      103 DUPCLOSURE                       R7 K54 [PROTO_13]
-      104 CAPTURE                          VAL R2
-      105 SETTABLEKS                       R7 R2 K55 ["createDefaultContext"]
-      107 DUPCLOSURE                       R7 K56 [PROTO_14]
-      108 CAPTURE                          VAL R2
-      109 SETTABLEKS                       R7 R2 K57 ["createDefaultAction"]
-      111 DUPCLOSURE                       R7 K58 [PROTO_15]
-      112 CAPTURE                          VAL R2
-      113 SETTABLEKS                       R7 R2 K59 ["createDefaultBinding"]
-      115 SETTABLEKS                       R3 R2 K60 ["CONTEXT_PROPERTIES"]
-      117 SETTABLEKS                       R4 R2 K61 ["ACTION_PROPERTIES"]
-      119 SETTABLEKS                       R5 R2 K62 ["BINDING_PROPERTIES"]
-      121 RETURN                           R2 1
+      103 SETTABLEKS                       R3 R2 K54 ["CONTEXT_PROPERTIES"]
+      105 SETTABLEKS                       R4 R2 K55 ["ACTION_PROPERTIES"]
+      107 SETTABLEKS                       R5 R2 K56 ["BINDING_PROPERTIES"]
+      109 RETURN                           R2 1

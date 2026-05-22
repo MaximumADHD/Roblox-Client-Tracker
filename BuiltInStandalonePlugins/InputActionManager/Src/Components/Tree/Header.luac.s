@@ -183,19 +183,15 @@ MAIN:
        48 GETTABLEKS                       R11 R11 K18 ["Util"]
        50 GETTABLEKS                       R11 R11 K19 ["getSchemas"]
        52 CALL                             R10 1 1
-       53 GETIMPORT                        R11 K5 [require]
-       55 GETTABLEKS                       R12 R0 K17 ["Src"]
-       57 GETTABLEKS                       R12 R12 K20 ["Types"]
-       59 CALL                             R11 1 1
-       60 DUPCLOSURE                       R12 K21 [PROTO_2]
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R1
-       63 CAPTURE                          VAL R10
-       64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R8
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R3
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R9
-       71 RETURN                           R12 1
+       53 DUPCLOSURE                       R11 K20 [PROTO_2]
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R10
+       57 CAPTURE                          VAL R7
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R8
+       60 CAPTURE                          VAL R6
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R9
+       64 RETURN                           R11 1

@@ -622,61 +622,61 @@ MAIN:
         3 LOADK                            R2 K2 ["Assistant"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["AssistantUI"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["ModelContextProtocol"]
-       20 CALL                             R2 1 1
-       21 GETTABLEKS                       R3 R2 K9 ["WebSocketTransport"]
-       23 GETTABLEKS                       R3 R3 K9 ["WebSocketTransport"]
-       25 GETIMPORT                        R4 K11 [game]
-       27 LOADK                            R6 K12 ["HttpService"]
-       28 NAMECALL                         R4 R4 K13 ["GetService"]
-       30 CALL                             R4 2 1
-       31 GETTABLEKS                       R5 R2 K14 ["Server"]
-       33 GETTABLEKS                       R6 R2 K15 ["Types"]
-       35 GETIMPORT                        R7 K5 [require]
-       37 GETIMPORT                        R8 K1 [script]
-       39 GETTABLEKS                       R8 R8 K16 ["Parent"]
-       41 GETTABLEKS                       R8 R8 K17 ["EvalUtils"]
-       43 CALL                             R7 1 1
-       44 GETIMPORT                        R8 K5 [require]
-       46 GETIMPORT                        R9 K1 [script]
-       48 GETTABLEKS                       R9 R9 K16 ["Parent"]
-       50 GETTABLEKS                       R9 R9 K18 ["PlaceManager"]
-       52 CALL                             R8 1 1
-       53 GETIMPORT                        R9 K5 [require]
-       55 GETIMPORT                        R10 K1 [script]
-       57 GETTABLEKS                       R10 R10 K16 ["Parent"]
-       59 GETTABLEKS                       R10 R10 K19 ["PlaySoloManager"]
-       61 CALL                             R9 1 1
-       62 GETTABLEKS                       R10 R1 K20 ["Utils"]
-       64 GETTABLEKS                       R10 R10 K21 ["EvalController"]
-       66 GETIMPORT                        R11 K5 [require]
-       68 GETTABLEKS                       R12 R0 K6 ["Packages"]
-       70 GETTABLEKS                       R12 R12 K22 ["DMNetworking"]
-       72 CALL                             R11 1 1
-       73 GETTABLEKS                       R12 R1 K20 ["Utils"]
-       75 GETTABLEKS                       R12 R12 K23 ["DataModelType"]
-       77 GETIMPORT                        R13 K5 [require]
-       79 GETIMPORT                        R14 K1 [script]
-       81 GETTABLEKS                       R14 R14 K16 ["Parent"]
-       83 GETTABLEKS                       R14 R14 K24 ["EvalDriverVersion"]
-       85 CALL                             R13 1 1
-       86 GETTABLEKS                       R14 R1 K20 ["Utils"]
-       88 GETTABLEKS                       R14 R14 K25 ["EvalFunctionRegistry"]
-       90 GETTABLEKS                       R15 R2 K26 ["Util"]
-       92 GETTABLEKS                       R15 R15 K27 ["ToolResult"]
+        7 GETIMPORT                        R1 K5 [game]
+        9 LOADK                            R3 K6 ["HttpService"]
+       10 NAMECALL                         R1 R1 K7 ["GetService"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R3 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K11 ["AssistantUI"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K9 [require]
+       22 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R4 K12 ["DMNetworking"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K9 [require]
+       29 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R5 K13 ["ModelContextProtocol"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K9 [require]
+       36 GETIMPORT                        R6 K1 [script]
+       38 GETTABLEKS                       R6 R6 K14 ["Parent"]
+       40 GETTABLEKS                       R6 R6 K15 ["EvalDriverVersion"]
+       42 CALL                             R5 1 1
+       43 GETIMPORT                        R6 K9 [require]
+       45 GETIMPORT                        R7 K1 [script]
+       47 GETTABLEKS                       R7 R7 K14 ["Parent"]
+       49 GETTABLEKS                       R7 R7 K16 ["EvalUtils"]
+       51 CALL                             R6 1 1
+       52 GETIMPORT                        R7 K9 [require]
+       54 GETIMPORT                        R8 K1 [script]
+       56 GETTABLEKS                       R8 R8 K14 ["Parent"]
+       58 GETTABLEKS                       R8 R8 K17 ["PlaceManager"]
+       60 CALL                             R7 1 1
+       61 GETIMPORT                        R8 K9 [require]
+       63 GETIMPORT                        R9 K1 [script]
+       65 GETTABLEKS                       R9 R9 K14 ["Parent"]
+       67 GETTABLEKS                       R9 R9 K18 ["PlaySoloManager"]
+       69 CALL                             R8 1 1
+       70 GETTABLEKS                       R9 R2 K19 ["Utils"]
+       72 GETTABLEKS                       R9 R9 K20 ["DataModelType"]
+       74 GETTABLEKS                       R10 R2 K19 ["Utils"]
+       76 GETTABLEKS                       R10 R10 K21 ["EvalController"]
+       78 GETTABLEKS                       R11 R2 K19 ["Utils"]
+       80 GETTABLEKS                       R11 R11 K22 ["EvalFunctionRegistry"]
+       82 GETTABLEKS                       R12 R4 K23 ["Types"]
+       84 GETTABLEKS                       R13 R4 K24 ["Server"]
+       86 GETTABLEKS                       R14 R4 K25 ["Util"]
+       88 GETTABLEKS                       R14 R14 K26 ["ToolResult"]
+       90 GETTABLEKS                       R15 R4 K27 ["WebSocketTransport"]
+       92 GETTABLEKS                       R15 R15 K27 ["WebSocketTransport"]
        94 LOADNIL                          R16
        95 LOADNIL                          R17
        96 LOADNIL                          R18
        97 LOADNIL                          R19
        98 LOADNIL                          R20
        99 LOADB                            R23 0
-      100 NAMECALL                         R21 R4 K28 ["GenerateGUID"]
+      100 NAMECALL                         R21 R1 K28 ["GenerateGUID"]
       102 CALL                             R21 2 1
       103 GETIMPORT                        R22 K30 [print]
       105 LOADK                            R24 K31 ["[StudioEvalDriver]::EvalDriverIdentity=%*"]
@@ -687,14 +687,14 @@ MAIN:
       111 CALL                             R22 1 0
       112 DUPCLOSURE                       R22 K33 [PROTO_0]
       113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R14
+      114 CAPTURE                          VAL R11
       115 DUPCLOSURE                       R23 K34 [PROTO_1]
       116 CAPTURE                          VAL R10
       117 NEWCLOSURE                       R24 P2
-      118 CAPTURE                          VAL R12
-      119 CAPTURE                          VAL R14
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R11
       120 CAPTURE                          REF R16
-      121 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R1
       122 DUPCLOSURE                       R25 K35 [PROTO_3]
       123 CAPTURE                          VAL R21
       124 DUPTABLE                         R26 K38 [{"invokeEventBridge", "identifyStudio"}]
@@ -702,29 +702,29 @@ MAIN:
       127 SETTABLEKS                       R25 R26 K37 ["identifyStudio"]
       129 DUPCLOSURE                       R27 K39 [PROTO_4]
       130 CAPTURE                          VAL R26
-      131 CAPTURE                          VAL R15
+      131 CAPTURE                          VAL R14
       132 NEWCLOSURE                       R28 P5
       133 CAPTURE                          REF R17
       134 CAPTURE                          REF R18
       135 CAPTURE                          REF R19
       136 NEWCLOSURE                       R29 P6
-      137 CAPTURE                          VAL R6
+      137 CAPTURE                          VAL R12
       138 CAPTURE                          REF R17
       139 CAPTURE                          REF R18
       140 CAPTURE                          REF R19
-      141 CAPTURE                          VAL R3
+      141 CAPTURE                          VAL R15
       142 CAPTURE                          REF R20
-      143 CAPTURE                          VAL R5
+      143 CAPTURE                          VAL R13
       144 CAPTURE                          VAL R26
-      145 CAPTURE                          VAL R15
+      145 CAPTURE                          VAL R14
       146 CAPTURE                          VAL R27
       147 NEWTABLE                         R30 0 0
       149 NEWCLOSURE                       R31 P7
-      150 CAPTURE                          VAL R14
-      151 CAPTURE                          VAL R13
-      152 CAPTURE                          VAL R7
-      153 CAPTURE                          VAL R9
-      154 CAPTURE                          VAL R8
+      150 CAPTURE                          VAL R11
+      151 CAPTURE                          VAL R5
+      152 CAPTURE                          VAL R6
+      153 CAPTURE                          VAL R8
+      154 CAPTURE                          VAL R7
       155 CAPTURE                          VAL R10
       156 CAPTURE                          VAL R22
       157 CAPTURE                          VAL R23
@@ -736,9 +736,9 @@ MAIN:
       163 CAPTURE                          REF R30
       164 NEWCLOSURE                       R33 P9
       165 CAPTURE                          REF R16
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R8
-      168 CAPTURE                          VAL R9
+      166 CAPTURE                          VAL R6
+      167 CAPTURE                          VAL R7
+      168 CAPTURE                          VAL R8
       169 CAPTURE                          VAL R31
       170 CAPTURE                          VAL R29
       171 CAPTURE                          VAL R32

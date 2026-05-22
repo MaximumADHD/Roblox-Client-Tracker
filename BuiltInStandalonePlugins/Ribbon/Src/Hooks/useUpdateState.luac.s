@@ -50,33 +50,28 @@ PROTO_4:
        18 RETURN                           R2 1
 
 PROTO_5:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 -1
-        2 FASTCALL                         ASSERT ; [+2]
-        3 GETIMPORT                        R1 K1 [assert]
-        5 CALL                             R1 -1 0
-        6 GETUPVAL                         R1 1
-        7 GETTABLEKS                       R1 R1 K2 ["useState"]
-        9 GETIMPORT                        R2 K6 [Enum.UpdateState.UpdateNotAvailable]
-       11 CALL                             R1 1 2
-       12 GETUPVAL                         R3 1
-       13 GETTABLEKS                       R3 R3 K7 ["useMemo"]
-       15 NEWCLOSURE                       R4 P0
-       16 CAPTURE                          VAL R0
-       17 NEWTABLE                         R5 0 1
-       19 MOVE                             R6 R0
-       20 SETLIST                          R5 R6 1 [1]
-       22 CALL                             R3 2 1
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R4 R4 K8 ["useEffect"]
-       26 NEWCLOSURE                       R5 P1
-       27 CAPTURE                          VAL R2
-       28 CAPTURE                          VAL R3
-       29 NEWTABLE                         R6 0 1
-       31 MOVE                             R7 R3
-       32 SETLIST                          R6 R7 1 [1]
-       34 CALL                             R4 2 0
-       35 RETURN                           R1 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
+        3 GETIMPORT                        R2 K4 [Enum.UpdateState.UpdateNotAvailable]
+        5 CALL                             R1 1 2
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K5 ["useMemo"]
+        9 NEWCLOSURE                       R4 P0
+       10 CAPTURE                          VAL R0
+       11 NEWTABLE                         R5 0 1
+       13 MOVE                             R6 R0
+       14 SETLIST                          R5 R6 1 [1]
+       16 CALL                             R3 2 1
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K6 ["useEffect"]
+       20 NEWCLOSURE                       R5 P1
+       21 CAPTURE                          VAL R2
+       22 CAPTURE                          VAL R3
+       23 NEWTABLE                         R6 0 1
+       25 MOVE                             R7 R3
+       26 SETLIST                          R6 R7 1 [1]
+       28 CALL                             R4 2 0
+       29 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -88,12 +83,6 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["SharedFlags"]
-       20 GETTABLEKS                       R3 R3 K10 ["getFeatureStudioBackgroundUpdates"]
-       22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K11 [PROTO_5]
-       24 CAPTURE                          VAL R2
-       25 CAPTURE                          VAL R1
-       26 RETURN                           R3 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_5]
+       15 CAPTURE                          VAL R1
+       16 RETURN                           R2 1

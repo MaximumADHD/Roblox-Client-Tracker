@@ -119,70 +119,67 @@ PROTO_2:
        65 CALL                             R5 -1 -1
        66 NAMECALL                         R3 R3 K5 ["dispatch"]
        68 CALL                             R3 -1 0
-       69 GETUPVAL                         R3 6
-       70 CALL                             R3 0 1
-       71 JUMPIFNOT                        R3 ; [+36]
-       72 GETTABLEKS                       R3 R0 K3 ["controls"]
-       74 GETTABLEKS                       R3 R3 K16 ["Groups"]
-       76 JUMPIFNOTEQKS                    R3 K9 ["Loading"] ; [+10]
-       78 GETUPVAL                         R4 0
-       79 GETUPVAL                         R6 4
-       80 GETTABLEKS                       R6 R6 K17 ["LoadingLocalUserGroups"]
-       82 CALL                             R6 0 -1
-       83 NAMECALL                         R4 R4 K5 ["dispatch"]
-       85 CALL                             R4 -1 0
-       86 LOADN                            R3 0
-       87 GETUPVAL                         R4 0
-       88 GETUPVAL                         R6 4
-       89 GETTABLEKS                       R6 R6 K18 ["LoadedLocalUserGroups"]
-       91 LOADB                            R7 1
-       92 GETUPVAL                         R8 3
-       93 GETTABLEKS                       R8 R8 K12 ["createMockCollaboratorsList"]
-       95 MOVE                             R9 R3
-       96 MOVE                             R10 R1
-       97 DUPTABLE                         R11 K14 [{"TypeKey"}]
-       98 GETUPVAL                         R12 5
-       99 GETTABLEKS                       R12 R12 K19 ["GroupSubjectKey"]
-      101 SETTABLEKS                       R12 R11 K13 ["TypeKey"]
-      103 CALL                             R8 3 -1
-      104 CALL                             R6 -1 -1
-      105 NAMECALL                         R4 R4 K5 ["dispatch"]
-      107 CALL                             R4 -1 0
-      108 GETUPVAL                         R3 0
-      109 GETUPVAL                         R5 7
-      110 GETUPVAL                         R6 3
-      111 GETTABLEKS                       R6 R6 K20 ["createMockAssetConfig"]
-      113 GETTABLEKS                       R7 R0 K3 ["controls"]
-      115 GETTABLEKS                       R7 R7 K21 ["OwnerType"]
-      117 GETTABLEKS                       R8 R0 K3 ["controls"]
-      119 GETTABLEKS                       R8 R8 K22 ["OwnerId"]
-      121 CALL                             R6 2 -1
-      122 CALL                             R5 -1 -1
-      123 NAMECALL                         R3 R3 K5 ["dispatch"]
-      125 CALL                             R3 -1 0
-      126 GETUPVAL                         R3 8
-      127 GETTABLEKS                       R3 R3 K23 ["createElement"]
-      129 GETUPVAL                         R4 9
-      130 DUPTABLE                         R5 K25 [{"store"}]
-      131 GETUPVAL                         R6 0
-      132 SETTABLEKS                       R6 R5 K24 ["store"]
-      134 GETUPVAL                         R6 8
-      135 GETTABLEKS                       R6 R6 K23 ["createElement"]
-      137 GETUPVAL                         R7 10
-      138 NEWTABLE                         R8 0 0
-      140 NEWTABLE                         R9 0 1
-      142 GETUPVAL                         R10 8
-      143 GETTABLEKS                       R10 R10 K23 ["createElement"]
-      145 NEWCLOSURE                       R11 P0
+       69 GETTABLEKS                       R3 R0 K3 ["controls"]
+       71 GETTABLEKS                       R3 R3 K16 ["Groups"]
+       73 JUMPIFNOTEQKS                    R3 K9 ["Loading"] ; [+10]
+       75 GETUPVAL                         R4 0
+       76 GETUPVAL                         R6 4
+       77 GETTABLEKS                       R6 R6 K17 ["LoadingLocalUserGroups"]
+       79 CALL                             R6 0 -1
+       80 NAMECALL                         R4 R4 K5 ["dispatch"]
+       82 CALL                             R4 -1 0
+       83 LOADN                            R3 0
+       84 GETUPVAL                         R4 0
+       85 GETUPVAL                         R6 4
+       86 GETTABLEKS                       R6 R6 K18 ["LoadedLocalUserGroups"]
+       88 LOADB                            R7 1
+       89 GETUPVAL                         R8 3
+       90 GETTABLEKS                       R8 R8 K12 ["createMockCollaboratorsList"]
+       92 MOVE                             R9 R3
+       93 MOVE                             R10 R1
+       94 DUPTABLE                         R11 K14 [{"TypeKey"}]
+       95 GETUPVAL                         R12 5
+       96 GETTABLEKS                       R12 R12 K19 ["GroupSubjectKey"]
+       98 SETTABLEKS                       R12 R11 K13 ["TypeKey"]
+      100 CALL                             R8 3 -1
+      101 CALL                             R6 -1 -1
+      102 NAMECALL                         R4 R4 K5 ["dispatch"]
+      104 CALL                             R4 -1 0
+      105 GETUPVAL                         R4 0
+      106 GETUPVAL                         R6 6
+      107 GETUPVAL                         R7 3
+      108 GETTABLEKS                       R7 R7 K20 ["createMockAssetConfig"]
+      110 GETTABLEKS                       R8 R0 K3 ["controls"]
+      112 GETTABLEKS                       R8 R8 K21 ["OwnerType"]
+      114 GETTABLEKS                       R9 R0 K3 ["controls"]
+      116 GETTABLEKS                       R9 R9 K22 ["OwnerId"]
+      118 CALL                             R7 2 -1
+      119 CALL                             R6 -1 -1
+      120 NAMECALL                         R4 R4 K5 ["dispatch"]
+      122 CALL                             R4 -1 0
+      123 GETUPVAL                         R4 7
+      124 GETTABLEKS                       R4 R4 K23 ["createElement"]
+      126 GETUPVAL                         R5 8
+      127 DUPTABLE                         R6 K25 [{"store"}]
+      128 GETUPVAL                         R7 0
+      129 SETTABLEKS                       R7 R6 K24 ["store"]
+      131 GETUPVAL                         R7 7
+      132 GETTABLEKS                       R7 R7 K23 ["createElement"]
+      134 GETUPVAL                         R8 9
+      135 NEWTABLE                         R9 0 0
+      137 NEWTABLE                         R10 0 1
+      139 GETUPVAL                         R11 7
+      140 GETTABLEKS                       R11 R11 K23 ["createElement"]
+      142 NEWCLOSURE                       R12 P0
+      143 CAPTURE                          UPVAL U10
+      144 CAPTURE                          UPVAL U7
+      145 CAPTURE                          VAL R0
       146 CAPTURE                          UPVAL U11
-      147 CAPTURE                          UPVAL U8
-      148 CAPTURE                          VAL R0
-      149 CAPTURE                          UPVAL U12
-      150 CALL                             R10 1 -1
-      151 SETLIST                          R9 R10 -1 [1]
-      153 CALL                             R6 3 -1
-      154 CALL                             R3 -1 -1
-      155 RETURN                           R3 -1
+      147 CALL                             R11 1 -1
+      148 SETLIST                          R10 R11 -1 [1]
+      150 CALL                             R7 3 -1
+      151 CALL                             R4 -1 -1
+      152 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -243,78 +240,67 @@ MAIN:
        94 GETIMPORT                        R19 K6 [require]
        96 GETTABLEKS                       R20 R15 K28 ["UpdateAssetConfigData"]
        98 CALL                             R19 1 1
-       99 GETIMPORT                        R20 K6 [require]
-      101 GETTABLEKS                       R21 R0 K12 ["Src"]
-      103 GETTABLEKS                       R21 R21 K29 ["Flags"]
-      105 GETTABLEKS                       R21 R21 K30 ["getFFlagAACAddGroups"]
-      107 CALL                             R20 1 1
-      108 DUPCLOSURE                       R21 K31 [PROTO_0]
-      109 CAPTURE                          VAL R13
-      110 CAPTURE                          VAL R3
-      111 CAPTURE                          VAL R6
-      112 CAPTURE                          VAL R5
-      113 MOVE                             R22 R21
-      114 CALL                             R22 0 1
-      115 DUPTABLE                         R23 K35 [{"summary", "controls", "story"}]
-      116 LOADK                            R24 K36 ["This component displays the owner of an asset and manages the collaborators with access.\nNote that collaborators in this list are randomly generated, but show real user/group thumbnails."]
-      117 SETTABLEKS                       R24 R23 K32 ["summary"]
-      119 DUPTABLE                         R24 K44 [{"OwnerType", "OwnerId", "UserPermission", "CollaboratorCount", "Friends", "Groups", "Height"}]
-      120 GETIMPORT                        R25 K47 [Enum.CreatorType]
-      122 NAMECALL                         R25 R25 K48 ["GetEnumItems"]
-      124 CALL                             R25 1 1
-      125 SETTABLEKS                       R25 R24 K37 ["OwnerType"]
-      127 LOADK                            R25 K49 [13129171]
-      128 SETTABLEKS                       R25 R24 K38 ["OwnerId"]
-      130 NEWTABLE                         R25 0 3
-      132 GETTABLEKS                       R26 R12 K50 ["OwnKey"]
-      134 GETTABLEKS                       R27 R12 K51 ["EditKey"]
-      136 GETTABLEKS                       R28 R12 K52 ["UseViewKey"]
-      138 SETLIST                          R25 R26 3 [1]
-      140 SETTABLEKS                       R25 R24 K39 ["UserPermission"]
-      142 NEWTABLE                         R25 0 6
-      144 LOADN                            R26 8
-      145 LOADN                            R27 0
-      146 LOADN                            R28 5
-      147 LOADN                            R29 12
-      148 LOADN                            R30 20
-      149 LOADN                            R31 100
-      150 SETLIST                          R25 R26 6 [1]
-      152 SETTABLEKS                       R25 R24 K40 ["CollaboratorCount"]
-      154 NEWTABLE                         R25 0 4
-      156 LOADN                            R26 5
-      157 LOADN                            R27 0
-      158 LOADN                            R28 15
-      159 LOADK                            R29 K53 ["Loading"]
-      160 SETLIST                          R25 R26 4 [1]
-      162 SETTABLEKS                       R25 R24 K41 ["Friends"]
-      164 MOVE                             R26 R20
-      165 CALL                             R26 0 1
-      166 JUMPIFNOT                        R26 ; [+9]
-      167 NEWTABLE                         R25 0 4
-      169 LOADN                            R26 5
-      170 LOADN                            R27 0
-      171 LOADN                            R28 15
-      172 LOADK                            R29 K53 ["Loading"]
-      173 SETLIST                          R25 R26 4 [1]
-      175 JUMP                             ; [+1]
-      176 LOADNIL                          R25
-      177 SETTABLEKS                       R25 R24 K42 ["Groups"]
-      179 LOADN                            R25 244
-      180 SETTABLEKS                       R25 R24 K43 ["Height"]
-      182 SETTABLEKS                       R24 R23 K33 ["controls"]
-      184 DUPCLOSURE                       R24 K54 [PROTO_2]
-      185 CAPTURE                          VAL R22
-      186 CAPTURE                          VAL R16
-      187 CAPTURE                          VAL R17
-      188 CAPTURE                          VAL R13
-      189 CAPTURE                          VAL R18
-      190 CAPTURE                          VAL R12
-      191 CAPTURE                          VAL R20
-      192 CAPTURE                          VAL R19
-      193 CAPTURE                          VAL R2
-      194 CAPTURE                          VAL R9
-      195 CAPTURE                          VAL R14
-      196 CAPTURE                          VAL R8
-      197 CAPTURE                          VAL R11
-      198 SETTABLEKS                       R24 R23 K34 ["story"]
-      200 RETURN                           R23 1
+       99 DUPCLOSURE                       R20 K29 [PROTO_0]
+      100 CAPTURE                          VAL R13
+      101 CAPTURE                          VAL R3
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          VAL R5
+      104 MOVE                             R21 R20
+      105 CALL                             R21 0 1
+      106 DUPTABLE                         R22 K33 [{"summary", "controls", "story"}]
+      107 LOADK                            R23 K34 ["This component displays the owner of an asset and manages the collaborators with access.\nNote that collaborators in this list are randomly generated, but show real user/group thumbnails."]
+      108 SETTABLEKS                       R23 R22 K30 ["summary"]
+      110 DUPTABLE                         R23 K42 [{"OwnerType", "OwnerId", "UserPermission", "CollaboratorCount", "Friends", "Groups", "Height"}]
+      111 GETIMPORT                        R24 K45 [Enum.CreatorType]
+      113 NAMECALL                         R24 R24 K46 ["GetEnumItems"]
+      115 CALL                             R24 1 1
+      116 SETTABLEKS                       R24 R23 K35 ["OwnerType"]
+      118 LOADK                            R24 K47 [13129171]
+      119 SETTABLEKS                       R24 R23 K36 ["OwnerId"]
+      121 NEWTABLE                         R24 0 3
+      123 GETTABLEKS                       R25 R12 K48 ["OwnKey"]
+      125 GETTABLEKS                       R26 R12 K49 ["EditKey"]
+      127 GETTABLEKS                       R27 R12 K50 ["UseViewKey"]
+      129 SETLIST                          R24 R25 3 [1]
+      131 SETTABLEKS                       R24 R23 K37 ["UserPermission"]
+      133 NEWTABLE                         R24 0 6
+      135 LOADN                            R25 8
+      136 LOADN                            R26 0
+      137 LOADN                            R27 5
+      138 LOADN                            R28 12
+      139 LOADN                            R29 20
+      140 LOADN                            R30 100
+      141 SETLIST                          R24 R25 6 [1]
+      143 SETTABLEKS                       R24 R23 K38 ["CollaboratorCount"]
+      145 NEWTABLE                         R24 0 4
+      147 LOADN                            R25 5
+      148 LOADN                            R26 0
+      149 LOADN                            R27 15
+      150 LOADK                            R28 K51 ["Loading"]
+      151 SETLIST                          R24 R25 4 [1]
+      153 SETTABLEKS                       R24 R23 K39 ["Friends"]
+      155 NEWTABLE                         R24 0 4
+      157 LOADN                            R25 5
+      158 LOADN                            R26 0
+      159 LOADN                            R27 15
+      160 LOADK                            R28 K51 ["Loading"]
+      161 SETLIST                          R24 R25 4 [1]
+      163 SETTABLEKS                       R24 R23 K40 ["Groups"]
+      165 LOADN                            R24 244
+      166 SETTABLEKS                       R24 R23 K41 ["Height"]
+      168 SETTABLEKS                       R23 R22 K31 ["controls"]
+      170 DUPCLOSURE                       R23 K52 [PROTO_2]
+      171 CAPTURE                          VAL R21
+      172 CAPTURE                          VAL R16
+      173 CAPTURE                          VAL R17
+      174 CAPTURE                          VAL R13
+      175 CAPTURE                          VAL R18
+      176 CAPTURE                          VAL R12
+      177 CAPTURE                          VAL R19
+      178 CAPTURE                          VAL R2
+      179 CAPTURE                          VAL R9
+      180 CAPTURE                          VAL R14
+      181 CAPTURE                          VAL R8
+      182 CAPTURE                          VAL R11
+      183 SETTABLEKS                       R23 R22 K32 ["story"]
+      185 RETURN                           R22 1

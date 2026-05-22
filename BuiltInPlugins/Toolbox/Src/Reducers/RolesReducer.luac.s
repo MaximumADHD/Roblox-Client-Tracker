@@ -61,45 +61,30 @@ MAIN:
        35 GETIMPORT                        R7 K5 [require]
        37 GETTABLEKS                       R8 R4 K12 ["BundlesMetadataReceived"]
        39 CALL                             R7 1 1
-       40 GETIMPORT                        R8 K5 [require]
-       42 GETTABLEKS                       R9 R0 K8 ["Src"]
-       44 GETTABLEKS                       R9 R9 K13 ["Flags"]
-       46 GETTABLEKS                       R9 R9 K14 ["getFFlagEnableUploadingGroupBundles"]
-       48 CALL                             R8 1 1
-       49 GETTABLEKS                       R9 R3 K15 ["createReducer"]
-       51 DUPTABLE                         R10 K21 [{"allowedAssetTypesForRelease", "allowedAssetTypesForUpload", "allowedAssetTypesForFree", "allowedBundleTypeSettings", "groupBundlesUploadEnabledForUser"}]
-       52 NEWTABLE                         R11 0 0
-       54 SETTABLEKS                       R11 R10 K16 ["allowedAssetTypesForRelease"]
-       56 NEWTABLE                         R11 0 0
-       58 SETTABLEKS                       R11 R10 K17 ["allowedAssetTypesForUpload"]
-       60 NEWTABLE                         R11 0 0
-       62 SETTABLEKS                       R11 R10 K18 ["allowedAssetTypesForFree"]
-       64 NEWTABLE                         R11 0 0
-       66 SETTABLEKS                       R11 R10 K19 ["allowedBundleTypeSettings"]
-       68 MOVE                             R12 R8
-       69 CALL                             R12 0 1
-       70 JUMPIFNOT                        R12 ; [+2]
-       71 LOADB                            R11 0
-       72 JUMP                             ; [+1]
-       73 LOADNIL                          R11
-       74 SETTABLEKS                       R11 R10 K20 ["groupBundlesUploadEnabledForUser"]
-       76 NEWTABLE                         R11 4 0
-       78 GETTABLEKS                       R12 R5 K22 ["name"]
-       80 DUPCLOSURE                       R13 K23 [PROTO_0]
-       81 CAPTURE                          VAL R2
-       82 SETTABLE                         R13 R11 R12
-       83 GETTABLEKS                       R12 R6 K22 ["name"]
-       85 DUPCLOSURE                       R13 K24 [PROTO_1]
-       86 CAPTURE                          VAL R2
-       87 SETTABLE                         R13 R11 R12
-       88 GETTABLEKS                       R12 R7 K22 ["name"]
-       90 MOVE                             R14 R8
-       91 CALL                             R14 0 1
-       92 JUMPIFNOT                        R14 ; [+3]
-       93 DUPCLOSURE                       R13 K25 [PROTO_2]
-       94 CAPTURE                          VAL R2
-       95 JUMP                             ; [+1]
-       96 LOADNIL                          R13
-       97 SETTABLE                         R13 R11 R12
-       98 CALL                             R9 2 -1
-       99 RETURN                           R9 -1
+       40 GETTABLEKS                       R8 R3 K13 ["createReducer"]
+       42 DUPTABLE                         R9 K19 [{"allowedAssetTypesForRelease", "allowedAssetTypesForUpload", "allowedAssetTypesForFree", "allowedBundleTypeSettings", "groupBundlesUploadEnabledForUser"}]
+       43 NEWTABLE                         R10 0 0
+       45 SETTABLEKS                       R10 R9 K14 ["allowedAssetTypesForRelease"]
+       47 NEWTABLE                         R10 0 0
+       49 SETTABLEKS                       R10 R9 K15 ["allowedAssetTypesForUpload"]
+       51 NEWTABLE                         R10 0 0
+       53 SETTABLEKS                       R10 R9 K16 ["allowedAssetTypesForFree"]
+       55 NEWTABLE                         R10 0 0
+       57 SETTABLEKS                       R10 R9 K17 ["allowedBundleTypeSettings"]
+       59 LOADB                            R10 0
+       60 SETTABLEKS                       R10 R9 K18 ["groupBundlesUploadEnabledForUser"]
+       62 NEWTABLE                         R10 4 0
+       64 GETTABLEKS                       R11 R5 K20 ["name"]
+       66 DUPCLOSURE                       R12 K21 [PROTO_0]
+       67 CAPTURE                          VAL R2
+       68 SETTABLE                         R12 R10 R11
+       69 GETTABLEKS                       R11 R6 K20 ["name"]
+       71 DUPCLOSURE                       R12 K22 [PROTO_1]
+       72 CAPTURE                          VAL R2
+       73 SETTABLE                         R12 R10 R11
+       74 GETTABLEKS                       R11 R7 K20 ["name"]
+       76 DUPCLOSURE                       R12 K23 [PROTO_2]
+       77 CAPTURE                          VAL R2
+       78 SETTABLE                         R12 R10 R11
+       79 CALL                             R8 2 -1
+       80 RETURN                           R8 -1

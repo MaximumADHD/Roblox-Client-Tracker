@@ -16,21 +16,17 @@ PROTO_0:
        20 RETURN                           R0 0
 
 PROTO_1:
-        0 LENGTH                           R1 R0
-        1 JUMPIFNOTEQKN                    R1 K0 [0] ; [+3]
-        3 LOADB                            R1 1
-        4 RETURN                           R1 1
-        5 MOVE                             R1 R0
-        6 LOADNIL                          R2
-        7 LOADNIL                          R3
-        8 FORGPREP                         R1
-        9 LENGTH                           R6 R5
-       10 JUMPIFEQKN                       R6 K1 [1] ; [+3]
-       12 LOADB                            R6 0
-       13 RETURN                           R6 1
-       14 FORGLOOP                         R1 2 ; [-6]
-       16 LOADB                            R1 1
-       17 RETURN                           R1 1
+        0 MOVE                             R1 R0
+        1 LOADNIL                          R2
+        2 LOADNIL                          R3
+        3 FORGPREP                         R1
+        4 LENGTH                           R6 R5
+        5 JUMPIFEQKN                       R6 K0 [1] ; [+3]
+        7 LOADB                            R6 0
+        8 RETURN                           R6 1
+        9 FORGLOOP                         R1 2 ; [-6]
+       11 LOADB                            R1 1
+       12 RETURN                           R1 1
 
 PROTO_2:
         0 NEWTABLE                         R2 0 0
@@ -253,31 +249,27 @@ PROTO_2:
       324 JUMPIFNOTEQKN                    R4 K26 [0] ; [+3]
       326 LOADNIL                          R4
       327 RETURN                           R4 1
-      328 LENGTH                           R5 R2
-      329 JUMPIFNOTEQKN                    R5 K26 [0] ; [+3]
-      331 LOADB                            R4 1
-      332 JUMP                             ; [+12]
-      333 MOVE                             R5 R2
-      334 LOADNIL                          R6
-      335 LOADNIL                          R7
-      336 FORGPREP                         R5
-      337 LENGTH                           R10 R9
-      338 JUMPIFEQKN                       R10 K27 [1] ; [+3]
-      340 LOADB                            R4 0
-      341 JUMP                             ; [+3]
-      342 FORGLOOP                         R5 2 ; [-6]
-      344 LOADB                            R4 1
-      345 JUMPIFNOT                        R4 ; [+6]
-      346 GETIMPORT                        R4 K29 [table.concat]
-      348 MOVE                             R5 R2
-      349 LOADK                            R6 K25 [""]
-      350 CALL                             R4 2 -1
-      351 RETURN                           R4 -1
-      352 GETIMPORT                        R4 K29 [table.concat]
-      354 MOVE                             R5 R2
-      355 LOADK                            R6 K30 [" + "]
-      356 CALL                             R4 2 -1
-      357 RETURN                           R4 -1
+      328 MOVE                             R5 R2
+      329 LOADNIL                          R6
+      330 LOADNIL                          R7
+      331 FORGPREP                         R5
+      332 LENGTH                           R10 R9
+      333 JUMPIFEQKN                       R10 K27 [1] ; [+3]
+      335 LOADB                            R4 0
+      336 JUMP                             ; [+3]
+      337 FORGLOOP                         R5 2 ; [-6]
+      339 LOADB                            R4 1
+      340 JUMPIFNOT                        R4 ; [+6]
+      341 GETIMPORT                        R4 K29 [table.concat]
+      343 MOVE                             R5 R2
+      344 LOADK                            R6 K25 [""]
+      345 CALL                             R4 2 -1
+      346 RETURN                           R4 -1
+      347 GETIMPORT                        R4 K29 [table.concat]
+      349 MOVE                             R5 R2
+      350 LOADK                            R6 K30 [" + "]
+      351 CALL                             R4 2 -1
+      352 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

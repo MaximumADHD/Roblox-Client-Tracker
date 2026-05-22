@@ -385,19 +385,26 @@ PROTO_6:
        80 RETURN                           R0 0
 
 PROTO_7:
-        0 NEWCLOSURE                       R5 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          VAL R4
-        3 CAPTURE                          UPVAL U1
-        4 CAPTURE                          VAL R3
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          VAL R2
-        8 CAPTURE                          UPVAL U4
-        9 CAPTURE                          UPVAL U5
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          VAL R1
-       12 RETURN                           R5 1
+        0 GETUPVAL                         R7 0
+        1 CALL                             R7 0 1
+        2 NOT                              R6 R7
+        3 FASTCALL2K                       ASSERT R6 K0 ; [+4]
+        5 LOADK                            R7 K0 ["InstallPluginFromWeb is deprecated with FFlagStudioRemoveOldPluginInstallFromWebLua"]
+        6 GETIMPORT                        R5 K2 [assert]
+        8 CALL                             R5 2 0
+        9 NEWCLOSURE                       R5 P0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          VAL R4
+       12 CAPTURE                          UPVAL U2
+       13 CAPTURE                          VAL R3
+       14 CAPTURE                          UPVAL U3
+       15 CAPTURE                          UPVAL U4
+       16 CAPTURE                          VAL R2
+       17 CAPTURE                          UPVAL U5
+       18 CAPTURE                          UPVAL U6
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          VAL R1
+       21 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -410,35 +417,40 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioFixPluginManagementPluginTests"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K7 ["Src"]
-       20 GETTABLEKS                       R3 R3 K8 ["Constants"]
-       22 GETTABLEKS                       R3 R3 K9 ["PluginInstalledStatus"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R4 R0 K7 ["Src"]
-       29 GETTABLEKS                       R4 R4 K10 ["Actions"]
-       31 GETTABLEKS                       R4 R4 K11 ["SetPluginInstallStatus"]
-       33 CALL                             R3 1 1
-       34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R5 R0 K7 ["Src"]
-       38 GETTABLEKS                       R5 R5 K10 ["Actions"]
-       40 GETTABLEKS                       R5 R5 K12 ["SetPluginId"]
-       42 CALL                             R4 1 1
-       43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R6 R0 K7 ["Src"]
-       47 GETTABLEKS                       R6 R6 K10 ["Actions"]
-       49 GETTABLEKS                       R6 R6 K13 ["SetPluginMetadata"]
-       51 CALL                             R5 1 1
-       52 GETIMPORT                        R6 K4 [require]
-       54 GETTABLEKS                       R7 R0 K7 ["Src"]
-       56 GETTABLEKS                       R7 R7 K10 ["Actions"]
-       58 GETTABLEKS                       R7 R7 K14 ["ClearPluginData"]
-       60 CALL                             R6 1 1
-       61 DUPCLOSURE                       R7 K15 [PROTO_7]
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R4
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R1
-       68 RETURN                           R7 1
+       18 GETTABLEKS                       R3 R0 K5 ["Bin"]
+       20 GETTABLEKS                       R3 R3 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Constants"]
+       29 GETTABLEKS                       R4 R4 K10 ["PluginInstalledStatus"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K4 [require]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Actions"]
+       38 GETTABLEKS                       R5 R5 K12 ["SetPluginInstallStatus"]
+       40 CALL                             R4 1 1
+       41 GETIMPORT                        R5 K4 [require]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K11 ["Actions"]
+       47 GETTABLEKS                       R6 R6 K13 ["SetPluginId"]
+       49 CALL                             R5 1 1
+       50 GETIMPORT                        R6 K4 [require]
+       52 GETTABLEKS                       R7 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R7 K11 ["Actions"]
+       56 GETTABLEKS                       R7 R7 K14 ["SetPluginMetadata"]
+       58 CALL                             R6 1 1
+       59 GETIMPORT                        R7 K4 [require]
+       61 GETTABLEKS                       R8 R0 K8 ["Src"]
+       63 GETTABLEKS                       R8 R8 K11 ["Actions"]
+       65 GETTABLEKS                       R8 R8 K15 ["ClearPluginData"]
+       67 CALL                             R7 1 1
+       68 DUPCLOSURE                       R8 K16 [PROTO_7]
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R3
+       73 CAPTURE                          VAL R4
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R1
+       76 RETURN                           R8 1

@@ -72,7 +72,7 @@ PROTO_4:
         7 MOVE                             R4 R0
         8 GETIMPORT                        R3 K2 [typeof]
        10 CALL                             R3 1 1
-       11 JUMPIFNOTEQKS                    R3 K3 ["Instance"] ; [+70]
+       11 JUMPIFNOTEQKS                    R3 K3 ["Instance"] ; [+89]
        13 GETTABLEKS                       R3 R1 K4 ["options"]
        15 GETTABLEKS                       R3 R3 K5 ["ignoreAccessories"]
        17 JUMPIFNOT                        R3 ; [+7]
@@ -82,181 +82,194 @@ PROTO_4:
        22 JUMPIFNOT                        R3 ; [+2]
        23 LOADNIL                          R3
        24 RETURN                           R3 1
-       25 GETTABLEKS                       R4 R1 K8 ["state"]
-       27 GETTABLEKS                       R4 R4 K9 ["pendingInstances"]
-       29 GETTABLE                         R3 R4 R0
-       30 JUMPIFNOT                        R3 ; [+7]
-       31 LOADK                            R5 K10 ["inst-%*"]
-       32 MOVE                             R7 R3
-       33 NAMECALL                         R5 R5 K11 ["format"]
-       35 CALL                             R5 2 1
-       36 MOVE                             R4 R5
-       37 RETURN                           R4 1
-       38 GETTABLEKS                       R5 R1 K8 ["state"]
-       40 GETTABLEKS                       R5 R5 K12 ["lastInstanceId"]
-       42 ADDK                             R4 R5 K0 [1]
-       43 GETTABLEKS                       R5 R1 K8 ["state"]
-       45 SETTABLEKS                       R4 R5 K12 ["lastInstanceId"]
-       47 GETTABLEKS                       R5 R1 K8 ["state"]
-       49 GETTABLEKS                       R5 R5 K9 ["pendingInstances"]
-       51 SETTABLE                         R4 R5 R0
-       52 GETUPVAL                         R5 0
-       53 GETTABLEKS                       R5 R5 K13 ["serializeInstanceRaw"]
-       55 MOVE                             R6 R0
-       56 MOVE                             R7 R1
-       57 MOVE                             R8 R2
-       58 CALL                             R5 3 1
-       59 JUMPIF                           R5 ; [+2]
-       60 LOADNIL                          R6
-       61 RETURN                           R6 1
-       62 NEWTABLE                         R6 0 0
-       64 MOVE                             R7 R5
-       65 LOADNIL                          R8
-       66 LOADNIL                          R9
-       67 FORGPREP                         R7
-       68 GETUPVAL                         R14 1
-       69 GETTABLE                         R13 R14 R11
-       70 OR                               R12 R13 R11
-       71 GETUPVAL                         R14 1
-       72 GETTABLE                         R13 R14 R10
-       73 JUMPIFNOT                        R13 ; [+4]
-       74 GETUPVAL                         R14 1
-       75 GETTABLE                         R13 R14 R10
-       76 SETTABLE                         R12 R6 R13
-       77 JUMP                             ; [+1]
-       78 SETTABLE                         R12 R6 R10
-       79 FORGLOOP                         R7 2 ; [-12]
-       81 RETURN                           R6 1
-       82 FASTCALL1                        TYPEOF R0 ; [+3]
-       83 MOVE                             R4 R0
-       84 GETIMPORT                        R3 K2 [typeof]
-       86 CALL                             R3 1 1
-       87 JUMPIFNOTEQKS                    R3 K14 ["EnumItem"] ; [+4]
-       89 GETTABLEKS                       R3 R0 K15 ["Value"]
-       91 RETURN                           R3 1
-       92 FASTCALL1                        TYPEOF R0 ; [+3]
-       93 MOVE                             R4 R0
-       94 GETIMPORT                        R3 K2 [typeof]
-       96 CALL                             R3 1 1
-       97 JUMPIFNOTEQKS                    R3 K16 ["BrickColor"] ; [+4]
-       99 GETTABLEKS                       R3 R0 K17 ["Number"]
-      101 RETURN                           R3 1
-      102 FASTCALL1                        TYPEOF R0 ; [+3]
-      103 MOVE                             R4 R0
-      104 GETIMPORT                        R3 K2 [typeof]
-      106 CALL                             R3 1 1
-      107 JUMPIFNOTEQKS                    R3 K18 ["Color3"] ; [+16]
-      109 GETUPVAL                         R3 0
-      110 GETTABLEKS                       R3 R3 K19 ["cutListPrecision"]
-      112 NEWTABLE                         R4 0 3
-      114 GETTABLEKS                       R5 R0 K20 ["R"]
-      116 GETTABLEKS                       R6 R0 K21 ["G"]
-      118 GETTABLEKS                       R7 R0 K22 ["B"]
-      120 SETLIST                          R4 R5 3 [1]
-      122 CALL                             R3 1 -1
-      123 RETURN                           R3 -1
-      124 FASTCALL1                        TYPEOF R0 ; [+3]
-      125 MOVE                             R4 R0
-      126 GETIMPORT                        R3 K2 [typeof]
-      128 CALL                             R3 1 1
-      129 JUMPIFNOTEQKS                    R3 K23 ["CFrame"] ; [+71]
-      131 GETTABLEKS                       R3 R0 K24 ["LookVector"]
-      133 GETTABLEKS                       R6 R3 K25 ["X"]
-      135 MINUS                            R5 R6
-      136 GETTABLEKS                       R7 R3 K26 ["Z"]
-      138 MINUS                            R6 R7
-      139 FASTCALL2                        MATH_ATAN2 R5 R6 ; [+3]
-      141 GETIMPORT                        R4 K29 [math.atan2]
-      143 CALL                             R4 2 1
-      144 GETTABLEKS                       R8 R3 K25 ["X"]
-      146 POWK                             R7 R8 K31 [2]
-      147 GETTABLEKS                       R9 R3 K26 ["Z"]
-      149 POWK                             R8 R9 K31 [2]
-      150 ADD                              R6 R7 R8
-      151 POWK                             R5 R6 K30 [0.5]
-      152 GETTABLEKS                       R7 R3 K32 ["Y"]
-      154 FASTCALL2                        MATH_ATAN2 R7 R5 ; [+4]
-      156 MOVE                             R8 R5
-      157 GETIMPORT                        R6 K29 [math.atan2]
-      159 CALL                             R6 2 1
-      160 GETIMPORT                        R9 K34 [CFrame.Angles]
-      162 LOADN                            R10 0
-      163 MOVE                             R11 R4
-      164 LOADN                            R12 0
-      165 CALL                             R9 3 1
-      166 GETIMPORT                        R10 K34 [CFrame.Angles]
-      168 MOVE                             R11 R6
-      169 LOADN                            R12 0
-      170 LOADN                            R13 0
-      171 CALL                             R10 3 1
-      172 MUL                              R8 R9 R10
-      173 GETTABLEKS                       R9 R0 K35 ["Position"]
-      175 ADD                              R7 R8 R9
-      176 NAMECALL                         R9 R7 K36 ["Inverse"]
-      178 CALL                             R9 1 1
-      179 MUL                              R8 R9 R0
-      180 NAMECALL                         R8 R8 K37 ["ToEulerAnglesXYZ"]
-      182 CALL                             R8 1 3
-      183 GETUPVAL                         R11 0
-      184 GETTABLEKS                       R11 R11 K19 ["cutListPrecision"]
-      186 NEWTABLE                         R12 0 6
-      188 GETTABLEKS                       R13 R0 K25 ["X"]
-      190 GETTABLEKS                       R14 R0 K32 ["Y"]
-      192 GETTABLEKS                       R15 R0 K26 ["Z"]
-      194 DIVK                             R16 R4 K38 [3.14159265358979]
-      195 DIVK                             R17 R10 K38 [3.14159265358979]
-      196 DIVK                             R18 R6 K39 [1.5707963267949]
-      197 SETLIST                          R12 R13 6 [1]
-      199 CALL                             R11 1 -1
-      200 RETURN                           R11 -1
-      201 FASTCALL1                        TYPEOF R0 ; [+3]
-      202 MOVE                             R4 R0
-      203 GETIMPORT                        R3 K2 [typeof]
-      205 CALL                             R3 1 1
-      206 JUMPIFNOTEQKS                    R3 K40 ["Vector3"] ; [+16]
-      208 GETUPVAL                         R3 0
-      209 GETTABLEKS                       R3 R3 K19 ["cutListPrecision"]
-      211 NEWTABLE                         R4 0 3
-      213 GETTABLEKS                       R5 R0 K25 ["X"]
-      215 GETTABLEKS                       R6 R0 K32 ["Y"]
-      217 GETTABLEKS                       R7 R0 K26 ["Z"]
-      219 SETLIST                          R4 R5 3 [1]
-      221 CALL                             R3 1 -1
-      222 RETURN                           R3 -1
-      223 FASTCALL1                        TYPEOF R0 ; [+3]
-      224 MOVE                             R4 R0
-      225 GETIMPORT                        R3 K2 [typeof]
-      227 CALL                             R3 1 1
-      228 JUMPIFNOTEQKS                    R3 K41 ["boolean"] ; [+6]
-      230 JUMPIFNOT                        R0 ; [+2]
-      231 LOADN                            R3 1
-      232 RETURN                           R3 1
-      233 LOADN                            R3 0
-      234 RETURN                           R3 1
-      235 FASTCALL1                        TYPEOF R0 ; [+3]
-      236 MOVE                             R4 R0
-      237 GETIMPORT                        R3 K2 [typeof]
-      239 CALL                             R3 1 1
-      240 JUMPIFNOTEQKS                    R3 K42 ["number"] ; [+7]
-      242 GETUPVAL                         R3 0
-      243 GETTABLEKS                       R3 R3 K43 ["cutPrecision"]
-      245 MOVE                             R4 R0
-      246 CALL                             R3 1 -1
-      247 RETURN                           R3 -1
-      248 FASTCALL1                        TYPE R0 ; [+3]
-      249 MOVE                             R4 R0
-      250 GETIMPORT                        R3 K45 [type]
-      252 CALL                             R3 1 1
-      253 JUMPIFNOTEQKS                    R3 K46 ["string"] ; [+10]
-      255 GETUPVAL                         R3 0
-      256 GETTABLEKS                       R3 R3 K47 ["canEncodeStringSafely"]
-      258 MOVE                             R4 R0
-      259 CALL                             R3 1 1
-      260 JUMPIFNOT                        R3 ; [+1]
-      261 RETURN                           R0 1
-      262 LOADNIL                          R3
-      263 RETURN                           R3 1
-      264 RETURN                           R0 1
+       25 GETUPVAL                         R3 0
+       26 CALL                             R3 0 1
+       27 JUMPIFNOT                        R3 ; [+16]
+       28 GETTABLEKS                       R3 R1 K8 ["state"]
+       30 GETTABLEKS                       R4 R3 K9 ["serializedInstanceCount"]
+       32 ADDK                             R4 R4 K0 [1]
+       33 SETTABLEKS                       R4 R3 K9 ["serializedInstanceCount"]
+       35 GETTABLEKS                       R3 R1 K8 ["state"]
+       37 GETTABLEKS                       R3 R3 K9 ["serializedInstanceCount"]
+       39 LOADN                            R4 136
+       40 JUMPIFNOTLT                      R4 R3 ; [+3]
+       42 LOADNIL                          R3
+       43 RETURN                           R3 1
+       44 GETTABLEKS                       R4 R1 K8 ["state"]
+       46 GETTABLEKS                       R4 R4 K10 ["pendingInstances"]
+       48 GETTABLE                         R3 R4 R0
+       49 JUMPIFNOT                        R3 ; [+7]
+       50 LOADK                            R5 K11 ["inst-%*"]
+       51 MOVE                             R7 R3
+       52 NAMECALL                         R5 R5 K12 ["format"]
+       54 CALL                             R5 2 1
+       55 MOVE                             R4 R5
+       56 RETURN                           R4 1
+       57 GETTABLEKS                       R5 R1 K8 ["state"]
+       59 GETTABLEKS                       R5 R5 K13 ["lastInstanceId"]
+       61 ADDK                             R4 R5 K0 [1]
+       62 GETTABLEKS                       R5 R1 K8 ["state"]
+       64 SETTABLEKS                       R4 R5 K13 ["lastInstanceId"]
+       66 GETTABLEKS                       R5 R1 K8 ["state"]
+       68 GETTABLEKS                       R5 R5 K10 ["pendingInstances"]
+       70 SETTABLE                         R4 R5 R0
+       71 GETUPVAL                         R5 1
+       72 GETTABLEKS                       R5 R5 K14 ["serializeInstanceRaw"]
+       74 MOVE                             R6 R0
+       75 MOVE                             R7 R1
+       76 MOVE                             R8 R2
+       77 CALL                             R5 3 1
+       78 JUMPIF                           R5 ; [+2]
+       79 LOADNIL                          R6
+       80 RETURN                           R6 1
+       81 NEWTABLE                         R6 0 0
+       83 MOVE                             R7 R5
+       84 LOADNIL                          R8
+       85 LOADNIL                          R9
+       86 FORGPREP                         R7
+       87 GETUPVAL                         R14 2
+       88 GETTABLE                         R13 R14 R11
+       89 OR                               R12 R13 R11
+       90 GETUPVAL                         R14 2
+       91 GETTABLE                         R13 R14 R10
+       92 JUMPIFNOT                        R13 ; [+4]
+       93 GETUPVAL                         R14 2
+       94 GETTABLE                         R13 R14 R10
+       95 SETTABLE                         R12 R6 R13
+       96 JUMP                             ; [+1]
+       97 SETTABLE                         R12 R6 R10
+       98 FORGLOOP                         R7 2 ; [-12]
+      100 RETURN                           R6 1
+      101 FASTCALL1                        TYPEOF R0 ; [+3]
+      102 MOVE                             R4 R0
+      103 GETIMPORT                        R3 K2 [typeof]
+      105 CALL                             R3 1 1
+      106 JUMPIFNOTEQKS                    R3 K15 ["EnumItem"] ; [+4]
+      108 GETTABLEKS                       R3 R0 K16 ["Value"]
+      110 RETURN                           R3 1
+      111 FASTCALL1                        TYPEOF R0 ; [+3]
+      112 MOVE                             R4 R0
+      113 GETIMPORT                        R3 K2 [typeof]
+      115 CALL                             R3 1 1
+      116 JUMPIFNOTEQKS                    R3 K17 ["BrickColor"] ; [+4]
+      118 GETTABLEKS                       R3 R0 K18 ["Number"]
+      120 RETURN                           R3 1
+      121 FASTCALL1                        TYPEOF R0 ; [+3]
+      122 MOVE                             R4 R0
+      123 GETIMPORT                        R3 K2 [typeof]
+      125 CALL                             R3 1 1
+      126 JUMPIFNOTEQKS                    R3 K19 ["Color3"] ; [+16]
+      128 GETUPVAL                         R3 1
+      129 GETTABLEKS                       R3 R3 K20 ["cutListPrecision"]
+      131 NEWTABLE                         R4 0 3
+      133 GETTABLEKS                       R5 R0 K21 ["R"]
+      135 GETTABLEKS                       R6 R0 K22 ["G"]
+      137 GETTABLEKS                       R7 R0 K23 ["B"]
+      139 SETLIST                          R4 R5 3 [1]
+      141 CALL                             R3 1 -1
+      142 RETURN                           R3 -1
+      143 FASTCALL1                        TYPEOF R0 ; [+3]
+      144 MOVE                             R4 R0
+      145 GETIMPORT                        R3 K2 [typeof]
+      147 CALL                             R3 1 1
+      148 JUMPIFNOTEQKS                    R3 K24 ["CFrame"] ; [+71]
+      150 GETTABLEKS                       R3 R0 K25 ["LookVector"]
+      152 GETTABLEKS                       R6 R3 K26 ["X"]
+      154 MINUS                            R5 R6
+      155 GETTABLEKS                       R7 R3 K27 ["Z"]
+      157 MINUS                            R6 R7
+      158 FASTCALL2                        MATH_ATAN2 R5 R6 ; [+3]
+      160 GETIMPORT                        R4 K30 [math.atan2]
+      162 CALL                             R4 2 1
+      163 GETTABLEKS                       R8 R3 K26 ["X"]
+      165 POWK                             R7 R8 K32 [2]
+      166 GETTABLEKS                       R9 R3 K27 ["Z"]
+      168 POWK                             R8 R9 K32 [2]
+      169 ADD                              R6 R7 R8
+      170 POWK                             R5 R6 K31 [0.5]
+      171 GETTABLEKS                       R7 R3 K33 ["Y"]
+      173 FASTCALL2                        MATH_ATAN2 R7 R5 ; [+4]
+      175 MOVE                             R8 R5
+      176 GETIMPORT                        R6 K30 [math.atan2]
+      178 CALL                             R6 2 1
+      179 GETIMPORT                        R9 K35 [CFrame.Angles]
+      181 LOADN                            R10 0
+      182 MOVE                             R11 R4
+      183 LOADN                            R12 0
+      184 CALL                             R9 3 1
+      185 GETIMPORT                        R10 K35 [CFrame.Angles]
+      187 MOVE                             R11 R6
+      188 LOADN                            R12 0
+      189 LOADN                            R13 0
+      190 CALL                             R10 3 1
+      191 MUL                              R8 R9 R10
+      192 GETTABLEKS                       R9 R0 K36 ["Position"]
+      194 ADD                              R7 R8 R9
+      195 NAMECALL                         R9 R7 K37 ["Inverse"]
+      197 CALL                             R9 1 1
+      198 MUL                              R8 R9 R0
+      199 NAMECALL                         R8 R8 K38 ["ToEulerAnglesXYZ"]
+      201 CALL                             R8 1 3
+      202 GETUPVAL                         R11 1
+      203 GETTABLEKS                       R11 R11 K20 ["cutListPrecision"]
+      205 NEWTABLE                         R12 0 6
+      207 GETTABLEKS                       R13 R0 K26 ["X"]
+      209 GETTABLEKS                       R14 R0 K33 ["Y"]
+      211 GETTABLEKS                       R15 R0 K27 ["Z"]
+      213 DIVK                             R16 R4 K39 [3.14159265358979]
+      214 DIVK                             R17 R10 K39 [3.14159265358979]
+      215 DIVK                             R18 R6 K40 [1.5707963267949]
+      216 SETLIST                          R12 R13 6 [1]
+      218 CALL                             R11 1 -1
+      219 RETURN                           R11 -1
+      220 FASTCALL1                        TYPEOF R0 ; [+3]
+      221 MOVE                             R4 R0
+      222 GETIMPORT                        R3 K2 [typeof]
+      224 CALL                             R3 1 1
+      225 JUMPIFNOTEQKS                    R3 K41 ["Vector3"] ; [+16]
+      227 GETUPVAL                         R3 1
+      228 GETTABLEKS                       R3 R3 K20 ["cutListPrecision"]
+      230 NEWTABLE                         R4 0 3
+      232 GETTABLEKS                       R5 R0 K26 ["X"]
+      234 GETTABLEKS                       R6 R0 K33 ["Y"]
+      236 GETTABLEKS                       R7 R0 K27 ["Z"]
+      238 SETLIST                          R4 R5 3 [1]
+      240 CALL                             R3 1 -1
+      241 RETURN                           R3 -1
+      242 FASTCALL1                        TYPEOF R0 ; [+3]
+      243 MOVE                             R4 R0
+      244 GETIMPORT                        R3 K2 [typeof]
+      246 CALL                             R3 1 1
+      247 JUMPIFNOTEQKS                    R3 K42 ["boolean"] ; [+6]
+      249 JUMPIFNOT                        R0 ; [+2]
+      250 LOADN                            R3 1
+      251 RETURN                           R3 1
+      252 LOADN                            R3 0
+      253 RETURN                           R3 1
+      254 FASTCALL1                        TYPEOF R0 ; [+3]
+      255 MOVE                             R4 R0
+      256 GETIMPORT                        R3 K2 [typeof]
+      258 CALL                             R3 1 1
+      259 JUMPIFNOTEQKS                    R3 K43 ["number"] ; [+7]
+      261 GETUPVAL                         R3 1
+      262 GETTABLEKS                       R3 R3 K44 ["cutPrecision"]
+      264 MOVE                             R4 R0
+      265 CALL                             R3 1 -1
+      266 RETURN                           R3 -1
+      267 FASTCALL1                        TYPE R0 ; [+3]
+      268 MOVE                             R4 R0
+      269 GETIMPORT                        R3 K46 [type]
+      271 CALL                             R3 1 1
+      272 JUMPIFNOTEQKS                    R3 K47 ["string"] ; [+10]
+      274 GETUPVAL                         R3 1
+      275 GETTABLEKS                       R3 R3 K48 ["canEncodeStringSafely"]
+      277 MOVE                             R4 R0
+      278 CALL                             R3 1 1
+      279 JUMPIFNOT                        R3 ; [+1]
+      280 RETURN                           R0 1
+      281 LOADNIL                          R3
+      282 RETURN                           R3 1
+      283 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R3 0
@@ -1349,36 +1362,115 @@ PROTO_14:
      1266 CALL                             R4 3 1
      1267 SETTABLEKS                       R4 R3 K14 ["children"]
      1269 RETURN                           R3 1
-     1270 DUPTABLE                         R3 K116 [{"name", "className", "archivable", "children"}]
-     1271 GETUPVAL                         R4 0
-     1272 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1274 GETTABLEKS                       R5 R0 K17 ["Name"]
-     1276 MOVE                             R6 R1
-     1277 MOVE                             R7 R2
-     1278 CALL                             R4 3 1
-     1279 SETTABLEKS                       R4 R3 K3 ["name"]
-     1281 GETUPVAL                         R4 0
-     1282 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1284 GETTABLEKS                       R5 R0 K117 ["ClassName"]
-     1286 MOVE                             R6 R1
-     1287 MOVE                             R7 R2
-     1288 CALL                             R4 3 1
-     1289 SETTABLEKS                       R4 R3 K115 ["className"]
-     1291 GETUPVAL                         R4 0
-     1292 GETTABLEKS                       R4 R4 K16 ["serialize"]
-     1294 GETTABLEKS                       R5 R0 K18 ["Archivable"]
-     1296 MOVE                             R6 R1
-     1297 MOVE                             R7 R2
-     1298 CALL                             R4 3 1
-     1299 SETTABLEKS                       R4 R3 K4 ["archivable"]
-     1301 GETUPVAL                         R4 0
-     1302 GETTABLEKS                       R4 R4 K30 ["serializeChildren"]
-     1304 MOVE                             R5 R0
-     1305 MOVE                             R6 R1
-     1306 MOVE                             R7 R2
-     1307 CALL                             R4 3 1
-     1308 SETTABLEKS                       R4 R3 K14 ["children"]
-     1310 RETURN                           R3 1
+     1270 GETUPVAL                         R3 2
+     1271 CALL                             R3 0 1
+     1272 JUMPIFNOT                        R3 ; [+51]
+     1273 LOADK                            R5 K160 ["Model"]
+     1274 NAMECALL                         R3 R0 K2 ["IsA"]
+     1276 CALL                             R3 2 1
+     1277 JUMPIF                           R3 ; [+5]
+     1278 LOADK                            R5 K161 ["Folder"]
+     1279 NAMECALL                         R3 R0 K2 ["IsA"]
+     1281 CALL                             R3 2 1
+     1282 JUMPIFNOT                        R3 ; [+41]
+     1283 DUPTABLE                         R3 K116 [{"name", "className", "archivable", "children"}]
+     1284 GETUPVAL                         R4 0
+     1285 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1287 GETTABLEKS                       R5 R0 K17 ["Name"]
+     1289 MOVE                             R6 R1
+     1290 MOVE                             R7 R2
+     1291 CALL                             R4 3 1
+     1292 SETTABLEKS                       R4 R3 K3 ["name"]
+     1294 GETUPVAL                         R4 0
+     1295 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1297 GETTABLEKS                       R5 R0 K117 ["ClassName"]
+     1299 MOVE                             R6 R1
+     1300 MOVE                             R7 R2
+     1301 CALL                             R4 3 1
+     1302 SETTABLEKS                       R4 R3 K115 ["className"]
+     1304 GETUPVAL                         R4 0
+     1305 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1307 GETTABLEKS                       R5 R0 K18 ["Archivable"]
+     1309 MOVE                             R6 R1
+     1310 MOVE                             R7 R2
+     1311 CALL                             R4 3 1
+     1312 SETTABLEKS                       R4 R3 K4 ["archivable"]
+     1314 GETUPVAL                         R4 0
+     1315 GETTABLEKS                       R4 R4 K30 ["serializeChildren"]
+     1317 MOVE                             R5 R0
+     1318 MOVE                             R6 R1
+     1319 MOVE                             R7 R2
+     1320 CALL                             R4 3 1
+     1321 SETTABLEKS                       R4 R3 K14 ["children"]
+     1323 RETURN                           R3 1
+     1324 GETUPVAL                         R3 2
+     1325 CALL                             R3 0 1
+     1326 JUMPIFNOT                        R3 ; [+50]
+     1327 GETTABLEKS                       R3 R1 K57 ["options"]
+     1329 GETTABLEKS                       R3 R3 K162 ["globalDebugDifferences"]
+     1331 JUMPIFNOT                        R3 ; [+13]
+     1332 GETIMPORT                        R3 K164 [warn]
+     1334 LOADK                            R5 K165 ["[CharacterHashUtils] Unrecognized type serialized as leaf: %* (%*)"]
+     1335 GETTABLEKS                       R7 R0 K117 ["ClassName"]
+     1337 NAMECALL                         R8 R0 K166 ["GetFullName"]
+     1339 CALL                             R8 1 1
+     1340 NAMECALL                         R5 R5 K167 ["format"]
+     1342 CALL                             R5 3 1
+     1343 MOVE                             R4 R5
+     1344 CALL                             R3 1 0
+     1345 DUPTABLE                         R3 K168 [{"name", "className", "archivable"}]
+     1346 GETUPVAL                         R4 0
+     1347 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1349 GETTABLEKS                       R5 R0 K17 ["Name"]
+     1351 MOVE                             R6 R1
+     1352 MOVE                             R7 R2
+     1353 CALL                             R4 3 1
+     1354 SETTABLEKS                       R4 R3 K3 ["name"]
+     1356 GETUPVAL                         R4 0
+     1357 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1359 GETTABLEKS                       R5 R0 K117 ["ClassName"]
+     1361 MOVE                             R6 R1
+     1362 MOVE                             R7 R2
+     1363 CALL                             R4 3 1
+     1364 SETTABLEKS                       R4 R3 K115 ["className"]
+     1366 GETUPVAL                         R4 0
+     1367 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1369 GETTABLEKS                       R5 R0 K18 ["Archivable"]
+     1371 MOVE                             R6 R1
+     1372 MOVE                             R7 R2
+     1373 CALL                             R4 3 1
+     1374 SETTABLEKS                       R4 R3 K4 ["archivable"]
+     1376 RETURN                           R3 1
+     1377 DUPTABLE                         R3 K116 [{"name", "className", "archivable", "children"}]
+     1378 GETUPVAL                         R4 0
+     1379 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1381 GETTABLEKS                       R5 R0 K17 ["Name"]
+     1383 MOVE                             R6 R1
+     1384 MOVE                             R7 R2
+     1385 CALL                             R4 3 1
+     1386 SETTABLEKS                       R4 R3 K3 ["name"]
+     1388 GETUPVAL                         R4 0
+     1389 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1391 GETTABLEKS                       R5 R0 K117 ["ClassName"]
+     1393 MOVE                             R6 R1
+     1394 MOVE                             R7 R2
+     1395 CALL                             R4 3 1
+     1396 SETTABLEKS                       R4 R3 K115 ["className"]
+     1398 GETUPVAL                         R4 0
+     1399 GETTABLEKS                       R4 R4 K16 ["serialize"]
+     1401 GETTABLEKS                       R5 R0 K18 ["Archivable"]
+     1403 MOVE                             R6 R1
+     1404 MOVE                             R7 R2
+     1405 CALL                             R4 3 1
+     1406 SETTABLEKS                       R4 R3 K4 ["archivable"]
+     1408 GETUPVAL                         R4 0
+     1409 GETTABLEKS                       R4 R4 K30 ["serializeChildren"]
+     1411 MOVE                             R5 R0
+     1412 MOVE                             R6 R1
+     1413 MOVE                             R7 R2
+     1414 CALL                             R4 3 1
+     1415 SETTABLEKS                       R4 R3 K14 ["children"]
+     1417 RETURN                           R3 1
 
 PROTO_15:
         0 GETTABLEKS                       R3 R0 K0 ["Name"]
@@ -1655,7 +1747,7 @@ PROTO_19:
       196 DUPTABLE                         R10 K30 [{"options", "relativeScale", "state"}]
       197 SETTABLEKS                       R1 R10 K27 ["options"]
       199 SETTABLEKS                       R9 R10 K28 ["relativeScale"]
-      201 DUPTABLE                         R11 K36 [{"allowedInstancesToSerializeUnder", "boundingCFrame", "boundingSize", "lastInstanceId", "pendingInstances"}]
+      201 DUPTABLE                         R11 K37 [{"allowedInstancesToSerializeUnder", "boundingCFrame", "boundingSize", "lastInstanceId", "pendingInstances", "serializedInstanceCount"}]
       202 SETTABLEKS                       R0 R11 K31 ["allowedInstancesToSerializeUnder"]
       204 SETTABLEKS                       R7 R11 K32 ["boundingCFrame"]
       206 SETTABLEKS                       R8 R11 K33 ["boundingSize"]
@@ -1663,8 +1755,10 @@ PROTO_19:
       209 SETTABLEKS                       R12 R11 K34 ["lastInstanceId"]
       211 NEWTABLE                         R12 0 0
       213 SETTABLEKS                       R12 R11 K35 ["pendingInstances"]
-      215 SETTABLEKS                       R11 R10 K29 ["state"]
-      217 RETURN                           R10 1
+      215 LOADN                            R12 0
+      216 SETTABLEKS                       R12 R11 K36 ["serializedInstanceCount"]
+      218 SETTABLEKS                       R11 R10 K29 ["state"]
+      220 RETURN                           R10 1
 
 PROTO_20:
         0 GETUPVAL                         R4 0
@@ -1802,173 +1896,180 @@ MAIN:
        44 GETTABLEKS                       R6 R6 K14 ["Flags"]
        46 GETTABLEKS                       R6 R6 K16 ["getFFlagAvatarPreviewerAttachmentFix"]
        48 CALL                             R5 1 1
-       49 NEWTABLE                         R6 32 0
-       51 DUPCLOSURE                       R7 K17 [PROTO_0]
-       52 SETTABLEKS                       R7 R6 K18 ["canEncodeStringSafely"]
-       54 DUPCLOSURE                       R7 K19 [PROTO_1]
-       55 SETTABLEKS                       R7 R6 K20 ["canEncodeNumberSafely"]
-       57 DUPCLOSURE                       R7 K21 [PROTO_2]
-       58 CAPTURE                          VAL R6
-       59 SETTABLEKS                       R7 R6 K22 ["cutPrecision"]
-       61 DUPCLOSURE                       R7 K23 [PROTO_3]
-       62 SETTABLEKS                       R7 R6 K24 ["cutListPrecision"]
-       64 NEWTABLE                         R7 0 64
-       66 LOADK                            R8 K25 ["alphaMode"]
-       67 LOADK                            R9 K26 ["archivable"]
-       68 LOADK                            R10 K27 ["attachmentPoint"]
-       69 LOADK                            R11 K28 ["autoJumpEnabled"]
-       70 LOADK                            R12 K29 ["autoRotate"]
-       71 LOADK                            R13 K30 ["autoSkin"]
-       72 LOADK                            R14 K31 ["automaticScalingEnabled"]
-       73 LOADK                            R15 K32 ["bindOffset"]
-       74 LOADK                            R16 K33 ["breakJointsOnDeath"]
-       75 LOADK                            R17 K34 ["c0"]
-       76 LOADK                            R18 K35 ["c1"]
-       77 LOADK                            R19 K36 ["cageOrigin"]
-       78 LOADK                            R20 K37 ["cameraOffset"]
-       79 LOADK                            R21 K38 ["cframe"]
-       80 LOADK                            R22 K39 ["children"]
-       81 LOADK                            R23 K40 ["className"]
-       82 SETLIST                          R7 R8 16 [1]
-       84 LOADK                            R8 K41 ["color"]
-       85 LOADK                            R9 K42 ["colorMap"]
-       86 LOADK                            R10 K43 ["displayDistanceType"]
-       87 LOADK                            R11 K44 ["displayName"]
-       88 LOADK                            R12 K45 ["enabled"]
-       89 LOADK                            R13 K46 ["evaluateStateMachine"]
-       90 LOADK                            R14 K47 ["headColor"]
-       91 LOADK                            R15 K48 ["health"]
-       92 LOADK                            R16 K49 ["healthDisplayDistance"]
-       93 LOADK                            R17 K50 ["healthDisplayType"]
-       94 LOADK                            R18 K51 ["hipHeight"]
-       95 LOADK                            R19 K52 ["importOrigin"]
-       96 LOADK                            R20 K53 ["jump"]
-       97 LOADK                            R21 K54 ["jumpPower"]
-       98 LOADK                            R22 K55 ["leftArmColor"]
-       99 LOADK                            R23 K56 ["leftLegColor"]
-      100 SETLIST                          R7 R8 16 [17]
-      102 LOADK                            R8 K57 ["material"]
-      103 LOADK                            R9 K58 ["materialVariant"]
-      104 LOADK                            R10 K59 ["maxHealth"]
-      105 LOADK                            R11 K60 ["maxSlopeAngle"]
-      106 LOADK                            R12 K61 ["meshId"]
-      107 LOADK                            R13 K62 ["metalnessMap"]
-      108 LOADK                            R14 K63 ["name"]
-      109 LOADK                            R15 K64 ["nameDisplayDistance"]
-      110 LOADK                            R16 K65 ["nameOcclusion"]
-      111 LOADK                            R17 K66 ["normalMap"]
-      112 LOADK                            R18 K67 ["order"]
-      113 LOADK                            R19 K68 ["part0"]
-      114 LOADK                            R20 K69 ["part1"]
-      115 LOADK                            R21 K70 ["puffiness"]
-      116 LOADK                            R22 K71 ["referenceMeshId"]
-      117 LOADK                            R23 K72 ["referenceOrigin"]
-      118 SETLIST                          R7 R8 16 [33]
-      120 LOADK                            R8 K73 ["reflectance"]
-      121 LOADK                            R9 K74 ["requiresNeck"]
-      122 LOADK                            R10 K75 ["rigType"]
-      123 LOADK                            R11 K76 ["rightArmColor"]
-      124 LOADK                            R12 K77 ["rightLegColor"]
-      125 LOADK                            R13 K78 ["roughnessMap"]
-      126 LOADK                            R14 K79 ["shrinkFactor"]
-      127 LOADK                            R15 K80 ["sit"]
-      128 LOADK                            R16 K81 ["size"]
-      129 LOADK                            R17 K82 ["texture"]
-      130 LOADK                            R18 K83 ["textureId"]
-      131 LOADK                            R19 K84 ["torsoColor"]
-      132 LOADK                            R20 K85 ["transparency"]
-      133 LOADK                            R21 K86 ["useJumpPower"]
-      134 LOADK                            R22 K87 ["value"]
-      135 LOADK                            R23 K88 ["walkSpeed"]
-      136 SETLIST                          R7 R8 16 [49]
-      138 LENGTH                           R10 R7
-      139 LOADN                            R11 64
-      140 JUMPIFLE                         R10 R11 ; [+2]
-      142 LOADB                            R9 0 +1
-      143 LOADB                            R9 1
-      144 FASTCALL2K                       ASSERT R9 K89 ; [+4]
-      146 LOADK                            R10 K89 ["Too many well known ids"]
-      147 GETIMPORT                        R8 K91 [assert]
-      149 CALL                             R8 2 0
-      150 NEWTABLE                         R8 0 0
-      152 MOVE                             R9 R7
-      153 LOADNIL                          R10
-      154 LOADNIL                          R11
-      155 FORGPREP                         R9
-      156 LOADK                            R16 K92 ["0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"]
-      157 FASTCALL2                        STRING_BYTE R16 R12 ; [+4]
-      159 MOVE                             R17 R12
-      160 GETIMPORT                        R15 K95 [string.byte]
-      162 CALL                             R15 2 -1
-      163 FASTCALL                         STRING_CHAR ; [+2]
-      164 GETIMPORT                        R14 K97 [string.char]
-      166 CALL                             R14 -1 1
-      167 SETTABLE                         R14 R8 R13
-      168 FORGLOOP                         R9 2 ; [-13]
-      170 DUPCLOSURE                       R9 K98 [PROTO_4]
-      171 CAPTURE                          VAL R6
-      172 CAPTURE                          VAL R8
-      173 SETTABLEKS                       R9 R6 K99 ["serialize"]
-      175 DUPCLOSURE                       R9 K100 [PROTO_5]
-      176 CAPTURE                          VAL R6
-      177 SETTABLEKS                       R9 R6 K101 ["serializeSize"]
-      179 DUPCLOSURE                       R9 K102 [PROTO_6]
-      180 CAPTURE                          VAL R4
-      181 CAPTURE                          VAL R6
-      182 SETTABLEKS                       R9 R6 K103 ["serializePartCFrame"]
-      184 DUPCLOSURE                       R9 K104 [PROTO_7]
-      185 CAPTURE                          VAL R6
-      186 SETTABLEKS                       R9 R6 K105 ["serializePosition"]
-      188 DUPCLOSURE                       R9 K106 [PROTO_8]
-      189 CAPTURE                          VAL R6
-      190 SETTABLEKS                       R9 R6 K107 ["serializeAttachmentCFrame"]
-      192 DUPCLOSURE                       R9 K108 [PROTO_9]
-      193 CAPTURE                          VAL R6
-      194 SETTABLEKS                       R9 R6 K109 ["serializeAttachmentPosition"]
-      196 DUPCLOSURE                       R9 K110 [PROTO_10]
-      197 CAPTURE                          VAL R6
-      198 SETTABLEKS                       R9 R6 K111 ["serializeScalingHumanoidNumber"]
-      200 DUPCLOSURE                       R9 K112 [PROTO_11]
-      201 CAPTURE                          VAL R6
-      202 SETTABLEKS                       R9 R6 K113 ["serializeReferenceInstance"]
-      204 NEWTABLE                         R9 4 0
-      206 LOADB                            R10 1
-      207 SETTABLEKS                       R10 R9 K114 ["BodyHeightScale"]
-      209 LOADB                            R10 1
-      210 SETTABLEKS                       R10 R9 K115 ["BodyWidthScale"]
-      212 LOADB                            R10 1
-      213 SETTABLEKS                       R10 R9 K116 ["BodyDepthScale"]
-      215 LOADB                            R10 1
-      216 SETTABLEKS                       R10 R9 K117 ["HeadScale"]
-      218 DUPCLOSURE                       R10 K118 [PROTO_12]
-      219 CAPTURE                          VAL R9
-      220 SETTABLEKS                       R10 R6 K119 ["isScalingHumanoidNumber"]
-      222 DUPCLOSURE                       R10 K120 [PROTO_13]
-      223 CAPTURE                          VAL R5
-      224 SETTABLEKS                       R10 R6 K121 ["isAttachmentOriginalPositionValue"]
-      226 DUPCLOSURE                       R10 K122 [PROTO_14]
-      227 CAPTURE                          VAL R6
-      228 CAPTURE                          VAL R5
-      229 SETTABLEKS                       R10 R6 K123 ["serializeInstanceRaw"]
-      231 DUPCLOSURE                       R10 K124 [PROTO_16]
-      232 CAPTURE                          VAL R5
-      233 CAPTURE                          VAL R6
-      234 SETTABLEKS                       R10 R6 K125 ["serializeChildren"]
-      236 DUPCLOSURE                       R10 K126 [PROTO_19]
-      237 CAPTURE                          VAL R5
-      238 CAPTURE                          VAL R3
-      239 SETTABLEKS                       R10 R6 K127 ["computeHashSerializeContext"]
-      241 LOADNIL                          R10
-      242 DUPCLOSURE                       R11 K128 [PROTO_20]
+       49 GETIMPORT                        R6 K9 [require]
+       51 GETTABLEKS                       R7 R1 K11 ["Src"]
+       53 GETTABLEKS                       R7 R7 K14 ["Flags"]
+       55 GETTABLEKS                       R7 R7 K17 ["getFFlagAvatarPreviewerHashPerformanceFix"]
+       57 CALL                             R6 1 1
+       58 NEWTABLE                         R7 32 0
+       60 DUPCLOSURE                       R8 K18 [PROTO_0]
+       61 SETTABLEKS                       R8 R7 K19 ["canEncodeStringSafely"]
+       63 DUPCLOSURE                       R8 K20 [PROTO_1]
+       64 SETTABLEKS                       R8 R7 K21 ["canEncodeNumberSafely"]
+       66 DUPCLOSURE                       R8 K22 [PROTO_2]
+       67 CAPTURE                          VAL R7
+       68 SETTABLEKS                       R8 R7 K23 ["cutPrecision"]
+       70 DUPCLOSURE                       R8 K24 [PROTO_3]
+       71 SETTABLEKS                       R8 R7 K25 ["cutListPrecision"]
+       73 NEWTABLE                         R8 0 64
+       75 LOADK                            R9 K26 ["alphaMode"]
+       76 LOADK                            R10 K27 ["archivable"]
+       77 LOADK                            R11 K28 ["attachmentPoint"]
+       78 LOADK                            R12 K29 ["autoJumpEnabled"]
+       79 LOADK                            R13 K30 ["autoRotate"]
+       80 LOADK                            R14 K31 ["autoSkin"]
+       81 LOADK                            R15 K32 ["automaticScalingEnabled"]
+       82 LOADK                            R16 K33 ["bindOffset"]
+       83 LOADK                            R17 K34 ["breakJointsOnDeath"]
+       84 LOADK                            R18 K35 ["c0"]
+       85 LOADK                            R19 K36 ["c1"]
+       86 LOADK                            R20 K37 ["cageOrigin"]
+       87 LOADK                            R21 K38 ["cameraOffset"]
+       88 LOADK                            R22 K39 ["cframe"]
+       89 LOADK                            R23 K40 ["children"]
+       90 LOADK                            R24 K41 ["className"]
+       91 SETLIST                          R8 R9 16 [1]
+       93 LOADK                            R9 K42 ["color"]
+       94 LOADK                            R10 K43 ["colorMap"]
+       95 LOADK                            R11 K44 ["displayDistanceType"]
+       96 LOADK                            R12 K45 ["displayName"]
+       97 LOADK                            R13 K46 ["enabled"]
+       98 LOADK                            R14 K47 ["evaluateStateMachine"]
+       99 LOADK                            R15 K48 ["headColor"]
+      100 LOADK                            R16 K49 ["health"]
+      101 LOADK                            R17 K50 ["healthDisplayDistance"]
+      102 LOADK                            R18 K51 ["healthDisplayType"]
+      103 LOADK                            R19 K52 ["hipHeight"]
+      104 LOADK                            R20 K53 ["importOrigin"]
+      105 LOADK                            R21 K54 ["jump"]
+      106 LOADK                            R22 K55 ["jumpPower"]
+      107 LOADK                            R23 K56 ["leftArmColor"]
+      108 LOADK                            R24 K57 ["leftLegColor"]
+      109 SETLIST                          R8 R9 16 [17]
+      111 LOADK                            R9 K58 ["material"]
+      112 LOADK                            R10 K59 ["materialVariant"]
+      113 LOADK                            R11 K60 ["maxHealth"]
+      114 LOADK                            R12 K61 ["maxSlopeAngle"]
+      115 LOADK                            R13 K62 ["meshId"]
+      116 LOADK                            R14 K63 ["metalnessMap"]
+      117 LOADK                            R15 K64 ["name"]
+      118 LOADK                            R16 K65 ["nameDisplayDistance"]
+      119 LOADK                            R17 K66 ["nameOcclusion"]
+      120 LOADK                            R18 K67 ["normalMap"]
+      121 LOADK                            R19 K68 ["order"]
+      122 LOADK                            R20 K69 ["part0"]
+      123 LOADK                            R21 K70 ["part1"]
+      124 LOADK                            R22 K71 ["puffiness"]
+      125 LOADK                            R23 K72 ["referenceMeshId"]
+      126 LOADK                            R24 K73 ["referenceOrigin"]
+      127 SETLIST                          R8 R9 16 [33]
+      129 LOADK                            R9 K74 ["reflectance"]
+      130 LOADK                            R10 K75 ["requiresNeck"]
+      131 LOADK                            R11 K76 ["rigType"]
+      132 LOADK                            R12 K77 ["rightArmColor"]
+      133 LOADK                            R13 K78 ["rightLegColor"]
+      134 LOADK                            R14 K79 ["roughnessMap"]
+      135 LOADK                            R15 K80 ["shrinkFactor"]
+      136 LOADK                            R16 K81 ["sit"]
+      137 LOADK                            R17 K82 ["size"]
+      138 LOADK                            R18 K83 ["texture"]
+      139 LOADK                            R19 K84 ["textureId"]
+      140 LOADK                            R20 K85 ["torsoColor"]
+      141 LOADK                            R21 K86 ["transparency"]
+      142 LOADK                            R22 K87 ["useJumpPower"]
+      143 LOADK                            R23 K88 ["value"]
+      144 LOADK                            R24 K89 ["walkSpeed"]
+      145 SETLIST                          R8 R9 16 [49]
+      147 LENGTH                           R11 R8
+      148 LOADN                            R12 64
+      149 JUMPIFLE                         R11 R12 ; [+2]
+      151 LOADB                            R10 0 +1
+      152 LOADB                            R10 1
+      153 FASTCALL2K                       ASSERT R10 K90 ; [+4]
+      155 LOADK                            R11 K90 ["Too many well known ids"]
+      156 GETIMPORT                        R9 K92 [assert]
+      158 CALL                             R9 2 0
+      159 NEWTABLE                         R9 0 0
+      161 MOVE                             R10 R8
+      162 LOADNIL                          R11
+      163 LOADNIL                          R12
+      164 FORGPREP                         R10
+      165 LOADK                            R17 K93 ["0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-"]
+      166 FASTCALL2                        STRING_BYTE R17 R13 ; [+4]
+      168 MOVE                             R18 R13
+      169 GETIMPORT                        R16 K96 [string.byte]
+      171 CALL                             R16 2 -1
+      172 FASTCALL                         STRING_CHAR ; [+2]
+      173 GETIMPORT                        R15 K98 [string.char]
+      175 CALL                             R15 -1 1
+      176 SETTABLE                         R15 R9 R14
+      177 FORGLOOP                         R10 2 ; [-13]
+      179 DUPCLOSURE                       R10 K99 [PROTO_4]
+      180 CAPTURE                          VAL R6
+      181 CAPTURE                          VAL R7
+      182 CAPTURE                          VAL R9
+      183 SETTABLEKS                       R10 R7 K100 ["serialize"]
+      185 DUPCLOSURE                       R10 K101 [PROTO_5]
+      186 CAPTURE                          VAL R7
+      187 SETTABLEKS                       R10 R7 K102 ["serializeSize"]
+      189 DUPCLOSURE                       R10 K103 [PROTO_6]
+      190 CAPTURE                          VAL R4
+      191 CAPTURE                          VAL R7
+      192 SETTABLEKS                       R10 R7 K104 ["serializePartCFrame"]
+      194 DUPCLOSURE                       R10 K105 [PROTO_7]
+      195 CAPTURE                          VAL R7
+      196 SETTABLEKS                       R10 R7 K106 ["serializePosition"]
+      198 DUPCLOSURE                       R10 K107 [PROTO_8]
+      199 CAPTURE                          VAL R7
+      200 SETTABLEKS                       R10 R7 K108 ["serializeAttachmentCFrame"]
+      202 DUPCLOSURE                       R10 K109 [PROTO_9]
+      203 CAPTURE                          VAL R7
+      204 SETTABLEKS                       R10 R7 K110 ["serializeAttachmentPosition"]
+      206 DUPCLOSURE                       R10 K111 [PROTO_10]
+      207 CAPTURE                          VAL R7
+      208 SETTABLEKS                       R10 R7 K112 ["serializeScalingHumanoidNumber"]
+      210 DUPCLOSURE                       R10 K113 [PROTO_11]
+      211 CAPTURE                          VAL R7
+      212 SETTABLEKS                       R10 R7 K114 ["serializeReferenceInstance"]
+      214 NEWTABLE                         R10 4 0
+      216 LOADB                            R11 1
+      217 SETTABLEKS                       R11 R10 K115 ["BodyHeightScale"]
+      219 LOADB                            R11 1
+      220 SETTABLEKS                       R11 R10 K116 ["BodyWidthScale"]
+      222 LOADB                            R11 1
+      223 SETTABLEKS                       R11 R10 K117 ["BodyDepthScale"]
+      225 LOADB                            R11 1
+      226 SETTABLEKS                       R11 R10 K118 ["HeadScale"]
+      228 DUPCLOSURE                       R11 K119 [PROTO_12]
+      229 CAPTURE                          VAL R10
+      230 SETTABLEKS                       R11 R7 K120 ["isScalingHumanoidNumber"]
+      232 DUPCLOSURE                       R11 K121 [PROTO_13]
+      233 CAPTURE                          VAL R5
+      234 SETTABLEKS                       R11 R7 K122 ["isAttachmentOriginalPositionValue"]
+      236 DUPCLOSURE                       R11 K123 [PROTO_14]
+      237 CAPTURE                          VAL R7
+      238 CAPTURE                          VAL R5
+      239 CAPTURE                          VAL R6
+      240 SETTABLEKS                       R11 R7 K124 ["serializeInstanceRaw"]
+      242 DUPCLOSURE                       R11 K125 [PROTO_16]
       243 CAPTURE                          VAL R5
-      244 CAPTURE                          VAL R11
-      245 NEWCLOSURE                       R12 P18
-      246 CAPTURE                          VAL R6
-      247 CAPTURE                          VAL R0
-      248 CAPTURE                          VAL R2
-      249 CAPTURE                          VAL R5
-      250 CAPTURE                          REF R10
-      251 CAPTURE                          VAL R11
-      252 SETTABLEKS                       R12 R6 K129 ["hashCharacter"]
-      254 CLOSEUPVALS                      R10
-      255 RETURN                           R6 1
+      244 CAPTURE                          VAL R7
+      245 SETTABLEKS                       R11 R7 K126 ["serializeChildren"]
+      247 DUPCLOSURE                       R11 K127 [PROTO_19]
+      248 CAPTURE                          VAL R5
+      249 CAPTURE                          VAL R3
+      250 SETTABLEKS                       R11 R7 K128 ["computeHashSerializeContext"]
+      252 LOADNIL                          R11
+      253 DUPCLOSURE                       R12 K129 [PROTO_20]
+      254 CAPTURE                          VAL R5
+      255 CAPTURE                          VAL R12
+      256 NEWCLOSURE                       R13 P18
+      257 CAPTURE                          VAL R7
+      258 CAPTURE                          VAL R0
+      259 CAPTURE                          VAL R2
+      260 CAPTURE                          VAL R5
+      261 CAPTURE                          REF R11
+      262 CAPTURE                          VAL R12
+      263 SETTABLEKS                       R13 R7 K130 ["hashCharacter"]
+      265 CLOSEUPVALS                      R11
+      266 RETURN                           R7 1

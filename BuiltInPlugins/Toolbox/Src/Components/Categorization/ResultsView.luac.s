@@ -211,38 +211,28 @@ PROTO_3:
        60 CALL                             R7 2 1
        61 GETUPVAL                         R8 16
        62 GETTABLEKS                       R8 R8 K7 ["Generator"]
-       64 DUPTABLE                         R9 K19 [{"networkInterface", "categoryName", "sectionName", "sortName", "searchTerm", "queryParams", "initialPageSize", "includeUnverifiedCreators", "searchSource", "qualityFilterData", "render"}]
+       64 DUPTABLE                         R9 K18 [{"networkInterface", "categoryName", "sectionName", "sortName", "searchTerm", "queryParams", "initialPageSize", "includeUnverifiedCreators", "searchSource", "render"}]
        65 GETTABLEKS                       R10 R4 K8 ["networkInterface"]
        67 SETTABLEKS                       R10 R9 K8 ["networkInterface"]
        69 GETTABLEKS                       R10 R1 K5 ["CategoryName"]
        71 SETTABLEKS                       R10 R9 K9 ["categoryName"]
-       73 GETTABLEKS                       R10 R1 K20 ["SectionName"]
+       73 GETTABLEKS                       R10 R1 K19 ["SectionName"]
        75 SETTABLEKS                       R10 R9 K10 ["sectionName"]
-       77 GETTABLEKS                       R10 R1 K21 ["SortName"]
+       77 GETTABLEKS                       R10 R1 K20 ["SortName"]
        79 SETTABLEKS                       R10 R9 K11 ["sortName"]
-       81 GETTABLEKS                       R10 R1 K22 ["SearchTerm"]
+       81 GETTABLEKS                       R10 R1 K21 ["SearchTerm"]
        83 SETTABLEKS                       R10 R9 K12 ["searchTerm"]
-       85 GETTABLEKS                       R10 R1 K23 ["QueryParams"]
+       85 GETTABLEKS                       R10 R1 K22 ["QueryParams"]
        87 SETTABLEKS                       R10 R9 K13 ["queryParams"]
        89 GETUPVAL                         R10 13
        90 SETTABLEKS                       R10 R9 K14 ["initialPageSize"]
        92 GETTABLEKS                       R10 R5 K15 ["includeUnverifiedCreators"]
        94 SETTABLEKS                       R10 R9 K15 ["includeUnverifiedCreators"]
-       96 GETTABLEKS                       R10 R1 K24 ["SearchSource"]
+       96 GETTABLEKS                       R10 R1 K23 ["SearchSource"]
        98 SETTABLEKS                       R10 R9 K16 ["searchSource"]
-      100 GETUPVAL                         R11 17
-      101 CALL                             R11 0 1
-      102 JUMPIFNOT                        R11 ; [+6]
-      103 GETUPVAL                         R11 18
-      104 CALL                             R11 0 1
-      105 JUMPIFNOT                        R11 ; [+3]
-      106 GETTABLEKS                       R10 R5 K17 ["qualityFilterData"]
-      108 JUMP                             ; [+1]
-      109 LOADNIL                          R10
-      110 SETTABLEKS                       R10 R9 K17 ["qualityFilterData"]
-      112 SETTABLEKS                       R7 R9 K18 ["render"]
-      114 CALL                             R8 1 -1
-      115 RETURN                           R8 -1
+      100 SETTABLEKS                       R7 R9 K17 ["render"]
+      102 CALL                             R8 1 -1
+      103 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -324,61 +314,49 @@ MAIN:
       135 GETTABLEKS                       R16 R16 K29 ["SharedFlags"]
       137 GETTABLEKS                       R16 R16 K30 ["getFFlagToolboxFixInventoryGridSearch"]
       139 CALL                             R15 1 1
-      140 GETIMPORT                        R16 K5 [require]
-      142 GETTABLEKS                       R17 R0 K10 ["Src"]
-      144 GETTABLEKS                       R17 R17 K31 ["Flags"]
-      146 GETTABLEKS                       R17 R17 K32 ["getFFlagQualityFiltersInToolboxSearch"]
-      148 CALL                             R16 1 1
-      149 GETIMPORT                        R17 K5 [require]
-      151 GETTABLEKS                       R18 R0 K10 ["Src"]
-      153 GETTABLEKS                       R18 R18 K31 ["Flags"]
-      155 GETTABLEKS                       R18 R18 K33 ["getFFlagQualityFiltersFixInResultsView"]
-      157 CALL                             R17 1 1
-      158 GETTABLEKS                       R18 R2 K34 ["UI"]
-      160 GETTABLEKS                       R18 R18 K35 ["LoadingIndicator"]
-      162 GETTABLEKS                       R19 R2 K34 ["UI"]
-      164 GETTABLEKS                       R19 R19 K36 ["LinkText"]
-      166 GETTABLEKS                       R20 R1 K37 ["useCallback"]
-      168 GETTABLEKS                       R21 R8 K38 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
-      170 DUPTABLE                         R22 K43 [{"Size", "Category", "SearchTerm", "SectionName", "SortName"}]
-      171 GETIMPORT                        R23 K46 [UDim2.new]
-      173 LOADN                            R24 1
-      174 LOADN                            R25 0
-      175 LOADN                            R26 0
-      176 LOADN                            R27 0
-      177 CALL                             R23 4 1
-      178 SETTABLEKS                       R23 R22 K39 ["Size"]
-      180 GETTABLEKS                       R23 R7 K47 ["FREE_MODELS"]
-      182 GETTABLEKS                       R23 R23 K48 ["name"]
-      184 SETTABLEKS                       R23 R22 K17 ["Category"]
-      186 LOADNIL                          R23
-      187 SETTABLEKS                       R23 R22 K40 ["SearchTerm"]
-      189 LOADNIL                          R23
-      190 SETTABLEKS                       R23 R22 K41 ["SectionName"]
-      192 GETTABLEKS                       R23 R13 K49 ["getDefaultSortNameForCategory"]
-      194 GETTABLEKS                       R24 R7 K47 ["FREE_MODELS"]
-      196 GETTABLEKS                       R24 R24 K48 ["name"]
-      198 CALL                             R23 1 1
-      199 SETTABLEKS                       R23 R22 K42 ["SortName"]
-      201 DUPCLOSURE                       R23 K50 [PROTO_0]
-      202 DUPCLOSURE                       R24 K51 [PROTO_3]
-      203 CAPTURE                          VAL R3
-      204 CAPTURE                          VAL R22
-      205 CAPTURE                          VAL R2
-      206 CAPTURE                          VAL R11
-      207 CAPTURE                          VAL R14
-      208 CAPTURE                          VAL R23
-      209 CAPTURE                          VAL R20
-      210 CAPTURE                          VAL R9
-      211 CAPTURE                          VAL R1
-      212 CAPTURE                          VAL R19
-      213 CAPTURE                          VAL R18
-      214 CAPTURE                          VAL R7
-      215 CAPTURE                          VAL R6
-      216 CAPTURE                          VAL R21
-      217 CAPTURE                          VAL R4
-      218 CAPTURE                          VAL R15
-      219 CAPTURE                          VAL R12
-      220 CAPTURE                          VAL R16
-      221 CAPTURE                          VAL R17
-      222 RETURN                           R24 1
+      140 GETTABLEKS                       R16 R2 K31 ["UI"]
+      142 GETTABLEKS                       R16 R16 K32 ["LoadingIndicator"]
+      144 GETTABLEKS                       R17 R2 K31 ["UI"]
+      146 GETTABLEKS                       R17 R17 K33 ["LinkText"]
+      148 GETTABLEKS                       R18 R1 K34 ["useCallback"]
+      150 GETTABLEKS                       R19 R8 K35 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
+      152 DUPTABLE                         R20 K40 [{"Size", "Category", "SearchTerm", "SectionName", "SortName"}]
+      153 GETIMPORT                        R21 K43 [UDim2.new]
+      155 LOADN                            R22 1
+      156 LOADN                            R23 0
+      157 LOADN                            R24 0
+      158 LOADN                            R25 0
+      159 CALL                             R21 4 1
+      160 SETTABLEKS                       R21 R20 K36 ["Size"]
+      162 GETTABLEKS                       R21 R7 K44 ["FREE_MODELS"]
+      164 GETTABLEKS                       R21 R21 K45 ["name"]
+      166 SETTABLEKS                       R21 R20 K17 ["Category"]
+      168 LOADNIL                          R21
+      169 SETTABLEKS                       R21 R20 K37 ["SearchTerm"]
+      171 LOADNIL                          R21
+      172 SETTABLEKS                       R21 R20 K38 ["SectionName"]
+      174 GETTABLEKS                       R21 R13 K46 ["getDefaultSortNameForCategory"]
+      176 GETTABLEKS                       R22 R7 K44 ["FREE_MODELS"]
+      178 GETTABLEKS                       R22 R22 K45 ["name"]
+      180 CALL                             R21 1 1
+      181 SETTABLEKS                       R21 R20 K39 ["SortName"]
+      183 DUPCLOSURE                       R21 K47 [PROTO_0]
+      184 DUPCLOSURE                       R22 K48 [PROTO_3]
+      185 CAPTURE                          VAL R3
+      186 CAPTURE                          VAL R20
+      187 CAPTURE                          VAL R2
+      188 CAPTURE                          VAL R11
+      189 CAPTURE                          VAL R14
+      190 CAPTURE                          VAL R21
+      191 CAPTURE                          VAL R18
+      192 CAPTURE                          VAL R9
+      193 CAPTURE                          VAL R1
+      194 CAPTURE                          VAL R17
+      195 CAPTURE                          VAL R16
+      196 CAPTURE                          VAL R7
+      197 CAPTURE                          VAL R6
+      198 CAPTURE                          VAL R19
+      199 CAPTURE                          VAL R4
+      200 CAPTURE                          VAL R15
+      201 CAPTURE                          VAL R12
+      202 RETURN                           R22 1

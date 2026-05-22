@@ -3669,12 +3669,12 @@ PROTO_53:
       412 SETTABLEKS                       R4 R3 K9 ["Visible"]
       414 GETUPVAL                         R4 3
       415 GETTABLEN                        R3 R4 1
-      416 JUMPIFNOT                        R3 ; [+502]
+      416 JUMPIFNOT                        R3 ; [+510]
       417 GETUPVAL                         R4 3
       418 GETTABLEN                        R3 R4 1
       419 LOADB                            R4 0
       420 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      422 JUMP                             ; [+496]
+      422 JUMP                             ; [+504]
       423 GETUPVAL                         R3 9
       424 JUMPIFEQKN                       R3 K22 [2] ; [+25]
       426 GETUPVAL                         R3 9
@@ -3777,12 +3777,12 @@ PROTO_53:
       544 SETTABLEKS                       R5 R4 K9 ["Visible"]
       546 GETUPVAL                         R5 3
       547 GETTABLE                         R4 R5 R3
-      548 JUMPIFNOT                        R4 ; [+370]
+      548 JUMPIFNOT                        R4 ; [+378]
       549 GETUPVAL                         R5 3
       550 GETTABLE                         R4 R5 R3
       551 LOADB                            R5 1
       552 SETTABLEKS                       R5 R4 K9 ["Visible"]
-      554 JUMP                             ; [+364]
+      554 JUMP                             ; [+372]
       555 GETUPVAL                         R3 9
       556 JUMPIFNOTEQKN                    R3 K31 [1] ; [+85]
       558 GETUPVAL                         R5 1
@@ -3856,9 +3856,9 @@ PROTO_53:
       638 GETUPVAL                         R3 6
       639 LOADB                            R4 0
       640 CALL                             R3 1 0
-      641 JUMP                             ; [+277]
+      641 JUMP                             ; [+285]
       642 GETUPVAL                         R3 9
-      643 JUMPIFNOTEQKN                    R3 K32 [14] ; [+275]
+      643 JUMPIFNOTEQKN                    R3 K32 [14] ; [+283]
       645 GETUPVAL                         R5 1
       646 GETTABLEN                        R4 R5 11
       647 GETTABLEN                        R3 R4 1
@@ -3930,9 +3930,9 @@ PROTO_53:
       725 GETUPVAL                         R3 6
       726 LOADB                            R4 0
       727 CALL                             R3 1 0
-      728 JUMP                             ; [+190]
+      728 JUMP                             ; [+198]
       729 GETUPVAL                         R3 10
-      730 JUMPIF                           R3 ; [+188]
+      730 JUMPIF                           R3 ; [+196]
       731 GETUPVAL                         R5 1
       732 GETTABLEN                        R4 R5 11
       733 GETTABLEN                        R3 R4 1
@@ -4002,1006 +4002,1013 @@ PROTO_53:
       808 LOADB                            R4 1
       809 SETTABLEKS                       R4 R3 K9 ["Visible"]
       811 LENGTH                           R3 R1
-      812 JUMPIFNOTEQKN                    R3 K31 [1] ; [+106]
+      812 JUMPIFNOTEQKN                    R3 K31 [1] ; [+114]
       814 GETTABLEN                        R3 R1 1
       815 LOADK                            R5 K33 ["BasePart"]
       816 NAMECALL                         R3 R3 K16 ["IsA"]
       818 CALL                             R3 2 1
-      819 JUMPIFNOT                        R3 ; [+99]
-      820 GETUPVAL                         R3 6
-      821 LOADB                            R4 1
-      822 CALL                             R3 1 0
-      823 GETTABLEN                        R3 R1 1
-      824 LOADK                            R5 K34 ["Part"]
-      825 NAMECALL                         R3 R3 K16 ["IsA"]
-      827 CALL                             R3 2 1
-      828 JUMPIFNOT                        R3 ; [+90]
-      829 GETTABLEN                        R3 R1 1
-      830 GETTABLEKS                       R3 R3 K35 ["Shape"]
-      832 GETIMPORT                        R4 K38 [Enum.PartType.Ball]
-      834 JUMPIFNOTEQ                      R3 R4 ; [+84]
-      836 GETUPVAL                         R5 1
-      837 GETTABLEN                        R4 R5 11
-      838 GETTABLEN                        R3 R4 1
-      839 LOADB                            R4 0
-      840 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      842 GETUPVAL                         R5 1
-      843 GETTABLEN                        R4 R5 11
-      844 GETTABLEN                        R3 R4 2
-      845 LOADB                            R4 0
-      846 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      848 GETUPVAL                         R4 3
-      849 GETTABLEN                        R3 R4 11
-      850 JUMPIFNOT                        R3 ; [+5]
-      851 GETUPVAL                         R4 3
-      852 GETTABLEN                        R3 R4 11
+      819 JUMPIF                           R3 ; [+8]
+      820 GETUPVAL                         R3 11
+      821 JUMPIFNOT                        R3 ; [+105]
+      822 GETTABLEN                        R3 R1 1
+      823 LOADK                            R5 K34 ["ProceduralModel"]
+      824 NAMECALL                         R3 R3 K16 ["IsA"]
+      826 CALL                             R3 2 1
+      827 JUMPIFNOT                        R3 ; [+99]
+      828 GETUPVAL                         R3 6
+      829 LOADB                            R4 1
+      830 CALL                             R3 1 0
+      831 GETTABLEN                        R3 R1 1
+      832 LOADK                            R5 K35 ["Part"]
+      833 NAMECALL                         R3 R3 K16 ["IsA"]
+      835 CALL                             R3 2 1
+      836 JUMPIFNOT                        R3 ; [+90]
+      837 GETTABLEN                        R3 R1 1
+      838 GETTABLEKS                       R3 R3 K36 ["Shape"]
+      840 GETIMPORT                        R4 K39 [Enum.PartType.Ball]
+      842 JUMPIFNOTEQ                      R3 R4 ; [+84]
+      844 GETUPVAL                         R5 1
+      845 GETTABLEN                        R4 R5 11
+      846 GETTABLEN                        R3 R4 1
+      847 LOADB                            R4 0
+      848 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      850 GETUPVAL                         R5 1
+      851 GETTABLEN                        R4 R5 11
+      852 GETTABLEN                        R3 R4 2
       853 LOADB                            R4 0
       854 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      856 GETUPVAL                         R5 1
-      857 GETTABLEN                        R4 R5 12
-      858 GETTABLEN                        R3 R4 1
-      859 LOADB                            R4 0
-      860 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      862 GETUPVAL                         R5 1
-      863 GETTABLEN                        R4 R5 12
-      864 GETTABLEN                        R3 R4 2
-      865 LOADB                            R4 0
-      866 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      868 GETUPVAL                         R4 3
-      869 GETTABLEN                        R3 R4 12
-      870 JUMPIFNOT                        R3 ; [+5]
-      871 GETUPVAL                         R4 3
-      872 GETTABLEN                        R3 R4 12
+      856 GETUPVAL                         R4 3
+      857 GETTABLEN                        R3 R4 11
+      858 JUMPIFNOT                        R3 ; [+5]
+      859 GETUPVAL                         R4 3
+      860 GETTABLEN                        R3 R4 11
+      861 LOADB                            R4 0
+      862 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      864 GETUPVAL                         R5 1
+      865 GETTABLEN                        R4 R5 12
+      866 GETTABLEN                        R3 R4 1
+      867 LOADB                            R4 0
+      868 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      870 GETUPVAL                         R5 1
+      871 GETTABLEN                        R4 R5 12
+      872 GETTABLEN                        R3 R4 2
       873 LOADB                            R4 0
       874 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      876 GETUPVAL                         R5 1
-      877 GETTABLEN                        R4 R5 13
-      878 GETTABLEN                        R3 R4 1
-      879 LOADB                            R4 0
-      880 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      882 GETUPVAL                         R5 1
-      883 GETTABLEN                        R4 R5 13
-      884 GETTABLEN                        R3 R4 2
-      885 LOADB                            R4 0
-      886 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      888 GETUPVAL                         R4 3
-      889 GETTABLEN                        R3 R4 13
-      890 JUMPIFNOT                        R3 ; [+5]
-      891 GETUPVAL                         R4 3
-      892 GETTABLEN                        R3 R4 13
+      876 GETUPVAL                         R4 3
+      877 GETTABLEN                        R3 R4 12
+      878 JUMPIFNOT                        R3 ; [+5]
+      879 GETUPVAL                         R4 3
+      880 GETTABLEN                        R3 R4 12
+      881 LOADB                            R4 0
+      882 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      884 GETUPVAL                         R5 1
+      885 GETTABLEN                        R4 R5 13
+      886 GETTABLEN                        R3 R4 1
+      887 LOADB                            R4 0
+      888 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      890 GETUPVAL                         R5 1
+      891 GETTABLEN                        R4 R5 13
+      892 GETTABLEN                        R3 R4 2
       893 LOADB                            R4 0
       894 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      896 GETUPVAL                         R3 6
-      897 LOADB                            R4 0
-      898 CALL                             R3 1 0
-      899 GETUPVAL                         R5 1
-      900 GETTABLEN                        R4 R5 6
-      901 GETTABLEN                        R3 R4 1
-      902 LOADB                            R4 1
-      903 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      905 GETUPVAL                         R5 1
-      906 GETTABLEN                        R4 R5 6
-      907 GETTABLEN                        R3 R4 2
-      908 LOADB                            R4 1
-      909 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      911 GETUPVAL                         R4 3
-      912 GETTABLEN                        R3 R4 6
-      913 JUMPIFNOT                        R3 ; [+5]
-      914 GETUPVAL                         R4 3
-      915 GETTABLEN                        R3 R4 6
+      896 GETUPVAL                         R4 3
+      897 GETTABLEN                        R3 R4 13
+      898 JUMPIFNOT                        R3 ; [+5]
+      899 GETUPVAL                         R4 3
+      900 GETTABLEN                        R3 R4 13
+      901 LOADB                            R4 0
+      902 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      904 GETUPVAL                         R3 6
+      905 LOADB                            R4 0
+      906 CALL                             R3 1 0
+      907 GETUPVAL                         R5 1
+      908 GETTABLEN                        R4 R5 6
+      909 GETTABLEN                        R3 R4 1
+      910 LOADB                            R4 1
+      911 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      913 GETUPVAL                         R5 1
+      914 GETTABLEN                        R4 R5 6
+      915 GETTABLEN                        R3 R4 2
       916 LOADB                            R4 1
       917 SETTABLEKS                       R4 R3 K9 ["Visible"]
-      919 GETUPVAL                         R5 1
-      920 GETTABLEN                        R4 R5 11
-      921 GETTABLEN                        R3 R4 1
-      922 GETTABLEKS                       R3 R3 K14 ["Adornee"]
-      924 GETIMPORT                        R4 K5 [game]
-      926 GETTABLEKS                       R4 R4 K17 ["Workspace"]
-      928 GETTABLEKS                       R4 R4 K39 ["CurrentCamera"]
-      930 GETTABLEKS                       R4 R4 K40 ["CoordinateFrame"]
-      932 GETTABLEKS                       R4 R4 K41 ["p"]
-      934 GETTABLEKS                       R5 R3 K42 ["CFrame"]
-      936 MOVE                             R7 R4
-      937 NAMECALL                         R5 R5 K43 ["pointToObjectSpace"]
-      939 CALL                             R5 2 1
-      940 GETTABLEKS                       R5 R5 K44 ["Unit"]
-      942 GETTABLEKS                       R9 R5 K45 ["X"]
-      944 FASTCALL1                        MATH_ABS R9 ; [+2]
-      945 GETIMPORT                        R8 K48 [math.abs]
-      947 CALL                             R8 1 1
-      948 GETTABLEKS                       R10 R5 K49 ["Y"]
-      950 FASTCALL1                        MATH_ABS R10 ; [+2]
-      951 GETIMPORT                        R9 K48 [math.abs]
-      953 CALL                             R9 1 1
-      954 GETTABLEKS                       R11 R5 K50 ["Z"]
-      956 FASTCALL1                        MATH_ABS R11 ; [+2]
-      957 GETIMPORT                        R10 K48 [math.abs]
-      959 CALL                             R10 1 1
-      960 FASTCALL                         VECTOR ; [+2]
-      961 GETIMPORT                        R7 K53 [Vector3.new]
-      963 CALL                             R7 3 1
-      964 DIV                              R6 R5 R7
-      965 GETTABLEKS                       R9 R6 K45 ["X"]
-      967 GETTABLEKS                       R10 R6 K45 ["X"]
-      969 JUMPIFNOTEQ                      R9 R10 ; [+4]
-      971 GETTABLEKS                       R8 R6 K45 ["X"]
-      973 JUMPIF                           R8 ; [+1]
-      974 LOADN                            R8 1
-      975 GETTABLEKS                       R10 R6 K49 ["Y"]
-      977 GETTABLEKS                       R11 R6 K49 ["Y"]
-      979 JUMPIFNOTEQ                      R10 R11 ; [+4]
-      981 GETTABLEKS                       R9 R6 K49 ["Y"]
-      983 JUMPIF                           R9 ; [+1]
-      984 LOADN                            R9 1
-      985 GETTABLEKS                       R11 R6 K50 ["Z"]
-      987 GETTABLEKS                       R12 R6 K50 ["Z"]
-      989 JUMPIFNOTEQ                      R11 R12 ; [+4]
-      991 GETTABLEKS                       R10 R6 K50 ["Z"]
-      993 JUMPIF                           R10 ; [+1]
-      994 LOADN                            R10 1
-      995 FASTCALL                         VECTOR ; [+2]
-      996 GETIMPORT                        R7 K53 [Vector3.new]
-      998 CALL                             R7 3 1
-      999 MOVE                             R6 R7
-     1000 GETUPVAL                         R9 1
-     1001 GETTABLEN                        R8 R9 1
-     1002 GETTABLEN                        R7 R8 1
-     1003 GETTABLEKS                       R7 R7 K14 ["Adornee"]
-     1005 GETTABLEKS                       R7 R7 K42 ["CFrame"]
-     1007 MOVE                             R9 R4
-     1008 NAMECALL                         R7 R7 K43 ["pointToObjectSpace"]
-     1010 CALL                             R7 2 1
-     1011 GETTABLEKS                       R7 R7 K44 ["Unit"]
-     1013 GETTABLEKS                       R11 R7 K45 ["X"]
-     1015 FASTCALL1                        MATH_ABS R11 ; [+2]
-     1016 GETIMPORT                        R10 K48 [math.abs]
-     1018 CALL                             R10 1 1
-     1019 GETTABLEKS                       R12 R7 K49 ["Y"]
-     1021 FASTCALL1                        MATH_ABS R12 ; [+2]
-     1022 GETIMPORT                        R11 K48 [math.abs]
-     1024 CALL                             R11 1 1
-     1025 GETTABLEKS                       R13 R7 K50 ["Z"]
-     1027 FASTCALL1                        MATH_ABS R13 ; [+2]
-     1028 GETIMPORT                        R12 K48 [math.abs]
-     1030 CALL                             R12 1 1
-     1031 FASTCALL                         VECTOR ; [+2]
-     1032 GETIMPORT                        R9 K53 [Vector3.new]
-     1034 CALL                             R9 3 1
-     1035 DIV                              R8 R7 R9
-     1036 GETTABLEKS                       R12 R3 K42 ["CFrame"]
-     1038 MOVE                             R14 R4
-     1039 NAMECALL                         R12 R12 K43 ["pointToObjectSpace"]
-     1041 CALL                             R12 2 1
-     1042 GETTABLEKS                       R12 R12 K56 ["Magnitude"]
-     1044 DIVK                             R11 R12 K55 [15]
-     1045 FASTCALL2K                       MATH_MAX R11 K31 ; [+4]
-     1047 LOADK                            R12 K31 [1]
-     1048 GETIMPORT                        R10 K58 [math.max]
-     1050 CALL                             R10 2 1
-     1051 MULK                             R9 R10 K54 [0.35]
-     1052 JUMPIF                           R0 ; [+133]
-     1053 GETUPVAL                         R12 1
-     1054 GETTABLEN                        R11 R12 1
-     1055 GETTABLEN                        R10 R11 1
-     1056 LOADN                            R12 0
-     1057 GETTABLEKS                       R13 R8 K49 ["Y"]
-     1059 LOADN                            R14 0
-     1060 FASTCALL                         VECTOR ; [+2]
-     1061 GETIMPORT                        R11 K53 [Vector3.new]
-     1063 CALL                             R11 3 1
-     1064 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1066 GETUPVAL                         R12 1
-     1067 GETTABLEN                        R11 R12 1
-     1068 GETTABLEN                        R10 R11 1
-     1069 GETIMPORT                        R11 K60 [CFrame.new]
-     1071 LOADN                            R13 0
-     1072 GETTABLEKS                       R17 R8 K49 ["Y"]
-     1074 MUL                              R16 R17 R9
-     1075 MULK                             R15 R16 K22 [2]
-     1076 DIVK                             R14 R15 K54 [0.35]
-     1077 LOADN                            R15 0
-     1078 FASTCALL                         VECTOR ; [+2]
-     1079 GETIMPORT                        R12 K53 [Vector3.new]
-     1081 CALL                             R12 3 1
-     1082 LOADN                            R14 0
-     1083 GETTABLEKS                       R19 R8 K49 ["Y"]
-     1085 MUL                              R18 R19 R9
-     1086 MULK                             R17 R18 K22 [2]
-     1087 DIVK                             R16 R17 K54 [0.35]
-     1088 GETTABLEKS                       R17 R8 K49 ["Y"]
-     1090 ADD                              R15 R16 R17
-     1091 LOADN                            R16 0
-     1092 FASTCALL                         VECTOR ; [+2]
-     1093 GETIMPORT                        R13 K53 [Vector3.new]
-     1095 CALL                             R13 3 1
-     1096 CALL                             R11 2 1
-     1097 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1099 GETUPVAL                         R12 1
-     1100 GETTABLEN                        R11 R12 1
-     1101 GETTABLEN                        R10 R11 2
-     1102 LOADN                            R12 0
-     1103 GETTABLEKS                       R13 R8 K49 ["Y"]
-     1105 LOADN                            R14 0
-     1106 FASTCALL                         VECTOR ; [+2]
-     1107 GETIMPORT                        R11 K53 [Vector3.new]
-     1109 CALL                             R11 3 1
-     1110 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1112 GETUPVAL                         R12 1
-     1113 GETTABLEN                        R11 R12 1
-     1114 GETTABLEN                        R10 R11 2
-     1115 GETUPVAL                         R14 1
-     1116 GETTABLEN                        R13 R14 1
-     1117 GETTABLEN                        R12 R13 1
-     1118 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1120 LOADN                            R14 0
-     1121 GETUPVAL                         R20 1
-     1122 GETTABLEN                        R19 R20 1
-     1123 GETTABLEN                        R18 R19 1
-     1124 GETTABLEKS                       R18 R18 K61 ["Height"]
-     1126 DIVK                             R17 R18 K22 [2]
-     1127 GETUPVAL                         R21 1
-     1128 GETTABLEN                        R20 R21 1
-     1129 GETTABLEN                        R19 R20 2
-     1130 GETTABLEKS                       R19 R19 K61 ["Height"]
-     1132 DIVK                             R18 R19 K62 [1.75]
-     1133 SUB                              R16 R17 R18
-     1134 GETTABLEKS                       R17 R8 K49 ["Y"]
-     1136 MUL                              R15 R16 R17
-     1137 LOADN                            R16 0
-     1138 FASTCALL                         VECTOR ; [+2]
-     1139 GETIMPORT                        R13 K53 [Vector3.new]
-     1141 CALL                             R13 3 1
-     1142 ADD                              R11 R12 R13
-     1143 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1145 GETTABLEKS                       R10 R6 K49 ["Y"]
-     1147 SETUPVAL                         R10 11
-     1148 GETUPVAL                         R12 1
-     1149 GETTABLEN                        R11 R12 6
-     1150 GETTABLEN                        R10 R11 1
-     1151 LOADN                            R12 0
-     1152 GETTABLEKS                       R13 R6 K49 ["Y"]
-     1154 LOADN                            R14 0
-     1155 FASTCALL                         VECTOR ; [+2]
-     1156 GETIMPORT                        R11 K53 [Vector3.new]
-     1158 CALL                             R11 3 1
-     1159 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1161 GETUPVAL                         R12 1
-     1162 GETTABLEN                        R11 R12 6
-     1163 GETTABLEN                        R10 R11 2
-     1164 LOADN                            R12 0
-     1165 GETTABLEKS                       R13 R6 K49 ["Y"]
-     1167 LOADN                            R14 0
-     1168 FASTCALL                         VECTOR ; [+2]
-     1169 GETIMPORT                        R11 K53 [Vector3.new]
-     1171 CALL                             R11 3 1
-     1172 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1174 GETUPVAL                         R11 3
-     1175 GETTABLEN                        R10 R11 6
-     1176 LOADN                            R12 0
-     1177 GETTABLEKS                       R13 R6 K49 ["Y"]
-     1179 LOADN                            R14 0
-     1180 FASTCALL                         VECTOR ; [+2]
-     1181 GETIMPORT                        R11 K53 [Vector3.new]
-     1183 CALL                             R11 3 1
-     1184 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1186 GETUPVAL                         R12 1
-     1187 GETTABLEN                        R11 R12 11
-     1188 GETTABLEN                        R10 R11 2
-     1189 GETTABLEKS                       R12 R6 K45 ["X"]
-     1191 GETTABLEKS                       R13 R6 K49 ["Y"]
-     1193 GETTABLEKS                       R15 R6 K50 ["Z"]
-     1195 MINUS                            R14 R15
-     1196 FASTCALL                         VECTOR ; [+2]
-     1197 GETIMPORT                        R11 K53 [Vector3.new]
-     1199 CALL                             R11 3 1
-     1200 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1202 GETUPVAL                         R12 1
-     1203 GETTABLEN                        R11 R12 11
-     1204 GETTABLEN                        R10 R11 2
-     1205 GETIMPORT                        R11 K60 [CFrame.new]
-     1207 GETTABLEKS                       R14 R6 K45 ["X"]
-     1209 MUL                              R13 R14 R9
-     1210 GETTABLEKS                       R15 R6 K49 ["Y"]
-     1212 MUL                              R14 R15 R9
-     1213 LOADN                            R15 0
-     1214 FASTCALL                         VECTOR ; [+2]
-     1215 GETIMPORT                        R12 K53 [Vector3.new]
-     1217 CALL                             R12 3 1
-     1218 GETTABLEKS                       R15 R6 K45 ["X"]
+      919 GETUPVAL                         R4 3
+      920 GETTABLEN                        R3 R4 6
+      921 JUMPIFNOT                        R3 ; [+5]
+      922 GETUPVAL                         R4 3
+      923 GETTABLEN                        R3 R4 6
+      924 LOADB                            R4 1
+      925 SETTABLEKS                       R4 R3 K9 ["Visible"]
+      927 GETUPVAL                         R5 1
+      928 GETTABLEN                        R4 R5 11
+      929 GETTABLEN                        R3 R4 1
+      930 GETTABLEKS                       R3 R3 K14 ["Adornee"]
+      932 GETIMPORT                        R4 K5 [game]
+      934 GETTABLEKS                       R4 R4 K17 ["Workspace"]
+      936 GETTABLEKS                       R4 R4 K40 ["CurrentCamera"]
+      938 GETTABLEKS                       R4 R4 K41 ["CoordinateFrame"]
+      940 GETTABLEKS                       R4 R4 K42 ["p"]
+      942 GETTABLEKS                       R5 R3 K43 ["CFrame"]
+      944 MOVE                             R7 R4
+      945 NAMECALL                         R5 R5 K44 ["pointToObjectSpace"]
+      947 CALL                             R5 2 1
+      948 GETTABLEKS                       R5 R5 K45 ["Unit"]
+      950 GETTABLEKS                       R9 R5 K46 ["X"]
+      952 FASTCALL1                        MATH_ABS R9 ; [+2]
+      953 GETIMPORT                        R8 K49 [math.abs]
+      955 CALL                             R8 1 1
+      956 GETTABLEKS                       R10 R5 K50 ["Y"]
+      958 FASTCALL1                        MATH_ABS R10 ; [+2]
+      959 GETIMPORT                        R9 K49 [math.abs]
+      961 CALL                             R9 1 1
+      962 GETTABLEKS                       R11 R5 K51 ["Z"]
+      964 FASTCALL1                        MATH_ABS R11 ; [+2]
+      965 GETIMPORT                        R10 K49 [math.abs]
+      967 CALL                             R10 1 1
+      968 FASTCALL                         VECTOR ; [+2]
+      969 GETIMPORT                        R7 K54 [Vector3.new]
+      971 CALL                             R7 3 1
+      972 DIV                              R6 R5 R7
+      973 GETTABLEKS                       R9 R6 K46 ["X"]
+      975 GETTABLEKS                       R10 R6 K46 ["X"]
+      977 JUMPIFNOTEQ                      R9 R10 ; [+4]
+      979 GETTABLEKS                       R8 R6 K46 ["X"]
+      981 JUMPIF                           R8 ; [+1]
+      982 LOADN                            R8 1
+      983 GETTABLEKS                       R10 R6 K50 ["Y"]
+      985 GETTABLEKS                       R11 R6 K50 ["Y"]
+      987 JUMPIFNOTEQ                      R10 R11 ; [+4]
+      989 GETTABLEKS                       R9 R6 K50 ["Y"]
+      991 JUMPIF                           R9 ; [+1]
+      992 LOADN                            R9 1
+      993 GETTABLEKS                       R11 R6 K51 ["Z"]
+      995 GETTABLEKS                       R12 R6 K51 ["Z"]
+      997 JUMPIFNOTEQ                      R11 R12 ; [+4]
+      999 GETTABLEKS                       R10 R6 K51 ["Z"]
+     1001 JUMPIF                           R10 ; [+1]
+     1002 LOADN                            R10 1
+     1003 FASTCALL                         VECTOR ; [+2]
+     1004 GETIMPORT                        R7 K54 [Vector3.new]
+     1006 CALL                             R7 3 1
+     1007 MOVE                             R6 R7
+     1008 GETUPVAL                         R9 1
+     1009 GETTABLEN                        R8 R9 1
+     1010 GETTABLEN                        R7 R8 1
+     1011 GETTABLEKS                       R7 R7 K14 ["Adornee"]
+     1013 GETTABLEKS                       R7 R7 K43 ["CFrame"]
+     1015 MOVE                             R9 R4
+     1016 NAMECALL                         R7 R7 K44 ["pointToObjectSpace"]
+     1018 CALL                             R7 2 1
+     1019 GETTABLEKS                       R7 R7 K45 ["Unit"]
+     1021 GETTABLEKS                       R11 R7 K46 ["X"]
+     1023 FASTCALL1                        MATH_ABS R11 ; [+2]
+     1024 GETIMPORT                        R10 K49 [math.abs]
+     1026 CALL                             R10 1 1
+     1027 GETTABLEKS                       R12 R7 K50 ["Y"]
+     1029 FASTCALL1                        MATH_ABS R12 ; [+2]
+     1030 GETIMPORT                        R11 K49 [math.abs]
+     1032 CALL                             R11 1 1
+     1033 GETTABLEKS                       R13 R7 K51 ["Z"]
+     1035 FASTCALL1                        MATH_ABS R13 ; [+2]
+     1036 GETIMPORT                        R12 K49 [math.abs]
+     1038 CALL                             R12 1 1
+     1039 FASTCALL                         VECTOR ; [+2]
+     1040 GETIMPORT                        R9 K54 [Vector3.new]
+     1042 CALL                             R9 3 1
+     1043 DIV                              R8 R7 R9
+     1044 GETTABLEKS                       R12 R3 K43 ["CFrame"]
+     1046 MOVE                             R14 R4
+     1047 NAMECALL                         R12 R12 K44 ["pointToObjectSpace"]
+     1049 CALL                             R12 2 1
+     1050 GETTABLEKS                       R12 R12 K57 ["Magnitude"]
+     1052 DIVK                             R11 R12 K56 [15]
+     1053 FASTCALL2K                       MATH_MAX R11 K31 ; [+4]
+     1055 LOADK                            R12 K31 [1]
+     1056 GETIMPORT                        R10 K59 [math.max]
+     1058 CALL                             R10 2 1
+     1059 MULK                             R9 R10 K55 [0.35]
+     1060 JUMPIF                           R0 ; [+133]
+     1061 GETUPVAL                         R12 1
+     1062 GETTABLEN                        R11 R12 1
+     1063 GETTABLEN                        R10 R11 1
+     1064 LOADN                            R12 0
+     1065 GETTABLEKS                       R13 R8 K50 ["Y"]
+     1067 LOADN                            R14 0
+     1068 FASTCALL                         VECTOR ; [+2]
+     1069 GETIMPORT                        R11 K54 [Vector3.new]
+     1071 CALL                             R11 3 1
+     1072 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1074 GETUPVAL                         R12 1
+     1075 GETTABLEN                        R11 R12 1
+     1076 GETTABLEN                        R10 R11 1
+     1077 GETIMPORT                        R11 K61 [CFrame.new]
+     1079 LOADN                            R13 0
+     1080 GETTABLEKS                       R17 R8 K50 ["Y"]
+     1082 MUL                              R16 R17 R9
+     1083 MULK                             R15 R16 K22 [2]
+     1084 DIVK                             R14 R15 K55 [0.35]
+     1085 LOADN                            R15 0
+     1086 FASTCALL                         VECTOR ; [+2]
+     1087 GETIMPORT                        R12 K54 [Vector3.new]
+     1089 CALL                             R12 3 1
+     1090 LOADN                            R14 0
+     1091 GETTABLEKS                       R19 R8 K50 ["Y"]
+     1093 MUL                              R18 R19 R9
+     1094 MULK                             R17 R18 K22 [2]
+     1095 DIVK                             R16 R17 K55 [0.35]
+     1096 GETTABLEKS                       R17 R8 K50 ["Y"]
+     1098 ADD                              R15 R16 R17
+     1099 LOADN                            R16 0
+     1100 FASTCALL                         VECTOR ; [+2]
+     1101 GETIMPORT                        R13 K54 [Vector3.new]
+     1103 CALL                             R13 3 1
+     1104 CALL                             R11 2 1
+     1105 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1107 GETUPVAL                         R12 1
+     1108 GETTABLEN                        R11 R12 1
+     1109 GETTABLEN                        R10 R11 2
+     1110 LOADN                            R12 0
+     1111 GETTABLEKS                       R13 R8 K50 ["Y"]
+     1113 LOADN                            R14 0
+     1114 FASTCALL                         VECTOR ; [+2]
+     1115 GETIMPORT                        R11 K54 [Vector3.new]
+     1117 CALL                             R11 3 1
+     1118 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1120 GETUPVAL                         R12 1
+     1121 GETTABLEN                        R11 R12 1
+     1122 GETTABLEN                        R10 R11 2
+     1123 GETUPVAL                         R14 1
+     1124 GETTABLEN                        R13 R14 1
+     1125 GETTABLEN                        R12 R13 1
+     1126 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1128 LOADN                            R14 0
+     1129 GETUPVAL                         R20 1
+     1130 GETTABLEN                        R19 R20 1
+     1131 GETTABLEN                        R18 R19 1
+     1132 GETTABLEKS                       R18 R18 K62 ["Height"]
+     1134 DIVK                             R17 R18 K22 [2]
+     1135 GETUPVAL                         R21 1
+     1136 GETTABLEN                        R20 R21 1
+     1137 GETTABLEN                        R19 R20 2
+     1138 GETTABLEKS                       R19 R19 K62 ["Height"]
+     1140 DIVK                             R18 R19 K63 [1.75]
+     1141 SUB                              R16 R17 R18
+     1142 GETTABLEKS                       R17 R8 K50 ["Y"]
+     1144 MUL                              R15 R16 R17
+     1145 LOADN                            R16 0
+     1146 FASTCALL                         VECTOR ; [+2]
+     1147 GETIMPORT                        R13 K54 [Vector3.new]
+     1149 CALL                             R13 3 1
+     1150 ADD                              R11 R12 R13
+     1151 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1153 GETTABLEKS                       R10 R6 K50 ["Y"]
+     1155 SETUPVAL                         R10 12
+     1156 GETUPVAL                         R12 1
+     1157 GETTABLEN                        R11 R12 6
+     1158 GETTABLEN                        R10 R11 1
+     1159 LOADN                            R12 0
+     1160 GETTABLEKS                       R13 R6 K50 ["Y"]
+     1162 LOADN                            R14 0
+     1163 FASTCALL                         VECTOR ; [+2]
+     1164 GETIMPORT                        R11 K54 [Vector3.new]
+     1166 CALL                             R11 3 1
+     1167 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1169 GETUPVAL                         R12 1
+     1170 GETTABLEN                        R11 R12 6
+     1171 GETTABLEN                        R10 R11 2
+     1172 LOADN                            R12 0
+     1173 GETTABLEKS                       R13 R6 K50 ["Y"]
+     1175 LOADN                            R14 0
+     1176 FASTCALL                         VECTOR ; [+2]
+     1177 GETIMPORT                        R11 K54 [Vector3.new]
+     1179 CALL                             R11 3 1
+     1180 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1182 GETUPVAL                         R11 3
+     1183 GETTABLEN                        R10 R11 6
+     1184 LOADN                            R12 0
+     1185 GETTABLEKS                       R13 R6 K50 ["Y"]
+     1187 LOADN                            R14 0
+     1188 FASTCALL                         VECTOR ; [+2]
+     1189 GETIMPORT                        R11 K54 [Vector3.new]
+     1191 CALL                             R11 3 1
+     1192 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1194 GETUPVAL                         R12 1
+     1195 GETTABLEN                        R11 R12 11
+     1196 GETTABLEN                        R10 R11 2
+     1197 GETTABLEKS                       R12 R6 K46 ["X"]
+     1199 GETTABLEKS                       R13 R6 K50 ["Y"]
+     1201 GETTABLEKS                       R15 R6 K51 ["Z"]
+     1203 MINUS                            R14 R15
+     1204 FASTCALL                         VECTOR ; [+2]
+     1205 GETIMPORT                        R11 K54 [Vector3.new]
+     1207 CALL                             R11 3 1
+     1208 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1210 GETUPVAL                         R12 1
+     1211 GETTABLEN                        R11 R12 11
+     1212 GETTABLEN                        R10 R11 2
+     1213 GETIMPORT                        R11 K61 [CFrame.new]
+     1215 GETTABLEKS                       R14 R6 K46 ["X"]
+     1217 MUL                              R13 R14 R9
+     1218 GETTABLEKS                       R15 R6 K50 ["Y"]
      1220 MUL                              R14 R15 R9
-     1221 GETTABLEKS                       R16 R6 K49 ["Y"]
-     1223 MUL                              R15 R16 R9
-     1224 GETTABLEKS                       R16 R6 K50 ["Z"]
-     1226 FASTCALL                         VECTOR ; [+2]
-     1227 GETIMPORT                        R13 K53 [Vector3.new]
-     1229 CALL                             R13 3 1
-     1230 CALL                             R11 2 1
-     1231 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1233 GETUPVAL                         R12 1
-     1234 GETTABLEN                        R11 R12 11
-     1235 GETTABLEN                        R10 R11 2
-     1236 GETUPVAL                         R14 1
-     1237 GETTABLEN                        R13 R14 11
-     1238 GETTABLEN                        R12 R13 2
-     1239 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1241 GETIMPORT                        R13 K64 [CFrame.Angles]
-     1243 LOADN                            R14 0
-     1244 LOADN                            R15 0
-     1245 GETTABLEKS                       R20 R6 K45 ["X"]
-     1247 LOADN                            R21 0
-     1248 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1250 LOADK                            R19 K65 [1.5707963267949]
-     1251 JUMP                             ; [+1]
-     1252 LOADN                            R19 0
-     1253 GETTABLEKS                       R21 R6 K49 ["Y"]
-     1255 LOADN                            R22 0
-     1256 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1258 LOADN                            R20 0
+     1221 LOADN                            R15 0
+     1222 FASTCALL                         VECTOR ; [+2]
+     1223 GETIMPORT                        R12 K54 [Vector3.new]
+     1225 CALL                             R12 3 1
+     1226 GETTABLEKS                       R15 R6 K46 ["X"]
+     1228 MUL                              R14 R15 R9
+     1229 GETTABLEKS                       R16 R6 K50 ["Y"]
+     1231 MUL                              R15 R16 R9
+     1232 GETTABLEKS                       R16 R6 K51 ["Z"]
+     1234 FASTCALL                         VECTOR ; [+2]
+     1235 GETIMPORT                        R13 K54 [Vector3.new]
+     1237 CALL                             R13 3 1
+     1238 CALL                             R11 2 1
+     1239 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1241 GETUPVAL                         R12 1
+     1242 GETTABLEN                        R11 R12 11
+     1243 GETTABLEN                        R10 R11 2
+     1244 GETUPVAL                         R14 1
+     1245 GETTABLEN                        R13 R14 11
+     1246 GETTABLEN                        R12 R13 2
+     1247 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1249 GETIMPORT                        R13 K65 [CFrame.Angles]
+     1251 LOADN                            R14 0
+     1252 LOADN                            R15 0
+     1253 GETTABLEKS                       R20 R6 K46 ["X"]
+     1255 LOADN                            R21 0
+     1256 JUMPIFNOTLT                      R21 R20 ; [+3]
+     1258 LOADK                            R19 K66 [1.5707963267949]
      1259 JUMP                             ; [+1]
-     1260 LOADK                            R20 K65 [1.5707963267949]
-     1261 ADD                              R18 R19 R20
-     1262 GETTABLEKS                       R20 R6 K50 ["Z"]
-     1264 LOADN                            R21 0
-     1265 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1267 LOADN                            R19 0
-     1268 JUMP                             ; [+8]
-     1269 GETTABLEKS                       R20 R6 K49 ["Y"]
-     1271 LOADN                            R21 0
-     1272 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1274 LOADK                            R19 K66 [-1.5707963267949]
-     1275 JUMP                             ; [+1]
-     1276 LOADK                            R19 K65 [1.5707963267949]
-     1277 ADD                              R17 R18 R19
-     1278 GETTABLEKS                       R19 R6 K45 ["X"]
-     1280 LOADN                            R20 0
-     1281 JUMPIFNOTLT                      R20 R19 ; [+3]
-     1283 LOADN                            R18 1
-     1284 JUMP                             ; [+1]
-     1285 LOADN                            R18 255
-     1286 MUL                              R16 R17 R18
-     1287 CALL                             R13 3 1
-     1288 MUL                              R11 R12 R13
-     1289 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1291 GETUPVAL                         R11 12
-     1292 GETTABLEN                        R10 R11 3
-     1293 LOADB                            R11 0
-     1294 SETTABLEKS                       R11 R10 K9 ["Visible"]
-     1296 GETUPVAL                         R12 1
-     1297 GETTABLEN                        R11 R12 11
-     1298 GETTABLEN                        R10 R11 1
-     1299 LOADB                            R11 0
-     1300 SETTABLEKS                       R11 R10 K9 ["Visible"]
-     1302 GETUPVAL                         R10 9
-     1303 JUMPIFNOTEQKN                    R10 K19 [11] ; [+81]
-     1305 GETTABLEKS                       R11 R3 K67 ["Size"]
-     1307 GETTABLEKS                       R11 R11 K50 ["Z"]
-     1309 ADDK                             R10 R11 K22 [2]
-     1310 GETUPVAL                         R12 12
-     1311 GETTABLEN                        R11 R12 3
-     1312 SETTABLEKS                       R3 R11 K14 ["Adornee"]
-     1314 GETUPVAL                         R12 12
-     1315 GETTABLEN                        R11 R12 3
-     1316 GETIMPORT                        R12 K60 [CFrame.new]
-     1318 LOADN                            R14 0
-     1319 LOADN                            R15 0
-     1320 MULK                             R16 R10 K68 [0.5]
-     1321 FASTCALL                         VECTOR ; [+2]
-     1322 GETIMPORT                        R13 K53 [Vector3.new]
-     1324 CALL                             R13 3 1
-     1325 CALL                             R12 1 1
-     1326 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1328 GETUPVAL                         R12 12
-     1329 GETTABLEN                        R11 R12 3
-     1330 SETTABLEKS                       R10 R11 K69 ["Length"]
-     1332 GETUPVAL                         R12 12
-     1333 GETTABLEN                        R11 R12 3
-     1334 LOADB                            R12 1
-     1335 SETTABLEKS                       R12 R11 K9 ["Visible"]
-     1337 JUMPIF                           R0 ; [+47]
-     1338 GETUPVAL                         R13 1
-     1339 GETTABLEN                        R12 R13 11
-     1340 GETTABLEN                        R11 R12 1
-     1341 GETUPVAL                         R14 1
-     1342 GETTABLEN                        R13 R14 11
-     1343 GETTABLEN                        R12 R13 2
-     1344 GETTABLEKS                       R12 R12 K59 ["SizeRelativeOffset"]
-     1346 SETTABLEKS                       R12 R11 K59 ["SizeRelativeOffset"]
-     1348 GETUPVAL                         R13 1
-     1349 GETTABLEN                        R12 R13 11
-     1350 GETTABLEN                        R11 R12 1
-     1351 GETUPVAL                         R14 1
-     1352 GETTABLEN                        R13 R14 11
-     1353 GETTABLEN                        R12 R13 2
-     1354 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1356 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1358 GETUPVAL                         R13 1
-     1359 GETTABLEN                        R12 R13 11
-     1360 GETTABLEN                        R11 R12 1
-     1361 LOADB                            R12 1
-     1362 SETTABLEKS                       R12 R11 K9 ["Visible"]
-     1364 GETUPVAL                         R13 1
-     1365 GETTABLEN                        R12 R13 11
-     1366 GETTABLEN                        R11 R12 2
-     1367 GETUPVAL                         R15 1
-     1368 GETTABLEN                        R14 R15 11
-     1369 GETTABLEN                        R13 R14 2
-     1370 GETTABLEKS                       R13 R13 K42 ["CFrame"]
-     1372 LOADN                            R15 0
-     1373 LOADN                            R16 0
-     1374 GETTABLEKS                       R19 R6 K50 ["Z"]
-     1376 MULK                             R18 R19 K70 [0.075]
-     1377 MUL                              R17 R18 R9
-     1378 FASTCALL                         VECTOR ; [+2]
-     1379 GETIMPORT                        R14 K53 [Vector3.new]
-     1381 CALL                             R14 3 1
-     1382 ADD                              R12 R13 R14
-     1383 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1385 GETUPVAL                         R12 1
-     1386 GETTABLEN                        R11 R12 12
-     1387 GETTABLEN                        R10 R11 2
-     1388 GETTABLEKS                       R12 R6 K45 ["X"]
-     1390 GETTABLEKS                       R14 R6 K49 ["Y"]
-     1392 MINUS                            R13 R14
-     1393 GETTABLEKS                       R14 R6 K50 ["Z"]
-     1395 FASTCALL                         VECTOR ; [+2]
-     1396 GETIMPORT                        R11 K53 [Vector3.new]
-     1398 CALL                             R11 3 1
-     1399 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1401 GETUPVAL                         R12 1
-     1402 GETTABLEN                        R11 R12 12
-     1403 GETTABLEN                        R10 R11 2
-     1404 GETIMPORT                        R11 K60 [CFrame.new]
-     1406 GETTABLEKS                       R14 R6 K45 ["X"]
-     1408 ADDK                             R15 R9 K71 [0.2]
-     1409 MUL                              R13 R14 R15
-     1410 LOADN                            R14 0
-     1411 GETTABLEKS                       R16 R6 K50 ["Z"]
-     1413 ADDK                             R17 R9 K71 [0.2]
-     1414 MUL                              R15 R16 R17
-     1415 FASTCALL                         VECTOR ; [+2]
-     1416 GETIMPORT                        R12 K53 [Vector3.new]
-     1418 CALL                             R12 3 1
-     1419 GETTABLEKS                       R15 R6 K45 ["X"]
-     1421 ADDK                             R16 R9 K71 [0.2]
-     1422 MUL                              R14 R15 R16
-     1423 GETTABLEKS                       R15 R6 K49 ["Y"]
-     1425 GETTABLEKS                       R17 R6 K50 ["Z"]
-     1427 ADDK                             R18 R9 K71 [0.2]
-     1428 MUL                              R16 R17 R18
-     1429 FASTCALL                         VECTOR ; [+2]
-     1430 GETIMPORT                        R13 K53 [Vector3.new]
-     1432 CALL                             R13 3 1
-     1433 CALL                             R11 2 1
-     1434 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1436 GETUPVAL                         R12 1
-     1437 GETTABLEN                        R11 R12 12
-     1438 GETTABLEN                        R10 R11 2
-     1439 GETUPVAL                         R14 1
-     1440 GETTABLEN                        R13 R14 12
-     1441 GETTABLEN                        R12 R13 2
-     1442 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1444 GETIMPORT                        R13 K64 [CFrame.Angles]
-     1446 LOADN                            R14 0
-     1447 LOADN                            R15 0
-     1448 GETTABLEKS                       R21 R6 K45 ["X"]
-     1450 LOADN                            R22 0
-     1451 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1453 LOADK                            R20 K65 [1.5707963267949]
-     1454 JUMP                             ; [+1]
-     1455 LOADN                            R20 0
-     1456 GETTABLEKS                       R22 R6 K50 ["Z"]
-     1458 LOADN                            R23 0
-     1459 JUMPIFNOTLT                      R23 R22 ; [+3]
-     1461 LOADK                            R21 K65 [1.5707963267949]
+     1260 LOADN                            R19 0
+     1261 GETTABLEKS                       R21 R6 K50 ["Y"]
+     1263 LOADN                            R22 0
+     1264 JUMPIFNOTLT                      R22 R21 ; [+3]
+     1266 LOADN                            R20 0
+     1267 JUMP                             ; [+1]
+     1268 LOADK                            R20 K66 [1.5707963267949]
+     1269 ADD                              R18 R19 R20
+     1270 GETTABLEKS                       R20 R6 K51 ["Z"]
+     1272 LOADN                            R21 0
+     1273 JUMPIFNOTLT                      R21 R20 ; [+3]
+     1275 LOADN                            R19 0
+     1276 JUMP                             ; [+8]
+     1277 GETTABLEKS                       R20 R6 K50 ["Y"]
+     1279 LOADN                            R21 0
+     1280 JUMPIFNOTLT                      R21 R20 ; [+3]
+     1282 LOADK                            R19 K67 [-1.5707963267949]
+     1283 JUMP                             ; [+1]
+     1284 LOADK                            R19 K66 [1.5707963267949]
+     1285 ADD                              R17 R18 R19
+     1286 GETTABLEKS                       R19 R6 K46 ["X"]
+     1288 LOADN                            R20 0
+     1289 JUMPIFNOTLT                      R20 R19 ; [+3]
+     1291 LOADN                            R18 1
+     1292 JUMP                             ; [+1]
+     1293 LOADN                            R18 255
+     1294 MUL                              R16 R17 R18
+     1295 CALL                             R13 3 1
+     1296 MUL                              R11 R12 R13
+     1297 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1299 GETUPVAL                         R11 13
+     1300 GETTABLEN                        R10 R11 3
+     1301 LOADB                            R11 0
+     1302 SETTABLEKS                       R11 R10 K9 ["Visible"]
+     1304 GETUPVAL                         R12 1
+     1305 GETTABLEN                        R11 R12 11
+     1306 GETTABLEN                        R10 R11 1
+     1307 LOADB                            R11 0
+     1308 SETTABLEKS                       R11 R10 K9 ["Visible"]
+     1310 GETUPVAL                         R10 9
+     1311 JUMPIFNOTEQKN                    R10 K19 [11] ; [+81]
+     1313 GETTABLEKS                       R11 R3 K68 ["Size"]
+     1315 GETTABLEKS                       R11 R11 K51 ["Z"]
+     1317 ADDK                             R10 R11 K22 [2]
+     1318 GETUPVAL                         R12 13
+     1319 GETTABLEN                        R11 R12 3
+     1320 SETTABLEKS                       R3 R11 K14 ["Adornee"]
+     1322 GETUPVAL                         R12 13
+     1323 GETTABLEN                        R11 R12 3
+     1324 GETIMPORT                        R12 K61 [CFrame.new]
+     1326 LOADN                            R14 0
+     1327 LOADN                            R15 0
+     1328 MULK                             R16 R10 K69 [0.5]
+     1329 FASTCALL                         VECTOR ; [+2]
+     1330 GETIMPORT                        R13 K54 [Vector3.new]
+     1332 CALL                             R13 3 1
+     1333 CALL                             R12 1 1
+     1334 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1336 GETUPVAL                         R12 13
+     1337 GETTABLEN                        R11 R12 3
+     1338 SETTABLEKS                       R10 R11 K70 ["Length"]
+     1340 GETUPVAL                         R12 13
+     1341 GETTABLEN                        R11 R12 3
+     1342 LOADB                            R12 1
+     1343 SETTABLEKS                       R12 R11 K9 ["Visible"]
+     1345 JUMPIF                           R0 ; [+47]
+     1346 GETUPVAL                         R13 1
+     1347 GETTABLEN                        R12 R13 11
+     1348 GETTABLEN                        R11 R12 1
+     1349 GETUPVAL                         R14 1
+     1350 GETTABLEN                        R13 R14 11
+     1351 GETTABLEN                        R12 R13 2
+     1352 GETTABLEKS                       R12 R12 K60 ["SizeRelativeOffset"]
+     1354 SETTABLEKS                       R12 R11 K60 ["SizeRelativeOffset"]
+     1356 GETUPVAL                         R13 1
+     1357 GETTABLEN                        R12 R13 11
+     1358 GETTABLEN                        R11 R12 1
+     1359 GETUPVAL                         R14 1
+     1360 GETTABLEN                        R13 R14 11
+     1361 GETTABLEN                        R12 R13 2
+     1362 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1364 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1366 GETUPVAL                         R13 1
+     1367 GETTABLEN                        R12 R13 11
+     1368 GETTABLEN                        R11 R12 1
+     1369 LOADB                            R12 1
+     1370 SETTABLEKS                       R12 R11 K9 ["Visible"]
+     1372 GETUPVAL                         R13 1
+     1373 GETTABLEN                        R12 R13 11
+     1374 GETTABLEN                        R11 R12 2
+     1375 GETUPVAL                         R15 1
+     1376 GETTABLEN                        R14 R15 11
+     1377 GETTABLEN                        R13 R14 2
+     1378 GETTABLEKS                       R13 R13 K43 ["CFrame"]
+     1380 LOADN                            R15 0
+     1381 LOADN                            R16 0
+     1382 GETTABLEKS                       R19 R6 K51 ["Z"]
+     1384 MULK                             R18 R19 K71 [0.075]
+     1385 MUL                              R17 R18 R9
+     1386 FASTCALL                         VECTOR ; [+2]
+     1387 GETIMPORT                        R14 K54 [Vector3.new]
+     1389 CALL                             R14 3 1
+     1390 ADD                              R12 R13 R14
+     1391 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1393 GETUPVAL                         R12 1
+     1394 GETTABLEN                        R11 R12 12
+     1395 GETTABLEN                        R10 R11 2
+     1396 GETTABLEKS                       R12 R6 K46 ["X"]
+     1398 GETTABLEKS                       R14 R6 K50 ["Y"]
+     1400 MINUS                            R13 R14
+     1401 GETTABLEKS                       R14 R6 K51 ["Z"]
+     1403 FASTCALL                         VECTOR ; [+2]
+     1404 GETIMPORT                        R11 K54 [Vector3.new]
+     1406 CALL                             R11 3 1
+     1407 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1409 GETUPVAL                         R12 1
+     1410 GETTABLEN                        R11 R12 12
+     1411 GETTABLEN                        R10 R11 2
+     1412 GETIMPORT                        R11 K61 [CFrame.new]
+     1414 GETTABLEKS                       R14 R6 K46 ["X"]
+     1416 ADDK                             R15 R9 K72 [0.2]
+     1417 MUL                              R13 R14 R15
+     1418 LOADN                            R14 0
+     1419 GETTABLEKS                       R16 R6 K51 ["Z"]
+     1421 ADDK                             R17 R9 K72 [0.2]
+     1422 MUL                              R15 R16 R17
+     1423 FASTCALL                         VECTOR ; [+2]
+     1424 GETIMPORT                        R12 K54 [Vector3.new]
+     1426 CALL                             R12 3 1
+     1427 GETTABLEKS                       R15 R6 K46 ["X"]
+     1429 ADDK                             R16 R9 K72 [0.2]
+     1430 MUL                              R14 R15 R16
+     1431 GETTABLEKS                       R15 R6 K50 ["Y"]
+     1433 GETTABLEKS                       R17 R6 K51 ["Z"]
+     1435 ADDK                             R18 R9 K72 [0.2]
+     1436 MUL                              R16 R17 R18
+     1437 FASTCALL                         VECTOR ; [+2]
+     1438 GETIMPORT                        R13 K54 [Vector3.new]
+     1440 CALL                             R13 3 1
+     1441 CALL                             R11 2 1
+     1442 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1444 GETUPVAL                         R12 1
+     1445 GETTABLEN                        R11 R12 12
+     1446 GETTABLEN                        R10 R11 2
+     1447 GETUPVAL                         R14 1
+     1448 GETTABLEN                        R13 R14 12
+     1449 GETTABLEN                        R12 R13 2
+     1450 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1452 GETIMPORT                        R13 K65 [CFrame.Angles]
+     1454 LOADN                            R14 0
+     1455 LOADN                            R15 0
+     1456 GETTABLEKS                       R21 R6 K46 ["X"]
+     1458 LOADN                            R22 0
+     1459 JUMPIFNOTLT                      R22 R21 ; [+3]
+     1461 LOADK                            R20 K66 [1.5707963267949]
      1462 JUMP                             ; [+1]
-     1463 LOADN                            R21 0
-     1464 ADD                              R19 R20 R21
-     1465 GETTABLEKS                       R21 R6 K49 ["Y"]
-     1467 LOADN                            R22 0
-     1468 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1470 LOADN                            R20 0
-     1471 JUMP                             ; [+8]
-     1472 GETTABLEKS                       R21 R6 K50 ["Z"]
-     1474 LOADN                            R22 0
-     1475 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1477 LOADK                            R20 K66 [-1.5707963267949]
-     1478 JUMP                             ; [+1]
-     1479 LOADK                            R20 K65 [1.5707963267949]
-     1480 ADD                              R18 R19 R20
-     1481 GETTABLEKS                       R20 R6 K45 ["X"]
-     1483 LOADN                            R21 0
-     1484 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1486 LOADN                            R19 1
-     1487 JUMP                             ; [+1]
-     1488 LOADN                            R19 255
-     1489 MUL                              R17 R18 R19
-     1490 SUBK                             R16 R17 K65 [1.5707963267949]
-     1491 CALL                             R13 3 1
-     1492 MUL                              R11 R12 R13
-     1493 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1495 GETUPVAL                         R11 12
-     1496 GETTABLEN                        R10 R11 2
-     1497 LOADB                            R11 0
-     1498 SETTABLEKS                       R11 R10 K9 ["Visible"]
-     1500 GETUPVAL                         R12 1
-     1501 GETTABLEN                        R11 R12 12
-     1502 GETTABLEN                        R10 R11 1
-     1503 LOADB                            R11 0
-     1504 SETTABLEKS                       R11 R10 K9 ["Visible"]
-     1506 GETUPVAL                         R10 9
-     1507 JUMPIFNOTEQKN                    R10 K20 [12] ; [+89]
-     1509 GETTABLEKS                       R11 R3 K67 ["Size"]
-     1511 GETTABLEKS                       R11 R11 K49 ["Y"]
-     1513 ADDK                             R10 R11 K22 [2]
-     1514 GETUPVAL                         R12 12
-     1515 GETTABLEN                        R11 R12 2
-     1516 SETTABLEKS                       R3 R11 K14 ["Adornee"]
-     1518 GETUPVAL                         R12 12
-     1519 GETTABLEN                        R11 R12 2
-     1520 GETIMPORT                        R13 K60 [CFrame.new]
-     1522 LOADN                            R15 0
-     1523 MINUS                            R17 R10
-     1524 MULK                             R16 R17 K68 [0.5]
-     1525 LOADN                            R17 0
-     1526 FASTCALL                         VECTOR ; [+2]
-     1527 GETIMPORT                        R14 K53 [Vector3.new]
-     1529 CALL                             R14 3 1
-     1530 CALL                             R13 1 1
-     1531 GETIMPORT                        R14 K64 [CFrame.Angles]
-     1533 LOADK                            R15 K65 [1.5707963267949]
-     1534 LOADN                            R16 0
-     1535 LOADN                            R17 0
-     1536 CALL                             R14 3 1
-     1537 MUL                              R12 R13 R14
-     1538 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1540 GETUPVAL                         R12 12
-     1541 GETTABLEN                        R11 R12 2
-     1542 SETTABLEKS                       R10 R11 K69 ["Length"]
-     1544 GETUPVAL                         R12 12
-     1545 GETTABLEN                        R11 R12 2
-     1546 LOADB                            R12 1
-     1547 SETTABLEKS                       R12 R11 K9 ["Visible"]
-     1549 JUMPIF                           R0 ; [+47]
-     1550 GETUPVAL                         R13 1
-     1551 GETTABLEN                        R12 R13 12
-     1552 GETTABLEN                        R11 R12 1
-     1553 GETUPVAL                         R14 1
-     1554 GETTABLEN                        R13 R14 12
-     1555 GETTABLEN                        R12 R13 2
-     1556 GETTABLEKS                       R12 R12 K59 ["SizeRelativeOffset"]
-     1558 SETTABLEKS                       R12 R11 K59 ["SizeRelativeOffset"]
-     1560 GETUPVAL                         R13 1
-     1561 GETTABLEN                        R12 R13 12
-     1562 GETTABLEN                        R11 R12 1
-     1563 GETUPVAL                         R14 1
-     1564 GETTABLEN                        R13 R14 12
-     1565 GETTABLEN                        R12 R13 2
-     1566 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1568 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1570 GETUPVAL                         R13 1
-     1571 GETTABLEN                        R12 R13 12
-     1572 GETTABLEN                        R11 R12 1
-     1573 LOADB                            R12 1
-     1574 SETTABLEKS                       R12 R11 K9 ["Visible"]
-     1576 GETUPVAL                         R13 1
-     1577 GETTABLEN                        R12 R13 12
-     1578 GETTABLEN                        R11 R12 2
-     1579 GETUPVAL                         R15 1
-     1580 GETTABLEN                        R14 R15 12
-     1581 GETTABLEN                        R13 R14 2
-     1582 GETTABLEKS                       R13 R13 K42 ["CFrame"]
-     1584 LOADN                            R15 0
-     1585 GETTABLEKS                       R18 R6 K49 ["Y"]
-     1587 MULK                             R17 R18 K70 [0.075]
-     1588 MUL                              R16 R17 R9
-     1589 LOADN                            R17 0
-     1590 FASTCALL                         VECTOR ; [+2]
-     1591 GETIMPORT                        R14 K53 [Vector3.new]
-     1593 CALL                             R14 3 1
-     1594 ADD                              R12 R13 R14
-     1595 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1597 GETUPVAL                         R12 1
-     1598 GETTABLEN                        R11 R12 13
-     1599 GETTABLEN                        R10 R11 2
-     1600 GETTABLEKS                       R13 R6 K45 ["X"]
-     1602 MINUS                            R12 R13
-     1603 GETTABLEKS                       R13 R6 K49 ["Y"]
-     1605 GETTABLEKS                       R14 R6 K50 ["Z"]
-     1607 FASTCALL                         VECTOR ; [+2]
-     1608 GETIMPORT                        R11 K53 [Vector3.new]
-     1610 CALL                             R11 3 1
-     1611 SETTABLEKS                       R11 R10 K59 ["SizeRelativeOffset"]
-     1613 GETUPVAL                         R12 1
-     1614 GETTABLEN                        R11 R12 13
-     1615 GETTABLEN                        R10 R11 2
-     1616 GETIMPORT                        R11 K60 [CFrame.new]
-     1618 LOADN                            R13 0
-     1619 GETTABLEKS                       R15 R6 K49 ["Y"]
-     1621 MUL                              R14 R15 R9
-     1622 GETTABLEKS                       R16 R6 K50 ["Z"]
-     1624 MUL                              R15 R16 R9
-     1625 FASTCALL                         VECTOR ; [+2]
-     1626 GETIMPORT                        R12 K53 [Vector3.new]
-     1628 CALL                             R12 3 1
-     1629 GETTABLEKS                       R14 R6 K45 ["X"]
-     1631 GETTABLEKS                       R16 R6 K49 ["Y"]
-     1633 MUL                              R15 R16 R9
-     1634 GETTABLEKS                       R17 R6 K50 ["Z"]
-     1636 MUL                              R16 R17 R9
-     1637 FASTCALL                         VECTOR ; [+2]
-     1638 GETIMPORT                        R13 K53 [Vector3.new]
-     1640 CALL                             R13 3 1
-     1641 CALL                             R11 2 1
-     1642 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1644 GETUPVAL                         R12 1
-     1645 GETTABLEN                        R11 R12 13
-     1646 GETTABLEN                        R10 R11 2
-     1647 GETUPVAL                         R14 1
-     1648 GETTABLEN                        R13 R14 13
-     1649 GETTABLEN                        R12 R13 2
-     1650 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1652 GETIMPORT                        R13 K64 [CFrame.Angles]
-     1654 LOADN                            R14 0
-     1655 LOADN                            R15 0
-     1656 GETTABLEKS                       R20 R6 K50 ["Z"]
-     1658 LOADN                            R21 0
-     1659 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1661 LOADK                            R19 K65 [1.5707963267949]
-     1662 JUMP                             ; [+1]
-     1663 LOADN                            R19 0
-     1664 GETTABLEKS                       R21 R6 K49 ["Y"]
-     1666 LOADN                            R22 0
-     1667 JUMPIFNOTLT                      R22 R21 ; [+3]
-     1669 LOADN                            R20 0
+     1463 LOADN                            R20 0
+     1464 GETTABLEKS                       R22 R6 K51 ["Z"]
+     1466 LOADN                            R23 0
+     1467 JUMPIFNOTLT                      R23 R22 ; [+3]
+     1469 LOADK                            R21 K66 [1.5707963267949]
+     1470 JUMP                             ; [+1]
+     1471 LOADN                            R21 0
+     1472 ADD                              R19 R20 R21
+     1473 GETTABLEKS                       R21 R6 K50 ["Y"]
+     1475 LOADN                            R22 0
+     1476 JUMPIFNOTLT                      R22 R21 ; [+3]
+     1478 LOADN                            R20 0
+     1479 JUMP                             ; [+8]
+     1480 GETTABLEKS                       R21 R6 K51 ["Z"]
+     1482 LOADN                            R22 0
+     1483 JUMPIFNOTLT                      R22 R21 ; [+3]
+     1485 LOADK                            R20 K67 [-1.5707963267949]
+     1486 JUMP                             ; [+1]
+     1487 LOADK                            R20 K66 [1.5707963267949]
+     1488 ADD                              R18 R19 R20
+     1489 GETTABLEKS                       R20 R6 K46 ["X"]
+     1491 LOADN                            R21 0
+     1492 JUMPIFNOTLT                      R21 R20 ; [+3]
+     1494 LOADN                            R19 1
+     1495 JUMP                             ; [+1]
+     1496 LOADN                            R19 255
+     1497 MUL                              R17 R18 R19
+     1498 SUBK                             R16 R17 K66 [1.5707963267949]
+     1499 CALL                             R13 3 1
+     1500 MUL                              R11 R12 R13
+     1501 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1503 GETUPVAL                         R11 13
+     1504 GETTABLEN                        R10 R11 2
+     1505 LOADB                            R11 0
+     1506 SETTABLEKS                       R11 R10 K9 ["Visible"]
+     1508 GETUPVAL                         R12 1
+     1509 GETTABLEN                        R11 R12 12
+     1510 GETTABLEN                        R10 R11 1
+     1511 LOADB                            R11 0
+     1512 SETTABLEKS                       R11 R10 K9 ["Visible"]
+     1514 GETUPVAL                         R10 9
+     1515 JUMPIFNOTEQKN                    R10 K20 [12] ; [+89]
+     1517 GETTABLEKS                       R11 R3 K68 ["Size"]
+     1519 GETTABLEKS                       R11 R11 K50 ["Y"]
+     1521 ADDK                             R10 R11 K22 [2]
+     1522 GETUPVAL                         R12 13
+     1523 GETTABLEN                        R11 R12 2
+     1524 SETTABLEKS                       R3 R11 K14 ["Adornee"]
+     1526 GETUPVAL                         R12 13
+     1527 GETTABLEN                        R11 R12 2
+     1528 GETIMPORT                        R13 K61 [CFrame.new]
+     1530 LOADN                            R15 0
+     1531 MINUS                            R17 R10
+     1532 MULK                             R16 R17 K69 [0.5]
+     1533 LOADN                            R17 0
+     1534 FASTCALL                         VECTOR ; [+2]
+     1535 GETIMPORT                        R14 K54 [Vector3.new]
+     1537 CALL                             R14 3 1
+     1538 CALL                             R13 1 1
+     1539 GETIMPORT                        R14 K65 [CFrame.Angles]
+     1541 LOADK                            R15 K66 [1.5707963267949]
+     1542 LOADN                            R16 0
+     1543 LOADN                            R17 0
+     1544 CALL                             R14 3 1
+     1545 MUL                              R12 R13 R14
+     1546 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1548 GETUPVAL                         R12 13
+     1549 GETTABLEN                        R11 R12 2
+     1550 SETTABLEKS                       R10 R11 K70 ["Length"]
+     1552 GETUPVAL                         R12 13
+     1553 GETTABLEN                        R11 R12 2
+     1554 LOADB                            R12 1
+     1555 SETTABLEKS                       R12 R11 K9 ["Visible"]
+     1557 JUMPIF                           R0 ; [+47]
+     1558 GETUPVAL                         R13 1
+     1559 GETTABLEN                        R12 R13 12
+     1560 GETTABLEN                        R11 R12 1
+     1561 GETUPVAL                         R14 1
+     1562 GETTABLEN                        R13 R14 12
+     1563 GETTABLEN                        R12 R13 2
+     1564 GETTABLEKS                       R12 R12 K60 ["SizeRelativeOffset"]
+     1566 SETTABLEKS                       R12 R11 K60 ["SizeRelativeOffset"]
+     1568 GETUPVAL                         R13 1
+     1569 GETTABLEN                        R12 R13 12
+     1570 GETTABLEN                        R11 R12 1
+     1571 GETUPVAL                         R14 1
+     1572 GETTABLEN                        R13 R14 12
+     1573 GETTABLEN                        R12 R13 2
+     1574 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1576 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1578 GETUPVAL                         R13 1
+     1579 GETTABLEN                        R12 R13 12
+     1580 GETTABLEN                        R11 R12 1
+     1581 LOADB                            R12 1
+     1582 SETTABLEKS                       R12 R11 K9 ["Visible"]
+     1584 GETUPVAL                         R13 1
+     1585 GETTABLEN                        R12 R13 12
+     1586 GETTABLEN                        R11 R12 2
+     1587 GETUPVAL                         R15 1
+     1588 GETTABLEN                        R14 R15 12
+     1589 GETTABLEN                        R13 R14 2
+     1590 GETTABLEKS                       R13 R13 K43 ["CFrame"]
+     1592 LOADN                            R15 0
+     1593 GETTABLEKS                       R18 R6 K50 ["Y"]
+     1595 MULK                             R17 R18 K71 [0.075]
+     1596 MUL                              R16 R17 R9
+     1597 LOADN                            R17 0
+     1598 FASTCALL                         VECTOR ; [+2]
+     1599 GETIMPORT                        R14 K54 [Vector3.new]
+     1601 CALL                             R14 3 1
+     1602 ADD                              R12 R13 R14
+     1603 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1605 GETUPVAL                         R12 1
+     1606 GETTABLEN                        R11 R12 13
+     1607 GETTABLEN                        R10 R11 2
+     1608 GETTABLEKS                       R13 R6 K46 ["X"]
+     1610 MINUS                            R12 R13
+     1611 GETTABLEKS                       R13 R6 K50 ["Y"]
+     1613 GETTABLEKS                       R14 R6 K51 ["Z"]
+     1615 FASTCALL                         VECTOR ; [+2]
+     1616 GETIMPORT                        R11 K54 [Vector3.new]
+     1618 CALL                             R11 3 1
+     1619 SETTABLEKS                       R11 R10 K60 ["SizeRelativeOffset"]
+     1621 GETUPVAL                         R12 1
+     1622 GETTABLEN                        R11 R12 13
+     1623 GETTABLEN                        R10 R11 2
+     1624 GETIMPORT                        R11 K61 [CFrame.new]
+     1626 LOADN                            R13 0
+     1627 GETTABLEKS                       R15 R6 K50 ["Y"]
+     1629 MUL                              R14 R15 R9
+     1630 GETTABLEKS                       R16 R6 K51 ["Z"]
+     1632 MUL                              R15 R16 R9
+     1633 FASTCALL                         VECTOR ; [+2]
+     1634 GETIMPORT                        R12 K54 [Vector3.new]
+     1636 CALL                             R12 3 1
+     1637 GETTABLEKS                       R14 R6 K46 ["X"]
+     1639 GETTABLEKS                       R16 R6 K50 ["Y"]
+     1641 MUL                              R15 R16 R9
+     1642 GETTABLEKS                       R17 R6 K51 ["Z"]
+     1644 MUL                              R16 R17 R9
+     1645 FASTCALL                         VECTOR ; [+2]
+     1646 GETIMPORT                        R13 K54 [Vector3.new]
+     1648 CALL                             R13 3 1
+     1649 CALL                             R11 2 1
+     1650 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1652 GETUPVAL                         R12 1
+     1653 GETTABLEN                        R11 R12 13
+     1654 GETTABLEN                        R10 R11 2
+     1655 GETUPVAL                         R14 1
+     1656 GETTABLEN                        R13 R14 13
+     1657 GETTABLEN                        R12 R13 2
+     1658 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1660 GETIMPORT                        R13 K65 [CFrame.Angles]
+     1662 LOADN                            R14 0
+     1663 LOADN                            R15 0
+     1664 GETTABLEKS                       R20 R6 K51 ["Z"]
+     1666 LOADN                            R21 0
+     1667 JUMPIFNOTLT                      R21 R20 ; [+3]
+     1669 LOADK                            R19 K66 [1.5707963267949]
      1670 JUMP                             ; [+1]
-     1671 LOADK                            R20 K65 [1.5707963267949]
-     1672 ADD                              R18 R19 R20
-     1673 GETTABLEKS                       R20 R6 K45 ["X"]
-     1675 LOADN                            R21 0
-     1676 JUMPIFNOTLT                      R21 R20 ; [+10]
-     1678 GETTABLEKS                       R20 R6 K49 ["Y"]
-     1680 LOADN                            R21 0
-     1681 JUMPIFNOTLT                      R21 R20 ; [+3]
-     1683 LOADK                            R19 K66 [-1.5707963267949]
-     1684 JUMP                             ; [+3]
-     1685 LOADK                            R19 K65 [1.5707963267949]
-     1686 JUMP                             ; [+1]
-     1687 LOADN                            R19 0
-     1688 ADD                              R17 R18 R19
-     1689 GETTABLEKS                       R19 R6 K50 ["Z"]
-     1691 LOADN                            R20 0
-     1692 JUMPIFNOTLT                      R20 R19 ; [+3]
-     1694 LOADN                            R18 1
-     1695 JUMP                             ; [+1]
-     1696 LOADN                            R18 255
-     1697 MUL                              R16 R17 R18
-     1698 CALL                             R13 3 1
-     1699 MUL                              R11 R12 R13
-     1700 SETTABLEKS                       R11 R10 K42 ["CFrame"]
-     1702 GETUPVAL                         R11 12
-     1703 GETTABLEN                        R10 R11 1
-     1704 LOADB                            R11 0
-     1705 SETTABLEKS                       R11 R10 K9 ["Visible"]
-     1707 GETUPVAL                         R12 1
-     1708 GETTABLEN                        R11 R12 13
-     1709 GETTABLEN                        R10 R11 1
-     1710 LOADB                            R11 0
-     1711 SETTABLEKS                       R11 R10 K9 ["Visible"]
-     1713 GETUPVAL                         R10 9
-     1714 JUMPIFNOTEQKN                    R10 K21 [13] ; [+88]
-     1716 GETTABLEKS                       R11 R3 K67 ["Size"]
-     1718 GETTABLEKS                       R11 R11 K45 ["X"]
-     1720 ADDK                             R10 R11 K22 [2]
-     1721 GETUPVAL                         R12 12
-     1722 GETTABLEN                        R11 R12 1
-     1723 SETTABLEKS                       R3 R11 K14 ["Adornee"]
-     1725 GETUPVAL                         R12 12
-     1726 GETTABLEN                        R11 R12 1
-     1727 GETIMPORT                        R13 K60 [CFrame.new]
-     1729 MULK                             R15 R10 K68 [0.5]
-     1730 LOADN                            R16 0
-     1731 LOADN                            R17 0
-     1732 FASTCALL                         VECTOR ; [+2]
-     1733 GETIMPORT                        R14 K53 [Vector3.new]
-     1735 CALL                             R14 3 1
-     1736 CALL                             R13 1 1
-     1737 GETIMPORT                        R14 K64 [CFrame.Angles]
-     1739 LOADN                            R15 0
-     1740 LOADK                            R16 K65 [1.5707963267949]
-     1741 LOADN                            R17 0
-     1742 CALL                             R14 3 1
-     1743 MUL                              R12 R13 R14
-     1744 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1746 GETUPVAL                         R12 12
-     1747 GETTABLEN                        R11 R12 1
-     1748 SETTABLEKS                       R10 R11 K69 ["Length"]
-     1750 GETUPVAL                         R12 12
-     1751 GETTABLEN                        R11 R12 1
-     1752 LOADB                            R12 1
-     1753 SETTABLEKS                       R12 R11 K9 ["Visible"]
-     1755 JUMPIF                           R0 ; [+47]
-     1756 GETUPVAL                         R13 1
-     1757 GETTABLEN                        R12 R13 13
-     1758 GETTABLEN                        R11 R12 1
-     1759 GETUPVAL                         R14 1
-     1760 GETTABLEN                        R13 R14 13
-     1761 GETTABLEN                        R12 R13 2
-     1762 GETTABLEKS                       R12 R12 K59 ["SizeRelativeOffset"]
-     1764 SETTABLEKS                       R12 R11 K59 ["SizeRelativeOffset"]
-     1766 GETUPVAL                         R13 1
-     1767 GETTABLEN                        R12 R13 13
-     1768 GETTABLEN                        R11 R12 1
-     1769 GETUPVAL                         R14 1
-     1770 GETTABLEN                        R13 R14 13
-     1771 GETTABLEN                        R12 R13 2
-     1772 GETTABLEKS                       R12 R12 K42 ["CFrame"]
-     1774 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1776 GETUPVAL                         R13 1
-     1777 GETTABLEN                        R12 R13 13
-     1778 GETTABLEN                        R11 R12 1
-     1779 LOADB                            R12 1
-     1780 SETTABLEKS                       R12 R11 K9 ["Visible"]
-     1782 GETUPVAL                         R13 1
-     1783 GETTABLEN                        R12 R13 13
-     1784 GETTABLEN                        R11 R12 2
-     1785 GETUPVAL                         R15 1
-     1786 GETTABLEN                        R14 R15 13
-     1787 GETTABLEN                        R13 R14 2
-     1788 GETTABLEKS                       R13 R13 K42 ["CFrame"]
-     1790 GETTABLEKS                       R17 R6 K45 ["X"]
-     1792 MULK                             R16 R17 K70 [0.075]
-     1793 MUL                              R15 R16 R9
-     1794 LOADN                            R16 0
-     1795 LOADN                            R17 0
-     1796 FASTCALL                         VECTOR ; [+2]
-     1797 GETIMPORT                        R14 K53 [Vector3.new]
-     1799 CALL                             R14 3 1
-     1800 ADD                              R12 R13 R14
-     1801 SETTABLEKS                       R12 R11 K42 ["CFrame"]
-     1803 GETIMPORT                        R10 K73 [pairs]
-     1805 GETUPVAL                         R11 1
-     1806 CALL                             R10 1 3
-     1807 FORGPREP_NEXT                    R10
-     1808 JUMPIFNOTEQKN                    R13 K32 [14] ; [+2]
-     1810 JUMP                             ; [+157]
-     1811 GETUPVAL                         R15 13
-     1812 GETTABLEN                        R16 R14 2
-     1813 CALL                             R15 1 1
-     1814 GETTABLEKS                       R15 R15 K41 ["p"]
-     1816 GETTABLEN                        R16 R14 1
-     1817 LOADK                            R18 K74 ["BoxHandleAdornment"]
-     1818 NAMECALL                         R16 R16 K16 ["IsA"]
-     1820 CALL                             R16 2 1
-     1821 JUMPIFNOT                        R16 ; [+74]
-     1822 SUB                              R18 R15 R4
-     1823 GETTABLEKS                       R18 R18 K56 ["Magnitude"]
-     1825 DIVK                             R17 R18 K30 [10]
-     1826 FASTCALL2K                       MATH_MAX R17 K31 ; [+4]
-     1828 LOADK                            R18 K31 [1]
-     1829 GETIMPORT                        R16 K58 [math.max]
-     1831 CALL                             R16 2 1
-     1832 GETTABLEN                        R17 R14 1
-     1833 GETTABLEN                        R19 R14 6
-     1834 MUL                              R18 R19 R16
-     1835 SETTABLEKS                       R18 R17 K67 ["Size"]
-     1837 GETTABLEN                        R17 R14 2
-     1838 GETTABLEN                        R19 R14 7
-     1839 MUL                              R18 R19 R16
-     1840 SETTABLEKS                       R18 R17 K67 ["Size"]
-     1842 GETUPVAL                         R18 3
-     1843 GETTABLE                         R17 R18 R13
-     1844 JUMPIFNOT                        R17 ; [+6]
-     1845 GETUPVAL                         R18 3
-     1846 GETTABLE                         R17 R18 R13
-     1847 GETTABLEN                        R19 R14 6
-     1848 MUL                              R18 R19 R16
-     1849 SETTABLEKS                       R18 R17 K67 ["Size"]
-     1851 GETUPVAL                         R18 13
-     1852 GETTABLEN                        R19 R14 1
-     1853 CALL                             R18 1 1
-     1854 GETTABLEKS                       R18 R18 K41 ["p"]
-     1856 SUB                              R17 R18 R4
-     1857 GETIMPORT                        R18 K76 [Ray.new]
-     1859 MOVE                             R19 R4
-     1860 MOVE                             R20 R17
-     1861 CALL                             R18 2 1
-     1862 GETIMPORT                        R19 K5 [game]
-     1864 GETTABLEKS                       R19 R19 K17 ["Workspace"]
-     1866 MOVE                             R21 R18
-     1867 NAMECALL                         R19 R19 K77 ["FindPartOnRay"]
-     1869 CALL                             R19 2 2
-     1870 SUB                              R21 R20 R4
-     1871 GETTABLEKS                       R21 R21 K78 ["magnitude"]
-     1873 GETTABLEKS                       R23 R17 K78 ["magnitude"]
-     1875 SUBK                             R22 R23 K71 [0.2]
-     1876 JUMPIFNOTLE                      R22 R21 ; [+10]
-     1878 GETTABLEN                        R21 R14 1
-     1879 LOADB                            R22 1
-     1880 SETTABLEKS                       R22 R21 K79 ["AlwaysOnTop"]
-     1882 GETTABLEN                        R21 R14 2
-     1883 LOADB                            R22 1
-     1884 SETTABLEKS                       R22 R21 K79 ["AlwaysOnTop"]
-     1886 JUMP                             ; [+81]
-     1887 GETTABLEN                        R21 R14 1
-     1888 LOADB                            R22 0
-     1889 SETTABLEKS                       R22 R21 K79 ["AlwaysOnTop"]
-     1891 GETTABLEN                        R21 R14 2
-     1892 LOADB                            R22 0
-     1893 SETTABLEKS                       R22 R21 K79 ["AlwaysOnTop"]
-     1895 JUMP                             ; [+72]
-     1896 GETTABLEN                        R16 R14 1
-     1897 LOADK                            R18 K80 ["ConeHandleAdornment"]
-     1898 NAMECALL                         R16 R16 K16 ["IsA"]
-     1900 CALL                             R16 2 1
-     1901 JUMPIFNOT                        R16 ; [+39]
-     1902 SUB                              R18 R15 R4
-     1903 GETTABLEKS                       R18 R18 K56 ["Magnitude"]
-     1905 DIVK                             R17 R18 K55 [15]
-     1906 FASTCALL2K                       MATH_MAX R17 K31 ; [+4]
-     1908 LOADK                            R18 K31 [1]
-     1909 GETIMPORT                        R16 K58 [math.max]
-     1911 CALL                             R16 2 1
-     1912 GETTABLEN                        R17 R14 1
-     1913 GETTABLEN                        R19 R14 6
-     1914 GETTABLEKS                       R19 R19 K45 ["X"]
-     1916 MUL                              R18 R19 R16
-     1917 SETTABLEKS                       R18 R17 K61 ["Height"]
-     1919 GETTABLEN                        R17 R14 1
-     1920 GETTABLEN                        R19 R14 6
-     1921 GETTABLEKS                       R19 R19 K49 ["Y"]
-     1923 MUL                              R18 R19 R16
-     1924 SETTABLEKS                       R18 R17 K81 ["Radius"]
-     1926 GETTABLEN                        R17 R14 2
-     1927 GETTABLEN                        R19 R14 7
-     1928 GETTABLEKS                       R19 R19 K45 ["X"]
-     1930 MUL                              R18 R19 R16
-     1931 SETTABLEKS                       R18 R17 K61 ["Height"]
-     1933 GETTABLEN                        R17 R14 2
-     1934 GETTABLEN                        R19 R14 7
-     1935 GETTABLEKS                       R19 R19 K49 ["Y"]
-     1937 MUL                              R18 R19 R16
-     1938 SETTABLEKS                       R18 R17 K81 ["Radius"]
-     1940 JUMP                             ; [+27]
-     1941 GETTABLEN                        R16 R14 1
-     1942 LOADK                            R18 K82 ["ImageHandleAdornment"]
-     1943 NAMECALL                         R16 R16 K16 ["IsA"]
-     1945 CALL                             R16 2 1
-     1946 JUMPIFNOT                        R16 ; [+21]
-     1947 SUB                              R19 R15 R4
-     1948 GETTABLEKS                       R19 R19 K56 ["Magnitude"]
-     1950 DIVK                             R18 R19 K83 [30]
-     1951 ADDK                             R17 R18 K31 [1]
-     1952 FASTCALL2K                       MATH_MAX R17 K31 ; [+4]
-     1954 LOADK                            R18 K31 [1]
-     1955 GETIMPORT                        R16 K58 [math.max]
-     1957 CALL                             R16 2 1
-     1958 GETTABLEN                        R17 R14 1
-     1959 GETTABLEN                        R19 R14 6
-     1960 MUL                              R18 R19 R16
-     1961 SETTABLEKS                       R18 R17 K67 ["Size"]
-     1963 GETTABLEN                        R17 R14 2
-     1964 GETTABLEN                        R19 R14 7
-     1965 MUL                              R18 R19 R16
-     1966 SETTABLEKS                       R18 R17 K67 ["Size"]
-     1968 FORGLOOP                         R10 2 ; [-161]
-     1970 LOADNIL                          R10
-     1971 GETUPVAL                         R11 14
-     1972 JUMPIF                           R11 ; [+2]
-     1973 GETUPVAL                         R11 10
-     1974 JUMPIFNOT                        R11 ; [+22]
-     1975 GETUPVAL                         R11 15
-     1976 LOADN                            R12 1
-     1977 JUMPIFNOTLT                      R11 R12 ; [+40]
-     1979 GETUPVAL                         R13 15
-     1980 ADDK                             R12 R13 K84 [0.1]
-     1981 FASTCALL2K                       MATH_MIN R12 K31 ; [+4]
-     1983 LOADK                            R13 K31 [1]
-     1984 GETIMPORT                        R11 K86 [math.min]
-     1986 CALL                             R11 2 1
-     1987 SETUPVAL                         R11 15
-     1988 GETUPVAL                         R11 16
-     1989 GETTABLEKS                       R11 R11 K87 ["smoothstep"]
-     1991 LOADN                            R12 0
-     1992 LOADN                            R13 1
-     1993 GETUPVAL                         R14 15
-     1994 CALL                             R11 3 1
-     1995 MOVE                             R10 R11
-     1996 JUMP                             ; [+21]
-     1997 GETUPVAL                         R11 15
-     1998 LOADN                            R12 0
-     1999 JUMPIFNOTLT                      R12 R11 ; [+18]
-     2001 GETUPVAL                         R13 15
-     2002 SUBK                             R12 R13 K84 [0.1]
-     2003 FASTCALL2K                       MATH_MAX R12 K88 ; [+4]
-     2005 LOADK                            R13 K88 [0]
-     2006 GETIMPORT                        R11 K58 [math.max]
-     2008 CALL                             R11 2 1
-     2009 SETUPVAL                         R11 15
-     2010 GETUPVAL                         R11 16
-     2011 GETTABLEKS                       R11 R11 K87 ["smoothstep"]
-     2013 LOADN                            R12 0
-     2014 LOADN                            R13 1
-     2015 GETUPVAL                         R14 15
-     2016 CALL                             R11 3 1
-     2017 MOVE                             R10 R11
-     2018 JUMPIFNOT                        R10 ; [+71]
-     2019 GETUPVAL                         R11 16
-     2020 GETTABLEKS                       R11 R11 K89 ["colorMultiply"]
-     2022 GETUPVAL                         R15 1
-     2023 GETTABLEN                        R14 R15 14
-     2024 GETTABLEN                        R13 R14 4
-     2025 GETTABLEN                        R12 R13 1
-     2026 MOVE                             R13 R10
-     2027 CALL                             R11 2 1
-     2028 GETUPVAL                         R12 16
-     2029 GETTABLEKS                       R12 R12 K89 ["colorMultiply"]
-     2031 GETUPVAL                         R16 1
-     2032 GETTABLEN                        R15 R16 14
-     2033 GETTABLEN                        R14 R15 5
-     2034 GETTABLEN                        R13 R14 1
-     2035 SUBRK                            R14 R31 K10 ["ipairs"]
-     2036 CALL                             R12 2 1
-     2037 GETUPVAL                         R15 1
-     2038 GETTABLEN                        R14 R15 14
-     2039 GETTABLEN                        R13 R14 2
-     2040 GETUPVAL                         R14 16
-     2041 GETTABLEKS                       R14 R14 K90 ["colorAdd"]
-     2043 MOVE                             R15 R11
-     2044 MOVE                             R16 R12
-     2045 CALL                             R14 2 1
-     2046 SETTABLEKS                       R14 R13 K91 ["ImageColor3"]
-     2048 GETUPVAL                         R15 1
-     2049 GETTABLEN                        R14 R15 14
-     2050 GETTABLEN                        R13 R14 2
-     2051 GETUPVAL                         R19 1
-     2052 GETTABLEN                        R18 R19 14
-     2053 GETTABLEN                        R17 R18 4
-     2054 GETTABLEN                        R16 R17 2
-     2055 MUL                              R15 R10 R16
-     2056 SUBRK                            R17 R31 K10 ["ipairs"]
-     2057 GETUPVAL                         R21 1
-     2058 GETTABLEN                        R20 R21 14
-     2059 GETTABLEN                        R19 R20 5
-     2060 GETTABLEN                        R18 R19 2
-     2061 MUL                              R16 R17 R18
-     2062 ADD                              R14 R15 R16
-     2063 SETTABLEKS                       R14 R13 K92 ["ImageTransparency"]
-     2065 LOADN                            R15 1
-     2066 LOADN                            R13 8
-     2067 LOADN                            R14 1
-     2068 FORNPREP                         R13
-     2069 GETUPVAL                         R17 5
-     2070 GETTABLE                         R16 R17 R15
-     2071 GETUPVAL                         R17 16
-     2072 GETTABLEKS                       R17 R17 K90 ["colorAdd"]
-     2074 GETUPVAL                         R18 16
-     2075 GETTABLEKS                       R18 R18 K89 ["colorMultiply"]
-     2077 GETUPVAL                         R19 17
-     2078 MOVE                             R20 R10
-     2079 CALL                             R18 2 1
-     2080 GETUPVAL                         R19 16
-     2081 GETTABLEKS                       R19 R19 K89 ["colorMultiply"]
-     2083 GETUPVAL                         R20 18
-     2084 SUBRK                            R21 R31 K10 ["ipairs"]
-     2085 CALL                             R19 2 -1
-     2086 CALL                             R17 -1 1
-     2087 SETTABLEKS                       R17 R16 K91 ["ImageColor3"]
-     2089 FORNLOOP                         R13
-     2090 GETUPVAL                         R11 10
-     2091 JUMPIFNOT                        R11 ; [+12]
-     2092 GETUPVAL                         R13 1
-     2093 GETTABLEN                        R12 R13 14
-     2094 GETTABLEN                        R11 R12 2
-     2095 GETUPVAL                         R12 19
-     2096 SETTABLEKS                       R12 R11 K91 ["ImageColor3"]
-     2098 GETUPVAL                         R13 1
-     2099 GETTABLEN                        R12 R13 14
-     2100 GETTABLEN                        R11 R12 2
-     2101 LOADN                            R12 0
-     2102 SETTABLEKS                       R12 R11 K92 ["ImageTransparency"]
-     2104 GETUPVAL                         R11 20
-     2105 CALL                             R11 0 0
-     2106 RETURN                           R0 0
+     1671 LOADN                            R19 0
+     1672 GETTABLEKS                       R21 R6 K50 ["Y"]
+     1674 LOADN                            R22 0
+     1675 JUMPIFNOTLT                      R22 R21 ; [+3]
+     1677 LOADN                            R20 0
+     1678 JUMP                             ; [+1]
+     1679 LOADK                            R20 K66 [1.5707963267949]
+     1680 ADD                              R18 R19 R20
+     1681 GETTABLEKS                       R20 R6 K46 ["X"]
+     1683 LOADN                            R21 0
+     1684 JUMPIFNOTLT                      R21 R20 ; [+10]
+     1686 GETTABLEKS                       R20 R6 K50 ["Y"]
+     1688 LOADN                            R21 0
+     1689 JUMPIFNOTLT                      R21 R20 ; [+3]
+     1691 LOADK                            R19 K67 [-1.5707963267949]
+     1692 JUMP                             ; [+3]
+     1693 LOADK                            R19 K66 [1.5707963267949]
+     1694 JUMP                             ; [+1]
+     1695 LOADN                            R19 0
+     1696 ADD                              R17 R18 R19
+     1697 GETTABLEKS                       R19 R6 K51 ["Z"]
+     1699 LOADN                            R20 0
+     1700 JUMPIFNOTLT                      R20 R19 ; [+3]
+     1702 LOADN                            R18 1
+     1703 JUMP                             ; [+1]
+     1704 LOADN                            R18 255
+     1705 MUL                              R16 R17 R18
+     1706 CALL                             R13 3 1
+     1707 MUL                              R11 R12 R13
+     1708 SETTABLEKS                       R11 R10 K43 ["CFrame"]
+     1710 GETUPVAL                         R11 13
+     1711 GETTABLEN                        R10 R11 1
+     1712 LOADB                            R11 0
+     1713 SETTABLEKS                       R11 R10 K9 ["Visible"]
+     1715 GETUPVAL                         R12 1
+     1716 GETTABLEN                        R11 R12 13
+     1717 GETTABLEN                        R10 R11 1
+     1718 LOADB                            R11 0
+     1719 SETTABLEKS                       R11 R10 K9 ["Visible"]
+     1721 GETUPVAL                         R10 9
+     1722 JUMPIFNOTEQKN                    R10 K21 [13] ; [+88]
+     1724 GETTABLEKS                       R11 R3 K68 ["Size"]
+     1726 GETTABLEKS                       R11 R11 K46 ["X"]
+     1728 ADDK                             R10 R11 K22 [2]
+     1729 GETUPVAL                         R12 13
+     1730 GETTABLEN                        R11 R12 1
+     1731 SETTABLEKS                       R3 R11 K14 ["Adornee"]
+     1733 GETUPVAL                         R12 13
+     1734 GETTABLEN                        R11 R12 1
+     1735 GETIMPORT                        R13 K61 [CFrame.new]
+     1737 MULK                             R15 R10 K69 [0.5]
+     1738 LOADN                            R16 0
+     1739 LOADN                            R17 0
+     1740 FASTCALL                         VECTOR ; [+2]
+     1741 GETIMPORT                        R14 K54 [Vector3.new]
+     1743 CALL                             R14 3 1
+     1744 CALL                             R13 1 1
+     1745 GETIMPORT                        R14 K65 [CFrame.Angles]
+     1747 LOADN                            R15 0
+     1748 LOADK                            R16 K66 [1.5707963267949]
+     1749 LOADN                            R17 0
+     1750 CALL                             R14 3 1
+     1751 MUL                              R12 R13 R14
+     1752 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1754 GETUPVAL                         R12 13
+     1755 GETTABLEN                        R11 R12 1
+     1756 SETTABLEKS                       R10 R11 K70 ["Length"]
+     1758 GETUPVAL                         R12 13
+     1759 GETTABLEN                        R11 R12 1
+     1760 LOADB                            R12 1
+     1761 SETTABLEKS                       R12 R11 K9 ["Visible"]
+     1763 JUMPIF                           R0 ; [+47]
+     1764 GETUPVAL                         R13 1
+     1765 GETTABLEN                        R12 R13 13
+     1766 GETTABLEN                        R11 R12 1
+     1767 GETUPVAL                         R14 1
+     1768 GETTABLEN                        R13 R14 13
+     1769 GETTABLEN                        R12 R13 2
+     1770 GETTABLEKS                       R12 R12 K60 ["SizeRelativeOffset"]
+     1772 SETTABLEKS                       R12 R11 K60 ["SizeRelativeOffset"]
+     1774 GETUPVAL                         R13 1
+     1775 GETTABLEN                        R12 R13 13
+     1776 GETTABLEN                        R11 R12 1
+     1777 GETUPVAL                         R14 1
+     1778 GETTABLEN                        R13 R14 13
+     1779 GETTABLEN                        R12 R13 2
+     1780 GETTABLEKS                       R12 R12 K43 ["CFrame"]
+     1782 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1784 GETUPVAL                         R13 1
+     1785 GETTABLEN                        R12 R13 13
+     1786 GETTABLEN                        R11 R12 1
+     1787 LOADB                            R12 1
+     1788 SETTABLEKS                       R12 R11 K9 ["Visible"]
+     1790 GETUPVAL                         R13 1
+     1791 GETTABLEN                        R12 R13 13
+     1792 GETTABLEN                        R11 R12 2
+     1793 GETUPVAL                         R15 1
+     1794 GETTABLEN                        R14 R15 13
+     1795 GETTABLEN                        R13 R14 2
+     1796 GETTABLEKS                       R13 R13 K43 ["CFrame"]
+     1798 GETTABLEKS                       R17 R6 K46 ["X"]
+     1800 MULK                             R16 R17 K71 [0.075]
+     1801 MUL                              R15 R16 R9
+     1802 LOADN                            R16 0
+     1803 LOADN                            R17 0
+     1804 FASTCALL                         VECTOR ; [+2]
+     1805 GETIMPORT                        R14 K54 [Vector3.new]
+     1807 CALL                             R14 3 1
+     1808 ADD                              R12 R13 R14
+     1809 SETTABLEKS                       R12 R11 K43 ["CFrame"]
+     1811 GETIMPORT                        R10 K74 [pairs]
+     1813 GETUPVAL                         R11 1
+     1814 CALL                             R10 1 3
+     1815 FORGPREP_NEXT                    R10
+     1816 JUMPIFNOTEQKN                    R13 K32 [14] ; [+2]
+     1818 JUMP                             ; [+157]
+     1819 GETUPVAL                         R15 14
+     1820 GETTABLEN                        R16 R14 2
+     1821 CALL                             R15 1 1
+     1822 GETTABLEKS                       R15 R15 K42 ["p"]
+     1824 GETTABLEN                        R16 R14 1
+     1825 LOADK                            R18 K75 ["BoxHandleAdornment"]
+     1826 NAMECALL                         R16 R16 K16 ["IsA"]
+     1828 CALL                             R16 2 1
+     1829 JUMPIFNOT                        R16 ; [+74]
+     1830 SUB                              R18 R15 R4
+     1831 GETTABLEKS                       R18 R18 K57 ["Magnitude"]
+     1833 DIVK                             R17 R18 K30 [10]
+     1834 FASTCALL2K                       MATH_MAX R17 K31 ; [+4]
+     1836 LOADK                            R18 K31 [1]
+     1837 GETIMPORT                        R16 K59 [math.max]
+     1839 CALL                             R16 2 1
+     1840 GETTABLEN                        R17 R14 1
+     1841 GETTABLEN                        R19 R14 6
+     1842 MUL                              R18 R19 R16
+     1843 SETTABLEKS                       R18 R17 K68 ["Size"]
+     1845 GETTABLEN                        R17 R14 2
+     1846 GETTABLEN                        R19 R14 7
+     1847 MUL                              R18 R19 R16
+     1848 SETTABLEKS                       R18 R17 K68 ["Size"]
+     1850 GETUPVAL                         R18 3
+     1851 GETTABLE                         R17 R18 R13
+     1852 JUMPIFNOT                        R17 ; [+6]
+     1853 GETUPVAL                         R18 3
+     1854 GETTABLE                         R17 R18 R13
+     1855 GETTABLEN                        R19 R14 6
+     1856 MUL                              R18 R19 R16
+     1857 SETTABLEKS                       R18 R17 K68 ["Size"]
+     1859 GETUPVAL                         R18 14
+     1860 GETTABLEN                        R19 R14 1
+     1861 CALL                             R18 1 1
+     1862 GETTABLEKS                       R18 R18 K42 ["p"]
+     1864 SUB                              R17 R18 R4
+     1865 GETIMPORT                        R18 K77 [Ray.new]
+     1867 MOVE                             R19 R4
+     1868 MOVE                             R20 R17
+     1869 CALL                             R18 2 1
+     1870 GETIMPORT                        R19 K5 [game]
+     1872 GETTABLEKS                       R19 R19 K17 ["Workspace"]
+     1874 MOVE                             R21 R18
+     1875 NAMECALL                         R19 R19 K78 ["FindPartOnRay"]
+     1877 CALL                             R19 2 2
+     1878 SUB                              R21 R20 R4
+     1879 GETTABLEKS                       R21 R21 K79 ["magnitude"]
+     1881 GETTABLEKS                       R23 R17 K79 ["magnitude"]
+     1883 SUBK                             R22 R23 K72 [0.2]
+     1884 JUMPIFNOTLE                      R22 R21 ; [+10]
+     1886 GETTABLEN                        R21 R14 1
+     1887 LOADB                            R22 1
+     1888 SETTABLEKS                       R22 R21 K80 ["AlwaysOnTop"]
+     1890 GETTABLEN                        R21 R14 2
+     1891 LOADB                            R22 1
+     1892 SETTABLEKS                       R22 R21 K80 ["AlwaysOnTop"]
+     1894 JUMP                             ; [+81]
+     1895 GETTABLEN                        R21 R14 1
+     1896 LOADB                            R22 0
+     1897 SETTABLEKS                       R22 R21 K80 ["AlwaysOnTop"]
+     1899 GETTABLEN                        R21 R14 2
+     1900 LOADB                            R22 0
+     1901 SETTABLEKS                       R22 R21 K80 ["AlwaysOnTop"]
+     1903 JUMP                             ; [+72]
+     1904 GETTABLEN                        R16 R14 1
+     1905 LOADK                            R18 K81 ["ConeHandleAdornment"]
+     1906 NAMECALL                         R16 R16 K16 ["IsA"]
+     1908 CALL                             R16 2 1
+     1909 JUMPIFNOT                        R16 ; [+39]
+     1910 SUB                              R18 R15 R4
+     1911 GETTABLEKS                       R18 R18 K57 ["Magnitude"]
+     1913 DIVK                             R17 R18 K56 [15]
+     1914 FASTCALL2K                       MATH_MAX R17 K31 ; [+4]
+     1916 LOADK                            R18 K31 [1]
+     1917 GETIMPORT                        R16 K59 [math.max]
+     1919 CALL                             R16 2 1
+     1920 GETTABLEN                        R17 R14 1
+     1921 GETTABLEN                        R19 R14 6
+     1922 GETTABLEKS                       R19 R19 K46 ["X"]
+     1924 MUL                              R18 R19 R16
+     1925 SETTABLEKS                       R18 R17 K62 ["Height"]
+     1927 GETTABLEN                        R17 R14 1
+     1928 GETTABLEN                        R19 R14 6
+     1929 GETTABLEKS                       R19 R19 K50 ["Y"]
+     1931 MUL                              R18 R19 R16
+     1932 SETTABLEKS                       R18 R17 K82 ["Radius"]
+     1934 GETTABLEN                        R17 R14 2
+     1935 GETTABLEN                        R19 R14 7
+     1936 GETTABLEKS                       R19 R19 K46 ["X"]
+     1938 MUL                              R18 R19 R16
+     1939 SETTABLEKS                       R18 R17 K62 ["Height"]
+     1941 GETTABLEN                        R17 R14 2
+     1942 GETTABLEN                        R19 R14 7
+     1943 GETTABLEKS                       R19 R19 K50 ["Y"]
+     1945 MUL                              R18 R19 R16
+     1946 SETTABLEKS                       R18 R17 K82 ["Radius"]
+     1948 JUMP                             ; [+27]
+     1949 GETTABLEN                        R16 R14 1
+     1950 LOADK                            R18 K83 ["ImageHandleAdornment"]
+     1951 NAMECALL                         R16 R16 K16 ["IsA"]
+     1953 CALL                             R16 2 1
+     1954 JUMPIFNOT                        R16 ; [+21]
+     1955 SUB                              R19 R15 R4
+     1956 GETTABLEKS                       R19 R19 K57 ["Magnitude"]
+     1958 DIVK                             R18 R19 K84 [30]
+     1959 ADDK                             R17 R18 K31 [1]
+     1960 FASTCALL2K                       MATH_MAX R17 K31 ; [+4]
+     1962 LOADK                            R18 K31 [1]
+     1963 GETIMPORT                        R16 K59 [math.max]
+     1965 CALL                             R16 2 1
+     1966 GETTABLEN                        R17 R14 1
+     1967 GETTABLEN                        R19 R14 6
+     1968 MUL                              R18 R19 R16
+     1969 SETTABLEKS                       R18 R17 K68 ["Size"]
+     1971 GETTABLEN                        R17 R14 2
+     1972 GETTABLEN                        R19 R14 7
+     1973 MUL                              R18 R19 R16
+     1974 SETTABLEKS                       R18 R17 K68 ["Size"]
+     1976 FORGLOOP                         R10 2 ; [-161]
+     1978 LOADNIL                          R10
+     1979 GETUPVAL                         R11 15
+     1980 JUMPIF                           R11 ; [+2]
+     1981 GETUPVAL                         R11 10
+     1982 JUMPIFNOT                        R11 ; [+22]
+     1983 GETUPVAL                         R11 16
+     1984 LOADN                            R12 1
+     1985 JUMPIFNOTLT                      R11 R12 ; [+40]
+     1987 GETUPVAL                         R13 16
+     1988 ADDK                             R12 R13 K85 [0.1]
+     1989 FASTCALL2K                       MATH_MIN R12 K31 ; [+4]
+     1991 LOADK                            R13 K31 [1]
+     1992 GETIMPORT                        R11 K87 [math.min]
+     1994 CALL                             R11 2 1
+     1995 SETUPVAL                         R11 16
+     1996 GETUPVAL                         R11 17
+     1997 GETTABLEKS                       R11 R11 K88 ["smoothstep"]
+     1999 LOADN                            R12 0
+     2000 LOADN                            R13 1
+     2001 GETUPVAL                         R14 16
+     2002 CALL                             R11 3 1
+     2003 MOVE                             R10 R11
+     2004 JUMP                             ; [+21]
+     2005 GETUPVAL                         R11 16
+     2006 LOADN                            R12 0
+     2007 JUMPIFNOTLT                      R12 R11 ; [+18]
+     2009 GETUPVAL                         R13 16
+     2010 SUBK                             R12 R13 K85 [0.1]
+     2011 FASTCALL2K                       MATH_MAX R12 K89 ; [+4]
+     2013 LOADK                            R13 K89 [0]
+     2014 GETIMPORT                        R11 K59 [math.max]
+     2016 CALL                             R11 2 1
+     2017 SETUPVAL                         R11 16
+     2018 GETUPVAL                         R11 17
+     2019 GETTABLEKS                       R11 R11 K88 ["smoothstep"]
+     2021 LOADN                            R12 0
+     2022 LOADN                            R13 1
+     2023 GETUPVAL                         R14 16
+     2024 CALL                             R11 3 1
+     2025 MOVE                             R10 R11
+     2026 JUMPIFNOT                        R10 ; [+71]
+     2027 GETUPVAL                         R11 17
+     2028 GETTABLEKS                       R11 R11 K90 ["colorMultiply"]
+     2030 GETUPVAL                         R15 1
+     2031 GETTABLEN                        R14 R15 14
+     2032 GETTABLEN                        R13 R14 4
+     2033 GETTABLEN                        R12 R13 1
+     2034 MOVE                             R13 R10
+     2035 CALL                             R11 2 1
+     2036 GETUPVAL                         R12 17
+     2037 GETTABLEKS                       R12 R12 K90 ["colorMultiply"]
+     2039 GETUPVAL                         R16 1
+     2040 GETTABLEN                        R15 R16 14
+     2041 GETTABLEN                        R14 R15 5
+     2042 GETTABLEN                        R13 R14 1
+     2043 SUBRK                            R14 R31 K10 ["ipairs"]
+     2044 CALL                             R12 2 1
+     2045 GETUPVAL                         R15 1
+     2046 GETTABLEN                        R14 R15 14
+     2047 GETTABLEN                        R13 R14 2
+     2048 GETUPVAL                         R14 17
+     2049 GETTABLEKS                       R14 R14 K91 ["colorAdd"]
+     2051 MOVE                             R15 R11
+     2052 MOVE                             R16 R12
+     2053 CALL                             R14 2 1
+     2054 SETTABLEKS                       R14 R13 K92 ["ImageColor3"]
+     2056 GETUPVAL                         R15 1
+     2057 GETTABLEN                        R14 R15 14
+     2058 GETTABLEN                        R13 R14 2
+     2059 GETUPVAL                         R19 1
+     2060 GETTABLEN                        R18 R19 14
+     2061 GETTABLEN                        R17 R18 4
+     2062 GETTABLEN                        R16 R17 2
+     2063 MUL                              R15 R10 R16
+     2064 SUBRK                            R17 R31 K10 ["ipairs"]
+     2065 GETUPVAL                         R21 1
+     2066 GETTABLEN                        R20 R21 14
+     2067 GETTABLEN                        R19 R20 5
+     2068 GETTABLEN                        R18 R19 2
+     2069 MUL                              R16 R17 R18
+     2070 ADD                              R14 R15 R16
+     2071 SETTABLEKS                       R14 R13 K93 ["ImageTransparency"]
+     2073 LOADN                            R15 1
+     2074 LOADN                            R13 8
+     2075 LOADN                            R14 1
+     2076 FORNPREP                         R13
+     2077 GETUPVAL                         R17 5
+     2078 GETTABLE                         R16 R17 R15
+     2079 GETUPVAL                         R17 17
+     2080 GETTABLEKS                       R17 R17 K91 ["colorAdd"]
+     2082 GETUPVAL                         R18 17
+     2083 GETTABLEKS                       R18 R18 K90 ["colorMultiply"]
+     2085 GETUPVAL                         R19 18
+     2086 MOVE                             R20 R10
+     2087 CALL                             R18 2 1
+     2088 GETUPVAL                         R19 17
+     2089 GETTABLEKS                       R19 R19 K90 ["colorMultiply"]
+     2091 GETUPVAL                         R20 19
+     2092 SUBRK                            R21 R31 K10 ["ipairs"]
+     2093 CALL                             R19 2 -1
+     2094 CALL                             R17 -1 1
+     2095 SETTABLEKS                       R17 R16 K92 ["ImageColor3"]
+     2097 FORNLOOP                         R13
+     2098 GETUPVAL                         R11 10
+     2099 JUMPIFNOT                        R11 ; [+12]
+     2100 GETUPVAL                         R13 1
+     2101 GETTABLEN                        R12 R13 14
+     2102 GETTABLEN                        R11 R12 2
+     2103 GETUPVAL                         R12 20
+     2104 SETTABLEKS                       R12 R11 K92 ["ImageColor3"]
+     2106 GETUPVAL                         R13 1
+     2107 GETTABLEN                        R12 R13 14
+     2108 GETTABLEN                        R11 R12 2
+     2109 LOADN                            R12 0
+     2110 SETTABLEKS                       R12 R11 K93 ["ImageTransparency"]
+     2112 GETUPVAL                         R11 21
+     2113 CALL                             R11 0 0
+     2114 RETURN                           R0 0
 
 PROTO_54:
         0 GETUPVAL                         R1 0
@@ -5820,475 +5827,484 @@ MAIN:
        32 GETTABLEKS                       R4 R4 K4 ["Parent"]
        34 GETTABLEKS                       R4 R4 K8 ["RecyclingBin"]
        36 CALL                             R3 1 1
-       37 NEWTABLE                         R4 0 0
-       39 NEWTABLE                         R5 0 0
-       41 NEWTABLE                         R6 0 4
-       43 GETIMPORT                        R7 K10 [game]
-       45 LOADK                            R9 K11 ["CoreGui"]
-       46 NAMECALL                         R7 R7 K12 ["GetService"]
-       48 CALL                             R7 2 1
-       49 GETIMPORT                        R8 K15 [Instance.new]
-       51 LOADK                            R9 K16 ["Folder"]
-       52 MOVE                             R10 R7
-       53 CALL                             R8 2 1
-       54 LOADK                            R9 K17 ["TransformTempAdornments"]
-       55 SETTABLEKS                       R9 R8 K18 ["Name"]
-       57 LOADB                            R9 0
-       58 LOADNIL                          R10
-       59 LOADNIL                          R11
-       60 LOADNIL                          R12
-       61 LOADNIL                          R13
-       62 LOADNIL                          R14
-       63 LOADNIL                          R15
-       64 LOADNIL                          R16
-       65 LOADNIL                          R17
-       66 LOADNIL                          R18
-       67 NEWTABLE                         R19 0 6
-       69 NEWTABLE                         R20 0 4
-       71 NEWTABLE                         R21 0 1
-       73 NEWTABLE                         R22 0 0
-       75 NEWTABLE                         R23 0 3
-       77 LOADB                            R24 0
-       78 LOADB                            R25 0
-       79 LOADB                            R26 0
-       80 LOADN                            R27 0
-       81 LOADB                            R28 0
-       82 NEWTABLE                         R29 0 1
-       84 LOADN                            R30 0
-       85 NEWTABLE                         R31 0 0
-       87 LOADN                            R32 1
-       88 DUPCLOSURE                       R33 K19 [PROTO_0]
-       89 DUPCLOSURE                       R34 K20 [PROTO_1]
-       90 GETIMPORT                        R35 K15 [Instance.new]
-       92 LOADK                            R36 K16 ["Folder"]
-       93 MOVE                             R37 R8
-       94 CALL                             R35 2 1
-       95 LOADK                            R36 K21 ["Rotation"]
-       96 SETTABLEKS                       R36 R35 K18 ["Name"]
-       98 DUPCLOSURE                       R36 K22 [PROTO_2]
-       99 CAPTURE                          VAL R35
-      100 CAPTURE                          VAL R3
-      101 NEWCLOSURE                       R37 P3
-      102 CAPTURE                          VAL R35
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          REF R25
-      105 CAPTURE                          REF R11
-      106 LOADNIL                          R38
-      107 LOADNIL                          R39
-      108 LOADNIL                          R40
-      109 NEWCLOSURE                       R41 P4
-      110 CAPTURE                          REF R24
-      111 CAPTURE                          REF R22
-      112 CAPTURE                          REF R25
-      113 CAPTURE                          REF R38
-      114 CAPTURE                          REF R39
-      115 CAPTURE                          REF R40
-      116 NEWCLOSURE                       R42 P5
-      117 CAPTURE                          REF R21
-      118 LOADB                            R43 0
-      119 LOADB                            R44 0
-      120 NEWCLOSURE                       R45 P6
-      121 CAPTURE                          REF R31
-      122 CAPTURE                          REF R4
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          REF R30
-      125 CAPTURE                          REF R44
-      126 CAPTURE                          REF R26
-      127 CAPTURE                          REF R28
-      128 CAPTURE                          REF R5
-      129 NEWCLOSURE                       R46 P7
-      130 CAPTURE                          REF R4
-      131 CAPTURE                          REF R5
-      132 NEWCLOSURE                       R47 P8
-      133 CAPTURE                          REF R31
-      134 CAPTURE                          REF R30
-      135 CAPTURE                          REF R44
+       37 GETIMPORT                        R4 K1 [require]
+       39 GETIMPORT                        R5 K3 [script]
+       41 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       43 GETTABLEKS                       R5 R5 K9 ["Flags"]
+       45 GETTABLEKS                       R5 R5 K10 ["getFFlagTransformProceduralModel"]
+       47 CALL                             R4 1 1
+       48 MOVE                             R5 R4
+       49 CALL                             R5 0 1
+       50 NEWTABLE                         R6 0 0
+       52 NEWTABLE                         R7 0 0
+       54 NEWTABLE                         R8 0 4
+       56 GETIMPORT                        R9 K12 [game]
+       58 LOADK                            R11 K13 ["CoreGui"]
+       59 NAMECALL                         R9 R9 K14 ["GetService"]
+       61 CALL                             R9 2 1
+       62 GETIMPORT                        R10 K17 [Instance.new]
+       64 LOADK                            R11 K18 ["Folder"]
+       65 MOVE                             R12 R9
+       66 CALL                             R10 2 1
+       67 LOADK                            R11 K19 ["TransformTempAdornments"]
+       68 SETTABLEKS                       R11 R10 K20 ["Name"]
+       70 LOADB                            R11 0
+       71 LOADNIL                          R12
+       72 LOADNIL                          R13
+       73 LOADNIL                          R14
+       74 LOADNIL                          R15
+       75 LOADNIL                          R16
+       76 LOADNIL                          R17
+       77 LOADNIL                          R18
+       78 LOADNIL                          R19
+       79 LOADNIL                          R20
+       80 NEWTABLE                         R21 0 6
+       82 NEWTABLE                         R22 0 4
+       84 NEWTABLE                         R23 0 1
+       86 NEWTABLE                         R24 0 0
+       88 NEWTABLE                         R25 0 3
+       90 LOADB                            R26 0
+       91 LOADB                            R27 0
+       92 LOADB                            R28 0
+       93 LOADN                            R29 0
+       94 LOADB                            R30 0
+       95 NEWTABLE                         R31 0 1
+       97 LOADN                            R32 0
+       98 NEWTABLE                         R33 0 0
+      100 LOADN                            R34 1
+      101 DUPCLOSURE                       R35 K21 [PROTO_0]
+      102 DUPCLOSURE                       R36 K22 [PROTO_1]
+      103 GETIMPORT                        R37 K17 [Instance.new]
+      105 LOADK                            R38 K18 ["Folder"]
+      106 MOVE                             R39 R10
+      107 CALL                             R37 2 1
+      108 LOADK                            R38 K23 ["Rotation"]
+      109 SETTABLEKS                       R38 R37 K20 ["Name"]
+      111 DUPCLOSURE                       R38 K24 [PROTO_2]
+      112 CAPTURE                          VAL R37
+      113 CAPTURE                          VAL R3
+      114 NEWCLOSURE                       R39 P3
+      115 CAPTURE                          VAL R37
+      116 CAPTURE                          VAL R3
+      117 CAPTURE                          REF R27
+      118 CAPTURE                          REF R13
+      119 LOADNIL                          R40
+      120 LOADNIL                          R41
+      121 LOADNIL                          R42
+      122 NEWCLOSURE                       R43 P4
+      123 CAPTURE                          REF R26
+      124 CAPTURE                          REF R24
+      125 CAPTURE                          REF R27
+      126 CAPTURE                          REF R40
+      127 CAPTURE                          REF R41
+      128 CAPTURE                          REF R42
+      129 NEWCLOSURE                       R44 P5
+      130 CAPTURE                          REF R23
+      131 LOADB                            R45 0
+      132 LOADB                            R46 0
+      133 NEWCLOSURE                       R47 P6
+      134 CAPTURE                          REF R33
+      135 CAPTURE                          REF R6
       136 CAPTURE                          VAL R1
-      137 CAPTURE                          REF R26
-      138 CAPTURE                          REF R4
-      139 CAPTURE                          REF R5
-      140 CAPTURE                          VAL R45
-      141 NEWCLOSURE                       R48 P9
-      142 CAPTURE                          REF R43
-      143 NEWCLOSURE                       R49 P10
-      144 CAPTURE                          REF R30
-      145 CAPTURE                          REF R43
-      146 CAPTURE                          REF R28
-      147 DUPCLOSURE                       R50 K23 [PROTO_12]
-      148 CAPTURE                          VAL R7
-      149 DUPCLOSURE                       R51 K24 [PROTO_13]
-      150 CAPTURE                          VAL R7
-      151 DUPCLOSURE                       R52 K25 [PROTO_14]
-      152 CAPTURE                          VAL R7
-      153 GETIMPORT                        R53 K27 [Color3.new]
-      155 LOADK                            R54 K28 [0.149019607843137]
-      156 LOADK                            R55 K29 [0.533333333333333]
-      157 LOADK                            R56 K30 [0.941176470588235]
-      158 CALL                             R53 3 1
-      159 GETIMPORT                        R54 K27 [Color3.new]
-      161 LOADK                            R55 K31 [0.0823529411764706]
-      162 LOADK                            R56 K32 [0.101960784313725]
-      163 LOADK                            R57 K33 [0.349019607843137]
-      164 CALL                             R54 3 1
-      165 GETIMPORT                        R55 K27 [Color3.new]
-      167 LOADN                            R56 0
-      168 LOADN                            R57 0
-      169 LOADN                            R58 0
-      170 CALL                             R55 3 1
-      171 GETIMPORT                        R56 K27 [Color3.new]
-      173 LOADN                            R57 1
-      174 LOADN                            R58 1
-      175 LOADN                            R59 1
-      176 CALL                             R56 3 1
-      177 GETIMPORT                        R57 K27 [Color3.new]
-      179 LOADK                            R58 K34 [0.937254901960784]
-      180 LOADK                            R59 K35 [0.901960784313726]
-      181 LOADK                            R60 K36 [0.250980392156863]
-      182 CALL                             R57 3 1
-      183 GETIMPORT                        R58 K27 [Color3.new]
-      185 LOADK                            R59 K37 [0.72156862745098]
-      186 LOADK                            R60 K37 [0.72156862745098]
-      187 LOADK                            R61 K37 [0.72156862745098]
-      188 CALL                             R58 3 1
-      189 DUPCLOSURE                       R59 K38 [PROTO_15]
-      190 LOADNIL                          R60
-      191 LOADNIL                          R61
-      192 LOADNIL                          R62
-      193 GETIMPORT                        R63 K10 [game]
-      195 LOADK                            R65 K39 ["NextGenDraggersEnabledFeature"]
-      196 NAMECALL                         R63 R63 K40 ["GetEngineFeature"]
-      198 CALL                             R63 2 1
-      199 JUMPIFNOT                        R63 ; [+43]
-      200 GETIMPORT                        R63 K42 [Color3.fromHex]
-      202 GETIMPORT                        R64 K45 [string.format]
-      204 LOADK                            R65 K46 ["%06X"]
-      205 GETIMPORT                        R66 K10 [game]
-      207 LOADK                            R68 K47 ["rbxRed"]
-      208 NAMECALL                         R66 R66 K48 ["GetFastInt"]
-      210 CALL                             R66 2 -1
-      211 CALL                             R64 -1 -1
-      212 CALL                             R63 -1 1
-      213 MOVE                             R60 R63
-      214 GETIMPORT                        R63 K42 [Color3.fromHex]
-      216 GETIMPORT                        R64 K45 [string.format]
-      218 LOADK                            R65 K46 ["%06X"]
-      219 GETIMPORT                        R66 K10 [game]
-      221 LOADK                            R68 K49 ["rbxGreen"]
-      222 NAMECALL                         R66 R66 K48 ["GetFastInt"]
-      224 CALL                             R66 2 -1
-      225 CALL                             R64 -1 -1
-      226 CALL                             R63 -1 1
-      227 MOVE                             R61 R63
-      228 GETIMPORT                        R63 K42 [Color3.fromHex]
-      230 GETIMPORT                        R64 K45 [string.format]
-      232 LOADK                            R65 K46 ["%06X"]
-      233 GETIMPORT                        R66 K10 [game]
-      235 LOADK                            R68 K50 ["rbxBlue"]
-      236 NAMECALL                         R66 R66 K48 ["GetFastInt"]
-      238 CALL                             R66 2 -1
-      239 CALL                             R64 -1 -1
-      240 CALL                             R63 -1 1
-      241 MOVE                             R62 R63
-      242 JUMP                             ; [+21]
-      243 GETIMPORT                        R63 K27 [Color3.new]
-      245 LOADN                            R64 0
-      246 LOADK                            R65 K51 [0.635294117647059]
-      247 LOADN                            R66 1
-      248 CALL                             R63 3 1
-      249 MOVE                             R62 R63
-      250 GETIMPORT                        R63 K27 [Color3.new]
-      252 LOADK                            R64 K52 [0.247058823529412]
-      253 LOADK                            R65 K53 [0.776470588235294]
-      254 LOADK                            R66 K54 [0.474509803921569]
-      255 CALL                             R63 3 1
-      256 MOVE                             R61 R63
-      257 GETIMPORT                        R63 K27 [Color3.new]
-      259 LOADK                            R64 K55 [0.886274509803922]
-      260 LOADK                            R65 K56 [0.137254901960784]
-      261 LOADK                            R66 K32 [0.101960784313725]
-      262 CALL                             R63 3 1
-      263 MOVE                             R60 R63
-      264 GETIMPORT                        R63 K59 [BrickColor.Red]
-      266 CALL                             R63 0 1
-      267 GETTABLEKS                       R63 R63 K60 ["Color"]
-      269 NEWCLOSURE                       R64 P15
-      270 CAPTURE                          VAL R7
-      271 CAPTURE                          VAL R55
-      272 CAPTURE                          VAL R45
-      273 CAPTURE                          VAL R47
-      274 CAPTURE                          REF R4
-      275 CAPTURE                          REF R5
-      276 NEWCLOSURE                       R65 P16
-      277 CAPTURE                          VAL R64
-      278 CAPTURE                          VAL R63
-      279 CAPTURE                          VAL R57
-      280 CAPTURE                          VAL R54
-      281 CAPTURE                          VAL R56
-      282 CAPTURE                          REF R62
-      283 CAPTURE                          REF R61
-      284 CAPTURE                          REF R60
-      285 CAPTURE                          REF R12
-      286 CAPTURE                          VAL R7
-      287 CAPTURE                          VAL R55
-      288 CAPTURE                          REF R31
-      289 CAPTURE                          REF R4
-      290 CAPTURE                          VAL R1
-      291 CAPTURE                          REF R30
-      292 CAPTURE                          REF R44
-      293 CAPTURE                          REF R26
-      294 CAPTURE                          VAL R47
-      295 CAPTURE                          REF R43
-      296 CAPTURE                          REF R28
-      297 CAPTURE                          VAL R58
-      298 CAPTURE                          VAL R23
-      299 CAPTURE                          REF R11
-      300 CAPTURE                          REF R13
-      301 CAPTURE                          REF R16
-      302 CAPTURE                          REF R14
-      303 CAPTURE                          REF R17
-      304 CAPTURE                          REF R15
-      305 CAPTURE                          REF R18
-      306 CAPTURE                          REF R19
-      307 CAPTURE                          REF R21
-      308 CAPTURE                          REF R20
-      309 CAPTURE                          REF R29
-      310 CAPTURE                          REF R22
-      311 CAPTURE                          REF R6
-      312 CAPTURE                          REF R9
-      313 NEWCLOSURE                       R66 P17
-      314 CAPTURE                          REF R4
-      315 CAPTURE                          REF R5
-      316 DUPCLOSURE                       R67 K61 [PROTO_31]
-      317 DUPCLOSURE                       R68 K62 [PROTO_32]
-      318 NEWCLOSURE                       R69 P20
-      319 CAPTURE                          REF R19
-      320 CAPTURE                          REF R20
-      321 NEWCLOSURE                       R70 P21
-      322 CAPTURE                          REF R19
-      323 CAPTURE                          REF R20
-      324 NEWCLOSURE                       R71 P22
-      325 CAPTURE                          REF R22
-      326 NEWCLOSURE                       R72 P23
-      327 CAPTURE                          REF R21
-      328 NEWCLOSURE                       R73 P24
-      329 CAPTURE                          REF R4
-      330 CAPTURE                          REF R5
-      331 NEWCLOSURE                       R74 P25
-      332 CAPTURE                          REF R6
-      333 CAPTURE                          REF R4
-      334 CAPTURE                          REF R5
-      335 CAPTURE                          REF R29
-      336 NEWCLOSURE                       R75 P26
-      337 CAPTURE                          REF R6
-      338 NEWCLOSURE                       R76 P27
-      339 CAPTURE                          REF R4
-      340 CAPTURE                          REF R5
-      341 NEWCLOSURE                       R77 P28
-      342 CAPTURE                          REF R4
-      343 CAPTURE                          REF R5
-      344 NEWCLOSURE                       R78 P29
-      345 CAPTURE                          REF R4
-      346 CAPTURE                          REF R5
-      347 NEWCLOSURE                       R79 P30
-      348 CAPTURE                          REF R4
-      349 CAPTURE                          REF R5
-      350 NEWCLOSURE                       R80 P31
-      351 CAPTURE                          REF R4
-      352 CAPTURE                          REF R5
-      353 NEWCLOSURE                       R81 P32
-      354 CAPTURE                          REF R4
-      355 CAPTURE                          REF R5
-      356 NEWTABLE                         R82 0 0
-      358 GETIMPORT                        R83 K15 [Instance.new]
-      360 LOADK                            R84 K16 ["Folder"]
-      361 MOVE                             R85 R8
-      362 CALL                             R83 2 1
-      363 LOADK                            R84 K63 ["LineGrid"]
-      364 SETTABLEKS                       R84 R83 K18 ["Name"]
-      366 DUPCLOSURE                       R84 K64 [PROTO_46]
-      367 CAPTURE                          VAL R83
-      368 CAPTURE                          VAL R3
-      369 DUPCLOSURE                       R85 K65 [PROTO_47]
-      370 CAPTURE                          VAL R82
-      371 NEWCLOSURE                       R86 P35
-      372 CAPTURE                          VAL R82
-      373 CAPTURE                          VAL R3
-      374 CAPTURE                          VAL R83
-      375 CAPTURE                          VAL R2
-      376 CAPTURE                          REF R27
-      377 CAPTURE                          VAL R58
-      378 CAPTURE                          VAL R55
-      379 NEWCLOSURE                       R87 P36
-      380 CAPTURE                          REF R29
-      381 DUPCLOSURE                       R88 K66 [PROTO_50]
-      382 CAPTURE                          VAL R87
-      383 NEWCLOSURE                       R89 P38
-      384 CAPTURE                          REF R10
-      385 CAPTURE                          REF R6
-      386 CAPTURE                          REF R24
-      387 CAPTURE                          VAL R1
-      388 CAPTURE                          VAL R83
-      389 CAPTURE                          VAL R3
-      390 CAPTURE                          REF R38
-      391 CAPTURE                          VAL R37
-      392 CAPTURE                          REF R39
-      393 CAPTURE                          REF R40
-      394 CAPTURE                          VAL R82
-      395 CAPTURE                          VAL R53
-      396 CAPTURE                          VAL R86
-      397 CAPTURE                          VAL R88
-      398 DUPCLOSURE                       R90 K67 [PROTO_52]
-      399 CAPTURE                          VAL R0
-      400 NEWCLOSURE                       R91 P40
-      401 CAPTURE                          REF R9
-      402 CAPTURE                          REF R4
-      403 CAPTURE                          VAL R1
-      404 CAPTURE                          REF R5
-      405 CAPTURE                          REF R6
-      406 CAPTURE                          REF R29
-      407 CAPTURE                          VAL R78
-      408 CAPTURE                          VAL R83
-      409 CAPTURE                          VAL R3
-      410 CAPTURE                          REF R30
-      411 CAPTURE                          REF R28
-      412 CAPTURE                          REF R32
-      413 CAPTURE                          VAL R23
-      414 CAPTURE                          VAL R90
-      415 CAPTURE                          REF R26
-      416 CAPTURE                          REF R27
-      417 CAPTURE                          VAL R2
-      418 CAPTURE                          VAL R55
-      419 CAPTURE                          VAL R56
-      420 CAPTURE                          REF R62
-      421 CAPTURE                          VAL R89
-      422 NEWCLOSURE                       R92 P41
-      423 CAPTURE                          REF R4
+      137 CAPTURE                          REF R32
+      138 CAPTURE                          REF R46
+      139 CAPTURE                          REF R28
+      140 CAPTURE                          REF R30
+      141 CAPTURE                          REF R7
+      142 NEWCLOSURE                       R48 P7
+      143 CAPTURE                          REF R6
+      144 CAPTURE                          REF R7
+      145 NEWCLOSURE                       R49 P8
+      146 CAPTURE                          REF R33
+      147 CAPTURE                          REF R32
+      148 CAPTURE                          REF R46
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          REF R28
+      151 CAPTURE                          REF R6
+      152 CAPTURE                          REF R7
+      153 CAPTURE                          VAL R47
+      154 NEWCLOSURE                       R50 P9
+      155 CAPTURE                          REF R45
+      156 NEWCLOSURE                       R51 P10
+      157 CAPTURE                          REF R32
+      158 CAPTURE                          REF R45
+      159 CAPTURE                          REF R30
+      160 DUPCLOSURE                       R52 K25 [PROTO_12]
+      161 CAPTURE                          VAL R9
+      162 DUPCLOSURE                       R53 K26 [PROTO_13]
+      163 CAPTURE                          VAL R9
+      164 DUPCLOSURE                       R54 K27 [PROTO_14]
+      165 CAPTURE                          VAL R9
+      166 GETIMPORT                        R55 K29 [Color3.new]
+      168 LOADK                            R56 K30 [0.149019607843137]
+      169 LOADK                            R57 K31 [0.533333333333333]
+      170 LOADK                            R58 K32 [0.941176470588235]
+      171 CALL                             R55 3 1
+      172 GETIMPORT                        R56 K29 [Color3.new]
+      174 LOADK                            R57 K33 [0.0823529411764706]
+      175 LOADK                            R58 K34 [0.101960784313725]
+      176 LOADK                            R59 K35 [0.349019607843137]
+      177 CALL                             R56 3 1
+      178 GETIMPORT                        R57 K29 [Color3.new]
+      180 LOADN                            R58 0
+      181 LOADN                            R59 0
+      182 LOADN                            R60 0
+      183 CALL                             R57 3 1
+      184 GETIMPORT                        R58 K29 [Color3.new]
+      186 LOADN                            R59 1
+      187 LOADN                            R60 1
+      188 LOADN                            R61 1
+      189 CALL                             R58 3 1
+      190 GETIMPORT                        R59 K29 [Color3.new]
+      192 LOADK                            R60 K36 [0.937254901960784]
+      193 LOADK                            R61 K37 [0.901960784313726]
+      194 LOADK                            R62 K38 [0.250980392156863]
+      195 CALL                             R59 3 1
+      196 GETIMPORT                        R60 K29 [Color3.new]
+      198 LOADK                            R61 K39 [0.72156862745098]
+      199 LOADK                            R62 K39 [0.72156862745098]
+      200 LOADK                            R63 K39 [0.72156862745098]
+      201 CALL                             R60 3 1
+      202 DUPCLOSURE                       R61 K40 [PROTO_15]
+      203 LOADNIL                          R62
+      204 LOADNIL                          R63
+      205 LOADNIL                          R64
+      206 GETIMPORT                        R65 K12 [game]
+      208 LOADK                            R67 K41 ["NextGenDraggersEnabledFeature"]
+      209 NAMECALL                         R65 R65 K42 ["GetEngineFeature"]
+      211 CALL                             R65 2 1
+      212 JUMPIFNOT                        R65 ; [+43]
+      213 GETIMPORT                        R65 K44 [Color3.fromHex]
+      215 GETIMPORT                        R66 K47 [string.format]
+      217 LOADK                            R67 K48 ["%06X"]
+      218 GETIMPORT                        R68 K12 [game]
+      220 LOADK                            R70 K49 ["rbxRed"]
+      221 NAMECALL                         R68 R68 K50 ["GetFastInt"]
+      223 CALL                             R68 2 -1
+      224 CALL                             R66 -1 -1
+      225 CALL                             R65 -1 1
+      226 MOVE                             R62 R65
+      227 GETIMPORT                        R65 K44 [Color3.fromHex]
+      229 GETIMPORT                        R66 K47 [string.format]
+      231 LOADK                            R67 K48 ["%06X"]
+      232 GETIMPORT                        R68 K12 [game]
+      234 LOADK                            R70 K51 ["rbxGreen"]
+      235 NAMECALL                         R68 R68 K50 ["GetFastInt"]
+      237 CALL                             R68 2 -1
+      238 CALL                             R66 -1 -1
+      239 CALL                             R65 -1 1
+      240 MOVE                             R63 R65
+      241 GETIMPORT                        R65 K44 [Color3.fromHex]
+      243 GETIMPORT                        R66 K47 [string.format]
+      245 LOADK                            R67 K48 ["%06X"]
+      246 GETIMPORT                        R68 K12 [game]
+      248 LOADK                            R70 K52 ["rbxBlue"]
+      249 NAMECALL                         R68 R68 K50 ["GetFastInt"]
+      251 CALL                             R68 2 -1
+      252 CALL                             R66 -1 -1
+      253 CALL                             R65 -1 1
+      254 MOVE                             R64 R65
+      255 JUMP                             ; [+21]
+      256 GETIMPORT                        R65 K29 [Color3.new]
+      258 LOADN                            R66 0
+      259 LOADK                            R67 K53 [0.635294117647059]
+      260 LOADN                            R68 1
+      261 CALL                             R65 3 1
+      262 MOVE                             R64 R65
+      263 GETIMPORT                        R65 K29 [Color3.new]
+      265 LOADK                            R66 K54 [0.247058823529412]
+      266 LOADK                            R67 K55 [0.776470588235294]
+      267 LOADK                            R68 K56 [0.474509803921569]
+      268 CALL                             R65 3 1
+      269 MOVE                             R63 R65
+      270 GETIMPORT                        R65 K29 [Color3.new]
+      272 LOADK                            R66 K57 [0.886274509803922]
+      273 LOADK                            R67 K58 [0.137254901960784]
+      274 LOADK                            R68 K34 [0.101960784313725]
+      275 CALL                             R65 3 1
+      276 MOVE                             R62 R65
+      277 GETIMPORT                        R65 K61 [BrickColor.Red]
+      279 CALL                             R65 0 1
+      280 GETTABLEKS                       R65 R65 K62 ["Color"]
+      282 NEWCLOSURE                       R66 P15
+      283 CAPTURE                          VAL R9
+      284 CAPTURE                          VAL R57
+      285 CAPTURE                          VAL R47
+      286 CAPTURE                          VAL R49
+      287 CAPTURE                          REF R6
+      288 CAPTURE                          REF R7
+      289 NEWCLOSURE                       R67 P16
+      290 CAPTURE                          VAL R66
+      291 CAPTURE                          VAL R65
+      292 CAPTURE                          VAL R59
+      293 CAPTURE                          VAL R56
+      294 CAPTURE                          VAL R58
+      295 CAPTURE                          REF R64
+      296 CAPTURE                          REF R63
+      297 CAPTURE                          REF R62
+      298 CAPTURE                          REF R14
+      299 CAPTURE                          VAL R9
+      300 CAPTURE                          VAL R57
+      301 CAPTURE                          REF R33
+      302 CAPTURE                          REF R6
+      303 CAPTURE                          VAL R1
+      304 CAPTURE                          REF R32
+      305 CAPTURE                          REF R46
+      306 CAPTURE                          REF R28
+      307 CAPTURE                          VAL R49
+      308 CAPTURE                          REF R45
+      309 CAPTURE                          REF R30
+      310 CAPTURE                          VAL R60
+      311 CAPTURE                          VAL R25
+      312 CAPTURE                          REF R13
+      313 CAPTURE                          REF R15
+      314 CAPTURE                          REF R18
+      315 CAPTURE                          REF R16
+      316 CAPTURE                          REF R19
+      317 CAPTURE                          REF R17
+      318 CAPTURE                          REF R20
+      319 CAPTURE                          REF R21
+      320 CAPTURE                          REF R23
+      321 CAPTURE                          REF R22
+      322 CAPTURE                          REF R31
+      323 CAPTURE                          REF R24
+      324 CAPTURE                          REF R8
+      325 CAPTURE                          REF R11
+      326 NEWCLOSURE                       R68 P17
+      327 CAPTURE                          REF R6
+      328 CAPTURE                          REF R7
+      329 DUPCLOSURE                       R69 K63 [PROTO_31]
+      330 DUPCLOSURE                       R70 K64 [PROTO_32]
+      331 NEWCLOSURE                       R71 P20
+      332 CAPTURE                          REF R21
+      333 CAPTURE                          REF R22
+      334 NEWCLOSURE                       R72 P21
+      335 CAPTURE                          REF R21
+      336 CAPTURE                          REF R22
+      337 NEWCLOSURE                       R73 P22
+      338 CAPTURE                          REF R24
+      339 NEWCLOSURE                       R74 P23
+      340 CAPTURE                          REF R23
+      341 NEWCLOSURE                       R75 P24
+      342 CAPTURE                          REF R6
+      343 CAPTURE                          REF R7
+      344 NEWCLOSURE                       R76 P25
+      345 CAPTURE                          REF R8
+      346 CAPTURE                          REF R6
+      347 CAPTURE                          REF R7
+      348 CAPTURE                          REF R31
+      349 NEWCLOSURE                       R77 P26
+      350 CAPTURE                          REF R8
+      351 NEWCLOSURE                       R78 P27
+      352 CAPTURE                          REF R6
+      353 CAPTURE                          REF R7
+      354 NEWCLOSURE                       R79 P28
+      355 CAPTURE                          REF R6
+      356 CAPTURE                          REF R7
+      357 NEWCLOSURE                       R80 P29
+      358 CAPTURE                          REF R6
+      359 CAPTURE                          REF R7
+      360 NEWCLOSURE                       R81 P30
+      361 CAPTURE                          REF R6
+      362 CAPTURE                          REF R7
+      363 NEWCLOSURE                       R82 P31
+      364 CAPTURE                          REF R6
+      365 CAPTURE                          REF R7
+      366 NEWCLOSURE                       R83 P32
+      367 CAPTURE                          REF R6
+      368 CAPTURE                          REF R7
+      369 NEWTABLE                         R84 0 0
+      371 GETIMPORT                        R85 K17 [Instance.new]
+      373 LOADK                            R86 K18 ["Folder"]
+      374 MOVE                             R87 R10
+      375 CALL                             R85 2 1
+      376 LOADK                            R86 K65 ["LineGrid"]
+      377 SETTABLEKS                       R86 R85 K20 ["Name"]
+      379 DUPCLOSURE                       R86 K66 [PROTO_46]
+      380 CAPTURE                          VAL R85
+      381 CAPTURE                          VAL R3
+      382 DUPCLOSURE                       R87 K67 [PROTO_47]
+      383 CAPTURE                          VAL R84
+      384 NEWCLOSURE                       R88 P35
+      385 CAPTURE                          VAL R84
+      386 CAPTURE                          VAL R3
+      387 CAPTURE                          VAL R85
+      388 CAPTURE                          VAL R2
+      389 CAPTURE                          REF R29
+      390 CAPTURE                          VAL R60
+      391 CAPTURE                          VAL R57
+      392 NEWCLOSURE                       R89 P36
+      393 CAPTURE                          REF R31
+      394 DUPCLOSURE                       R90 K68 [PROTO_50]
+      395 CAPTURE                          VAL R89
+      396 NEWCLOSURE                       R91 P38
+      397 CAPTURE                          REF R12
+      398 CAPTURE                          REF R8
+      399 CAPTURE                          REF R26
+      400 CAPTURE                          VAL R1
+      401 CAPTURE                          VAL R85
+      402 CAPTURE                          VAL R3
+      403 CAPTURE                          REF R40
+      404 CAPTURE                          VAL R39
+      405 CAPTURE                          REF R41
+      406 CAPTURE                          REF R42
+      407 CAPTURE                          VAL R84
+      408 CAPTURE                          VAL R55
+      409 CAPTURE                          VAL R88
+      410 CAPTURE                          VAL R90
+      411 DUPCLOSURE                       R92 K69 [PROTO_52]
+      412 CAPTURE                          VAL R0
+      413 NEWCLOSURE                       R93 P40
+      414 CAPTURE                          REF R11
+      415 CAPTURE                          REF R6
+      416 CAPTURE                          VAL R1
+      417 CAPTURE                          REF R7
+      418 CAPTURE                          REF R8
+      419 CAPTURE                          REF R31
+      420 CAPTURE                          VAL R80
+      421 CAPTURE                          VAL R85
+      422 CAPTURE                          VAL R3
+      423 CAPTURE                          REF R32
       424 CAPTURE                          REF R30
-      425 NEWCLOSURE                       R93 P42
-      426 CAPTURE                          REF R10
-      427 NEWCLOSURE                       R94 P43
-      428 CAPTURE                          REF R30
-      429 NEWCLOSURE                       R95 P44
-      430 CAPTURE                          REF R30
-      431 NEWCLOSURE                       R96 P45
-      432 CAPTURE                          VAL R34
-      433 CAPTURE                          REF R20
-      434 CAPTURE                          REF R19
-      435 CAPTURE                          VAL R33
-      436 CAPTURE                          REF R13
-      437 CAPTURE                          REF R14
-      438 CAPTURE                          REF R15
-      439 NEWCLOSURE                       R97 P46
-      440 CAPTURE                          VAL R34
-      441 CAPTURE                          REF R20
-      442 CAPTURE                          REF R19
-      443 CAPTURE                          VAL R33
-      444 CAPTURE                          REF R16
-      445 CAPTURE                          REF R17
-      446 CAPTURE                          REF R18
-      447 NEWCLOSURE                       R98 P47
-      448 CAPTURE                          REF R25
-      449 CAPTURE                          VAL R41
-      450 CAPTURE                          REF R22
-      451 CAPTURE                          VAL R33
-      452 CAPTURE                          REF R13
-      453 CAPTURE                          REF R14
-      454 CAPTURE                          REF R15
-      455 NEWCLOSURE                       R99 P48
-      456 CAPTURE                          VAL R42
-      457 CAPTURE                          REF R21
-      458 NEWCLOSURE                       R100 P49
-      459 CAPTURE                          REF R13
-      460 CAPTURE                          REF R16
-      461 CAPTURE                          REF R19
-      462 CAPTURE                          REF R20
-      463 CAPTURE                          REF R22
-      464 CAPTURE                          REF R21
+      425 CAPTURE                          VAL R5
+      426 CAPTURE                          REF R34
+      427 CAPTURE                          VAL R25
+      428 CAPTURE                          VAL R92
+      429 CAPTURE                          REF R28
+      430 CAPTURE                          REF R29
+      431 CAPTURE                          VAL R2
+      432 CAPTURE                          VAL R57
+      433 CAPTURE                          VAL R58
+      434 CAPTURE                          REF R64
+      435 CAPTURE                          VAL R91
+      436 NEWCLOSURE                       R94 P41
+      437 CAPTURE                          REF R6
+      438 CAPTURE                          REF R32
+      439 NEWCLOSURE                       R95 P42
+      440 CAPTURE                          REF R12
+      441 NEWCLOSURE                       R96 P43
+      442 CAPTURE                          REF R32
+      443 NEWCLOSURE                       R97 P44
+      444 CAPTURE                          REF R32
+      445 NEWCLOSURE                       R98 P45
+      446 CAPTURE                          VAL R36
+      447 CAPTURE                          REF R22
+      448 CAPTURE                          REF R21
+      449 CAPTURE                          VAL R35
+      450 CAPTURE                          REF R15
+      451 CAPTURE                          REF R16
+      452 CAPTURE                          REF R17
+      453 NEWCLOSURE                       R99 P46
+      454 CAPTURE                          VAL R36
+      455 CAPTURE                          REF R22
+      456 CAPTURE                          REF R21
+      457 CAPTURE                          VAL R35
+      458 CAPTURE                          REF R18
+      459 CAPTURE                          REF R19
+      460 CAPTURE                          REF R20
+      461 NEWCLOSURE                       R100 P47
+      462 CAPTURE                          REF R27
+      463 CAPTURE                          VAL R43
+      464 CAPTURE                          REF R24
       465 CAPTURE                          VAL R35
-      466 CAPTURE                          VAL R3
-      467 CAPTURE                          REF R24
-      468 NEWCLOSURE                       R101 P50
-      469 CAPTURE                          REF R4
-      470 CAPTURE                          REF R5
-      471 CAPTURE                          VAL R78
-      472 NEWCLOSURE                       R102 P51
-      473 CAPTURE                          REF R5
-      474 NEWCLOSURE                       R103 P52
-      475 CAPTURE                          REF R28
-      476 NEWCLOSURE                       R104 P53
-      477 CAPTURE                          REF R28
-      478 CAPTURE                          REF R26
-      479 NEWCLOSURE                       R105 P54
-      480 CAPTURE                          REF R9
-      481 CAPTURE                          REF R4
-      482 CAPTURE                          REF R5
+      466 CAPTURE                          REF R15
+      467 CAPTURE                          REF R16
+      468 CAPTURE                          REF R17
+      469 NEWCLOSURE                       R101 P48
+      470 CAPTURE                          VAL R44
+      471 CAPTURE                          REF R23
+      472 NEWCLOSURE                       R102 P49
+      473 CAPTURE                          REF R15
+      474 CAPTURE                          REF R18
+      475 CAPTURE                          REF R21
+      476 CAPTURE                          REF R22
+      477 CAPTURE                          REF R24
+      478 CAPTURE                          REF R23
+      479 CAPTURE                          VAL R37
+      480 CAPTURE                          VAL R3
+      481 CAPTURE                          REF R26
+      482 NEWCLOSURE                       R103 P50
       483 CAPTURE                          REF R6
-      484 CAPTURE                          REF R29
-      485 CAPTURE                          REF R22
-      486 CAPTURE                          REF R19
-      487 CAPTURE                          REF R21
-      488 CAPTURE                          REF R20
-      489 CAPTURE                          REF R12
-      490 CAPTURE                          VAL R23
-      491 CAPTURE                          REF R11
-      492 CAPTURE                          VAL R83
-      493 CAPTURE                          VAL R3
-      494 DUPCLOSURE                       R106 K68 [PROTO_68]
-      495 NEWCLOSURE                       R107 P56
-      496 CAPTURE                          VAL R100
-      497 CAPTURE                          REF R44
-      498 CAPTURE                          REF R30
-      499 CAPTURE                          REF R26
-      500 CAPTURE                          REF R4
-      501 CAPTURE                          REF R5
-      502 CAPTURE                          REF R31
-      503 CAPTURE                          REF R28
-      504 NEWCLOSURE                       R108 P57
-      505 CAPTURE                          REF R32
-      506 NEWCLOSURE                       R109 P58
-      507 CAPTURE                          REF R31
-      508 CAPTURE                          REF R4
-      509 CAPTURE                          VAL R1
-      510 NEWCLOSURE                       R110 P59
-      511 CAPTURE                          REF R4
-      512 CAPTURE                          REF R5
-      513 CAPTURE                          VAL R107
-      514 CAPTURE                          VAL R78
-      515 CAPTURE                          REF R31
-      516 CAPTURE                          REF R30
-      517 CAPTURE                          REF R44
-      518 CAPTURE                          REF R28
-      519 NEWTABLE                         R111 32 0
-      521 SETTABLEKS                       R65 R111 K69 ["initializeAdorns"]
-      523 SETTABLEKS                       R105 R111 K70 ["destroyAdorns"]
-      525 SETTABLEKS                       R77 R111 K71 ["adornInstanceWithTranslate"]
-      527 SETTABLEKS                       R79 R111 K72 ["adornInstanceWithScale"]
-      529 SETTABLEKS                       R81 R111 K73 ["adornInstanceWithRotate"]
-      531 SETTABLEKS                       R75 R111 K74 ["adornInstanceWithPlane"]
-      533 SETTABLEKS                       R91 R111 K75 ["updateAdornmentPositions"]
-      535 SETTABLEKS                       R74 R111 K76 ["setPlaneVisibility"]
-      537 SETTABLEKS                       R101 R111 K77 ["setAllAdornVisibility"]
-      539 SETTABLEKS                       R80 R111 K78 ["setRotateAdornVisibility"]
-      541 SETTABLEKS                       R76 R111 K79 ["setTranslateAdornVisibility"]
-      543 SETTABLEKS                       R78 R111 K80 ["setScaleAdornVisibility"]
-      545 SETTABLEKS                       R92 R111 K81 ["getCurrentAdornment"]
-      547 SETTABLEKS                       R96 R111 K82 ["scaleOne"]
-      549 SETTABLEKS                       R97 R111 K83 ["scaleTwo"]
-      551 SETTABLEKS                       R98 R111 K84 ["showRotate"]
-      553 SETTABLEKS                       R100 R111 K85 ["clearExtraAdorns"]
-      555 SETTABLEKS                       R47 R111 K86 ["hoverLeaveHandle"]
-      557 SETTABLEKS                       R99 R111 K87 ["drawPlaneCenter"]
-      559 SETTABLEKS                       R93 R111 K88 ["setWorkplaneAccessor"]
-      561 SETTABLEKS                       R102 R111 K89 ["resetShadow"]
-      563 SETTABLEKS                       R94 R111 K90 ["getCurrentHandle"]
-      565 SETTABLEKS                       R95 R111 K91 ["setCurrentHandle"]
-      567 SETTABLEKS                       R103 R111 K92 ["isPlaneSelectingModeOn"]
-      569 SETTABLEKS                       R104 R111 K93 ["setPlaneSelectingMode"]
-      571 SETTABLEKS                       R90 R111 K94 ["getAdornmentWorldCFrame"]
-      573 SETTABLEKS                       R106 R111 K95 ["grabHandle"]
-      575 SETTABLEKS                       R107 R111 K96 ["releaseHandle"]
-      577 SETTABLEKS                       R109 R111 K97 ["isOverPlaneSelect"]
-      579 SETTABLEKS                       R108 R111 K98 ["getYScale"]
-      581 SETTABLEKS                       R110 R111 K99 ["resetDragger"]
-      583 CLOSEUPVALS                      R4
-      584 RETURN                           R111 1
+      484 CAPTURE                          REF R7
+      485 CAPTURE                          VAL R80
+      486 NEWCLOSURE                       R104 P51
+      487 CAPTURE                          REF R7
+      488 NEWCLOSURE                       R105 P52
+      489 CAPTURE                          REF R30
+      490 NEWCLOSURE                       R106 P53
+      491 CAPTURE                          REF R30
+      492 CAPTURE                          REF R28
+      493 NEWCLOSURE                       R107 P54
+      494 CAPTURE                          REF R11
+      495 CAPTURE                          REF R6
+      496 CAPTURE                          REF R7
+      497 CAPTURE                          REF R8
+      498 CAPTURE                          REF R31
+      499 CAPTURE                          REF R24
+      500 CAPTURE                          REF R21
+      501 CAPTURE                          REF R23
+      502 CAPTURE                          REF R22
+      503 CAPTURE                          REF R14
+      504 CAPTURE                          VAL R25
+      505 CAPTURE                          REF R13
+      506 CAPTURE                          VAL R85
+      507 CAPTURE                          VAL R3
+      508 DUPCLOSURE                       R108 K70 [PROTO_68]
+      509 NEWCLOSURE                       R109 P56
+      510 CAPTURE                          VAL R102
+      511 CAPTURE                          REF R46
+      512 CAPTURE                          REF R32
+      513 CAPTURE                          REF R28
+      514 CAPTURE                          REF R6
+      515 CAPTURE                          REF R7
+      516 CAPTURE                          REF R33
+      517 CAPTURE                          REF R30
+      518 NEWCLOSURE                       R110 P57
+      519 CAPTURE                          REF R34
+      520 NEWCLOSURE                       R111 P58
+      521 CAPTURE                          REF R33
+      522 CAPTURE                          REF R6
+      523 CAPTURE                          VAL R1
+      524 NEWCLOSURE                       R112 P59
+      525 CAPTURE                          REF R6
+      526 CAPTURE                          REF R7
+      527 CAPTURE                          VAL R109
+      528 CAPTURE                          VAL R80
+      529 CAPTURE                          REF R33
+      530 CAPTURE                          REF R32
+      531 CAPTURE                          REF R46
+      532 CAPTURE                          REF R30
+      533 NEWTABLE                         R113 32 0
+      535 SETTABLEKS                       R67 R113 K71 ["initializeAdorns"]
+      537 SETTABLEKS                       R107 R113 K72 ["destroyAdorns"]
+      539 SETTABLEKS                       R79 R113 K73 ["adornInstanceWithTranslate"]
+      541 SETTABLEKS                       R81 R113 K74 ["adornInstanceWithScale"]
+      543 SETTABLEKS                       R83 R113 K75 ["adornInstanceWithRotate"]
+      545 SETTABLEKS                       R77 R113 K76 ["adornInstanceWithPlane"]
+      547 SETTABLEKS                       R93 R113 K77 ["updateAdornmentPositions"]
+      549 SETTABLEKS                       R76 R113 K78 ["setPlaneVisibility"]
+      551 SETTABLEKS                       R103 R113 K79 ["setAllAdornVisibility"]
+      553 SETTABLEKS                       R82 R113 K80 ["setRotateAdornVisibility"]
+      555 SETTABLEKS                       R78 R113 K81 ["setTranslateAdornVisibility"]
+      557 SETTABLEKS                       R80 R113 K82 ["setScaleAdornVisibility"]
+      559 SETTABLEKS                       R94 R113 K83 ["getCurrentAdornment"]
+      561 SETTABLEKS                       R98 R113 K84 ["scaleOne"]
+      563 SETTABLEKS                       R99 R113 K85 ["scaleTwo"]
+      565 SETTABLEKS                       R100 R113 K86 ["showRotate"]
+      567 SETTABLEKS                       R102 R113 K87 ["clearExtraAdorns"]
+      569 SETTABLEKS                       R49 R113 K88 ["hoverLeaveHandle"]
+      571 SETTABLEKS                       R101 R113 K89 ["drawPlaneCenter"]
+      573 SETTABLEKS                       R95 R113 K90 ["setWorkplaneAccessor"]
+      575 SETTABLEKS                       R104 R113 K91 ["resetShadow"]
+      577 SETTABLEKS                       R96 R113 K92 ["getCurrentHandle"]
+      579 SETTABLEKS                       R97 R113 K93 ["setCurrentHandle"]
+      581 SETTABLEKS                       R105 R113 K94 ["isPlaneSelectingModeOn"]
+      583 SETTABLEKS                       R106 R113 K95 ["setPlaneSelectingMode"]
+      585 SETTABLEKS                       R92 R113 K96 ["getAdornmentWorldCFrame"]
+      587 SETTABLEKS                       R108 R113 K97 ["grabHandle"]
+      589 SETTABLEKS                       R109 R113 K98 ["releaseHandle"]
+      591 SETTABLEKS                       R111 R113 K99 ["isOverPlaneSelect"]
+      593 SETTABLEKS                       R110 R113 K100 ["getYScale"]
+      595 SETTABLEKS                       R112 R113 K101 ["resetDragger"]
+      597 CLOSEUPVALS                      R6
+      598 RETURN                           R113 1

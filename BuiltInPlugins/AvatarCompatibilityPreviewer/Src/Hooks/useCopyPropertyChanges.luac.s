@@ -1,59 +1,104 @@
 PROTO_0:
         0 NEWTABLE                         R3 0 0
-        2 MOVE                             R4 R1
-        3 JUMPIFNOTEQKNIL                  R4 ; [+2]
-        5 LOADB                            R6 0 +1
-        6 LOADB                            R6 1
-        7 FASTCALL2K                       ASSERT R6 K0 ; [+4]
-        9 LOADK                            R7 K0 ["Iterating reference is nil"]
-       10 GETIMPORT                        R5 K2 [assert]
-       12 CALL                             R5 2 0
-       13 GETTABLEKS                       R7 R4 K3 ["Name"]
-       15 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-       17 MOVE                             R6 R3
-       18 GETIMPORT                        R5 K6 [table.insert]
-       20 CALL                             R5 2 0
-       21 GETTABLEKS                       R4 R4 K7 ["Parent"]
-       23 JUMPIFNOTEQKNIL                  R4 ; [+12]
-       25 GETIMPORT                        R5 K9 [error]
-       27 LOADK                            R7 K10 ["Reference child wasn't a part of reference. Was looking for %*"]
-       28 NAMECALL                         R9 R1 K11 ["GetFullName"]
-       30 CALL                             R9 1 1
-       31 NAMECALL                         R7 R7 K12 ["format"]
-       33 CALL                             R7 2 1
-       34 MOVE                             R6 R7
-       35 CALL                             R5 1 0
-       36 JUMPIFEQ                         R4 R0 ; [+2]
-       38 JUMPBACK                         ; [-36]
-       39 MOVE                             R5 R2
-       40 LENGTH                           R8 R3
-       41 LOADN                            R6 1
-       42 LOADN                            R7 255
-       43 FORNPREP                         R6
-       44 GETTABLE                         R11 R3 R8
-       45 NAMECALL                         R9 R5 K13 ["FindFirstChild"]
-       47 CALL                             R9 2 1
-       48 JUMPIFNOTEQKNIL                  R9 ; [+3]
-       50 LOADNIL                          R10
-       51 RETURN                           R10 1
-       52 JUMPIFNOTEQKNIL                  R9 ; [+2]
-       54 LOADB                            R11 0 +1
-       55 LOADB                            R11 1
-       56 GETUPVAL                         R12 0
-       57 GETTABLEKS                       R12 R12 K14 ["LUAU_ANALYZE_ERROR"]
-       59 FASTCALL2                        ASSERT R11 R12 ; [+3]
-       61 GETIMPORT                        R10 K2 [assert]
-       63 CALL                             R10 2 0
-       64 MOVE                             R5 R9
-       65 FORNLOOP                         R6
-       66 GETTABLEKS                       R6 R5 K15 ["ClassName"]
-       68 GETTABLEKS                       R7 R1 K15 ["ClassName"]
-       70 JUMPIFEQ                         R6 R7 ; [+3]
-       72 LOADNIL                          R6
-       73 RETURN                           R6 1
-       74 RETURN                           R5 1
+        2 GETUPVAL                         R5 0
+        3 CALL                             R5 0 1
+        4 JUMPIFNOT                        R5 ; [+3]
+        5 NEWTABLE                         R4 0 0
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R4
+        9 MOVE                             R5 R1
+       10 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       12 LOADB                            R7 0 +1
+       13 LOADB                            R7 1
+       14 FASTCALL2K                       ASSERT R7 K0 ; [+4]
+       16 LOADK                            R8 K0 ["Iterating reference is nil"]
+       17 GETIMPORT                        R6 K2 [assert]
+       19 CALL                             R6 2 0
+       20 GETTABLEKS                       R8 R5 K3 ["Name"]
+       22 FASTCALL2                        TABLE_INSERT R3 R8 ; [+4]
+       24 MOVE                             R7 R3
+       25 GETIMPORT                        R6 K6 [table.insert]
+       27 CALL                             R6 2 0
+       28 JUMPIFNOT                        R4 ; [+8]
+       29 LOADK                            R8 K7 ["Bone"]
+       30 NAMECALL                         R6 R5 K8 ["IsA"]
+       32 CALL                             R6 2 1
+       33 JUMPIFNOT                        R6 ; [+3]
+       34 LENGTH                           R6 R3
+       35 LOADB                            R7 1
+       36 SETTABLE                         R7 R4 R6
+       37 GETTABLEKS                       R5 R5 K9 ["Parent"]
+       39 JUMPIFNOTEQKNIL                  R5 ; [+12]
+       41 GETIMPORT                        R6 K11 [error]
+       43 LOADK                            R8 K12 ["Reference child wasn't a part of reference. Was looking for %*"]
+       44 NAMECALL                         R10 R1 K13 ["GetFullName"]
+       46 CALL                             R10 1 1
+       47 NAMECALL                         R8 R8 K14 ["format"]
+       49 CALL                             R8 2 1
+       50 MOVE                             R7 R8
+       51 CALL                             R6 1 0
+       52 JUMPIFEQ                         R5 R0 ; [+2]
+       54 JUMPBACK                         ; [-45]
+       55 MOVE                             R6 R2
+       56 LENGTH                           R9 R3
+       57 LOADN                            R7 1
+       58 LOADN                            R8 255
+       59 FORNPREP                         R7
+       60 GETTABLE                         R12 R3 R9
+       61 NAMECALL                         R10 R6 K15 ["FindFirstChild"]
+       63 CALL                             R10 2 1
+       64 JUMPIFNOTEQKNIL                  R10 ; [+6]
+       66 JUMPIFNOT                        R4 ; [+2]
+       67 GETTABLE                         R11 R4 R9
+       68 JUMPIF                           R11 ; [+15]
+       69 LOADNIL                          R11
+       70 RETURN                           R11 1
+       71 JUMPIFNOTEQKNIL                  R10 ; [+2]
+       73 LOADB                            R12 0 +1
+       74 LOADB                            R12 1
+       75 GETUPVAL                         R13 1
+       76 GETTABLEKS                       R13 R13 K16 ["LUAU_ANALYZE_ERROR"]
+       78 FASTCALL2                        ASSERT R12 R13 ; [+3]
+       80 GETIMPORT                        R11 K2 [assert]
+       82 CALL                             R11 2 0
+       83 MOVE                             R6 R10
+       84 FORNLOOP                         R7
+       85 GETTABLEKS                       R7 R6 K17 ["ClassName"]
+       87 GETTABLEKS                       R8 R1 K17 ["ClassName"]
+       89 JUMPIFEQ                         R7 R8 ; [+3]
+       91 LOADNIL                          R7
+       92 RETURN                           R7 1
+       93 RETURN                           R6 1
 
 PROTO_1:
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 MOVE                             R6 R2
+        4 CALL                             R3 3 1
+        5 JUMPIFEQKNIL                     R3 ; [+6]
+        7 LOADK                            R6 K0 ["Attachment"]
+        8 NAMECALL                         R4 R3 K1 ["IsA"]
+       10 CALL                             R4 2 1
+       11 JUMPIF                           R4 ; [+1]
+       12 RETURN                           R0 0
+       13 LOADK                            R6 K2 ["BasePart"]
+       14 NAMECALL                         R4 R3 K3 ["FindFirstAncestorWhichIsA"]
+       16 CALL                             R4 2 1
+       17 JUMPIFNOTEQKNIL                  R4 ; [+6]
+       19 GETTABLEKS                       R5 R1 K4 ["CFrame"]
+       21 SETTABLEKS                       R5 R3 K4 ["CFrame"]
+       23 RETURN                           R0 0
+       24 GETTABLEKS                       R5 R4 K4 ["CFrame"]
+       26 GETUPVAL                         R7 1
+       27 MOVE                             R8 R1
+       28 CALL                             R7 1 -1
+       29 NAMECALL                         R5 R5 K5 ["ToWorldSpace"]
+       31 CALL                             R5 -1 1
+       32 SETTABLEKS                       R5 R3 K6 ["WorldCFrame"]
+       34 RETURN                           R0 0
+
+PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R0
@@ -73,100 +118,133 @@ PROTO_1:
        21 SETTABLE                         R3 R2 R1
        22 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETIMPORT                        R2 K1 [game]
         3 NAMECALL                         R0 R0 K2 ["IsDescendantOf"]
         5 CALL                             R0 2 1
         6 JUMPIF                           R0 ; [+1]
         7 RETURN                           R0 0
-        8 GETUPVAL                         R0 0
-        9 GETUPVAL                         R1 1
-       10 GETUPVAL                         R2 2
-       11 MOVE                             R3 R0
-       12 GETUPVAL                         R4 3
-       13 CALL                             R1 3 1
-       14 JUMPIFNOTEQKNIL                  R1 ; [+2]
-       16 JUMP                             ; [+16]
-       17 JUMPIFNOTEQKNIL                  R1 ; [+2]
-       19 LOADB                            R3 0 +1
-       20 LOADB                            R3 1
-       21 GETUPVAL                         R4 4
-       22 GETTABLEKS                       R4 R4 K3 ["LUAU_ANALYZE_ERROR"]
-       24 FASTCALL2                        ASSERT R3 R4 ; [+3]
-       26 GETIMPORT                        R2 K5 [assert]
-       28 CALL                             R2 2 0
-       29 GETTABLEKS                       R2 R0 K6 ["CFrame"]
-       31 SETTABLEKS                       R2 R1 K6 ["CFrame"]
-       33 GETUPVAL                         R0 5
-       34 CALL                             R0 0 1
-       35 JUMPIF                           R0 ; [+93]
-       36 GETUPVAL                         R0 3
-       37 NAMECALL                         R0 R0 K7 ["GetChildren"]
-       39 CALL                             R0 1 3
-       40 FORGPREP                         R0
-       41 LOADK                            R7 K8 ["Accessory"]
-       42 NAMECALL                         R5 R4 K9 ["IsA"]
-       44 CALL                             R5 2 1
-       45 JUMPIFNOT                        R5 ; [+81]
-       46 LOADK                            R7 K10 ["Handle"]
-       47 NAMECALL                         R5 R4 K11 ["FindFirstChild"]
-       49 CALL                             R5 2 1
-       50 JUMPIFEQKNIL                     R5 ; [+76]
-       52 JUMPIFNOTEQKNIL                  R5 ; [+2]
-       54 LOADB                            R7 0 +1
-       55 LOADB                            R7 1
-       56 GETUPVAL                         R8 4
-       57 GETTABLEKS                       R8 R8 K3 ["LUAU_ANALYZE_ERROR"]
-       59 FASTCALL2                        ASSERT R7 R8 ; [+3]
-       61 GETIMPORT                        R6 K5 [assert]
-       63 CALL                             R6 2 0
-       64 GETUPVAL                         R8 0
-       65 GETTABLEKS                       R8 R8 K12 ["Name"]
-       67 NAMECALL                         R6 R5 K11 ["FindFirstChild"]
-       69 CALL                             R6 2 1
-       70 JUMPIFEQKNIL                     R6 ; [+56]
-       72 LOADK                            R9 K13 ["Attachment"]
-       73 NAMECALL                         R7 R6 K9 ["IsA"]
-       75 CALL                             R7 2 1
-       76 JUMPIFNOT                        R7 ; [+50]
-       77 LOADB                            R8 0
-       78 JUMPIFEQKNIL                     R6 ; [+5]
-       80 LOADK                            R10 K13 ["Attachment"]
-       81 NAMECALL                         R8 R6 K9 ["IsA"]
-       83 CALL                             R8 2 1
-       84 GETUPVAL                         R9 4
-       85 GETTABLEKS                       R9 R9 K3 ["LUAU_ANALYZE_ERROR"]
-       87 FASTCALL2                        ASSERT R8 R9 ; [+3]
-       89 GETIMPORT                        R7 K5 [assert]
-       91 CALL                             R7 2 0
-       92 LOADK                            R9 K14 ["AccessoryWeld"]
-       93 NAMECALL                         R7 R5 K11 ["FindFirstChild"]
-       95 CALL                             R7 2 1
-       96 JUMPIFEQKNIL                     R7 ; [+30]
-       98 LOADK                            R10 K15 ["Weld"]
-       99 NAMECALL                         R8 R7 K9 ["IsA"]
-      101 CALL                             R8 2 1
-      102 JUMPIFNOT                        R8 ; [+24]
-      103 LOADB                            R9 0
-      104 JUMPIFEQKNIL                     R7 ; [+5]
-      106 LOADK                            R11 K15 ["Weld"]
-      107 NAMECALL                         R9 R7 K9 ["IsA"]
-      109 CALL                             R9 2 1
-      110 GETUPVAL                         R10 4
-      111 GETTABLEKS                       R10 R10 K3 ["LUAU_ANALYZE_ERROR"]
-      113 FASTCALL2                        ASSERT R9 R10 ; [+3]
-      115 GETIMPORT                        R8 K5 [assert]
-      117 CALL                             R8 2 0
-      118 GETTABLEKS                       R8 R6 K6 ["CFrame"]
-      120 SETTABLEKS                       R8 R7 K16 ["C0"]
-      122 GETUPVAL                         R8 0
-      123 GETTABLEKS                       R8 R8 K6 ["CFrame"]
-      125 SETTABLEKS                       R8 R7 K17 ["C1"]
-      127 FORGLOOP                         R0 2 ; [-87]
-      129 RETURN                           R0 0
+        8 GETUPVAL                         R0 1
+        9 CALL                             R0 0 1
+       10 JUMPIFNOT                        R0 ; [+35]
+       11 GETUPVAL                         R0 0
+       12 LOADK                            R2 K3 ["Bone"]
+       13 NAMECALL                         R0 R0 K4 ["IsA"]
+       15 CALL                             R0 2 1
+       16 JUMPIFNOT                        R0 ; [+23]
+       17 GETUPVAL                         R0 0
+       18 NAMECALL                         R0 R0 K5 ["GetDescendants"]
+       20 CALL                             R0 1 3
+       21 FORGPREP                         R0
+       22 LOADK                            R7 K6 ["Attachment"]
+       23 NAMECALL                         R5 R4 K4 ["IsA"]
+       25 CALL                             R5 2 1
+       26 JUMPIFNOT                        R5 ; [+10]
+       27 LOADK                            R7 K3 ["Bone"]
+       28 NAMECALL                         R5 R4 K4 ["IsA"]
+       30 CALL                             R5 2 1
+       31 JUMPIF                           R5 ; [+5]
+       32 GETUPVAL                         R5 2
+       33 GETUPVAL                         R6 3
+       34 MOVE                             R7 R4
+       35 GETUPVAL                         R8 4
+       36 CALL                             R5 3 0
+       37 FORGLOOP                         R0 2 ; [-16]
+       39 JUMP                             ; [+31]
+       40 GETUPVAL                         R0 2
+       41 GETUPVAL                         R1 3
+       42 GETUPVAL                         R2 0
+       43 GETUPVAL                         R3 4
+       44 CALL                             R0 3 0
+       45 JUMP                             ; [+25]
+       46 GETUPVAL                         R0 0
+       47 GETUPVAL                         R1 5
+       48 GETUPVAL                         R2 3
+       49 MOVE                             R3 R0
+       50 GETUPVAL                         R4 4
+       51 CALL                             R1 3 1
+       52 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       54 JUMP                             ; [+16]
+       55 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       57 LOADB                            R3 0 +1
+       58 LOADB                            R3 1
+       59 GETUPVAL                         R4 6
+       60 GETTABLEKS                       R4 R4 K7 ["LUAU_ANALYZE_ERROR"]
+       62 FASTCALL2                        ASSERT R3 R4 ; [+3]
+       64 GETIMPORT                        R2 K9 [assert]
+       66 CALL                             R2 2 0
+       67 GETTABLEKS                       R2 R0 K10 ["CFrame"]
+       69 SETTABLEKS                       R2 R1 K10 ["CFrame"]
+       71 GETUPVAL                         R0 7
+       72 CALL                             R0 0 1
+       73 JUMPIF                           R0 ; [+93]
+       74 GETUPVAL                         R0 4
+       75 NAMECALL                         R0 R0 K11 ["GetChildren"]
+       77 CALL                             R0 1 3
+       78 FORGPREP                         R0
+       79 LOADK                            R7 K12 ["Accessory"]
+       80 NAMECALL                         R5 R4 K4 ["IsA"]
+       82 CALL                             R5 2 1
+       83 JUMPIFNOT                        R5 ; [+81]
+       84 LOADK                            R7 K13 ["Handle"]
+       85 NAMECALL                         R5 R4 K14 ["FindFirstChild"]
+       87 CALL                             R5 2 1
+       88 JUMPIFEQKNIL                     R5 ; [+76]
+       90 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       92 LOADB                            R7 0 +1
+       93 LOADB                            R7 1
+       94 GETUPVAL                         R8 6
+       95 GETTABLEKS                       R8 R8 K7 ["LUAU_ANALYZE_ERROR"]
+       97 FASTCALL2                        ASSERT R7 R8 ; [+3]
+       99 GETIMPORT                        R6 K9 [assert]
+      101 CALL                             R6 2 0
+      102 GETUPVAL                         R8 0
+      103 GETTABLEKS                       R8 R8 K15 ["Name"]
+      105 NAMECALL                         R6 R5 K14 ["FindFirstChild"]
+      107 CALL                             R6 2 1
+      108 JUMPIFEQKNIL                     R6 ; [+56]
+      110 LOADK                            R9 K6 ["Attachment"]
+      111 NAMECALL                         R7 R6 K4 ["IsA"]
+      113 CALL                             R7 2 1
+      114 JUMPIFNOT                        R7 ; [+50]
+      115 LOADB                            R8 0
+      116 JUMPIFEQKNIL                     R6 ; [+5]
+      118 LOADK                            R10 K6 ["Attachment"]
+      119 NAMECALL                         R8 R6 K4 ["IsA"]
+      121 CALL                             R8 2 1
+      122 GETUPVAL                         R9 6
+      123 GETTABLEKS                       R9 R9 K7 ["LUAU_ANALYZE_ERROR"]
+      125 FASTCALL2                        ASSERT R8 R9 ; [+3]
+      127 GETIMPORT                        R7 K9 [assert]
+      129 CALL                             R7 2 0
+      130 LOADK                            R9 K16 ["AccessoryWeld"]
+      131 NAMECALL                         R7 R5 K14 ["FindFirstChild"]
+      133 CALL                             R7 2 1
+      134 JUMPIFEQKNIL                     R7 ; [+30]
+      136 LOADK                            R10 K17 ["Weld"]
+      137 NAMECALL                         R8 R7 K4 ["IsA"]
+      139 CALL                             R8 2 1
+      140 JUMPIFNOT                        R8 ; [+24]
+      141 LOADB                            R9 0
+      142 JUMPIFEQKNIL                     R7 ; [+5]
+      144 LOADK                            R11 K17 ["Weld"]
+      145 NAMECALL                         R9 R7 K4 ["IsA"]
+      147 CALL                             R9 2 1
+      148 GETUPVAL                         R10 6
+      149 GETTABLEKS                       R10 R10 K7 ["LUAU_ANALYZE_ERROR"]
+      151 FASTCALL2                        ASSERT R9 R10 ; [+3]
+      153 GETIMPORT                        R8 K9 [assert]
+      155 CALL                             R8 2 0
+      156 GETTABLEKS                       R8 R6 K10 ["CFrame"]
+      158 SETTABLEKS                       R8 R7 K18 ["C0"]
+      160 GETUPVAL                         R8 0
+      161 GETTABLEKS                       R8 R8 K10 ["CFrame"]
+      163 SETTABLEKS                       R8 R7 K19 ["C1"]
+      165 FORGLOOP                         R0 2 ; [-87]
+      167 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R2 2
@@ -199,7 +277,7 @@ PROTO_3:
        40 CALL                             R0 0 0
        41 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -220,11 +298,11 @@ PROTO_4:
        23 CALL                             R2 3 0
        24 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 LOADK                            R3 K0 ["Attachment"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
-        4 JUMPIFNOT                        R1 ; [+25]
+        4 JUMPIFNOT                        R1 ; [+27]
         5 GETUPVAL                         R1 0
         6 NEWTABLE                         R2 0 0
         8 SETTABLE                         R2 R1 R0
@@ -240,56 +318,58 @@ PROTO_5:
        19 CAPTURE                          UPVAL U3
        20 CAPTURE                          UPVAL U4
        21 CAPTURE                          UPVAL U5
-       22 NAMECALL                         R3 R3 K4 ["Connect"]
-       24 CALL                             R3 2 -1
-       25 FASTCALL                         TABLE_INSERT ; [+2]
-       26 GETIMPORT                        R1 K7 [table.insert]
-       28 CALL                             R1 -1 0
-       29 RETURN                           R0 0
-       30 LOADK                            R3 K8 ["ValueBase"]
-       31 NAMECALL                         R1 R0 K1 ["IsA"]
-       33 CALL                             R1 2 1
-       34 JUMPIFNOT                        R1 ; [+22]
-       35 GETUPVAL                         R1 0
-       36 NEWTABLE                         R2 0 1
-       38 LOADK                            R5 K9 ["Value"]
-       39 NAMECALL                         R3 R0 K3 ["GetPropertyChangedSignal"]
-       41 CALL                             R3 2 1
-       42 NEWCLOSURE                       R5 P1
-       43 CAPTURE                          VAL R0
-       44 CAPTURE                          UPVAL U1
-       45 CAPTURE                          UPVAL U2
-       46 CAPTURE                          UPVAL U3
-       47 CAPTURE                          UPVAL U4
-       48 CAPTURE                          UPVAL U6
-       49 CAPTURE                          UPVAL U5
-       50 NAMECALL                         R3 R3 K4 ["Connect"]
-       52 CALL                             R3 2 -1
-       53 SETLIST                          R2 R3 -1 [1]
-       55 SETTABLE                         R2 R1 R0
-       56 RETURN                           R0 0
-       57 GETUPVAL                         R1 7
-       58 CALL                             R1 0 1
-       59 JUMPIFNOT                        R1 ; [+21]
-       60 LOADK                            R3 K10 ["BaseWrap"]
-       61 NAMECALL                         R1 R0 K1 ["IsA"]
-       63 CALL                             R1 2 1
-       64 JUMPIFNOT                        R1 ; [+16]
-       65 GETUPVAL                         R1 0
-       66 NEWTABLE                         R2 0 1
-       68 GETTABLEKS                       R3 R0 K11 ["VerticesModified"]
-       70 NEWCLOSURE                       R5 P2
-       71 CAPTURE                          UPVAL U1
-       72 CAPTURE                          UPVAL U2
-       73 CAPTURE                          VAL R0
+       22 CAPTURE                          UPVAL U6
+       23 CAPTURE                          UPVAL U7
+       24 NAMECALL                         R3 R3 K4 ["Connect"]
+       26 CALL                             R3 2 -1
+       27 FASTCALL                         TABLE_INSERT ; [+2]
+       28 GETIMPORT                        R1 K7 [table.insert]
+       30 CALL                             R1 -1 0
+       31 RETURN                           R0 0
+       32 LOADK                            R3 K8 ["ValueBase"]
+       33 NAMECALL                         R1 R0 K1 ["IsA"]
+       35 CALL                             R1 2 1
+       36 JUMPIFNOT                        R1 ; [+22]
+       37 GETUPVAL                         R1 0
+       38 NEWTABLE                         R2 0 1
+       40 LOADK                            R5 K9 ["Value"]
+       41 NAMECALL                         R3 R0 K3 ["GetPropertyChangedSignal"]
+       43 CALL                             R3 2 1
+       44 NEWCLOSURE                       R5 P1
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          UPVAL U5
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          UPVAL U4
+       49 CAPTURE                          UPVAL U6
+       50 CAPTURE                          UPVAL U8
+       51 CAPTURE                          UPVAL U7
+       52 NAMECALL                         R3 R3 K4 ["Connect"]
+       54 CALL                             R3 2 -1
+       55 SETLIST                          R2 R3 -1 [1]
+       57 SETTABLE                         R2 R1 R0
+       58 RETURN                           R0 0
+       59 GETUPVAL                         R1 9
+       60 CALL                             R1 0 1
+       61 JUMPIFNOT                        R1 ; [+21]
+       62 LOADK                            R3 K10 ["BaseWrap"]
+       63 NAMECALL                         R1 R0 K1 ["IsA"]
+       65 CALL                             R1 2 1
+       66 JUMPIFNOT                        R1 ; [+16]
+       67 GETUPVAL                         R1 0
+       68 NEWTABLE                         R2 0 1
+       70 GETTABLEKS                       R3 R0 K11 ["VerticesModified"]
+       72 NEWCLOSURE                       R5 P2
+       73 CAPTURE                          UPVAL U5
        74 CAPTURE                          UPVAL U3
-       75 NAMECALL                         R3 R3 K4 ["Connect"]
-       77 CALL                             R3 2 -1
-       78 SETLIST                          R2 R3 -1 [1]
-       80 SETTABLE                         R2 R1 R0
-       81 RETURN                           R0 0
+       75 CAPTURE                          VAL R0
+       76 CAPTURE                          UPVAL U4
+       77 NAMECALL                         R3 R3 K4 ["Connect"]
+       79 CALL                             R3 2 -1
+       80 SETLIST                          R2 R3 -1 [1]
+       82 SETTABLE                         R2 R1 R0
+       83 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R2 R0
         2 JUMPIFNOTEQKNIL                  R1 ; [+2]
@@ -303,7 +383,7 @@ PROTO_6:
        12 FORGLOOP                         R2 2 ; [-4]
        14 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -324,7 +404,7 @@ PROTO_7:
        21 FORGLOOP                         R0 2 ; [-10]
        23 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOTEQKNIL                  R0 ; [+3]
         3 LOADNIL                          R0
@@ -362,39 +442,41 @@ PROTO_8:
        45 CAPTURE                          UPVAL U1
        46 NEWCLOSURE                       R2 P1
        47 CAPTURE                          VAL R0
-       48 CAPTURE                          UPVAL U4
-       49 CAPTURE                          UPVAL U3
-       50 CAPTURE                          UPVAL U0
-       51 CAPTURE                          UPVAL U1
-       52 CAPTURE                          UPVAL U5
-       53 CAPTURE                          UPVAL U6
-       54 CAPTURE                          UPVAL U2
-       55 GETUPVAL                         R3 3
-       56 NAMECALL                         R3 R3 K3 ["GetDescendants"]
-       58 CALL                             R3 1 3
-       59 FORGPREP                         R3
-       60 MOVE                             R8 R2
-       61 MOVE                             R9 R7
-       62 CALL                             R8 1 0
-       63 FORGLOOP                         R3 2 ; [-4]
-       65 GETUPVAL                         R3 3
-       66 GETTABLEKS                       R3 R3 K4 ["DescendantAdded"]
-       68 MOVE                             R5 R2
-       69 NAMECALL                         R3 R3 K5 ["Connect"]
-       71 CALL                             R3 2 1
-       72 GETUPVAL                         R4 3
-       73 GETTABLEKS                       R4 R4 K6 ["DescendantRemoving"]
-       75 NEWCLOSURE                       R6 P2
-       76 CAPTURE                          VAL R0
-       77 NAMECALL                         R4 R4 K5 ["Connect"]
-       79 CALL                             R4 2 1
-       80 NEWCLOSURE                       R5 P3
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R0
-       84 RETURN                           R5 1
+       48 CAPTURE                          UPVAL U5
+       49 CAPTURE                          UPVAL U6
+       50 CAPTURE                          UPVAL U3
+       51 CAPTURE                          UPVAL U0
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          UPVAL U1
+       54 CAPTURE                          UPVAL U7
+       55 CAPTURE                          UPVAL U8
+       56 CAPTURE                          UPVAL U2
+       57 GETUPVAL                         R3 3
+       58 NAMECALL                         R3 R3 K3 ["GetDescendants"]
+       60 CALL                             R3 1 3
+       61 FORGPREP                         R3
+       62 MOVE                             R8 R2
+       63 MOVE                             R9 R7
+       64 CALL                             R8 1 0
+       65 FORGLOOP                         R3 2 ; [-4]
+       67 GETUPVAL                         R3 3
+       68 GETTABLEKS                       R3 R3 K4 ["DescendantAdded"]
+       70 MOVE                             R5 R2
+       71 NAMECALL                         R3 R3 K5 ["Connect"]
+       73 CALL                             R3 2 1
+       74 GETUPVAL                         R4 3
+       75 GETTABLEKS                       R4 R4 K6 ["DescendantRemoving"]
+       77 NEWCLOSURE                       R6 P2
+       78 CAPTURE                          VAL R0
+       79 NAMECALL                         R4 R4 K5 ["Connect"]
+       81 CALL                             R4 2 1
+       82 NEWCLOSURE                       R5 P3
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R0
+       86 RETURN                           R5 1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["useEffect"]
         3 NEWCLOSURE                       R4 P0
@@ -404,13 +486,15 @@ PROTO_9:
         7 CAPTURE                          VAL R0
         8 CAPTURE                          UPVAL U3
         9 CAPTURE                          UPVAL U4
-       10 CAPTURE                          VAL R2
-       11 NEWTABLE                         R5 0 2
-       13 MOVE                             R6 R0
-       14 MOVE                             R7 R1
-       15 SETLIST                          R5 R6 2 [1]
-       17 CALL                             R3 2 0
-       18 RETURN                           R0 0
+       10 CAPTURE                          UPVAL U5
+       11 CAPTURE                          UPVAL U6
+       12 CAPTURE                          VAL R2
+       13 NEWTABLE                         R5 0 2
+       15 MOVE                             R6 R0
+       16 MOVE                             R7 R1
+       17 SETLIST                          R5 R6 2 [1]
+       19 CALL                             R3 2 0
+       20 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -433,20 +517,36 @@ MAIN:
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
        32 GETTABLEKS                       R5 R0 K8 ["Src"]
-       34 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       36 GETTABLEKS                       R5 R5 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
+       34 GETTABLEKS                       R5 R5 K9 ["Util"]
+       36 GETTABLEKS                       R5 R5 K12 ["getCFrameRelativeToBasePart"]
        38 CALL                             R4 1 1
        39 GETIMPORT                        R5 K5 [require]
        41 GETTABLEKS                       R6 R0 K8 ["Src"]
-       43 GETTABLEKS                       R6 R6 K12 ["Flags"]
-       45 GETTABLEKS                       R6 R6 K13 ["getFFlagAvatarPreviewerCageEditingTools"]
+       43 GETTABLEKS                       R6 R6 K13 ["Flags"]
+       45 GETTABLEKS                       R6 R6 K14 ["getFFlagAvatarPreviewerCageEditingTools"]
        47 CALL                             R5 1 1
-       48 DUPCLOSURE                       R6 K14 [PROTO_0]
-       49 CAPTURE                          VAL R2
-       50 DUPCLOSURE                       R7 K15 [PROTO_9]
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R6
-       55 CAPTURE                          VAL R5
-       56 RETURN                           R7 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R7 R0 K8 ["Src"]
+       52 GETTABLEKS                       R7 R7 K13 ["Flags"]
+       54 GETTABLEKS                       R7 R7 K14 ["getFFlagAvatarPreviewerCageEditingTools"]
+       56 CALL                             R6 1 1
+       57 GETIMPORT                        R7 K5 [require]
+       59 GETTABLEKS                       R8 R0 K8 ["Src"]
+       61 GETTABLEKS                       R8 R8 K13 ["Flags"]
+       63 GETTABLEKS                       R8 R8 K15 ["getFFlagAvatarPreviewerBoneNestedAttachmentFix"]
+       65 CALL                             R7 1 1
+       66 DUPCLOSURE                       R8 K16 [PROTO_0]
+       67 CAPTURE                          VAL R7
+       68 CAPTURE                          VAL R2
+       69 DUPCLOSURE                       R9 K17 [PROTO_1]
+       70 CAPTURE                          VAL R8
+       71 CAPTURE                          VAL R4
+       72 DUPCLOSURE                       R10 K18 [PROTO_10]
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R2
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R8
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R9
+       79 CAPTURE                          VAL R6
+       80 RETURN                           R10 1

@@ -859,6 +859,32 @@ PROTO_41:
       132 RETURN                           R0 0
 
 PROTO_42:
+        0 GETTABLEKS                       R2 R0 K0 ["_mainSidebarScrollFrame"]
+        2 JUMPIF                           R2 ; [+1]
+        3 RETURN                           R0 0
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K1 ["SidebarRowHeight"]
+        7 SUBK                             R5 R1 K2 [1]
+        8 MUL                              R4 R5 R3
+        9 DIVK                             R7 R3 K3 [2]
+       10 ADD                              R6 R4 R7
+       11 GETTABLEKS                       R8 R2 K4 ["AbsoluteSize"]
+       13 GETTABLEKS                       R8 R8 K5 ["Y"]
+       15 DIVK                             R7 R8 K3 [2]
+       16 SUB                              R5 R6 R7
+       17 GETIMPORT                        R6 K8 [Vector2.new]
+       19 GETTABLEKS                       R7 R2 K9 ["CanvasPosition"]
+       21 GETTABLEKS                       R7 R7 K10 ["X"]
+       23 LOADN                            R9 0
+       24 FASTCALL2                        MATH_MAX R9 R5 ; [+4]
+       26 MOVE                             R10 R5
+       27 GETIMPORT                        R8 K13 [math.max]
+       29 CALL                             R8 2 1
+       30 CALL                             R6 2 1
+       31 SETTABLEKS                       R6 R2 K9 ["CanvasPosition"]
+       33 RETURN                           R0 0
+
+PROTO_43:
         0 SETTABLEKS                       R1 R0 K0 ["_contentList"]
         2 GETTABLEKS                       R2 R0 K0 ["_contentList"]
         4 JUMPIFNOT                        R2 ; [+7]
@@ -871,7 +897,7 @@ PROTO_42:
        14 CALL                             R2 1 0
        15 RETURN                           R0 0
 
-PROTO_43:
+PROTO_44:
         0 SETTABLEKS                       R1 R0 K0 ["_headerRow"]
         2 GETTABLEKS                       R2 R0 K1 ["_contentList"]
         4 JUMPIFNOT                        R2 ; [+7]
@@ -884,7 +910,7 @@ PROTO_43:
        14 CALL                             R2 1 0
        15 RETURN                           R0 0
 
-PROTO_44:
+PROTO_45:
         0 GETTABLEKS                       R1 R0 K0 ["_browserLayout"]
         2 GETTABLEKS                       R3 R0 K0 ["_browserLayout"]
         4 GETTABLEKS                       R3 R3 K1 ["GridSize"]
@@ -945,7 +971,7 @@ PROTO_44:
        82 CALL                             R4 1 0
        83 RETURN                           R0 0
 
-PROTO_45:
+PROTO_46:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+12]
@@ -960,13 +986,13 @@ PROTO_45:
        15 GETTABLEKS                       R1 R0 K3 ["_gridWidth"]
        17 RETURN                           R1 1
 
-PROTO_46:
+PROTO_47:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["_updateGridState"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_47:
+PROTO_48:
         0 SETTABLEKS                       R1 R0 K0 ["_contentGrid"]
         2 GETUPVAL                         R2 0
         3 CALL                             R2 0 1
@@ -998,7 +1024,7 @@ PROTO_47:
        42 CALL                             R2 1 0
        43 RETURN                           R0 0
 
-PROTO_48:
+PROTO_49:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["CanvasPosition"]
         3 GETTABLEKS                       R0 R0 K1 ["Y"]
@@ -1028,7 +1054,7 @@ PROTO_48:
        38 CALL                             R1 1 0
        39 RETURN                           R0 0
 
-PROTO_49:
+PROTO_50:
         0 GETTABLEKS                       R4 R0 K0 ["_connections"]
         2 JUMPIF                           R4 ; [+1]
         3 RETURN                           R0 0
@@ -1060,7 +1086,7 @@ PROTO_49:
        39 SETTABLEKS                       R5 R4 K1 ["SidebarScrollSync"]
        41 RETURN                           R0 0
 
-PROTO_50:
+PROTO_51:
         0 SETTABLEKS                       R1 R0 K0 ["_mainSidebarScrollFrame"]
         2 SETTABLEKS                       R2 R0 K1 ["_underlaySidebarScrollFrame"]
         4 SETTABLEKS                       R3 R0 K2 ["_overlaySidebarScrollFrame"]
@@ -1071,7 +1097,7 @@ PROTO_50:
        11 CALL                             R4 4 0
        12 RETURN                           R0 0
 
-PROTO_51:
+PROTO_52:
         0 GETTABLEKS                       R2 R0 K0 ["_mainSidebarScrollFrame"]
         2 JUMPIF                           R2 ; [+2]
         3 LOADNIL                          R3
@@ -1093,7 +1119,7 @@ PROTO_51:
        24 ADD                              R4 R5 R6
        25 RETURN                           R4 1
 
-PROTO_52:
+PROTO_53:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIF                           R1 ; [+16]
@@ -1263,27 +1289,30 @@ MAIN:
       226 CAPTURE                          VAL R7
       227 SETTABLEKS                       R15 R11 K98 ["scrollToItem"]
       229 DUPCLOSURE                       R15 K99 [PROTO_42]
-      230 SETTABLEKS                       R15 R11 K100 ["setContentList"]
-      232 DUPCLOSURE                       R15 K101 [PROTO_43]
-      233 SETTABLEKS                       R15 R11 K102 ["setListHeaderRow"]
-      235 DUPCLOSURE                       R15 K103 [PROTO_44]
-      236 CAPTURE                          VAL R12
-      237 CAPTURE                          VAL R7
-      238 SETTABLEKS                       R15 R11 K104 ["_updateGridState"]
-      240 DUPCLOSURE                       R15 K105 [PROTO_45]
-      241 CAPTURE                          VAL R12
-      242 SETTABLEKS                       R15 R11 K106 ["getGridWidth"]
-      244 DUPCLOSURE                       R15 K107 [PROTO_47]
+      230 CAPTURE                          VAL R7
+      231 SETTABLEKS                       R15 R11 K100 ["scrollToSidebarItem"]
+      233 DUPCLOSURE                       R15 K101 [PROTO_43]
+      234 SETTABLEKS                       R15 R11 K102 ["setContentList"]
+      236 DUPCLOSURE                       R15 K103 [PROTO_44]
+      237 SETTABLEKS                       R15 R11 K104 ["setListHeaderRow"]
+      239 DUPCLOSURE                       R15 K105 [PROTO_45]
+      240 CAPTURE                          VAL R12
+      241 CAPTURE                          VAL R7
+      242 SETTABLEKS                       R15 R11 K106 ["_updateGridState"]
+      244 DUPCLOSURE                       R15 K107 [PROTO_46]
       245 CAPTURE                          VAL R12
-      246 SETTABLEKS                       R15 R11 K108 ["setContentGrid"]
-      248 DUPCLOSURE                       R15 K109 [PROTO_49]
-      249 SETTABLEKS                       R15 R11 K110 ["_syncSidebarScroll"]
-      251 DUPCLOSURE                       R15 K111 [PROTO_50]
-      252 SETTABLEKS                       R15 R11 K112 ["setSidebarScrollFrame"]
-      254 DUPCLOSURE                       R15 K113 [PROTO_51]
-      255 CAPTURE                          VAL R10
-      256 SETTABLEKS                       R15 R11 K114 ["getSidebarHoveredCanvasY"]
+      246 SETTABLEKS                       R15 R11 K108 ["getGridWidth"]
+      248 DUPCLOSURE                       R15 K109 [PROTO_48]
+      249 CAPTURE                          VAL R12
+      250 SETTABLEKS                       R15 R11 K110 ["setContentGrid"]
+      252 DUPCLOSURE                       R15 K111 [PROTO_50]
+      253 SETTABLEKS                       R15 R11 K112 ["_syncSidebarScroll"]
+      255 DUPCLOSURE                       R15 K113 [PROTO_51]
+      256 SETTABLEKS                       R15 R11 K114 ["setSidebarScrollFrame"]
       258 DUPCLOSURE                       R15 K115 [PROTO_52]
-      259 CAPTURE                          VAL R12
-      260 SETTABLEKS                       R15 R11 K116 ["getGridCellsPerRow"]
-      262 RETURN                           R11 1
+      259 CAPTURE                          VAL R10
+      260 SETTABLEKS                       R15 R11 K116 ["getSidebarHoveredCanvasY"]
+      262 DUPCLOSURE                       R15 K117 [PROTO_53]
+      263 CAPTURE                          VAL R12
+      264 SETTABLEKS                       R15 R11 K118 ["getGridCellsPerRow"]
+      266 RETURN                           R11 1

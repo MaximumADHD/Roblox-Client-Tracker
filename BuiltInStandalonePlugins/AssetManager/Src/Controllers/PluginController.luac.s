@@ -28,13 +28,9 @@ PROTO_0:
        38 NAMECALL                         R2 R2 K13 ["Fire"]
        40 CALL                             R2 2 0
        41 GETUPVAL                         R2 0
-       42 GETTABLEKS                       R2 R2 K11 ["_gameInfo"]
-       44 GETTABLEKS                       R2 R2 K1 ["Id"]
-       46 JUMPIFEQKN                       R2 K0 [0] ; [+5]
-       48 GETUPVAL                         R2 0
-       49 NAMECALL                         R2 R2 K14 ["refreshUniverseInfo"]
-       51 CALL                             R2 1 0
-       52 RETURN                           R0 0
+       42 NAMECALL                         R2 R2 K14 ["refreshUniverseInfo"]
+       44 CALL                             R2 1 0
+       45 RETURN                           R0 0
 
 PROTO_1:
         0 JUMPIFNOT                        R1 ; [+34]
@@ -253,66 +249,65 @@ PROTO_5:
       161 MOVE                             R10 R8
       162 GETIMPORT                        R9 K42 [setmetatable]
       164 CALL                             R9 2 0
-      165 JUMPIFEQKN                       R6 K11 [0] ; [+4]
-      167 NAMECALL                         R9 R8 K43 ["refreshUniverseInfo"]
-      169 CALL                             R9 1 0
-      170 GETTABLEKS                       R10 R8 K30 ["_connections"]
-      172 GETTABLEKS                       R11 R8 K19 ["_plugin"]
-      174 LOADK                            R13 K12 ["GameId"]
-      175 NEWCLOSURE                       R14 P0
-      176 CAPTURE                          VAL R8
-      177 CAPTURE                          VAL R2
-      178 CAPTURE                          UPVAL U1
-      179 CAPTURE                          UPVAL U2
-      180 NAMECALL                         R11 R11 K44 ["OnSetItem"]
-      182 CALL                             R11 3 -1
-      183 FASTCALL                         TABLE_INSERT ; [+2]
-      184 GETIMPORT                        R9 K47 [table.insert]
-      186 CALL                             R9 -1 0
-      187 NEWCLOSURE                       R11 P1
-      188 CAPTURE                          UPVAL U6
-      189 CAPTURE                          VAL R2
-      190 CAPTURE                          VAL R8
-      191 NAMECALL                         R9 R1 K48 ["fetchUsername"]
-      193 CALL                             R9 2 0
-      194 GETUPVAL                         R9 7
-      195 CALL                             R9 0 1
-      196 JUMPIFNOT                        R9 ; [+14]
-      197 GETTABLEKS                       R10 R8 K30 ["_connections"]
-      199 GETTABLEKS                       R11 R8 K19 ["_plugin"]
-      201 LOADK                            R13 K49 ["ShowToast"]
-      202 NEWCLOSURE                       R14 P2
-      203 CAPTURE                          VAL R8
-      204 NAMECALL                         R11 R11 K50 ["OnInvoke"]
-      206 CALL                             R11 3 -1
-      207 FASTCALL                         TABLE_INSERT ; [+2]
-      208 GETIMPORT                        R9 K47 [table.insert]
-      210 CALL                             R9 -1 0
-      211 GETTABLEKS                       R10 R8 K30 ["_connections"]
-      213 GETUPVAL                         R11 8
-      214 LOADK                            R13 K51 ["AssetsUploaded"]
-      215 NEWCLOSURE                       R14 P3
-      216 CAPTURE                          UPVAL U9
-      217 CAPTURE                          UPVAL U6
-      218 CAPTURE                          UPVAL U10
-      219 CAPTURE                          VAL R8
-      220 NAMECALL                         R11 R11 K52 ["Bind"]
-      222 CALL                             R11 3 -1
-      223 FASTCALL                         TABLE_INSERT ; [+2]
-      224 GETIMPORT                        R9 K47 [table.insert]
-      226 CALL                             R9 -1 0
-      227 GETTABLEKS                       R10 R8 K30 ["_connections"]
-      229 GETTABLEKS                       R11 R8 K19 ["_plugin"]
-      231 LOADK                            R13 K12 ["GameId"]
-      232 NEWCLOSURE                       R14 P4
-      233 CAPTURE                          VAL R8
-      234 CAPTURE                          UPVAL U1
-      235 NAMECALL                         R11 R11 K44 ["OnSetItem"]
-      237 CALL                             R11 3 -1
-      238 FASTCALL                         TABLE_INSERT ; [+2]
-      239 GETIMPORT                        R9 K47 [table.insert]
-      241 CALL                             R9 -1 0
-      242 RETURN                           R8 1
+      165 NAMECALL                         R9 R8 K43 ["refreshUniverseInfo"]
+      167 CALL                             R9 1 0
+      168 GETTABLEKS                       R10 R8 K30 ["_connections"]
+      170 GETTABLEKS                       R11 R8 K19 ["_plugin"]
+      172 LOADK                            R13 K12 ["GameId"]
+      173 NEWCLOSURE                       R14 P0
+      174 CAPTURE                          VAL R8
+      175 CAPTURE                          VAL R2
+      176 CAPTURE                          UPVAL U1
+      177 CAPTURE                          UPVAL U2
+      178 NAMECALL                         R11 R11 K44 ["OnSetItem"]
+      180 CALL                             R11 3 -1
+      181 FASTCALL                         TABLE_INSERT ; [+2]
+      182 GETIMPORT                        R9 K47 [table.insert]
+      184 CALL                             R9 -1 0
+      185 NEWCLOSURE                       R11 P1
+      186 CAPTURE                          UPVAL U6
+      187 CAPTURE                          VAL R2
+      188 CAPTURE                          VAL R8
+      189 NAMECALL                         R9 R1 K48 ["fetchUsername"]
+      191 CALL                             R9 2 0
+      192 GETUPVAL                         R9 7
+      193 CALL                             R9 0 1
+      194 JUMPIFNOT                        R9 ; [+14]
+      195 GETTABLEKS                       R10 R8 K30 ["_connections"]
+      197 GETTABLEKS                       R11 R8 K19 ["_plugin"]
+      199 LOADK                            R13 K49 ["ShowToast"]
+      200 NEWCLOSURE                       R14 P2
+      201 CAPTURE                          VAL R8
+      202 NAMECALL                         R11 R11 K50 ["OnInvoke"]
+      204 CALL                             R11 3 -1
+      205 FASTCALL                         TABLE_INSERT ; [+2]
+      206 GETIMPORT                        R9 K47 [table.insert]
+      208 CALL                             R9 -1 0
+      209 GETTABLEKS                       R10 R8 K30 ["_connections"]
+      211 GETUPVAL                         R11 8
+      212 LOADK                            R13 K51 ["AssetsUploaded"]
+      213 NEWCLOSURE                       R14 P3
+      214 CAPTURE                          UPVAL U9
+      215 CAPTURE                          UPVAL U6
+      216 CAPTURE                          UPVAL U10
+      217 CAPTURE                          VAL R8
+      218 NAMECALL                         R11 R11 K52 ["Bind"]
+      220 CALL                             R11 3 -1
+      221 FASTCALL                         TABLE_INSERT ; [+2]
+      222 GETIMPORT                        R9 K47 [table.insert]
+      224 CALL                             R9 -1 0
+      225 GETTABLEKS                       R10 R8 K30 ["_connections"]
+      227 GETTABLEKS                       R11 R8 K19 ["_plugin"]
+      229 LOADK                            R13 K12 ["GameId"]
+      230 NEWCLOSURE                       R14 P4
+      231 CAPTURE                          VAL R8
+      232 CAPTURE                          UPVAL U1
+      233 NAMECALL                         R11 R11 K44 ["OnSetItem"]
+      235 CALL                             R11 3 -1
+      236 FASTCALL                         TABLE_INSERT ; [+2]
+      237 GETIMPORT                        R9 K47 [table.insert]
+      239 CALL                             R9 -1 0
+      240 RETURN                           R8 1
 
 PROTO_6:
         0 GETUPVAL                         R3 0
@@ -540,17 +535,21 @@ PROTO_20:
        42 RETURN                           R0 0
 
 PROTO_21:
-        0 GETTABLEKS                       R1 R0 K0 ["_networking"]
-        2 GETTABLEKS                       R3 R0 K1 ["_gameInfo"]
-        4 GETTABLEKS                       R3 R3 K2 ["Id"]
-        6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          VAL R0
-        8 NEWCLOSURE                       R5 P1
-        9 CAPTURE                          UPVAL U0
-       10 CAPTURE                          VAL R0
-       11 NAMECALL                         R1 R1 K3 ["fetchUniverseInfoAsync"]
-       13 CALL                             R1 4 0
-       14 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["_gameInfo"]
+        2 GETTABLEKS                       R1 R1 K1 ["Id"]
+        4 JUMPIFNOTEQKN                    R1 K2 [0] ; [+2]
+        6 RETURN                           R0 0
+        7 GETTABLEKS                       R1 R0 K3 ["_networking"]
+        9 GETTABLEKS                       R3 R0 K0 ["_gameInfo"]
+       11 GETTABLEKS                       R3 R3 K1 ["Id"]
+       13 NEWCLOSURE                       R4 P0
+       14 CAPTURE                          VAL R0
+       15 NEWCLOSURE                       R5 P1
+       16 CAPTURE                          UPVAL U0
+       17 CAPTURE                          VAL R0
+       18 NAMECALL                         R1 R1 K4 ["fetchUniverseInfoAsync"]
+       20 CALL                             R1 4 0
+       21 RETURN                           R0 0
 
 PROTO_22:
         0 SETTABLEKS                       R1 R0 K0 ["_rootPlace"]

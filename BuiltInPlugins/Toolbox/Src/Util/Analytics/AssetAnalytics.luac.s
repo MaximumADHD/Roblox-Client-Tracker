@@ -431,44 +431,60 @@ PROTO_12:
        33 DUPTABLE                         R13 K9 [{"navSwimlane"}]
        34 SETTABLEKS                       R5 R13 K8 ["navSwimlane"]
        36 CALL                             R10 3 1
-       37 GETUPVAL                         R11 1
+       37 GETUPVAL                         R11 4
        38 CALL                             R11 0 1
-       39 JUMPIFNOT                        R11 ; [+10]
-       40 GETTABLEKS                       R11 R0 K10 ["senders"]
-       42 GETTABLEKS                       R11 R11 K11 ["sendEventDeferred"]
-       44 MOVE                             R12 R8
-       45 LOADK                            R13 K12 ["Marketplace"]
-       46 LOADK                            R14 K13 ["MarketplaceInsert"]
-       47 MOVE                             R15 R10
-       48 CALL                             R11 4 0
-       49 JUMP                             ; [+11]
-       50 GETTABLEKS                       R11 R0 K10 ["senders"]
-       52 GETTABLEKS                       R11 R11 K11 ["sendEventDeferred"]
-       54 GETUPVAL                         R12 2
-       55 GETTABLEKS                       R12 R12 K1 ["eventTarget"]
-       57 LOADK                            R13 K12 ["Marketplace"]
-       58 LOADK                            R14 K13 ["MarketplaceInsert"]
-       59 MOVE                             R15 R10
-       60 CALL                             R11 4 0
-       61 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       63 RETURN                           R0 0
-       64 GETIMPORT                        R11 K15 [ipairs]
-       66 GETUPVAL                         R12 0
-       67 GETTABLEKS                       R12 R12 K16 ["InsertRemainsCheckDelays"]
-       69 CALL                             R11 1 3
-       70 FORGPREP_INEXT                   R11
-       71 GETUPVAL                         R16 0
-       72 GETTABLEKS                       R16 R16 K17 ["schedule"]
-       74 MOVE                             R17 R15
-       75 NEWCLOSURE                       R18 P0
-       76 CAPTURE                          VAL R3
-       77 CAPTURE                          VAL R0
-       78 CAPTURE                          VAL R15
-       79 CAPTURE                          VAL R10
-       80 CAPTURE                          VAL R8
-       81 CALL                             R16 2 0
-       82 FORGLOOP                         R11 2 [inext] ; [-12]
-       84 RETURN                           R0 0
+       39 JUMPIFNOT                        R11 ; [+17]
+       40 FASTCALL1                        TYPE R3 ; [+3]
+       41 MOVE                             R13 R3
+       42 GETIMPORT                        R12 K11 [type]
+       44 CALL                             R12 1 1
+       45 JUMPIFNOTEQKS                    R12 K12 ["table"] ; [+3]
+       47 GETTABLEN                        R11 R3 1
+       48 JUMP                             ; [+1]
+       49 MOVE                             R11 R3
+       50 JUMPIFNOT                        R11 ; [+3]
+       51 GETTABLEKS                       R12 R11 K13 ["UniqueId"]
+       53 JUMP                             ; [+1]
+       54 LOADNIL                          R12
+       55 SETTABLEKS                       R12 R10 K14 ["sourceAssetUniqueId"]
+       57 GETUPVAL                         R11 1
+       58 CALL                             R11 0 1
+       59 JUMPIFNOT                        R11 ; [+10]
+       60 GETTABLEKS                       R11 R0 K15 ["senders"]
+       62 GETTABLEKS                       R11 R11 K16 ["sendEventDeferred"]
+       64 MOVE                             R12 R8
+       65 LOADK                            R13 K17 ["Marketplace"]
+       66 LOADK                            R14 K18 ["MarketplaceInsert"]
+       67 MOVE                             R15 R10
+       68 CALL                             R11 4 0
+       69 JUMP                             ; [+11]
+       70 GETTABLEKS                       R11 R0 K15 ["senders"]
+       72 GETTABLEKS                       R11 R11 K16 ["sendEventDeferred"]
+       74 GETUPVAL                         R12 2
+       75 GETTABLEKS                       R12 R12 K1 ["eventTarget"]
+       77 LOADK                            R13 K17 ["Marketplace"]
+       78 LOADK                            R14 K18 ["MarketplaceInsert"]
+       79 MOVE                             R15 R10
+       80 CALL                             R11 4 0
+       81 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       83 RETURN                           R0 0
+       84 GETIMPORT                        R11 K20 [ipairs]
+       86 GETUPVAL                         R12 0
+       87 GETTABLEKS                       R12 R12 K21 ["InsertRemainsCheckDelays"]
+       89 CALL                             R11 1 3
+       90 FORGPREP_INEXT                   R11
+       91 GETUPVAL                         R16 0
+       92 GETTABLEKS                       R16 R16 K22 ["schedule"]
+       94 MOVE                             R17 R15
+       95 NEWCLOSURE                       R18 P0
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          VAL R0
+       98 CAPTURE                          VAL R15
+       99 CAPTURE                          VAL R10
+      100 CAPTURE                          VAL R8
+      101 CALL                             R16 2 0
+      102 FORGLOOP                         R11 2 [inext] ; [-12]
+      104 RETURN                           R0 0
 
 PROTO_13:
         0 JUMPIFNOT                        R3 ; [+5]
@@ -699,82 +715,89 @@ MAIN:
       111 GETTABLEKS                       R14 R14 K21 ["SharedFlags"]
       113 GETTABLEKS                       R14 R14 K24 ["getFFlagToolboxFixInsertRemains"]
       115 CALL                             R13 1 1
-      116 NEWTABLE                         R14 32 0
-      118 SETTABLEKS                       R14 R14 K25 ["__index"]
-      120 NEWTABLE                         R15 0 3
-      122 LOADN                            R16 30
-      123 LOADN                            R17 120
-      124 LOADN                            R18 88
-      125 SETLIST                          R15 R16 3 [1]
-      127 SETTABLEKS                       R15 R14 K26 ["InsertRemainsCheckDelays"]
-      129 DUPCLOSURE                       R15 K27 [PROTO_0]
-      130 CAPTURE                          VAL R10
-      131 CAPTURE                          VAL R14
-      132 SETTABLEKS                       R15 R14 K28 ["new"]
-      134 DUPCLOSURE                       R15 K29 [PROTO_2]
-      135 CAPTURE                          VAL R14
-      136 SETTABLEKS                       R15 R14 K30 ["mock"]
-      138 DUPCLOSURE                       R15 K31 [PROTO_3]
-      139 CAPTURE                          VAL R7
-      140 CAPTURE                          VAL R0
-      141 SETTABLEKS                       R15 R14 K32 ["getNavigationContext"]
-      143 DUPCLOSURE                       R15 K33 [PROTO_4]
-      144 SETTABLEKS                       R15 R14 K34 ["schedule"]
-      146 DUPCLOSURE                       R15 K35 [PROTO_5]
-      147 SETTABLEKS                       R15 R14 K36 ["getAssetCategoryName"]
-      149 DUPCLOSURE                       R15 K37 [PROTO_6]
-      150 SETTABLEKS                       R15 R14 K38 ["isAssetDataTrackable"]
-      152 DUPCLOSURE                       R15 K39 [PROTO_7]
-      153 CAPTURE                          VAL R14
-      154 SETTABLEKS                       R15 R14 K40 ["isAssetTrackable"]
-      156 DUPCLOSURE                       R15 K41 [PROTO_8]
-      157 CAPTURE                          VAL R3
-      158 CAPTURE                          VAL R12
-      159 CAPTURE                          VAL R14
-      160 CAPTURE                          VAL R9
-      161 CAPTURE                          VAL R6
-      162 SETTABLEKS                       R15 R14 K42 ["getTrackingAttributes"]
-      164 DUPCLOSURE                       R15 K43 [PROTO_9]
-      165 CAPTURE                          VAL R9
-      166 CAPTURE                          VAL R14
-      167 CAPTURE                          VAL R4
-      168 SETTABLEKS                       R15 R14 K44 ["logImpression"]
-      170 DUPCLOSURE                       R15 K45 [PROTO_10]
-      171 CAPTURE                          VAL R14
-      172 CAPTURE                          VAL R11
-      173 CAPTURE                          VAL R3
-      174 CAPTURE                          VAL R8
-      175 CAPTURE                          VAL R9
-      176 SETTABLEKS                       R15 R14 K46 ["logPreview"]
-      178 DUPCLOSURE                       R15 K47 [PROTO_12]
-      179 CAPTURE                          VAL R14
-      180 CAPTURE                          VAL R13
-      181 CAPTURE                          VAL R9
-      182 CAPTURE                          VAL R4
-      183 SETTABLEKS                       R15 R14 K48 ["logInsert"]
-      185 DUPCLOSURE                       R15 K49 [PROTO_13]
-      186 CAPTURE                          VAL R13
-      187 CAPTURE                          VAL R9
-      188 SETTABLEKS                       R15 R14 K50 ["logRemainsOrDeleted"]
-      190 DUPCLOSURE                       R15 K51 [PROTO_14]
-      191 CAPTURE                          VAL R9
-      192 CAPTURE                          VAL R0
-      193 SETTABLEKS                       R15 R14 K52 ["logNavigationButtonInteraction"]
-      195 DUPCLOSURE                       R15 K53 [PROTO_15]
-      196 SETTABLEKS                       R15 R14 K54 ["logPageView"]
-      198 DUPCLOSURE                       R15 K55 [PROTO_16]
-      199 SETTABLEKS                       R15 R14 K56 ["logGoBack"]
-      201 DUPCLOSURE                       R15 K57 [PROTO_17]
-      202 CAPTURE                          VAL R9
-      203 SETTABLEKS                       R15 R14 K58 ["onCallToActionBannerClicked"]
-      205 DUPCLOSURE                       R15 K59 [PROTO_18]
-      206 CAPTURE                          VAL R14
-      207 CAPTURE                          VAL R4
-      208 CAPTURE                          VAL R9
-      209 SETTABLEKS                       R15 R14 K60 ["logAssetMediaImpression"]
-      211 DUPCLOSURE                       R15 K61 [PROTO_19]
-      212 CAPTURE                          VAL R14
-      213 CAPTURE                          VAL R4
+      116 GETIMPORT                        R14 K9 [require]
+      118 GETTABLEKS                       R15 R1 K12 ["Src"]
+      120 GETTABLEKS                       R15 R15 K15 ["Util"]
+      122 GETTABLEKS                       R15 R15 K21 ["SharedFlags"]
+      124 GETTABLEKS                       R15 R15 K25 ["getFFlagToolboxLogInsertSourceAssetUniqueId"]
+      126 CALL                             R14 1 1
+      127 NEWTABLE                         R15 32 0
+      129 SETTABLEKS                       R15 R15 K26 ["__index"]
+      131 NEWTABLE                         R16 0 3
+      133 LOADN                            R17 30
+      134 LOADN                            R18 120
+      135 LOADN                            R19 88
+      136 SETLIST                          R16 R17 3 [1]
+      138 SETTABLEKS                       R16 R15 K27 ["InsertRemainsCheckDelays"]
+      140 DUPCLOSURE                       R16 K28 [PROTO_0]
+      141 CAPTURE                          VAL R10
+      142 CAPTURE                          VAL R15
+      143 SETTABLEKS                       R16 R15 K29 ["new"]
+      145 DUPCLOSURE                       R16 K30 [PROTO_2]
+      146 CAPTURE                          VAL R15
+      147 SETTABLEKS                       R16 R15 K31 ["mock"]
+      149 DUPCLOSURE                       R16 K32 [PROTO_3]
+      150 CAPTURE                          VAL R7
+      151 CAPTURE                          VAL R0
+      152 SETTABLEKS                       R16 R15 K33 ["getNavigationContext"]
+      154 DUPCLOSURE                       R16 K34 [PROTO_4]
+      155 SETTABLEKS                       R16 R15 K35 ["schedule"]
+      157 DUPCLOSURE                       R16 K36 [PROTO_5]
+      158 SETTABLEKS                       R16 R15 K37 ["getAssetCategoryName"]
+      160 DUPCLOSURE                       R16 K38 [PROTO_6]
+      161 SETTABLEKS                       R16 R15 K39 ["isAssetDataTrackable"]
+      163 DUPCLOSURE                       R16 K40 [PROTO_7]
+      164 CAPTURE                          VAL R15
+      165 SETTABLEKS                       R16 R15 K41 ["isAssetTrackable"]
+      167 DUPCLOSURE                       R16 K42 [PROTO_8]
+      168 CAPTURE                          VAL R3
+      169 CAPTURE                          VAL R12
+      170 CAPTURE                          VAL R15
+      171 CAPTURE                          VAL R9
+      172 CAPTURE                          VAL R6
+      173 SETTABLEKS                       R16 R15 K43 ["getTrackingAttributes"]
+      175 DUPCLOSURE                       R16 K44 [PROTO_9]
+      176 CAPTURE                          VAL R9
+      177 CAPTURE                          VAL R15
+      178 CAPTURE                          VAL R4
+      179 SETTABLEKS                       R16 R15 K45 ["logImpression"]
+      181 DUPCLOSURE                       R16 K46 [PROTO_10]
+      182 CAPTURE                          VAL R15
+      183 CAPTURE                          VAL R11
+      184 CAPTURE                          VAL R3
+      185 CAPTURE                          VAL R8
+      186 CAPTURE                          VAL R9
+      187 SETTABLEKS                       R16 R15 K47 ["logPreview"]
+      189 DUPCLOSURE                       R16 K48 [PROTO_12]
+      190 CAPTURE                          VAL R15
+      191 CAPTURE                          VAL R13
+      192 CAPTURE                          VAL R9
+      193 CAPTURE                          VAL R4
+      194 CAPTURE                          VAL R14
+      195 SETTABLEKS                       R16 R15 K49 ["logInsert"]
+      197 DUPCLOSURE                       R16 K50 [PROTO_13]
+      198 CAPTURE                          VAL R13
+      199 CAPTURE                          VAL R9
+      200 SETTABLEKS                       R16 R15 K51 ["logRemainsOrDeleted"]
+      202 DUPCLOSURE                       R16 K52 [PROTO_14]
+      203 CAPTURE                          VAL R9
+      204 CAPTURE                          VAL R0
+      205 SETTABLEKS                       R16 R15 K53 ["logNavigationButtonInteraction"]
+      207 DUPCLOSURE                       R16 K54 [PROTO_15]
+      208 SETTABLEKS                       R16 R15 K55 ["logPageView"]
+      210 DUPCLOSURE                       R16 K56 [PROTO_16]
+      211 SETTABLEKS                       R16 R15 K57 ["logGoBack"]
+      213 DUPCLOSURE                       R16 K58 [PROTO_17]
       214 CAPTURE                          VAL R9
-      215 SETTABLEKS                       R15 R14 K62 ["onAssetDescriptionLinkClicked"]
-      217 RETURN                           R14 1
+      215 SETTABLEKS                       R16 R15 K59 ["onCallToActionBannerClicked"]
+      217 DUPCLOSURE                       R16 K60 [PROTO_18]
+      218 CAPTURE                          VAL R15
+      219 CAPTURE                          VAL R4
+      220 CAPTURE                          VAL R9
+      221 SETTABLEKS                       R16 R15 K61 ["logAssetMediaImpression"]
+      223 DUPCLOSURE                       R16 K62 [PROTO_19]
+      224 CAPTURE                          VAL R15
+      225 CAPTURE                          VAL R4
+      226 CAPTURE                          VAL R9
+      227 SETTABLEKS                       R16 R15 K63 ["onAssetDescriptionLinkClicked"]
+      229 RETURN                           R15 1

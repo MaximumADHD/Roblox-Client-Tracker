@@ -166,62 +166,67 @@ PROTO_8:
        83 SETTABLEKS                       R2 R0 K21 ["pluginController"]
        85 GETUPVAL                         R2 9
        86 GETTABLEKS                       R2 R2 K11 ["new"]
-       88 GETTABLEKS                       R3 R0 K21 ["pluginController"]
-       90 GETTABLEKS                       R4 R0 K20 ["networking"]
-       92 CALL                             R2 2 1
-       93 SETTABLEKS                       R2 R0 K22 ["explorerController"]
-       95 GETUPVAL                         R2 10
-       96 GETTABLEKS                       R2 R2 K11 ["new"]
-       98 DUPTABLE                         R3 K26 [{"PluginController", "ExplorerController", "Networking"}]
-       99 GETTABLEKS                       R4 R0 K21 ["pluginController"]
-      101 SETTABLEKS                       R4 R3 K23 ["PluginController"]
-      103 GETTABLEKS                       R4 R0 K22 ["explorerController"]
-      105 SETTABLEKS                       R4 R3 K24 ["ExplorerController"]
-      107 GETTABLEKS                       R4 R0 K20 ["networking"]
-      109 SETTABLEKS                       R4 R3 K25 ["Networking"]
-      111 CALL                             R2 1 1
-      112 SETTABLEKS                       R2 R0 K27 ["searchController"]
-      114 GETUPVAL                         R2 11
-      115 GETTABLEKS                       R2 R2 K11 ["new"]
-      117 GETTABLEKS                       R3 R1 K9 ["Plugin"]
-      119 GETTABLEKS                       R4 R1 K28 ["PluginLoaderContext"]
-      121 GETTABLEKS                       R4 R4 K29 ["mainDockWidget"]
-      123 CALL                             R2 2 1
-      124 SETTABLEKS                       R2 R0 K30 ["layoutController"]
-      126 GETUPVAL                         R2 12
-      127 GETTABLEKS                       R2 R2 K11 ["new"]
-      129 DUPTABLE                         R3 K33 [{"PluginController", "ExplorerController", "SearchController", "LayoutController", "Networking"}]
-      130 GETTABLEKS                       R4 R0 K21 ["pluginController"]
-      132 SETTABLEKS                       R4 R3 K23 ["PluginController"]
-      134 GETTABLEKS                       R4 R0 K22 ["explorerController"]
-      136 SETTABLEKS                       R4 R3 K24 ["ExplorerController"]
-      138 GETTABLEKS                       R4 R0 K27 ["searchController"]
-      140 SETTABLEKS                       R4 R3 K31 ["SearchController"]
-      142 GETTABLEKS                       R4 R0 K30 ["layoutController"]
-      144 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
-      146 GETTABLEKS                       R4 R0 K20 ["networking"]
-      148 SETTABLEKS                       R4 R3 K25 ["Networking"]
-      150 CALL                             R2 1 1
-      151 SETTABLEKS                       R2 R0 K34 ["itemsController"]
-      153 GETUPVAL                         R2 13
-      154 GETTABLEKS                       R2 R2 K11 ["new"]
-      156 DUPTABLE                         R3 K36 [{"PluginController", "LayoutController", "ItemsController", "SearchController", "ExplorerController"}]
-      157 GETTABLEKS                       R4 R0 K21 ["pluginController"]
-      159 SETTABLEKS                       R4 R3 K23 ["PluginController"]
-      161 GETTABLEKS                       R4 R0 K30 ["layoutController"]
-      163 SETTABLEKS                       R4 R3 K32 ["LayoutController"]
-      165 GETTABLEKS                       R4 R0 K34 ["itemsController"]
-      167 SETTABLEKS                       R4 R3 K35 ["ItemsController"]
-      169 GETTABLEKS                       R4 R0 K27 ["searchController"]
-      171 SETTABLEKS                       R4 R3 K31 ["SearchController"]
-      173 GETTABLEKS                       R4 R0 K22 ["explorerController"]
-      175 SETTABLEKS                       R4 R3 K24 ["ExplorerController"]
-      177 CALL                             R2 1 1
-      178 SETTABLEKS                       R2 R0 K37 ["input"]
-      180 GETTABLEKS                       R4 R1 K9 ["Plugin"]
-      182 NAMECALL                         R2 R0 K38 ["_loadSettingsIntoControllers"]
-      184 CALL                             R2 2 0
-      185 RETURN                           R0 0
+       88 GETTABLEKS                       R3 R1 K9 ["Plugin"]
+       90 GETTABLEKS                       R4 R1 K22 ["PluginLoaderContext"]
+       92 GETTABLEKS                       R4 R4 K23 ["mainDockWidget"]
+       94 CALL                             R2 2 1
+       95 SETTABLEKS                       R2 R0 K24 ["layoutController"]
+       97 GETUPVAL                         R2 10
+       98 GETTABLEKS                       R2 R2 K11 ["new"]
+      100 DUPTABLE                         R3 K28 [{"PluginController", "LayoutController", "Networking"}]
+      101 GETTABLEKS                       R4 R0 K21 ["pluginController"]
+      103 SETTABLEKS                       R4 R3 K25 ["PluginController"]
+      105 GETTABLEKS                       R4 R0 K24 ["layoutController"]
+      107 SETTABLEKS                       R4 R3 K26 ["LayoutController"]
+      109 GETTABLEKS                       R4 R0 K20 ["networking"]
+      111 SETTABLEKS                       R4 R3 K27 ["Networking"]
+      113 CALL                             R2 1 1
+      114 SETTABLEKS                       R2 R0 K29 ["explorerController"]
+      116 GETUPVAL                         R2 11
+      117 GETTABLEKS                       R2 R2 K11 ["new"]
+      119 DUPTABLE                         R3 K31 [{"PluginController", "ExplorerController", "Networking"}]
+      120 GETTABLEKS                       R4 R0 K21 ["pluginController"]
+      122 SETTABLEKS                       R4 R3 K25 ["PluginController"]
+      124 GETTABLEKS                       R4 R0 K29 ["explorerController"]
+      126 SETTABLEKS                       R4 R3 K30 ["ExplorerController"]
+      128 GETTABLEKS                       R4 R0 K20 ["networking"]
+      130 SETTABLEKS                       R4 R3 K27 ["Networking"]
+      132 CALL                             R2 1 1
+      133 SETTABLEKS                       R2 R0 K32 ["searchController"]
+      135 GETUPVAL                         R2 12
+      136 GETTABLEKS                       R2 R2 K11 ["new"]
+      138 DUPTABLE                         R3 K34 [{"PluginController", "ExplorerController", "SearchController", "LayoutController", "Networking"}]
+      139 GETTABLEKS                       R4 R0 K21 ["pluginController"]
+      141 SETTABLEKS                       R4 R3 K25 ["PluginController"]
+      143 GETTABLEKS                       R4 R0 K29 ["explorerController"]
+      145 SETTABLEKS                       R4 R3 K30 ["ExplorerController"]
+      147 GETTABLEKS                       R4 R0 K32 ["searchController"]
+      149 SETTABLEKS                       R4 R3 K33 ["SearchController"]
+      151 GETTABLEKS                       R4 R0 K24 ["layoutController"]
+      153 SETTABLEKS                       R4 R3 K26 ["LayoutController"]
+      155 GETTABLEKS                       R4 R0 K20 ["networking"]
+      157 SETTABLEKS                       R4 R3 K27 ["Networking"]
+      159 CALL                             R2 1 1
+      160 SETTABLEKS                       R2 R0 K35 ["itemsController"]
+      162 GETUPVAL                         R2 13
+      163 GETTABLEKS                       R2 R2 K11 ["new"]
+      165 DUPTABLE                         R3 K37 [{"PluginController", "LayoutController", "ItemsController", "SearchController", "ExplorerController"}]
+      166 GETTABLEKS                       R4 R0 K21 ["pluginController"]
+      168 SETTABLEKS                       R4 R3 K25 ["PluginController"]
+      170 GETTABLEKS                       R4 R0 K24 ["layoutController"]
+      172 SETTABLEKS                       R4 R3 K26 ["LayoutController"]
+      174 GETTABLEKS                       R4 R0 K35 ["itemsController"]
+      176 SETTABLEKS                       R4 R3 K36 ["ItemsController"]
+      178 GETTABLEKS                       R4 R0 K32 ["searchController"]
+      180 SETTABLEKS                       R4 R3 K33 ["SearchController"]
+      182 GETTABLEKS                       R4 R0 K29 ["explorerController"]
+      184 SETTABLEKS                       R4 R3 K30 ["ExplorerController"]
+      186 CALL                             R2 1 1
+      187 SETTABLEKS                       R2 R0 K38 ["input"]
+      189 GETTABLEKS                       R4 R1 K9 ["Plugin"]
+      191 NAMECALL                         R2 R0 K39 ["_loadSettingsIntoControllers"]
+      193 CALL                             R2 2 0
+      194 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -522,9 +527,9 @@ MAIN:
       212 CAPTURE                          VAL R15
       213 CAPTURE                          VAL R25
       214 CAPTURE                          VAL R23
-      215 CAPTURE                          VAL R20
-      216 CAPTURE                          VAL R24
-      217 CAPTURE                          VAL R22
+      215 CAPTURE                          VAL R22
+      216 CAPTURE                          VAL R20
+      217 CAPTURE                          VAL R24
       218 CAPTURE                          VAL R21
       219 CAPTURE                          VAL R19
       220 SETTABLEKS                       R31 R30 K54 ["init"]

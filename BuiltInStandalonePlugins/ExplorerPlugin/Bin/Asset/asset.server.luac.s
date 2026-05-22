@@ -11,20 +11,16 @@ MAIN:
        13 GETTABLEKS                       R2 R0 K8 ["Packages"]
        15 GETTABLEKS                       R2 R2 K9 ["TestLoader"]
        17 CALL                             R1 1 1
-       18 GETTABLEKS                       R2 R1 K10 ["launch"]
-       20 LOADK                            R3 K4 ["ExplorerPlugin"]
-       21 GETTABLEKS                       R4 R0 K11 ["Src"]
-       23 CALL                             R2 2 0
-       24 GETTABLEKS                       R2 R1 K12 ["isCli"]
-       26 CALL                             R2 0 1
-       27 JUMPIFNOT                        R2 ; [+1]
-       28 RETURN                           R0 0
-       29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R3 R0 K11 ["Src"]
-       33 GETTABLEKS                       R3 R3 K13 ["Guest"]
-       35 GETTABLEKS                       R3 R3 K14 ["startStudioGuest"]
-       37 CALL                             R2 1 1
-       38 MOVE                             R3 R2
-       39 GETIMPORT                        R4 K1 [plugin]
-       41 CALL                             R3 1 0
-       42 RETURN                           R0 0
+       18 GETTABLEKS                       R2 R1 K10 ["isCli"]
+       20 CALL                             R2 0 1
+       21 JUMPIFNOT                        R2 ; [+1]
+       22 RETURN                           R0 0
+       23 GETIMPORT                        R2 K7 [require]
+       25 GETTABLEKS                       R3 R0 K11 ["Src"]
+       27 GETTABLEKS                       R3 R3 K12 ["Guest"]
+       29 GETTABLEKS                       R3 R3 K13 ["startStudioGuest"]
+       31 CALL                             R2 1 1
+       32 MOVE                             R3 R2
+       33 GETIMPORT                        R4 K1 [plugin]
+       35 CALL                             R3 1 0
+       36 RETURN                           R0 0

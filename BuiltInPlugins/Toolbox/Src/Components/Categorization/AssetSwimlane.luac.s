@@ -240,33 +240,26 @@ PROTO_5:
       110 CALL                             R9 2 1
       111 GETUPVAL                         R10 12
       112 GETTABLEKS                       R10 R10 K21 ["Generator"]
-      114 DUPTABLE                         R11 K32 [{"networkInterface", "categoryName", "includeUnverifiedCreators", "qualityFilterData", "sortName", "queryParams", "sectionName", "initialPageSize", "render", "searchSource"}]
+      114 DUPTABLE                         R11 K31 [{"networkInterface", "categoryName", "includeUnverifiedCreators", "sortName", "queryParams", "sectionName", "initialPageSize", "render", "searchSource"}]
       115 GETTABLEKS                       R12 R2 K22 ["networkInterface"]
       117 SETTABLEKS                       R12 R11 K22 ["networkInterface"]
       119 GETTABLEKS                       R12 R0 K1 ["CategoryName"]
       121 SETTABLEKS                       R12 R11 K23 ["categoryName"]
-      123 GETTABLEKS                       R12 R0 K33 ["IncludeUnverifiedCreators"]
+      123 GETTABLEKS                       R12 R0 K32 ["IncludeUnverifiedCreators"]
       125 SETTABLEKS                       R12 R11 K24 ["includeUnverifiedCreators"]
-      127 GETUPVAL                         R13 13
-      128 CALL                             R13 0 1
-      129 JUMPIFNOT                        R13 ; [+3]
-      130 GETTABLEKS                       R12 R0 K34 ["QualityFilterData"]
-      132 JUMP                             ; [+1]
-      133 LOADNIL                          R12
-      134 SETTABLEKS                       R12 R11 K25 ["qualityFilterData"]
-      136 GETTABLEKS                       R12 R0 K6 ["SortName"]
-      138 SETTABLEKS                       R12 R11 K26 ["sortName"]
-      140 GETTABLEKS                       R12 R0 K4 ["QueryParams"]
-      142 SETTABLEKS                       R12 R11 K27 ["queryParams"]
-      144 GETTABLEKS                       R12 R0 K5 ["SectionName"]
-      146 SETTABLEKS                       R12 R11 K28 ["sectionName"]
-      148 GETTABLEKS                       R12 R0 K35 ["InitialPageSize"]
-      150 SETTABLEKS                       R12 R11 K29 ["initialPageSize"]
-      152 SETTABLEKS                       R9 R11 K30 ["render"]
-      154 GETTABLEKS                       R12 R0 K31 ["searchSource"]
-      156 SETTABLEKS                       R12 R11 K31 ["searchSource"]
-      158 CALL                             R10 1 -1
-      159 RETURN                           R10 -1
+      127 GETTABLEKS                       R12 R0 K6 ["SortName"]
+      129 SETTABLEKS                       R12 R11 K25 ["sortName"]
+      131 GETTABLEKS                       R12 R0 K4 ["QueryParams"]
+      133 SETTABLEKS                       R12 R11 K26 ["queryParams"]
+      135 GETTABLEKS                       R12 R0 K5 ["SectionName"]
+      137 SETTABLEKS                       R12 R11 K27 ["sectionName"]
+      139 GETTABLEKS                       R12 R0 K33 ["InitialPageSize"]
+      141 SETTABLEKS                       R12 R11 K28 ["initialPageSize"]
+      143 SETTABLEKS                       R9 R11 K29 ["render"]
+      145 GETTABLEKS                       R12 R0 K30 ["searchSource"]
+      147 SETTABLEKS                       R12 R11 K30 ["searchSource"]
+      149 CALL                             R10 1 -1
+      150 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -339,30 +332,24 @@ MAIN:
       120 CALL                             R13 1 1
       121 GETIMPORT                        R14 K5 [require]
       123 GETTABLEKS                       R15 R0 K8 ["Src"]
-      125 GETTABLEKS                       R15 R15 K26 ["Flags"]
-      127 GETTABLEKS                       R15 R15 K27 ["getFFlagQualityFiltersInToolboxSearch"]
-      129 CALL                             R14 1 1
-      130 GETIMPORT                        R15 K5 [require]
-      132 GETTABLEKS                       R16 R0 K8 ["Src"]
-      134 GETTABLEKS                       R16 R16 K15 ["Util"]
-      136 GETTABLEKS                       R16 R16 K23 ["SharedFlags"]
-      138 GETTABLEKS                       R16 R16 K28 ["getFFlagToolboxFixSwimlaneHeader"]
-      140 CALL                             R15 1 1
-      141 GETTABLEKS                       R16 R1 K29 ["useState"]
-      143 GETTABLEKS                       R17 R1 K30 ["useCallback"]
-      145 DUPCLOSURE                       R18 K31 [PROTO_5]
-      146 CAPTURE                          VAL R8
-      147 CAPTURE                          VAL R9
-      148 CAPTURE                          VAL R16
-      149 CAPTURE                          VAL R17
-      150 CAPTURE                          VAL R1
-      151 CAPTURE                          VAL R2
-      152 CAPTURE                          VAL R6
-      153 CAPTURE                          VAL R12
-      154 CAPTURE                          VAL R5
-      155 CAPTURE                          VAL R13
-      156 CAPTURE                          VAL R11
-      157 CAPTURE                          VAL R15
-      158 CAPTURE                          VAL R10
-      159 CAPTURE                          VAL R14
-      160 RETURN                           R18 1
+      125 GETTABLEKS                       R15 R15 K15 ["Util"]
+      127 GETTABLEKS                       R15 R15 K23 ["SharedFlags"]
+      129 GETTABLEKS                       R15 R15 K26 ["getFFlagToolboxFixSwimlaneHeader"]
+      131 CALL                             R14 1 1
+      132 GETTABLEKS                       R15 R1 K27 ["useState"]
+      134 GETTABLEKS                       R16 R1 K28 ["useCallback"]
+      136 DUPCLOSURE                       R17 K29 [PROTO_5]
+      137 CAPTURE                          VAL R8
+      138 CAPTURE                          VAL R9
+      139 CAPTURE                          VAL R15
+      140 CAPTURE                          VAL R16
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R2
+      143 CAPTURE                          VAL R6
+      144 CAPTURE                          VAL R12
+      145 CAPTURE                          VAL R5
+      146 CAPTURE                          VAL R13
+      147 CAPTURE                          VAL R11
+      148 CAPTURE                          VAL R14
+      149 CAPTURE                          VAL R10
+      150 RETURN                           R17 1

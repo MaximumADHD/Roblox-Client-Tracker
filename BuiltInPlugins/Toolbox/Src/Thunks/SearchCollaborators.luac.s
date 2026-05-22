@@ -140,24 +140,21 @@ PROTO_4:
        30 CAPTURE                          VAL R0
        31 CAPTURE                          UPVAL U0
        32 CALL                             R2 1 0
-       33 GETUPVAL                         R2 4
-       34 CALL                             R2 0 1
-       35 JUMPIFNOT                        R2 ; [+18]
-       36 GETTABLEKS                       R2 R1 K8 ["localUserGroups"]
-       38 JUMPIF                           R2 ; [+15]
-       39 GETUPVAL                         R4 0
-       40 GETTABLEKS                       R4 R4 K9 ["LoadingLocalUserGroups"]
-       42 CALL                             R4 0 -1
-       43 NAMECALL                         R2 R0 K2 ["dispatch"]
-       45 CALL                             R2 -1 0
-       46 GETIMPORT                        R2 K7 [spawn]
-       48 NEWCLOSURE                       R3 P1
-       49 CAPTURE                          UPVAL U2
-       50 CAPTURE                          UPVAL U3
-       51 CAPTURE                          VAL R0
-       52 CAPTURE                          UPVAL U0
-       53 CALL                             R2 1 0
-       54 RETURN                           R0 0
+       33 GETTABLEKS                       R2 R1 K8 ["localUserGroups"]
+       35 JUMPIF                           R2 ; [+15]
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K9 ["LoadingLocalUserGroups"]
+       39 CALL                             R4 0 -1
+       40 NAMECALL                         R2 R0 K2 ["dispatch"]
+       42 CALL                             R2 -1 0
+       43 GETIMPORT                        R2 K7 [spawn]
+       45 NEWCLOSURE                       R3 P1
+       46 CAPTURE                          UPVAL U2
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          VAL R0
+       49 CAPTURE                          UPVAL U0
+       50 CALL                             R2 1 0
+       51 RETURN                           R0 0
 
 PROTO_5:
         0 NEWCLOSURE                       R2 P0
@@ -165,8 +162,7 @@ PROTO_5:
         2 CAPTURE                          VAL R1
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
-        5 CAPTURE                          UPVAL U3
-        6 RETURN                           R2 1
+        5 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -191,15 +187,9 @@ MAIN:
        35 GETTABLEKS                       R5 R5 K12 ["Permissions"]
        37 GETTABLEKS                       R5 R5 K13 ["PermissionsConstants"]
        39 CALL                             R4 1 1
-       40 GETIMPORT                        R5 K6 [require]
-       42 GETTABLEKS                       R6 R0 K3 ["Src"]
-       44 GETTABLEKS                       R6 R6 K14 ["Flags"]
-       46 GETTABLEKS                       R6 R6 K15 ["getFFlagAACAddGroups"]
-       48 CALL                             R5 1 1
-       49 DUPCLOSURE                       R6 K16 [PROTO_1]
-       50 DUPCLOSURE                       R7 K17 [PROTO_5]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R2
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R5
-       55 RETURN                           R7 1
+       40 DUPCLOSURE                       R5 K14 [PROTO_1]
+       41 DUPCLOSURE                       R6 K15 [PROTO_5]
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R4
+       45 RETURN                           R6 1

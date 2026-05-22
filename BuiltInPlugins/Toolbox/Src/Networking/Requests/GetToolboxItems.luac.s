@@ -163,7 +163,7 @@ PROTO_4:
        76 GETTABLEKS                       R7 R7 K12 ["isNextPageAvailable"]
        78 MOVE                             R8 R6
        79 CALL                             R7 1 1
-       80 JUMPIFNOT                        R7 ; [+389]
+       80 JUMPIFNOT                        R7 ; [+384]
        81 GETTABLEKS                       R7 R6 K13 ["nextPageCursor"]
        83 GETUPVAL                         R9 1
        84 GETTABLEKS                       R9 R9 K14 ["sorts"]
@@ -328,17 +328,17 @@ PROTO_4:
       310 CALL                             R20 -1 0
       311 RETURN                           R0 0
       312 GETUPVAL                         R20 4
-      313 DUPTABLE                         R22 K75 [{"categoryName", "sortType", "keyword", "cursor", "limit", "ownerId", "creatorType", "creatorTargetId", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "minDuration", "maxDuration", "artist", "album", "audioTypes", "tags", "uiSortIntent", "sortDirection", "includeOnlyVerifiedCreators", "searchSource", "queryParams", "querySource", "originalUserQuery", "originalCorrection", "qualityFilterData"}]
+      313 DUPTABLE                         R22 K74 [{"categoryName", "sortType", "keyword", "cursor", "limit", "ownerId", "creatorType", "creatorTargetId", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "minDuration", "maxDuration", "artist", "album", "audioTypes", "tags", "uiSortIntent", "sortDirection", "includeOnlyVerifiedCreators", "searchSource", "queryParams", "querySource", "originalUserQuery", "originalCorrection"}]
       314 GETUPVAL                         R23 7
       315 SETTABLEKS                       R23 R22 K53 ["categoryName"]
       317 SETTABLEKS                       R9 R22 K54 ["sortType"]
       319 GETUPVAL                         R24 1
-      320 GETTABLEKS                       R24 R24 K76 ["searchTerm"]
+      320 GETTABLEKS                       R24 R24 K75 ["searchTerm"]
       322 ORK                              R23 R24 K9 [""]
       323 SETTABLEKS                       R23 R22 K55 ["keyword"]
       325 SETTABLEKS                       R7 R22 K56 ["cursor"]
       327 GETUPVAL                         R23 16
-      328 GETTABLEKS                       R23 R23 K77 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
+      328 GETTABLEKS                       R23 R23 K76 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
       330 SETTABLEKS                       R23 R22 K57 ["limit"]
       332 SETTABLEKS                       R10 R22 K58 ["ownerId"]
       334 GETUPVAL                         R23 1
@@ -407,8 +407,8 @@ PROTO_4:
       421 GETTABLEKS                       R23 R23 K71 ["querySource"]
       423 JUMPIF                           R23 ; [+5]
       424 GETUPVAL                         R23 18
-      425 GETTABLEKS                       R23 R23 K78 ["QuerySource"]
-      427 GETTABLEKS                       R23 R23 K79 ["OriginalUserQuery"]
+      425 GETTABLEKS                       R23 R23 K77 ["QuerySource"]
+      427 GETTABLEKS                       R23 R23 K78 ["OriginalUserQuery"]
       429 SETTABLEKS                       R23 R22 K71 ["querySource"]
       431 GETUPVAL                         R24 1
       432 GETTABLEKS                       R24 R24 K72 ["originalUserQuery"]
@@ -418,30 +418,27 @@ PROTO_4:
       438 GETTABLEKS                       R24 R24 K73 ["originalCorrection"]
       440 ORK                              R23 R24 K9 [""]
       441 SETTABLEKS                       R23 R22 K73 ["originalCorrection"]
-      443 GETUPVAL                         R23 1
-      444 GETTABLEKS                       R23 R23 K74 ["qualityFilterData"]
-      446 SETTABLEKS                       R23 R22 K74 ["qualityFilterData"]
-      448 NAMECALL                         R20 R20 K80 ["getToolboxItems"]
-      450 CALL                             R20 2 1
-      451 NEWCLOSURE                       R23 P2
-      452 CAPTURE                          UPVAL U9
-      453 CAPTURE                          UPVAL U1
-      454 CAPTURE                          VAL R0
-      455 CAPTURE                          UPVAL U0
-      456 CAPTURE                          UPVAL U5
-      457 CAPTURE                          UPVAL U13
-      458 CAPTURE                          UPVAL U4
-      459 CAPTURE                          UPVAL U15
-      460 CAPTURE                          UPVAL U19
-      461 CAPTURE                          UPVAL U20
-      462 NEWCLOSURE                       R24 P3
-      463 CAPTURE                          VAL R0
-      464 CAPTURE                          UPVAL U0
-      465 CAPTURE                          UPVAL U21
-      466 NAMECALL                         R21 R20 K81 ["andThen"]
-      468 CALL                             R21 3 -1
-      469 RETURN                           R21 -1
-      470 RETURN                           R0 0
+      443 NAMECALL                         R20 R20 K79 ["getToolboxItems"]
+      445 CALL                             R20 2 1
+      446 NEWCLOSURE                       R23 P2
+      447 CAPTURE                          UPVAL U9
+      448 CAPTURE                          UPVAL U1
+      449 CAPTURE                          VAL R0
+      450 CAPTURE                          UPVAL U0
+      451 CAPTURE                          UPVAL U5
+      452 CAPTURE                          UPVAL U13
+      453 CAPTURE                          UPVAL U4
+      454 CAPTURE                          UPVAL U15
+      455 CAPTURE                          UPVAL U19
+      456 CAPTURE                          UPVAL U20
+      457 NEWCLOSURE                       R24 P3
+      458 CAPTURE                          VAL R0
+      459 CAPTURE                          UPVAL U0
+      460 CAPTURE                          UPVAL U21
+      461 NAMECALL                         R21 R20 K80 ["andThen"]
+      463 CALL                             R21 3 -1
+      464 RETURN                           R21 -1
+      465 RETURN                           R0 0
 
 PROTO_5:
         0 NEWCLOSURE                       R6 P0
@@ -564,28 +561,23 @@ MAIN:
       162 GETTABLEKS                       R25 R25 K29 ["SharedFlags"]
       164 GETTABLEKS                       R25 R25 K33 ["getFFlagToolboxAddCreationsFilterToListView"]
       166 CALL                             R24 1 1
-      167 GETIMPORT                        R25 K5 [require]
-      169 GETTABLEKS                       R26 R0 K7 ["Src"]
-      171 GETTABLEKS                       R26 R26 K34 ["Flags"]
-      173 GETTABLEKS                       R26 R26 K35 ["getFFlagQualityFiltersInToolboxSearch"]
-      175 CALL                             R25 1 1
-      176 DUPCLOSURE                       R26 K36 [PROTO_5]
-      177 CAPTURE                          VAL R5
-      178 CAPTURE                          VAL R17
-      179 CAPTURE                          VAL R9
-      180 CAPTURE                          VAL R15
-      181 CAPTURE                          VAL R10
-      182 CAPTURE                          VAL R14
-      183 CAPTURE                          VAL R18
-      184 CAPTURE                          VAL R21
-      185 CAPTURE                          VAL R2
-      186 CAPTURE                          VAL R19
-      187 CAPTURE                          VAL R8
-      188 CAPTURE                          VAL R23
-      189 CAPTURE                          VAL R16
-      190 CAPTURE                          VAL R24
-      191 CAPTURE                          VAL R12
-      192 CAPTURE                          VAL R7
-      193 CAPTURE                          VAL R6
-      194 CAPTURE                          VAL R4
-      195 RETURN                           R26 1
+      167 DUPCLOSURE                       R25 K34 [PROTO_5]
+      168 CAPTURE                          VAL R5
+      169 CAPTURE                          VAL R17
+      170 CAPTURE                          VAL R9
+      171 CAPTURE                          VAL R15
+      172 CAPTURE                          VAL R10
+      173 CAPTURE                          VAL R14
+      174 CAPTURE                          VAL R18
+      175 CAPTURE                          VAL R21
+      176 CAPTURE                          VAL R2
+      177 CAPTURE                          VAL R19
+      178 CAPTURE                          VAL R8
+      179 CAPTURE                          VAL R23
+      180 CAPTURE                          VAL R16
+      181 CAPTURE                          VAL R24
+      182 CAPTURE                          VAL R12
+      183 CAPTURE                          VAL R7
+      184 CAPTURE                          VAL R6
+      185 CAPTURE                          VAL R4
+      186 RETURN                           R25 1

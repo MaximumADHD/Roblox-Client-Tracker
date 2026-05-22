@@ -70,6 +70,15 @@ PROTO_4:
        10 RETURN                           R0 0
 
 PROTO_5:
+        0 GETTABLEKS                       R3 R0 K0 ["itemsByKey"]
+        2 FASTCALL1                        TOSTRING R1 ; [+3]
+        3 MOVE                             R5 R1
+        4 GETIMPORT                        R4 K2 [tostring]
+        6 CALL                             R4 1 1
+        7 GETTABLE                         R2 R3 R4
+        8 RETURN                           R2 1
+
+PROTO_6:
         0 MOVE                             R6 R1
         1 NAMECALL                         R4 R0 K0 ["getList"]
         3 CALL                             R4 2 1
@@ -95,7 +104,7 @@ PROTO_5:
        29 CALL                             R5 4 0
        30 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 MOVE                             R4 R3
         1 LOADNIL                          R5
         2 LOADNIL                          R6
@@ -108,7 +117,7 @@ PROTO_6:
        10 FORGLOOP                         R4 2 ; [-7]
        12 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R4 0
         1 GETTABLE                         R3 R4 R1
         2 JUMPIFNOTEQ                      R3 R0 ; [+2]
@@ -116,7 +125,7 @@ PROTO_7:
         5 LOADB                            R2 1
         6 RETURN                           R2 1
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R2 R0 K0 ["getItemKey"]
         2 MOVE                             R3 R1
         3 CALL                             R2 1 1
@@ -152,7 +161,7 @@ PROTO_8:
        40 LOADB                            R5 1
        41 RETURN                           R5 1
 
-PROTO_9:
+PROTO_10:
         0 MOVE                             R6 R3
         1 NAMECALL                         R4 R0 K0 ["upsertItem"]
         3 CALL                             R4 2 1
@@ -191,7 +200,7 @@ PROTO_9:
        46 CALL                             R7 2 0
        47 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 MOVE                             R5 R1
         1 NAMECALL                         R3 R0 K0 ["getList"]
         3 CALL                             R3 2 1
@@ -201,7 +210,7 @@ PROTO_10:
         9 CALL                             R4 2 0
        10 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["itemsByKey"]
         2 LOADNIL                          R3
         3 LOADNIL                          R4
@@ -216,7 +225,7 @@ PROTO_11:
        13 FORGLOOP                         R2 2 ; [-9]
        15 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 MOVE                             R5 R1
         1 NAMECALL                         R3 R0 K0 ["getList"]
         3 CALL                             R3 2 1
@@ -236,7 +245,7 @@ PROTO_12:
        20 FORGLOOP                         R4 1 ; [-12]
        22 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETTABLEKS                       R3 R0 K0 ["itemsByKey"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIF                           R2 ; [+2]
@@ -254,7 +263,7 @@ PROTO_13:
        18 LOADB                            R2 1
        19 RETURN                           R2 1
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R4 R1 K0 ["memberSet"]
         2 GETTABLE                         R3 R4 R2
         3 JUMPIF                           R3 ; [+2]
@@ -293,7 +302,7 @@ PROTO_14:
        47 LOADB                            R3 1
        48 RETURN                           R3 1
 
-PROTO_15:
+PROTO_16:
         0 GETTABLEKS                       R2 R1 K0 ["dirty"]
         2 JUMPIF                           R2 ; [+3]
         3 LOADB                            R2 1
@@ -302,13 +311,13 @@ PROTO_15:
         8 CALL                             R2 1 0
         9 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["refresh"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["dirty"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 0
@@ -320,7 +329,7 @@ PROTO_17:
        11 CALL                             R1 1 0
        12 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["dirty"]
         3 GETTABLEKS                       R1 R0 K1 ["lists"]
@@ -338,7 +347,7 @@ PROTO_18:
        21 CALL                             R1 1 0
        22 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 LOADB                            R2 0
         1 SETTABLEKS                       R2 R1 K0 ["dirty"]
         3 NEWTABLE                         R2 0 0
@@ -391,14 +400,14 @@ PROTO_19:
        65 SETTABLEKS                       R2 R1 K9 ["items"]
        67 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["items"]
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -416,7 +425,7 @@ PROTO_21:
        18 SETTABLEKS                       R1 R0 K4 ["targetCount"]
        20 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["items"]
@@ -468,7 +477,7 @@ PROTO_22:
        65 CAPTURE                          UPVAL U1
        66 RETURN                           R1 1
 
-PROTO_23:
+PROTO_24:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["targetCount"]
         3 JUMPIF                           R2 ; [+1]
@@ -508,7 +517,7 @@ PROTO_23:
        51 CALL                             R4 4 0
        52 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETUPVAL                         R4 0
         1 NAMECALL                         R4 R4 K0 ["use"]
         3 CALL                             R4 1 1
@@ -553,7 +562,7 @@ PROTO_24:
        50 MOVE                             R12 R9
        51 RETURN                           R10 3
 
-PROTO_25:
+PROTO_26:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["dirty"]
         3 NEWTABLE                         R1 0 0
@@ -608,43 +617,45 @@ MAIN:
        71 DUPCLOSURE                       R15 K31 [PROTO_4]
        72 SETTABLEKS                       R15 R13 K32 ["upsertItems"]
        74 DUPCLOSURE                       R15 K33 [PROTO_5]
-       75 SETTABLEKS                       R15 R13 K34 ["setItemsForPage"]
+       75 SETTABLEKS                       R15 R13 K34 ["getItem"]
        77 DUPCLOSURE                       R15 K35 [PROTO_6]
-       78 SETTABLEKS                       R15 R13 K36 ["upsertItemsForList"]
-       80 DUPCLOSURE                       R15 K37 [PROTO_8]
-       81 CAPTURE                          VAL R5
-       82 CAPTURE                          VAL R4
-       83 SETTABLEKS                       R15 R13 K38 ["upsertItem"]
-       85 DUPCLOSURE                       R15 K39 [PROTO_9]
-       86 CAPTURE                          VAL R11
-       87 SETTABLEKS                       R15 R13 K40 ["upsertItemForList"]
-       89 DUPCLOSURE                       R15 K41 [PROTO_10]
-       90 SETTABLEKS                       R15 R13 K42 ["setTargetCount"]
+       78 SETTABLEKS                       R15 R13 K36 ["setItemsForPage"]
+       80 DUPCLOSURE                       R15 K37 [PROTO_7]
+       81 SETTABLEKS                       R15 R13 K38 ["upsertItemsForList"]
+       83 DUPCLOSURE                       R15 K39 [PROTO_9]
+       84 CAPTURE                          VAL R5
+       85 CAPTURE                          VAL R4
+       86 SETTABLEKS                       R15 R13 K40 ["upsertItem"]
+       88 DUPCLOSURE                       R15 K41 [PROTO_10]
+       89 CAPTURE                          VAL R11
+       90 SETTABLEKS                       R15 R13 K42 ["upsertItemForList"]
        92 DUPCLOSURE                       R15 K43 [PROTO_11]
-       93 SETTABLEKS                       R15 R13 K44 ["updateItemsByFilter"]
+       93 SETTABLEKS                       R15 R13 K44 ["setTargetCount"]
        95 DUPCLOSURE                       R15 K45 [PROTO_12]
-       96 SETTABLEKS                       R15 R13 K46 ["updateItemsInListByFilter"]
+       96 SETTABLEKS                       R15 R13 K46 ["updateItemsByFilter"]
        98 DUPCLOSURE                       R15 K47 [PROTO_13]
-       99 SETTABLEKS                       R15 R13 K48 ["deleteItem"]
+       99 SETTABLEKS                       R15 R13 K48 ["updateItemsInListByFilter"]
       101 DUPCLOSURE                       R15 K49 [PROTO_14]
-      102 SETTABLEKS                       R15 R13 K50 ["removeItemFromList"]
+      102 SETTABLEKS                       R15 R13 K50 ["deleteItem"]
       104 DUPCLOSURE                       R15 K51 [PROTO_15]
-      105 SETTABLEKS                       R15 R13 K52 ["dirtyList"]
-      107 DUPCLOSURE                       R15 K53 [PROTO_17]
-      108 SETTABLEKS                       R15 R13 K54 ["dirtyCache"]
+      105 SETTABLEKS                       R15 R13 K52 ["removeItemFromList"]
+      107 DUPCLOSURE                       R15 K53 [PROTO_16]
+      108 SETTABLEKS                       R15 R13 K54 ["dirtyList"]
       110 DUPCLOSURE                       R15 K55 [PROTO_18]
-      111 SETTABLEKS                       R15 R13 K56 ["refresh"]
+      111 SETTABLEKS                       R15 R13 K56 ["dirtyCache"]
       113 DUPCLOSURE                       R15 K57 [PROTO_19]
-      114 CAPTURE                          VAL R11
-      115 CAPTURE                          VAL R12
-      116 CAPTURE                          VAL R14
-      117 SETTABLEKS                       R15 R13 K58 ["updateList"]
-      119 DUPCLOSURE                       R15 K59 [PROTO_24]
-      120 CAPTURE                          VAL R10
-      121 CAPTURE                          VAL R9
-      122 CAPTURE                          VAL R8
-      123 CAPTURE                          VAL R7
-      124 SETTABLEKS                       R15 R13 K60 ["use"]
-      126 DUPCLOSURE                       R15 K61 [PROTO_25]
-      127 SETTABLEKS                       R15 R13 K62 ["reset"]
-      129 RETURN                           R13 1
+      114 SETTABLEKS                       R15 R13 K58 ["refresh"]
+      116 DUPCLOSURE                       R15 K59 [PROTO_20]
+      117 CAPTURE                          VAL R11
+      118 CAPTURE                          VAL R12
+      119 CAPTURE                          VAL R14
+      120 SETTABLEKS                       R15 R13 K60 ["updateList"]
+      122 DUPCLOSURE                       R15 K61 [PROTO_25]
+      123 CAPTURE                          VAL R10
+      124 CAPTURE                          VAL R9
+      125 CAPTURE                          VAL R8
+      126 CAPTURE                          VAL R7
+      127 SETTABLEKS                       R15 R13 K62 ["use"]
+      129 DUPCLOSURE                       R15 K63 [PROTO_26]
+      130 SETTABLEKS                       R15 R13 K64 ["reset"]
+      132 RETURN                           R13 1

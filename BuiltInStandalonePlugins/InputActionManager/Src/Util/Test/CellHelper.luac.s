@@ -164,76 +164,90 @@ PROTO_4:
        58 NAMECALL                         R9 R9 K1 ["format"]
        60 CALL                             R9 2 1
        61 MOVE                             R8 R9
-       62 GETUPVAL                         R9 0
-       63 GETUPVAL                         R10 5
+       62 GETUPVAL                         R9 5
+       63 GETUPVAL                         R10 6
        64 MOVE                             R11 R8
        65 CALL                             R9 2 1
-       66 LOADK                            R13 K9 ["Dropdown menu '%*' not found from binding root"]
-       67 MOVE                             R15 R8
-       68 NAMECALL                         R13 R13 K1 ["format"]
-       70 CALL                             R13 2 1
-       71 MOVE                             R12 R13
-       72 FASTCALL2                        ASSERT R9 R12 ; [+4]
-       74 MOVE                             R11 R9
-       75 GETIMPORT                        R10 K4 [assert]
-       77 CALL                             R10 2 0
-       78 LOADK                            R12 K10 ["ScrollingFrame"]
-       79 LOADB                            R13 1
-       80 NAMECALL                         R10 R9 K11 ["FindFirstChildWhichIsA"]
-       82 CALL                             R10 3 1
-       83 LOADK                            R14 K12 ["ScrollingFrame not found under '%*'"]
-       84 MOVE                             R16 R8
-       85 NAMECALL                         R14 R14 K1 ["format"]
-       87 CALL                             R14 2 1
-       88 MOVE                             R13 R14
-       89 FASTCALL2                        ASSERT R10 R13 ; [+4]
-       91 MOVE                             R12 R10
-       92 GETIMPORT                        R11 K4 [assert]
-       94 CALL                             R11 2 0
-       95 GETIMPORT                        R12 K16 [Enum.KeyCode.Unknown]
-       97 JUMPIFNOTEQ                      R3 R12 ; [+3]
-       99 LOADK                            R11 K17 ["None"]
-      100 JUMP                             ; [+2]
-      101 GETTABLEKS                       R11 R3 K18 ["Name"]
-      103 GETUPVAL                         R12 6
-      104 MOVE                             R13 R9
-      105 MOVE                             R14 R11
-      106 CALL                             R12 2 1
-      107 LOADK                            R15 K19 ["GuiButton"]
-      108 NAMECALL                         R13 R12 K20 ["FindFirstAncestorWhichIsA"]
-      110 CALL                             R13 2 1
-      111 LOADK                            R17 K21 ["Button not found under '%*'"]
-      112 MOVE                             R19 R8
-      113 NAMECALL                         R17 R17 K1 ["format"]
-      115 CALL                             R17 2 1
-      116 MOVE                             R16 R17
-      117 FASTCALL2                        ASSERT R13 R16 ; [+4]
-      119 MOVE                             R15 R13
-      120 GETIMPORT                        R14 K4 [assert]
-      122 CALL                             R14 2 0
-      123 GETTABLEKS                       R15 R13 K22 ["AbsolutePosition"]
-      125 GETTABLEKS                       R16 R10 K22 ["AbsolutePosition"]
-      127 SUB                              R14 R15 R16
-      128 GETIMPORT                        R15 K25 [Vector2.new]
-      130 LOADN                            R16 0
-      131 GETTABLEKS                       R17 R14 K26 ["Y"]
-      133 CALL                             R15 2 1
-      134 SETTABLEKS                       R15 R10 K27 ["CanvasPosition"]
-      136 GETUPVAL                         R16 3
-      137 CALL                             R16 0 0
-      138 SETTABLEKS                       R15 R10 K27 ["CanvasPosition"]
-      140 GETUPVAL                         R16 3
-      141 CALL                             R16 0 0
-      142 SETTABLEKS                       R15 R10 K27 ["CanvasPosition"]
-      144 GETUPVAL                         R16 3
-      145 CALL                             R16 0 0
-      146 GETUPVAL                         R16 2
-      147 GETTABLEKS                       R16 R16 K7 ["click"]
-      149 MOVE                             R17 R13
-      150 CALL                             R16 1 0
-      151 GETUPVAL                         R16 3
-      152 CALL                             R16 0 0
-      153 RETURN                           R0 0
+       66 LOADNIL                          R10
+       67 MOVE                             R11 R9
+       68 LOADNIL                          R12
+       69 LOADNIL                          R13
+       70 FORGPREP                         R11
+       71 GETTABLEKS                       R16 R15 K9 ["AbsolutePosition"]
+       73 GETTABLEKS                       R16 R16 K10 ["X"]
+       75 JUMPIFEQKN                       R16 K11 [0] ; [+9]
+       77 GETTABLEKS                       R16 R15 K9 ["AbsolutePosition"]
+       79 GETTABLEKS                       R16 R16 K12 ["Y"]
+       81 JUMPIFEQKN                       R16 K11 [0] ; [+3]
+       83 MOVE                             R10 R15
+       84 JUMP                             ; [+2]
+       85 FORGLOOP                         R11 2 ; [-15]
+       87 LOADK                            R14 K13 ["Dropdown menu '%*' not found from binding root"]
+       88 MOVE                             R16 R8
+       89 NAMECALL                         R14 R14 K1 ["format"]
+       91 CALL                             R14 2 1
+       92 MOVE                             R13 R14
+       93 FASTCALL2                        ASSERT R10 R13 ; [+4]
+       95 MOVE                             R12 R10
+       96 GETIMPORT                        R11 K4 [assert]
+       98 CALL                             R11 2 0
+       99 LOADK                            R13 K14 ["ScrollingFrame"]
+      100 LOADB                            R14 1
+      101 NAMECALL                         R11 R10 K15 ["FindFirstChildWhichIsA"]
+      103 CALL                             R11 3 1
+      104 LOADK                            R15 K16 ["ScrollingFrame not found under '%*'"]
+      105 MOVE                             R17 R8
+      106 NAMECALL                         R15 R15 K1 ["format"]
+      108 CALL                             R15 2 1
+      109 MOVE                             R14 R15
+      110 FASTCALL2                        ASSERT R11 R14 ; [+4]
+      112 MOVE                             R13 R11
+      113 GETIMPORT                        R12 K4 [assert]
+      115 CALL                             R12 2 0
+      116 GETIMPORT                        R13 K20 [Enum.KeyCode.Unknown]
+      118 JUMPIFNOTEQ                      R3 R13 ; [+3]
+      120 LOADK                            R12 K21 ["None"]
+      121 JUMP                             ; [+2]
+      122 GETTABLEKS                       R12 R3 K22 ["Name"]
+      124 GETUPVAL                         R13 7
+      125 MOVE                             R14 R10
+      126 MOVE                             R15 R12
+      127 CALL                             R13 2 1
+      128 LOADK                            R16 K23 ["GuiButton"]
+      129 NAMECALL                         R14 R13 K24 ["FindFirstAncestorWhichIsA"]
+      131 CALL                             R14 2 1
+      132 LOADK                            R18 K25 ["Button not found under '%*'"]
+      133 MOVE                             R20 R8
+      134 NAMECALL                         R18 R18 K1 ["format"]
+      136 CALL                             R18 2 1
+      137 MOVE                             R17 R18
+      138 FASTCALL2                        ASSERT R14 R17 ; [+4]
+      140 MOVE                             R16 R14
+      141 GETIMPORT                        R15 K4 [assert]
+      143 CALL                             R15 2 0
+      144 GETTABLEKS                       R16 R14 K9 ["AbsolutePosition"]
+      146 GETTABLEKS                       R17 R11 K9 ["AbsolutePosition"]
+      148 SUB                              R15 R16 R17
+      149 GETIMPORT                        R16 K28 [Vector2.new]
+      151 LOADN                            R17 0
+      152 GETTABLEKS                       R18 R15 K12 ["Y"]
+      154 CALL                             R16 2 1
+      155 SETTABLEKS                       R16 R11 K29 ["CanvasPosition"]
+      157 GETUPVAL                         R17 3
+      158 CALL                             R17 0 0
+      159 SETTABLEKS                       R16 R11 K29 ["CanvasPosition"]
+      161 GETUPVAL                         R17 3
+      162 CALL                             R17 0 0
+      163 SETTABLEKS                       R16 R11 K29 ["CanvasPosition"]
+      165 GETUPVAL                         R17 3
+      166 CALL                             R17 0 0
+      167 GETUPVAL                         R17 2
+      168 GETTABLEKS                       R17 R17 K7 ["click"]
+      170 MOVE                             R18 R14
+      171 CALL                             R17 1 0
+      172 GETUPVAL                         R17 3
+      173 CALL                             R17 0 0
+      174 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -269,26 +283,28 @@ MAIN:
        51 GETTABLEKS                       R9 R3 K21 ["getByTestId"]
        53 GETTABLEKS                       R10 R3 K22 ["getByText"]
        55 GETTABLEKS                       R11 R3 K23 ["queryByTestId"]
-       57 NEWTABLE                         R12 8 0
-       59 DUPCLOSURE                       R13 K24 [PROTO_0]
-       60 CAPTURE                          VAL R11
-       61 SETTABLEKS                       R13 R12 K25 ["GetAction"]
-       63 DUPCLOSURE                       R13 K26 [PROTO_1]
-       64 CAPTURE                          VAL R11
-       65 SETTABLEKS                       R13 R12 K27 ["GetKeyBind"]
-       67 DUPCLOSURE                       R13 K28 [PROTO_2]
-       68 CAPTURE                          VAL R11
-       69 SETTABLEKS                       R13 R12 K29 ["GetCompoundDirection"]
-       71 DUPCLOSURE                       R13 K30 [PROTO_3]
-       72 CAPTURE                          VAL R11
-       73 SETTABLEKS                       R13 R12 K31 ["GetDisplayedKeyCode"]
-       75 DUPCLOSURE                       R13 K32 [PROTO_4]
-       76 CAPTURE                          VAL R11
-       77 CAPTURE                          VAL R9
-       78 CAPTURE                          VAL R8
-       79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R0
-       82 CAPTURE                          VAL R10
-       83 SETTABLEKS                       R13 R12 K33 ["ChangeProperty"]
-       85 RETURN                           R12 1
+       57 GETTABLEKS                       R12 R3 K24 ["queryAllByTestId"]
+       59 NEWTABLE                         R13 8 0
+       61 DUPCLOSURE                       R14 K25 [PROTO_0]
+       62 CAPTURE                          VAL R11
+       63 SETTABLEKS                       R14 R13 K26 ["GetAction"]
+       65 DUPCLOSURE                       R14 K27 [PROTO_1]
+       66 CAPTURE                          VAL R11
+       67 SETTABLEKS                       R14 R13 K28 ["GetKeyBind"]
+       69 DUPCLOSURE                       R14 K29 [PROTO_2]
+       70 CAPTURE                          VAL R11
+       71 SETTABLEKS                       R14 R13 K30 ["GetCompoundDirection"]
+       73 DUPCLOSURE                       R14 K31 [PROTO_3]
+       74 CAPTURE                          VAL R11
+       75 SETTABLEKS                       R14 R13 K32 ["GetDisplayedKeyCode"]
+       77 DUPCLOSURE                       R14 K33 [PROTO_4]
+       78 CAPTURE                          VAL R11
+       79 CAPTURE                          VAL R9
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R6
+       82 CAPTURE                          VAL R7
+       83 CAPTURE                          VAL R12
+       84 CAPTURE                          VAL R0
+       85 CAPTURE                          VAL R10
+       86 SETTABLEKS                       R14 R13 K34 ["ChangeProperty"]
+       88 RETURN                           R13 1

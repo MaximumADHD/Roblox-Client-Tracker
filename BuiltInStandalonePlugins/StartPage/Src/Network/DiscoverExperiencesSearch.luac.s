@@ -7,45 +7,73 @@ PROTO_0:
         8 JUMPIF                           R2 ; [+2]
         9 LOADNIL                          R2
        10 RETURN                           R2 1
-       11 GETTABLEKS                       R2 R1 K3 ["privacyType"]
-       13 JUMPIFNOT                        R2 ; [+15]
-       14 JUMPIFEQKS                       R2 K4 ["Public"] ; [+14]
-       16 JUMPIFEQKS                       R2 K5 ["Private"] ; [+12]
-       18 JUMPIFEQKS                       R2 K6 ["Draft"] ; [+10]
-       20 GETIMPORT                        R3 K8 [error]
-       22 LOADK                            R5 K9 ["Invalid value for privacyType: \"%*\""]
-       23 MOVE                             R7 R2
-       24 NAMECALL                         R5 R5 K10 ["format"]
-       26 CALL                             R5 2 1
-       27 MOVE                             R4 R5
-       28 CALL                             R3 1 0
-       29 DUPTABLE                         R3 K24 [{"IsGame", "Name", "CreatorName", "CreatorType", "CreatorTargetId", "Type", "Description", "Created", "Updated", "PrivacyType", "IsFriendsOnly", "Id", "RootPlaceId"}]
-       30 LOADB                            R4 1
-       31 SETTABLEKS                       R4 R3 K11 ["IsGame"]
-       33 GETTABLEKS                       R4 R1 K0 ["name"]
-       35 SETTABLEKS                       R4 R3 K12 ["Name"]
-       37 GETTABLEKS                       R4 R1 K25 ["creatorName"]
-       39 SETTABLEKS                       R4 R3 K13 ["CreatorName"]
-       41 GETTABLEKS                       R4 R1 K26 ["creatorType"]
-       43 SETTABLEKS                       R4 R3 K14 ["CreatorType"]
-       45 GETTABLEKS                       R4 R1 K27 ["creatorTargetId"]
-       47 SETTABLEKS                       R4 R3 K15 ["CreatorTargetId"]
-       49 LOADK                            R4 K28 ["Experience"]
-       50 SETTABLEKS                       R4 R3 K16 ["Type"]
-       52 GETTABLEKS                       R4 R1 K29 ["description"]
-       54 SETTABLEKS                       R4 R3 K17 ["Description"]
-       56 GETTABLEKS                       R4 R1 K30 ["created"]
-       58 SETTABLEKS                       R4 R3 K18 ["Created"]
-       60 GETTABLEKS                       R4 R1 K31 ["updated"]
-       62 SETTABLEKS                       R4 R3 K19 ["Updated"]
-       64 SETTABLEKS                       R2 R3 K20 ["PrivacyType"]
-       66 GETTABLEKS                       R4 R1 K32 ["isFriendsOnly"]
-       68 SETTABLEKS                       R4 R3 K21 ["IsFriendsOnly"]
-       70 GETTABLEKS                       R4 R1 K1 ["id"]
-       72 SETTABLEKS                       R4 R3 K22 ["Id"]
-       74 GETTABLEKS                       R4 R1 K2 ["rootPlaceId"]
-       76 SETTABLEKS                       R4 R3 K23 ["RootPlaceId"]
-       78 RETURN                           R3 1
+       11 GETUPVAL                         R2 0
+       12 JUMPIFNOT                        R2 ; [+48]
+       13 DUPTABLE                         R2 K15 [{"IsGame", "Name", "CreatorName", "CreatorType", "CreatorTargetId", "Type", "Description", "Created", "Updated", "Audiences", "Id", "RootPlaceId"}]
+       14 LOADB                            R3 1
+       15 SETTABLEKS                       R3 R2 K3 ["IsGame"]
+       17 GETTABLEKS                       R3 R1 K0 ["name"]
+       19 SETTABLEKS                       R3 R2 K4 ["Name"]
+       21 GETTABLEKS                       R3 R1 K16 ["creatorName"]
+       23 SETTABLEKS                       R3 R2 K5 ["CreatorName"]
+       25 GETTABLEKS                       R3 R1 K17 ["creatorType"]
+       27 SETTABLEKS                       R3 R2 K6 ["CreatorType"]
+       29 GETTABLEKS                       R3 R1 K18 ["creatorTargetId"]
+       31 SETTABLEKS                       R3 R2 K7 ["CreatorTargetId"]
+       33 LOADK                            R3 K19 ["Experience"]
+       34 SETTABLEKS                       R3 R2 K8 ["Type"]
+       36 GETTABLEKS                       R3 R1 K20 ["description"]
+       38 SETTABLEKS                       R3 R2 K9 ["Description"]
+       40 GETTABLEKS                       R3 R1 K21 ["created"]
+       42 SETTABLEKS                       R3 R2 K10 ["Created"]
+       44 GETTABLEKS                       R3 R1 K22 ["updated"]
+       46 SETTABLEKS                       R3 R2 K11 ["Updated"]
+       48 GETTABLEKS                       R3 R1 K23 ["audiences"]
+       50 SETTABLEKS                       R3 R2 K12 ["Audiences"]
+       52 GETTABLEKS                       R3 R1 K1 ["id"]
+       54 SETTABLEKS                       R3 R2 K13 ["Id"]
+       56 GETTABLEKS                       R3 R1 K2 ["rootPlaceId"]
+       58 SETTABLEKS                       R3 R2 K14 ["RootPlaceId"]
+       60 RETURN                           R2 1
+       61 GETTABLEKS                       R2 R1 K24 ["privacyType"]
+       63 JUMPIFNOT                        R2 ; [+15]
+       64 JUMPIFEQKS                       R2 K25 ["Public"] ; [+14]
+       66 JUMPIFEQKS                       R2 K26 ["Private"] ; [+12]
+       68 JUMPIFEQKS                       R2 K27 ["Draft"] ; [+10]
+       70 GETIMPORT                        R3 K29 [error]
+       72 LOADK                            R5 K30 ["Invalid value for privacyType: \"%*\""]
+       73 MOVE                             R7 R2
+       74 NAMECALL                         R5 R5 K31 ["format"]
+       76 CALL                             R5 2 1
+       77 MOVE                             R4 R5
+       78 CALL                             R3 1 0
+       79 DUPTABLE                         R3 K34 [{"IsGame", "Name", "CreatorName", "CreatorType", "CreatorTargetId", "Type", "Description", "Created", "Updated", "PrivacyType", "IsFriendsOnly", "Id", "RootPlaceId"}]
+       80 LOADB                            R4 1
+       81 SETTABLEKS                       R4 R3 K3 ["IsGame"]
+       83 GETTABLEKS                       R4 R1 K0 ["name"]
+       85 SETTABLEKS                       R4 R3 K4 ["Name"]
+       87 GETTABLEKS                       R4 R1 K16 ["creatorName"]
+       89 SETTABLEKS                       R4 R3 K5 ["CreatorName"]
+       91 GETTABLEKS                       R4 R1 K17 ["creatorType"]
+       93 SETTABLEKS                       R4 R3 K6 ["CreatorType"]
+       95 GETTABLEKS                       R4 R1 K18 ["creatorTargetId"]
+       97 SETTABLEKS                       R4 R3 K7 ["CreatorTargetId"]
+       99 LOADK                            R4 K19 ["Experience"]
+      100 SETTABLEKS                       R4 R3 K8 ["Type"]
+      102 GETTABLEKS                       R4 R1 K20 ["description"]
+      104 SETTABLEKS                       R4 R3 K9 ["Description"]
+      106 GETTABLEKS                       R4 R1 K21 ["created"]
+      108 SETTABLEKS                       R4 R3 K10 ["Created"]
+      110 GETTABLEKS                       R4 R1 K22 ["updated"]
+      112 SETTABLEKS                       R4 R3 K11 ["Updated"]
+      114 SETTABLEKS                       R2 R3 K32 ["PrivacyType"]
+      116 GETTABLEKS                       R4 R1 K35 ["isFriendsOnly"]
+      118 SETTABLEKS                       R4 R3 K33 ["IsFriendsOnly"]
+      120 GETTABLEKS                       R4 R1 K1 ["id"]
+      122 SETTABLEKS                       R4 R3 K13 ["Id"]
+      124 GETTABLEKS                       R4 R1 K2 ["rootPlaceId"]
+      126 SETTABLEKS                       R4 R3 K14 ["RootPlaceId"]
+      128 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -54,14 +82,15 @@ PROTO_1:
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R3 R1 K0 ["data"]
         6 DUPCLOSURE                       R4 K1 [PROTO_0]
-        7 CALL                             R2 2 1
-        8 DUPTABLE                         R3 K4 [{"games", "targetResults"}]
-        9 SETTABLEKS                       R2 R3 K2 ["games"]
-       11 GETTABLEKS                       R4 R1 K5 ["totalResults"]
-       13 JUMPIF                           R4 ; [+1]
-       14 LENGTH                           R4 R2
-       15 SETTABLEKS                       R4 R3 K3 ["targetResults"]
-       17 RETURN                           R3 1
+        7 CAPTURE                          UPVAL U2
+        8 CALL                             R2 2 1
+        9 DUPTABLE                         R3 K4 [{"games", "targetResults"}]
+       10 SETTABLEKS                       R2 R3 K2 ["games"]
+       12 GETTABLEKS                       R4 R1 K5 ["totalResults"]
+       14 JUMPIF                           R4 ; [+1]
+       15 LENGTH                           R4 R2
+       16 SETTABLEKS                       R4 R3 K3 ["targetResults"]
+       18 RETURN                           R3 1
 
 PROTO_2:
         0 GETUPVAL                         R3 0
@@ -104,9 +133,10 @@ PROTO_2:
        48 DUPCLOSURE                       R6 K13 [PROTO_1]
        49 CAPTURE                          UPVAL U5
        50 CAPTURE                          UPVAL U6
-       51 NAMECALL                         R4 R4 K14 ["andThen"]
-       53 CALL                             R4 2 -1
-       54 RETURN                           R4 -1
+       51 CAPTURE                          UPVAL U7
+       52 NAMECALL                         R4 R4 K14 ["andThen"]
+       54 CALL                             R4 2 -1
+       55 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -174,15 +204,22 @@ MAIN:
       107 GETTABLEKS                       R14 R14 K29 ["getFFlagStartPageEstablishTrustBanner"]
       109 CALL                             R13 1 1
       110 CALL                             R13 0 1
-      111 MOVE                             R14 R9
-      112 GETTABLEKS                       R15 R6 K30 ["validate"]
-      114 CALL                             R14 1 1
-      115 DUPCLOSURE                       R15 K31 [PROTO_2]
-      116 CAPTURE                          VAL R13
-      117 CAPTURE                          VAL R10
-      118 CAPTURE                          VAL R7
-      119 CAPTURE                          VAL R12
-      120 CAPTURE                          VAL R11
-      121 CAPTURE                          VAL R14
-      122 CAPTURE                          VAL R4
-      123 RETURN                           R15 1
+      111 GETIMPORT                        R14 K5 [require]
+      113 GETTABLEKS                       R15 R0 K6 ["Src"]
+      115 GETTABLEKS                       R15 R15 K7 ["SharedFlags"]
+      117 GETTABLEKS                       R15 R15 K30 ["getFFlagLuaStartPageAudiencesReplacement"]
+      119 CALL                             R14 1 1
+      120 CALL                             R14 0 1
+      121 MOVE                             R15 R9
+      122 GETTABLEKS                       R16 R6 K31 ["validate"]
+      124 CALL                             R15 1 1
+      125 DUPCLOSURE                       R16 K32 [PROTO_2]
+      126 CAPTURE                          VAL R13
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R7
+      129 CAPTURE                          VAL R12
+      130 CAPTURE                          VAL R11
+      131 CAPTURE                          VAL R15
+      132 CAPTURE                          VAL R4
+      133 CAPTURE                          VAL R14
+      134 RETURN                           R16 1

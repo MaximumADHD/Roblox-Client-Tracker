@@ -38,52 +38,67 @@ PROTO_2:
         7 RETURN                           R1 -1
 
 PROTO_3:
-        0 NAMECALL                         R4 R0 K0 ["Clone"]
-        2 CALL                             R4 1 1
-        3 MOVE                             R5 R1
-        4 LOADNIL                          R6
-        5 LOADNIL                          R7
-        6 FORGPREP                         R5
-        7 GETTABLEKS                       R10 R8 K1 ["Name"]
-        9 SETTABLE                         R9 R4 R10
-       10 FORGLOOP                         R5 2 ; [-4]
-       12 GETUPVAL                         R7 0
-       13 GETTABLEKS                       R7 R7 K2 ["map"]
-       15 MOVE                             R8 R2
-       16 DUPCLOSURE                       R9 K3 [PROTO_1]
-       17 CAPTURE                          UPVAL U1
-       18 CALL                             R7 2 1
-       19 LOADB                            R8 1
-       20 NAMECALL                         R5 R4 K4 ["SetAccessories"]
-       22 CALL                             R5 3 0
-       23 GETUPVAL                         R5 2
-       24 CALL                             R5 0 1
-       25 JUMPIFNOT                        R5 ; [+38]
-       26 MOVE                             R5 R3
-       27 LOADNIL                          R6
-       28 LOADNIL                          R7
-       29 FORGPREP                         R5
-       30 GETIMPORT                        R10 K7 [Instance.new]
-       32 LOADK                            R11 K8 ["MakeupDescription"]
-       33 CALL                             R10 1 1
-       34 GETTABLEKS                       R11 R9 K9 ["AssetId"]
-       36 JUMPIFEQKNIL                     R11 ; [+6]
-       38 GETTABLEKS                       R11 R9 K9 ["AssetId"]
-       40 SETTABLEKS                       R11 R10 K9 ["AssetId"]
-       42 JUMP                             ; [+4]
-       43 GETTABLEKS                       R11 R9 K5 ["Instance"]
-       45 SETTABLEKS                       R11 R10 K5 ["Instance"]
-       47 GETUPVAL                         R12 1
-       48 GETTABLEKS                       R12 R12 K10 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
-       50 GETTABLEKS                       R13 R9 K11 ["AssetType"]
-       52 GETTABLE                         R11 R12 R13
-       53 SETTABLEKS                       R11 R10 K12 ["MakeupType"]
-       55 GETTABLEKS                       R12 R9 K14 ["Order"]
-       57 ORK                              R11 R12 K13 [0]
-       58 SETTABLEKS                       R11 R10 K14 ["Order"]
-       60 SETTABLEKS                       R4 R10 K15 ["Parent"]
-       62 FORGLOOP                         R5 2 ; [-33]
-       64 RETURN                           R4 1
+        0 NAMECALL                         R5 R0 K0 ["Clone"]
+        2 CALL                             R5 1 1
+        3 MOVE                             R6 R1
+        4 LOADNIL                          R7
+        5 LOADNIL                          R8
+        6 FORGPREP                         R6
+        7 GETTABLEKS                       R11 R9 K1 ["Name"]
+        9 SETTABLE                         R10 R5 R11
+       10 FORGLOOP                         R6 2 ; [-4]
+       12 GETUPVAL                         R6 0
+       13 CALL                             R6 0 1
+       14 JUMPIFNOT                        R6 ; [+18]
+       15 GETIMPORT                        R8 K6 [Enum.AssetType.Shirt]
+       17 GETTABLE                         R7 R4 R8
+       18 ORK                              R6 R7 K2 [0]
+       19 SETTABLEKS                       R6 R5 K5 ["Shirt"]
+       21 GETIMPORT                        R8 K8 [Enum.AssetType.Pants]
+       23 GETTABLE                         R7 R4 R8
+       24 ORK                              R6 R7 K2 [0]
+       25 SETTABLEKS                       R6 R5 K7 ["Pants"]
+       27 GETIMPORT                        R8 K10 [Enum.AssetType.TShirt]
+       29 GETTABLE                         R7 R4 R8
+       30 ORK                              R6 R7 K2 [0]
+       31 SETTABLEKS                       R6 R5 K11 ["GraphicTShirt"]
+       33 GETUPVAL                         R8 1
+       34 GETTABLEKS                       R8 R8 K12 ["map"]
+       36 MOVE                             R9 R2
+       37 DUPCLOSURE                       R10 K13 [PROTO_1]
+       38 CAPTURE                          UPVAL U2
+       39 CALL                             R8 2 1
+       40 LOADB                            R9 1
+       41 NAMECALL                         R6 R5 K14 ["SetAccessories"]
+       43 CALL                             R6 3 0
+       44 GETUPVAL                         R6 3
+       45 CALL                             R6 0 1
+       46 JUMPIFNOT                        R6 ; [+38]
+       47 MOVE                             R6 R3
+       48 LOADNIL                          R7
+       49 LOADNIL                          R8
+       50 FORGPREP                         R6
+       51 GETIMPORT                        R11 K17 [Instance.new]
+       53 LOADK                            R12 K18 ["MakeupDescription"]
+       54 CALL                             R11 1 1
+       55 GETTABLEKS                       R12 R10 K19 ["AssetId"]
+       57 JUMPIFEQKNIL                     R12 ; [+6]
+       59 GETTABLEKS                       R12 R10 K19 ["AssetId"]
+       61 SETTABLEKS                       R12 R11 K19 ["AssetId"]
+       63 JUMP                             ; [+4]
+       64 GETTABLEKS                       R12 R10 K15 ["Instance"]
+       66 SETTABLEKS                       R12 R11 K15 ["Instance"]
+       68 GETUPVAL                         R13 2
+       69 GETTABLEKS                       R13 R13 K20 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
+       71 GETTABLEKS                       R14 R10 K4 ["AssetType"]
+       73 GETTABLE                         R12 R13 R14
+       74 SETTABLEKS                       R12 R11 K21 ["MakeupType"]
+       76 GETTABLEKS                       R13 R10 K22 ["Order"]
+       78 ORK                              R12 R13 K2 [0]
+       79 SETTABLEKS                       R12 R11 K22 ["Order"]
+       81 SETTABLEKS                       R5 R11 K23 ["Parent"]
+       83 FORGLOOP                         R6 2 ; [-33]
+       85 RETURN                           R5 1
 
 PROTO_4:
         0 DUPTABLE                         R2 K2 [{"AssetId", "AssetType"}]
@@ -251,31 +266,34 @@ PROTO_10:
        97 GETTABLEKS                       R3 R3 K26 ["patches"]
        99 GETUPVAL                         R4 4
       100 GETUPVAL                         R5 5
-      101 CALL                             R1 4 1
-      102 MOVE                             R0 R1
-      103 GETUPVAL                         R1 6
-      104 MOVE                             R2 R0
-      105 GETUPVAL                         R3 1
-      106 GETTABLEKS                       R3 R3 K12 ["WorldModel"]
-      108 GETTABLEKS                       R3 R3 K27 ["Humanoid"]
-      110 CALL                             R1 2 0
-      111 GETUPVAL                         R1 7
-      112 CALL                             R1 0 1
-      113 JUMPIFNOT                        R1 ; [+20]
-      114 GETUPVAL                         R1 8
-      115 JUMPIFNOT                        R1 ; [+3]
-      116 GETUPVAL                         R1 8
-      117 GETTABLEKS                       R1 R1 K28 ["resetIncludesBodyParts"]
-      119 JUMPIFEQKNIL                     R1 ; [+14]
-      121 GETUPVAL                         R2 8
-      122 JUMPIFEQKNIL                     R2 ; [+11]
-      124 GETUPVAL                         R2 8
-      125 GETTABLEKS                       R2 R2 K28 ["resetIncludesBodyParts"]
-      127 JUMPIFEQKNIL                     R2 ; [+6]
+      101 GETUPVAL                         R6 0
+      102 GETTABLEKS                       R6 R6 K4 ["avatarAssets"]
+      104 GETTABLEKS                       R6 R6 K27 ["classicClothing"]
+      106 CALL                             R1 5 1
+      107 MOVE                             R0 R1
+      108 GETUPVAL                         R1 6
+      109 MOVE                             R2 R0
+      110 GETUPVAL                         R3 1
+      111 GETTABLEKS                       R3 R3 K12 ["WorldModel"]
+      113 GETTABLEKS                       R3 R3 K28 ["Humanoid"]
+      115 CALL                             R1 2 0
+      116 GETUPVAL                         R1 7
+      117 CALL                             R1 0 1
+      118 JUMPIFNOT                        R1 ; [+20]
+      119 GETUPVAL                         R1 8
+      120 JUMPIFNOT                        R1 ; [+3]
+      121 GETUPVAL                         R1 8
+      122 GETTABLEKS                       R1 R1 K29 ["resetIncludesBodyParts"]
+      124 JUMPIFEQKNIL                     R1 ; [+14]
+      126 GETUPVAL                         R2 8
+      127 JUMPIFEQKNIL                     R2 ; [+11]
       129 GETUPVAL                         R2 8
-      130 GETTABLEKS                       R2 R2 K28 ["resetIncludesBodyParts"]
-      132 SETTABLEKS                       R2 R0 K29 ["ResetIncludesBodyParts"]
-      134 RETURN                           R0 1
+      130 GETTABLEKS                       R2 R2 K29 ["resetIncludesBodyParts"]
+      132 JUMPIFEQKNIL                     R2 ; [+6]
+      134 GETUPVAL                         R2 8
+      135 GETTABLEKS                       R2 R2 K29 ["resetIncludesBodyParts"]
+      137 SETTABLEKS                       R2 R0 K30 ["ResetIncludesBodyParts"]
+      139 RETURN                           R0 1
 
 PROTO_11:
         0 GETUPVAL                         R3 0
@@ -413,33 +431,39 @@ MAIN:
        71 GETIMPORT                        R9 K5 [require]
        73 GETTABLEKS                       R10 R0 K10 ["Src"]
        75 GETTABLEKS                       R10 R10 K17 ["Flags"]
-       77 GETTABLEKS                       R10 R10 K18 ["getFFlagAvatarPreviewerEditingTools"]
+       77 GETTABLEKS                       R10 R10 K18 ["getFFlagAvatarPreviewerClassicClothingPalettes"]
        79 CALL                             R9 1 1
-       80 MOVE                             R10 R9
-       81 CALL                             R10 0 1
-       82 GETIMPORT                        R11 K5 [require]
-       84 GETTABLEKS                       R12 R0 K10 ["Src"]
-       86 GETTABLEKS                       R12 R12 K17 ["Flags"]
-       88 GETTABLEKS                       R12 R12 K19 ["getFFlagAvatarPreviewerMakeupDescription"]
-       90 CALL                             R11 1 1
-       91 DUPCLOSURE                       R12 K20 [PROTO_0]
-       92 DUPCLOSURE                       R13 K21 [PROTO_2]
-       93 CAPTURE                          VAL R2
-       94 CAPTURE                          VAL R4
-       95 DUPCLOSURE                       R14 K22 [PROTO_3]
-       96 CAPTURE                          VAL R2
-       97 CAPTURE                          VAL R4
-       98 CAPTURE                          VAL R11
-       99 DUPCLOSURE                       R15 K23 [PROTO_11]
-      100 CAPTURE                          VAL R3
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R10
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R8
+       80 GETIMPORT                        R10 K5 [require]
+       82 GETTABLEKS                       R11 R0 K10 ["Src"]
+       84 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       86 GETTABLEKS                       R11 R11 K19 ["getFFlagAvatarPreviewerEditingTools"]
+       88 CALL                             R10 1 1
+       89 MOVE                             R11 R10
+       90 CALL                             R11 0 1
+       91 GETIMPORT                        R12 K5 [require]
+       93 GETTABLEKS                       R13 R0 K10 ["Src"]
+       95 GETTABLEKS                       R13 R13 K17 ["Flags"]
+       97 GETTABLEKS                       R13 R13 K20 ["getFFlagAvatarPreviewerMakeupDescription"]
+       99 CALL                             R12 1 1
+      100 DUPCLOSURE                       R13 K21 [PROTO_0]
+      101 DUPCLOSURE                       R14 K22 [PROTO_2]
+      102 CAPTURE                          VAL R2
+      103 CAPTURE                          VAL R4
+      104 DUPCLOSURE                       R15 K23 [PROTO_3]
+      105 CAPTURE                          VAL R9
+      106 CAPTURE                          VAL R2
       107 CAPTURE                          VAL R4
-      108 CAPTURE                          VAL R14
-      109 CAPTURE                          VAL R7
-      110 CAPTURE                          VAL R9
-      111 RETURN                           R15 1
+      108 CAPTURE                          VAL R12
+      109 DUPCLOSURE                       R16 K24 [PROTO_11]
+      110 CAPTURE                          VAL R3
+      111 CAPTURE                          VAL R5
+      112 CAPTURE                          VAL R11
+      113 CAPTURE                          VAL R1
+      114 CAPTURE                          VAL R2
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R4
+      118 CAPTURE                          VAL R15
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R10
+      121 RETURN                           R16 1

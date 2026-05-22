@@ -1626,29 +1626,23 @@ PROTO_60:
       221 GETUPVAL                         R4 6
       222 GETTABLEKS                       R4 R4 K19 ["pluginUri"]
       224 SETTABLEKS                       R4 R3 K19 ["pluginUri"]
-      226 GETTABLEKS                       R4 R2 K32 ["qualityFilterTags"]
-      228 JUMPIFNOT                        R4 ; [+8]
-      229 GETTABLEKS                       R4 R2 K32 ["qualityFilterTags"]
-      231 JUMPIFEQKS                       R4 K33 [""] ; [+5]
-      233 GETTABLEKS                       R4 R2 K32 ["qualityFilterTags"]
-      235 SETTABLEKS                       R4 R3 K32 ["qualityFilterTags"]
-      237 GETTABLEKS                       R4 R2 K34 ["previousSearchId"]
-      239 SETTABLEKS                       R4 R3 K34 ["previousSearchId"]
-      241 GETTABLEKS                       R4 R2 K35 ["querySource"]
-      243 SETTABLEKS                       R4 R3 K35 ["querySource"]
-      245 GETTABLEKS                       R4 R2 K36 ["originalUserQuery"]
-      247 SETTABLEKS                       R4 R3 K36 ["originalUserQuery"]
-      249 GETTABLEKS                       R4 R2 K37 ["originalCorrection"]
-      251 SETTABLEKS                       R4 R3 K37 ["originalCorrection"]
-      253 GETUPVAL                         R4 7
-      254 GETTABLEKS                       R4 R4 K38 ["sendEventImmediately"]
-      256 GETUPVAL                         R5 6
-      257 GETTABLEKS                       R5 R5 K39 ["eventTarget"]
-      259 LOADK                            R6 K40 ["Marketplace"]
-      260 LOADK                            R7 K41 ["MarketplaceSearch"]
-      261 MOVE                             R8 R3
-      262 CALL                             R4 4 0
-      263 RETURN                           R0 0
+      226 GETTABLEKS                       R4 R2 K32 ["previousSearchId"]
+      228 SETTABLEKS                       R4 R3 K32 ["previousSearchId"]
+      230 GETTABLEKS                       R4 R2 K33 ["querySource"]
+      232 SETTABLEKS                       R4 R3 K33 ["querySource"]
+      234 GETTABLEKS                       R4 R2 K34 ["originalUserQuery"]
+      236 SETTABLEKS                       R4 R3 K34 ["originalUserQuery"]
+      238 GETTABLEKS                       R4 R2 K35 ["originalCorrection"]
+      240 SETTABLEKS                       R4 R3 K35 ["originalCorrection"]
+      242 GETUPVAL                         R4 7
+      243 GETTABLEKS                       R4 R4 K36 ["sendEventImmediately"]
+      245 GETUPVAL                         R5 6
+      246 GETTABLEKS                       R5 R5 K37 ["eventTarget"]
+      248 LOADK                            R6 K38 ["Marketplace"]
+      249 LOADK                            R7 K39 ["MarketplaceSearch"]
+      250 MOVE                             R8 R3
+      251 CALL                             R4 4 0
+      252 RETURN                           R0 0
 
 PROTO_61:
         0 GETUPVAL                         R7 0

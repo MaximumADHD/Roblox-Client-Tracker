@@ -507,28 +507,23 @@ PROTO_6:
        51 JUMPIFNOTEQ                      R6 R8 ; [+4]
        53 NEWTABLE                         R6 0 0
        55 LOADB                            R7 1
-       56 NEWTABLE                         R8 0 0
-       58 GETUPVAL                         R9 1
-       59 CALL                             R9 0 1
-       60 JUMPIFNOT                        R9 ; [+12]
-       61 GETTABLEKS                       R9 R0 K14 ["localUserGroups"]
-       63 JUMPIF                           R9 ; [+2]
-       64 NEWTABLE                         R9 0 0
-       66 MOVE                             R8 R9
-       67 GETUPVAL                         R9 0
-       68 JUMPIFNOTEQ                      R8 R9 ; [+4]
-       70 NEWTABLE                         R8 0 0
-       72 LOADB                            R7 1
-       73 DUPTABLE                         R9 K19 [{"Permissions", "CurrentUserPackagePermission", "Owner", "PotentialCollaborators"}]
-       74 SETTABLEKS                       R2 R9 K15 ["Permissions"]
-       76 SETTABLEKS                       R3 R9 K16 ["CurrentUserPackagePermission"]
-       78 SETTABLEKS                       R4 R9 K17 ["Owner"]
-       80 DUPTABLE                         R10 K23 [{"Friends", "Groups", "IsLoading"}]
-       81 SETTABLEKS                       R6 R10 K20 ["Friends"]
-       83 SETTABLEKS                       R8 R10 K21 ["Groups"]
-       85 SETTABLEKS                       R7 R10 K22 ["IsLoading"]
-       87 SETTABLEKS                       R10 R9 K18 ["PotentialCollaborators"]
-       89 RETURN                           R9 1
+       56 GETTABLEKS                       R8 R0 K14 ["localUserGroups"]
+       58 JUMPIF                           R8 ; [+2]
+       59 NEWTABLE                         R8 0 0
+       61 GETUPVAL                         R9 0
+       62 JUMPIFNOTEQ                      R8 R9 ; [+4]
+       64 NEWTABLE                         R8 0 0
+       66 LOADB                            R7 1
+       67 DUPTABLE                         R9 K19 [{"Permissions", "CurrentUserPackagePermission", "Owner", "PotentialCollaborators"}]
+       68 SETTABLEKS                       R2 R9 K15 ["Permissions"]
+       70 SETTABLEKS                       R3 R9 K16 ["CurrentUserPackagePermission"]
+       72 SETTABLEKS                       R4 R9 K17 ["Owner"]
+       74 DUPTABLE                         R10 K23 [{"Friends", "Groups", "IsLoading"}]
+       75 SETTABLEKS                       R6 R10 K20 ["Friends"]
+       77 SETTABLEKS                       R8 R10 K21 ["Groups"]
+       79 SETTABLEKS                       R7 R10 K22 ["IsLoading"]
+       81 SETTABLEKS                       R10 R9 K18 ["PotentialCollaborators"]
+       83 RETURN                           R9 1
 
 PROTO_7:
         0 PREPVARARGS                      0
@@ -650,58 +645,52 @@ MAIN:
       143 GETTABLEKS                       R26 R26 K38 ["Flags"]
       145 GETTABLEKS                       R26 R26 K39 ["getFFlagStudioFriendToConnection"]
       147 CALL                             R25 1 1
-      148 GETIMPORT                        R26 K6 [require]
-      150 GETTABLEKS                       R27 R0 K19 ["Src"]
-      152 GETTABLEKS                       R27 R27 K38 ["Flags"]
-      154 GETTABLEKS                       R27 R27 K40 ["getFFlagAACAddGroups"]
-      156 CALL                             R26 1 1
-      157 GETIMPORT                        R27 K43 [UDim2.fromOffset]
-      159 LOADN                            R28 244
-      160 LOADN                            R29 50
-      161 CALL                             R27 2 1
-      162 GETTABLEKS                       R28 R17 K44 ["UseViewKey"]
-      164 NEWTABLE                         R29 2 0
-      166 GETIMPORT                        R30 K48 [Enum.CreatorType.User]
-      168 GETTABLEKS                       R31 R17 K49 ["UserSubjectKey"]
-      170 SETTABLE                         R31 R29 R30
-      171 GETIMPORT                        R30 K51 [Enum.CreatorType.Group]
-      173 GETTABLEKS                       R31 R17 K52 ["GroupSubjectKey"]
-      175 SETTABLE                         R31 R29 R30
-      176 DUPCLOSURE                       R30 K53 [PROTO_0]
-      177 CAPTURE                          VAL R29
-      178 DUPCLOSURE                       R31 K54 [PROTO_5]
-      179 CAPTURE                          VAL R6
-      180 CAPTURE                          VAL R7
-      181 CAPTURE                          VAL R9
-      182 CAPTURE                          VAL R17
-      183 CAPTURE                          VAL R25
-      184 CAPTURE                          VAL R24
-      185 CAPTURE                          VAL R2
-      186 CAPTURE                          VAL R10
-      187 CAPTURE                          VAL R19
-      188 CAPTURE                          VAL R12
-      189 CAPTURE                          VAL R14
-      190 CAPTURE                          VAL R11
-      191 CAPTURE                          VAL R15
-      192 CAPTURE                          VAL R27
-      193 CAPTURE                          VAL R29
-      194 CAPTURE                          VAL R8
-      195 CAPTURE                          VAL R28
-      196 CAPTURE                          VAL R16
-      197 DUPCLOSURE                       R32 K55 [PROTO_6]
-      198 CAPTURE                          VAL R20
-      199 CAPTURE                          VAL R26
-      200 DUPCLOSURE                       R33 K56 [PROTO_9]
-      201 CAPTURE                          VAL R21
-      202 CAPTURE                          VAL R22
-      203 CAPTURE                          VAL R23
-      204 GETTABLEKS                       R34 R2 K57 ["memo"]
-      206 MOVE                             R35 R31
-      207 CALL                             R34 1 1
-      208 GETTABLEKS                       R35 R3 K58 ["connect"]
-      210 MOVE                             R36 R32
-      211 MOVE                             R37 R33
-      212 CALL                             R35 2 1
-      213 MOVE                             R36 R34
-      214 CALL                             R35 1 -1
-      215 RETURN                           R35 -1
+      148 GETIMPORT                        R26 K42 [UDim2.fromOffset]
+      150 LOADN                            R27 244
+      151 LOADN                            R28 50
+      152 CALL                             R26 2 1
+      153 GETTABLEKS                       R27 R17 K43 ["UseViewKey"]
+      155 NEWTABLE                         R28 2 0
+      157 GETIMPORT                        R29 K47 [Enum.CreatorType.User]
+      159 GETTABLEKS                       R30 R17 K48 ["UserSubjectKey"]
+      161 SETTABLE                         R30 R28 R29
+      162 GETIMPORT                        R29 K50 [Enum.CreatorType.Group]
+      164 GETTABLEKS                       R30 R17 K51 ["GroupSubjectKey"]
+      166 SETTABLE                         R30 R28 R29
+      167 DUPCLOSURE                       R29 K52 [PROTO_0]
+      168 CAPTURE                          VAL R28
+      169 DUPCLOSURE                       R30 K53 [PROTO_5]
+      170 CAPTURE                          VAL R6
+      171 CAPTURE                          VAL R7
+      172 CAPTURE                          VAL R9
+      173 CAPTURE                          VAL R17
+      174 CAPTURE                          VAL R25
+      175 CAPTURE                          VAL R24
+      176 CAPTURE                          VAL R2
+      177 CAPTURE                          VAL R10
+      178 CAPTURE                          VAL R19
+      179 CAPTURE                          VAL R12
+      180 CAPTURE                          VAL R14
+      181 CAPTURE                          VAL R11
+      182 CAPTURE                          VAL R15
+      183 CAPTURE                          VAL R26
+      184 CAPTURE                          VAL R28
+      185 CAPTURE                          VAL R8
+      186 CAPTURE                          VAL R27
+      187 CAPTURE                          VAL R16
+      188 DUPCLOSURE                       R31 K54 [PROTO_6]
+      189 CAPTURE                          VAL R20
+      190 DUPCLOSURE                       R32 K55 [PROTO_9]
+      191 CAPTURE                          VAL R21
+      192 CAPTURE                          VAL R22
+      193 CAPTURE                          VAL R23
+      194 GETTABLEKS                       R33 R2 K56 ["memo"]
+      196 MOVE                             R34 R30
+      197 CALL                             R33 1 1
+      198 GETTABLEKS                       R34 R3 K57 ["connect"]
+      200 MOVE                             R35 R31
+      201 MOVE                             R36 R32
+      202 CALL                             R34 2 1
+      203 MOVE                             R35 R33
+      204 CALL                             R34 1 -1
+      205 RETURN                           R34 -1

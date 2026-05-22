@@ -9,28 +9,31 @@ PROTO_0:
        11 NAMECALL                         R2 R1 K5 ["getText"]
        13 CALL                             R2 3 -1
        14 RETURN                           R2 -1
-       15 GETTABLEKS                       R2 R0 K0 ["Type"]
-       17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
-       20 GETTABLEKS                       R3 R3 K6 ["ProjectShared"]
-       22 JUMPIFNOTEQ                      R2 R3 ; [+7]
-       24 LOADK                            R4 K3 ["Scopes"]
-       25 LOADK                            R5 K7 ["ExperienceShared"]
-       26 NAMECALL                         R2 R1 K5 ["getText"]
-       28 CALL                             R2 3 -1
-       29 RETURN                           R2 -1
-       30 GETTABLEKS                       R2 R0 K0 ["Type"]
-       32 GETUPVAL                         R3 0
-       33 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
-       35 GETTABLEKS                       R3 R3 K8 ["RecentUploads"]
-       37 JUMPIFNOTEQ                      R2 R3 ; [+7]
-       39 LOADK                            R4 K3 ["Scopes"]
-       40 LOADK                            R5 K8 ["RecentUploads"]
-       41 NAMECALL                         R2 R1 K5 ["getText"]
-       43 CALL                             R2 3 -1
-       44 RETURN                           R2 -1
-       45 GETTABLEKS                       R2 R0 K9 ["Name"]
-       47 RETURN                           R2 1
+       15 GETUPVAL                         R2 1
+       16 CALL                             R2 0 1
+       17 JUMPIF                           R2 ; [+15]
+       18 GETTABLEKS                       R2 R0 K0 ["Type"]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+       23 GETTABLEKS                       R3 R3 K6 ["ProjectShared"]
+       25 JUMPIFNOTEQ                      R2 R3 ; [+7]
+       27 LOADK                            R4 K3 ["Scopes"]
+       28 LOADK                            R5 K7 ["ExperienceShared"]
+       29 NAMECALL                         R2 R1 K5 ["getText"]
+       31 CALL                             R2 3 -1
+       32 RETURN                           R2 -1
+       33 GETTABLEKS                       R2 R0 K0 ["Type"]
+       35 GETUPVAL                         R3 0
+       36 GETTABLEKS                       R3 R3 K1 ["ScopeType"]
+       38 GETTABLEKS                       R3 R3 K8 ["RecentUploads"]
+       40 JUMPIFNOTEQ                      R2 R3 ; [+7]
+       42 LOADK                            R4 K3 ["Scopes"]
+       43 LOADK                            R5 K8 ["RecentUploads"]
+       44 NAMECALL                         R2 R1 K5 ["getText"]
+       46 CALL                             R2 3 -1
+       47 RETURN                           R2 -1
+       48 GETTABLEKS                       R2 R0 K9 ["Name"]
+       50 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -42,6 +45,12 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 DUPCLOSURE                       R2 K8 [PROTO_0]
-       15 CAPTURE                          VAL R1
-       16 RETURN                           R2 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Src"]
+       18 GETTABLEKS                       R3 R3 K8 ["Flags"]
+       20 GETTABLEKS                       R3 R3 K9 ["getFFlagAmrProjectUsesGameName"]
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R3 K10 [PROTO_0]
+       24 CAPTURE                          VAL R1
+       25 CAPTURE                          VAL R2
+       26 RETURN                           R3 1

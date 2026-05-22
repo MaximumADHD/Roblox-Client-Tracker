@@ -2201,6 +2201,112 @@ PROTO_35:
       284 RETURN                           R0 0
 
 PROTO_36:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+14]
+        3 LOADB                            R1 0
+        4 JUMPIFEQKNIL                     R0 ; [+12]
+        6 LOADB                            R1 0
+        7 GETTABLEKS                       R2 R0 K0 ["settings"]
+        9 GETTABLEKS                       R2 R2 K1 ["SetupType"]
+       11 JUMPIFEQKS                       R2 K2 ["Unspecified"] ; [+5]
+       13 GETTABLEKS                       R1 R0 K0 ["settings"]
+       15 GETTABLEKS                       R1 R1 K3 ["ClothingOnly"]
+       17 RETURN                           R1 1
+
+PROTO_37:
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R7 R7 K0 ["isClothingOnly"]
+        3 MOVE                             R8 R6
+        4 CALL                             R7 1 1
+        5 JUMPIFNOT                        R7 ; [+76]
+        6 JUMPIFEQKNIL                     R6 ; [+75]
+        8 GETUPVAL                         R7 1
+        9 CALL                             R7 0 1
+       10 JUMPIFNOT                        R7 ; [+10]
+       11 GETTABLEKS                       R7 R6 K1 ["info"]
+       13 GETTABLEKS                       R7 R7 K2 ["shouldProcessAttachmentPoint"]
+       15 JUMPIFNOT                        R7 ; [+5]
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K3 ["processRigidAndAttachmentMeshes"]
+       19 MOVE                             R8 R2
+       20 CALL                             R7 1 0
+       21 GETTABLEKS                       R7 R6 K1 ["info"]
+       23 GETTABLEKS                       R7 R7 K4 ["shouldCreateTemplateBody"]
+       25 JUMPIFNOT                        R7 ; [+46]
+       26 GETUPVAL                         R7 0
+       27 GETTABLEKS                       R7 R7 K5 ["createTemplateBody"]
+       29 CALL                             R7 0 1
+       30 NAMECALL                         R8 R2 K6 ["Clone"]
+       32 CALL                             R8 1 1
+       33 NAMECALL                         R9 R8 K7 ["GetDescendants"]
+       35 CALL                             R9 1 3
+       36 FORGPREP                         R9
+       37 LOADK                            R16 K8 ["BasePart"]
+       38 NAMECALL                         R14 R13 K9 ["IsA"]
+       40 CALL                             R14 2 1
+       41 JUMPIFNOT                        R14 ; [+2]
+       42 SETTABLEKS                       R7 R13 K10 ["Parent"]
+       44 FORGLOOP                         R9 2 ; [-8]
+       46 GETUPVAL                         R9 2
+       47 CALL                             R9 0 1
+       48 JUMPIFNOT                        R9 ; [+12]
+       49 GETUPVAL                         R9 0
+       50 GETTABLEKS                       R9 R9 K11 ["insertBodyAsync"]
+       52 LOADNIL                          R10
+       53 MOVE                             R11 R1
+       54 MOVE                             R12 R7
+       55 MOVE                             R13 R3
+       56 MOVE                             R14 R4
+       57 MOVE                             R15 R5
+       58 MOVE                             R16 R6
+       59 CALL                             R9 7 0
+       60 RETURN                           R0 0
+       61 GETUPVAL                         R9 0
+       62 GETTABLEKS                       R9 R9 K12 ["DEPRECATED_insertBodyAsync"]
+       64 LOADNIL                          R10
+       65 MOVE                             R11 R1
+       66 MOVE                             R12 R7
+       67 MOVE                             R13 R3
+       68 MOVE                             R14 R4
+       69 MOVE                             R15 R5
+       70 CALL                             R9 6 0
+       71 RETURN                           R0 0
+       72 GETUPVAL                         R7 0
+       73 GETTABLEKS                       R7 R7 K13 ["insertClothingAsync"]
+       75 MOVE                             R8 R1
+       76 MOVE                             R9 R2
+       77 MOVE                             R10 R3
+       78 MOVE                             R11 R4
+       79 MOVE                             R12 R5
+       80 CALL                             R7 5 0
+       81 RETURN                           R0 0
+       82 GETUPVAL                         R7 2
+       83 CALL                             R7 0 1
+       84 JUMPIFNOT                        R7 ; [+12]
+       85 GETUPVAL                         R7 0
+       86 GETTABLEKS                       R7 R7 K11 ["insertBodyAsync"]
+       88 MOVE                             R8 R0
+       89 MOVE                             R9 R1
+       90 MOVE                             R10 R2
+       91 MOVE                             R11 R3
+       92 MOVE                             R12 R4
+       93 MOVE                             R13 R5
+       94 MOVE                             R14 R6
+       95 CALL                             R7 7 0
+       96 RETURN                           R0 0
+       97 GETUPVAL                         R7 0
+       98 GETTABLEKS                       R7 R7 K12 ["DEPRECATED_insertBodyAsync"]
+      100 MOVE                             R8 R0
+      101 MOVE                             R9 R1
+      102 MOVE                             R10 R2
+      103 MOVE                             R11 R3
+      104 MOVE                             R12 R4
+      105 MOVE                             R13 R5
+      106 CALL                             R7 6 0
+      107 RETURN                           R0 0
+
+PROTO_38:
         0 DUPTABLE                         R1 K4 [{"Body", "Layered", "Rigid", "Unselected"}]
         1 LOADN                            R2 0
         2 SETTABLEKS                       R2 R1 K0 ["Body"]
@@ -2229,7 +2335,7 @@ PROTO_36:
        35 FORGLOOP                         R2 2 ; [-19]
        37 RETURN                           R1 1
 
-PROTO_37:
+PROTO_39:
         0 GETIMPORT                        R1 K2 [Color3.new]
         2 LOADK                            R2 K3 [0.5]
         3 LOADK                            R3 K3 [0.5]
@@ -2259,7 +2365,7 @@ PROTO_37:
        40 SETTABLEKS                       R2 R0 K17 ["WalkAnimation"]
        42 RETURN                           R0 0
 
-PROTO_38:
+PROTO_40:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["TEMPLATE_BODY_PARTS_ASSET_IDS"]
         3 GETTABLEKS                       R1 R1 K1 ["Head"]
@@ -2286,7 +2392,7 @@ PROTO_38:
        40 SETTABLEKS                       R1 R0 K6 ["RightLeg"]
        42 RETURN                           R0 0
 
-PROTO_39:
+PROTO_41:
         0 NAMECALL                         R1 R0 K0 ["GetDescendants"]
         2 CALL                             R1 1 3
         3 FORGPREP                         R1
@@ -2299,11 +2405,11 @@ PROTO_39:
        12 FORGLOOP                         R1 2 ; [-9]
        14 RETURN                           R0 0
 
-PROTO_40:
-        0 DUPCLOSURE                       R0 K0 [PROTO_37]
-        1 DUPCLOSURE                       R1 K1 [PROTO_38]
+PROTO_42:
+        0 DUPCLOSURE                       R0 K0 [PROTO_39]
+        1 DUPCLOSURE                       R1 K1 [PROTO_40]
         2 CAPTURE                          UPVAL U0
-        3 DUPCLOSURE                       R2 K2 [PROTO_39]
+        3 DUPCLOSURE                       R2 K2 [PROTO_41]
         4 GETIMPORT                        R4 K4 [game]
         6 LOADK                            R6 K5 ["AsyncRenamesUsedInLuaApps"]
         7 NAMECALL                         R4 R4 K6 ["GetEngineFeature"]
@@ -2414,7 +2520,7 @@ PROTO_40:
       163 JUMPBACK                         ; [-20]
       164 RETURN                           R4 1
 
-PROTO_41:
+PROTO_43:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["endsWith"]
         3 GETTABLEKS                       R2 R0 K1 ["Name"]
@@ -2429,7 +2535,7 @@ PROTO_41:
        16 LOADB                            R1 1
        17 RETURN                           R1 1
 
-PROTO_42:
+PROTO_44:
         0 GETIMPORT                        R1 K2 [string.find]
         2 GETTABLEKS                       R2 R0 K3 ["Name"]
         4 LOADK                            R4 K4 ["^%*_%%a+_Att$"]
@@ -2441,7 +2547,7 @@ PROTO_42:
        12 CALL                             R1 2 -1
        13 RETURN                           R1 -1
 
-PROTO_43:
+PROTO_45:
         0 LENGTH                           R2 R0
         1 JUMPIFNOTEQKN                    R2 K0 [1] ; [+3]
         3 GETTABLEN                        R2 R0 1
@@ -2454,7 +2560,7 @@ PROTO_43:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_44:
+PROTO_46:
         0 GETIMPORT                        R1 K2 [string.find]
         2 MOVE                             R2 R0
         3 LOADK                            R3 K3 ["%a+_Att$"]
@@ -2473,23 +2579,23 @@ PROTO_44:
        19 CONCAT                           R3 R4 R5
        20 RETURN                           R3 1
 
-PROTO_45:
+PROTO_47:
         0 LOADK                            R3 K0 ["BasePart"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 -1
         4 RETURN                           R1 -1
 
-PROTO_46:
-        0 DUPCLOSURE                       R1 K0 [PROTO_41]
+PROTO_48:
+        0 DUPCLOSURE                       R1 K0 [PROTO_43]
         1 CAPTURE                          UPVAL U0
-        2 DUPCLOSURE                       R2 K1 [PROTO_43]
+        2 DUPCLOSURE                       R2 K1 [PROTO_45]
         3 CAPTURE                          UPVAL U1
-        4 DUPCLOSURE                       R3 K2 [PROTO_44]
+        4 DUPCLOSURE                       R3 K2 [PROTO_46]
         5 GETUPVAL                         R4 1
         6 GETTABLEKS                       R4 R4 K3 ["filter"]
         8 NAMECALL                         R5 R0 K4 ["GetDescendants"]
        10 CALL                             R5 1 1
-       11 DUPCLOSURE                       R6 K5 [PROTO_45]
+       11 DUPCLOSURE                       R6 K5 [PROTO_47]
        12 CALL                             R4 2 1
        13 NEWTABLE                         R5 0 0
        15 NEWTABLE                         R6 0 0
@@ -2898,15 +3004,23 @@ MAIN:
       463 CAPTURE                          VAL R6
       464 SETTABLEKS                       R37 R36 K103 ["insertClothingAsync"]
       466 DUPCLOSURE                       R37 K104 [PROTO_36]
-      467 CAPTURE                          VAL R6
-      468 SETTABLEKS                       R37 R36 K105 ["getClothingCategoryCounts"]
-      470 DUPCLOSURE                       R37 K106 [PROTO_40]
-      471 CAPTURE                          VAL R11
-      472 CAPTURE                          VAL R2
-      473 CAPTURE                          VAL R28
-      474 SETTABLEKS                       R37 R36 K107 ["createTemplateBody"]
-      476 DUPCLOSURE                       R37 K108 [PROTO_46]
-      477 CAPTURE                          VAL R15
-      478 CAPTURE                          VAL R12
-      479 SETTABLEKS                       R37 R36 K109 ["processRigidAndAttachmentMeshes"]
-      481 RETURN                           R36 1
+      467 CAPTURE                          VAL R21
+      468 SETTABLEKS                       R37 R36 K105 ["isClothingOnly"]
+      470 DUPCLOSURE                       R37 K106 [PROTO_37]
+      471 CAPTURE                          VAL R36
+      472 CAPTURE                          VAL R27
+      473 CAPTURE                          VAL R23
+      474 SETTABLEKS                       R37 R36 K107 ["insertResultAsync"]
+      476 DUPCLOSURE                       R37 K108 [PROTO_38]
+      477 CAPTURE                          VAL R6
+      478 SETTABLEKS                       R37 R36 K109 ["getClothingCategoryCounts"]
+      480 DUPCLOSURE                       R37 K110 [PROTO_42]
+      481 CAPTURE                          VAL R11
+      482 CAPTURE                          VAL R2
+      483 CAPTURE                          VAL R28
+      484 SETTABLEKS                       R37 R36 K111 ["createTemplateBody"]
+      486 DUPCLOSURE                       R37 K112 [PROTO_48]
+      487 CAPTURE                          VAL R15
+      488 CAPTURE                          VAL R12
+      489 SETTABLEKS                       R37 R36 K113 ["processRigidAndAttachmentMeshes"]
+      491 RETURN                           R36 1

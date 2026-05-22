@@ -183,18 +183,34 @@ PROTO_7:
        13 NAMECALL                         R0 R0 K4 ["Destroy"]
        15 CALL                             R0 1 0
        16 GETUPVAL                         R0 2
-       17 GETUPVAL                         R1 3
-       18 NAMECALL                         R1 R1 K5 ["IsRunning"]
-       20 CALL                             R1 1 1
-       21 JUMPIFNOT                        R1 ; [+1]
-       22 JUMP                             ; [+4]
-       23 LOADN                            R3 0
-       24 NAMECALL                         R1 R0 K6 ["StepAnimations"]
-       26 CALL                             R1 2 0
-       27 GETUPVAL                         R0 4
-       28 GETUPVAL                         R1 5
-       29 CALL                             R0 1 0
-       30 RETURN                           R0 0
+       17 CALL                             R0 0 1
+       18 JUMPIFNOT                        R0 ; [+15]
+       19 GETUPVAL                         R0 3
+       20 GETUPVAL                         R1 4
+       21 CALL                             R0 1 0
+       22 GETUPVAL                         R0 5
+       23 GETUPVAL                         R1 6
+       24 NAMECALL                         R1 R1 K5 ["IsRunning"]
+       26 CALL                             R1 1 1
+       27 JUMPIFNOT                        R1 ; [+1]
+       28 RETURN                           R0 0
+       29 LOADN                            R3 0
+       30 NAMECALL                         R1 R0 K6 ["StepAnimations"]
+       32 CALL                             R1 2 0
+       33 RETURN                           R0 0
+       34 GETUPVAL                         R0 5
+       35 GETUPVAL                         R1 6
+       36 NAMECALL                         R1 R1 K5 ["IsRunning"]
+       38 CALL                             R1 1 1
+       39 JUMPIFNOT                        R1 ; [+1]
+       40 JUMP                             ; [+4]
+       41 LOADN                            R3 0
+       42 NAMECALL                         R1 R0 K6 ["StepAnimations"]
+       44 CALL                             R1 2 0
+       45 GETUPVAL                         R0 3
+       46 GETUPVAL                         R1 4
+       47 CALL                             R0 1 0
+       48 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -255,12 +271,13 @@ PROTO_8:
        70 NEWCLOSURE                       R4 P1
        71 CAPTURE                          VAL R3
        72 CAPTURE                          REF R2
-       73 CAPTURE                          VAL R1
-       74 CAPTURE                          UPVAL U9
-       75 CAPTURE                          UPVAL U10
-       76 CAPTURE                          UPVAL U1
-       77 CLOSEUPVALS                      R2
-       78 RETURN                           R4 1
+       73 CAPTURE                          UPVAL U9
+       74 CAPTURE                          UPVAL U10
+       75 CAPTURE                          UPVAL U1
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          UPVAL U11
+       78 CLOSEUPVALS                      R2
+       79 RETURN                           R4 1
 
 PROTO_9:
         0 GETUPVAL                         R1 0
@@ -376,29 +393,30 @@ PROTO_12:
        35 CAPTURE                          UPVAL U6
        36 CAPTURE                          UPVAL U7
        37 CAPTURE                          UPVAL U8
-       38 NEWTABLE                         R10 0 2
-       40 ORK                              R11 R6 K2 [0]
-       41 ORK                              R12 R1 K2 [0]
-       42 SETLIST                          R10 R11 2 [1]
-       44 CALL                             R8 2 0
-       45 GETUPVAL                         R8 0
-       46 GETTABLEKS                       R8 R8 K1 ["useEffect"]
-       48 NEWCLOSURE                       R9 P2
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          VAL R4
-       51 CAPTURE                          UPVAL U1
-       52 CAPTURE                          UPVAL U5
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          UPVAL U7
-       55 CAPTURE                          VAL R2
-       56 NEWTABLE                         R10 0 4
-       58 MOVE                             R11 R0
-       59 MOVE                             R12 R4
-       60 MOVE                             R13 R3
-       61 MOVE                             R14 R2
-       62 SETLIST                          R10 R11 4 [1]
-       64 CALL                             R8 2 0
-       65 RETURN                           R4 1
+       38 CAPTURE                          UPVAL U9
+       39 NEWTABLE                         R10 0 2
+       41 ORK                              R11 R6 K2 [0]
+       42 ORK                              R12 R1 K2 [0]
+       43 SETLIST                          R10 R11 2 [1]
+       45 CALL                             R8 2 0
+       46 GETUPVAL                         R8 0
+       47 GETTABLEKS                       R8 R8 K1 ["useEffect"]
+       49 NEWCLOSURE                       R9 P2
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          UPVAL U1
+       53 CAPTURE                          UPVAL U5
+       54 CAPTURE                          VAL R3
+       55 CAPTURE                          UPVAL U9
+       56 CAPTURE                          VAL R2
+       57 NEWTABLE                         R10 0 4
+       59 MOVE                             R11 R0
+       60 MOVE                             R12 R4
+       61 MOVE                             R13 R3
+       62 MOVE                             R14 R2
+       63 SETLIST                          R10 R11 4 [1]
+       65 CALL                             R8 2 0
+       66 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -459,6 +477,7 @@ MAIN:
        81 CAPTURE                          VAL R3
        82 CAPTURE                          VAL R10
        83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R8
        85 CAPTURE                          VAL R11
-       86 RETURN                           R13 1
+       86 CAPTURE                          VAL R2
+       87 RETURN                           R13 1

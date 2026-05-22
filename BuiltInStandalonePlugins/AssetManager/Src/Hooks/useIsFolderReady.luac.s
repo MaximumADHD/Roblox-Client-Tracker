@@ -1,12 +1,11 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 NAMECALL                         R0 R0 K0 ["getFolderReadinessStatus"]
-        4 CALL                             R0 2 1
-        5 GETUPVAL                         R1 2
-        6 MOVE                             R2 R0
-        7 CALL                             R1 1 0
-        8 RETURN                           R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R3 2
+        3 NAMECALL                         R1 R1 K0 ["getFolderReadinessStatus"]
+        5 CALL                             R1 2 -1
+        6 CALL                             R0 -1 0
+        7 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -17,27 +16,33 @@ PROTO_1:
         6 RETURN                           R0 0
 
 PROTO_2:
-        0 LOADNIL                          R0
-        1 GETIMPORT                        R1 K2 [table.find]
-        3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R2 R2 K3 ["RootAccountScopeTypes"]
-        6 GETUPVAL                         R3 1
-        7 GETTABLEKS                       R3 R3 K4 ["Type"]
-        9 CALL                             R1 2 1
-       10 JUMPIFNOT                        R1 ; [+11]
-       11 GETUPVAL                         R1 2
-       12 GETTABLEKS                       R1 R1 K5 ["OnFolderReadyMapChanged"]
-       14 NEWCLOSURE                       R3 P0
-       15 CAPTURE                          UPVAL U2
-       16 CAPTURE                          UPVAL U1
-       17 CAPTURE                          UPVAL U3
-       18 NAMECALL                         R1 R1 K6 ["Connect"]
-       20 CALL                             R1 2 1
-       21 MOVE                             R0 R1
-       22 NEWCLOSURE                       R1 P1
-       23 CAPTURE                          REF R0
-       24 CLOSEUPVALS                      R0
-       25 RETURN                           R1 1
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R3 2
+        3 NAMECALL                         R1 R1 K0 ["getFolderReadinessStatus"]
+        5 CALL                             R1 2 -1
+        6 CALL                             R0 -1 0
+        7 LOADNIL                          R0
+        8 GETIMPORT                        R1 K3 [table.find]
+       10 GETUPVAL                         R2 3
+       11 GETTABLEKS                       R2 R2 K4 ["RootAccountScopeTypes"]
+       13 GETUPVAL                         R3 2
+       14 GETTABLEKS                       R3 R3 K5 ["Type"]
+       16 CALL                             R1 2 1
+       17 JUMPIFNOT                        R1 ; [+11]
+       18 GETUPVAL                         R1 1
+       19 GETTABLEKS                       R1 R1 K6 ["OnFolderReadyMapChanged"]
+       21 NEWCLOSURE                       R3 P0
+       22 CAPTURE                          UPVAL U0
+       23 CAPTURE                          UPVAL U1
+       24 CAPTURE                          UPVAL U2
+       25 NAMECALL                         R1 R1 K7 ["Connect"]
+       27 CALL                             R1 2 1
+       28 MOVE                             R0 R1
+       29 NEWCLOSURE                       R1 P1
+       30 CAPTURE                          REF R0
+       31 CLOSEUPVALS                      R0
+       32 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -50,15 +55,16 @@ PROTO_3:
         9 CALL                             R2 -1 2
        10 GETUPVAL                         R4 2
        11 NEWCLOSURE                       R5 P0
-       12 CAPTURE                          UPVAL U3
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          VAL R1
-       15 CAPTURE                          VAL R3
-       16 NEWTABLE                         R6 0 1
+       12 CAPTURE                          VAL R3
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          UPVAL U3
+       16 NEWTABLE                         R6 0 2
        18 MOVE                             R7 R0
-       19 SETLIST                          R6 R7 1 [1]
-       21 CALL                             R4 2 0
-       22 RETURN                           R2 1
+       19 GETTABLEKS                       R8 R0 K2 ["Uid"]
+       21 SETLIST                          R6 R7 2 [1]
+       23 CALL                             R4 2 0
+       24 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

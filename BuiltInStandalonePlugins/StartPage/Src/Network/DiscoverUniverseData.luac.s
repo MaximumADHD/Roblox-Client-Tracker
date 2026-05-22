@@ -3,43 +3,70 @@ PROTO_0:
         2 RETURN                           R2 1
 
 PROTO_1:
-        0 DUPTABLE                         R2 K12 [{"Id", "Name", "Description", "IsArchived", "RootPlaceId", "PrivacyType", "IsFriendsOnly", "CreatorType", "CreatorTargetId", "CreatorName", "Created", "Updated"}]
-        1 GETTABLEKS                       R3 R1 K13 ["id"]
-        3 SETTABLEKS                       R3 R2 K0 ["Id"]
-        5 GETTABLEKS                       R3 R1 K14 ["name"]
-        7 SETTABLEKS                       R3 R2 K1 ["Name"]
-        9 GETTABLEKS                       R3 R1 K15 ["description"]
-       11 SETTABLEKS                       R3 R2 K2 ["Description"]
-       13 GETTABLEKS                       R3 R1 K16 ["isArchived"]
-       15 SETTABLEKS                       R3 R2 K3 ["IsArchived"]
-       17 GETTABLEKS                       R3 R1 K17 ["rootPlaceId"]
-       19 SETTABLEKS                       R3 R2 K4 ["RootPlaceId"]
-       21 GETTABLEKS                       R3 R1 K18 ["privacyType"]
-       23 SETTABLEKS                       R3 R2 K5 ["PrivacyType"]
-       25 GETTABLEKS                       R3 R1 K19 ["isFriendsOnly"]
-       27 SETTABLEKS                       R3 R2 K6 ["IsFriendsOnly"]
-       29 GETTABLEKS                       R3 R1 K20 ["creatorType"]
-       31 SETTABLEKS                       R3 R2 K7 ["CreatorType"]
-       33 GETTABLEKS                       R3 R1 K21 ["creatorTargetId"]
-       35 SETTABLEKS                       R3 R2 K8 ["CreatorTargetId"]
-       37 GETTABLEKS                       R3 R1 K22 ["creatorName"]
-       39 SETTABLEKS                       R3 R2 K9 ["CreatorName"]
-       41 GETTABLEKS                       R3 R1 K23 ["created"]
-       43 SETTABLEKS                       R3 R2 K10 ["Created"]
-       45 GETTABLEKS                       R3 R1 K24 ["updated"]
-       47 SETTABLEKS                       R3 R2 K11 ["Updated"]
-       49 RETURN                           R2 1
+        0 GETUPVAL                         R2 0
+        1 JUMPIFNOT                        R2 ; [+46]
+        2 DUPTABLE                         R2 K11 [{"Id", "Name", "Description", "IsArchived", "RootPlaceId", "Audiences", "CreatorType", "CreatorTargetId", "CreatorName", "Created", "Updated"}]
+        3 GETTABLEKS                       R3 R1 K12 ["id"]
+        5 SETTABLEKS                       R3 R2 K0 ["Id"]
+        7 GETTABLEKS                       R3 R1 K13 ["name"]
+        9 SETTABLEKS                       R3 R2 K1 ["Name"]
+       11 GETTABLEKS                       R3 R1 K14 ["description"]
+       13 SETTABLEKS                       R3 R2 K2 ["Description"]
+       15 GETTABLEKS                       R3 R1 K15 ["isArchived"]
+       17 SETTABLEKS                       R3 R2 K3 ["IsArchived"]
+       19 GETTABLEKS                       R3 R1 K16 ["rootPlaceId"]
+       21 SETTABLEKS                       R3 R2 K4 ["RootPlaceId"]
+       23 GETTABLEKS                       R3 R1 K17 ["audiences"]
+       25 SETTABLEKS                       R3 R2 K5 ["Audiences"]
+       27 GETTABLEKS                       R3 R1 K18 ["creatorType"]
+       29 SETTABLEKS                       R3 R2 K6 ["CreatorType"]
+       31 GETTABLEKS                       R3 R1 K19 ["creatorTargetId"]
+       33 SETTABLEKS                       R3 R2 K7 ["CreatorTargetId"]
+       35 GETTABLEKS                       R3 R1 K20 ["creatorName"]
+       37 SETTABLEKS                       R3 R2 K8 ["CreatorName"]
+       39 GETTABLEKS                       R3 R1 K21 ["created"]
+       41 SETTABLEKS                       R3 R2 K9 ["Created"]
+       43 GETTABLEKS                       R3 R1 K22 ["updated"]
+       45 SETTABLEKS                       R3 R2 K10 ["Updated"]
+       47 RETURN                           R2 1
+       48 DUPTABLE                         R2 K25 [{"Id", "Name", "Description", "IsArchived", "RootPlaceId", "PrivacyType", "IsFriendsOnly", "CreatorType", "CreatorTargetId", "CreatorName", "Created", "Updated"}]
+       49 GETTABLEKS                       R3 R1 K12 ["id"]
+       51 SETTABLEKS                       R3 R2 K0 ["Id"]
+       53 GETTABLEKS                       R3 R1 K13 ["name"]
+       55 SETTABLEKS                       R3 R2 K1 ["Name"]
+       57 GETTABLEKS                       R3 R1 K14 ["description"]
+       59 SETTABLEKS                       R3 R2 K2 ["Description"]
+       61 GETTABLEKS                       R3 R1 K15 ["isArchived"]
+       63 SETTABLEKS                       R3 R2 K3 ["IsArchived"]
+       65 GETTABLEKS                       R3 R1 K16 ["rootPlaceId"]
+       67 SETTABLEKS                       R3 R2 K4 ["RootPlaceId"]
+       69 GETTABLEKS                       R3 R1 K26 ["privacyType"]
+       71 SETTABLEKS                       R3 R2 K23 ["PrivacyType"]
+       73 GETTABLEKS                       R3 R1 K27 ["isFriendsOnly"]
+       75 SETTABLEKS                       R3 R2 K24 ["IsFriendsOnly"]
+       77 GETTABLEKS                       R3 R1 K18 ["creatorType"]
+       79 SETTABLEKS                       R3 R2 K6 ["CreatorType"]
+       81 GETTABLEKS                       R3 R1 K19 ["creatorTargetId"]
+       83 SETTABLEKS                       R3 R2 K7 ["CreatorTargetId"]
+       85 GETTABLEKS                       R3 R1 K20 ["creatorName"]
+       87 SETTABLEKS                       R3 R2 K8 ["CreatorName"]
+       89 GETTABLEKS                       R3 R1 K21 ["created"]
+       91 SETTABLEKS                       R3 R2 K9 ["Created"]
+       93 GETTABLEKS                       R3 R1 K22 ["updated"]
+       95 SETTABLEKS                       R3 R2 K10 ["Updated"]
+       97 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["data"]
         3 DUPCLOSURE                       R3 K1 [PROTO_1]
-        4 CALL                             R1 2 1
-        5 GETUPVAL                         R2 1
-        6 MOVE                             R4 R1
-        7 NAMECALL                         R2 R2 K2 ["upsertItems"]
-        9 CALL                             R2 2 0
-       10 RETURN                           R0 0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R1 2 1
+        6 GETUPVAL                         R2 2
+        7 MOVE                             R4 R1
+        8 NAMECALL                         R2 R2 K2 ["upsertItems"]
+       10 CALL                             R2 2 0
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETIMPORT                        R1 K1 [warn]
@@ -98,12 +125,13 @@ PROTO_4:
        55 DUPCLOSURE                       R7 K14 [PROTO_2]
        56 CAPTURE                          UPVAL U0
        57 CAPTURE                          UPVAL U5
-       58 NAMECALL                         R5 R5 K13 ["andThen"]
-       60 CALL                             R5 2 1
-       61 DUPCLOSURE                       R7 K15 [PROTO_3]
-       62 NAMECALL                         R5 R5 K16 ["catch"]
-       64 CALL                             R5 2 -1
-       65 RETURN                           R5 -1
+       58 CAPTURE                          UPVAL U6
+       59 NAMECALL                         R5 R5 K13 ["andThen"]
+       61 CALL                             R5 2 1
+       62 DUPCLOSURE                       R7 K15 [PROTO_3]
+       63 NAMECALL                         R5 R5 K16 ["catch"]
+       65 CALL                             R5 2 -1
+       66 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -158,11 +186,18 @@ MAIN:
        84 GETTABLEKS                       R11 R11 K12 ["Network"]
        86 GETTABLEKS                       R11 R11 K25 ["GameCache"]
        88 CALL                             R10 1 1
-       89 DUPCLOSURE                       R11 K26 [PROTO_4]
-       90 CAPTURE                          VAL R9
-       91 CAPTURE                          VAL R4
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R6
-       94 CAPTURE                          VAL R3
-       95 CAPTURE                          VAL R10
-       96 RETURN                           R11 1
+       89 GETIMPORT                        R11 K5 [require]
+       91 GETTABLEKS                       R12 R0 K6 ["Src"]
+       93 GETTABLEKS                       R12 R12 K7 ["SharedFlags"]
+       95 GETTABLEKS                       R12 R12 K26 ["getFFlagLuaStartPageAudiencesReplacement"]
+       97 CALL                             R11 1 1
+       98 CALL                             R11 0 1
+       99 DUPCLOSURE                       R12 K27 [PROTO_4]
+      100 CAPTURE                          VAL R9
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R6
+      104 CAPTURE                          VAL R3
+      105 CAPTURE                          VAL R11
+      106 CAPTURE                          VAL R10
+      107 RETURN                           R12 1

@@ -45,10 +45,23 @@ PROTO_1:
        37 RETURN                           R0 0
 
 PROTO_2:
+        0 DUPTABLE                         R1 K1 [{"customFields"}]
+        1 DUPTABLE                         R2 K3 [{"configCount"}]
+        2 GETTABLEKS                       R3 R0 K2 ["configCount"]
+        4 SETTABLEKS                       R3 R2 K2 ["configCount"]
+        6 SETTABLEKS                       R2 R1 K0 ["customFields"]
+        8 GETUPVAL                         R2 0
+        9 GETUPVAL                         R4 1
+       10 MOVE                             R5 R1
+       11 NAMECALL                         R2 R2 K4 ["LogEvent"]
+       13 CALL                             R2 3 0
+       14 RETURN                           R0 0
+
+PROTO_3:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 1
         1 SETUPVAL                         R0 0
         2 RETURN                           R0 0
@@ -115,17 +128,41 @@ MAIN:
        89 SETTABLEKS                       R6 R5 K17 ["description"]
        91 LOADN                            R6 16
        92 SETTABLEKS                       R6 R5 K18 ["throttlingPercentage"]
-       94 NEWCLOSURE                       R6 P1
-       95 CAPTURE                          REF R1
-       96 CAPTURE                          VAL R5
-       97 CAPTURE                          VAL R4
-       98 SETTABLEKS                       R6 R3 K26 ["logReimportAttempt"]
-      100 NEWCLOSURE                       R6 P2
-      101 CAPTURE                          REF R1
-      102 SETTABLEKS                       R6 R3 K27 ["mock"]
-      104 NEWCLOSURE                       R6 P3
-      105 CAPTURE                          REF R1
-      106 CAPTURE                          VAL R0
-      107 SETTABLEKS                       R6 R3 K28 ["reset"]
-      109 CLOSEUPVALS                      R1
-      110 RETURN                           R3 1
+       94 DUPTABLE                         R6 K23 [{"eventName", "backends", "lastUpdated", "description", "throttlingPercentage"}]
+       95 LOADK                            R7 K26 ["ReimportInit"]
+       96 SETTABLEKS                       R7 R6 K13 ["eventName"]
+       98 NEWTABLE                         R7 0 2
+      100 GETTABLEKS                       R8 R3 K11 ["Backends"]
+      102 GETTABLEKS                       R8 R8 K6 ["EventIngest"]
+      104 GETTABLEKS                       R9 R3 K11 ["Backends"]
+      106 GETTABLEKS                       R9 R9 K7 ["Points"]
+      108 SETLIST                          R7 R8 2 [1]
+      110 SETTABLEKS                       R7 R6 K15 ["backends"]
+      112 NEWTABLE                         R7 0 3
+      114 LOADN                            R8 234
+      115 LOADN                            R9 5
+      116 LOADN                            R10 8
+      117 SETLIST                          R7 R8 3 [1]
+      119 SETTABLEKS                       R7 R6 K16 ["lastUpdated"]
+      121 LOADK                            R7 K27 ["Logs data on initialization of the Reimport plugin"]
+      122 SETTABLEKS                       R7 R6 K17 ["description"]
+      124 LOADN                            R7 16
+      125 SETTABLEKS                       R7 R6 K18 ["throttlingPercentage"]
+      127 NEWCLOSURE                       R7 P1
+      128 CAPTURE                          REF R1
+      129 CAPTURE                          VAL R5
+      130 CAPTURE                          VAL R4
+      131 SETTABLEKS                       R7 R3 K28 ["logReimportAttempt"]
+      133 NEWCLOSURE                       R7 P2
+      134 CAPTURE                          REF R1
+      135 CAPTURE                          VAL R6
+      136 SETTABLEKS                       R7 R3 K29 ["logInitEvent"]
+      138 NEWCLOSURE                       R7 P3
+      139 CAPTURE                          REF R1
+      140 SETTABLEKS                       R7 R3 K30 ["mock"]
+      142 NEWCLOSURE                       R7 P4
+      143 CAPTURE                          REF R1
+      144 CAPTURE                          VAL R0
+      145 SETTABLEKS                       R7 R3 K31 ["reset"]
+      147 CLOSEUPVALS                      R1
+      148 RETURN                           R3 1

@@ -142,9 +142,9 @@ PROTO_12:
         4 CALL                             R0 0 0
         5 GETUPVAL                         R0 2
         6 CALL                             R0 0 1
-        7 JUMPIFNOT                        R0 ; [+12]
+        7 JUMPIFNOT                        R0 ; [+15]
         8 GETUPVAL                         R0 3
-        9 GETTABLEKS                       R0 R0 K0 ["insertBodyAsync"]
+        9 GETTABLEKS                       R0 R0 K0 ["insertResultAsync"]
        11 GETUPVAL                         R1 4
        12 GETUPVAL                         R2 5
        13 GETUPVAL                         R3 6
@@ -153,24 +153,41 @@ PROTO_12:
        16 GETUPVAL                         R6 9
        17 GETUPVAL                         R7 10
        18 CALL                             R0 7 0
-       19 JUMP                             ; [+10]
-       20 GETUPVAL                         R0 3
-       21 GETTABLEKS                       R0 R0 K1 ["DEPRECATED_insertBodyAsync"]
-       23 GETUPVAL                         R1 4
-       24 GETUPVAL                         R2 5
-       25 GETUPVAL                         R3 6
-       26 GETUPVAL                         R4 7
-       27 GETUPVAL                         R5 8
-       28 GETUPVAL                         R6 9
-       29 CALL                             R0 6 0
-       30 GETUPVAL                         R0 11
-       31 GETTABLEKS                       R0 R0 K2 ["autoSetupClickedSignal"]
-       33 JUMPIFNOT                        R0 ; [+6]
-       34 GETUPVAL                         R0 11
-       35 GETTABLEKS                       R0 R0 K2 ["autoSetupClickedSignal"]
-       37 NAMECALL                         R0 R0 K3 ["Fire"]
-       39 CALL                             R0 1 0
-       40 RETURN                           R0 0
+       19 GETUPVAL                         R0 11
+       20 LOADNIL                          R1
+       21 CALL                             R0 1 0
+       22 JUMP                             ; [+25]
+       23 GETUPVAL                         R0 12
+       24 CALL                             R0 0 1
+       25 JUMPIFNOT                        R0 ; [+12]
+       26 GETUPVAL                         R0 3
+       27 GETTABLEKS                       R0 R0 K1 ["insertBodyAsync"]
+       29 GETUPVAL                         R1 4
+       30 GETUPVAL                         R2 5
+       31 GETUPVAL                         R3 6
+       32 GETUPVAL                         R4 7
+       33 GETUPVAL                         R5 8
+       34 GETUPVAL                         R6 9
+       35 GETUPVAL                         R7 10
+       36 CALL                             R0 7 0
+       37 JUMP                             ; [+10]
+       38 GETUPVAL                         R0 3
+       39 GETTABLEKS                       R0 R0 K2 ["DEPRECATED_insertBodyAsync"]
+       41 GETUPVAL                         R1 4
+       42 GETUPVAL                         R2 5
+       43 GETUPVAL                         R3 6
+       44 GETUPVAL                         R4 7
+       45 GETUPVAL                         R5 8
+       46 GETUPVAL                         R6 9
+       47 CALL                             R0 6 0
+       48 GETUPVAL                         R0 13
+       49 GETTABLEKS                       R0 R0 K3 ["autoSetupClickedSignal"]
+       51 JUMPIFNOT                        R0 ; [+6]
+       52 GETUPVAL                         R0 13
+       53 GETTABLEKS                       R0 R0 K3 ["autoSetupClickedSignal"]
+       55 NAMECALL                         R0 R0 K4 ["Fire"]
+       57 CALL                             R0 1 0
+       58 RETURN                           R0 0
 
 PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["jobStatus"]
@@ -245,139 +262,173 @@ PROTO_14:
 PROTO_15:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+2]
+        2 JUMPIFNOT                        R0 ; [+26]
         3 GETUPVAL                         R0 1
-        4 CALL                             R0 0 0
+        4 JUMPIFNOT                        R0 ; [+7]
         5 GETUPVAL                         R0 2
-        6 CALL                             R0 0 1
-        7 JUMPIFNOT                        R0 ; [+100]
-        8 GETUPVAL                         R0 3
-        9 JUMPIFNOT                        R0 ; [+98]
-       10 GETUPVAL                         R0 3
-       11 GETTABLEKS                       R0 R0 K0 ["settings"]
-       13 GETTABLEKS                       R0 R0 K1 ["SetupType"]
-       15 JUMPIFEQKS                       R0 K2 ["Unspecified"] ; [+92]
-       17 GETUPVAL                         R0 3
-       18 GETTABLEKS                       R0 R0 K0 ["settings"]
-       20 GETTABLEKS                       R0 R0 K3 ["ClothingOnly"]
-       22 JUMPIFNOT                        R0 ; [+85]
-       23 GETUPVAL                         R0 4
-       24 LOADK                            R2 K4 ["autoSetupClothingOnlyFinish"]
-       25 GETUPVAL                         R3 5
-       26 GETUPVAL                         R4 6
-       27 NAMECALL                         R0 R0 K5 ["report"]
-       29 CALL                             R0 4 0
-       30 GETUPVAL                         R0 7
-       31 CALL                             R0 0 1
-       32 JUMPIFNOT                        R0 ; [+11]
-       33 GETUPVAL                         R0 3
-       34 GETTABLEKS                       R0 R0 K6 ["info"]
-       36 GETTABLEKS                       R0 R0 K7 ["shouldProcessAttachmentPoint"]
-       38 JUMPIFNOT                        R0 ; [+5]
-       39 GETUPVAL                         R0 8
-       40 GETTABLEKS                       R0 R0 K8 ["processRigidAndAttachmentMeshes"]
-       42 GETUPVAL                         R1 9
-       43 CALL                             R0 1 0
-       44 GETUPVAL                         R0 3
-       45 GETTABLEKS                       R0 R0 K6 ["info"]
-       47 GETTABLEKS                       R0 R0 K9 ["shouldCreateTemplateBody"]
-       49 JUMPIFNOT                        R0 ; [+48]
-       50 GETUPVAL                         R0 8
-       51 GETTABLEKS                       R0 R0 K10 ["createTemplateBody"]
-       53 CALL                             R0 0 1
-       54 GETUPVAL                         R1 9
-       55 NAMECALL                         R1 R1 K11 ["Clone"]
-       57 CALL                             R1 1 1
-       58 NAMECALL                         R2 R1 K12 ["GetDescendants"]
-       60 CALL                             R2 1 3
-       61 FORGPREP                         R2
-       62 LOADK                            R9 K13 ["BasePart"]
-       63 NAMECALL                         R7 R6 K14 ["IsA"]
-       65 CALL                             R7 2 1
-       66 JUMPIFNOT                        R7 ; [+2]
-       67 SETTABLEKS                       R0 R6 K15 ["Parent"]
-       69 FORGLOOP                         R2 2 ; [-8]
-       71 SETUPVAL                         R0 9
-       72 GETUPVAL                         R2 10
-       73 CALL                             R2 0 1
-       74 JUMPIFNOT                        R2 ; [+12]
-       75 GETUPVAL                         R2 8
-       76 GETTABLEKS                       R2 R2 K16 ["insertBodyAsync"]
-       78 LOADNIL                          R3
-       79 GETUPVAL                         R4 11
-       80 GETUPVAL                         R5 9
-       81 GETUPVAL                         R6 12
-       82 GETUPVAL                         R7 13
-       83 GETUPVAL                         R8 14
-       84 GETUPVAL                         R9 3
-       85 CALL                             R2 7 0
-       86 JUMP                             ; [+46]
-       87 GETUPVAL                         R2 8
-       88 GETTABLEKS                       R2 R2 K17 ["DEPRECATED_insertBodyAsync"]
-       90 LOADNIL                          R3
-       91 GETUPVAL                         R4 11
-       92 GETUPVAL                         R5 9
-       93 GETUPVAL                         R6 12
-       94 GETUPVAL                         R7 13
-       95 GETUPVAL                         R8 14
-       96 CALL                             R2 6 0
-       97 JUMP                             ; [+35]
-       98 GETUPVAL                         R0 8
-       99 GETTABLEKS                       R0 R0 K18 ["insertClothingAsync"]
-      101 GETUPVAL                         R1 11
-      102 GETUPVAL                         R2 9
-      103 GETUPVAL                         R3 12
-      104 GETUPVAL                         R4 13
-      105 GETUPVAL                         R5 14
-      106 CALL                             R0 5 0
-      107 JUMP                             ; [+25]
-      108 GETUPVAL                         R0 10
-      109 CALL                             R0 0 1
-      110 JUMPIFNOT                        R0 ; [+12]
-      111 GETUPVAL                         R0 8
-      112 GETTABLEKS                       R0 R0 K16 ["insertBodyAsync"]
-      114 GETUPVAL                         R1 15
-      115 GETUPVAL                         R2 11
-      116 GETUPVAL                         R3 9
-      117 GETUPVAL                         R4 12
-      118 GETUPVAL                         R5 13
-      119 GETUPVAL                         R6 14
-      120 GETUPVAL                         R7 3
-      121 CALL                             R0 7 0
-      122 JUMP                             ; [+10]
-      123 GETUPVAL                         R0 8
-      124 GETTABLEKS                       R0 R0 K17 ["DEPRECATED_insertBodyAsync"]
-      126 GETUPVAL                         R1 15
-      127 GETUPVAL                         R2 11
-      128 GETUPVAL                         R3 9
-      129 GETUPVAL                         R4 12
-      130 GETUPVAL                         R5 13
-      131 GETUPVAL                         R6 14
-      132 CALL                             R0 6 0
-      133 GETUPVAL                         R0 16
-      134 LOADNIL                          R1
-      135 CALL                             R0 1 0
-      136 GETUPVAL                         R0 4
-      137 LOADK                            R2 K19 ["autoSetupFinish"]
-      138 GETIMPORT                        R4 K22 [os.clock]
-      140 CALL                             R4 0 1
-      141 GETUPVAL                         R5 17
-      142 SUB                              R3 R4 R5
-      143 GETUPVAL                         R4 13
-      144 GETUPVAL                         R5 14
-      145 NAMECALL                         R0 R0 K5 ["report"]
-      147 CALL                             R0 5 0
-      148 GETUPVAL                         R0 4
-      149 LOADK                            R2 K23 ["autoSetupAssetsGenerated"]
-      150 GETUPVAL                         R3 18
-      151 GETUPVAL                         R4 13
-      152 CALL                             R3 1 1
-      153 GETUPVAL                         R4 19
-      154 GETUPVAL                         R5 9
-      155 CALL                             R4 1 -1
-      156 NAMECALL                         R0 R0 K5 ["report"]
-      158 CALL                             R0 -1 0
-      159 RETURN                           R0 0
+        6 LOADK                            R2 K0 ["autoSetupClothingOnlyFinish"]
+        7 GETUPVAL                         R3 3
+        8 GETUPVAL                         R4 4
+        9 NAMECALL                         R0 R0 K1 ["report"]
+       11 CALL                             R0 4 0
+       12 GETUPVAL                         R0 5
+       13 CALL                             R0 0 1
+       14 JUMPIFNOT                        R0 ; [+2]
+       15 GETUPVAL                         R0 6
+       16 CALL                             R0 0 0
+       17 GETUPVAL                         R0 7
+       18 GETTABLEKS                       R0 R0 K2 ["insertResultAsync"]
+       20 GETUPVAL                         R1 8
+       21 GETUPVAL                         R2 9
+       22 GETUPVAL                         R3 10
+       23 GETUPVAL                         R4 11
+       24 GETUPVAL                         R5 12
+       25 GETUPVAL                         R6 13
+       26 GETUPVAL                         R7 14
+       27 CALL                             R0 7 0
+       28 JUMP                             ; [+133]
+       29 GETUPVAL                         R0 5
+       30 CALL                             R0 0 1
+       31 JUMPIFNOT                        R0 ; [+2]
+       32 GETUPVAL                         R0 6
+       33 CALL                             R0 0 0
+       34 GETUPVAL                         R0 15
+       35 CALL                             R0 0 1
+       36 JUMPIFNOT                        R0 ; [+100]
+       37 GETUPVAL                         R0 14
+       38 JUMPIFNOT                        R0 ; [+98]
+       39 GETUPVAL                         R0 14
+       40 GETTABLEKS                       R0 R0 K3 ["settings"]
+       42 GETTABLEKS                       R0 R0 K4 ["SetupType"]
+       44 JUMPIFEQKS                       R0 K5 ["Unspecified"] ; [+92]
+       46 GETUPVAL                         R0 14
+       47 GETTABLEKS                       R0 R0 K3 ["settings"]
+       49 GETTABLEKS                       R0 R0 K6 ["ClothingOnly"]
+       51 JUMPIFNOT                        R0 ; [+85]
+       52 GETUPVAL                         R0 2
+       53 LOADK                            R2 K0 ["autoSetupClothingOnlyFinish"]
+       54 GETUPVAL                         R3 3
+       55 GETUPVAL                         R4 4
+       56 NAMECALL                         R0 R0 K1 ["report"]
+       58 CALL                             R0 4 0
+       59 GETUPVAL                         R0 16
+       60 CALL                             R0 0 1
+       61 JUMPIFNOT                        R0 ; [+11]
+       62 GETUPVAL                         R0 14
+       63 GETTABLEKS                       R0 R0 K7 ["info"]
+       65 GETTABLEKS                       R0 R0 K8 ["shouldProcessAttachmentPoint"]
+       67 JUMPIFNOT                        R0 ; [+5]
+       68 GETUPVAL                         R0 7
+       69 GETTABLEKS                       R0 R0 K9 ["processRigidAndAttachmentMeshes"]
+       71 GETUPVAL                         R1 10
+       72 CALL                             R0 1 0
+       73 GETUPVAL                         R0 14
+       74 GETTABLEKS                       R0 R0 K7 ["info"]
+       76 GETTABLEKS                       R0 R0 K10 ["shouldCreateTemplateBody"]
+       78 JUMPIFNOT                        R0 ; [+48]
+       79 GETUPVAL                         R0 7
+       80 GETTABLEKS                       R0 R0 K11 ["createTemplateBody"]
+       82 CALL                             R0 0 1
+       83 GETUPVAL                         R1 10
+       84 NAMECALL                         R1 R1 K12 ["Clone"]
+       86 CALL                             R1 1 1
+       87 NAMECALL                         R2 R1 K13 ["GetDescendants"]
+       89 CALL                             R2 1 3
+       90 FORGPREP                         R2
+       91 LOADK                            R9 K14 ["BasePart"]
+       92 NAMECALL                         R7 R6 K15 ["IsA"]
+       94 CALL                             R7 2 1
+       95 JUMPIFNOT                        R7 ; [+2]
+       96 SETTABLEKS                       R0 R6 K16 ["Parent"]
+       98 FORGLOOP                         R2 2 ; [-8]
+      100 SETUPVAL                         R0 10
+      101 GETUPVAL                         R2 17
+      102 CALL                             R2 0 1
+      103 JUMPIFNOT                        R2 ; [+12]
+      104 GETUPVAL                         R2 7
+      105 GETTABLEKS                       R2 R2 K17 ["insertBodyAsync"]
+      107 LOADNIL                          R3
+      108 GETUPVAL                         R4 9
+      109 GETUPVAL                         R5 10
+      110 GETUPVAL                         R6 11
+      111 GETUPVAL                         R7 12
+      112 GETUPVAL                         R8 13
+      113 GETUPVAL                         R9 14
+      114 CALL                             R2 7 0
+      115 JUMP                             ; [+46]
+      116 GETUPVAL                         R2 7
+      117 GETTABLEKS                       R2 R2 K18 ["DEPRECATED_insertBodyAsync"]
+      119 LOADNIL                          R3
+      120 GETUPVAL                         R4 9
+      121 GETUPVAL                         R5 10
+      122 GETUPVAL                         R6 11
+      123 GETUPVAL                         R7 12
+      124 GETUPVAL                         R8 13
+      125 CALL                             R2 6 0
+      126 JUMP                             ; [+35]
+      127 GETUPVAL                         R0 7
+      128 GETTABLEKS                       R0 R0 K19 ["insertClothingAsync"]
+      130 GETUPVAL                         R1 9
+      131 GETUPVAL                         R2 10
+      132 GETUPVAL                         R3 11
+      133 GETUPVAL                         R4 12
+      134 GETUPVAL                         R5 13
+      135 CALL                             R0 5 0
+      136 JUMP                             ; [+25]
+      137 GETUPVAL                         R0 17
+      138 CALL                             R0 0 1
+      139 JUMPIFNOT                        R0 ; [+12]
+      140 GETUPVAL                         R0 7
+      141 GETTABLEKS                       R0 R0 K17 ["insertBodyAsync"]
+      143 GETUPVAL                         R1 8
+      144 GETUPVAL                         R2 9
+      145 GETUPVAL                         R3 10
+      146 GETUPVAL                         R4 11
+      147 GETUPVAL                         R5 12
+      148 GETUPVAL                         R6 13
+      149 GETUPVAL                         R7 14
+      150 CALL                             R0 7 0
+      151 JUMP                             ; [+10]
+      152 GETUPVAL                         R0 7
+      153 GETTABLEKS                       R0 R0 K18 ["DEPRECATED_insertBodyAsync"]
+      155 GETUPVAL                         R1 8
+      156 GETUPVAL                         R2 9
+      157 GETUPVAL                         R3 10
+      158 GETUPVAL                         R4 11
+      159 GETUPVAL                         R5 12
+      160 GETUPVAL                         R6 13
+      161 CALL                             R0 6 0
+      162 GETUPVAL                         R0 18
+      163 LOADNIL                          R1
+      164 CALL                             R0 1 0
+      165 GETUPVAL                         R0 2
+      166 LOADK                            R2 K20 ["autoSetupFinish"]
+      167 GETIMPORT                        R4 K23 [os.clock]
+      169 CALL                             R4 0 1
+      170 GETUPVAL                         R5 19
+      171 SUB                              R3 R4 R5
+      172 GETUPVAL                         R4 12
+      173 GETUPVAL                         R5 13
+      174 NAMECALL                         R0 R0 K1 ["report"]
+      176 CALL                             R0 5 0
+      177 GETUPVAL                         R0 2
+      178 LOADK                            R2 K24 ["autoSetupAssetsGenerated"]
+      179 GETUPVAL                         R3 20
+      180 GETUPVAL                         R4 12
+      181 CALL                             R3 1 1
+      182 GETUPVAL                         R4 21
+      183 GETUPVAL                         R5 10
+      184 CALL                             R4 1 1
+      185 GETUPVAL                         R6 22
+      186 CALL                             R6 0 1
+      187 JUMPIFNOT                        R6 ; [+4]
+      188 GETUPVAL                         R5 23
+      189 GETTABLEKS                       R5 R5 K25 ["current"]
+      191 JUMP                             ; [+1]
+      192 LOADNIL                          R5
+      193 NAMECALL                         R0 R0 K1 ["report"]
+      195 CALL                             R0 5 0
+      196 RETURN                           R0 0
 
 PROTO_16:
         0 GETIMPORT                        R0 K1 [pcall]
@@ -509,65 +560,69 @@ PROTO_16:
       153 CALL                             R8 5 2
       154 MOVE                             R6 R8
       155 MOVE                             R7 R9
-      156 JUMPIFNOT                        R6 ; [+30]
+      156 JUMPIFNOT                        R6 ; [+34]
       157 GETUPVAL                         R8 17
       158 GETTABLEKS                       R8 R8 K26 ["current"]
-      160 GETUPVAL                         R9 5
+      160 GETUPVAL                         R9 18
       161 SETTABLE                         R7 R8 R9
       162 GETIMPORT                        R8 K31 [task.spawn]
       164 NEWCLOSURE                       R9 P2
-      165 CAPTURE                          UPVAL U18
-      166 CAPTURE                          UPVAL U19
-      167 CAPTURE                          UPVAL U20
-      168 CAPTURE                          UPVAL U21
-      169 CAPTURE                          UPVAL U3
-      170 CAPTURE                          UPVAL U16
-      171 CAPTURE                          UPVAL U14
-      172 CAPTURE                          UPVAL U22
-      173 CAPTURE                          UPVAL U23
-      174 CAPTURE                          REF R7
-      175 CAPTURE                          UPVAL U24
-      176 CAPTURE                          UPVAL U25
-      177 CAPTURE                          UPVAL U1
-      178 CAPTURE                          REF R3
-      179 CAPTURE                          UPVAL U5
-      180 CAPTURE                          UPVAL U26
-      181 CAPTURE                          UPVAL U27
-      182 CAPTURE                          UPVAL U4
-      183 CAPTURE                          UPVAL U28
-      184 CAPTURE                          UPVAL U29
-      185 CALL                             R8 1 0
-      186 JUMP                             ; [+30]
-      187 JUMPIFNOTEQKS                    R7 K32 ["Autosetup is canceled"] ; [+5]
-      189 GETUPVAL                         R8 27
-      190 LOADNIL                          R9
-      191 CALL                             R8 1 0
-      192 JUMP                             ; [+24]
-      193 GETIMPORT                        R8 K5 [warn]
-      195 LOADK                            R10 K33 ["Something went wrong while performing auto setup.\n%*"]
-      196 MOVE                             R12 R7
-      197 NAMECALL                         R10 R10 K7 ["format"]
-      199 CALL                             R10 2 1
-      200 MOVE                             R9 R10
-      201 CALL                             R8 1 0
-      202 GETUPVAL                         R8 2
-      203 GETUPVAL                         R9 1
-      204 CALL                             R8 1 0
-      205 GETUPVAL                         R8 3
-      206 LOADK                            R10 K8 ["autoSetupFailure"]
-      207 GETIMPORT                        R12 K11 [os.clock]
-      209 CALL                             R12 0 1
-      210 GETUPVAL                         R13 4
-      211 SUB                              R11 R12 R13
-      212 ORK                              R12 R3 K12 ["no model uploaded"]
-      213 GETUPVAL                         R13 5
-      214 NAMECALL                         R8 R8 K13 ["report"]
-      216 CALL                             R8 5 0
-      217 GETUPVAL                         R8 8
-      218 LOADNIL                          R9
-      219 SETTABLEKS                       R9 R8 K26 ["current"]
-      221 CLOSEUPVALS                      R3
-      222 RETURN                           R0 0
+      165 CAPTURE                          UPVAL U19
+      166 CAPTURE                          UPVAL U20
+      167 CAPTURE                          UPVAL U3
+      168 CAPTURE                          UPVAL U16
+      169 CAPTURE                          UPVAL U14
+      170 CAPTURE                          UPVAL U21
+      171 CAPTURE                          UPVAL U22
+      172 CAPTURE                          UPVAL U23
+      173 CAPTURE                          UPVAL U24
+      174 CAPTURE                          UPVAL U25
+      175 CAPTURE                          REF R7
+      176 CAPTURE                          UPVAL U1
+      177 CAPTURE                          REF R3
+      178 CAPTURE                          UPVAL U5
+      179 CAPTURE                          UPVAL U26
+      180 CAPTURE                          UPVAL U27
+      181 CAPTURE                          UPVAL U28
+      182 CAPTURE                          UPVAL U29
+      183 CAPTURE                          UPVAL U30
+      184 CAPTURE                          UPVAL U4
+      185 CAPTURE                          UPVAL U31
+      186 CAPTURE                          UPVAL U32
+      187 CAPTURE                          UPVAL U33
+      188 CAPTURE                          UPVAL U11
+      189 CALL                             R8 1 0
+      190 JUMP                             ; [+30]
+      191 JUMPIFNOTEQKS                    R7 K32 ["Autosetup is canceled"] ; [+5]
+      193 GETUPVAL                         R8 30
+      194 LOADNIL                          R9
+      195 CALL                             R8 1 0
+      196 JUMP                             ; [+24]
+      197 GETIMPORT                        R8 K5 [warn]
+      199 LOADK                            R10 K33 ["Something went wrong while performing auto setup.\n%*"]
+      200 MOVE                             R12 R7
+      201 NAMECALL                         R10 R10 K7 ["format"]
+      203 CALL                             R10 2 1
+      204 MOVE                             R9 R10
+      205 CALL                             R8 1 0
+      206 GETUPVAL                         R8 2
+      207 GETUPVAL                         R9 1
+      208 CALL                             R8 1 0
+      209 GETUPVAL                         R8 3
+      210 LOADK                            R10 K8 ["autoSetupFailure"]
+      211 GETIMPORT                        R12 K11 [os.clock]
+      213 CALL                             R12 0 1
+      214 GETUPVAL                         R13 4
+      215 SUB                              R11 R12 R13
+      216 ORK                              R12 R3 K12 ["no model uploaded"]
+      217 GETUPVAL                         R13 5
+      218 NAMECALL                         R8 R8 K13 ["report"]
+      220 CALL                             R8 5 0
+      221 GETUPVAL                         R8 8
+      222 LOADNIL                          R9
+      223 SETTABLEKS                       R9 R8 K26 ["current"]
+      225 CLOSEUPVALS                      R3
+      226 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R2 0
@@ -643,126 +698,160 @@ PROTO_17:
        95 GETTABLEKS                       R7 R0 K18 ["model"]
        97 MOVE                             R8 R5
        98 CALL                             R6 2 1
-       99 GETUPVAL                         R7 10
-      100 CALL                             R7 0 1
-      101 JUMPIFNOT                        R7 ; [+3]
-      102 GETUPVAL                         R7 11
-      103 MOVE                             R8 R0
-      104 CALL                             R7 1 0
-      105 GETUPVAL                         R8 12
-      106 GETTABLEKS                       R8 R8 K11 ["current"]
-      108 GETTABLE                         R7 R8 R6
-      109 JUMPIFEQKNIL                     R7 ; [+29]
-      111 GETTABLEKS                       R8 R7 K29 ["PrimaryPart"]
-      113 JUMPIFEQKNIL                     R8 ; [+25]
-      115 GETUPVAL                         R11 13
-      116 GETTABLEKS                       R11 R11 K30 ["ATTRIBUTE_AUTO_SETUP_INPUT_ASSET"]
-      118 NAMECALL                         R9 R7 K31 ["GetAttribute"]
-      120 CALL                             R9 2 1
-      121 ORK                              R8 R9 K10 [""]
-      122 GETIMPORT                        R9 K34 [task.spawn]
-      124 NEWCLOSURE                       R10 P0
-      125 CAPTURE                          UPVAL U10
-      126 CAPTURE                          UPVAL U14
-      127 CAPTURE                          UPVAL U15
-      128 CAPTURE                          UPVAL U7
-      129 CAPTURE                          UPVAL U16
-      130 CAPTURE                          UPVAL U17
-      131 CAPTURE                          VAL R7
-      132 CAPTURE                          VAL R0
-      133 CAPTURE                          VAL R8
-      134 CAPTURE                          VAL R6
-      135 CAPTURE                          VAL R1
-      136 CAPTURE                          UPVAL U18
-      137 CALL                             R9 1 0
-      138 RETURN                           R0 0
-      139 GETUPVAL                         R8 10
-      140 CALL                             R8 0 1
-      141 JUMPIF                           R8 ; [+3]
-      142 GETUPVAL                         R8 11
-      143 MOVE                             R9 R0
-      144 CALL                             R8 1 0
-      145 GETUPVAL                         R8 6
-      146 CALL                             R8 0 1
-      147 JUMPIFNOT                        R8 ; [+16]
-      148 GETUPVAL                         R8 19
-      149 LOADK                            R10 K35 ["autoSetupRequested"]
-      150 JUMPIFEQKNIL                     R1 ; [+6]
-      152 GETTABLEKS                       R11 R1 K36 ["info"]
-      154 GETTABLEKS                       R11 R11 K37 ["assetClassification"]
-      156 JUMP                             ; [+1]
-      157 LOADNIL                          R11
-      158 MOVE                             R12 R2
-      159 MOVE                             R13 R6
-      160 NAMECALL                         R8 R8 K38 ["report"]
-      162 CALL                             R8 5 0
-      163 JUMP                             ; [+5]
-      164 GETUPVAL                         R8 19
-      165 LOADK                            R10 K35 ["autoSetupRequested"]
-      166 NAMECALL                         R8 R8 K38 ["report"]
-      168 CALL                             R8 2 0
-      169 GETUPVAL                         R8 20
-      170 CALL                             R8 0 1
-      171 JUMPIFNOT                        R8 ; [+7]
-      172 GETUPVAL                         R8 19
-      173 LOADK                            R10 K39 ["autoSetupOptions"]
-      174 MOVE                             R11 R3
-      175 MOVE                             R12 R2
-      176 NAMECALL                         R8 R8 K38 ["report"]
-      178 CALL                             R8 4 0
-      179 LOADNIL                          R8
-      180 GETIMPORT                        R9 K34 [task.spawn]
-      182 NEWCLOSURE                       R10 P1
-      183 CAPTURE                          UPVAL U18
-      184 CAPTURE                          VAL R0
-      185 CAPTURE                          UPVAL U21
-      186 CAPTURE                          UPVAL U19
-      187 CAPTURE                          VAL R4
-      188 CAPTURE                          VAL R6
-      189 CAPTURE                          UPVAL U22
-      190 CAPTURE                          UPVAL U23
-      191 CAPTURE                          UPVAL U24
-      192 CAPTURE                          UPVAL U25
-      193 CAPTURE                          UPVAL U26
-      194 CAPTURE                          UPVAL U4
-      195 CAPTURE                          UPVAL U3
-      196 CAPTURE                          UPVAL U13
-      197 CAPTURE                          VAL R2
-      198 CAPTURE                          UPVAL U27
-      199 CAPTURE                          VAL R3
-      200 CAPTURE                          UPVAL U12
-      201 CAPTURE                          UPVAL U10
-      202 CAPTURE                          UPVAL U14
-      203 CAPTURE                          UPVAL U20
-      204 CAPTURE                          VAL R1
-      205 CAPTURE                          UPVAL U28
-      206 CAPTURE                          UPVAL U7
-      207 CAPTURE                          UPVAL U15
-      208 CAPTURE                          UPVAL U17
-      209 CAPTURE                          UPVAL U16
-      210 CAPTURE                          UPVAL U11
-      211 CAPTURE                          UPVAL U29
-      212 CAPTURE                          UPVAL U30
-      213 CALL                             R9 1 1
-      214 MOVE                             R8 R9
-      215 GETUPVAL                         R9 24
-      216 DUPTABLE                         R10 K43 [{"timeStart", "assetId", "modelHash"}]
-      217 SETTABLEKS                       R4 R10 K40 ["timeStart"]
-      219 LOADK                            R11 K44 ["no model uploaded"]
-      220 SETTABLEKS                       R11 R10 K41 ["assetId"]
-      222 SETTABLEKS                       R6 R10 K42 ["modelHash"]
-      224 SETTABLEKS                       R10 R9 K11 ["current"]
-      226 GETUPVAL                         R9 1
-      227 MOVE                             R10 R8
-      228 CALL                             R9 1 0
-      229 GETUPVAL                         R9 18
-      230 GETTABLEKS                       R9 R9 K45 ["autoSetupClickedSignal"]
-      232 JUMPIFEQKNIL                     R9 ; [+7]
-      234 GETUPVAL                         R9 18
-      235 GETTABLEKS                       R9 R9 K45 ["autoSetupClickedSignal"]
-      237 NAMECALL                         R9 R9 K46 ["Fire"]
-      239 CALL                             R9 1 0
-      240 RETURN                           R0 0
+       99 GETUPVAL                         R7 7
+      100 GETTABLEKS                       R7 R7 K29 ["isClothingOnly"]
+      102 MOVE                             R8 R1
+      103 CALL                             R7 1 1
+      104 LOADNIL                          R8
+      105 GETUPVAL                         R9 10
+      106 CALL                             R9 0 1
+      107 JUMPIFNOT                        R9 ; [+16]
+      108 JUMPIFEQKNIL                     R3 ; [+13]
+      110 LOADK                            R9 K30 ["%*|%*"]
+      111 MOVE                             R11 R6
+      112 GETUPVAL                         R12 5
+      113 MOVE                             R14 R3
+      114 NAMECALL                         R12 R12 K31 ["JSONEncode"]
+      116 CALL                             R12 2 1
+      117 NAMECALL                         R9 R9 K32 ["format"]
+      119 CALL                             R9 3 1
+      120 MOVE                             R8 R9
+      121 JUMP                             ; [+3]
+      122 MOVE                             R8 R6
+      123 JUMP                             ; [+1]
+      124 MOVE                             R8 R6
+      125 GETUPVAL                         R9 11
+      126 CALL                             R9 0 1
+      127 JUMPIFNOT                        R9 ; [+3]
+      128 GETUPVAL                         R9 12
+      129 MOVE                             R10 R0
+      130 CALL                             R9 1 0
+      131 GETUPVAL                         R10 13
+      132 GETTABLEKS                       R10 R10 K11 ["current"]
+      134 GETTABLE                         R9 R10 R8
+      135 JUMPIFEQKNIL                     R9 ; [+36]
+      137 GETTABLEKS                       R10 R9 K33 ["PrimaryPart"]
+      139 JUMPIFNOTEQKNIL                  R10 ; [+5]
+      141 GETUPVAL                         R10 10
+      142 CALL                             R10 0 1
+      143 JUMPIFNOT                        R10 ; [+28]
+      144 JUMPIFNOT                        R7 ; [+27]
+      145 GETUPVAL                         R13 14
+      146 GETTABLEKS                       R13 R13 K34 ["ATTRIBUTE_AUTO_SETUP_INPUT_ASSET"]
+      148 NAMECALL                         R11 R9 K35 ["GetAttribute"]
+      150 CALL                             R11 2 1
+      151 ORK                              R10 R11 K10 [""]
+      152 GETIMPORT                        R11 K38 [task.spawn]
+      154 NEWCLOSURE                       R12 P0
+      155 CAPTURE                          UPVAL U11
+      156 CAPTURE                          UPVAL U15
+      157 CAPTURE                          UPVAL U10
+      158 CAPTURE                          UPVAL U7
+      159 CAPTURE                          UPVAL U16
+      160 CAPTURE                          UPVAL U17
+      161 CAPTURE                          VAL R9
+      162 CAPTURE                          VAL R0
+      163 CAPTURE                          VAL R10
+      164 CAPTURE                          VAL R6
+      165 CAPTURE                          VAL R1
+      166 CAPTURE                          UPVAL U12
+      167 CAPTURE                          UPVAL U18
+      168 CAPTURE                          UPVAL U19
+      169 CALL                             R11 1 0
+      170 CLOSEUPVALS                      R8
+      171 RETURN                           R0 0
+      172 GETUPVAL                         R10 11
+      173 CALL                             R10 0 1
+      174 JUMPIF                           R10 ; [+3]
+      175 GETUPVAL                         R10 12
+      176 MOVE                             R11 R0
+      177 CALL                             R10 1 0
+      178 GETUPVAL                         R10 6
+      179 CALL                             R10 0 1
+      180 JUMPIFNOT                        R10 ; [+16]
+      181 GETUPVAL                         R10 20
+      182 LOADK                            R12 K39 ["autoSetupRequested"]
+      183 JUMPIFEQKNIL                     R1 ; [+6]
+      185 GETTABLEKS                       R13 R1 K40 ["info"]
+      187 GETTABLEKS                       R13 R13 K41 ["assetClassification"]
+      189 JUMP                             ; [+1]
+      190 LOADNIL                          R13
+      191 MOVE                             R14 R2
+      192 MOVE                             R15 R6
+      193 NAMECALL                         R10 R10 K42 ["report"]
+      195 CALL                             R10 5 0
+      196 JUMP                             ; [+5]
+      197 GETUPVAL                         R10 20
+      198 LOADK                            R12 K39 ["autoSetupRequested"]
+      199 NAMECALL                         R10 R10 K42 ["report"]
+      201 CALL                             R10 2 0
+      202 GETUPVAL                         R10 21
+      203 CALL                             R10 0 1
+      204 JUMPIFNOT                        R10 ; [+7]
+      205 GETUPVAL                         R10 20
+      206 LOADK                            R12 K43 ["autoSetupOptions"]
+      207 MOVE                             R13 R3
+      208 MOVE                             R14 R2
+      209 NAMECALL                         R10 R10 K42 ["report"]
+      211 CALL                             R10 4 0
+      212 LOADNIL                          R10
+      213 GETIMPORT                        R11 K38 [task.spawn]
+      215 NEWCLOSURE                       R12 P1
+      216 CAPTURE                          UPVAL U19
+      217 CAPTURE                          VAL R0
+      218 CAPTURE                          UPVAL U22
+      219 CAPTURE                          UPVAL U20
+      220 CAPTURE                          VAL R4
+      221 CAPTURE                          VAL R6
+      222 CAPTURE                          UPVAL U23
+      223 CAPTURE                          UPVAL U24
+      224 CAPTURE                          UPVAL U25
+      225 CAPTURE                          UPVAL U26
+      226 CAPTURE                          UPVAL U27
+      227 CAPTURE                          UPVAL U4
+      228 CAPTURE                          UPVAL U3
+      229 CAPTURE                          UPVAL U14
+      230 CAPTURE                          VAL R2
+      231 CAPTURE                          UPVAL U28
+      232 CAPTURE                          VAL R3
+      233 CAPTURE                          UPVAL U13
+      234 CAPTURE                          REF R8
+      235 CAPTURE                          UPVAL U10
+      236 CAPTURE                          VAL R7
+      237 CAPTURE                          UPVAL U11
+      238 CAPTURE                          UPVAL U15
+      239 CAPTURE                          UPVAL U7
+      240 CAPTURE                          UPVAL U16
+      241 CAPTURE                          UPVAL U17
+      242 CAPTURE                          VAL R1
+      243 CAPTURE                          UPVAL U21
+      244 CAPTURE                          UPVAL U29
+      245 CAPTURE                          UPVAL U18
+      246 CAPTURE                          UPVAL U12
+      247 CAPTURE                          UPVAL U30
+      248 CAPTURE                          UPVAL U31
+      249 CAPTURE                          UPVAL U32
+      250 CALL                             R11 1 1
+      251 MOVE                             R10 R11
+      252 GETUPVAL                         R11 25
+      253 DUPTABLE                         R12 K47 [{"timeStart", "assetId", "modelHash"}]
+      254 SETTABLEKS                       R4 R12 K44 ["timeStart"]
+      256 LOADK                            R13 K48 ["no model uploaded"]
+      257 SETTABLEKS                       R13 R12 K45 ["assetId"]
+      259 SETTABLEKS                       R6 R12 K46 ["modelHash"]
+      261 SETTABLEKS                       R12 R11 K11 ["current"]
+      263 GETUPVAL                         R11 1
+      264 MOVE                             R12 R10
+      265 CALL                             R11 1 0
+      266 GETUPVAL                         R11 19
+      267 GETTABLEKS                       R11 R11 K49 ["autoSetupClickedSignal"]
+      269 JUMPIFEQKNIL                     R11 ; [+7]
+      271 GETUPVAL                         R11 19
+      272 GETTABLEKS                       R11 R11 K49 ["autoSetupClickedSignal"]
+      274 NAMECALL                         R11 R11 K50 ["Fire"]
+      276 CALL                             R11 1 0
+      277 CLOSEUPVALS                      R8
+      278 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R0 0
@@ -930,63 +1019,65 @@ PROTO_19:
       191 CAPTURE                          UPVAL U10
       192 CAPTURE                          UPVAL U11
       193 CAPTURE                          UPVAL U12
-      194 CAPTURE                          VAL R4
-      195 CAPTURE                          VAL R14
-      196 CAPTURE                          UPVAL U4
-      197 CAPTURE                          VAL R23
-      198 CAPTURE                          UPVAL U13
+      194 CAPTURE                          UPVAL U13
+      195 CAPTURE                          VAL R4
+      196 CAPTURE                          VAL R14
+      197 CAPTURE                          UPVAL U4
+      198 CAPTURE                          VAL R23
       199 CAPTURE                          VAL R22
       200 CAPTURE                          VAL R1
-      201 CAPTURE                          VAL R2
-      202 CAPTURE                          VAL R0
-      203 CAPTURE                          UPVAL U14
-      204 CAPTURE                          VAL R17
-      205 CAPTURE                          UPVAL U15
+      201 CAPTURE                          UPVAL U14
+      202 CAPTURE                          VAL R2
+      203 CAPTURE                          VAL R0
+      204 CAPTURE                          UPVAL U15
+      205 CAPTURE                          VAL R17
       206 CAPTURE                          UPVAL U16
-      207 CAPTURE                          VAL R7
-      208 CAPTURE                          VAL R21
-      209 CAPTURE                          UPVAL U17
-      210 CAPTURE                          VAL R13
-      211 CAPTURE                          UPVAL U18
+      207 CAPTURE                          UPVAL U17
+      208 CAPTURE                          VAL R7
+      209 CAPTURE                          VAL R21
+      210 CAPTURE                          UPVAL U18
+      211 CAPTURE                          VAL R13
       212 CAPTURE                          UPVAL U19
       213 CAPTURE                          UPVAL U20
-      214 NEWTABLE                         R26 0 5
-      216 GETTABLEKS                       R27 R2 K22 ["startAutoSetupAsync"]
-      218 GETTABLEKS                       R28 R2 K23 ["uploadModelAsync"]
-      220 MOVE                             R29 R22
-      221 MOVE                             R30 R15
-      222 GETUPVAL                         R32 12
-      223 CALL                             R32 0 1
-      224 JUMPIFNOT                        R32 ; [+2]
-      225 MOVE                             R31 R23
-      226 JUMP                             ; [+1]
-      227 LOADNIL                          R31
-      228 SETLIST                          R26 R27 5 [1]
-      230 CALL                             R24 2 1
-      231 GETUPVAL                         R25 2
-      232 GETTABLEKS                       R25 R25 K18 ["useCallback"]
-      234 NEWCLOSURE                       R26 P10
-      235 CAPTURE                          VAL R15
-      236 CAPTURE                          VAL R6
-      237 CAPTURE                          VAL R4
-      238 CAPTURE                          VAL R2
-      239 CAPTURE                          VAL R20
-      240 NEWTABLE                         R27 0 3
-      242 GETTABLEKS                       R28 R2 K24 ["cancelAutoSetup"]
-      244 GETTABLEKS                       R29 R20 K11 ["current"]
-      246 MOVE                             R30 R15
-      247 SETLIST                          R27 R28 3 [1]
-      249 CALL                             R25 2 1
-      250 DUPTABLE                         R26 K32 [{"cancelAutoSetup", "startAutoSetup", "activeTarget", "lastErrorType", "lastErrorTarget", "clearError", "progressState", "metadataState"}]
-      251 SETTABLEKS                       R25 R26 K24 ["cancelAutoSetup"]
-      253 SETTABLEKS                       R24 R26 K25 ["startAutoSetup"]
-      255 SETTABLEKS                       R3 R26 K26 ["activeTarget"]
-      257 SETTABLEKS                       R8 R26 K27 ["lastErrorType"]
-      259 SETTABLEKS                       R10 R26 K28 ["lastErrorTarget"]
-      261 SETTABLEKS                       R16 R26 K29 ["clearError"]
-      263 SETTABLEKS                       R18 R26 K30 ["progressState"]
-      265 SETTABLEKS                       R12 R26 K31 ["metadataState"]
-      267 RETURN                           R26 1
+      214 CAPTURE                          UPVAL U21
+      215 CAPTURE                          UPVAL U22
+      216 NEWTABLE                         R26 0 5
+      218 GETTABLEKS                       R27 R2 K22 ["startAutoSetupAsync"]
+      220 GETTABLEKS                       R28 R2 K23 ["uploadModelAsync"]
+      222 MOVE                             R29 R22
+      223 MOVE                             R30 R15
+      224 GETUPVAL                         R32 13
+      225 CALL                             R32 0 1
+      226 JUMPIFNOT                        R32 ; [+2]
+      227 MOVE                             R31 R23
+      228 JUMP                             ; [+1]
+      229 LOADNIL                          R31
+      230 SETLIST                          R26 R27 5 [1]
+      232 CALL                             R24 2 1
+      233 GETUPVAL                         R25 2
+      234 GETTABLEKS                       R25 R25 K18 ["useCallback"]
+      236 NEWCLOSURE                       R26 P10
+      237 CAPTURE                          VAL R15
+      238 CAPTURE                          VAL R6
+      239 CAPTURE                          VAL R4
+      240 CAPTURE                          VAL R2
+      241 CAPTURE                          VAL R20
+      242 NEWTABLE                         R27 0 3
+      244 GETTABLEKS                       R28 R2 K24 ["cancelAutoSetup"]
+      246 GETTABLEKS                       R29 R20 K11 ["current"]
+      248 MOVE                             R30 R15
+      249 SETLIST                          R27 R28 3 [1]
+      251 CALL                             R25 2 1
+      252 DUPTABLE                         R26 K32 [{"cancelAutoSetup", "startAutoSetup", "activeTarget", "lastErrorType", "lastErrorTarget", "clearError", "progressState", "metadataState"}]
+      253 SETTABLEKS                       R25 R26 K24 ["cancelAutoSetup"]
+      255 SETTABLEKS                       R24 R26 K25 ["startAutoSetup"]
+      257 SETTABLEKS                       R3 R26 K26 ["activeTarget"]
+      259 SETTABLEKS                       R8 R26 K27 ["lastErrorType"]
+      261 SETTABLEKS                       R10 R26 K28 ["lastErrorTarget"]
+      263 SETTABLEKS                       R16 R26 K29 ["clearError"]
+      265 SETTABLEKS                       R18 R26 K30 ["progressState"]
+      267 SETTABLEKS                       R12 R26 K31 ["metadataState"]
+      269 RETURN                           R26 1
 
 PROTO_20:
         0 GETUPVAL                         R0 0
@@ -1152,86 +1243,98 @@ MAIN:
       115 GETIMPORT                        R14 K9 [require]
       117 GETTABLEKS                       R15 R1 K10 ["Src"]
       119 GETTABLEKS                       R15 R15 K26 ["Flags"]
-      121 GETTABLEKS                       R15 R15 K27 ["getFFlagAvatarAutosetupOptionsInput"]
+      121 GETTABLEKS                       R15 R15 K27 ["getFFlagAvatarAutosetupJobIdTelemetry"]
       123 CALL                             R14 1 1
       124 GETIMPORT                        R15 K9 [require]
       126 GETTABLEKS                       R16 R1 K10 ["Src"]
       128 GETTABLEKS                       R16 R16 K26 ["Flags"]
-      130 GETTABLEKS                       R16 R16 K28 ["getFFlagAvatarPreviewerCustomHumanoidImportOption"]
+      130 GETTABLEKS                       R16 R16 K28 ["getFFlagAvatarAutosetupOptionsInput"]
       132 CALL                             R15 1 1
       133 GETIMPORT                        R16 K9 [require]
       135 GETTABLEKS                       R17 R1 K10 ["Src"]
       137 GETTABLEKS                       R17 R17 K26 ["Flags"]
-      139 GETTABLEKS                       R17 R17 K29 ["getFFlagAvatarPreviewerProcessRigidOnly"]
+      139 GETTABLEKS                       R17 R17 K29 ["getFFlagAvatarPreviewerCustomHumanoidImportOption"]
       141 CALL                             R16 1 1
       142 GETIMPORT                        R17 K9 [require]
       144 GETTABLEKS                       R18 R1 K10 ["Src"]
       146 GETTABLEKS                       R18 R18 K26 ["Flags"]
-      148 GETTABLEKS                       R18 R18 K30 ["getFFlagAvatarPreviewerSortClothingUI"]
+      148 GETTABLEKS                       R18 R18 K30 ["getFFlagAvatarPreviewerFixAutoSetupCache"]
       150 CALL                             R17 1 1
       151 GETIMPORT                        R18 K9 [require]
       153 GETTABLEKS                       R19 R1 K10 ["Src"]
       155 GETTABLEKS                       R19 R19 K26 ["Flags"]
-      157 GETTABLEKS                       R19 R19 K31 ["getFFlagDebugAvatarPreviewerSharedCache"]
+      157 GETTABLEKS                       R19 R19 K31 ["getFFlagAvatarPreviewerProcessRigidOnly"]
       159 CALL                             R18 1 1
       160 GETIMPORT                        R19 K9 [require]
       162 GETTABLEKS                       R20 R1 K10 ["Src"]
       164 GETTABLEKS                       R20 R20 K26 ["Flags"]
-      166 GETTABLEKS                       R20 R20 K32 ["getFFlagFixLayeredClothingAssignment"]
+      166 GETTABLEKS                       R20 R20 K32 ["getFFlagAvatarPreviewerSortClothingUI"]
       168 CALL                             R19 1 1
       169 GETIMPORT                        R20 K9 [require]
       171 GETTABLEKS                       R21 R1 K10 ["Src"]
       173 GETTABLEKS                       R21 R21 K26 ["Flags"]
-      175 GETTABLEKS                       R21 R21 K33 ["getFIntAvatarPreviewerMaxSerializedModelToSendBytes"]
+      175 GETTABLEKS                       R21 R21 K33 ["getFFlagDebugAvatarPreviewerSharedCache"]
       177 CALL                             R20 1 1
       178 GETIMPORT                        R21 K9 [require]
       180 GETTABLEKS                       R22 R1 K10 ["Src"]
-      182 GETTABLEKS                       R22 R22 K13 ["Util"]
-      184 GETTABLEKS                       R22 R22 K34 ["renameChildrenForClothing"]
+      182 GETTABLEKS                       R22 R22 K26 ["Flags"]
+      184 GETTABLEKS                       R22 R22 K34 ["getFFlagFixLayeredClothingAssignment"]
       186 CALL                             R21 1 1
-      187 DUPTABLE                         R22 K43 [{"Created", "Pending", "Processing", "Finalizing", "Completed", "Invalid", "Failed", "Canceled"}]
-      188 LOADN                            R23 1
-      189 SETTABLEKS                       R23 R22 K35 ["Created"]
-      191 LOADN                            R23 2
-      192 SETTABLEKS                       R23 R22 K36 ["Pending"]
-      194 LOADN                            R23 3
-      195 SETTABLEKS                       R23 R22 K37 ["Processing"]
-      197 LOADN                            R23 4
-      198 SETTABLEKS                       R23 R22 K38 ["Finalizing"]
-      200 LOADN                            R23 5
-      201 SETTABLEKS                       R23 R22 K39 ["Completed"]
-      203 LOADN                            R23 101
-      204 SETTABLEKS                       R23 R22 K40 ["Invalid"]
-      206 LOADN                            R23 102
-      207 SETTABLEKS                       R23 R22 K41 ["Failed"]
-      209 LOADN                            R23 103
-      210 SETTABLEKS                       R23 R22 K42 ["Canceled"]
-      212 DUPCLOSURE                       R23 K44 [PROTO_0]
-      213 CAPTURE                          VAL R4
-      214 CAPTURE                          VAL R20
-      215 DUPCLOSURE                       R24 K45 [PROTO_19]
-      216 CAPTURE                          VAL R7
-      217 CAPTURE                          VAL R9
-      218 CAPTURE                          VAL R8
-      219 CAPTURE                          VAL R2
-      220 CAPTURE                          VAL R6
-      221 CAPTURE                          VAL R18
-      222 CAPTURE                          VAL R11
-      223 CAPTURE                          VAL R0
-      224 CAPTURE                          VAL R17
-      225 CAPTURE                          VAL R3
-      226 CAPTURE                          VAL R21
-      227 CAPTURE                          VAL R5
-      228 CAPTURE                          VAL R19
-      229 CAPTURE                          VAL R15
-      230 CAPTURE                          VAL R14
+      187 GETIMPORT                        R22 K9 [require]
+      189 GETTABLEKS                       R23 R1 K10 ["Src"]
+      191 GETTABLEKS                       R23 R23 K26 ["Flags"]
+      193 GETTABLEKS                       R23 R23 K35 ["getFIntAvatarPreviewerMaxSerializedModelToSendBytes"]
+      195 CALL                             R22 1 1
+      196 GETIMPORT                        R23 K9 [require]
+      198 GETTABLEKS                       R24 R1 K10 ["Src"]
+      200 GETTABLEKS                       R24 R24 K13 ["Util"]
+      202 GETTABLEKS                       R24 R24 K36 ["renameChildrenForClothing"]
+      204 CALL                             R23 1 1
+      205 DUPTABLE                         R24 K45 [{"Created", "Pending", "Processing", "Finalizing", "Completed", "Invalid", "Failed", "Canceled"}]
+      206 LOADN                            R25 1
+      207 SETTABLEKS                       R25 R24 K37 ["Created"]
+      209 LOADN                            R25 2
+      210 SETTABLEKS                       R25 R24 K38 ["Pending"]
+      212 LOADN                            R25 3
+      213 SETTABLEKS                       R25 R24 K39 ["Processing"]
+      215 LOADN                            R25 4
+      216 SETTABLEKS                       R25 R24 K40 ["Finalizing"]
+      218 LOADN                            R25 5
+      219 SETTABLEKS                       R25 R24 K41 ["Completed"]
+      221 LOADN                            R25 101
+      222 SETTABLEKS                       R25 R24 K42 ["Invalid"]
+      224 LOADN                            R25 102
+      225 SETTABLEKS                       R25 R24 K43 ["Failed"]
+      227 LOADN                            R25 103
+      228 SETTABLEKS                       R25 R24 K44 ["Canceled"]
+      230 DUPCLOSURE                       R25 K46 [PROTO_0]
       231 CAPTURE                          VAL R4
-      232 CAPTURE                          VAL R20
-      233 CAPTURE                          VAL R22
-      234 CAPTURE                          VAL R16
-      235 CAPTURE                          VAL R12
-      236 CAPTURE                          VAL R13
-      237 DUPCLOSURE                       R25 K46 [PROTO_22]
-      238 CAPTURE                          VAL R24
-      239 CAPTURE                          VAL R8
-      240 RETURN                           R25 1
+      232 CAPTURE                          VAL R22
+      233 DUPCLOSURE                       R26 K47 [PROTO_19]
+      234 CAPTURE                          VAL R7
+      235 CAPTURE                          VAL R9
+      236 CAPTURE                          VAL R8
+      237 CAPTURE                          VAL R2
+      238 CAPTURE                          VAL R6
+      239 CAPTURE                          VAL R20
+      240 CAPTURE                          VAL R11
+      241 CAPTURE                          VAL R0
+      242 CAPTURE                          VAL R19
+      243 CAPTURE                          VAL R3
+      244 CAPTURE                          VAL R23
+      245 CAPTURE                          VAL R5
+      246 CAPTURE                          VAL R17
+      247 CAPTURE                          VAL R21
+      248 CAPTURE                          VAL R16
+      249 CAPTURE                          VAL R15
+      250 CAPTURE                          VAL R4
+      251 CAPTURE                          VAL R22
+      252 CAPTURE                          VAL R24
+      253 CAPTURE                          VAL R18
+      254 CAPTURE                          VAL R12
+      255 CAPTURE                          VAL R13
+      256 CAPTURE                          VAL R14
+      257 DUPCLOSURE                       R27 K48 [PROTO_22]
+      258 CAPTURE                          VAL R26
+      259 CAPTURE                          VAL R8
+      260 RETURN                           R27 1

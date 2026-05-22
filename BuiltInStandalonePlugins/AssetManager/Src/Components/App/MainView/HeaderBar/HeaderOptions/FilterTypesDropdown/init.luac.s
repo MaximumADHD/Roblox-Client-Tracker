@@ -147,7 +147,7 @@ PROTO_7:
        98 CALL                             R23 2 1
        99 CALL                             R21 2 1
       100 SETTABLEKS                       R21 R20 K7 ["Size"]
-      102 LOADK                            R21 K19 ["col flex-fill gap-small padding-small bg-surface-100 stroke-default radius-medium"]
+      102 LOADK                            R21 K19 ["col flex-fill padding-small bg-surface-100 stroke-default radius-medium"]
       103 SETTABLEKS                       R21 R20 K8 ["tag"]
       105 DUPTABLE                         R21 K22 [{"Content", "Footer"}]
       106 GETUPVAL                         R22 6
@@ -295,7 +295,7 @@ PROTO_7:
       316 DUPTABLE                         R24 K50 [{"LayoutOrder", "tag"}]
       317 LOADN                            R25 2
       318 SETTABLEKS                       R25 R24 K24 ["LayoutOrder"]
-      320 LOADK                            R25 K89 ["col size-full-0 auto-y padding-top-small padding-bottom-small gap-small"]
+      320 LOADK                            R25 K89 ["col size-full-0 auto-y padding-bottom-xxsmall gap-xsmall"]
       321 SETTABLEKS                       R25 R24 K8 ["tag"]
       323 DUPTABLE                         R25 K92 [{"BottomDivider", "ResetButton"}]
       324 GETUPVAL                         R26 6

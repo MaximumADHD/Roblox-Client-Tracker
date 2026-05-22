@@ -85,70 +85,63 @@ PROTO_4:
        63 GETUPVAL                         R24 4
        64 GETTABLEKS                       R24 R24 K24 ["createElement"]
        66 GETUPVAL                         R25 5
-       67 DUPTABLE                         R26 K43 [{"CanInsertAsset", "CategoryName", "SwimlaneCategory", "OnClickSeeAll", "NetworkInterface", "ShouldLogAssetOnMount", "SortName", "SearchTerm", "IncludeUnverifiedCreators", "QualityFilterData", "QueryParams", "InitialPageSize", "LayoutOrder", "LogAssetImpression", "OnClickSeeAllAssets", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "PathName", "ParentAbsolutePosition", "ParentAbsoluteSize", "SwimlaneWidth", "Title", "TryInsert", "TryOpenAssetConfig", "ZIndex", "searchSource"}]
+       67 DUPTABLE                         R26 K42 [{"CanInsertAsset", "CategoryName", "SwimlaneCategory", "OnClickSeeAll", "NetworkInterface", "ShouldLogAssetOnMount", "SortName", "SearchTerm", "IncludeUnverifiedCreators", "QueryParams", "InitialPageSize", "LayoutOrder", "LogAssetImpression", "OnClickSeeAllAssets", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "PathName", "ParentAbsolutePosition", "ParentAbsoluteSize", "SwimlaneWidth", "Title", "TryInsert", "TryOpenAssetConfig", "ZIndex", "searchSource"}]
        68 SETTABLEKS                       R10 R26 K11 ["CanInsertAsset"]
        70 SETTABLEKS                       R2 R26 K2 ["CategoryName"]
-       72 GETTABLEKS                       R27 R22 K44 ["name"]
+       72 GETTABLEKS                       R27 R22 K43 ["name"]
        74 SETTABLEKS                       R27 R26 K25 ["SwimlaneCategory"]
        76 NEWCLOSURE                       R27 P1
        77 CAPTURE                          UPVAL U0
        78 CAPTURE                          VAL R22
        79 SETTABLEKS                       R27 R26 K26 ["OnClickSeeAll"]
-       81 GETTABLEKS                       R27 R0 K45 ["Network"]
-       83 GETTABLEKS                       R27 R27 K46 ["networkInterface"]
+       81 GETTABLEKS                       R27 R0 K44 ["Network"]
+       83 GETTABLEKS                       R27 R27 K45 ["networkInterface"]
        85 SETTABLEKS                       R27 R26 K27 ["NetworkInterface"]
        87 LOADB                            R27 0
        88 SETTABLEKS                       R27 R26 K28 ["ShouldLogAssetOnMount"]
        90 SETTABLEKS                       R6 R26 K6 ["SortName"]
-       92 GETTABLEKS                       R27 R22 K47 ["searchKeywords"]
+       92 GETTABLEKS                       R27 R22 K46 ["searchKeywords"]
        94 SETTABLEKS                       R27 R26 K29 ["SearchTerm"]
        96 SETTABLEKS                       R9 R26 K10 ["IncludeUnverifiedCreators"]
-       98 GETUPVAL                         R28 6
-       99 CALL                             R28 0 1
-      100 JUMPIFNOT                        R28 ; [+3]
-      101 GETTABLEKS                       R27 R0 K30 ["QualityFilterData"]
-      103 JUMP                             ; [+1]
-      104 LOADNIL                          R27
-      105 SETTABLEKS                       R27 R26 K30 ["QualityFilterData"]
-      107 GETTABLEKS                       R27 R22 K48 ["queryParams"]
-      109 SETTABLEKS                       R27 R26 K31 ["QueryParams"]
-      111 LOADN                            R27 20
-      112 SETTABLEKS                       R27 R26 K32 ["InitialPageSize"]
-      114 GETTABLEKS                       R27 R22 K49 ["index"]
-      116 SETTABLEKS                       R27 R26 K33 ["LayoutOrder"]
-      118 GETTABLEKS                       R27 R0 K34 ["LogAssetImpression"]
-      120 SETTABLEKS                       R27 R26 K34 ["LogAssetImpression"]
-      122 SETTABLEKS                       R13 R26 K14 ["OnClickSeeAllAssets"]
-      124 SETTABLEKS                       R15 R26 K18 ["OnAssetPreviewButtonClicked"]
-      126 GETUPVAL                         R28 7
-      127 CALL                             R28 0 1
-      128 JUMPIFNOT                        R28 ; [+3]
-      129 GETTABLEKS                       R27 R0 K35 ["OnSearchByCreator"]
-      131 JUMP                             ; [+1]
-      132 LOADNIL                          R27
-      133 SETTABLEKS                       R27 R26 K35 ["OnSearchByCreator"]
-      135 GETTABLEKS                       R27 R22 K44 ["name"]
-      137 SETTABLEKS                       R27 R26 K36 ["PathName"]
-      139 GETTABLEKS                       R27 R0 K50 ["AbsolutePosition"]
-      141 SETTABLEKS                       R27 R26 K37 ["ParentAbsolutePosition"]
-      143 GETTABLEKS                       R27 R0 K16 ["AbsoluteSize"]
-      145 SETTABLEKS                       R27 R26 K38 ["ParentAbsoluteSize"]
-      147 SETTABLEKS                       R14 R26 K39 ["SwimlaneWidth"]
-      149 GETTABLEKS                       R27 R22 K51 ["displayName"]
-      151 SETTABLEKS                       R27 R26 K40 ["Title"]
-      153 SETTABLEKS                       R11 R26 K12 ["TryInsert"]
-      155 SETTABLEKS                       R12 R26 K13 ["TryOpenAssetConfig"]
-      157 GETTABLEKS                       R28 R22 K49 ["index"]
-      159 SUB                              R27 R17 R28
-      160 SETTABLEKS                       R27 R26 K41 ["ZIndex"]
-      162 GETUPVAL                         R27 8
-      163 GETTABLEKS                       R27 R27 K52 ["SEARCH_SOURCE"]
-      165 GETTABLEKS                       R27 R27 K53 ["CATEGORY"]
-      167 SETTABLEKS                       R27 R26 K42 ["searchSource"]
-      169 CALL                             R24 2 1
-      170 SETTABLE                         R24 R16 R23
-      171 FORGLOOP                         R18 2 ; [-112]
-      173 RETURN                           R16 1
+       98 GETTABLEKS                       R27 R22 K47 ["queryParams"]
+      100 SETTABLEKS                       R27 R26 K30 ["QueryParams"]
+      102 LOADN                            R27 20
+      103 SETTABLEKS                       R27 R26 K31 ["InitialPageSize"]
+      105 GETTABLEKS                       R27 R22 K48 ["index"]
+      107 SETTABLEKS                       R27 R26 K32 ["LayoutOrder"]
+      109 GETTABLEKS                       R27 R0 K33 ["LogAssetImpression"]
+      111 SETTABLEKS                       R27 R26 K33 ["LogAssetImpression"]
+      113 SETTABLEKS                       R13 R26 K14 ["OnClickSeeAllAssets"]
+      115 SETTABLEKS                       R15 R26 K18 ["OnAssetPreviewButtonClicked"]
+      117 GETUPVAL                         R28 6
+      118 CALL                             R28 0 1
+      119 JUMPIFNOT                        R28 ; [+3]
+      120 GETTABLEKS                       R27 R0 K34 ["OnSearchByCreator"]
+      122 JUMP                             ; [+1]
+      123 LOADNIL                          R27
+      124 SETTABLEKS                       R27 R26 K34 ["OnSearchByCreator"]
+      126 GETTABLEKS                       R27 R22 K43 ["name"]
+      128 SETTABLEKS                       R27 R26 K35 ["PathName"]
+      130 GETTABLEKS                       R27 R0 K49 ["AbsolutePosition"]
+      132 SETTABLEKS                       R27 R26 K36 ["ParentAbsolutePosition"]
+      134 GETTABLEKS                       R27 R0 K16 ["AbsoluteSize"]
+      136 SETTABLEKS                       R27 R26 K37 ["ParentAbsoluteSize"]
+      138 SETTABLEKS                       R14 R26 K38 ["SwimlaneWidth"]
+      140 GETTABLEKS                       R27 R22 K50 ["displayName"]
+      142 SETTABLEKS                       R27 R26 K39 ["Title"]
+      144 SETTABLEKS                       R11 R26 K12 ["TryInsert"]
+      146 SETTABLEKS                       R12 R26 K13 ["TryOpenAssetConfig"]
+      148 GETTABLEKS                       R28 R22 K48 ["index"]
+      150 SUB                              R27 R17 R28
+      151 SETTABLEKS                       R27 R26 K40 ["ZIndex"]
+      153 GETUPVAL                         R27 7
+      154 GETTABLEKS                       R27 R27 K51 ["SEARCH_SOURCE"]
+      156 GETTABLEKS                       R27 R27 K52 ["CATEGORY"]
+      158 SETTABLEKS                       R27 R26 K41 ["searchSource"]
+      160 CALL                             R24 2 1
+      161 SETTABLE                         R24 R16 R23
+      162 FORGLOOP                         R18 2 ; [-103]
+      164 RETURN                           R16 1
 
 PROTO_5:
         0 NEWCLOSURE                       R1 P0
@@ -166,9 +159,8 @@ PROTO_5:
        14 CAPTURE                          UPVAL U4
        15 CAPTURE                          UPVAL U5
        16 CAPTURE                          UPVAL U6
-       17 CAPTURE                          UPVAL U7
-       18 SETTABLEKS                       R1 R0 K2 ["renderSwimlanes"]
-       20 RETURN                           R0 0
+       17 SETTABLEKS                       R1 R0 K2 ["renderSwimlanes"]
+       19 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -290,17 +282,10 @@ PROTO_7:
         5 GETTABLEKS                       R2 R0 K0 ["pageInfo"]
         7 JUMPIF                           R2 ; [+2]
         8 NEWTABLE                         R2 0 0
-       10 DUPTABLE                         R3 K3 [{"IncludeUnverifiedCreators", "QualityFilterData"}]
-       11 GETTABLEKS                       R4 R2 K4 ["includeUnverifiedCreators"]
+       10 DUPTABLE                         R3 K2 [{"IncludeUnverifiedCreators"}]
+       11 GETTABLEKS                       R4 R2 K3 ["includeUnverifiedCreators"]
        13 SETTABLEKS                       R4 R3 K1 ["IncludeUnverifiedCreators"]
-       15 GETUPVAL                         R5 0
-       16 CALL                             R5 0 1
-       17 JUMPIFNOT                        R5 ; [+3]
-       18 GETTABLEKS                       R4 R2 K5 ["qualityFilterData"]
-       20 JUMP                             ; [+1]
-       21 LOADNIL                          R4
-       22 SETTABLEKS                       R4 R3 K2 ["QualityFilterData"]
-       24 RETURN                           R3 1
+       15 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -383,65 +368,58 @@ MAIN:
       138 GETTABLEKS                       R23 R23 K35 ["SharedFlags"]
       140 GETTABLEKS                       R23 R23 K36 ["getFFlagToolboxFixInventoryGridSearch"]
       142 CALL                             R22 1 1
-      143 GETIMPORT                        R23 K6 [require]
-      145 GETTABLEKS                       R24 R0 K9 ["Src"]
-      147 GETTABLEKS                       R24 R24 K37 ["Flags"]
-      149 GETTABLEKS                       R24 R24 K38 ["getFFlagQualityFiltersInToolboxSearch"]
-      151 CALL                             R23 1 1
-      152 GETTABLEKS                       R24 R2 K39 ["PureComponent"]
-      154 LOADK                            R26 K40 ["SubcategoriesSwimlaneView"]
-      155 NAMECALL                         R24 R24 K41 ["extend"]
-      157 CALL                             R24 2 1
-      158 DUPTABLE                         R25 K43 [{"Size"}]
-      159 GETIMPORT                        R26 K46 [UDim2.new]
-      161 LOADN                            R27 1
-      162 LOADN                            R28 0
-      163 LOADN                            R29 1
-      164 LOADN                            R30 0
-      165 CALL                             R26 4 1
-      166 SETTABLEKS                       R26 R25 K42 ["Size"]
-      168 SETTABLEKS                       R25 R24 K47 ["defaultProps"]
-      170 DUPCLOSURE                       R25 K48 [PROTO_5]
-      171 CAPTURE                          VAL R4
-      172 CAPTURE                          VAL R15
-      173 CAPTURE                          VAL R6
-      174 CAPTURE                          VAL R2
-      175 CAPTURE                          VAL R13
-      176 CAPTURE                          VAL R23
-      177 CAPTURE                          VAL R22
+      143 GETTABLEKS                       R23 R2 K37 ["PureComponent"]
+      145 LOADK                            R25 K38 ["SubcategoriesSwimlaneView"]
+      146 NAMECALL                         R23 R23 K39 ["extend"]
+      148 CALL                             R23 2 1
+      149 DUPTABLE                         R24 K41 [{"Size"}]
+      150 GETIMPORT                        R25 K44 [UDim2.new]
+      152 LOADN                            R26 1
+      153 LOADN                            R27 0
+      154 LOADN                            R28 1
+      155 LOADN                            R29 0
+      156 CALL                             R25 4 1
+      157 SETTABLEKS                       R25 R24 K40 ["Size"]
+      159 SETTABLEKS                       R24 R23 K45 ["defaultProps"]
+      161 DUPCLOSURE                       R24 K46 [PROTO_5]
+      162 CAPTURE                          VAL R4
+      163 CAPTURE                          VAL R15
+      164 CAPTURE                          VAL R6
+      165 CAPTURE                          VAL R2
+      166 CAPTURE                          VAL R13
+      167 CAPTURE                          VAL R22
+      168 CAPTURE                          VAL R20
+      169 SETTABLEKS                       R24 R23 K47 ["init"]
+      171 DUPCLOSURE                       R24 K48 [PROTO_6]
+      172 CAPTURE                          VAL R4
+      173 CAPTURE                          VAL R16
+      174 CAPTURE                          VAL R6
+      175 CAPTURE                          VAL R2
+      176 CAPTURE                          VAL R11
+      177 CAPTURE                          VAL R18
       178 CAPTURE                          VAL R20
-      179 SETTABLEKS                       R25 R24 K49 ["init"]
-      181 DUPCLOSURE                       R25 K50 [PROTO_6]
-      182 CAPTURE                          VAL R4
-      183 CAPTURE                          VAL R16
-      184 CAPTURE                          VAL R6
-      185 CAPTURE                          VAL R2
-      186 CAPTURE                          VAL R11
-      187 CAPTURE                          VAL R18
-      188 CAPTURE                          VAL R20
-      189 CAPTURE                          VAL R10
-      190 SETTABLEKS                       R25 R24 K51 ["render"]
-      192 DUPCLOSURE                       R25 K52 [PROTO_7]
-      193 CAPTURE                          VAL R23
-      194 SETGLOBAL                        R25 K53 ["mapStateToProps"]
-      196 MOVE                             R25 R8
-      197 DUPTABLE                         R26 K56 [{"Localization", "Stylizer", "Network"}]
-      198 GETTABLEKS                       R27 R7 K27 ["Localization"]
-      200 SETTABLEKS                       R27 R26 K27 ["Localization"]
-      202 GETTABLEKS                       R27 R7 K54 ["Stylizer"]
-      204 SETTABLEKS                       R27 R26 K54 ["Stylizer"]
-      206 SETTABLEKS                       R9 R26 K55 ["Network"]
-      208 CALL                             R25 1 1
-      209 MOVE                             R26 R24
-      210 CALL                             R25 1 1
-      211 MOVE                             R24 R25
-      212 GETTABLEKS                       R25 R5 K57 ["connect"]
-      214 GETGLOBAL                        R26 K53 ["mapStateToProps"]
-      216 CALL                             R25 1 1
-      217 MOVE                             R26 R24
-      218 CALL                             R25 1 1
-      219 MOVE                             R24 R25
-      220 MOVE                             R25 R21
-      221 MOVE                             R26 R24
-      222 CALL                             R25 1 -1
-      223 RETURN                           R25 -1
+      179 CAPTURE                          VAL R10
+      180 SETTABLEKS                       R24 R23 K49 ["render"]
+      182 DUPCLOSURE                       R24 K50 [PROTO_7]
+      183 SETGLOBAL                        R24 K51 ["mapStateToProps"]
+      185 MOVE                             R24 R8
+      186 DUPTABLE                         R25 K54 [{"Localization", "Stylizer", "Network"}]
+      187 GETTABLEKS                       R26 R7 K27 ["Localization"]
+      189 SETTABLEKS                       R26 R25 K27 ["Localization"]
+      191 GETTABLEKS                       R26 R7 K52 ["Stylizer"]
+      193 SETTABLEKS                       R26 R25 K52 ["Stylizer"]
+      195 SETTABLEKS                       R9 R25 K53 ["Network"]
+      197 CALL                             R24 1 1
+      198 MOVE                             R25 R23
+      199 CALL                             R24 1 1
+      200 MOVE                             R23 R24
+      201 GETTABLEKS                       R24 R5 K55 ["connect"]
+      203 GETGLOBAL                        R25 K51 ["mapStateToProps"]
+      205 CALL                             R24 1 1
+      206 MOVE                             R25 R23
+      207 CALL                             R24 1 1
+      208 MOVE                             R23 R24
+      209 MOVE                             R24 R21
+      210 MOVE                             R25 R23
+      211 CALL                             R24 1 -1
+      212 RETURN                           R24 -1

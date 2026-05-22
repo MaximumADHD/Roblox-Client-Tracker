@@ -80,85 +80,96 @@ PROTO_4:
        16 RETURN                           R0 0
 
 PROTO_5:
-        0 GETTABLEKS                       R2 R0 K0 ["onItemChanged"]
-        2 JUMPIFNOT                        R2 ; [+3]
-        3 GETTABLEKS                       R1 R0 K0 ["onItemChanged"]
-        5 JUMP                             ; [+1]
-        6 DUPCLOSURE                       R1 K1 [PROTO_0]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K2 ["useContext"]
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R3 R3 K3 ["Context"]
-       13 CALL                             R2 1 1
-       14 DUPTABLE                         R3 K6 [{"id", "text"}]
-       15 LOADK                            R4 K7 ["Me"]
-       16 SETTABLEKS                       R4 R3 K4 ["id"]
-       18 LOADK                            R4 K7 ["Me"]
-       19 SETTABLEKS                       R4 R3 K5 ["text"]
-       21 GETTABLEKS                       R5 R0 K8 ["value"]
-       23 JUMPIFNOT                        R5 ; [+14]
-       24 DUPTABLE                         R4 K6 [{"id", "text"}]
-       25 GETTABLEKS                       R5 R0 K8 ["value"]
-       27 SETTABLEKS                       R5 R4 K4 ["id"]
-       29 GETTABLEKS                       R6 R0 K8 ["value"]
-       31 FASTCALL1                        TOSTRING R6 ; [+2]
-       32 GETIMPORT                        R5 K10 [tostring]
-       34 CALL                             R5 1 1
-       35 SETTABLEKS                       R5 R4 K5 ["text"]
-       37 JUMP                             ; [+1]
-       38 LOADNIL                          R4
-       39 GETUPVAL                         R5 0
-       40 GETTABLEKS                       R5 R5 K11 ["useState"]
-       42 GETTABLEKS                       R7 R0 K8 ["value"]
-       44 JUMPIFNOT                        R7 ; [+3]
-       45 GETTABLEKS                       R6 R0 K8 ["value"]
-       47 JUMP                             ; [+1]
-       48 LOADK                            R6 K7 ["Me"]
-       49 CALL                             R5 1 2
-       50 GETUPVAL                         R7 0
-       51 GETTABLEKS                       R7 R7 K11 ["useState"]
-       53 NEWTABLE                         R8 0 2
-       55 MOVE                             R9 R3
-       56 MOVE                             R10 R4
-       57 SETLIST                          R8 R9 2 [1]
-       59 CALL                             R7 1 2
-       60 GETUPVAL                         R9 0
-       61 GETTABLEKS                       R9 R9 K12 ["useEffect"]
-       63 NEWCLOSURE                       R10 P1
-       64 CAPTURE                          UPVAL U2
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R4
-       67 CAPTURE                          VAL R8
-       68 NEWTABLE                         R11 0 0
-       70 CALL                             R9 2 0
-       71 GETUPVAL                         R9 3
-       72 GETUPVAL                         R10 4
-       73 DUPTABLE                         R11 K18 [{"label", "size", "value", "onItemChanged", "maxHeight", "items", "testId"}]
-       74 LOADK                            R12 K19 [""]
-       75 SETTABLEKS                       R12 R11 K13 ["label"]
-       77 GETUPVAL                         R12 5
-       78 GETTABLEKS                       R12 R12 K20 ["Enums"]
-       80 GETTABLEKS                       R12 R12 K21 ["InputSize"]
-       82 GETTABLEKS                       R12 R12 K22 ["Small"]
-       84 SETTABLEKS                       R12 R11 K14 ["size"]
-       86 SETTABLEKS                       R5 R11 K8 ["value"]
-       88 NEWCLOSURE                       R12 P2
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R1
-       91 SETTABLEKS                       R12 R11 K0 ["onItemChanged"]
-       93 GETUPVAL                         R13 6
-       94 CALL                             R13 0 1
-       95 JUMPIFNOT                        R13 ; [+5]
-       96 GETTABLEKS                       R12 R2 K23 ["dialogSize"]
-       98 GETTABLEKS                       R12 R12 K24 ["Y"]
-      100 JUMP                             ; [+1]
-      101 LOADN                            R12 150
-      102 SETTABLEKS                       R12 R11 K15 ["maxHeight"]
-      104 SETTABLEKS                       R7 R11 K16 ["items"]
-      106 LOADK                            R12 K25 ["group-picker-dropdown"]
-      107 SETTABLEKS                       R12 R11 K17 ["testId"]
-      109 CALL                             R9 2 -1
-      110 RETURN                           R9 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["use"]
+        3 CALL                             R1 0 1
+        4 GETTABLEKS                       R3 R0 K1 ["onItemChanged"]
+        6 JUMPIFNOT                        R3 ; [+3]
+        7 GETTABLEKS                       R2 R0 K1 ["onItemChanged"]
+        9 JUMP                             ; [+1]
+       10 DUPCLOSURE                       R2 K2 [PROTO_0]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K3 ["useContext"]
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R4 R4 K4 ["Context"]
+       17 CALL                             R3 1 1
+       18 DUPTABLE                         R4 K7 [{"id", "text"}]
+       19 LOADK                            R5 K8 ["Me"]
+       20 SETTABLEKS                       R5 R4 K5 ["id"]
+       22 GETUPVAL                         R6 3
+       23 CALL                             R6 0 1
+       24 JUMPIFNOT                        R6 ; [+6]
+       25 LOADK                            R7 K9 ["ConfigDialog"]
+       26 LOADK                            R8 K8 ["Me"]
+       27 NAMECALL                         R5 R1 K10 ["getText"]
+       29 CALL                             R5 3 1
+       30 JUMP                             ; [+1]
+       31 LOADK                            R5 K8 ["Me"]
+       32 SETTABLEKS                       R5 R4 K6 ["text"]
+       34 GETTABLEKS                       R6 R0 K11 ["value"]
+       36 JUMPIFNOT                        R6 ; [+14]
+       37 DUPTABLE                         R5 K7 [{"id", "text"}]
+       38 GETTABLEKS                       R6 R0 K11 ["value"]
+       40 SETTABLEKS                       R6 R5 K5 ["id"]
+       42 GETTABLEKS                       R7 R0 K11 ["value"]
+       44 FASTCALL1                        TOSTRING R7 ; [+2]
+       45 GETIMPORT                        R6 K13 [tostring]
+       47 CALL                             R6 1 1
+       48 SETTABLEKS                       R6 R5 K6 ["text"]
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R5
+       52 GETUPVAL                         R6 1
+       53 GETTABLEKS                       R6 R6 K14 ["useState"]
+       55 GETTABLEKS                       R8 R0 K11 ["value"]
+       57 JUMPIFNOT                        R8 ; [+3]
+       58 GETTABLEKS                       R7 R0 K11 ["value"]
+       60 JUMP                             ; [+1]
+       61 LOADK                            R7 K8 ["Me"]
+       62 CALL                             R6 1 2
+       63 GETUPVAL                         R8 1
+       64 GETTABLEKS                       R8 R8 K14 ["useState"]
+       66 NEWTABLE                         R9 0 2
+       68 MOVE                             R10 R4
+       69 MOVE                             R11 R5
+       70 SETLIST                          R9 R10 2 [1]
+       72 CALL                             R8 1 2
+       73 GETUPVAL                         R10 1
+       74 GETTABLEKS                       R10 R10 K15 ["useEffect"]
+       76 NEWCLOSURE                       R11 P1
+       77 CAPTURE                          UPVAL U4
+       78 CAPTURE                          VAL R4
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R9
+       81 NEWTABLE                         R12 0 0
+       83 CALL                             R10 2 0
+       84 GETUPVAL                         R10 5
+       85 GETUPVAL                         R11 6
+       86 DUPTABLE                         R12 K21 [{"label", "size", "value", "onItemChanged", "maxHeight", "items", "testId"}]
+       87 LOADK                            R13 K22 [""]
+       88 SETTABLEKS                       R13 R12 K16 ["label"]
+       90 GETUPVAL                         R13 7
+       91 GETTABLEKS                       R13 R13 K23 ["Enums"]
+       93 GETTABLEKS                       R13 R13 K24 ["InputSize"]
+       95 GETTABLEKS                       R13 R13 K25 ["Small"]
+       97 SETTABLEKS                       R13 R12 K17 ["size"]
+       99 SETTABLEKS                       R6 R12 K11 ["value"]
+      101 NEWCLOSURE                       R13 P2
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R2
+      104 SETTABLEKS                       R13 R12 K1 ["onItemChanged"]
+      106 GETUPVAL                         R14 8
+      107 CALL                             R14 0 1
+      108 JUMPIFNOT                        R14 ; [+5]
+      109 GETTABLEKS                       R13 R3 K26 ["dialogSize"]
+      111 GETTABLEKS                       R13 R13 K27 ["Y"]
+      113 JUMP                             ; [+1]
+      114 LOADN                            R13 150
+      115 SETTABLEKS                       R13 R12 K18 ["maxHeight"]
+      117 SETTABLEKS                       R8 R12 K19 ["items"]
+      119 LOADK                            R13 K28 ["group-picker-dropdown"]
+      120 SETTABLEKS                       R13 R12 K20 ["testId"]
+      122 CALL                             R10 2 -1
+      123 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -172,33 +183,45 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["React"]
+       18 GETTABLEKS                       R3 R3 K8 ["Framework"]
        20 CALL                             R2 1 1
        21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R4 R0 K9 ["Lib"]
-       25 GETTABLEKS                       R4 R4 K10 ["Networking"]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["React"]
        27 CALL                             R3 1 1
        28 GETIMPORT                        R4 K5 [require]
-       30 GETTABLEKS                       R5 R0 K11 ["Src"]
-       32 GETTABLEKS                       R5 R5 K12 ["Components"]
-       34 GETTABLEKS                       R5 R5 K13 ["FillDropdown"]
-       36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K11 ["Src"]
-       41 GETTABLEKS                       R6 R6 K14 ["Contexts"]
-       43 GETTABLEKS                       R6 R6 K15 ["DialogContext"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K16 ["Flags"]
-       50 GETTABLEKS                       R7 R7 K17 ["GetFFlagReimportScrollableDropdowns"]
+       30 GETTABLEKS                       R5 R0 K10 ["Lib"]
+       32 GETTABLEKS                       R5 R5 K11 ["Networking"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K12 ["Src"]
+       39 GETTABLEKS                       R6 R6 K13 ["Components"]
+       41 GETTABLEKS                       R6 R6 K14 ["FillDropdown"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K5 [require]
+       46 GETTABLEKS                       R7 R0 K12 ["Src"]
+       48 GETTABLEKS                       R7 R7 K15 ["Contexts"]
+       50 GETTABLEKS                       R7 R7 K16 ["DialogContext"]
        52 CALL                             R6 1 1
-       53 GETTABLEKS                       R7 R2 K18 ["createElement"]
-       55 DUPCLOSURE                       R8 K19 [PROTO_5]
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R4
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R6
-       63 RETURN                           R8 1
+       53 GETIMPORT                        R7 K5 [require]
+       55 GETTABLEKS                       R8 R0 K17 ["Flags"]
+       57 GETTABLEKS                       R8 R8 K18 ["GetFFlagReimportLocalizeDialogs"]
+       59 CALL                             R7 1 1
+       60 GETIMPORT                        R8 K5 [require]
+       62 GETTABLEKS                       R9 R0 K17 ["Flags"]
+       64 GETTABLEKS                       R9 R9 K19 ["GetFFlagReimportScrollableDropdowns"]
+       66 CALL                             R8 1 1
+       67 GETTABLEKS                       R9 R3 K20 ["createElement"]
+       69 GETTABLEKS                       R10 R2 K21 ["ContextServices"]
+       71 GETTABLEKS                       R11 R10 K22 ["Localization"]
+       73 DUPCLOSURE                       R12 K23 [PROTO_5]
+       74 CAPTURE                          VAL R11
+       75 CAPTURE                          VAL R3
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R4
+       79 CAPTURE                          VAL R9
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R8
+       83 RETURN                           R12 1

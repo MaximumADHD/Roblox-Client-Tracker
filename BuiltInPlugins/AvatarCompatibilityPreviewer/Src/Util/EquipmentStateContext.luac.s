@@ -63,23 +63,25 @@ MAIN:
        76 SETTABLEKS                       R5 R4 K21 ["startIgnoringChildren"]
        78 LOADB                            R5 0
        79 SETTABLEKS                       R5 R4 K22 ["isIgnoringChildren"]
-       81 DUPTABLE                         R5 K33 [{"accessories", "animation", "clothing", "emotion", "gear", "makeup", "patches"}]
+       81 DUPTABLE                         R5 K34 [{"accessories", "animation", "classicClothing", "clothing", "emotion", "gear", "makeup", "patches"}]
        82 NEWTABLE                         R6 0 0
        84 SETTABLEKS                       R6 R5 K26 ["accessories"]
        86 LOADNIL                          R6
        87 SETTABLEKS                       R6 R5 K27 ["animation"]
        89 NEWTABLE                         R6 0 0
-       91 SETTABLEKS                       R6 R5 K28 ["clothing"]
-       93 LOADNIL                          R6
-       94 SETTABLEKS                       R6 R5 K29 ["emotion"]
-       96 NEWTABLE                         R6 0 0
-       98 SETTABLEKS                       R6 R5 K30 ["gear"]
+       91 SETTABLEKS                       R6 R5 K28 ["classicClothing"]
+       93 NEWTABLE                         R6 0 0
+       95 SETTABLEKS                       R6 R5 K29 ["clothing"]
+       97 LOADNIL                          R6
+       98 SETTABLEKS                       R6 R5 K30 ["emotion"]
       100 NEWTABLE                         R6 0 0
-      102 SETTABLEKS                       R6 R5 K31 ["makeup"]
+      102 SETTABLEKS                       R6 R5 K31 ["gear"]
       104 NEWTABLE                         R6 0 0
-      106 SETTABLEKS                       R6 R5 K32 ["patches"]
-      108 SETTABLEKS                       R5 R4 K23 ["avatarAssets"]
-      110 GETTABLEKS                       R5 R1 K34 ["createContext"]
-      112 MOVE                             R6 R4
-      113 CALL                             R5 1 -1
-      114 RETURN                           R5 -1
+      106 SETTABLEKS                       R6 R5 K32 ["makeup"]
+      108 NEWTABLE                         R6 0 0
+      110 SETTABLEKS                       R6 R5 K33 ["patches"]
+      112 SETTABLEKS                       R5 R4 K23 ["avatarAssets"]
+      114 GETTABLEKS                       R5 R1 K35 ["createContext"]
+      116 MOVE                             R6 R4
+      117 CALL                             R5 1 -1
+      118 RETURN                           R5 -1

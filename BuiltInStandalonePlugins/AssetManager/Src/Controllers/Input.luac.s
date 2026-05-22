@@ -329,22 +329,16 @@ PROTO_11:
         3 LOADK                            R2 K1 ["RBX_LeftMouseButtonDown"]
         4 NAMECALL                         R0 R0 K2 ["GetAttribute"]
         6 CALL                             R0 2 1
-        7 JUMPIF                           R0 ; [+19]
+        7 JUMPIF                           R0 ; [+11]
         8 GETUPVAL                         R0 0
         9 GETTABLEKS                       R0 R0 K3 ["_pressedKeys"]
        11 GETIMPORT                        R1 K7 [Enum.KeyCode.MouseLeftButton]
        13 LOADNIL                          R2
        14 SETTABLE                         R2 R0 R1
        15 GETUPVAL                         R0 0
-       16 LOADB                            R1 0
-       17 SETTABLEKS                       R1 R0 K8 ["_dragging"]
-       19 GETUPVAL                         R0 0
-       20 LOADB                            R1 1
-       21 SETTABLEKS                       R1 R0 K9 ["_isDragInGui"]
-       23 GETUPVAL                         R0 0
-       24 LOADNIL                          R1
-       25 SETTABLEKS                       R1 R0 K10 ["_dragInfo"]
-       27 RETURN                           R0 0
+       16 LOADB                            R1 1
+       17 SETTABLEKS                       R1 R0 K8 ["_isDragInGui"]
+       19 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
