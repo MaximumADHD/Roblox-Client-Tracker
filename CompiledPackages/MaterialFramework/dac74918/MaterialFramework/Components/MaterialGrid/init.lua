@@ -65,6 +65,7 @@ local getSerializedMaterialIdentifier = require(main.Util.getSerializedMaterialI
 local RunService = game:GetService("RunService")
 
 local getFFlagMaterialGridExtraProps = require(main.Flags.getFFlagMaterialGridExtraProps)
+local getFFlagMaterialGridShowTooltipWithLabel = require(main.Flags.getFFlagMaterialGridShowTooltipWithLabel)
 local getFFlagMaterialPickerUIChanges = require(main.Flags.getFFlagMaterialPickerUIChanges)
 local getFFlagMaterialPickerInstantTooltip = require(main.Flags.getFFlagMaterialPickerInstantTooltip)
 
@@ -112,6 +113,7 @@ export type Props = {
 	SelectedItemId: any?,
 	ShouldSyncScroll: boolean?,
 	ShowGridLabels: boolean?,
+	ShowTooltipWithLabel: boolean?,
 	Size: UDim2?,
 	TooltipDelay: number?,
 	UseInstantTooltip: boolean?,
@@ -406,6 +408,9 @@ local function MaterialGrid(props: Props)
 			Position = position,
 			Selected = selected,
 			ShowGridLabels = props.ShowGridLabels,
+			ShowTooltipWithLabel = if getFFlagMaterialGridShowTooltipWithLabel()
+				then props.ShowTooltipWithLabel
+				else nil,
 			Size = size,
 			Style = style,
 			Text = text,
@@ -532,6 +537,9 @@ local function MaterialGrid(props: Props)
 			Position = position,
 			Selected = selected,
 			ShowGridLabels = props.ShowGridLabels,
+			ShowTooltipWithLabel = if getFFlagMaterialGridShowTooltipWithLabel()
+				then props.ShowTooltipWithLabel
+				else nil,
 			Size = size,
 			Style = style,
 			Text = text,

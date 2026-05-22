@@ -158,13 +158,6 @@ if GetFFlagJoinWithoutMicPermissions() then
 	ExperienceChat.GlobalFlags.JoinWithoutMicPermissions = true
 end
 
-local GetFFlagShowLikelySpeakingBubbles =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
-if GetFFlagShowLikelySpeakingBubbles() then
-	local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-	local GlobalFlags = ExperienceChat.GlobalFlags :: any
-	GlobalFlags.ShowLikelySpeakingBubbles = true
-end
 
 local FFlagInExperienceInterventionApp = game:DefineFastFlag("InExperienceInterventionApp", false)
 
@@ -301,9 +294,7 @@ if FFlagPlayerFeedbackPromptEnabled then
 	coroutine.wrap(safeRequire)(CoreGuiModules.PlayerFeedback)
 end
 
-if game:GetEngineFeature("GroupServiceJoinPromptEngineAPIEnabled") then
-	coroutine.wrap(safeRequire)(CoreGuiModules.Groups.GroupsApp)
-end
+coroutine.wrap(safeRequire)(CoreGuiModules.Groups.GroupsApp)
 
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
 

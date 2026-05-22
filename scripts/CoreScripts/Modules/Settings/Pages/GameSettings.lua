@@ -25,7 +25,6 @@ local GameSettings = Settings.GameSettings
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local UserGameSettings = Settings:GetService("UserGameSettings")
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
-local VoiceChatService = nil
 local TextChatService = game:GetService("TextChatService")
 local SafetyService = game:GetService("SafetyService")
 local ExperienceStateCaptureService = nil
@@ -69,8 +68,6 @@ local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.Get
 local GetFIntDebounceAIRephraseSettingDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceAIRephraseSettingDelay)
 local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
-local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
-local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local GetFFlagVoiceChatLogConnectionSource = SharedFlags.GetFFlagVoiceChatLogConnectionSource
 local GetFFlagVoiceChatLogDisconnectReason = SharedFlags.GetFFlagVoiceChatLogDisconnectReason
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
@@ -89,8 +86,10 @@ local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroPro
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
+local FFlagDeferProgrammaticChange = game:DefineFastFlag("DeferProgrammaticChange", false)
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
+local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -300,6 +299,7 @@ local CreatePlayerChoiceTranslationOptions = require(
 )
 
 local FFlagUpdateVisibilitySettingsCopy = game:DefineFastFlag("UpdateVisibilitySettingsCopy", false)
+local FFlagExpChatDebounceRephraseIndexSelection = game:DefineFastFlag("ExpChatDebounceRephraseIndexSelection", false)
 local FFlagEraseFPSFromDefaultSetting = game:DefineFastFlag("EraseFPSFromDefaultSetting", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
@@ -2992,65 +2992,6 @@ local function Initialize()
 			and #deviceNames == #deviceGuids
 	end
 
-	local function setVCSOutput(soundServiceOutputName)
-		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
-			log:error("setVCSOutput is deprecated")
-			return
-		end
-
-		local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
-			return VoiceChatService:GetSpeakerDevices()
-		end)
-
-		if VCSSuccess and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex) then
-			-- Find the matching VCS Device
-			local VCSDeviceIndex = 0
-			for deviceIndex, deviceName in ipairs(VCSDeviceNames) do
-				if deviceName == soundServiceOutputName then
-					VCSDeviceIndex = deviceIndex
-				end
-			end
-
-			if VCSDeviceIndex > 0 then
-				if GetFFlagVoiceChatUILogging() then
-					log:debug(
-						"[OutputDeviceSelection] Setting VCS Speaker Device To {} {} ",
-						VCSDeviceNames[VCSDeviceIndex],
-						VCSDeviceGuids[VCSDeviceIndex]
-					)
-				end
-				VoiceChatService:SetSpeakerDevice(VCSDeviceNames[VCSDeviceIndex], VCSDeviceGuids[VCSDeviceIndex])
-			else
-				if GetFFlagVoiceChatUILogging() then
-					log:warning("Could not find equivalent VoiceChatService Device")
-				end
-			end
-		else
-			if GetFFlagVoiceChatUILogging() then
-				log:warning("Could not connect to Voice Chat Service to change Output Device")
-			end
-		end
-	end
-
-	-- TODO: Remove this when voice chat is unified with sound service.
-	local function syncSoundOutputs()
-		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
-			log:error("syncSoundOutputs is deprecated")
-			return
-		end
-
-		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
-			return SoundService:GetOutputDevices()
-		end)
-		if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
-			setVCSOutput(deviceNames[selectedIndex])
-		else
-			if GetFFlagVoiceChatUILogging() then
-				log:warning("Could not connect to Voice Chat Service to change Output Device")
-			end
-		end
-	end
-
 	------------------------------------------------------
 	------------------
 	------------------ Input/Output Audio Device ---------
@@ -3245,10 +3186,24 @@ local function Initialize()
 				end
 			end)
 		end
-
-		this.AIRephraseSelector.IndexChanged:connect(
-			if useDebounce then throttle(debounceDelay, onAIRephraseIndexChanged) else onAIRephraseIndexChanged
-		)
+		if FFlagExpChatDebounceRephraseIndexSelection then
+			if useDebounce then
+				local pendingThread = nil
+				this.AIRephraseSelector.IndexChanged:connect(function(newIndex)
+					if pendingThread then
+						task.cancel(pendingThread)
+					end
+					pendingThread = task.delay(debounceDelay, function()
+						pendingThread = nil
+						onAIRephraseIndexChanged(newIndex)
+					end)
+				end)
+			else
+				this.AIRephraseSelector.IndexChanged:connect(onAIRephraseIndexChanged)
+			end
+		else
+			this.AIRephraseSelector.IndexChanged:connect(if useDebounce then throttle(debounceDelay, onAIRephraseIndexChanged) else onAIRephraseIndexChanged)
+		end
 	end
 
 	------------------------------------------------------
@@ -3304,44 +3259,21 @@ local function Initialize()
 			return SoundService:GetOutputDevices()
 		end)
 
-		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
-			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
-				if deviceGuids[1] == "" then
-					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
-				end
-
-				this[deviceType .. "DeviceNames"] = deviceNames
-				this[deviceType .. "DeviceGuids"] = deviceGuids
-				this[deviceType .. "DeviceIndex"] = selectedIndex
-			else
-				if GetFFlagVoiceChatUILogging() then
-					log:warning("Errors in get {} device info", deviceType)
-				end
-				this[deviceType .. "DeviceNames"] = {}
-				this[deviceType .. "DeviceGuids"] = {}
-				this[deviceType .. "DeviceIndex"] = 0
+		if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
+			if deviceGuids[1] == "" then
+				deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 			end
+
+			this[deviceType .. "DeviceNames"] = deviceNames
+			this[deviceType .. "DeviceGuids"] = deviceGuids
+			this[deviceType .. "DeviceIndex"] = selectedIndex
 		else
-			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
-				if deviceGuids[1] == "" then
-					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
-				end
-
-				this[deviceType .. "DeviceNames"] = deviceNames
-				this[deviceType .. "VCSDeviceNames"] = deviceNames
-				this[deviceType .. "VCSDeviceGuids"] = deviceGuids
-				this[deviceType .. "DeviceGuids"] = deviceGuids
-				this[deviceType .. "DeviceIndex"] = selectedIndex
-			else
-				if GetFFlagVoiceChatUILogging() then
-					log:warning("Errors in get {} device info", deviceType)
-				end
-				this[deviceType .. "DeviceNames"] = {}
-				this[deviceType .. "DeviceGuids"] = {}
-				this[deviceType .. "VCSDeviceNames"] = {}
-				this[deviceType .. "VCSDeviceGuids"] = {}
-				this[deviceType .. "DeviceIndex"] = 0
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("Errors in get {} device info", deviceType)
 			end
+			this[deviceType .. "DeviceNames"] = {}
+			this[deviceType .. "DeviceGuids"] = {}
+			this[deviceType .. "DeviceIndex"] = 0
 		end
 
 		if not this[deviceType .. "DeviceSelector"] then
@@ -3367,73 +3299,32 @@ local function Initialize()
 			end
 		end)
 
-		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
-			if
-				success
-				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
-			then
-				if deviceGuids[1] == "" then
-					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
-				end
-
-				this[deviceType .. "DeviceNames"] = deviceNames
-				this[deviceType .. "DeviceGuids"] = deviceGuids
-				this[deviceType .. "DeviceIndex"] = selectedIndex
-			else
-				if GetFFlagVoiceChatUILogging() then
-					if #deviceNames > 0 then
-						log:warning(
-							"Errors in get {} device info success: {}",
-							deviceType,
-							success
-						)
-					else
-						log:warning("Empty deviceNames list for {}", deviceType)
-					end
-				end
-				this[deviceType .. "DeviceNames"] = {}
-				this[deviceType .. "DeviceGuids"] = {}
-				this[deviceType .. "DeviceIndex"] = 0
+		if
+			success
+			and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
+		then
+			if deviceGuids[1] == "" then
+				deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 			end
+
+			this[deviceType .. "DeviceNames"] = deviceNames
+			this[deviceType .. "DeviceGuids"] = deviceGuids
+			this[deviceType .. "DeviceIndex"] = selectedIndex
 		else
-			local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
-				return VoiceChatService:GetSpeakerDevices()
-			end)
-
-			if
-				success
-				and VCSSuccess
-				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
-				and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex)
-			then
-				if deviceGuids[1] == "" then
-					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
+			if GetFFlagVoiceChatUILogging() then
+				if #deviceNames > 0 then
+					log:warning(
+						"Errors in get {} device info success: {}",
+						deviceType,
+						success
+					)
+				else
+					log:warning("Empty deviceNames list for {}", deviceType)
 				end
-
-				this[deviceType .. "DeviceNames"] = deviceNames
-				this[deviceType .. "VCSDeviceNames"] = VCSDeviceNames
-				this[deviceType .. "VCSDeviceGuids"] = VCSDeviceGuids
-				this[deviceType .. "DeviceGuids"] = deviceGuids
-				this[deviceType .. "DeviceIndex"] = selectedIndex
-			else
-				if GetFFlagVoiceChatUILogging() then
-					if #deviceNames > 0 then
-						log:warning(
-							"Errors in get {} device info success: {} VCSSuccess: {}",
-							deviceType,
-							success,
-							VCSSuccess
-						)
-					else
-						log:warning("Empty deviceNames list for {}", deviceType)
-					end
-				end
-				this[deviceType .. "DeviceNames"] = {}
-				this[deviceType .. "DeviceGuids"] = {}
-				this[deviceType .. "VCSDeviceNames"] = {}
-				this[deviceType .. "VCSDeviceGuids"] = {}
-				this[deviceType .. "DeviceIndex"] = 0
 			end
+			this[deviceType .. "DeviceNames"] = {}
+			this[deviceType .. "DeviceGuids"] = {}
+			this[deviceType .. "DeviceIndex"] = 0
 		end
 
 		if not this[deviceType .. "DeviceSelector"] then
@@ -3531,9 +3422,6 @@ local function Initialize()
 	local function checkVoiceChatOptions()
 		if VoiceChatServiceManager:VoiceChatAvailable() then
 			this.VoiceChatOptionsEnabled = true
-			if not GetFFlagVoiceChatClientRewriteMasterLua() then
-				syncSoundOutputs()
-			end
 		end
 	end
 
@@ -3671,17 +3559,41 @@ local function Initialize()
 		VoiceChatServiceManager:subscribe("OnStateChanged", function(oldState, newState)
 			if FFlagDifferentiateVoiceSelectorSystemAndUser then
 				isProgrammaticChange = true
-				if newState == (Enum :: any).VoiceChatState.Joined then
-					this.VoiceConnectDisconnectSelector:SetSelectionIndex(connectedIndex)
+				if FFlagDebounceVoiceSelectorIndexChange then
+					if 
+						newState == (Enum :: any).VoiceChatState.Joined
+						and this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= connectedIndex
+					then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(connectedIndex)
+					end
+				else
+					if newState == (Enum :: any).VoiceChatState.Joined then
+						this.VoiceConnectDisconnectSelector:SetSelectionIndex(connectedIndex)
+					end
 				end
 			end
 
-			if newState == (Enum :: any).VoiceChatState.Failed then
-				this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+			if FFlagDebounceVoiceSelectorIndexChange then
+				if 
+					newState == (Enum :: any).VoiceChatState.Failed
+					and this.VoiceConnectDisconnectSelector:GetSelectedIndex() ~= disconnectedIndex
+				then
+					this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+				end
+			else
+				if newState == (Enum :: any).VoiceChatState.Failed then
+					this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
+				end
 			end
 
 			if FFlagDifferentiateVoiceSelectorSystemAndUser then
-				isProgrammaticChange = false
+				if FFlagDeferProgrammaticChange then
+					task.defer(function()
+						isProgrammaticChange = false
+					end)
+				else
+					isProgrammaticChange = false
+				end
 			end
 		end)
 
@@ -3694,7 +3606,13 @@ local function Initialize()
 				end
 				this.VoiceConnectDisconnectSelector:SetSelectionIndex(disconnectedIndex)
 				if FFlagDifferentiateVoiceSelectorSystemAndUser then
-					isProgrammaticChange = false
+					if FFlagDeferProgrammaticChange then
+						task.defer(function()
+							isProgrammaticChange = false
+						end)
+					else
+						isProgrammaticChange = false
+					end
 				end
 			end)
 		end)
@@ -4045,7 +3963,18 @@ local function Initialize()
 					end
 
 					if GetFFlagEnableVoiceUxUpdates() then
-						this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+						if FFlagDifferentiateVoiceSelectorSystemAndUser and FFlagDeferProgrammaticChange then
+							isProgrammaticChange = true
+
+							this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+
+							task.defer(function()
+								isProgrammaticChange = false
+							end)
+						else
+							this.VoiceConnectDisconnectSelector:SetSelectionIndex(2)
+						end
+
 					else
 						local isCurrentlyVoiceFocused = false
 						if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then

@@ -88,8 +88,6 @@ local FStringVoiceUIImprovementsIXPLayerName =
 local FStringThrottleParticipantsUpdateIXPLayerValue =
 	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
 local FIntSeamlessVoiceSTUXDisplayCount = game:DefineFastInt("SeamlessVoiceSTUXDisplayCount", 3)
-local GetFFlagShowLikelySpeakingBubbles =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
 local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagShowDevicePermissionsModal =
@@ -97,7 +95,7 @@ local GetFFlagShowDevicePermissionsModal =
 local FFlagEnableRetryForLinkingProtocolFetch =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableRetryForLinkingProtocolFetch
 local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1", false)
-local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV2", false)
+local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV3", false)
 local FFlagVoiceRewarmTelemetry =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 
@@ -267,7 +265,6 @@ local VoiceChatServiceManager = {
 	mutedNonFriends = Instance.new("BindableEvent"),
 	userAgencySelected = Instance.new("BindableEvent"),
 	sendMuteEvent = nil,
-	LikelySpeakingUsersEvent = nil,
 	muteAll = false,
 	mutedPlayers = {} :: { [number]: boolean },
 	talkingChanged = Instance.new("BindableEvent"),
@@ -317,7 +314,6 @@ local VOICE_CHAT_CORE_PROPERTIES = LuauPolyfill.Set.new({
 	"previousMutedState",
 	"userEligible",
 	"sendMuteEvent",
-	"LikelySpeakingUsersEvent",
 	"mutedPlayers",
 	"SignalREventTable",
 	"audioDevices",
@@ -492,23 +488,6 @@ function VoiceChatServiceManager.new(
 			ExperienceChat.Events.VoiceParticipantToggleMuted(tostring(userId), isMuted)
 		end
 	end)
-	if GetFFlagShowLikelySpeakingBubbles() then
-		-- This tells us who in the experience is voice enabled, which is needed to determine who
-		-- should have likely speaking bubbles over their avatars. It fires when players join.
-		self.coreVoiceManager:subscribe("OnLikelySpeakingUsersUpdated", function(likelySpeakingUsers)
-			if ExperienceChat.Events.LikelySpeakingUsersUpdated then
-				ExperienceChat.Events.LikelySpeakingUsersUpdated(likelySpeakingUsers)
-			end
-		end)
-		-- This tells us whether we should show likely speaking bubbles in general for the local player.
-		-- It'll fire true once per session if the local player will see the bubbles and will fire
-		-- false if the local player accepts or declines the in-experience voice upsell.
-		self.coreVoiceManager:subscribe("OnShowLikelySpeakingBubblesChanged", function(showLikelySpeakingBubbles)
-			if ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
-				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(showLikelySpeakingBubbles)
-			end
-		end)
-	end
 	self.coreVoiceManager:subscribe("OnUserAndPlaceCanUseVoiceResolved", function(userSettings, universePlaceSettings)
 		self:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)
 	end)
@@ -592,9 +571,6 @@ function VoiceChatServiceManager.new(
 
 	self.coreVoiceManager:subscribe("OnVoiceChatServiceInitialized", function()
 		self:ShowVoiceUI()
-		if GetFFlagEnableSeamlessVoiceV2() and self:IsSeamlessVoice() then
-			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-		end
 		if FFlagDebugSimulateConnectDisconnect then
 			log:debug("Simulating join voice")
 			self:simulateVoiceConnectDisconnect()
@@ -688,7 +664,6 @@ function VoiceChatServiceManager.new(
 			GetFFlagEnableSeamlessVoiceV2()
 			and self:IsSeamlessVoice()
 		then
-			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
 			if GetFFlagEnableVoiceTrustedConnectionsToasts() then
 				self:showJoinVoicePrompt()
 			elseif GetFFlagUpdateVoiceConnectionToasts() then
@@ -894,45 +869,20 @@ function VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService: AppSto
 			ExperienceChat.Events.VoiceUIVisibilityChanged(true)
 		else
 			self:MuteAll(true, "FTUX")
-			if
-				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged
-				and ExperienceChat.Events.LikelySpeakingUsersUpdated
-			then
-				log:debug("Showing likely speaking bubbles")
-				local likelySpeakingUsers = {}
-				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(true)
-				for k in self.participants or {} do
-					likelySpeakingUsers[k] = true
-				end
-				ExperienceChat.Events.LikelySpeakingUsersUpdated(likelySpeakingUsers)
-				local joinedEvent = self.participantJoined.Event:Connect(function(userId)
-					likelySpeakingUsers[userId] = true
-					ExperienceChat.Events.LikelySpeakingUsersUpdated(likelySpeakingUsers)
-				end)
-				self.hideFTUXSignal.Event:Connect(function()
-					joinedEvent:Disconnect()
-					ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-					ExperienceChat.Events.LikelySpeakingUsersUpdated({})
-				end)
-				self.hideVoiceUI.Event:Once(function()
-					ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-					ExperienceChat.Events.LikelySpeakingUsersUpdated({})
-				end)
-				self.muteAllChanged.Event:Once(function()
-					self:HideFTUX(appStorageService)
-					self.Analytics:reportConnectDisconnectEvents(
-						"voiceConnectFtuxLeaveEvent",
-						self:GetConnectDisconnectAnalyticsData()
-					)
-				end)
-				self.talkingChanged.Event:Once(function()
+			self.muteAllChanged.Event:Once(function()
+				self:HideFTUX(appStorageService)
+				self.Analytics:reportConnectDisconnectEvents(
+					"voiceConnectFtuxLeaveEvent",
+					self:GetConnectDisconnectAnalyticsData()
+				)
+			end)
+			self.talkingChanged.Event:Once(function()
+				self:HideFTUX(appStorageService)
+			end)
+			if GetFFlagEnableFtuxExitOnMuteToggle() then
+				self.coreVoiceManager.onPlayerMuteToggled.Event:Once(function()
 					self:HideFTUX(appStorageService)
 				end)
-				if GetFFlagEnableFtuxExitOnMuteToggle() then
-					self.coreVoiceManager.onPlayerMuteToggled.Event:Once(function()
-						self:HideFTUX(appStorageService)
-					end)
-				end
 			end
 		end
 	elseif
@@ -1097,9 +1047,6 @@ function VoiceChatServiceManager:UserEligibleForInExperienceUpsell(): boolean
 	return self.coreVoiceManager:UserEligibleForInExperienceUpsell()
 end
 
-function VoiceChatServiceManager:UserEligibleForLikelySpeakingBubbles(): boolean
-	return self.coreVoiceManager:UserEligibleForLikelySpeakingBubbles()
-end
 
 function VoiceChatServiceManager:ShowInExperienceVoiceUpsell(entrypoint: string)
 	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
@@ -1130,9 +1077,6 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 		},
 		onSuccessBeforeToast = function()
 			self.coreVoiceManager:DisablePhoneVerificationUpsell()
-			if GetFFlagShowLikelySpeakingBubbles() and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
-				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-			end
 			PostPhoneUpsellDisplayed(bind(self, "PostRequest"), layerName, os.time(), false)
 		end,
 		onSuccess = function()
@@ -1142,9 +1086,6 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 			self:EnableVoice()
 		end,
 		closeUpsell = function()
-			if GetFFlagShowLikelySpeakingBubbles() and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged then
-				ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-			end
 			if entrypoint ~= VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
 				self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
 			end
@@ -1380,12 +1321,6 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 				end
 				elseif isVoiceConsentModal then function()
 					self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
-					if
-						GetFFlagShowLikelySpeakingBubbles()
-						and ExperienceChat.Events.ShowLikelySpeakingBubblesChanged
-					then
-						ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-					end
 				end
 				else nil,
 			onPrimaryActivated = if isNudge
@@ -1957,10 +1892,13 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.VOICE_FTUX
 				return true
 			end
+			-- Only called when voice join progress is Suspended (see HideOrShowJoinVoiceButton),
+			-- so we only need the connect cookie to confirm a prior voice session.
 			if
 				FFlagShowJoinVoiceWhenDisconnected
 				and self:GetVoiceRewarmCookie() == ""
-				and self:VoiceChatEnded()
+				and self:GetVoiceConnectCookie() == "false"
+				and self:UserVoiceEnabled()
 			then
 				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.REWARM
 				return true
@@ -2155,10 +2093,6 @@ end
 
 function VoiceChatServiceManager:GetSendMuteEvent(): RemoteEvent | nil
 	return self.coreVoiceManager:GetSendMuteEvent()
-end
-
-function VoiceChatServiceManager:GetLikelySpeakingUsersEvent(): RemoteEvent | nil
-	return self.coreVoiceManager:GetLikelySpeakingUsersEvent()
 end
 
 -- Do not pass context if the call is not the result of user action

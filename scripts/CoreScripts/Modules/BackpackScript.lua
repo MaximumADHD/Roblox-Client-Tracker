@@ -16,7 +16,7 @@ local InExperienceTopBar = require(CorePackages.Workspace.Packages.InExperienceT
 local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
 local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
 
-local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled

@@ -105,6 +105,13 @@ end
 
 function module.setupAnimation(character)
 	character = character or script.Parent -- Default to assuming character is the parent of this script
+	-- Early out if not attached to a real character.  A forked copy of this script
+	-- placed under StarterCharacterScripts ends up with its Parent set to the
+	-- StarterCharacterScripts service (not a Model), so this check catches that
+	-- case and skips setup rather than waiting forever on WaitForChild below.
+	if not character or not character:IsA("Model") then
+		return
+	end
 	local humanoid = character:WaitForChild("Humanoid")
 	local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 	local isR6 = (humanoid.RigType == Enum.HumanoidRigType.R6)
@@ -838,27 +845,58 @@ function module.setupAnimation(character)
 
 	stopAllAnimations(0, true)
 
-	-- Write initial attribute state (once at setup, not per-frame)
-	local initAttrs = {
-		previousHumanoidState    = humanoid:GetState(),
-		previousHumanoidSpeed    = 0,
-		pose                     = "Standing",
-		currentAnimId            = -1,
-		currentAnimTimeRemaining = 0,
-		queuedPose               = "Standing",
-		queuedAnimSpeed          = 0,
-		queuedTransitionTime     = 0,
-		previousToolState        = "",
-		queuedToolAnimName       = "",
-		toolAnimationTimeRemaining = 0,
-		currentlyPlayingEmote    = false,
-	}
-	-- First step, force humanoid to transition to idle:
-	transitionToQueuedAnimation(initAttrs)  -- Note that this will modify initAttrs
-	-- Set initial attributes on humanoidRootPart:
-	for k, v in pairs(initAttrs) do
-		humanoidRootPart:SetAttribute(k, v)
+	local RunService = game:GetService("RunService")
+
+	-- True when the instance is being simulated locally — authoritatively
+	-- (server / network owner) or predictively (client).  This is the check
+	-- recommended by the RunService:GetPredictionStatus docs.  Unit tests replace
+	-- this function's body via injectTestHook to always return true (the Aurora
+	-- prediction system isn't set up in test fixtures, so GetPredictionStatus
+	-- returns None there).
+	local function isSimulated(instance)
+		return RunService:GetPredictionStatus(instance) ~= Enum.PredictionStatus.None
 	end
+
+	-- Write initial attribute state, wrapped in a function so we can defer it until
+	-- HumanoidRootPart is being simulated locally (authoritative or predicted).
+	-- Skip if attributes are already set (e.g. replicated in from elsewhere).
+	local initConnection = nil
+	local function initializeAnimState()
+		if humanoidRootPart:GetAttribute("pose") ~= nil then
+			if initConnection then
+				initConnection:Disconnect()
+				initConnection = nil
+			end
+			return
+		end
+		if not isSimulated(humanoidRootPart) then
+			return
+		end
+		local initAttrs = {
+			previousHumanoidState    = humanoid:GetState(),
+			previousHumanoidSpeed    = 0,
+			pose                     = "Standing",
+			currentAnimId            = -1,
+			currentAnimTimeRemaining = 0,
+			queuedPose               = "Standing",
+			queuedAnimSpeed          = 0,
+			queuedTransitionTime     = 0,
+			previousToolState        = "",
+			queuedToolAnimName       = "",
+			toolAnimationTimeRemaining = 0,
+			currentlyPlayingEmote    = false,
+		}
+		for k, v in pairs(initAttrs) do
+			humanoidRootPart:SetAttribute(k, v)
+		end
+		if initConnection then
+			initConnection:Disconnect()
+			initConnection = nil
+		end
+	end
+	-- Bind at priority 1000 so initialization runs before stepAnimate (priority 4000)
+	-- on the same simulation tick once HumanoidRootPart starts being simulated.
+	initConnection = RunService:BindToSimulation(initializeAnimState, Enum.StepFrequency.Hz60, 1000)
 
 	--------------------------------------------------------------------------------
 	-- Humanoid state transition functions
@@ -1043,6 +1081,10 @@ function module.setupAnimation(character)
 	------------------------------------------------------------------------------------------------------------
 
 	local function stepAnimate(deltaTime)
+		-- Early out until HumanoidRootPart and Animator are being simulated locally.
+		if not isSimulated(humanoidRootPart) or not isSimulated(animator) then
+			return
+		end
 		-- One GetAttributes call gets a fresh copy of all state
 		local attrs = humanoidRootPart:GetAttributes()
 		local origAttrs = table.clone(attrs)
@@ -1085,11 +1127,13 @@ function module.setupAnimation(character)
 		end
 	end
 
-	local RunService = game:GetService("RunService")
+	-- Priority 4000 is lower (runs later) than the default 2000.  That is intentional:
+	-- stepAnimate needs to run after all humanoid state changes for this tick have
+	-- been applied, so it reads the finalized state when picking the next animation.
 	RunService:BindToSimulation(function(deltaTime)
 		-- This code runs 60 times per second
 		stepAnimate(deltaTime)
-	end,  Enum.StepFrequency.Hz60)
+	end, Enum.StepFrequency.Hz60, 4000)
 
 	------------------------------------------------------------------------------------------------------------
 	------------------------------------------------------------------------------------------------------------

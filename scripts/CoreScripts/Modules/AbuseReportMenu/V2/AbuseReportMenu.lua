@@ -14,9 +14,8 @@ local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).Roa
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 local FocusRoot = FocusNavigationUtils.FocusRoot
-
-local GenericAbuseReporting = require(CorePackages.Workspace.Packages.GenericAbuseReporting)
-local DynamicReportInExpContainer = GenericAbuseReporting.UXFlows.DynamicReportInExpContainer
+local DynamicReportInExpContainer =
+	require(CorePackages.Workspace.Packages.GenericAbuseReporting.DynamicReportInExpContainer)
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
@@ -40,7 +39,6 @@ export type Props = {
 	registerOnReportTabHidden: (() -> ()) -> (),
 	registerOnReportTabDisplayed: (() -> ()) -> (),
 	registerOnSettingsHidden: (() -> ()) -> (), -- IGM closed
-	-- TODO: wire this up to support entering report menu from leaderboard
 	registerSetNextPlayerToReport: ((player: Player) -> ()) -> (),
 	-- TODO: probably can remove this since we know when the menu width is changing
 	registerOnMenuWidthChange: ((width: number) -> ()) -> (),
@@ -52,16 +50,22 @@ export type Props = {
 
 local function AbuseReportMenuContent(props: Props)
 	local isReportTabVisible, setIsReportTabVisible = React.useState(false)
+	local preselectedPlayer: Player?, setPreselectedPlayer = React.useState(nil :: Player?)
 
 	React.useEffect(function()
 		props.registerOnReportTabHidden(function()
 			setIsReportTabVisible(false)
+			setPreselectedPlayer(nil)
 		end)
 
 		props.registerOnReportTabDisplayed(function()
 			setIsReportTabVisible(true)
 		end)
-	end, { props.registerOnReportTabHidden, props.registerOnReportTabDisplayed })
+
+		props.registerSetNextPlayerToReport(function(player: Player)
+			setPreselectedPlayer(player)
+		end)
+	end, { props.registerOnReportTabHidden, props.registerOnReportTabDisplayed, props.registerSetNextPlayerToReport })
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -78,11 +82,14 @@ local function AbuseReportMenuContent(props: Props)
 		}, {
 			DynamicReportInExpContainer = React.createElement(DynamicReportInExpContainer, {
 				onClose = props.hideReportTab,
-				registerOnInGameMenuClosed = props.registerOnSettingsHidden,
 				isReportTabVisible = isReportTabVisible,
 				inExpChatMessagesLoader = inExpChatMessagesLoader,
 				inExpVoiceUsersLoader = inExpVoiceUsersLoader,
 				voiceChatServiceManager = VoiceChatServiceManager,
+				preselectedPlayer = preselectedPlayer,
+				onReportFinish = function()
+					setPreselectedPlayer(nil)
+				end,
 			}),
 		}),
 	})

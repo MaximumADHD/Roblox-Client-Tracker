@@ -9,25 +9,17 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local usePartyIcon = require(Chrome.Integrations.Party.usePartyIcon)
 
-local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
-local dependencyArray = RoactUtils.Hooks.dependencyArray
-
 local MappedSignal = ChromeUtils.MappedSignal
 local useTokens = Foundation.Hooks.useTokens
 local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
 
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
+local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
-local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
-
-local getAppChatNavbarItemConfig = AppChat.Utils.getAppChatNavbarItemConfig
+local getAppChatNavbarItemConfig = require(CorePackages.Workspace.Packages.AppChat.getAppChatNavbarItemConfig)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-
-local FFlagRemoveDependencyArrayAntipattern =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 
 local AVATAR_SIZE = 24
 
@@ -80,24 +72,19 @@ local function ConnectIcon(_props: Props): React.ReactElement
 		currentSquadId, setCurrentSquadId = React.useState(InExperienceAppChatModal.default.currentSquadId)
 	end
 
-	React.useEffect(
-		function()
-			if props.isSquadIndicatorEnabled then
-				local connection = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(
-					function(currentSquadId)
-						setCurrentSquadId(currentSquadId)
-					end
-				)
-				return function()
-					connection:Disconnect()
+	React.useEffect(function()
+		if props.isSquadIndicatorEnabled then
+			local connection = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(
+				function(currentSquadId)
+					setCurrentSquadId(currentSquadId)
 				end
+			)
+			return function()
+				connection:Disconnect()
 			end
-			return function() end
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { props.isSquadIndicatorEnabled :: any, setCurrentSquadId }
-			else dependencyArray(props.isSquadIndicatorEnabled, setCurrentSquadId)
-	)
+		end
+		return function() end
+	end, { props.isSquadIndicatorEnabled :: any, setCurrentSquadId })
 
 	if props.isSquadIndicatorEnabled then
 		if currentSquadId ~= "" then

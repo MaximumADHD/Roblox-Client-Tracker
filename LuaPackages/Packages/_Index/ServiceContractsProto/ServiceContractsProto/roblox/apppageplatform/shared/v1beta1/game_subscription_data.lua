@@ -22,7 +22,7 @@ type _GameSubscriptionDataImpl = {
 }
 
 type _GameSubscriptionDataFields = {
-	id: number,
+	id: string,
 	name: string,
 	description: string,
 	image_asset_id: number,
@@ -33,7 +33,7 @@ type _GameSubscriptionDataFields = {
 }
 
 type _GameSubscriptionDataPartialFields = {
-	id: number?,
+	id: string?,
 	name: string?,
 	description: string?,
 	image_asset_id: number?,
@@ -55,7 +55,7 @@ do
 
 	function _GameSubscriptionDataImpl.new(data: _GameSubscriptionDataPartialFields?): GameSubscriptionData
 		return setmetatable({
-			id = if data == nil or data.id == nil then 0 else data.id,
+			id = if data == nil or data.id == nil then "" else data.id,
 			name = if data == nil or data.name == nil then "" else data.name,
 			description = if data == nil or data.description == nil then "" else data.description,
 			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
@@ -70,9 +70,9 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.id ~= nil and self.id ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.id)
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
 		end
 
 		if self.name ~= nil and self.name ~= "" then
@@ -124,12 +124,7 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				if field == 1 then
-					local value
-					value, cursor = proto.readVarIntI64(input, cursor)
-					self.id = value
-					continue
-				elseif field == 4 then
+				if field == 4 then
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.image_asset_id = value
@@ -149,7 +144,12 @@ do
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
 			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 2 then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.name = buffer.tostring(value)
@@ -196,7 +196,7 @@ do
 	function _GameSubscriptionDataImpl.jsonEncode(self: GameSubscriptionData): any
 		local output = {}
 
-		if self.id ~= nil and self.id ~= 0 then
+		if self.id ~= nil and self.id ~= "" then
 			output.id = self.id
 		end
 

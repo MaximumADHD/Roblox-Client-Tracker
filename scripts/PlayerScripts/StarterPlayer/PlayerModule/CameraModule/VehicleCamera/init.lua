@@ -86,7 +86,7 @@ function VehicleCamera:_StepRotation(dt, vdotz): CFrame
 	local yawSpring = self.yawSpring
 	local pitchSpring = self.pitchSpring
 	
-	local rotationInput = CameraInput.getRotation(dt, true)
+	local rotationInput = CameraInput.getRotation(dt)
 	local dYaw = -rotationInput.X
 	local dPitch = -rotationInput.Y
 	

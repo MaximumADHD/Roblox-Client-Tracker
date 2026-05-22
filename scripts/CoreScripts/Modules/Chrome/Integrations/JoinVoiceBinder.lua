@@ -10,9 +10,6 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 
 local CrossExperienceVoice = require(CorePackages.Workspace.Packages.CrossExperienceVoice)
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
-local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
-
-local dependencyArray = RoactUtils.Hooks.dependencyArray
 
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
 local ChromeService = if ChromeEnabled() then require(Chrome.ChromeShared.Service) else nil
@@ -29,9 +26,6 @@ local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
-
-local FFlagRemoveDependencyArrayAntipattern =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
 local FFlagVoiceRewarmTelemetry = require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 
 local Once = function(fn)
@@ -56,14 +50,9 @@ end)
 local function JoinVoiceBinder()
 	local isVoiceFocused = useIsVoiceFocused()
 	local isVoiceConnecting = useIsVoiceConnecting()
-	local isVoiceActive = React.useMemo(
-		function()
-			return isVoiceFocused or isVoiceConnecting
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { isVoiceConnecting :: any, isVoiceFocused }
-			else dependencyArray(isVoiceConnecting, isVoiceFocused)
-	)
+	local isVoiceActive = React.useMemo(function()
+		return isVoiceFocused or isVoiceConnecting
+	end, { isVoiceConnecting :: any, isVoiceFocused })
 
 	local integration = React.useMemo(function()
 		if ChromeService then
@@ -87,77 +76,60 @@ local function JoinVoiceBinder()
 		end
 	end, {})
 
-	local applyInitialJoinVoiceState = React.useCallback(
-		function()
-			if not ChromeService then
-				return
-			end
+	local applyInitialJoinVoiceState = React.useCallback(function()
+		if not ChromeService then
+			return
+		end
 
-			if GetFFlagIntegratePhoneUpsellJoinVoice() then
-				task.spawn(function()
-					-- Only show the join voice button if we're not in the phone upsell flow
-					if VoiceChatServiceManager:ShouldShowJoinVoice() and not isVoiceActive and not isCEVFocused() then
-						-- Pin if we're already in suspended state
-						setAvailability(ChromeService.AvailabilitySignal.Available)
-					end
-				end)
-			else
+		if GetFFlagIntegratePhoneUpsellJoinVoice() then
+			task.spawn(function()
 				-- Only show the join voice button if we're not in the phone upsell flow
 				if VoiceChatServiceManager:ShouldShowJoinVoice() and not isVoiceActive and not isCEVFocused() then
 					-- Pin if we're already in suspended state
 					setAvailability(ChromeService.AvailabilitySignal.Available)
 				end
+			end)
+		else
+			-- Only show the join voice button if we're not in the phone upsell flow
+			if VoiceChatServiceManager:ShouldShowJoinVoice() and not isVoiceActive and not isCEVFocused() then
+				-- Pin if we're already in suspended state
+				setAvailability(ChromeService.AvailabilitySignal.Available)
 			end
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { integration :: any, isVoiceActive }
-			else dependencyArray(integration, isVoiceActive)
-	)
+		end
+	end, { integration :: any, isVoiceActive })
 
-	local hideOrShowJoinVoiceButton = React.useCallback(
-		function(state)
-			if not integration then
-				return
-			end
+	local hideOrShowJoinVoiceButton = React.useCallback(function(state)
+		if not integration then
+			return
+		end
 
-			if isVoiceActive or isCEVFocused() then
-				integration.availability:unavailable()
-			elseif state == VOICE_JOIN_PROGRESS.Idle then
-				applyInitialJoinVoiceState()
-			elseif not GetFFlagEnableVoiceUxUpdates() and state == VOICE_JOIN_PROGRESS.Suspended then
-				integration.availability:available()
-			elseif state == VOICE_JOIN_PROGRESS.Joined then
-				integration.availability:unavailable()
-				-- When we enable and join voice through this button, we unmute the user
-				if
-					VoiceChatServiceManager.inExpUpsellEntrypoint == VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE
-				then
-					VoiceChatServiceManager:ToggleMic()
-					VoiceChatServiceManager:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
-				end
+		if isVoiceActive or isCEVFocused() then
+			integration.availability:unavailable()
+		elseif state == VOICE_JOIN_PROGRESS.Idle then
+			applyInitialJoinVoiceState()
+		elseif not GetFFlagEnableVoiceUxUpdates() and state == VOICE_JOIN_PROGRESS.Suspended then
+			integration.availability:available()
+		elseif state == VOICE_JOIN_PROGRESS.Joined then
+			integration.availability:unavailable()
+			-- When we enable and join voice through this button, we unmute the user
+			if VoiceChatServiceManager.inExpUpsellEntrypoint == VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
+				VoiceChatServiceManager:ToggleMic()
+				VoiceChatServiceManager:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
 			end
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { integration :: any, isVoiceActive }
-			else dependencyArray(integration, isVoiceActive)
-	)
+		end
+	end, { integration :: any, isVoiceActive })
 
 	local onShowVoiceUI = React.useCallback(function()
 		integration.availability:unavailable()
-	end, if FFlagRemoveDependencyArrayAntipattern then { integration } else dependencyArray(integration))
+	end, { integration })
 
-	local onHideVoiceUI = React.useCallback(
-		function()
-			if isVoiceActive or isCEVFocused() then
-				integration.availability:unavailable()
-			else
-				integration.availability:available()
-			end
-		end,
-		if FFlagRemoveDependencyArrayAntipattern
-			then { integration :: any, isVoiceActive }
-			else dependencyArray(integration, isVoiceActive)
-	)
+	local onHideVoiceUI = React.useCallback(function()
+		if isVoiceActive or isCEVFocused() then
+			integration.availability:unavailable()
+		else
+			integration.availability:available()
+		end
+	end, { integration :: any, isVoiceActive })
 
 	local registerEventListeners = React.useCallback(function()
 		local showVoiceUIConnection

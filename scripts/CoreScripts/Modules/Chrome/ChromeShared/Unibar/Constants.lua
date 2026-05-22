@@ -75,6 +75,7 @@ return {
 	UNIBAR_KEEP_OUT_AREA_ID = "unibar",
 	SELFIE_VIEW_ID = "selfie_view",
 	AVATAR_SWITCHER_ID = "avatar_switcher",
+	IN_EXPERIENCE_SHOP_ID = "in_experience_shop",
 
 	UNIBAR_SHORTCUTBAR_ID = "unibarShortcuts",
 	TILTMENU_SHORTCUTBAR_ID = "tiltMenuShortcuts",

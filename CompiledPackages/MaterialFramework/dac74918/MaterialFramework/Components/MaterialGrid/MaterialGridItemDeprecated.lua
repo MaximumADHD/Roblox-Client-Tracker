@@ -17,6 +17,7 @@
 		callback OnRightClick: Called when the item is right clicked.
 		boolean Selected: Whether the item is currently selected.
 		boolean ShowGridLabels: Whether grid items should display a text label.
+		boolean ShowTooltipWithLabel: Whether to show the tooltip even when a label is visible. Requires ShowGridLabels to be true and getFFlagMaterialGridShowTooltipWithLabel.
 		string Text: The text to display in the item label.
 ]]
 
@@ -29,6 +30,7 @@ local Framework = require(Packages.Framework)
 local React = require(Packages.React)
 
 local FFlagDevFrameworkShimmerImprovements = Framework.SharedFlags.getFFlagDevFrameworkShimmerImprovements()
+local getFFlagMaterialGridShowTooltipWithLabel = require(main.Flags.getFFlagMaterialGridShowTooltipWithLabel)
 local getFFlagMaterialPickerInstantTooltip = require(main.Flags.getFFlagMaterialPickerInstantTooltip)
 
 local UI = Framework.UI
@@ -65,6 +67,7 @@ export type Props = {
 	Position: UDim2,
 	Selected: boolean?,
 	ShowGridLabels: boolean?,
+	ShowTooltipWithLabel: boolean?,
 	Size: UDim2,
 	Style: _Style,
 	Text: string?,
@@ -224,7 +227,12 @@ local function MaterialGridItem(props: Props, ref)
 				Thickness = 1,
 			}),
 
-			Tooltip = if not shouldShowLabel
+			-- Tooltip is suppressed when the label is visible (text is already shown); pass ShowTooltipWithLabel to override.
+			Tooltip = if (
+					if getFFlagMaterialGridShowTooltipWithLabel()
+						then not shouldShowLabel or props.ShowTooltipWithLabel == true
+						else not shouldShowLabel
+				)
 				then if getFFlagMaterialPickerInstantTooltip()
 					then React.createElement(Tooltip, {
 						AnchorPoint = tooltipAnchorPoint,

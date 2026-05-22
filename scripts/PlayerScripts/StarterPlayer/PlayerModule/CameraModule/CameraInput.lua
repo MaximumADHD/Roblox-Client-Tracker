@@ -6,6 +6,13 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
 local GuiService = game:GetService("GuiService")
 
+local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
+local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
+local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
+local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
+local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
+
 --[[ Input Actions ]]
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local cameraContext = inputContexts:WaitForChild("CameraContext") :: InputContext
@@ -14,11 +21,6 @@ local cameraRotationAction = cameraContext:WaitForChild("CameraRotationAction") 
 local cameraZoomAction = cameraContext:WaitForChild("CameraZoomAction") :: InputAction
 
 local cameraRotationGamepadBinding = cameraRotationAction:WaitForChild("GamepadBinding") :: InputBinding
-
-local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
-local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
-local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
 
 local cameraRotationMouseBinding = cameraRotationAction:WaitForChild("MouseBinding") :: InputBinding
 local cameraRotationTrackpadBinding = cameraRotationAction:WaitForChild("TrackpadBinding") :: InputBinding
@@ -34,22 +36,35 @@ local MB_TAP_LENGTH = 0.3 -- (s) length of time for a short mouse button tap to 
 -- these speeds should not be scaled by dt because the input returned is not normalized.
 -- that is, at lower framerates, the magnitude of the input delta will be larger because the pointer/mouse/touch
 -- has moved more pixels between frames.
-local ROTATION_SPEED_MOUSE = Vector2.new(1, 0.77)*math.rad(0.5) -- (rad/inputdelta)
-local ROTATION_SPEED_POINTERACTION = Vector2.new(1, 0.77)*math.rad(7) -- (rad/inputdelta)
-local ROTATION_SPEED_TOUCH = Vector2.new(1, 0.66)*math.rad(1) -- (rad/inputdelta)
+-- Remove with FFlagUserPlayerScriptsCameraTouchUsesIAS
+local ROTATION_SPEED_MOUSE = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then Vector2.new(1, 0.77)*math.rad(0.5) else nil-- (rad/inputdelta)
+local ROTATION_SPEED_POINTERACTION = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then Vector2.new(1, 0.77)*math.rad(7) else nil-- (rad/inputdelta)
+local ROTATION_SPEED_TOUCH = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then Vector2.new(1, 0.66)*math.rad(1) else nil-- (rad/inputdelta)
 
-local ZOOM_SPEED_MOUSE = 1 -- (scaled studs/wheel click)
-local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
+local ZOOM_SPEED_MOUSE = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then 1 else nil-- (scaled studs/wheel click)
+local ZOOM_SPEED_TOUCH = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then 0.04 else nil-- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
 
+local lastYInvert = 1
+
+local function updateCameraYInvert()
+	local yInvert = UserGameSettings:GetCameraYInvertValue()
+	if yInvert == lastYInvert then
+		return
+	end
+	lastYInvert = yInvert
+	for _, child in cameraRotationAction:GetChildren() do
+		if child:IsA("InputBinding") then
+			local scale = child.Vector2Scale
+			child.Vector2Scale = Vector2.new(scale.X, -scale.Y)
+		end
+	end
+end
 
 local function updateGamepadCameraSensitivity()
 	cameraRotationGamepadBinding.Scale = UserGameSettings.GamepadCameraSensitivity
 end
-
-UserGameSettings:GetPropertyChangedSignal("GamepadCameraSensitivity"):Connect(updateGamepadCameraSensitivity)
-updateGamepadCameraSensitivity() -- initialize the sensitivity on script load
 
 local function updateMouseCameraSensitivity()
 	local sensitivity = UserGameSettings.MouseSensitivity
@@ -57,8 +72,15 @@ local function updateMouseCameraSensitivity()
 	cameraRotationTrackpadBinding.Scale = sensitivity
 end
 
+UserGameSettings:GetPropertyChangedSignal("GamepadCameraSensitivity"):Connect(updateGamepadCameraSensitivity)
+updateGamepadCameraSensitivity() -- initialize the sensitivity on script load
+
 UserGameSettings:GetPropertyChangedSignal("MouseSensitivity"):Connect(updateMouseCameraSensitivity)
 updateMouseCameraSensitivity() -- initialize the sensitivity on script load
+
+if FFlagUserPlayerScriptsCameraTouchUsesIAS then
+	updateCameraYInvert() -- initialize Y invert behavior on script load
+end
 
 -- Adjust the touch sensitivity so that sensitivity is reduced when swiping up
 -- or down, but stays the same when swiping towards the middle of the screen
@@ -88,7 +110,9 @@ local function adjustTouchPitchSensitivity(delta: Vector2): Vector2
 	return Vector2.new(1, sensitivity)*delta
 end
 
-local function isInDynamicThumbstickArea(pos: Vector3): boolean
+local isInDynamicThumbstickArea -- Remove with FFlagUserPlayerScriptsDynamicThumbstickUsesIAS
+if not FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
+	isInDynamicThumbstickArea = function(pos: Vector3): boolean
 	local playerGui = player:FindFirstChildOfClass("PlayerGui")
 	local touchGui = playerGui and playerGui:FindFirstChild("TouchGui")
 	local touchFrame = touchGui and touchGui:FindFirstChild("TouchControlFrame")
@@ -110,6 +134,7 @@ local function isInDynamicThumbstickArea(pos: Vector3): boolean
 		pos.Y >= posTopLeft.Y and
 		pos.X <= posBottomRight.X and
 		pos.Y <= posBottomRight.Y
+	end
 end
 
 local CameraInput = {}
@@ -130,16 +155,16 @@ do
 		panInputCount = 0
 	end
 
-	local mouseState = {
+	local mouseState = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then {
 		Movement = Vector2.new(),
 		Wheel = 0, -- PointerAction
 		Pan = Vector2.new(), -- PointerAction
 		Pinch = 0, -- PointerAction
-	}
-	local touchState = {
+	} else nil
+	local touchState = if not FFlagUserPlayerScriptsCameraTouchUsesIAS then {
 		Move = Vector2.new(),
 		Pinch = 0,
-	}
+	} else nil
 
 	function CameraInput.getRotationActivated(): boolean
 		return panInputCount > 0 or cameraRotationAction:GetState().Magnitude > 0
@@ -150,55 +175,71 @@ do
 		return panInputCount > 0
 	end
 
-	function CameraInput.getRotation(dt, disableKeyboardRotation: boolean?): Vector2
-		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
+	function CameraInput.getRotation(dt): Vector2
 
-		local kTouch = adjustTouchPitchSensitivity(touchState.Move)
-		local result = kTouch * ROTATION_SPEED_TOUCH + cameraRotationAction:GetState() * dt
-		return result * inversionVector
+		if FFlagUserPlayerScriptsCameraTouchUsesIAS then
+			updateCameraYInvert()
+			local result = cameraRotationAction:GetState() * dt
+			if UserInputService.PreferredInput == Enum.PreferredInput.Touch then
+				result = adjustTouchPitchSensitivity(result)
+			end
+			return result
+		else
+			local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
+			local kTouch = adjustTouchPitchSensitivity(touchState.Move)
+			local result = kTouch * ROTATION_SPEED_TOUCH + cameraRotationAction:GetState() * dt
+			return result * inversionVector
+		end
 	end
 
-	function CameraInput.getZoomDelta(dt: number?): number
-		local zoomState = cameraZoomAction:GetState()
-		if dt then
-			zoomState *= dt
-		end
+	function CameraInput.getZoomDelta(dt): number
+		local zoomState = cameraZoomAction:GetState() * dt
 
-		local kTouch = -touchState.Pinch
-		return zoomState + kTouch * ZOOM_SPEED_TOUCH
+		if not FFlagUserPlayerScriptsCameraTouchUsesIAS then
+			local kTouch = -touchState.Pinch
+			zoomState += kTouch * ZOOM_SPEED_TOUCH
+		end
+		return zoomState
 	end
 
 	do
-		local function mouseMovement(input)
-			local delta = input.Delta
-			mouseState.Movement = Vector2.new(delta.X, delta.Y)
-		end
-
-		local function resetInputDevices()
-			for _, device in pairs({
-				mouseState,
-				touchState,
-			}) do
-				for k, v in pairs(device) do
-					if type(v) == "boolean" then
-						device[k] = false
-					else
-						device[k] *= 0 -- Mul by zero to preserve vector types
+		local mouseMovement -- Remove with FFlagUserPlayerScriptsCameraTouchUsesIAS
+		local resetInputDevices -- Remove with FFlagUserPlayerScriptsCameraTouchUsesIAS
+		if not FFlagUserPlayerScriptsCameraTouchUsesIAS then
+			mouseMovement = function(input)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
+				local delta = input.Delta
+				mouseState.Movement = Vector2.new(delta.X, delta.Y)
+			end
+			resetInputDevices = function()
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
+				for _, device in pairs({
+					mouseState,
+					touchState,
+				}) do
+					for k, v in pairs(device) do
+						if type(v) == "boolean" then
+							device[k] = false
+						else
+							device[k] *= 0 -- Mul by zero to preserve vector types
+						end
 					end
 				end
+				resetPanInputCount()
 			end
-
-			resetPanInputCount()
 		end
 
-		local touchBegan, touchChanged, touchEnded, resetTouchState do
+		local touchBegan, touchChanged, touchEnded, resetTouchState-- Remove with FFlagUserPlayerScriptsCameraTouchUsesIAS
+		local inputBegan, inputChanged, inputEnded -- Remove with FFlagUserPlayerScriptsCameraTouchUsesIAS
+		if not FFlagUserPlayerScriptsCameraTouchUsesIAS then
 			-- Use TouchPan & TouchPinch when they work in the Studio emulator
 
 			local touches: {[InputObject]: boolean?} = {} -- {[InputObject] = sunk}
 			local dynamicThumbstickInput: InputObject? -- Special-cased
 			local lastPinchDiameter: number?
 
-			function touchBegan(input: InputObject, sunk: boolean)
+			touchBegan = function(input: InputObject, sunk: boolean)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
 				assert(input.UserInputType == Enum.UserInputType.Touch)
 				assert(input.UserInputState == Enum.UserInputState.Begin)
 
@@ -218,7 +259,8 @@ do
 				touches[input] = sunk
 			end
 
-			function touchEnded(input: InputObject, sunk: boolean)
+			touchEnded = function(input: InputObject, sunk: boolean)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
 				assert(input.UserInputType == Enum.UserInputType.Touch)
 				assert(input.UserInputState == Enum.UserInputState.End)
 
@@ -237,7 +279,8 @@ do
 				touches[input] = nil
 			end
 
-			function touchChanged(input, sunk)
+			touchChanged = function(input, sunk)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
 				assert(input.UserInputType == Enum.UserInputType.Touch)
 				assert(input.UserInputState == Enum.UserInputState.Change)
 
@@ -285,29 +328,33 @@ do
 				end
 			end
 
-			function resetTouchState()
+			resetTouchState = function()
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
 				touches = {}
 				dynamicThumbstickInput = nil
 				lastPinchDiameter = nil
 				resetPanInputCount()
 			end
-		end
 
-		local function inputBegan(input, sunk)
-			if input.UserInputType == Enum.UserInputType.Touch then
-				touchBegan(input, sunk)
+			inputBegan = function(input, sunk)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
+				if input.UserInputType == Enum.UserInputType.Touch then
+					touchBegan(input, sunk)
+				end
 			end
-		end
 
-		local function inputChanged(input, sunk)
-			if input.UserInputType == Enum.UserInputType.Touch then
-				touchChanged(input, sunk)
+			inputChanged = function(input, sunk)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
+				if input.UserInputType == Enum.UserInputType.Touch then
+					touchChanged(input, sunk)
+				end
 			end
-		end
 
-		local function inputEnded(input, sunk)
-			if input.UserInputType == Enum.UserInputType.Touch then
-				touchEnded(input, sunk)
+			inputEnded = function(input, sunk)
+				assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
+				if input.UserInputType == Enum.UserInputType.Touch then
+					touchEnded(input, sunk)
+				end
 			end
 		end
 
@@ -322,8 +369,12 @@ do
 			end
 			inputEnabled = _inputEnabled
 
-			resetInputDevices()
-			resetTouchState()
+			if FFlagUserPlayerScriptsCameraTouchUsesIAS then
+				resetPanInputCount()
+			else
+				resetInputDevices()
+				resetTouchState()
+			end
 
 			if inputEnabled then -- enable
 				cameraZoomAction.Enabled = true
@@ -331,10 +382,12 @@ do
 
 				cameraPanActiveAction.Enabled = true
 
-				table.insert(connectionList, UserInputService.InputBegan:Connect(inputBegan))
-				table.insert(connectionList, UserInputService.InputChanged:Connect(inputChanged))
-				table.insert(connectionList, UserInputService.InputEnded:Connect(inputEnded))
-				table.insert(connectionList, GuiService.MenuOpened:Connect(resetTouchState))
+				if not FFlagUserPlayerScriptsCameraTouchUsesIAS then
+					table.insert(connectionList, UserInputService.InputBegan:Connect(inputBegan))
+					table.insert(connectionList, UserInputService.InputChanged:Connect(inputChanged))
+					table.insert(connectionList, UserInputService.InputEnded:Connect(inputEnded))
+					table.insert(connectionList, GuiService.MenuOpened:Connect(resetTouchState))
+				end
 
 			else -- disable
 				cameraZoomAction.Enabled = false
@@ -354,14 +407,25 @@ do
 		end
 
 		function CameraInput.resetInputForFrameEnd()
+			assert(not FFlagUserPlayerScriptsCameraTouchUsesIAS)
 			touchState.Move = Vector2.new()
 			touchState.Pinch = 0
 		end
 
-		UserInputService.WindowFocused:Connect(resetInputDevices)
-		UserInputService.WindowFocusReleased:Connect(resetInputDevices)
+		if FFlagUserPlayerScriptsCameraTouchUsesIAS then
+			UserInputService.WindowFocused:Connect(resetPanInputCount)
+			UserInputService.WindowFocusReleased:Connect(resetPanInputCount)
+			GuiService.MenuOpened:Connect(resetPanInputCount)
+		else
+			UserInputService.WindowFocused:Connect(resetInputDevices)
+			UserInputService.WindowFocusReleased:Connect(resetInputDevices)
+		end
 		if FFlagUserPSTextboxResetCameraInput then
-			UserInputService.TextBoxFocusReleased:Connect(resetInputDevices)
+			if FFlagUserPlayerScriptsCameraTouchUsesIAS then
+				UserInputService.TextBoxFocusReleased:Connect(resetPanInputCount)
+			else
+				UserInputService.TextBoxFocusReleased:Connect(resetInputDevices)
+			end
 		end
 	end
 end
