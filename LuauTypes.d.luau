@@ -375,6 +375,34 @@ type LinkSharingOptions = {
   LaunchData: string?
 }
 
+type ExperienceEvent = {
+    Id: string,
+    Title: string,
+    Description: string,
+    StartTime: {
+        Year: number,
+        Month: number,
+        Day: number,
+        Hour: number,
+        Minute: number,
+        Second: number,
+        Millisecond: number
+    },
+    EndTime: {
+        Year: number,
+        Month: number,
+        Day: number,
+        Hour: number,
+        Minute: number,
+        Second: number,
+        Millisecond: number
+    },
+    HasStarted: boolean,
+    HasEnded: boolean,
+    Status: Enum.ExperienceEventStatus,
+    UserRsvpStatus: Enum.RsvpStatus?
+}
+
 type ReviewableContentEvent = {
     Id: string,
     Ref: string?,
@@ -523,7 +551,8 @@ type RankedItem = {
 }
 
 type GenerateModelInputs = {
-    TextPrompt: string,
+    TextPrompt: string?,
+    Image: Content?,
     Size: Vector3?,
     MaxTriangles: number?,
     ShouldGenerateTextures: boolean?,
@@ -608,6 +637,40 @@ type VirtualInputPointerAction = {
     Wheel: number?,
     Pan: Vector2?,
     Pinch: number?,
+}
+
+type CreateAvatar2DPreviewParams = {
+    TextPrompt: string,
+    JobId: string?,
+    FileId: string?,
+}
+
+type CreateAvatar2DPreviewResults = {
+    JobId: string,
+    Image: EditableImage,
+}
+
+type CreateAvatarProgress = {
+    JobId: string,
+    Progress: number,
+    Status: string,
+}
+
+type CreateAvatarModelParams = {
+    JobIds: {string},
+    TextPrompt: string?,
+}
+
+type AccessoryResult = {
+    AccessoryType: Enum.AccessoryType,
+    IsLayered: boolean,
+    Instance: Model,
+}
+
+type CreateAvatarModelResults = {
+    JobId: string,
+    Body: Model?,
+    Accessories: {AccessoryResult},
 }
 
 

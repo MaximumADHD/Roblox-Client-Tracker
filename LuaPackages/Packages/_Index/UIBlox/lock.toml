@@ -3,7 +3,7 @@ name = "UIBlox"
 version = "0.2.254"
 source = "registry"
 dependencies = [
-    "BuilderIcons BuilderIcons 0.1.35 registry",
+    "BuilderIcons BuilderIcons 0.1.36 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
     "Foundation Foundation 1.86.0 registry",
