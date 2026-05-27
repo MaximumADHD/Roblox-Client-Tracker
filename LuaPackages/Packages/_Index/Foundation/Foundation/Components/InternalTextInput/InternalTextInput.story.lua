@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Foundation.Components.Icon)
 local IconButton = require(Foundation.Components.IconButton)
 local Text = require(Foundation.Components.Text)
@@ -54,11 +53,8 @@ local function Story(props)
 				hasError = controls.hasError,
 				isDisabled = controls.isDisabled,
 				numLines = controls.numLines,
-				focusBehavior = if Flags.FoundationTextInputFocusBehavior
-						and controls.focusBehavior ~= React.None
-					then controls.focusBehavior
-					else nil,
-				hasClearButton = if Flags.FoundationInternalTextInputClearButton then controls.hasClearButton else nil,
+				focusBehavior = if controls.focusBehavior ~= React.None then controls.focusBehavior else nil,
+				hasClearButton = controls.hasClearButton,
 				radius = if controls.radius ~= React.None then controls.radius else nil,
 				onChanged = handleChange,
 				onReturnPressed = onReturnPressed,
@@ -142,10 +138,8 @@ return {
 			React.None,
 			unpack(Dash.values(Radius)),
 		},
-		focusBehavior = if Flags.FoundationTextInputFocusBehavior
-			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
-			else nil,
-		hasClearButton = if Flags.FoundationInternalTextInputClearButton then true else nil,
+		focusBehavior = { React.None, unpack(Dash.values(InputFocusBehavior)) },
+		hasClearButton = true,
 		placeholder = "Placeholder text",
 		leadingComponentIcon = {
 			"icons/placeholder/placeholderOn_small",

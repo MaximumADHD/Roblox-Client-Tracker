@@ -5,7 +5,6 @@ local React = require(Packages.React)
 
 local Text = require(Foundation.Components.Text)
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -26,9 +25,8 @@ local function HintText(props: HintTextProps, ref: React.Ref<GuiObject>?)
 			tag = {
 				["size-full-0 auto-y text-caption-small text-align-x-left text-align-y-top text-wrap"] = true,
 				["content-action-alert"] = props.hasError,
-				["content-muted"] = Flags.FoundationInputFieldFixDisabled and props.isDisabled and not props.hasError,
-				["content-default"] = (not Flags.FoundationInputFieldFixDisabled or not props.isDisabled)
-					and not props.hasError,
+				["content-muted"] = props.isDisabled and not props.hasError,
+				["content-default"] = not props.isDisabled and not props.hasError,
 			} :: { [string]: boolean },
 			ref = ref,
 		})

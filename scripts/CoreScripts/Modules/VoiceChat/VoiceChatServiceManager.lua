@@ -98,6 +98,7 @@ local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1"
 local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV3", false)
 local FFlagVoiceRewarmTelemetry =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
+local FFlagGuardVoiceInExpUpsellVariant = game:DefineFastFlag("GuardVoiceInExpUpsellVariant", false)
 
 local JOIN_VOICE_BUTTON_CONTEXT = {
 	FAE_UPSELL = "FaeUpsell",
@@ -1050,6 +1051,10 @@ end
 
 function VoiceChatServiceManager:ShowInExperienceVoiceUpsell(entrypoint: string)
 	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
+	if FFlagGuardVoiceInExpUpsellVariant and type(ageVerificationResponse) ~= "table" then
+		return
+	end
+	
 	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 
 	self:SetInExpUpsellEntrypoint(entrypoint)
@@ -1737,7 +1742,15 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self:SetVoiceRewarmCookie("true")
 	end
 	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
-	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
+	local voiceInExpUpsellVariant
+	if FFlagGuardVoiceInExpUpsellVariant then
+		voiceInExpUpsellVariant = if type(ageVerificationResponse) == "table"
+			then ageVerificationResponse.showVoiceInExperienceUpsellVariant
+			else nil
+	else
+		voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
+	end
+
 	voiceInExpUpsellVariant = voiceInExpUpsellVariant or VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT3
 	if not FFlagVoiceRewarmTelemetry then
 		self.Analytics:reportJoinVoiceButtonEvent("clicked", self:GetInExpUpsellAnalyticsData())

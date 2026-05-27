@@ -79,7 +79,7 @@ local FFlagEnableCorescriptsProfiler = game:DefineFastFlag("EnableCorescriptsPro
 local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScriptsProfilerTelemetryContext", false)
 local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
 local FFlagLuaAppEnableInExperienceClickoutScripts = game:DefineFastFlag("LuaAppEnableInExperienceClickoutScripts", false)
-local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendConsoleDesktop2", false) and game:GetEngineFeature("EnableSelfieQRCode")
+local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendConsoleDesktop3", false) and game:GetEngineFeature("EnableSelfieQRCode")
 local GetEngineFeatureEnablePromptRobuxTransfer =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetEngineFeatureEnablePromptRobuxTransfer
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -579,17 +579,7 @@ task.delay(ReactSchedulingDelaySeconds, function()
 end)
 
 local Memory = require(CorePackages.Workspace.Packages.Memory)
-local FFlagEnableMemoryTrackerUnification =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableMemoryTrackerUnification
-if FFlagEnableMemoryTrackerUnification then
-	Memory.start(true, FStringReactSchedulingContext, Memory.MemoryScope.InExperience)
-else
-	local createMemoryTracker = Memory.MemoryTracker
-	local memoryTracker = createMemoryTracker(FStringReactSchedulingContext, Memory.MemoryScope.InExperience)
-	if memoryTracker then
-		memoryTracker:start()
-	end
-end
+Memory.start(true, FStringReactSchedulingContext, Memory.MemoryScope.InExperience)
 
 if game:GetEngineFeature("RecordingServicePlaybackApiLua") then
 	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.ExperienceStateReplay)

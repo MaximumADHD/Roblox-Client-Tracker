@@ -1,10 +1,6 @@
-local Flags = require(script.Parent.Parent.Utility.Flags)
--- TODO: clean up with FFlagFoundationNumberInputTextFix
-local NumberInputNew = require(script.NumberInput)
-local NumberInput = if Flags.FoundationNumberInputTextFix then NumberInputNew else require(script.NumberInputTextState)
+local NumberInput = require(script.NumberInput)
 
-export type NumberInputProps = NumberInputNew.NumberInputProps
-
-export type NumberInputRef = NumberInputNew.NumberInputRef
+export type NumberInputProps = NumberInput.NumberInputProps
+export type NumberInputRef = NumberInput.NumberInputRef
 
 return NumberInput

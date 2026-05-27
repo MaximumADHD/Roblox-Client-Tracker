@@ -23,7 +23,7 @@ function InGameMenuIntegrationUtils.createPageOpenSignal(pageKey: string): Chrom
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		SettingsHub.CurrentPageSignal:connect(function(pageName)
 			local page = SettingsHub.Instance[pageKey]
-			isOpen = pageName == page.Page.Name
+			isOpen = page ~= nil and pageName == page.Page.Name
 			openSignal:fire()
 		end)
 	end)

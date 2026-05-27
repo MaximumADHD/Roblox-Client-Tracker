@@ -41,9 +41,6 @@ return {
 	-- Enable icon scaling for some icons used by experience details
 	enableScalingForSomeEdpIcons = false,
 
-	-- Use Foundation Loading spinner
-	useFoundationLoading = false,
-
 	-- Disable token scaling so scale is always 1
 	disableTokenScaling = false,
 

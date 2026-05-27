@@ -14,7 +14,6 @@ local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
 local FFlagSelfViewNewPoseSynchronization = game:DefineFastFlag("SelfViewNewPoseSynchronization", false)
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
-local FFlagSelfViewFixAnimTrackLeaks = game:DefineFastFlag("SelfViewFixAnimTrackLeaks", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
 local RunService = game:GetService("RunService")
@@ -142,17 +141,14 @@ local function clearClone()
 	stopRenderStepped()
 	clearObserver(Observer.AnimationPlayed)
 	clearObserver(Observer.AnimationPlayedCoreScript)
-
-	if FFlagSelfViewFixAnimTrackLeaks then
-		for _, track in cloneAnimationTracks do
-			if track then
-				track:Stop(0)
-			end
+	for _, track in cloneAnimationTracks do
+		if track then
+			track:Stop(0)
 		end
-		if cloneStreamTrack then
-			cloneStreamTrack:Stop(0)
-			cloneStreamTrack = nil
-		end
+	end
+	if cloneStreamTrack then
+		cloneStreamTrack:Stop(0)
+		cloneStreamTrack = nil
 	end
 
 	cloneAnimator = nil
@@ -171,7 +167,7 @@ local function syncTrack(animator: Animator, track: AnimationTrack)
 	if track.Animation and track.Animation:IsA("Animation") then
 		--regular animation sync handled further below
 	elseif track.Animation and track.Animation:IsA("TrackerStreamAnimation") then
-		if FFlagSelfViewFixAnimTrackLeaks and cloneStreamTrack then
+		if cloneStreamTrack then
 			cloneStreamTrack:Stop(0)
 		end
 		newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")

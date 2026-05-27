@@ -8,7 +8,6 @@
 -- SERVICES
 local PlayerService = game:GetService("Players")
 local CoreGuiService = game:GetService("CoreGui")
-local StarterGuiService = game:GetService("StarterGui")
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
@@ -27,26 +26,33 @@ end
 local NetworkPauseNotification = require(CoreGuiModules.NetworkPauseNotification)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
+-- FLAGS
+-- Gates the anti-flicker state machine - show-delay on pause and dismissal debounce on rapid unpause.
+local FFlagGameplayPauseFlickerMitigation = game:DefineFastFlag("GameplayPauseFlickerMitigation", false)
+local FIntRapidGameplayPauseIntervalMs = game:DefineFastInt("RapidGameplayPauseIntervalMs", 1000) -- If we repause within this time since the last unpause, debounce the next dismissal to prevent oscillation.
+local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("RapidGameplayPauseMinNotificationDurationMs", 500) -- Min time to keep notification visible after a rapid unpause.
+local FIntGameplayPauseShowDelayMs = game:DefineFastInt("GameplayPauseShowDelayMs", 300) -- Min time in pause state before pause UI is shown
+
+-- STATE MACHINE
+-- Transitions only flow through enterStage(). Each stage's entry function owns its timers and
+-- the notification UI; leaving the stage always cancels them, so timers can never leak.
+local STAGE = table.freeze({
+	UNPAUSED = "unpaused", -- GameplayPaused is false; notification hidden.
+	PENDING_SHOW = "pendingShow", -- Paused, within the show-delay grace window; notification still hidden.
+	PAUSED = "paused", -- Notification is visible.
+	RAPID_PAUSE_PENDING_DISMISS = "rapidPausePendingDismiss", -- Notification still visible after a rapid unpause; debouncing the hide.
+})
+
 -- VARIABLES
-local FFlagGameplayPausePausesInteraction = game:DefineFastFlag("GameplayPausePausesInteraction", false)
-local FFlagGameplayPauseAntiFlicker = game:DefineFastFlag("GameplayPauseAntiFlicker2", false)
-local FIntRapidGameplayPauseIntervalMs = game:DefineFastInt("RapidGameplayPauseIntervalMs", 1000) -- If we repause within this time since the last pause, keep the pause notification up longer to prevent oscillation
-local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("RapidGameplayPauseMinNotificationDurationMs", 500) -- Min time to show pause notification for repeat pauses
-local isFirstPauseChange = true -- Skip showing UI on first pause to avoid displaying during loading process.
-local inRapidPause = false -- Tracks whether we've seen recent rapid pause/unpause/pause cycles
-local lastUnpauseTime = os.clock()
-local dismissDelayTimerHandle = nil
-local updatePauseState -- Forward declaration
+local isFirstPauseChange = true -- Skip the first signal so UI does not flash during loading. Read by both the legacy and state-machine paths.
+local stage = STAGE.UNPAUSED
+local lastUnpauseTime = -math.huge -- Sentinel so the first pause is never considered rapid.
+local inRapidPause = false -- Set on entry to PAUSED; read on exit to decide between UNPAUSED and RAPID_PAUSE_PENDING_DISMISS.
+local showTimer = nil
+local dismissTimer = nil
 
+-- UI SURFACE
 local Notification = NetworkPauseNotification.new()
-
--- container for the notification
-local NetworkPauseContainer = FFlagGameplayPausePausesInteraction and Create "Frame" {
-	Name = "Container",
-	Size = UDim2.new(1, 0, 1, 0),
-	BackgroundTransparency = 1,
-	Active = false
-}
 
 local NetworkPauseGui = Create "ScreenGui" {
 
@@ -54,65 +60,95 @@ local NetworkPauseGui = Create "ScreenGui" {
 	OnTopOfCoreBlur = true,
 	DisplayOrder = 8,
 	Parent = CoreGuiService,
-	IgnoreGuiInset = FFlagGameplayPausePausesInteraction,
+	IgnoreGuiInset = false,
 	AutoLocalize = false,
-
-	NetworkPauseContainer
-
 }
 
-local function cancelNotificationDismissTimer()
-	if dismissDelayTimerHandle ~= nil then
-		task.cancel(dismissDelayTimerHandle)
-		dismissDelayTimerHandle = nil
-	end
-end
-
-local function scheduleNotificationDismissTimer()
-	cancelNotificationDismissTimer()
-	dismissDelayTimerHandle = task.delay(FIntRapidGameplayPauseMinNotificationDurationMs / 1000, function()
-		dismissDelayTimerHandle = nil -- Clear handle so we don't try to cancel the current task
-		updatePauseState()
-	end)
-end
-
-local function setPauseUIState(paused)
-	if paused then
+local function setNotificationVisible(visible)
+	if visible then
 		Notification:Show()
 	else
 		Notification:Hide()
 	end
-
-	if FFlagGameplayPausePausesInteraction then
-		NetworkPauseContainer.Active = paused
-	end
-	RunService:SetRobloxGuiFocused(paused)
+	RunService:SetRobloxGuiFocused(visible)
 end
 
-function updatePauseState()
+local function cancelTimers()
+	if showTimer ~= nil then
+		task.cancel(showTimer)
+		showTimer = nil
+	end
+	if dismissTimer ~= nil then
+		task.cancel(dismissTimer)
+		dismissTimer = nil
+	end
+end
+
+local function isRapidRepause()
+	return (os.clock() - lastUnpauseTime) * 1000 < FIntRapidGameplayPauseIntervalMs
+end
+
+local function enterStage(nextStage)
+	stage = nextStage
+	cancelTimers()
+
+	if nextStage == STAGE.UNPAUSED then
+		inRapidPause = false
+		setNotificationVisible(false)
+	elseif nextStage == STAGE.PENDING_SHOW then
+		-- We paused but are waiting a short time before showing the UI to prevent flickers from brief pauses
+		showTimer = task.delay(FIntGameplayPauseShowDelayMs / 1000, function()
+			showTimer = nil
+			-- Guard against races: only promote if we are still in PENDING_SHOW and the
+			-- conditions to show are still true.
+			if stage == STAGE.PENDING_SHOW and Player.GameplayPaused and NetworkPauseGui.Enabled then
+				enterStage(STAGE.PAUSED)
+			end
+		end)
+	elseif nextStage == STAGE.PAUSED then
+		inRapidPause = isRapidRepause()
+		setNotificationVisible(true)
+	elseif nextStage == STAGE.RAPID_PAUSE_PENDING_DISMISS then
+		-- We're in a rapid pause flicker state, wait a short time to see if we pause again before dismissing the UI
+		dismissTimer = task.delay(FIntRapidGameplayPauseMinNotificationDurationMs / 1000, function()
+			dismissTimer = nil
+			if stage == STAGE.RAPID_PAUSE_PENDING_DISMISS and not Player.GameplayPaused then
+				enterStage(STAGE.UNPAUSED)
+			end
+		end)
+	end
+end
+
+-- EVENT HANDLERS
+local function onGameplayPausedChanged()
 	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
 	isFirstPauseChange = false
 
 	if paused then
-		-- Enter paused state
-		setPauseUIState(paused)
-		inRapidPause = (os.clock() - lastUnpauseTime) * 1000 < FIntRapidGameplayPauseIntervalMs
-		cancelNotificationDismissTimer()
-	else
-		if inRapidPause then
-			-- We got an unpause signal but we've seen recent rapid pause state oscillations.
-			-- Wait a short time before dismissing the UI to avoid any UI flickering.
-			scheduleNotificationDismissTimer()
+		-- Skip the show delay if the UI is still visible inside the dismiss debounce, or if
+		-- we are repausing right after an unpause - rapid oscillations of sub-threshold pauses
+		-- should still surface the UI instead of being hidden forever.
+		if stage == STAGE.RAPID_PAUSE_PENDING_DISMISS or isRapidRepause() then
+			enterStage(STAGE.PAUSED)
 		else
-			-- Leave paused state
-			inRapidPause = false
-			setPauseUIState(paused)
+			enterStage(STAGE.PENDING_SHOW)
 		end
-
-		lastUnpauseTime = os.clock()
+	else
+		if stage ~= STAGE.UNPAUSED then
+			lastUnpauseTime = os.clock()
+		end
+		if stage == STAGE.PENDING_SHOW then
+			-- UI was never shown, so there is nothing to debounce.
+			enterStage(STAGE.UNPAUSED)
+		elseif inRapidPause then
+			enterStage(STAGE.RAPID_PAUSE_PENDING_DISMISS)
+		else
+			enterStage(STAGE.UNPAUSED)
+		end
 	end
 end
 
+-- Remove with FFlagGameplayPauseFlickerMitigation
 local function togglePauseState()
 	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
 	isFirstPauseChange = false
@@ -121,14 +157,11 @@ local function togglePauseState()
 	else
 		Notification:Hide()
 	end
-	if FFlagGameplayPausePausesInteraction then
-		NetworkPauseContainer.Active = paused
-	end
 	RunService:SetRobloxGuiFocused(paused)
 end
 
-if FFlagGameplayPauseAntiFlicker then
-	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(updatePauseState)
+if FFlagGameplayPauseFlickerMitigation then
+	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(onGameplayPausedChanged)
 else
 	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(togglePauseState)
 end
@@ -137,13 +170,19 @@ local function enableNotification(enabled)
 	assert(type(enabled) == "boolean", "Specified argument 'enabled' must be of type boolean")
 	if enabled == NetworkPauseGui.Enabled then return end
 	NetworkPauseGui.Enabled = enabled
-	togglePauseState()
+	if FFlagGameplayPauseFlickerMitigation then
+		if enabled then
+			-- Re-evaluate from the current GameplayPaused state so the UI can show if we are paused.
+			onGameplayPausedChanged()
+		else
+			-- Force immediate reset; any pending show or dismiss debounce is moot when the GUI is off.
+			enterStage(STAGE.UNPAUSED)
+		end
+	else
+		togglePauseState()
+	end
 end
 
-if FFlagGameplayPausePausesInteraction then
-	Notification:SetParent(NetworkPauseContainer)
-else
-	Notification:SetParent(NetworkPauseGui)
-end
+Notification:SetParent(NetworkPauseGui)
 
 GuiService.NetworkPausedEnabledChanged:Connect(enableNotification)

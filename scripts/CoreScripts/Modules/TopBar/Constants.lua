@@ -12,6 +12,9 @@ local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+
 local StyleTokens = if ChromeEnabled()
 	then require(ChromeShared.Utility.GetStyleTokens)()
 	else nil :: never
@@ -79,7 +82,7 @@ return {
 	UnibarFrame = {
 		PaddingTop = if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
 		PaddingBottom = if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
-		PaddingLeft = screenSideOffset + topBarPadding + topbarHeight + if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
+		PaddingLeft = screenSideOffset + topBarPadding + (if FFlagEnableSideSheet then 0 else topbarHeight) + if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
 		ExtendedSize = topbarHeight- if ChromeEnabled() then StyleTokens.Size.Size_100 else 4,
 	},
 

@@ -20,7 +20,6 @@ local BRICK_COLOR_PALETTES = require(Foundation.Components.ColorPicker.BrickColo
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
-local Flags = require(Foundation.Utility.Flags)
 local Wrappers = require(Foundation.Utility.Wrappers)
 local Connection = Wrappers.Connection
 local Signal = Wrappers.Signal
@@ -46,10 +45,6 @@ type GridBounds = {
 local HEXAGON_IMAGE = "component_assets/hexagon_24"
 local MIN_GRID_RADIUS = 3
 local HEXAGON_SPACING = 1
-
-local function getHexagonDimensions(hexagonSize: number): (number, number)
-	return math.sqrt(3) * hexagonSize, 2 * hexagonSize
-end
 
 local function calculateGridRadius(colorCount: number): number
 	for radius = MIN_GRID_RADIUS, 20, 2 do
@@ -128,14 +123,9 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 	local props = brickColorPickerProps
 	local tokens = useTokens()
 
-	local HEXAGON_SIZE = if Flags.FoundationColorPickerDesignUpdate then tokens.Size.Size_200 else tokens.Size.Size_350
-	local HEXAGON_WIDTH, HEXAGON_HEIGHT
-	if Flags.FoundationColorPickerDesignUpdate then
-		HEXAGON_WIDTH = tokens.Size.Size_350
-		HEXAGON_HEIGHT = tokens.Size.Size_400
-	else
-		HEXAGON_WIDTH, HEXAGON_HEIGHT = getHexagonDimensions(HEXAGON_SIZE)
-	end
+	local HEXAGON_SIZE = tokens.Size.Size_200
+	local HEXAGON_WIDTH = tokens.Size.Size_350
+	local HEXAGON_HEIGHT = tokens.Size.Size_400
 	local BOTTOM_PILL_PADDING_HORIZONTAL = tokens.Size.Size_100
 	local BOTTOM_SWATCH_WIDTH = tokens.Size.Size_350
 	local BOTTOM_SWATCH_HEIGHT = tokens.Size.Size_400
@@ -165,12 +155,9 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 
 			local colorIndex = 1
 			local radius = maxPolygonsInARow
-			local hexagonSpacing = HEXAGON_SIZE
-				+ (if Flags.FoundationColorPickerDesignUpdate then HEXAGON_SPACING else tokens.Size.Size_50)
+			local hexagonSpacing = HEXAGON_SIZE + HEXAGON_SPACING
 			local horizontalStep = HEXAGON_SIZE
-			local verticalStep = if Flags.FoundationColorPickerDesignUpdate
-				then math.round(hexagonSpacing * 1.5)
-				else nil
+			local verticalStep = math.round(hexagonSpacing * 1.5)
 
 			for row = 0, radius - 1 do
 				for col = 0, (2 * radius - 1) - 1 do
@@ -192,23 +179,6 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 						})
 						colorIndex += 1
 					end
-				end
-			end
-
-			if not Flags.FoundationColorPickerDesignUpdate and #bottomRowColors > 0 then
-				local BOTTOM_ROW_OFFSET = tokens.Size.Size_100
-				local bottomY = math.round(hexagonSpacing * 1.5 * radius + BOTTOM_ROW_OFFSET)
-				local startCol = 1
-
-				for i, brickColor in ipairs(bottomRowColors) do
-					local col = startCol + (i - 1) * 2
-					local x = horizontalStep * col
-
-					table.insert(positions, {
-						brickColor = brickColor,
-						x = x,
-						y = bottomY,
-					})
 				end
 			end
 
@@ -327,24 +297,6 @@ local function BrickColorPicker(brickColorPickerProps: BrickColorPickerProps)
 
 		return elements
 	end, { props.selectedColor })
-
-	if not Flags.FoundationColorPickerDesignUpdate then
-		return React.createElement(
-			View,
-			withCommonProps(props, {
-				Size = UDim2.fromOffset(gridBounds.width, gridBounds.height),
-			}),
-			{
-				ColorGrid = React.createElement(View, {
-					tag = "position-top-left anchor-top-left size-full",
-					onActivated = onGridActivated,
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-				}, createHexagonVisuals() :: any),
-			}
-		)
-	end
 
 	return React.createElement(
 		View,

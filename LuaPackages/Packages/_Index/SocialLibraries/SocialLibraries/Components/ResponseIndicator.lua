@@ -2,6 +2,8 @@ local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
+local Foundation = dependencies.Foundation
+local IconSize = Foundation.Enums.IconSize
 
 return function()
 	return UIBlox.Style.withStyle(function(style)
@@ -20,10 +22,10 @@ return function()
 				ZIndex = 10,
 			}, {
 				corner = Roact.createElement("UICorner"),
-				spinner = Roact.createElement(UIBlox.App.Loading.LoadingSpinner, {
-					anchorPoint = Vector2.new(0.5, 0.5),
-					position = UDim2.fromScale(0.5, 0.5),
-					size = UDim2.fromOffset(48, 48),
+				spinner = Roact.createElement(Foundation.Loading, {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.fromScale(0.5, 0.5),
+					size = IconSize.Large,
 				}),
 			}),
 		})

@@ -2,17 +2,27 @@
 --[[
     InputSetup - This ServerScript performs instance modification and signals input setup is complete.
 ]]--
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 local StarterPlayer = game:GetService("StarterPlayer")
 
 local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 
+local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
 local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayerScriptsTapToMoveUsesIAS2")
 local FFlagUserPlayerScriptsFixVehicleBindings = FlagUtil.getUserFlag("UserPlayerScriptsFixVehicleBindings")
 local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
+
+local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationA
+	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
+	else nil
+local InputReplication = if FFlagUserPlayerScriptsCCLIntegrationA
+	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("InputReplication"))
+	else nil
 
 local CONNECTIONS = {
 	INPUTS_SETUP = "INPUTS_SETUP",
@@ -78,6 +88,66 @@ if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS or FFlagUserPlayerScriptsClass
 	thumbstickAction.Enabled = false
 	thumbstickAction.Parent = characterContext
 end
+
+local function attemptCreateActionsIfAbsent(player: Player)
+	local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
+
+	local function createAction(abilityName: string)
+		local inputContexts = player:FindFirstChild("InputContexts")
+		if not inputContexts then return end
+		local characterContext = inputContexts:FindFirstChild("CharacterContext")
+		if not characterContext then return end
+
+		local action = Instance.new("InputAction")
+		action.Name = abilityName .. "Action"
+		action.Parent = characterContext
+	end
+
+	if avatarAbilitiesInterface:isEnabled() then
+		local inputContexts = player:FindFirstChild("InputContexts")
+		if not inputContexts then
+			-- We aren't able to create new instances or wait while in a BindToSimulation update
+			-- Creating these objects will be done asynchronously. It will take two calls of attemptCreateActionsIfAbsent() to create the hierarchy
+			task.spawn(function()
+				InputReplication.CloneInputsIfAbsent(player)
+			end)
+		else
+			local characterContext = inputContexts:FindFirstChild("CharacterContext")
+			if characterContext then
+				for _, abilityName in avatarAbilitiesInterface:GetAbilities() do
+					local action = characterContext:FindFirstChild(abilityName .. "Action")
+					if not action then
+						task.spawn(function()
+							createAction(abilityName)
+						end)
+					end
+				end
+			end
+		end
+	end
+end
+
+local function updatePlayer(player: Player)
+	attemptCreateActionsIfAbsent(player)
+	local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
+	if avatarAbilitiesInterface:isEnabled() then
+		InputReplication.SendInputToCCLCharacter(player)
+	end
+end
+
+if FFlagUserPlayerScriptsCCLIntegrationA then
+	Players.PlayerAdded:Connect(attemptCreateActionsIfAbsent)
+	for _, player in Players:GetPlayers() do
+		attemptCreateActionsIfAbsent(player)
+	end
+
+	RunService:BindToSimulation(function(dt)
+		for _, player in Players:GetPlayers() do
+			updatePlayer(player)
+		end
+	end, Enum.StepFrequency.Hz60)
+end
+
 -- [[ End Input Setup ]]
 
 -- Set shared state and publish so server auth can proceed

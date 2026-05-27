@@ -9,7 +9,6 @@ type InputSize = InputSize.InputSize
 local InputVariant = require(Foundation.Enums.InputVariant)
 type InputVariant = InputVariant.InputVariant
 
-local Flags = require(Foundation.Utility.Flags)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
@@ -30,7 +29,7 @@ local function computeProps(props: {
 	splitButtonSize: number?,
 	iconTag: string?,
 })
-	local horizontalPadding = if (props.width and props.horizontalPadding)
+	local horizontalPadding = if props.width and props.horizontalPadding
 		then UDim.new(0, (props.buttonWidth :: number - props.horizontalPadding) / 2)
 		else nil
 	return {
@@ -71,11 +70,6 @@ local function variantsFactory(tokens: Tokens)
 		downButton = {
 			tag = "fill size-full padding-top-xsmall",
 		},
-		splitButton = if Flags.FoundationNumberInputVariant
-			then nil :: never
-			else {
-				tag = "bg-shift-100",
-			},
 		icon = {
 			tag = "content-default",
 		},

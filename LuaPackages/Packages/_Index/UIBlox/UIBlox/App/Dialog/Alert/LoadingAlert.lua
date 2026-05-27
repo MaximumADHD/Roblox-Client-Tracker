@@ -19,7 +19,9 @@ local MAX_WIDTH = 400
 local MARGIN = 24
 local TITLE_ICON_SIZE = 48
 
-local LoadingSpinner = require(UIBlox.App.Loading.LoadingSpinner)
+local Foundation = require(Packages.Foundation)
+local Loading = Foundation.Loading
+local IconSize = Foundation.Enums.IconSize
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -46,10 +48,10 @@ function LoadingAlert:init()
 			Size = UDim2.new(1, 0, 0, 48),
 			BackgroundTransparency = 1,
 		}, {
-			Spinner = Roact.createElement(LoadingSpinner, {
-				size = UDim2.fromOffset(48, 48),
-				position = UDim2.fromScale(0.5, 0.5),
-				anchorPoint = Vector2.new(0.5, 0.5),
+			Spinner = Roact.createElement(Loading, {
+				size = IconSize.Large,
+				Position = UDim2.fromScale(0.5, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5),
 			}),
 		})
 	end

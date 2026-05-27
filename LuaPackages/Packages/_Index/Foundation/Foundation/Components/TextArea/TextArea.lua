@@ -8,7 +8,6 @@ local InputField = require(Components.InputField)
 local InternalTextInput = require(Components.InternalTextInput)
 local Types = require(Foundation.Components.Types)
 
-local Flags = require(Foundation.Utility.Flags)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -39,8 +38,7 @@ local defaultProps = {
 local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(textAreaProps, defaultProps)
 	local tokens = useTokens()
-	local variantProps =
-		useTextInputVariants(tokens, props.size, if Flags.FoundationTextAreaVariant then props.variant else nil)
+	local variantProps = useTextInputVariants(tokens, props.size, props.variant)
 
 	return React.createElement(
 		InputField,
@@ -54,25 +52,21 @@ local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
 					size = props.size,
-					variant = if Flags.FoundationTextAreaVariant then props.variant else nil,
+					variant = props.variant,
 					numLines = props.numLines,
-					focusBehavior = if Flags.FoundationTextInputFocusBehavior then props.focusBehavior else nil,
+					focusBehavior = props.focusBehavior,
 					onFocus = props.onFocusGained,
 					onFocusLost = props.onFocusLost,
 					onChanged = props.onChanged,
 					text = props.text,
 					hasError = props.hasError,
 					isDisabled = props.isDisabled,
-					hasClearButton = if Flags.FoundationInternalTextInputClearButton then props.hasClearButton else nil,
+					hasClearButton = props.hasClearButton,
 					placeholder = props.placeholder,
 					horizontalPadding = {
-						left = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding,
+						left = variantProps.container.horizontalPadding,
 						-- UIBLOX-2919: Share token used for scrollbar thickness with ScrollView
-						right = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding - UDim.new(0, tokens.Size.Size_150),
+						right = variantProps.container.horizontalPadding - UDim.new(0, tokens.Size.Size_150),
 					},
 					LayoutOrder = 2,
 					ref = inputRef,

@@ -76,15 +76,11 @@ local StackedIconButton = function(props: StackedIconButtonProps)
 		View,
 		withCommonProps(props, {
 			onActivated = props.onActivated,
-			isDisabled = if Flags.FoundationNumberInputBindableValue and ReactIs.isBinding(props.isDisabled)
-				then false
-				else props.isDisabled :: boolean,
+			isDisabled = if ReactIs.isBinding(props.isDisabled) then false else props.isDisabled :: boolean,
 			selection = {
-				Selectable = if Flags.FoundationNumberInputBindableValue
-					then mapBindable(props.isDisabled, function(isDisabled)
-						return not isDisabled
-					end)
-					else not props.isDisabled,
+				Selectable = mapBindable(props.isDisabled, function(isDisabled)
+					return not isDisabled
+				end),
 			},
 			cursor = cursor,
 			padding = props.padding,
@@ -95,20 +91,11 @@ local StackedIconButton = function(props: StackedIconButtonProps)
 	)
 end
 
--- TODO: clean up with FFlagFoundationNumberInputVariant or FFlagFoundationNumberInputBindableValue
--- selene: allow(high_cyclomatic_complexity)
 local function SplitControls(props: NumberInputControlsProps)
 	local tokens = useTokens()
 	local variantProps = useNumberInputVariants(tokens, props.size, props.controlsVariant)
-	local textInputVariantProps = useTextInputVariants(
-		tokens,
-		props.size,
-		if Flags.FoundationNumberInputVariant then props.variant else nil :: never
-	)
-	-- TODO: clean up with FFlagFoundationInputVariantsConsolidateContainer
-	local containerProps = if Flags.FoundationInputVariantsConsolidateContainer
-		then textInputVariantProps.container
-		else textInputVariantProps.outerView
+	local textInputVariantProps = useTextInputVariants(tokens, props.size, props.variant)
+	local containerProps = textInputVariantProps.container
 
 	local outerBorderThickness = tokens.Stroke.Standard
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
@@ -117,105 +104,62 @@ local function SplitControls(props: NumberInputControlsProps)
 		variantProps.splitButton.size - outerBorderOffset
 	)
 
-	local getBackgroundStyle = if Flags.FoundationNumberInputVariant
-		then React.useCallback(function(isDisabled: boolean)
-			return if containerProps.bgStyle
-				then getDisabledStyle(containerProps.bgStyle :: Types.ColorStyleValue, isDisabled)
-				else nil
-		end, { containerProps.bgStyle } :: { unknown })
-		else nil :: never
+	local getBackgroundStyle = React.useCallback(function(isDisabled: boolean)
+		return if containerProps.bgStyle
+			then getDisabledStyle(containerProps.bgStyle :: Types.ColorStyleValue, isDisabled)
+			else nil
+	end, { containerProps.bgStyle } :: { unknown })
 
-	local getStrokeStyle = if Flags.FoundationNumberInputVariant
-		then React.useCallback(function(isDisabled: Bindable<boolean>): Types.Stroke?
-			return if containerProps.strokeStyle and containerProps.strokeThickness
-				then {
-					Color = containerProps.strokeStyle.Color3,
-					Transparency = if Flags.FoundationNumberInputBindableValue
-						then mapBindable(isDisabled, function(disabled)
-							return if disabled
-								then blendTransparencies(
-									containerProps.strokeStyle.Transparency,
-									FoundationConstants.DISABLED_TRANSPARENCY
-								)
-								else containerProps.strokeStyle.Transparency :: number
-						end)
-						elseif isDisabled then blendTransparencies(
+	local getStrokeStyle = React.useCallback(function(isDisabled: Bindable<boolean>): Types.Stroke?
+		return if containerProps.strokeStyle and containerProps.strokeThickness
+			then {
+				Color = containerProps.strokeStyle.Color3,
+				Transparency = mapBindable(isDisabled, function(disabled)
+					return if disabled
+						then blendTransparencies(
 							containerProps.strokeStyle.Transparency,
 							FoundationConstants.DISABLED_TRANSPARENCY
 						)
-						else containerProps.strokeStyle.Transparency,
-					Thickness = containerProps.strokeThickness,
-					BorderStrokePosition = Enum.BorderStrokePosition.Inner,
-				}
-				else nil
-		end, { containerProps.strokeStyle, containerProps.strokeThickness } :: { unknown })
-		else nil :: never
+						else containerProps.strokeStyle.Transparency :: number
+				end),
+				Thickness = containerProps.strokeThickness,
+				BorderStrokePosition = Enum.BorderStrokePosition.Inner,
+			}
+			else nil
+	end, { containerProps.strokeStyle, containerProps.strokeThickness } :: { unknown })
 
 	return React.createElement(React.Fragment, {}, {
 		ControlIncrement = React.createElement(View, {
 			onActivated = props.increment.onClick,
-			isDisabled = if Flags.FoundationNumberInputBindableValue
-					and ReactIs.isBinding(props.increment.isDisabled)
+			isDisabled = if ReactIs.isBinding(props.increment.isDisabled)
 				then false
 				else props.increment.isDisabled :: boolean,
-			stateLayer = if Flags.FoundationNumberInputBindableValue
-				then {
-					affordance = (mapBindable(props.increment.isDisabled, function(isDisabled): StateLayerAffordance
-						return if isDisabled then StateLayerAffordance.None else StateLayerAffordance.Background
-					end) :: Bindable<unknown>) :: Bindable<StateLayerAffordance>,
-				}
-				else nil,
+			stateLayer = {
+				affordance = (mapBindable(props.increment.isDisabled, function(isDisabled): StateLayerAffordance
+					return if isDisabled then StateLayerAffordance.None else StateLayerAffordance.Background
+				end) :: Bindable<unknown>) :: Bindable<StateLayerAffordance>,
+			},
 			padding = variantProps.button.padding,
 			Size = buttonSize,
-			backgroundStyle = if Flags.FoundationNumberInputBindableValue
-				then mapBindable(props.increment.isDisabled, function(isDisabled): Types.ColorStyleValue?
-					return if Flags.FoundationNumberInputVariant
-						then getBackgroundStyle(isDisabled)
-						else getDisabledStyle(tokens.Color.Shift.Shift_100, isDisabled) :: Types.ColorStyleValue?
-				end) :: Bindable<Types.ColorStyleValue>
-				else if Flags.FoundationNumberInputVariant
-					then getBackgroundStyle(props.increment.isDisabled :: boolean)
-					else getDisabledStyle(
-							tokens.Color.Shift.Shift_100,
-							props.increment.isDisabled :: boolean
-						) :: Types.ColorStyleValue?,
-			stroke = if Flags.FoundationNumberInputVariant
-				then getStrokeStyle(props.increment.isDisabled)
-				else {
-					Color = tokens.Color.Stroke.Emphasis.Color3,
-					Transparency = if Flags.FoundationNumberInputBindableValue
-						then mapBindable(props.increment.isDisabled, function(isDisabled)
-							return math.lerp(
-								tokens.Color.Stroke.Emphasis.Transparency,
-								1,
-								if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0
-							)
-						end)
-						else math.lerp(
-							tokens.Color.Stroke.Emphasis.Transparency,
-							1,
-							if props.increment.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0
-						),
-					Thickness = tokens.Stroke.Standard,
-				},
+			backgroundStyle = if Flags.FoundationTextInputRemoveBackgroundStyle
+				then nil
+				else mapBindable(props.increment.isDisabled, function(isDisabled): Types.ColorStyleValue?
+					return getBackgroundStyle(isDisabled)
+				end) :: Bindable<Types.ColorStyleValue>,
+			stroke = getStrokeStyle(props.increment.isDisabled),
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = 1,
-			GroupTransparency = if not Flags.FoundationNumberInputBindableValue and props.increment.isDisabled
-				then FoundationConstants.DISABLED_TRANSPARENCY
-				else nil,
 			testId = `{props.testId}--increment`,
 		}, {
 			Icon = React.createElement(Icon, {
 				name = BuilderIcons.Icon.PlusSmall,
 				size = props.size,
-				style = if Flags.FoundationNumberInputBindableValue
-					then mapBindable(props.increment.isDisabled, function(isDisabled)
-						return {
-							Color3 = nil,
-							Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
-						}
-					end)
-					else nil,
+				style = mapBindable(props.increment.isDisabled, function(isDisabled)
+					return {
+						Color3 = nil,
+						Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
+					}
+				end),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				testId = `{props.testId}--increment-icon`,
@@ -223,68 +167,35 @@ local function SplitControls(props: NumberInputControlsProps)
 		}),
 		ControlDecrement = React.createElement(View, {
 			onActivated = props.decrement.onClick,
-			isDisabled = if Flags.FoundationNumberInputBindableValue
-					and ReactIs.isBinding(props.decrement.isDisabled)
+			isDisabled = if ReactIs.isBinding(props.decrement.isDisabled)
 				then false
 				else props.decrement.isDisabled :: boolean,
-			stateLayer = if Flags.FoundationNumberInputBindableValue
-				then {
-					affordance = (mapBindable(props.decrement.isDisabled, function(isDisabled): StateLayerAffordance
-						return if isDisabled then StateLayerAffordance.None else StateLayerAffordance.Background
-					end) :: Bindable<unknown>) :: Bindable<StateLayerAffordance>,
-				}
-				else nil,
+			stateLayer = {
+				affordance = (mapBindable(props.decrement.isDisabled, function(isDisabled): StateLayerAffordance
+					return if isDisabled then StateLayerAffordance.None else StateLayerAffordance.Background
+				end) :: Bindable<unknown>) :: Bindable<StateLayerAffordance>,
+			},
 			padding = variantProps.button.padding,
 			Size = buttonSize,
-			backgroundStyle = if Flags.FoundationNumberInputBindableValue
-				then mapBindable(props.decrement.isDisabled, function(isDisabled): Types.ColorStyleValue?
-					return if Flags.FoundationNumberInputVariant
-						then getBackgroundStyle(isDisabled)
-						else getDisabledStyle(tokens.Color.Shift.Shift_100, isDisabled) :: Types.ColorStyleValue?
-				end) :: Bindable<Types.ColorStyleValue>
-				else if Flags.FoundationNumberInputVariant
-					then getBackgroundStyle(props.decrement.isDisabled :: boolean)
-					else getDisabledStyle(
-							tokens.Color.Shift.Shift_100,
-							props.decrement.isDisabled :: boolean
-						) :: Types.ColorStyleValue?,
-			stroke = if Flags.FoundationNumberInputVariant
-				then getStrokeStyle(props.decrement.isDisabled)
-				else {
-					Color = tokens.Color.Stroke.Emphasis.Color3,
-					Transparency = if Flags.FoundationNumberInputBindableValue
-						then mapBindable(props.decrement.isDisabled, function(isDisabled)
-							return math.lerp(
-								tokens.Color.Stroke.Emphasis.Transparency,
-								1,
-								if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0
-							)
-						end)
-						else math.lerp(
-							tokens.Color.Stroke.Emphasis.Transparency,
-							1,
-							if props.decrement.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0
-						),
-					Thickness = tokens.Stroke.Standard,
-				},
+			backgroundStyle = if Flags.FoundationTextInputRemoveBackgroundStyle
+				then nil
+				else mapBindable(props.decrement.isDisabled, function(isDisabled): Types.ColorStyleValue?
+					return getBackgroundStyle(isDisabled)
+				end) :: Bindable<Types.ColorStyleValue>,
+			stroke = getStrokeStyle(props.decrement.isDisabled),
 			tag = variantProps.splitButton.tag,
 			LayoutOrder = -1,
-			GroupTransparency = if not Flags.FoundationNumberInputBindableValue and props.decrement.isDisabled
-				then FoundationConstants.DISABLED_TRANSPARENCY
-				else nil,
 			testId = `{props.testId}--decrement`,
 		}, {
 			Icon = React.createElement(Icon, {
 				name = BuilderIcons.Icon.MinusSmall,
 				size = props.size,
-				style = if Flags.FoundationNumberInputBindableValue
-					then mapBindable(props.decrement.isDisabled, function(isDisabled)
-						return {
-							Color3 = nil,
-							Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
-						}
-					end)
-					else nil,
+				style = mapBindable(props.decrement.isDisabled, function(isDisabled)
+					return {
+						Color3 = nil,
+						Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
+					}
+				end),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.fromScale(0.5, 0.5),
 				testId = `{props.testId}--decrement-icon`,
@@ -298,31 +209,21 @@ local function StackedControls(props: NumberInputControlsProps)
 	local variantProps = useNumberInputVariants(tokens, props.size, props.controlsVariant)
 
 	local incrementImageStyle = React.useMemo(function()
-		return if Flags.FoundationNumberInputBindableValue
-			then mapBindable(props.increment.isDisabled, function(isDisabled)
-				return {
-					Color3 = tokens.Color.Stroke.Emphasis.Color3,
-					Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0,
-				}
-			end)
-			else {
+		return mapBindable(props.increment.isDisabled, function(isDisabled)
+			return {
 				Color3 = tokens.Color.Stroke.Emphasis.Color3,
-				Transparency = if props.increment.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0,
+				Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0,
 			}
+		end)
 	end, { tokens, props.increment.isDisabled } :: { unknown })
 
 	local decrementImageStyle = React.useMemo(function()
-		return if Flags.FoundationNumberInputBindableValue
-			then mapBindable(props.decrement.isDisabled, function(isDisabled)
-				return {
-					Color3 = tokens.Color.Stroke.Emphasis.Color3,
-					Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0,
-				}
-			end)
-			else {
+		return mapBindable(props.decrement.isDisabled, function(isDisabled)
+			return {
 				Color3 = tokens.Color.Stroke.Emphasis.Color3,
-				Transparency = if props.decrement.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0,
+				Transparency = if isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else 0,
 			}
+		end)
 	end, { tokens, props.decrement.isDisabled } :: { unknown })
 
 	return React.createElement(View, {
@@ -332,8 +233,7 @@ local function StackedControls(props: NumberInputControlsProps)
 	}, {
 		ControlIncrement = React.createElement(StackedIconButton, {
 			onActivated = props.increment.onClick,
-			isDisabled = if Flags.FoundationNumberInputBindableValue
-					and ReactIs.isBinding(props.increment.isDisabled)
+			isDisabled = if ReactIs.isBinding(props.increment.isDisabled)
 				then false
 				else props.increment.isDisabled :: boolean,
 			padding = variantProps.button.padding,
@@ -350,8 +250,7 @@ local function StackedControls(props: NumberInputControlsProps)
 		ControlDecrement = React.createElement(StackedIconButton, {
 			tag = variantProps.downButton.tag,
 			onActivated = props.decrement.onClick,
-			isDisabled = if Flags.FoundationNumberInputBindableValue
-					and ReactIs.isBinding(props.decrement.isDisabled)
+			isDisabled = if ReactIs.isBinding(props.decrement.isDisabled)
 				then false
 				else props.decrement.isDisabled :: boolean,
 			padding = variantProps.button.padding,

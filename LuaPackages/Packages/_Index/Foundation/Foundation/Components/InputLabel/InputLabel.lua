@@ -6,7 +6,6 @@ local Text = require(Foundation.Components.Text)
 local React = require(Packages.React)
 local Translator = require(Foundation.Utility.Localization.Translator)
 
-local Flags = require(Foundation.Utility.Flags)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -79,18 +78,14 @@ local function InputLabel(inputLabelProps: InputLabelProps, ref: React.Ref<GuiOb
 			selection = {
 				Selectable = false,
 			},
-			onActivated = if not Flags.FoundationInputFieldFixDisabled or not props.isDisabled
-				then props.onActivated
-				else nil,
-			onStateChanged = if not Flags.FoundationInputFieldFixDisabled or not props.isDisabled
-				then onStateChanged
-				else nil,
+			onActivated = if not props.isDisabled then props.onActivated else nil,
+			onStateChanged = if not props.isDisabled then onStateChanged else nil,
 			stateLayer = { affordance = StateLayerAffordance.None },
 			textStyle = props.textStyle,
 			tag = {
 				["size-0 auto-xy text-wrap text-align-x-left text-align-y-top"] = true,
-				["content-muted"] = Flags.FoundationInputFieldFixDisabled and props.isDisabled,
-				["content-default"] = not Flags.FoundationInputFieldFixDisabled or not props.isDisabled,
+				["content-muted"] = props.isDisabled,
+				["content-default"] = not props.isDisabled,
 				["text-title-small"] = props.size == InputLabelSize.Small,
 				["text-title-medium"] = props.size == InputLabelSize.Medium,
 				["text-title-large"] = props.size == InputLabelSize.Large,

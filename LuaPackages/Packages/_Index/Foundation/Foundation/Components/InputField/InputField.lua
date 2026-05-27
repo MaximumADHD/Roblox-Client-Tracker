@@ -11,7 +11,6 @@ local View = require(Components.View)
 type InternalTextInputRef = Types.InternalTextInputRef
 type TextInputRef = Types.TextInputRef
 
-local Flags = require(Foundation.Utility.Flags)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -91,7 +90,7 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 					Text = props.label,
 					size = props.size,
 					isRequired = props.isRequired,
-					isDisabled = if Flags.FoundationInputFieldFixDisabled then props.isDisabled else nil,
+					isDisabled = props.isDisabled,
 					onActivated = focusTextBox,
 					onHover = onLabelHover,
 					LayoutOrder = 1,
@@ -109,7 +108,7 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 				then React.createElement(HintText, {
 					text = props.hint,
 					hasError = props.hasError,
-					isDisabled = if Flags.FoundationInputFieldFixDisabled then props.isDisabled else nil,
+					isDisabled = props.isDisabled,
 					LayoutOrder = 3,
 					testId = `{props.testId}--hint`,
 				})

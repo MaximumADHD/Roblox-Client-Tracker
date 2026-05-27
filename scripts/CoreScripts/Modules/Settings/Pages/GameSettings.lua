@@ -66,6 +66,7 @@ local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlway
 
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
 local GetFIntDebounceAIRephraseSettingDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceAIRephraseSettingDelay)
+local GetFIntDebounceChatSummariesSettingDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceChatSummariesSettingDelay)
 local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatLogConnectionSource = SharedFlags.GetFFlagVoiceChatLogConnectionSource
@@ -88,6 +89,7 @@ local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAv
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
 local FFlagDeferProgrammaticChange = game:DefineFastFlag("DeferProgrammaticChange", false)
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
+local FFlagChatSummariesSettingEnabled = SharedFlags.FFlagChatSummariesSettingEnabled
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 local FFlagDebounceVoiceSelectorIndexChange = game:DefineFastFlag("DebounceVoiceSelectorIndexChange", false)
 
@@ -3206,6 +3208,79 @@ local function Initialize()
 		end
 	end
 
+	local function createChatSummariesSettingOptions()
+		local title = RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.ChatSummaries")
+		local description = RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.ChatSummariesDescription")
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+
+		this.ChatSummariesFrame, _, this.ChatSummariesSelector = utility:AddNewRow(
+			this,
+			title,
+			"Selector",
+			{ offLabel, onLabel },
+			1,
+			nil,
+			description
+		)
+		this.ChatSummariesFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["ChatSummariesFrame"]
+		this.ChatSummariesFrame.Visible = false
+
+		local getUserChatSettingsStore =
+			require(CorePackages.Workspace.Packages.ExpChat).Stores.GetUserChatSettingsStore
+		local chatSummariesSettingStore = getUserChatSettingsStore.getChatSummariesSettingStore(false)
+		local debounceDelay = GetFIntDebounceChatSummariesSettingDelay()
+		local useDebounce = debounceDelay > 0
+		local previousIndex = if chatSummariesSettingStore.getIsSettingEnabled(false) then 2 else 1
+
+		-- We do not dispose of this effect since this menu is not unmounted.
+		this.ChatSummariesDisposeEffect = Signals.createEffect(function(scope)
+			this.ChatSummariesFrame.Visible = chatSummariesSettingStore.getIsSettingVisible(scope)
+
+			local enabled = chatSummariesSettingStore.getIsSettingEnabled(scope)
+			local index = if enabled then 2 else 1
+			if this.ChatSummariesSelector:GetSelectedIndex() ~= index then
+				previousIndex = index
+				this.ChatSummariesSelector:SetSelectionIndex(index)
+			end
+		end)
+
+		local onChatSummariesIndexChanged = function(newIndex)
+			if newIndex == previousIndex then
+				return
+			end
+			local isEnabled = newIndex == 2
+
+			task.spawn(function()
+				local success = TextChatService:OnUserChatSettingUpdateAsync(
+					"AllowThirdPartySummary",
+					if isEnabled then "Enabled" else "Disabled"
+				)
+				if success then
+					chatSummariesSettingStore.setIsSettingEnabled(isEnabled)
+					previousIndex = newIndex
+					reportSettingsChangeForAnalytics("chat_summaries", not isEnabled, isEnabled)
+				else
+					this.ChatSummariesSelector:SetSelectionIndex(previousIndex)
+				end
+			end)
+		end
+		if useDebounce then
+			local pendingThread = nil
+			this.ChatSummariesSelector.IndexChanged:connect(function(newIndex)
+				if pendingThread then
+					task.cancel(pendingThread)
+				end
+				pendingThread = task.delay(debounceDelay, function()
+					pendingThread = nil
+					onChatSummariesIndexChanged(newIndex)
+				end)
+			end)
+		else
+			this.ChatSummariesSelector.IndexChanged:connect(onChatSummariesIndexChanged)
+		end
+	end
+
 	------------------------------------------------------
 	------------------
 	------------------ Video Camera Device ---------------
@@ -3952,7 +4027,10 @@ local function Initialize()
 					checkVoiceChatOptions()
 
 					if FFlagVoiceSelectorAvailableAfterFae then
-						if VoiceChatServiceManager:UserVoiceEnabled() then
+						if GetFFlagEnableVoiceUxUpdates()
+							and VoiceChatServiceManager:UserVoiceEnabled()
+							and VoiceChatServiceManager:verifyUniverseAndPlaceCanUseVoice()
+						then
 							createVoiceChatSelector()
 						end
 					end
@@ -4255,6 +4333,10 @@ local function Initialize()
 
 	if FFlagAIRephraseSettingEnabled then
 		createAIRephraseSettingOptions()
+	end
+
+	if FFlagChatSummariesSettingEnabled then
+		createChatSummariesSettingOptions()
 	end
 
 	-- dev console option only shows for place/group place owners

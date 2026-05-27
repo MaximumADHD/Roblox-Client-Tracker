@@ -27,7 +27,8 @@ type _GameDeveloperProductDataFields = {
 	description: string,
 	image_asset_id: number,
 	price_in_robux: number,
-	status_text: string,
+	pending_receipt_count: number,
+	status_tooltip: string,
 }
 
 type _GameDeveloperProductDataPartialFields = {
@@ -36,7 +37,8 @@ type _GameDeveloperProductDataPartialFields = {
 	description: string?,
 	image_asset_id: number?,
 	price_in_robux: number?,
-	status_text: string?,
+	pending_receipt_count: number?,
+	status_tooltip: string?,
 }
 
 export type GameDeveloperProductData = typeof(setmetatable(
@@ -56,7 +58,10 @@ do
 			description = if data == nil or data.description == nil then "" else data.description,
 			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
 			price_in_robux = if data == nil or data.price_in_robux == nil then 0 else data.price_in_robux,
-			status_text = if data == nil or data.status_text == nil then "" else data.status_text,
+			pending_receipt_count = if data == nil or data.pending_receipt_count == nil
+				then 0
+				else data.pending_receipt_count,
+			status_tooltip = if data == nil or data.status_tooltip == nil then "" else data.status_tooltip,
 		}, _GameDeveloperProductDataImpl :: _GameDeveloperProductDataImpl)
 	end
 
@@ -89,9 +94,14 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.price_in_robux)
 		end
 
-		if self.status_text ~= nil and self.status_text ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.status_text)
+		if self.pending_receipt_count ~= nil and self.pending_receipt_count ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.pending_receipt_count)
+		end
+
+		if self.status_tooltip ~= nil and self.status_tooltip ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.status_tooltip)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -118,6 +128,11 @@ do
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.price_in_robux = value
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.pending_receipt_count = value
+					continue
 				end
 
 				local _
@@ -138,10 +153,10 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.description = buffer.tostring(value)
 					continue
-				elseif field == 6 then
+				elseif field == 7 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.status_text = buffer.tostring(value)
+					self.status_tooltip = buffer.tostring(value)
 					continue
 				end
 
@@ -190,8 +205,12 @@ do
 			output.priceInRobux = self.price_in_robux
 		end
 
-		if self.status_text ~= nil and self.status_text ~= "" then
-			output.statusText = self.status_text
+		if self.pending_receipt_count ~= nil and self.pending_receipt_count ~= 0 then
+			output.pendingReceiptCount = self.pending_receipt_count
+		end
+
+		if self.status_tooltip ~= nil and self.status_tooltip ~= "" then
+			output.statusTooltip = self.status_tooltip
 		end
 
 		return output
@@ -228,12 +247,20 @@ do
 			self.price_in_robux = input.priceInRobux
 		end
 
-		if input.status_text ~= nil then
-			self.status_text = input.status_text
+		if input.pending_receipt_count ~= nil then
+			self.pending_receipt_count = input.pending_receipt_count
 		end
 
-		if input.statusText ~= nil then
-			self.status_text = input.statusText
+		if input.pendingReceiptCount ~= nil then
+			self.pending_receipt_count = input.pendingReceiptCount
+		end
+
+		if input.status_tooltip ~= nil then
+			self.status_tooltip = input.status_tooltip
+		end
+
+		if input.statusTooltip ~= nil then
+			self.status_tooltip = input.statusTooltip
 		end
 
 		return self

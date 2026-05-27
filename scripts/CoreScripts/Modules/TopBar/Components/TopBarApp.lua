@@ -74,6 +74,8 @@ local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeS
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 local FFlagUseNewHeadsetDisconnectDialog = game:DefineFastFlag("UseNewHeadsetDisconnectDialog", false)
 
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -554,7 +556,7 @@ function TopBarApp:renderWithStyle(style)
 		}, {
 			HurtOverlay = Roact.createElement(HurtOverlay),
 		}),
-		MenuIconHolder = if showMenuIconAtTopLeft and isNewTiltIconEnabled() 
+		MenuIconHolder = if not FFlagEnableSideSheet and showMenuIconAtTopLeft and isNewTiltIconEnabled() 
 			then Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(

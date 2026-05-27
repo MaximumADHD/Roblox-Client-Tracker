@@ -175,6 +175,7 @@ local Flags = {
 	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
 
 	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
+	FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet,
 }
 
 --[[ SERVICES ]]
@@ -264,6 +265,10 @@ local SPRING_PARAMS = {
 	frequency = 4,
 	dampingRatio = 1,
 }
+
+local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+local toggleSideSheet = InExperienceSideSheet.toggleSideSheet
+local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
 
 local ReactPageFactory = require(RobloxGui.Modules.Settings.ReactPageFactory)
 type ReactPage = ReactPageFactory.ReactPage
@@ -4025,10 +4030,26 @@ local function CreateSettingsHub()
 			if not Flags.FFlagAddUILessMode or Flags.FIntAddUILessModeVariant == 0 then
 				local closeMenuFunc = function(name, inputState, input)
 					if inputState ~= Enum.UserInputState.Begin then return end
-					if Flags.FFlagAddUILessMode then
-						this:PopMenu(false, true, Constants.AnalyticsMenuOpenTypes.Keyboard)
+					if Flags.FFlagEnableSideSheet and Flags.FFlagAddIGMToSideSheet then
+						if getSideSheetVisibility() then
+							toggleSideSheet(false)
+						else
+							if this.MenuStack and #this.MenuStack > 0 then
+								if Flags.FFlagAddUILessMode then
+									this:PopMenu(false, true, Constants.AnalyticsMenuOpenTypes.Keyboard)
+								else
+									this:PopMenu(false, true)
+								end
+							else
+								toggleSideSheet(true)
+							end
+						end
 					else
-						this:PopMenu(false, true)
+						if Flags.FFlagAddUILessMode then
+							this:PopMenu(false, true, Constants.AnalyticsMenuOpenTypes.Keyboard)
+						else
+							this:PopMenu(false, true)
+						end
 					end
 				end
 				ContextActionService:BindCoreAction("RBXEscapeMainMenu", closeMenuFunc, false, Enum.KeyCode.Escape)

@@ -16,6 +16,7 @@ return if FFlagLuaSocialLibUseLazyRequire
 		React = require(Packages.React),
 		-- TODO add ability to pass in UIBlox config on setup (currently assumes UIBlox is initialized by consuming project)
 		UIBlox = UIBlox,
+		Foundation = require(Packages.Foundation),
 		RoactFitComponents = lazyRequire(Packages.RoactFitComponents) :: typeof(require(Packages.RoactFitComponents)),
 		GenericPagination = lazyRequire(Packages.GenericPagination) :: typeof(require(Packages.GenericPagination)),
 		Cryo = require(Packages.Cryo),
@@ -50,6 +51,7 @@ return if FFlagLuaSocialLibUseLazyRequire
 		React = require(Packages.React),
 		-- TODO add ability to pass in UIBlox config on setup (currently assumes UIBlox is initialized by consuming project)
 		UIBlox = UIBlox,
+		Foundation = require(Packages.Foundation),
 		RoactFitComponents = require(Packages.RoactFitComponents),
 		GenericPagination = require(Packages.GenericPagination),
 		Cryo = require(Packages.Cryo),

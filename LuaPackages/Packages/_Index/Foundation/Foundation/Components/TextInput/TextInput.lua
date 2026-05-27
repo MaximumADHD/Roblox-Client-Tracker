@@ -52,8 +52,7 @@ local defaultProps = {
 local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(textInputProps, defaultProps)
 	local tokens = useTokens()
-	local variantProps =
-		useTextInputVariants(tokens, props.size, if Flags.FoundationTextInputVariant then props.variant else nil)
+	local variantProps = useTextInputVariants(tokens, props.size, props.variant)
 
 	return React.createElement(
 		InputField,
@@ -63,7 +62,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			label = props.label,
 			size = getInputTextSize(props.size),
 			isRequired = props.isRequired,
-			isDisabled = if Flags.FoundationTextInputDisabledField then props.isDisabled else nil,
+			isDisabled = props.isDisabled,
 			hasError = props.hasError,
 			hint = props.hint,
 			textBoxRef = props.textBoxRef,
@@ -72,24 +71,20 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					ref = inputRef,
 					hasError = props.hasError,
 					isDisabled = props.isDisabled,
-					hasClearButton = if Flags.FoundationInternalTextInputClearButton then props.hasClearButton else nil,
+					hasClearButton = props.hasClearButton,
 					text = props.text,
 					textInputType = props.textInputType,
-					focusBehavior = if Flags.FoundationTextInputFocusBehavior then props.focusBehavior else nil,
+					focusBehavior = props.focusBehavior,
 					size = props.size,
-					variant = if Flags.FoundationTextInputVariant then props.variant else nil,
+					variant = props.variant,
 					Selectable = if Flags.FoundationInputSelectionProps then props.Selectable else nil,
 					NextSelectionUp = if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil,
 					NextSelectionDown = if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil,
 					NextSelectionLeft = if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil,
 					NextSelectionRight = if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil,
 					horizontalPadding = {
-						left = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding,
-						right = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding,
+						left = variantProps.container.horizontalPadding,
+						right = variantProps.container.horizontalPadding,
 					},
 					onChanged = props.onChanged,
 					onFocus = props.onFocusGained,

@@ -28,7 +28,7 @@ local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
+local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 
@@ -46,10 +46,10 @@ if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 	thumbstickAction = characterContext:WaitForChild("ThumbstickAction") :: InputAction
 end
 
-local AvatarAbilitiesInterface
-if FFlagUserAllowAbilityControls then
-	AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-end
+local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
+local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationA
+	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
+	else nil
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -445,11 +445,9 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
-		if FFlagUserAllowAbilityControls then		
-			if self.avatarAbilitiesEnabledChangedConn then
-				self.avatarAbilitiesEnabledChangedConn:Disconnect()
-				self.avatarAbilitiesEnabledChangedConn = nil
-			end
+		if self.avatarAbilitiesEnabledChangedConn then
+			self.avatarAbilitiesEnabledChangedConn:Disconnect()
+			self.avatarAbilitiesEnabledChangedConn = nil
 		end
 	end
 
@@ -540,49 +538,31 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		local RADIUS_OF_DEAD_ZONE = 2
 		local RADIUS_OF_MAX_SPEED = 20
 
-		if FFlagUserAllowAbilityControls then
-			local scaleFactor = isBigScreen and 2 or 1
-			if FFlagUserAllowAbilityControlsBonus and AvatarAbilitiesInterface.isEnabled() and isBigScreen then
-				local scaledOuterRingSize = 120
-				scaleFactor = scaledOuterRingSize / DEFAULT_OUTER_RING_SIZE
-			end
+		local scaleFactor = isBigScreen and 2 or 1
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+			avatarAbilitiesInterface:isEnabled() else
+			AvatarAbilitiesInterface.isEnabled()
+		if FFlagUserAllowAbilityControlsBonus and isCCLEnabled and isBigScreen then
+			local scaledOuterRingSize = 120
+			scaleFactor = scaledOuterRingSize / DEFAULT_OUTER_RING_SIZE
+		end
 
-			self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * scaleFactor
-			self.thumbstickRingSize = DEFAULT_RING_SIZE * scaleFactor
-			self.middleSize = DEFAULT_MIDDLE_SIZE * scaleFactor
-			self.middleSpacing = DEFAULT_MIDDLE_SPACING * scaleFactor
-			self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE * scaleFactor
-			self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * scaleFactor
-			local outerRingSize = DEFAULT_OUTER_RING_SIZE * scaleFactor
+		self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * scaleFactor
+		self.thumbstickRingSize = DEFAULT_RING_SIZE * scaleFactor
+		self.middleSize = DEFAULT_MIDDLE_SIZE * scaleFactor
+		self.middleSpacing = DEFAULT_MIDDLE_SPACING * scaleFactor
+		self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE * scaleFactor
+		self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * scaleFactor
+		local outerRingSize = DEFAULT_OUTER_RING_SIZE * scaleFactor
 
-			if AvatarAbilitiesInterface.isEnabled() then
-				local thumbstickInsetX = isBigScreen and 100 or 64
-				local thumbstickInsetY = isBigScreen and 112 or 64
-				self.startImage.Position = UDim2.new(0, outerRingSize * 0.5 + safeInset + thumbstickInsetX, 1, -outerRingSize * 0.5 - safeInset - thumbstickInsetY)
-				self.startImage.Size = UDim2.new(0, outerRingSize, 0, outerRingSize)
-			else
-				self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3 + safeInset, 1, -self.thumbstickRingSize * 2.8 - safeInset)
-				self.startImage.Size = UDim2.new(0, outerRingSize, 0, outerRingSize)
-			end
+		if isCCLEnabled then
+			local thumbstickInsetX = isBigScreen and 100 or 64
+			local thumbstickInsetY = isBigScreen and 112 or 64
+			self.startImage.Position = UDim2.new(0, outerRingSize * 0.5 + safeInset + thumbstickInsetX, 1, -outerRingSize * 0.5 - safeInset - thumbstickInsetY)
+			self.startImage.Size = UDim2.new(0, outerRingSize, 0, outerRingSize)
 		else
-			if isBigScreen then
-				self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * 2
-				self.thumbstickRingSize = DEFAULT_RING_SIZE * 2
-				self.middleSize = DEFAULT_MIDDLE_SIZE * 2
-				self.middleSpacing = DEFAULT_MIDDLE_SPACING * 2
-				self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE * 2
-				self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * 2
-			else
-				self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE
-				self.thumbstickRingSize = DEFAULT_RING_SIZE
-				self.middleSize = DEFAULT_MIDDLE_SIZE
-				self.middleSpacing = DEFAULT_MIDDLE_SPACING
-				self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE
-				self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED
-			end
-
 			self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3 + safeInset, 1, -self.thumbstickRingSize * 2.8 - safeInset)
-			self.startImage.Size = UDim2.new(0, self.thumbstickRingSize  * 3.7, 0, self.thumbstickRingSize  * 3.7)
+			self.startImage.Size = UDim2.new(0, outerRingSize, 0, outerRingSize)
 		end
 
 		self.endImage.Position = self.startImage.Position
@@ -591,7 +571,9 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if FFlagUserAllowAbilityControls then
+	if FFlagUserPlayerScriptsCCLIntegrationA then
+		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
+	else
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	end
 

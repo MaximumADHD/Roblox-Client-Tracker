@@ -2,6 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Dash = require(Packages.Dash)
+local Flags = require(Foundation.Utility.Flags)
 
 local Types = require(Foundation.Components.Types)
 type ColorStyle = Types.ColorStyle
@@ -39,7 +40,7 @@ type InputVariantProps = {
 local function getInputVariantsFactory(tokens: Tokens)
 	local common = {
 		container = {
-			bgStyle = tokens.Color.Shift.Shift_100,
+			bgStyle = if Flags.FoundationTextInputRemoveBackgroundStyle then nil else tokens.Color.Shift.Shift_100,
 			strokeStyle = tokens.Color.Stroke.Emphasis,
 			strokeThickness = tokens.Stroke.Standard,
 		},
@@ -53,11 +54,13 @@ local function getInputVariantsFactory(tokens: Tokens)
 	}
 
 	local variants: { [InputVariant]: VariantProps } = {
-		[InputVariant.Standard] = {
-			container = {
-				bgStyle = tokens.Color.Shift.Shift_100,
+		[InputVariant.Standard] = if Flags.FoundationTextInputRemoveBackgroundStyle
+			then {}
+			else {
+				container = {
+					bgStyle = tokens.Color.Shift.Shift_100,
+				},
 			},
-		},
 		[InputVariant.Contrast] = {
 			container = {
 				bgStyle = tokens.Color.Shift.Shift_200,

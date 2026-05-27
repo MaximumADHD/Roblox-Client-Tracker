@@ -15,12 +15,16 @@ local FFlagFixSpatialUICaptures = SharedFlags.FFlagFixSpatialUICaptures
 
 local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
 
-local pageOpenSignal = InGameMenuIntegrationUtils.createPageOpenSignal("CapturesPage")
-
 local policy = CapturesPolicy.PolicyImplementation.read()
 local eligibleForCapturesFeature = if policy then CapturesPolicy.Mapper(policy).eligibleForCapturesFeature() else false
 local enableSpatialUICapturesFix = isInExperienceUIVREnabled and FFlagFixSpatialUICaptures
 local available = eligibleForCapturesFeature and (if enableSpatialUICapturesFix then not isSpatial() else true)
+
+if not available then
+	return nil :: any
+end
+
+local pageOpenSignal = InGameMenuIntegrationUtils.createPageOpenSignal("CapturesPage")
 
 return ChromeService:register({
 	initialAvailability = if available

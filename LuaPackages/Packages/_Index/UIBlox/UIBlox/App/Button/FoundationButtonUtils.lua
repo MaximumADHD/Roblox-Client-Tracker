@@ -8,8 +8,6 @@ local Foundation = require(Packages.Foundation)
 local ButtonVariant = Foundation.Enums.ButtonVariant
 local InputSize = Foundation.Enums.InputSize
 
-local FoundationImages = require(Packages.FoundationImages)
-local Flags = FoundationImages.Flags
 local BuilderIcons = require(Packages.BuilderIcons)
 local migrations = BuilderIcons.Migration["uiblox"]
 
@@ -42,9 +40,7 @@ local function findIcon(searchData: any)
 		return nil
 	end
 
-	local isDeprecatedAsset = Flags.FoundationImagesRemoveDeprecatedIconAssets
-		and searchData.Image
-		and migrations[searchData.Image] ~= nil
+	local isDeprecatedAsset = searchData.Image and migrations[searchData.Image] ~= nil
 
 	local icon = if isDeprecatedAsset then searchData.Image else ImagesInverse[searchData]
 	if icon == nil then

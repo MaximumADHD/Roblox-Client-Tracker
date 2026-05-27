@@ -109,6 +109,18 @@ else
 		and TextChatService.CreateDefaultTextChannels
 end
 
+if game:DefineFastFlag("DebugExpChatTextChannelWindow", false) then
+	local TextChannelWindow = require(CorePackages.Workspace.Packages.TextChannelWindow)
+
+	local CollectionService = game:GetService("CollectionService")
+	local tag = "TextChannelWindow"
+	for _, instance in CollectionService:GetTagged(tag) do
+		TextChannelWindow.mountToTargetInstance(instance)
+	end
+
+	CollectionService:GetInstanceAddedSignal(tag):Connect(TextChannelWindow.mountToTargetInstance)
+end
+
 ExperienceChat.mountClientApp({
 	apolloClient = if getFFlagAddApolloClientToExperienceChat() then ApolloClient else nil,
 	getIconVoiceIndicator = if getIconVoiceIndicator then getIconVoiceIndicator else nil,

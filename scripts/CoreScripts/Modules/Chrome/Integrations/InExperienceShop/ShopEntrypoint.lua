@@ -15,6 +15,9 @@ local ShopIcon = require(Chrome.Integrations.InExperienceShop.ShopIcon)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
+local Shop = require(CorePackages.Workspace.Packages.InExperienceShop)
+local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
+local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 
@@ -42,10 +45,16 @@ local coreGuiShopAvailable = if ShopCoreGuiToggleSupported
 	)
 	else false
 
+-- Latch for the `FFlagHideShopMenuOnFailure` path. Starts `true` so flag-off
+-- implies shop menu entry is visible by default.
+local shouldShowShop = true
+
 local function getInitialAvailability()
-	return if coreGuiShopAvailable
-		then ChromeService.AvailabilitySignal.Available
-		else ChromeService.AvailabilitySignal.Unavailable
+	if not coreGuiShopAvailable or FFlagHideShopMenuOnFailure then
+		shouldShowShop = false
+		return ChromeService.AvailabilitySignal.Unavailable
+	end
+	return ChromeService.AvailabilitySignal.Available
 end
 
 local integration = ChromeService:register({
@@ -83,13 +92,43 @@ local integration = ChromeService:register({
 	},
 })
 
+-- Kick off the initial shop fetch at game-load time. Lazy-required via the
+-- package's per-symbol rotriever export so the helper's require tree stays
+-- cold at flag-off. Wrapped in `task.spawn` as a structural guard so a
+-- future yielding regression inside the helper can't stall Unibar creation.
+if FFlagEnableShopPrefetch then
+	local prefetchShopDataOnGameJoin =
+		require(CorePackages.Workspace.Packages.InExperienceShop.prefetchShopDataOnGameJoin)
+	if FFlagHideShopMenuOnFailure then
+		task.spawn(prefetchShopDataOnGameJoin, function(hasItems: boolean)
+			if not hasItems then
+				return
+			end
+			-- Flip the latch to true so the shop menu is displayed to the user.
+			shouldShowShop = true
+			if coreGuiShopAvailable then
+				integration.availability:available()
+			end
+		end)
+	else
+		task.spawn(prefetchShopDataOnGameJoin)
+	end
+end
+
 -- TODO(DMP-2518): Drop the intersection cast once the Luau type checker's API dump picks
 -- up `MarketplaceService.OpenShopRequested`. Using an intersection (instead of `:: any`)
 -- keeps the rest of the service typed.
+--
+-- Any new shop-window entrypoint added here MUST also gate
+-- on `shouldShowShop` so the `FFlagHideShopMenuOnFailure` hide is honored
+-- on every path that can open the window, not just the unibar entry.
 if EnableOpenShopSignal then
 	(MarketplaceService :: MarketplaceService & { OpenShopRequested: RBXScriptSignal }).OpenShopRequested:Connect(
 		function(player)
 			if player == Players.LocalPlayer then
+				if FFlagHideShopMenuOnFailure and not shouldShowShop then
+					return
+				end
 				if not ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then
 					ChromeService:toggleWindow(Constants.IN_EXPERIENCE_SHOP_ID)
 				end
@@ -99,8 +138,12 @@ if EnableOpenShopSignal then
 end
 
 if ShopCoreGuiToggleSupported then
+	-- Under `FFlagHideShopMenuOnFailure`, a mid-session CoreGui enable
+	-- shows the entry iff the prefetch already succeeded (latch released).
+	-- A failed or empty prefetch keeps the entry hidden until rejoin, even
+	-- if the developer re-enables CoreGui later.
 	local function updateShopAvailability()
-		if coreGuiShopAvailable then
+		if coreGuiShopAvailable and (not FFlagHideShopMenuOnFailure or shouldShowShop) then
 			integration.availability:available()
 		else
 			if ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then

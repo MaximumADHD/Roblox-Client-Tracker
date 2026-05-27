@@ -10,7 +10,6 @@ local ColorSliderType = require(Foundation.Enums.ColorSliderType)
 local SVPicker = require(Foundation.Components.ColorPicker.SVPicker)
 local View = require(Foundation.Components.View)
 type ColorInputMode = ColorInputMode.ColorInputMode
-local Flags = require(Foundation.Utility.Flags)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -106,15 +105,10 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 	end, { props.onAlphaChanged })
 
 	local onBrickColorChanged = React.useCallback(function(newBrickColor: BrickColor)
-		if not Flags.FoundationColorPickerDesignUpdate then
-			setColor(newBrickColor.Color :: Color3 | PartialColorHSV)
-		end
 		onColorChanged(newBrickColor.Color, newBrickColor)
 	end, { onColorChanged })
 
-	local showAlpha = if Flags.FoundationColorPickerDesignUpdate
-		then props.onAlphaChanged ~= nil
-		else props.onAlphaChanged ~= nil and currentMode ~= ColorInputMode.Brick
+	local showAlpha = props.onAlphaChanged ~= nil
 
 	local onCustomColorChanged = React.useCallback(function(newColor)
 		onColorChanged(newColor, nil)
@@ -151,16 +145,9 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 
 	return React.createElement(
 		View,
-		withCommonProps(
-			props,
-			if Flags.FoundationColorPickerDesignUpdate
-				then {
-					tag = "col gap-small size-full-0 auto-y padding-small",
-				}
-				else {
-					tag = "col align-x-center gap-medium auto-xy",
-				}
-		),
+		withCommonProps(props, {
+			tag = "col gap-small size-full-0 auto-y padding-small",
+		}),
 		{
 			ColorInputs = React.createElement(ColorInputs, {
 				color = color,
@@ -184,32 +171,23 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 				else nil,
 
 			SVPickerContainer = if currentMode ~= ColorInputMode.Brick
-				then React.createElement(
-					View,
-					if Flags.FoundationColorPickerDesignUpdate
-						then {
-							Size = UDim2.new(1, 0, 0, 156), -- No matching size token; value from Figma spec
-							LayoutOrder = 2,
-						}
-						else {
-							tag = "auto-xy",
-							LayoutOrder = 2,
-						},
-					{
-						SVPicker = React.createElement(SVPicker, {
-							hue = currentHue,
-							saturation = currentSaturation,
-							value = currentValue,
-							onChanged = function(newS, newV)
-								updateColor(currentHue:getValue(), newS, newV)
-							end,
-							onDragStarted = props.onDragStarted,
-							onDragEnded = props.onDragEnded,
-							showSelectionKnob = getHasFullColor:getValue(),
-							testId = `{props.testId}--sv-picker`,
-						}),
-					}
-				)
+				then React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 156), -- No matching size token; value from Figma spec
+					LayoutOrder = 2,
+				}, {
+					SVPicker = React.createElement(SVPicker, {
+						hue = currentHue,
+						saturation = currentSaturation,
+						value = currentValue,
+						onChanged = function(newS, newV)
+							updateColor(currentHue:getValue(), newS, newV)
+						end,
+						onDragStarted = props.onDragStarted,
+						onDragEnded = props.onDragEnded,
+						showSelectionKnob = getHasFullColor:getValue(),
+						testId = `{props.testId}--sv-picker`,
+					}),
+				})
 				else nil,
 
 			HueSlider = if currentMode ~= ColorInputMode.Brick

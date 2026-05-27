@@ -8,7 +8,7 @@ type IconSize = IconSize.IconSize
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local function isNumber(value: any): boolean
+local function isNumber(value: IconSize | Bindable<number>): boolean
 	return typeof(value) == "number" or (typeof(value) == "table" and typeof(value:getValue()) == "number")
 end
 
@@ -37,10 +37,11 @@ local function useIconSize(
 			[IconSize.XXLarge :: IconSize] = 24 * tokens.Size.Size_200,
 		}
 
-	local iconSize: Bindable<number>? = if isNumber(size) then size else iconSizes[size :: IconSize]
-
-	if not isBuilderIcon and isNumber(size) then
-		iconSize = nil
+	local iconSize: Bindable<number>? = nil
+	if isBuilderIcon and isNumber(size) then
+		iconSize = size :: Bindable<number>
+	elseif not isNumber(size) then
+		iconSize = iconSizes[size :: IconSize]
 	end
 
 	if iconSize == nil then

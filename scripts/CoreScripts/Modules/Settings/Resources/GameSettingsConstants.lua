@@ -18,6 +18,7 @@ local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packag
 local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGroups)
 local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagUpdateRephraseSettingUI = game:DefineFastFlag("UpdateRephraseSettingUI", false)
+local FFlagChatSummariesSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagChatSummariesSettingEnabled
 
 local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local ReactUtils = require(CorePackages.Packages.ReactUtils)
@@ -108,6 +109,9 @@ end
 if FFlagAIRephraseSettingEnabled then
 	SETTINGS_MENU_LAYOUT_ORDER.AIRephraseFrame = if FFlagUpdateRephraseSettingUI then 20 else 43
 end
+if FFlagChatSummariesSettingEnabled then
+	SETTINGS_MENU_LAYOUT_ORDER.ChatSummariesFrame = 20
+end
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRow = 200
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowCustom = 200 -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowBillboards = 201
@@ -134,6 +138,7 @@ if FFlagIEMSettingsGroups then
 		VoiceConnectDisconnectSelector = nextOrder(),
 		VoiceConnectFrame = nextOrder(),
 		VoiceDisconnectFrame = nextOrder(),
+		ChatSummariesFrame = if FFlagChatSummariesSettingEnabled then nextOrder() else nil,
 		AIRephraseFrame = if FFlagAIRephraseSettingEnabled then nextOrder() else nil,
 		PlayerChoiceTranslationFrame = if game:GetEngineFeature("InExperiencePlayerChoiceToggle") then nextOrder() else nil,
 		LanguageSelectorFrame = nextOrder(),

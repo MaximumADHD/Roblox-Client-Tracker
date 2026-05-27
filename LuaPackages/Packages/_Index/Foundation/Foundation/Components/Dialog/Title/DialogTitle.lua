@@ -11,7 +11,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local useDialog = require(script.Parent.Parent.useDialog)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
-local getBottomSpacing = require(script.Parent.getBottomSpacing)
 
 type Bindable<T> = Types.Bindable<T>
 
@@ -32,7 +31,6 @@ local function DialogTitle(props: DialogTitleProps)
 				then nil
 				else UDim.new(0, variants.closeAffordance.offset + tokens.Size.Size_1000),
 			top = if dialogContext.hasHeroMedia then nil else UDim.new(0, tokens.Size.Size_500),
-			bottom = getBottomSpacing(tokens),
 		},
 		testId = `{dialogContext.testId}--title`,
 	}, {

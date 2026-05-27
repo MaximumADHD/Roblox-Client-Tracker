@@ -23,9 +23,6 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
 local FFlagConnectIntegrationCheckForDirectionalInput =
 	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
-
-local FFlagEnableAppChatFocusableFixes =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
 return function(id: string, initialAvailability: number)
@@ -38,26 +35,22 @@ return function(id: string, initialAvailability: number)
 			then "Feature.Squads.Label.Party" -- translated in some languages
 			else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch
 		activated = function()
-			if FFlagEnableAppChatFocusableFixes then
-				if InExperienceAppChatModal:getVisible() then
-					InExperienceAppChatModal.default:setVisible(false)
-				else
-					ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
-						if FFlagConnectIntegrationCheckForDirectionalInput then
-							local inputModeStore = Responsive.GetInputModeStore(false)
-							if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
-								ChromeFocusUtils.FocusOffChrome()
-							end
-							InExperienceAppChatModal.default:setVisible(true)
-						else
-							ChromeFocusUtils.FocusOffChrome(function()
-								InExperienceAppChatModal.default:setVisible(true)
-							end)
-						end
-					end)
-				end
+			if InExperienceAppChatModal:getVisible() then
+				InExperienceAppChatModal.default:setVisible(false)
 			else
-				InExperienceAppChatModal:toggleVisibility()
+				ChromeIntegrationUtils.dismissRobloxMenuAndRun(function()
+					if FFlagConnectIntegrationCheckForDirectionalInput then
+						local inputModeStore = Responsive.GetInputModeStore(false)
+						if inputModeStore.getLastInputType(false) == Responsive.Input.Directional then
+							ChromeFocusUtils.FocusOffChrome()
+						end
+						InExperienceAppChatModal.default:setVisible(true)
+					else
+						ChromeFocusUtils.FocusOffChrome(function()
+							InExperienceAppChatModal.default:setVisible(true)
+						end)
+					end
+				end)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
 		end,

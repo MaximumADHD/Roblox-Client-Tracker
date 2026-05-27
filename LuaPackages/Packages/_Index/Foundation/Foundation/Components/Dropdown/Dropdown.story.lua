@@ -5,7 +5,9 @@ local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
 local Dropdown = require(Foundation.Components.Dropdown)
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
+local InputVariant = require(Foundation.Enums.InputVariant)
 local Types = require(Foundation.Components.Types)
 
 type DropdownItem = Dropdown.DropdownItem
@@ -46,6 +48,7 @@ return {
 					isDisabled = controls.isDisabled,
 					items = items,
 					size = controls.size,
+					variant = if Flags.FoundationDropdownVariant then controls.variant else nil :: never,
 					label = controls.label,
 				})
 			end,
@@ -81,6 +84,7 @@ return {
 					isDisabled = controls.isDisabled,
 					items = items,
 					size = controls.size,
+					variant = if Flags.FoundationDropdownVariant then controls.variant else nil :: never,
 					label = controls.label,
 					width = UDim.new(0, 150),
 					maxHeight = 500,
@@ -123,6 +127,7 @@ return {
 						},
 					} :: DropdownItems,
 					size = controls.size,
+					variant = if Flags.FoundationDropdownVariant then controls.variant else nil :: never,
 					label = controls.label,
 				})
 			end,
@@ -147,6 +152,7 @@ return {
 						{ id = "B", text = "Item B", isDisabled = true },
 					},
 					size = controls.size,
+					variant = if Flags.FoundationDropdownVariant then controls.variant else nil :: never,
 					label = controls.label,
 					width = UDim.new(0, 150),
 				})
@@ -170,6 +176,7 @@ return {
 					isDisabled = controls.isDisabled,
 					items = items,
 					size = controls.size,
+					variant = if Flags.FoundationDropdownVariant then controls.variant else nil :: never,
 					label = controls.label,
 					width = UDim.new(0, 150),
 				})
@@ -195,6 +202,7 @@ return {
 						{ id = "B", text = "Item B", isDisabled = true },
 					},
 					size = controls.size,
+					variant = if Flags.FoundationDropdownVariant then controls.variant else nil :: never,
 					label = controls.label,
 					width = UDim.new(1, 0),
 				})
@@ -203,6 +211,7 @@ return {
 	},
 	controls = {
 		size = Dash.values(InputSize),
+		variant = if Flags.FoundationDropdownVariant then Dash.values(InputVariant) else nil :: never,
 		isDisabled = false,
 		label = "Dropdown Label",
 		hasError = false,

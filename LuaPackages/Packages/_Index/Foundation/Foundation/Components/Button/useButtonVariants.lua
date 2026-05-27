@@ -1,5 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -37,7 +38,7 @@ type ButtonVariantProps = {
 		style: ColorStyleValue,
 	},
 	text: {
-		tag: string,
+		tag: Types.Tags,
 	},
 	icon: {
 		size: UDim2,
@@ -67,7 +68,10 @@ local variantsMap = function(tokens: Tokens)
 				size = UDim2.fromOffset(tokens.Size.Size_300, tokens.Size.Size_300),
 			},
 			text = {
-				tag = "text-title-small",
+				tag = {
+					["text-label-small"] = Flags.FoundationButtonLabelTypography,
+					["text-title-small"] = not Flags.FoundationButtonLabelTypography,
+				},
 			},
 		},
 		[InputSize.Small] = {
@@ -80,7 +84,10 @@ local variantsMap = function(tokens: Tokens)
 				size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400),
 			},
 			text = {
-				tag = "text-title-small",
+				tag = {
+					["text-label-small"] = Flags.FoundationButtonLabelTypography,
+					["text-title-small"] = not Flags.FoundationButtonLabelTypography,
+				},
 			},
 		},
 		[InputSize.Medium] = {
@@ -93,7 +100,10 @@ local variantsMap = function(tokens: Tokens)
 				size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500),
 			},
 			text = {
-				tag = "text-title-medium",
+				tag = {
+					["text-label-medium"] = Flags.FoundationButtonLabelTypography,
+					["text-title-medium"] = not Flags.FoundationButtonLabelTypography,
+				},
 			},
 		},
 		[InputSize.Large] = {
@@ -106,7 +116,10 @@ local variantsMap = function(tokens: Tokens)
 				size = UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600),
 			},
 			text = {
-				tag = "text-title-large",
+				tag = {
+					["text-label-large"] = Flags.FoundationButtonLabelTypography,
+					["text-title-large"] = not Flags.FoundationButtonLabelTypography,
+				},
 			},
 		},
 	}

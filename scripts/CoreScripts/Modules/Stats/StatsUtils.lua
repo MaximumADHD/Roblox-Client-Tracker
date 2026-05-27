@@ -29,14 +29,6 @@ function LocalizeWithFallback(key, fallback)
   return fallback
 end
 
-function PingStatName()
-  if game:GetEngineFeature("PerfStatNetworkPingEnabled2") then
-    return "NetworkPing"
-  else
-    return "Ping"
-  end
-end
-
 --[[ Classes ]]--
 local StatsUtils = {}
 
@@ -139,7 +131,7 @@ StatsUtils.TypeToName = {
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = strSentNetwork,
   [StatsUtils.StatType_NetworkReceived] = strReceivedNetwork,
-  [StatsUtils.StatType_Ping] = PingStatName(),
+  [StatsUtils.StatType_Ping] = "NetworkPing",
 }
 
 StatsUtils.TypeToShortName = {
@@ -148,7 +140,7 @@ StatsUtils.TypeToShortName = {
   [StatsUtils.StatType_GPU] = "GPU",
   [StatsUtils.StatType_NetworkSent] = "Sent",
   [StatsUtils.StatType_NetworkReceived] = "Recv",
-  [StatsUtils.StatType_Ping] = PingStatName(),
+  [StatsUtils.StatType_Ping] = "NetworkPing",
 }
 
 StatsUtils.MemoryAnalyzerTypeToName = {
@@ -206,11 +198,7 @@ function StatsUtils.FormatTypedValue(value, statType)
   elseif statType == StatsUtils.StatType_NetworkReceived then
     return string.format("%.2f KB/s", value)
   elseif statType == StatsUtils.StatType_Ping then
-    if game:GetEngineFeature("PerfStatNetworkPingEnabled2") then
-      return string.format("%.0f ms", value)
-    else
-      return string.format("%.2f ms", value)
-    end
+    return string.format("%.0f ms", value)
   end
 end
 

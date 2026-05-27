@@ -14,7 +14,6 @@ sourceData, sourceScale = GetImageSetData(resolutionScale)
 
 local Packages = FoundationImages.Parent
 local BuilderIcons = require(Packages.BuilderIcons)
-local Flags = require(FoundationImages.Flags)
 local deprecatedUIBloxIcons = BuilderIcons.Migration["uiblox"]
 local whitelistedIconDeprecations = require(FoundationImages.whitelistedIconAssets)
 
@@ -49,11 +48,7 @@ local packagePath = getPackagePath()
 local Images = {}
 
 for key, value in sourceData do
-	if
-		Flags.FoundationImagesRemoveDeprecatedIconAssets
-		and whitelistedIconDeprecations[key] == nil
-		and deprecatedUIBloxIcons[key]
-	then
+	if whitelistedIconDeprecations[key] == nil and deprecatedUIBloxIcons[key] then
 		-- intentionally omit deprecated assets from images table to mock their removal
 		continue
 	end
@@ -73,13 +68,11 @@ end
 -- Attach a metamethod to guard against typos
 setmetatable(Images, {
 	__index = function(self, key)
-		if Flags.FoundationImagesRemoveDeprecatedIconAssets then
-			local migrated = deprecatedUIBloxIcons[key]
-			if migrated then
-				local value = { ImageRectOffset = Vector2.new(0, 0), ImageRectSize = Vector2.new(0, 0), Image = key }
-				self[key] = value
-				return value
-			end
+		local migrated = deprecatedUIBloxIcons[key]
+		if migrated then
+			local value = { ImageRectOffset = Vector2.new(0, 0), ImageRectSize = Vector2.new(0, 0), Image = key }
+			self[key] = value
+			return value
 		end
 
 		error(("%q is not a valid member of Images"):format(tostring(key)), 2)

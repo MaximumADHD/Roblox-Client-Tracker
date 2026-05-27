@@ -18,7 +18,6 @@ type ColorInputMode = ColorInputMode.ColorInputMode
 local InputSize = require(Foundation.Enums.InputSize)
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 
-local Flags = require(Foundation.Utility.Flags)
 local colorInputUtils = require(Foundation.Components.ColorPicker.colorInputUtils)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -94,58 +93,37 @@ local function renderInput<T>(
 	local sharedProps = {
 		size = InputSize.XSmall,
 		label = "",
-		width = if Flags.FoundationColorPickerDesignUpdate
-			then UDim.new(1, 0)
-			else (config.width or UDim.new(0, tokens.Size.Size_1500)),
+		width = UDim.new(1, 0),
 		LayoutOrder = index,
 		testId = `{testId}-{mode}{configKey}`,
 	}
 
 	if config.key == ColorInputMode.Hex then
-		if Flags.FoundationColorPickerDesignUpdate then
-			-- Wrapper with grow-1 expands to fill remaining space, TextInput fills the wrapper
-			return React.createElement(View, {
-				tag = "grow-1 size-0-full",
-				LayoutOrder = index,
-			}, {
-				Input = React.createElement(TextInput, {
-					text = config.value:getValue() :: string,
-					onChanged = function(text: string)
-						config.handler(text, config.component)
-					end,
-					placeholder = config.placeholder or "#000000",
-					size = InputSize.XSmall,
-					label = "",
-					width = UDim.new(1, 0),
-					testId = `{testId}-{mode}`,
-				}),
-			})
-		else
-			return React.createElement(
-				TextInput,
-				Dash.join({
-					text = config.value:getValue() :: string,
-					onChanged = function(text: string)
-						config.handler(text, config.component)
-					end,
-					placeholder = config.placeholder or "0",
-				}, sharedProps)
-			)
-		end
-	end
-
-	-- TODO: When cleaning up FoundationColorPickerDesignUpdate, remove the controlsVariant arg entirely
-	if Flags.FoundationColorPickerDesignUpdate then
-		-- grow-1: R/G/B (or H/S/V) inputs share remaining width equally
+		-- Wrapper with grow-1 expands to fill remaining space, TextInput fills the wrapper
 		return React.createElement(View, {
 			tag = "grow-1 size-0-full",
 			LayoutOrder = index,
 		}, {
-			Input = createNumberInputElement(config, NumberInputControlsVariant.None, sharedProps),
+			Input = React.createElement(TextInput, {
+				text = config.value:getValue() :: string,
+				onChanged = function(text: string)
+					config.handler(text, config.component)
+				end,
+				placeholder = config.placeholder or "#000000",
+				size = InputSize.XSmall,
+				label = "",
+				width = UDim.new(1, 0),
+				testId = `{testId}-{mode}`,
+			}),
 		})
 	end
-
-	return createNumberInputElement(config, NumberInputControlsVariant.Stacked, sharedProps)
+	-- grow-1: R/G/B (or H/S/V) inputs share remaining width equally
+	return React.createElement(View, {
+		tag = "grow-1 size-0-full",
+		LayoutOrder = index,
+	}, {
+		Input = createNumberInputElement(config, NumberInputControlsVariant.None, sharedProps),
+	})
 end
 
 type ColorInputsProps = {
@@ -313,26 +291,22 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 
 	local renderInputs = function(): { [string]: any }?
 		if mode == ColorInputMode.Brick then
-			if Flags.FoundationColorPickerDesignUpdate then
-				return {
-					BrickColorName = React.createElement(View, {
-						tag = "grow-1 size-0-full",
-						LayoutOrder = 1,
-					}, {
-						Input = React.createElement(TextInput, {
-							text = (BrickColor.new :: any)(color:getValue()).Name,
-							onChanged = function() end,
-							isDisabled = true,
-							size = InputSize.XSmall,
-							label = "",
-							width = UDim.new(1, 0),
-							testId = `{props.testId}-brick-name`,
-						}),
+			return {
+				BrickColorName = React.createElement(View, {
+					tag = "grow-1 size-0-full",
+					LayoutOrder = 1,
+				}, {
+					Input = React.createElement(TextInput, {
+						text = (BrickColor.new :: any)(color:getValue()).Name,
+						onChanged = function() end,
+						isDisabled = true,
+						size = InputSize.XSmall,
+						label = "",
+						width = UDim.new(1, 0),
+						testId = `{props.testId}-brick-name`,
 					}),
-				}
-			else
-				return nil
-			end
+				}),
+			}
 		end
 
 		local configs = colorInputUtils.createInputConfigs(
@@ -357,39 +331,12 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		end
 		return inputs
 	end
-
-	if Flags.FoundationColorPickerDesignUpdate then
-		return React.createElement(
-			View,
-			withCommonProps(props, {
-				tag = "row gap-xsmall size-full-600",
-			}),
-			Dash.join({
-				ModeDropdown = if #dropdownOptions > 1
-					then React.createElement(Dropdown.Root, {
-						items = dropdownOptions :: { DropdownItem },
-						value = mode :: ItemId,
-						onItemChanged = function(newMode: ItemId)
-							if props.onModeChanged then
-								props.onModeChanged(newMode :: ColorInputMode)
-							end
-						end,
-						size = InputSize.XSmall,
-						label = "",
-						width = UDim.new(0, tokens.Size.Size_1600), -- ~64px, fits "RGB" + chevron
-						testId = `{props.testId}--mode-dropdown`,
-					})
-					else nil,
-			}, renderInputs())
-		)
-	end
-
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = "row align-y-center gap-small auto-xy",
+			tag = "row gap-xsmall size-full-600",
 		}),
-		{
+		Dash.join({
 			ModeDropdown = if #dropdownOptions > 1
 				then React.createElement(Dropdown.Root, {
 					items = dropdownOptions :: { DropdownItem },
@@ -401,15 +348,11 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 					end,
 					size = InputSize.XSmall,
 					label = "",
-					width = UDim.new(0, tokens.Size.Size_2000),
+					width = UDim.new(0, tokens.Size.Size_1600), -- ~64px, fits "RGB" + chevron
 					testId = `{props.testId}--mode-dropdown`,
 				})
 				else nil,
-
-			Inputs = React.createElement(View, {
-				tag = "row gap-small auto-xy",
-			}, renderInputs()),
-		}
+		}, renderInputs())
 	)
 end
 

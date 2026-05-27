@@ -11,7 +11,6 @@ local Types = require(Components.Types)
 local View = require(Components.View)
 
 local Constants = require(Foundation.Constants)
-local Flags = require(Foundation.Utility.Flags)
 local Translator = require(Foundation.Utility.Localization.Translator)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTextInputVariants = require(Foundation.Components.TextInput.useTextInputVariants)
@@ -69,7 +68,7 @@ local defaultProps = {
 	size = InputSize.Medium,
 	variant = InputVariant.Standard,
 	shape = SearchInputShape.Pill,
-	hasClearButton = if Flags.FoundationInternalTextInputClearButton then true else nil :: never,
+	hasClearButton = true,
 	testId = "--foundation-search-input",
 }
 
@@ -79,27 +78,13 @@ local function SearchInput(searchInputProps: SearchInputProps, ref: React.Ref<Gu
 	local textInputVariantProps = useTextInputVariants(tokens, props.size :: InputSize, props.variant)
 	local defaultWidth = useScaledValue(Constants.DEFAULT_INPUT_FIELD_WIDTH_PIXELS)
 
-	-- TODO: clean up with FFlagFoundationInternalTextInputClearButton
-	if Flags.FoundationInternalTextInputClearButton and props.hasClearButton == nil then
-		props.hasClearButton = true
-	end
-
 	-- TODO: https://roblox.atlassian.net/browse/UIBLOX-4313 we should figure out if this should be default padding on InternalTextInput instead
 	local searchIconPosition = React.useMemo(
 		function()
-			return UDim2.fromOffset(
-				0,
-				(
-					(if Flags.FoundationInputVariantsConsolidateContainer
-						then textInputVariantProps.container
-						else textInputVariantProps.outerContainer).minHeight - tokens.Stroke.Standard
-				) / 2
-			)
+			return UDim2.fromOffset(0, (textInputVariantProps.container.minHeight - tokens.Stroke.Standard) / 2)
 		end,
 		{
-			(if Flags.FoundationInputVariantsConsolidateContainer
-				then textInputVariantProps.container
-				else textInputVariantProps.outerContainer).minHeight,
+			textInputVariantProps.container.minHeight,
 			tokens.Stroke.Standard,
 		} :: { unknown }
 	)
@@ -117,18 +102,14 @@ local function SearchInput(searchInputProps: SearchInputProps, ref: React.Ref<Gu
 				ref = ref,
 				hasError = props.hasError,
 				isDisabled = props.isDisabled,
-				hasClearButton = if Flags.FoundationInternalTextInputClearButton then props.hasClearButton else nil,
+				hasClearButton = props.hasClearButton,
 				text = props.text,
 				size = props.size,
 				radius = SHAPE_TO_RADIUS[props.shape],
 				variant = props.variant,
 				horizontalPadding = {
-					left = (if Flags.FoundationInputVariantsConsolidateContainer
-						then textInputVariantProps.container
-						else textInputVariantProps.innerContainer).horizontalPadding,
-					right = (if Flags.FoundationInputVariantsConsolidateContainer
-						then textInputVariantProps.container
-						else textInputVariantProps.innerContainer).horizontalPadding,
+					left = textInputVariantProps.container.horizontalPadding,
+					right = textInputVariantProps.container.horizontalPadding,
 				},
 				onChanged = props.onChanged,
 				onFocus = props.onFocusGained,

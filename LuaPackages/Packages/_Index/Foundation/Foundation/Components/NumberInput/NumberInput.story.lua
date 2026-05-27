@@ -75,10 +75,8 @@ local function DefaultStory(props)
 			{ InputSize.Large, InputSize.Medium, InputSize.Small, InputSize.XSmall } :: { InputSize },
 			function(size: InputSize)
 				return React.createElement(NumberInput, {
-					value = if controls.useBindingValue and Flags.FoundationNumberInputBindableValue
-						then valueBinding
-						else value,
-					variant = if Flags.FoundationNumberInputVariant then controls.variant else nil,
+					value = if controls.useBindingValue then valueBinding else value,
+					variant = controls.variant,
 					controlsVariant = props.controlsVariant,
 					hasError = controls.hasError,
 					isDisabled = controls.isDisabled,
@@ -250,13 +248,13 @@ return {
 		label = "Label",
 		hint = "Number from -5 to 100",
 		isRequired = { React.None, false, true },
-		variant = if Flags.FoundationNumberInputVariant then Dash.values(InputVariant) else nil,
+		variant = Dash.values(InputVariant),
 		formatAsString = Dash.values(Dash.map(FORMAT_AS_STRING_CALLBACKS, function(entry)
 			return entry.name
 		end)),
 		hasError = false,
 		isDisabled = false,
-		useBindingValue = if Flags.FoundationNumberInputBindableValue then false else nil,
+		useBindingValue = false,
 		maximum = 100,
 		minimum = -5,
 		step = 0.2,
@@ -269,7 +267,7 @@ return {
 			"icons/common/search_small",
 			React.None,
 		},
-		focusBehavior = if Flags.FoundationTextInputFocusBehavior and Flags.FoundationTextInputHighlightFix
+		focusBehavior = if Flags.FoundationTextInputHighlightFix
 			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
 			else nil,
 	},

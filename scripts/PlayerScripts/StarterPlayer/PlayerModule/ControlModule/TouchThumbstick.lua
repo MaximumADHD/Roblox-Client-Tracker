@@ -1,10 +1,11 @@
 --!nonstrict
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
+local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 
 local thumbstickAction
@@ -18,10 +19,10 @@ end
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 local INACTIVE_VIEWPORT_POSITION = Vector2.new(-1, -1)
 
-local AvatarAbilitiesInterface
-if FFlagUserAllowAbilityControls then
-	AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-end
+local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
+local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationA
+	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
+	else nil
 
 --[[ The Module ]]--
 local ActionController = require(script.Parent:WaitForChild("ActionController"))
@@ -123,11 +124,9 @@ function TouchThumbstick:Create(parentFrame)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
-		if FFlagUserAllowAbilityControls then
-			if self.avatarAbilitiesEnabledChangedConn then
-				self.avatarAbilitiesEnabledChangedConn:Disconnect()
-				self.avatarAbilitiesEnabledChangedConn = nil
-			end
+		if self.avatarAbilitiesEnabledChangedConn then
+			self.avatarAbilitiesEnabledChangedConn:Disconnect()
+			self.avatarAbilitiesEnabledChangedConn = nil
 		end
 	end
 
@@ -157,7 +156,10 @@ function TouchThumbstick:Create(parentFrame)
 		local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
 		local isSmallScreen = minAxis <= 500
 
-		if FFlagUserAllowAbilityControls and AvatarAbilitiesInterface.isEnabled() then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+			avatarAbilitiesInterface:isEnabled() else
+			AvatarAbilitiesInterface.isEnabled()
+		if isCCLEnabled then
 			local buttonInsetX = isSmallScreen and 64 or 100
 			local buttonInsetY = isSmallScreen and 64 or 112
 			self.thumbstickSize = isSmallScreen and 72 or 120
@@ -177,7 +179,9 @@ function TouchThumbstick:Create(parentFrame)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if FFlagUserAllowAbilityControls then
+	if FFlagUserPlayerScriptsCCLIntegrationA then
+		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
+	else
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	end
 

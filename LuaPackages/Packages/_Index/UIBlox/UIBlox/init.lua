@@ -204,9 +204,6 @@ local function initializeLibrary(configs)
 			LoadableImage = lazify(function()
 				return require(script.App.Loading.LoadableImage)
 			end),
-			LoadingSpinner = lazify(function()
-				return require(script.App.Loading.LoadingSpinner)
-			end),
 		}),
 
 		InputButton = strict({

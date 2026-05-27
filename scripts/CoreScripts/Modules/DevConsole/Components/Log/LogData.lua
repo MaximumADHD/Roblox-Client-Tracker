@@ -344,6 +344,37 @@ function LogData:start()
 			end
 		end)
 
+		pcall(function()
+			self._variantConnection = LogService.ServerContextOut:connect(function(data)
+				if type(data) == "table" and data["_structuredContext"] then
+					local text = data["_message"] or ""
+					local msgType = data["_messageType"] or 0
+					local timestamp = data["_timestamp"] or 0
+					local context = data["_structuredContext"]
+
+					local message = messageEntry(
+						text,
+						convertTimeStamp(timestamp),
+						msgType,
+						context
+					)
+
+					if not ignoreWarningMessageOnAdd(message) then
+						self._logData:push_back(message)
+
+						if #self._logDataSearched:getData() > 0 then
+							if isMessageFiltered(message, self._filters, self._searchTerm) then
+								self._logDataSearched:push_back(message)
+								self._logDataUpdate:Fire(self._logDataSearched)
+							end
+						else
+							self._logDataUpdate:Fire(self._logData)
+						end
+					end
+				end
+			end)
+		end)
+
 		LogService:RequestServerOutput()
 	end
 	
@@ -356,6 +387,9 @@ function LogData:stop()
 
 	if self._connection then
 		self._connection:Disconnect()
+	end
+	if self._variantConnection then
+		self._variantConnection:Disconnect()
 	end
 end
 

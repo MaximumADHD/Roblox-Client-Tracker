@@ -25,12 +25,14 @@ local React = require(CorePackages.Packages.React)
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
 -- Flags
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 -- Components
 local View = Foundation.View
@@ -38,6 +40,9 @@ local Icon = Foundation.Icon
 local ControlState = Foundation.Enums.ControlState
 local useTokens = Foundation.Hooks.useTokens
 local useCursor = Foundation.Hooks.useCursor
+
+local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+local getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
 
 local menuIconHoveredSignal = require(TopBar.Components.Presentation.menuIconHoveredSignal)
 local BadgeOver12 = require(TopBar.Components.Presentation.BadgeOver12)
@@ -149,6 +154,14 @@ local function MenuIcon(props: MenuIconProps)
 			animateMenuIcon(if isOpen then iconSizeStates.menuOpen else iconSizeStates.menuClosed)
 		end)
 
+		local disposeSideSheetVisibilityEffect = nil
+		if FFlagEnableSideSheet then
+			disposeSideSheetVisibilityEffect = Signals.createEffect(function(scope)
+				local isOpen = getSideSheetVisibility(scope)
+				animateMenuIcon(if isOpen then iconSizeStates.menuOpen else iconSizeStates.menuClosed)
+			end)
+		end
+
         local triggerMenuIconConn
         if props.menuIconRef then
             triggerMenuIconConn = ChromeService:onTriggerMenuIcon():connect(function()
@@ -158,6 +171,9 @@ local function MenuIcon(props: MenuIconProps)
         end
 
         return function()
+			if FFlagEnableSideSheet and disposeSideSheetVisibilityEffect then
+				disposeSideSheetVisibilityEffect()
+			end
             preferredTransparencyConn:Disconnect()
             settingsShowConn:Disconnect()
             if triggerMenuIconConn then
@@ -256,11 +272,13 @@ local function MenuIcon(props: MenuIconProps)
     local renderCallback = React.useCallback(function(triggerPointChanged) 
         return React.createElement(View, {
             tag = "radius-circle aspect-1-1",
-            backgroundStyle = preferredTransparency:map(function(trans) 
-                local color = tokens.Color.OverMedia.OverMedia_0
-                color.Transparency = color.Transparency * trans
-                return color
-            end),
+            backgroundStyle = if not FFlagEnableSideSheet 
+				then preferredTransparency:map(function(trans) 
+					local color = tokens.Color.OverMedia.OverMedia_0
+					color.Transparency = color.Transparency * trans
+					return color
+				end) 
+				else nil,
             Size = UDim2.fromScale(1, 1),
             NextSelectionRight = nextSelectionRight,
             selection = {
@@ -275,8 +293,8 @@ local function MenuIcon(props: MenuIconProps)
             ref = props.menuIconRef,
             onAbsoluteSizeChanged = triggerPointChanged,
             onAbsolutePositionChanged = triggerPointChanged,
-            onActivated = menuIconActivated,
-            onStateChanged = menuIconStateChanged,
+            onActivated = if not FFlagEnableSideSheet then menuIconActivated else nil,
+            onStateChanged = if not FFlagEnableSideSheet then menuIconStateChanged else nil,
         }, {
             BadgeOver12 = if props.showBadgeOver12 then
                 React.createElement(BadgeOver12, {
@@ -287,6 +305,7 @@ local function MenuIcon(props: MenuIconProps)
                 size = menuIconSize.size,
                 Position = UDim2.fromScale(0.5, 0.5),
                 AnchorPoint = Vector2.new(0.5, 0.5),
+				style = if FFlagEnableSideSheet then tokens.Color.ActionEmphasis.Foreground else nil,
             })
         })
     end, { preferredTransparency, nextSelectionRight, menuIconCursor, menuIconActivated, menuIconStateChanged, props.showBadgeOver12 } :: {unknown})

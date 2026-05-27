@@ -88,6 +88,16 @@ describe("InGameMenuIntegrationUtils", function()
 			fireCurrentPageSignal("GameSettings")
 			expect(signal:get()).toBe(false)
 		end)
+
+		it("SHOULD resolve to false without erroring when pageKey is not in SettingsHub", function()
+			local signal = InGameMenuIntegrationUtils.createPageOpenSignal("NonExistentPage")
+			task.wait()
+
+			expect(function()
+				fireCurrentPageSignal("Players")
+			end).never.toThrow()
+			expect(signal:get()).toBe(false)
+		end)
 	end)
 
 	describe("toggleIGMPage", function()

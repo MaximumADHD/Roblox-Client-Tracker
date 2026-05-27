@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -54,9 +53,7 @@ local function Story(props)
 			LayoutOrder = 1,
 			text = text,
 			placeholder = if controls.placeholder == "" then nil else controls.placeholder,
-			hasClearButton = if Flags.FoundationInternalTextInputClearButton
-				then if controls.hasClearButton ~= React.None then controls.hasClearButton else nil
-				else nil,
+			hasClearButton = if controls.hasClearButton ~= React.None then controls.hasClearButton else nil,
 			hasError = controls.hasError,
 			isDisabled = controls.isDisabled,
 			shape = controls.shape,
@@ -104,7 +101,7 @@ return {
 	controls = {
 		hasError = false,
 		isDisabled = false,
-		hasClearButton = if Flags.FoundationInternalTextInputClearButton then { React.None, false, true } else nil,
+		hasClearButton = { React.None, false, true },
 		size = Dash.values(InputSize),
 		shape = Dash.values(SearchInputShape),
 		width = 0,

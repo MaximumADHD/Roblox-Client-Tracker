@@ -103,7 +103,6 @@ type TextBoxProps = {
 	Size: UDim2?,
 	text: Bindable<string>?,
 	fontStyle: Types.FontStyle,
-	-- TODO: cleanup with Flags.FoundationCleanupTextInputPolyfill
 	textStyle: Types.ColorStyleValue?,
 	padding: Types.PaddingTable?,
 	isBoundsChecker: boolean?,
@@ -132,9 +131,6 @@ local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: R
 			Selectable = false,
 			Active = if isBoundsChecker then false else nil,
 			Visible = if isBoundsChecker then false else nil,
-			BackgroundTransparency = if Flags.FoundationCleanupTextInputPolyfill then nil else 1,
-			ClipsDescendants = if Flags.FoundationCleanupTextInputPolyfill then nil else true,
-			TextXAlignment = if Flags.FoundationCleanupTextInputPolyfill then nil else Enum.TextXAlignment.Left,
 			Font = props.fontStyle.Font,
 			TextSize = props.fontStyle.FontSize,
 			LineHeight = props.fontStyle.LineHeight,
@@ -182,15 +178,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local isMultiLine = lineCount > 1
 	local isScrollable = isMultiLine
 	local textBoxRef = React.useRef(nil :: TextBox?)
-	local mobileTextBoxRef = if Flags.FoundationTextInputFocusBehavior
-		then React.useRef(nil :: TextBox?)
-		else nil :: never
+	local mobileTextBoxRef = React.useRef(nil :: TextBox?)
 	local textBoundsCheckerRef = React.useRef(nil :: TextBox?)
 	local scrollingFrameRef = React.useRef(nil :: ScrollingFrame?)
 	local mobileTextBoxTextRef = React.useRef("")
-	local lastDispatchedTextRef = if Flags.FoundationTextInputFocusBehavior
-		then React.useRef(getBindableValue(props.text))
-		else nil :: never
+	local lastDispatchedTextRef = React.useRef(getBindableValue(props.text))
 
 	local dragStartPosition = React.useRef(nil :: Vector2?)
 	local lastScrollingFrameCanvasPosition = React.useRef(Vector2.zero)
@@ -199,17 +191,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 
 	local variantProps =
 		useTextInputVariants(tokens, props.size, props.variant, props.radius, focus, hover, props.hasError)
-	-- TODO: remove the redundant aliases when FFlagFoundationInputVariantsConsolidateContainer is cleaned up
-	local innerContainerProps = if Flags.FoundationInputVariantsConsolidateContainer
-		then variantProps.container
-		else variantProps.innerContainer
-	local outerContainerProps = if Flags.FoundationInputVariantsConsolidateContainer
-		then variantProps.container
-		else variantProps.outerContainer
-	-- END TODO
-	local containerProps = if Flags.FoundationInputVariantsConsolidateContainer
-		then variantProps.container
-		else variantProps.outerView
+	local containerProps = variantProps.container
 	local textBoxTag = useStyleTags(variantProps.textBox.tag)
 
 	-- Whether or not the textbox is currently focused and is in mobile mode --
@@ -231,7 +213,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		if textBoxRef.current then
 			textBoxRef.current.SelectionStart = position
 		end
-		if Flags.FoundationTextInputFocusBehavior and mobileTextBoxRef.current then
+		if mobileTextBoxRef.current then
 			mobileTextBoxRef.current.SelectionStart = position
 		end
 	end, {})
@@ -240,7 +222,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		if textBoxRef.current then
 			textBoxRef.current.CursorPosition = position
 		end
-		if Flags.FoundationTextInputFocusBehavior and mobileTextBoxRef.current then
+		if mobileTextBoxRef.current then
 			mobileTextBoxRef.current.CursorPosition = position
 		end
 	end, {})
@@ -306,13 +288,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		return nil
 	end, {})
 
-	local clearText = if Flags.FoundationInternalTextInputClearButton
-		then React.useCallback(function()
-			if textBoxRef.current then
-				textBoxRef.current.Text = ""
-			end
-		end, {})
-		else nil
+	local clearText = React.useCallback(function()
+		if textBoxRef.current then
+			textBoxRef.current.Text = ""
+		end
+	end, {})
 
 	React.useImperativeHandle(
 		ref,
@@ -346,13 +326,10 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		end
 
 		local newText = textBox.Text
-		-- Mobile overlay handoff can emit duplicate Text change events for the same value.
-		if Flags.FoundationTextInputFocusBehavior then
-			if newText == lastDispatchedTextRef.current then
-				return
-			end
-			lastDispatchedTextRef.current = newText
+		if newText == lastDispatchedTextRef.current then
+			return
 		end
+		lastDispatchedTextRef.current = newText
 
 		if isScrollable and textBoundsCheckerRef.current then
 			textBoundsCheckerRef.current.Text = newText
@@ -381,35 +358,32 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			if props.onFocus then
 				props.onFocus()
 			end
-
-			if Flags.FoundationTextInputFocusBehavior then
-				local focusBehavior = props.focusBehavior
-				if focusBehavior == InputFocusBehavior.Clear then
-					-- Prevent stale cached text from being reapplied when the mobile overlay textbox mounts.
-					-- We may be able to use ClearTextOnFocus instead, but having the logic all together makes it easier to reason about :)
-					mobileTextBoxTextRef.current = ""
-					if textBoxRef.current then
-						textBoxRef.current.Text = ""
-					end
-					if mobileTextBoxRef.current then
-						mobileTextBoxRef.current.Text = ""
-					end
-				elseif focusBehavior == InputFocusBehavior.Highlight then
-					if Flags.FoundationTextInputHighlightFix then
-						shouldHighlight.current = true
-					else
-						-- small delay bypasses engine bug where all characters are selected except for the last one
-						task.spawn(function()
-							local textBox = textBoxRef.current or mobileTextBoxRef.current
-							if textBox and textBox.Parent ~= nil then
-								local inputLength = utf8.len(textBox.Text)
-								if inputLength then
-									setSelectionStart(0)
-									setCursorPosition(inputLength + 1)
-								end
+			local focusBehavior = props.focusBehavior
+			if focusBehavior == InputFocusBehavior.Clear then
+				-- Prevent stale cached text from being reapplied when the mobile overlay textbox mounts.
+				-- We may be able to use ClearTextOnFocus instead, but having the logic all together makes it easier to reason about :)
+				mobileTextBoxTextRef.current = ""
+				if textBoxRef.current then
+					textBoxRef.current.Text = ""
+				end
+				if mobileTextBoxRef.current then
+					mobileTextBoxRef.current.Text = ""
+				end
+			elseif focusBehavior == InputFocusBehavior.Highlight then
+				if Flags.FoundationTextInputHighlightFix then
+					shouldHighlight.current = true
+				else
+					-- small delay bypasses engine bug where all characters are selected except for the last one
+					task.spawn(function()
+						local textBox = textBoxRef.current or mobileTextBoxRef.current
+						if textBox and textBox.Parent ~= nil then
+							local inputLength = utf8.len(textBox.Text)
+							if inputLength then
+								setSelectionStart(0)
+								setCursorPosition(inputLength + 1)
 							end
-						end)
-					end
+						end
+					end)
 				end
 			end
 		end,
@@ -418,13 +392,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			props.isDisabled,
 			isMobileDevice,
 			isScrollable,
-			if Flags.FoundationTextInputFocusBehavior then props.focusBehavior else nil,
-			if Flags.FoundationTextInputFocusBehavior and not Flags.FoundationTextInputHighlightFix
-				then setSelectionStart
-				else nil,
-			if Flags.FoundationTextInputFocusBehavior and not Flags.FoundationTextInputHighlightFix
-				then setCursorPosition
-				else nil,
+			props.focusBehavior,
+			if not Flags.FoundationTextInputHighlightFix then setSelectionStart else nil,
+			if not Flags.FoundationTextInputHighlightFix then setCursorPosition else nil,
 		} :: { unknown }
 	)
 
@@ -514,11 +484,11 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 
 	local cursor = React.useMemo(function()
 		return {
-			radius = UDim.new(0, innerContainerProps.radius),
+			radius = UDim.new(0, containerProps.radius),
 			offset = tokens.Stroke.Thick,
 			borderWidth = tokens.Stroke.Thick,
 		}
-	end, { tokens, innerContainerProps.radius } :: { unknown })
+	end, { tokens, containerProps.radius } :: { unknown })
 
 	local textBoxViewportHeight = React.useMemo(function()
 		return getMultiLineTextHeight(fontSize, lineCount, lineHeight)
@@ -530,8 +500,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			-- If we round it off, then the container won't visibily line up pixel-perfectly with any size tokens
 			-- (see NumberInput)
 			local containerPaddingY = math.round(
-				(outerContainerProps.minHeight - outerBorderOffset - getMultiLineTextHeight(fontSize, 1, lineHeight))
-					* 2
+				(containerProps.minHeight - outerBorderOffset - getMultiLineTextHeight(fontSize, 1, lineHeight)) * 2
 			) / 2
 			local paddingFloored = UDim.new(0, math.floor(containerPaddingY / 2))
 			local paddingCeiled = UDim.new(0, math.ceil(containerPaddingY / 2))
@@ -546,7 +515,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				borderFrameSizeY
 		end,
 		{
-			outerContainerProps.minHeight,
+			containerProps.minHeight,
 			outerBorderOffset,
 			innerBorderOffset,
 			fontSize,
@@ -625,7 +594,15 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		if mobileTextBox then
 			mobileTextBox.Text = mobileTextBoxTextRef.current
 			mobileTextBoxTextRef.current = ""
-			mobileTextBox:CaptureFocus()
+			if Flags.FoundationTextAreaDelayMobileFocus then
+				task.delay(0, function()
+					if mobileTextBox.Parent ~= nil then
+						mobileTextBox:CaptureFocus()
+					end
+				end)
+			else
+				mobileTextBox:CaptureFocus()
+			end
 		end
 	end, {})
 
@@ -653,20 +630,16 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		useBindable(if props.horizontalPadding then props.horizontalPadding.right or UDim.new(0, 0) else UDim.new(0, 0))
 
 	-- This positions the clear text button in the center of the input container, based on single-line input height. There's not a clean way to do this with engine layouts at the moment
-	local clearTextButtonPosition = if Flags.FoundationInternalTextInputClearButton
-		then React.useMemo(function()
-			return if props.hasClearButton
-				then UDim2.fromOffset(0, (outerContainerProps.minHeight - tokens.Stroke.Standard) / 2)
-				else nil
-		end, { props.hasClearButton, outerContainerProps.minHeight, tokens.Stroke.Standard } :: { unknown })
-		else nil :: never
+	local clearTextButtonPosition = React.useMemo(function()
+		return if props.hasClearButton
+			then UDim2.fromOffset(0, (containerProps.minHeight - tokens.Stroke.Standard) / 2)
+			else nil
+	end, { props.hasClearButton, containerProps.minHeight, tokens.Stroke.Standard } :: { unknown })
 
-	local multilineMobileTextBoxRef = if Flags.FoundationTextInputFocusBehavior
-		then ReactUtils.useComposedRef(
-			(mobileTextBoxRef :: unknown) :: React.Ref<Instance?>,
-			(onMobileTextBoxMount :: unknown) :: React.Ref<Instance?>
-		)
-		else nil
+	local multilineMobileTextBoxRef = ReactUtils.useComposedRef(
+		(mobileTextBoxRef :: unknown) :: React.Ref<Instance?>,
+		(onMobileTextBoxMount :: unknown) :: React.Ref<Instance?>
+	)
 
 	return React.createElement(
 		View,
@@ -698,16 +671,14 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				}
 				else nil,
 			cornerRadius = if props.radius == Radius.Circle
-				then UDim.new(0, math.ceil(outerContainerProps.minHeight / 2))
+				then UDim.new(0, math.ceil(containerProps.minHeight / 2))
 				else nil,
 			padding = {
 				left = horizontalPaddingLeftBinding:map(function(leftPadding)
 					return UDim.new(0, outerBorderThickness) + leftPadding
 				end),
 				-- account for border thickness, since Clear has extra padding around it
-				right = if Flags.FoundationInternalTextInputClearButton
-						and props.trailingElement == nil
-						and props.hasClearButton
+				right = if props.trailingElement == nil and props.hasClearButton
 					then UDim.new(0, outerBorderThickness)
 					else horizontalPaddingRightBinding:map(function(rightPadding)
 						return UDim.new(0, outerBorderThickness) + rightPadding
@@ -743,7 +714,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				else nil,
 			TextBoxWrapper = React.createElement(if isScrollable then ScrollView else View, {
 				LayoutOrder = 2,
-				selection = if Flags.FoundationTextAreaFixDoubleSelection then { Selectable = false } else nil,
+				selection = { Selectable = false },
 				scroll = scrollViewScroll,
 				layout = scrollViewLayout,
 				onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
@@ -762,19 +733,13 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						ref = textBoxRef,
 						tag = `{textBoxTag or ""} data-testid={props.testId}--textbox`,
 						Size = if isScrollable then textBoxSizeFullHeight else nil,
-						automaticSize = (if Flags.FoundationNumberInputBindableValue
-							then mapBindable(props.text, function(text)
-								return if isScrollable
-										and not isTouchFocused
-										and text ~= ""
-									then Enum.AutomaticSize.Y
-									else nil
-							end)
-							else if isScrollable
+						automaticSize = (mapBindable(props.text, function(text)
+							return if isScrollable
 									and not isTouchFocused
-									and props.text ~= ""
+									and text ~= ""
 								then Enum.AutomaticSize.Y
-								else nil) :: Bindable<Enum.AutomaticSize>?,
+								else nil
+						end)) :: Bindable<Enum.AutomaticSize>?,
 						padding = textBoxWrapperPadding,
 						onFocusGained = onFocusGained,
 						onFocusLost = if isScrollable and isMobileDevice then nil else onFocusLost,
@@ -809,9 +774,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 						isMultiLine = isMultiLine,
 						isDisabled = props.isDisabled,
 						padding = textBoxWrapperPadding,
-						ref = if Flags.FoundationTextInputFocusBehavior
-							then multilineMobileTextBoxRef
-							else onMobileTextBoxMount,
+						ref = multilineMobileTextBoxRef,
 						tag = `{textBoxTag or ""} data-testid={props.testId}--mobile-textbox`,
 						Size = textBoxSizeFullHeight,
 						onFocusLost = if isScrollable and isMobileDevice then onFocusLost else nil,
@@ -820,7 +783,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 					})
 					else nil,
 			}),
-			Clear = if Flags.FoundationInternalTextInputClearButton and props.hasClearButton
+			Clear = if props.hasClearButton
 				then React.createElement(View, {
 					isDisabled = props.isDisabled,
 					GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
@@ -847,7 +810,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			Trailing = if props.trailingElement
 				then React.createElement(View, {
 					GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
-					LayoutOrder = if Flags.FoundationInternalTextInputClearButton then 4 else 3,
+					LayoutOrder = 4,
 					tag = "size-0-full auto-x",
 					testId = `{props.testId}--trailing`,
 				}, props.trailingElement)

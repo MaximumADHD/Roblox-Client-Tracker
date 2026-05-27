@@ -93,10 +93,18 @@ type _Messages = {
 	UiScaledUDim2Prop: _UiScaledUDim2PropMessage,
 	UiScaledUDim2Prop_ConditionalOption: _UiScaledUDim2Prop_ConditionalOptionMessage,
 	UiScaledUDim2Prop_ConditionalOptions: _UiScaledUDim2Prop_ConditionalOptionsMessage,
+	AvatarConfigProp: _AvatarConfigPropMessage,
+	AvatarProp: _AvatarPropMessage,
+	ArrayOfAvatarProp: _ArrayOfAvatarPropMessage,
+	ArrayOfAvatarProp_ConditionalOption: _ArrayOfAvatarProp_ConditionalOptionMessage,
+	ArrayOfAvatarProp_ConditionalOptions: _ArrayOfAvatarProp_ConditionalOptionsMessage,
+	ArrayOfAvatarProp_ArrayOfAvatars: _ArrayOfAvatarProp_ArrayOfAvatarsMessage,
+	ArrayOfAvatarProp_ArrayMap: _ArrayOfAvatarProp_ArrayMapMessage,
 }
 local messages: _Messages = {} :: _Messages
 
 local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
+local _roblox_apppageplatform_shared_v1beta1_hydration_data_spec = require(script.Parent.hydration_data_spec)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
 
 type _TranslationRefImpl = {
@@ -2203,6 +2211,7 @@ type _GradientProp_GradientDataFields = {
 	start_opacity: number,
 	end_opacity: number,
 	degree: number,
+	midpoint_percent: number,
 }
 
 type _GradientProp_GradientDataPartialFields = {
@@ -2211,6 +2220,7 @@ type _GradientProp_GradientDataPartialFields = {
 	start_opacity: number?,
 	end_opacity: number?,
 	degree: number?,
+	midpoint_percent: number?,
 }
 
 export type GradientProp_GradientData = typeof(setmetatable(
@@ -2605,6 +2615,195 @@ export type UiScaledUDim2Prop_ConditionalOptions = typeof(setmetatable(
 type _UiScaledUDim2Prop_ConditionalOptionsMessage = proto.Message<
 	UiScaledUDim2Prop_ConditionalOptions,
 	_UiScaledUDim2Prop_ConditionalOptionsPartialFields
+>
+
+type _AvatarConfigPropImpl = {
+	__index: _AvatarConfigPropImpl,
+	new: (fields: _AvatarConfigPropPartialFields?) -> AvatarConfigProp,
+	encode: (self: AvatarConfigProp) -> buffer,
+	decode: (input: buffer) -> AvatarConfigProp,
+	jsonEncode: (self: AvatarConfigProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AvatarConfigProp,
+	descriptor: proto.Descriptor,
+}
+
+type _AvatarConfigPropFields = {
+	user_id: Int64Prop?,
+	user_presence: StringProp?,
+}
+
+type _AvatarConfigPropPartialFields = {
+	user_id: Int64Prop?,
+	user_presence: StringProp?,
+}
+
+export type AvatarConfigProp = typeof(setmetatable({} :: _AvatarConfigPropFields, {} :: _AvatarConfigPropImpl))
+type _AvatarConfigPropMessage = proto.Message<AvatarConfigProp, _AvatarConfigPropPartialFields>
+
+type _AvatarPropImpl = {
+	__index: _AvatarPropImpl,
+	new: (fields: _AvatarPropPartialFields?) -> AvatarProp,
+	encode: (self: AvatarProp) -> buffer,
+	decode: (input: buffer) -> AvatarProp,
+	jsonEncode: (self: AvatarProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AvatarProp,
+	descriptor: proto.Descriptor,
+}
+
+type _AvatarPropFields = {
+	oneof_prop: ({ type: "user_id", value: Int64Prop } | { type: "avatar_config", value: AvatarConfigProp })?,
+}
+
+type _AvatarPropPartialFields = {
+	oneof_prop: ({ type: "user_id", value: Int64Prop } | { type: "avatar_config", value: AvatarConfigProp })?,
+}
+
+export type AvatarProp = typeof(setmetatable({} :: _AvatarPropFields, {} :: _AvatarPropImpl))
+type _AvatarPropMessage = proto.Message<AvatarProp, _AvatarPropPartialFields>
+
+type _ArrayOfAvatarPropImpl = {
+	__index: _ArrayOfAvatarPropImpl,
+	new: (fields: _ArrayOfAvatarPropPartialFields?) -> ArrayOfAvatarProp,
+	encode: (self: ArrayOfAvatarProp) -> buffer,
+	decode: (input: buffer) -> ArrayOfAvatarProp,
+	jsonEncode: (self: ArrayOfAvatarProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfAvatarProp,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfAvatarPropFields = {
+	kind: (
+		{ type: "literal", value: ArrayOfAvatarProp_ArrayOfAvatars }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ArrayOfAvatarProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfAvatarProp_ArrayMap }
+	)?,
+}
+
+type _ArrayOfAvatarPropPartialFields = {
+	kind: (
+		{ type: "literal", value: ArrayOfAvatarProp_ArrayOfAvatars }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: ArrayOfAvatarProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfAvatarProp_ArrayMap }
+	)?,
+}
+
+export type ArrayOfAvatarProp = typeof(setmetatable({} :: _ArrayOfAvatarPropFields, {} :: _ArrayOfAvatarPropImpl))
+type _ArrayOfAvatarPropMessage = proto.Message<ArrayOfAvatarProp, _ArrayOfAvatarPropPartialFields>
+
+type _ArrayOfAvatarProp_ConditionalOptionImpl = {
+	__index: _ArrayOfAvatarProp_ConditionalOptionImpl,
+	new: (fields: _ArrayOfAvatarProp_ConditionalOptionPartialFields?) -> ArrayOfAvatarProp_ConditionalOption,
+	encode: (self: ArrayOfAvatarProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> ArrayOfAvatarProp_ConditionalOption,
+	jsonEncode: (self: ArrayOfAvatarProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfAvatarProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfAvatarProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ArrayOfAvatarProp_ArrayOfAvatars } | { type: "binding_path", value: string })?,
+}
+
+type _ArrayOfAvatarProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: ArrayOfAvatarProp_ArrayOfAvatars } | { type: "binding_path", value: string })?,
+}
+
+export type ArrayOfAvatarProp_ConditionalOption = typeof(setmetatable(
+	{} :: _ArrayOfAvatarProp_ConditionalOptionFields,
+	{} :: _ArrayOfAvatarProp_ConditionalOptionImpl
+))
+type _ArrayOfAvatarProp_ConditionalOptionMessage = proto.Message<
+	ArrayOfAvatarProp_ConditionalOption,
+	_ArrayOfAvatarProp_ConditionalOptionPartialFields
+>
+
+type _ArrayOfAvatarProp_ConditionalOptionsImpl = {
+	__index: _ArrayOfAvatarProp_ConditionalOptionsImpl,
+	new: (fields: _ArrayOfAvatarProp_ConditionalOptionsPartialFields?) -> ArrayOfAvatarProp_ConditionalOptions,
+	encode: (self: ArrayOfAvatarProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> ArrayOfAvatarProp_ConditionalOptions,
+	jsonEncode: (self: ArrayOfAvatarProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfAvatarProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfAvatarProp_ConditionalOptionsFields = {
+	options: { ArrayOfAvatarProp_ConditionalOption },
+}
+
+type _ArrayOfAvatarProp_ConditionalOptionsPartialFields = {
+	options: { ArrayOfAvatarProp_ConditionalOption }?,
+}
+
+export type ArrayOfAvatarProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _ArrayOfAvatarProp_ConditionalOptionsFields,
+	{} :: _ArrayOfAvatarProp_ConditionalOptionsImpl
+))
+type _ArrayOfAvatarProp_ConditionalOptionsMessage = proto.Message<
+	ArrayOfAvatarProp_ConditionalOptions,
+	_ArrayOfAvatarProp_ConditionalOptionsPartialFields
+>
+
+type _ArrayOfAvatarProp_ArrayOfAvatarsImpl = {
+	__index: _ArrayOfAvatarProp_ArrayOfAvatarsImpl,
+	new: (fields: _ArrayOfAvatarProp_ArrayOfAvatarsPartialFields?) -> ArrayOfAvatarProp_ArrayOfAvatars,
+	encode: (self: ArrayOfAvatarProp_ArrayOfAvatars) -> buffer,
+	decode: (input: buffer) -> ArrayOfAvatarProp_ArrayOfAvatars,
+	jsonEncode: (self: ArrayOfAvatarProp_ArrayOfAvatars) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfAvatarProp_ArrayOfAvatars,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfAvatarProp_ArrayOfAvatarsFields = {
+	array: { AvatarProp },
+}
+
+type _ArrayOfAvatarProp_ArrayOfAvatarsPartialFields = {
+	array: { AvatarProp }?,
+}
+
+export type ArrayOfAvatarProp_ArrayOfAvatars = typeof(setmetatable(
+	{} :: _ArrayOfAvatarProp_ArrayOfAvatarsFields,
+	{} :: _ArrayOfAvatarProp_ArrayOfAvatarsImpl
+))
+type _ArrayOfAvatarProp_ArrayOfAvatarsMessage = proto.Message<
+	ArrayOfAvatarProp_ArrayOfAvatars,
+	_ArrayOfAvatarProp_ArrayOfAvatarsPartialFields
+>
+
+type _ArrayOfAvatarProp_ArrayMapImpl = {
+	__index: _ArrayOfAvatarProp_ArrayMapImpl,
+	new: (fields: _ArrayOfAvatarProp_ArrayMapPartialFields?) -> ArrayOfAvatarProp_ArrayMap,
+	encode: (self: ArrayOfAvatarProp_ArrayMap) -> buffer,
+	decode: (input: buffer) -> ArrayOfAvatarProp_ArrayMap,
+	jsonEncode: (self: ArrayOfAvatarProp_ArrayMap) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfAvatarProp_ArrayMap,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfAvatarProp_ArrayMapFields = {
+	kind: { type: "binding_path", value: string }?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec },
+	field_map: AvatarConfigProp?,
+}
+
+type _ArrayOfAvatarProp_ArrayMapPartialFields = {
+	kind: { type: "binding_path", value: string }?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec }?,
+	field_map: AvatarConfigProp?,
+}
+
+export type ArrayOfAvatarProp_ArrayMap = typeof(setmetatable(
+	{} :: _ArrayOfAvatarProp_ArrayMapFields,
+	{} :: _ArrayOfAvatarProp_ArrayMapImpl
+))
+type _ArrayOfAvatarProp_ArrayMapMessage = proto.Message<
+	ArrayOfAvatarProp_ArrayMap,
+	_ArrayOfAvatarProp_ArrayMapPartialFields
 >
 
 do
@@ -12275,6 +12474,7 @@ do
 			start_opacity = if data == nil or data.start_opacity == nil then 0 else data.start_opacity,
 			end_opacity = if data == nil or data.end_opacity == nil then 0 else data.end_opacity,
 			degree = if data == nil or data.degree == nil then 0 else data.degree,
+			midpoint_percent = if data == nil or data.midpoint_percent == nil then 0 else data.midpoint_percent,
 		}, _GradientProp_GradientDataImpl :: _GradientProp_GradientDataImpl)
 	end
 
@@ -12305,6 +12505,11 @@ do
 		if self.degree ~= nil and self.degree ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.degree)
+		end
+
+		if self.midpoint_percent ~= nil and self.midpoint_percent ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.i32)
+			output, cursor = proto.writeFloat(output, cursor, self.midpoint_percent)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -12358,6 +12563,11 @@ do
 					value, cursor = proto.readFloat(input, cursor)
 					self.end_opacity = value
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readFloat(input, cursor)
+					self.midpoint_percent = value
+					continue
 				end
 
 				local _
@@ -12396,6 +12606,10 @@ do
 
 		if self.degree ~= nil and self.degree ~= 0 then
 			output.degree = self.degree
+		end
+
+		if self.midpoint_percent ~= nil and self.midpoint_percent ~= 0 then
+			output.midpointPercent = proto.json.serializeNumber(self.midpoint_percent)
 		end
 
 		return output
@@ -12438,6 +12652,14 @@ do
 
 		if input.degree ~= nil then
 			self.degree = input.degree
+		end
+
+		if input.midpoint_percent ~= nil then
+			self.midpoint_percent = proto.json.deserializeNumber(input.midpoint_percent)
+		end
+
+		if input.midpointPercent ~= nil then
+			self.midpoint_percent = proto.json.deserializeNumber(input.midpointPercent)
 		end
 
 		return self
@@ -14234,6 +14456,972 @@ do
 	typeRegistry.default:register(messages.UiScaledUDim2Prop_ConditionalOptions)
 end
 
+do
+	local _AvatarConfigPropImpl = {}
+	_AvatarConfigPropImpl.__index = _AvatarConfigPropImpl
+
+	function _AvatarConfigPropImpl.new(data: _AvatarConfigPropPartialFields?): AvatarConfigProp
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
+			user_presence = if data == nil or data.user_presence == nil then nil else data.user_presence,
+		}, _AvatarConfigPropImpl :: _AvatarConfigPropImpl)
+	end
+
+	function _AvatarConfigPropImpl.encode(self: AvatarConfigProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil then
+			local encoded = self.user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.user_presence ~= nil then
+			local encoded = self.user_presence:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AvatarConfigPropImpl.decode(input: buffer): AvatarConfigProp
+		local self = _AvatarConfigPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = messages.Int64Prop.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_presence = messages.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AvatarConfigPropImpl.jsonEncode(self: AvatarConfigProp): any
+		local output = {}
+
+		if self.user_id ~= nil then
+			output.userId = self.user_id:jsonEncode()
+		end
+
+		if self.user_presence ~= nil then
+			output.userPresence = self.user_presence:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AvatarConfigPropImpl.jsonDecode(input: { [string]: any }): AvatarConfigProp
+		local self = _AvatarConfigPropImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = messages.Int64Prop.jsonDecode(input.user_id)
+		end
+
+		if input.userId ~= nil then
+			self.user_id = messages.Int64Prop.jsonDecode(input.userId)
+		end
+
+		if input.user_presence ~= nil then
+			self.user_presence = messages.StringProp.jsonDecode(input.user_presence)
+		end
+
+		if input.userPresence ~= nil then
+			self.user_presence = messages.StringProp.jsonDecode(input.userPresence)
+		end
+
+		return self
+	end
+
+	_AvatarConfigPropImpl.descriptor = {
+		name = "AvatarConfigProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AvatarConfigProp",
+	}
+
+	messages.AvatarConfigProp = _AvatarConfigPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AvatarConfigProp)
+end
+
+do
+	local _AvatarPropImpl = {}
+	_AvatarPropImpl.__index = _AvatarPropImpl
+
+	function _AvatarPropImpl.new(data: _AvatarPropPartialFields?): AvatarProp
+		return setmetatable({
+			oneof_prop = if data == nil or data.oneof_prop == nil then nil else data.oneof_prop,
+		}, _AvatarPropImpl :: _AvatarPropImpl)
+	end
+
+	function _AvatarPropImpl.encode(self: AvatarProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "user_id" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.oneof_prop.type == "avatar_config" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AvatarPropImpl.decode(input: buffer): AvatarProp
+		local self = _AvatarPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = { type = "user_id", value = messages.Int64Prop.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = { type = "avatar_config", value = messages.AvatarConfigProp.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AvatarPropImpl.jsonEncode(self: AvatarProp): any
+		local output = {}
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "user_id" then
+				output.userId = self.oneof_prop.value:jsonEncode()
+			elseif self.oneof_prop.type == "avatar_config" then
+				output.avatarConfig = self.oneof_prop.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _AvatarPropImpl.jsonDecode(input: { [string]: any }): AvatarProp
+		local self = _AvatarPropImpl.new()
+
+		if input.user_id ~= nil then
+			self.oneof_prop = { type = "user_id", value = messages.Int64Prop.jsonDecode(input.user_id) }
+		end
+
+		if input.userId ~= nil then
+			self.oneof_prop = { type = "user_id", value = messages.Int64Prop.jsonDecode(input.userId) }
+		end
+
+		if input.avatar_config ~= nil then
+			self.oneof_prop =
+				{ type = "avatar_config", value = messages.AvatarConfigProp.jsonDecode(input.avatar_config) }
+		end
+
+		if input.avatarConfig ~= nil then
+			self.oneof_prop =
+				{ type = "avatar_config", value = messages.AvatarConfigProp.jsonDecode(input.avatarConfig) }
+		end
+
+		return self
+	end
+
+	_AvatarPropImpl.descriptor = {
+		name = "AvatarProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AvatarProp",
+	}
+
+	messages.AvatarProp = _AvatarPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AvatarProp)
+end
+
+do
+	local _ArrayOfAvatarPropImpl = {}
+	_ArrayOfAvatarPropImpl.__index = _ArrayOfAvatarPropImpl
+
+	function _ArrayOfAvatarPropImpl.new(data: _ArrayOfAvatarPropPartialFields?): ArrayOfAvatarProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ArrayOfAvatarPropImpl :: _ArrayOfAvatarPropImpl)
+	end
+
+	function _ArrayOfAvatarPropImpl.encode(self: ArrayOfAvatarProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "array_map" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfAvatarPropImpl.decode(input: buffer): ArrayOfAvatarProp
+		local self = _ArrayOfAvatarPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.ArrayOfAvatarProp_ArrayOfAvatars.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.ArrayOfAvatarProp_ConditionalOptions.decode(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "array_map", value = messages.ArrayOfAvatarProp_ArrayMap.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfAvatarPropImpl.jsonEncode(self: ArrayOfAvatarProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "array_map" then
+				output.arrayMap = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ArrayOfAvatarPropImpl.jsonDecode(input: { [string]: any }): ArrayOfAvatarProp
+		local self = _ArrayOfAvatarPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind =
+				{ type = "literal", value = messages.ArrayOfAvatarProp_ArrayOfAvatars.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.ArrayOfAvatarProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.array_map ~= nil then
+			self.kind = { type = "array_map", value = messages.ArrayOfAvatarProp_ArrayMap.jsonDecode(input.array_map) }
+		end
+
+		if input.arrayMap ~= nil then
+			self.kind = { type = "array_map", value = messages.ArrayOfAvatarProp_ArrayMap.jsonDecode(input.arrayMap) }
+		end
+
+		return self
+	end
+
+	_ArrayOfAvatarPropImpl.descriptor = {
+		name = "ArrayOfAvatarProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayOfAvatarProp",
+	}
+
+	messages.ArrayOfAvatarProp = _ArrayOfAvatarPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfAvatarProp)
+end
+
+do
+	local _ArrayOfAvatarProp_ConditionalOptionImpl = {}
+	_ArrayOfAvatarProp_ConditionalOptionImpl.__index = _ArrayOfAvatarProp_ConditionalOptionImpl
+
+	function _ArrayOfAvatarProp_ConditionalOptionImpl.new(
+		data: _ArrayOfAvatarProp_ConditionalOptionPartialFields?
+	): ArrayOfAvatarProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ArrayOfAvatarProp_ConditionalOptionImpl :: _ArrayOfAvatarProp_ConditionalOptionImpl)
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionImpl.encode(self: ArrayOfAvatarProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionImpl.decode(input: buffer): ArrayOfAvatarProp_ConditionalOption
+		local self = _ArrayOfAvatarProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.ArrayOfAvatarProp_ArrayOfAvatars.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionImpl.jsonEncode(self: ArrayOfAvatarProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfAvatarProp_ConditionalOption
+		local self = _ArrayOfAvatarProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind =
+				{ type = "literal", value = messages.ArrayOfAvatarProp_ArrayOfAvatars.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_ArrayOfAvatarProp_ConditionalOptionImpl.descriptor = {
+		name = "ArrayOfAvatarProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.ArrayOfAvatarProp_ConditionalOption = _ArrayOfAvatarProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfAvatarProp_ConditionalOption)
+end
+
+do
+	local _ArrayOfAvatarProp_ConditionalOptionsImpl = {}
+	_ArrayOfAvatarProp_ConditionalOptionsImpl.__index = _ArrayOfAvatarProp_ConditionalOptionsImpl
+
+	function _ArrayOfAvatarProp_ConditionalOptionsImpl.new(
+		data: _ArrayOfAvatarProp_ConditionalOptionsPartialFields?
+	): ArrayOfAvatarProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _ArrayOfAvatarProp_ConditionalOptionsImpl :: _ArrayOfAvatarProp_ConditionalOptionsImpl)
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionsImpl.encode(self: ArrayOfAvatarProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionsImpl.decode(input: buffer): ArrayOfAvatarProp_ConditionalOptions
+		local self = _ArrayOfAvatarProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.ArrayOfAvatarProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionsImpl.jsonEncode(self: ArrayOfAvatarProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfAvatarProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfAvatarProp_ConditionalOptions
+		local self = _ArrayOfAvatarProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { ArrayOfAvatarProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.ArrayOfAvatarProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfAvatarProp_ConditionalOptionsImpl.descriptor = {
+		name = "ArrayOfAvatarProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.ArrayOfAvatarProp_ConditionalOptions = _ArrayOfAvatarProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfAvatarProp_ConditionalOptions)
+end
+
+do
+	local _ArrayOfAvatarProp_ArrayOfAvatarsImpl = {}
+	_ArrayOfAvatarProp_ArrayOfAvatarsImpl.__index = _ArrayOfAvatarProp_ArrayOfAvatarsImpl
+
+	function _ArrayOfAvatarProp_ArrayOfAvatarsImpl.new(
+		data: _ArrayOfAvatarProp_ArrayOfAvatarsPartialFields?
+	): ArrayOfAvatarProp_ArrayOfAvatars
+		return setmetatable({
+			array = if data == nil or data.array == nil then {} else data.array,
+		}, _ArrayOfAvatarProp_ArrayOfAvatarsImpl :: _ArrayOfAvatarProp_ArrayOfAvatarsImpl)
+	end
+
+	function _ArrayOfAvatarProp_ArrayOfAvatarsImpl.encode(self: ArrayOfAvatarProp_ArrayOfAvatars): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.array ~= nil and #self.array > 0 then
+			for _, value in self.array do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfAvatarProp_ArrayOfAvatarsImpl.decode(input: buffer): ArrayOfAvatarProp_ArrayOfAvatars
+		local self = _ArrayOfAvatarProp_ArrayOfAvatarsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.array, messages.AvatarProp.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfAvatarProp_ArrayOfAvatarsImpl.jsonEncode(self: ArrayOfAvatarProp_ArrayOfAvatars): any
+		local output = {}
+
+		if self.array ~= nil and #self.array > 0 then
+			local newOutput = {}
+			for _, value in self.array do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.array = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfAvatarProp_ArrayOfAvatarsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfAvatarProp_ArrayOfAvatars
+		local self = _ArrayOfAvatarProp_ArrayOfAvatarsImpl.new()
+
+		if input.array ~= nil then
+			local newOutput: { AvatarProp } = {}
+			for _, value in input.array do
+				table.insert(newOutput, messages.AvatarProp.jsonDecode(value))
+			end
+
+			self.array = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfAvatarProp_ArrayOfAvatarsImpl.descriptor = {
+		name = "ArrayOfAvatarProp_ArrayOfAvatars",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayOfAvatars",
+	}
+
+	messages.ArrayOfAvatarProp_ArrayOfAvatars = _ArrayOfAvatarProp_ArrayOfAvatarsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfAvatarProp_ArrayOfAvatars)
+end
+
+do
+	local _ArrayOfAvatarProp_ArrayMapImpl = {}
+	_ArrayOfAvatarProp_ArrayMapImpl.__index = _ArrayOfAvatarProp_ArrayMapImpl
+
+	function _ArrayOfAvatarProp_ArrayMapImpl.new(
+		data: _ArrayOfAvatarProp_ArrayMapPartialFields?
+	): ArrayOfAvatarProp_ArrayMap
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+			item_hydration_specs = if data == nil or data.item_hydration_specs == nil
+				then {}
+				else data.item_hydration_specs,
+			field_map = if data == nil or data.field_map == nil then nil else data.field_map,
+		}, _ArrayOfAvatarProp_ArrayMapImpl :: _ArrayOfAvatarProp_ArrayMapImpl)
+	end
+
+	function _ArrayOfAvatarProp_ArrayMapImpl.encode(self: ArrayOfAvatarProp_ArrayMap): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			for _, value in self.item_hydration_specs do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.field_map ~= nil then
+			local encoded = self.field_map:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfAvatarProp_ArrayMapImpl.decode(input: buffer): ArrayOfAvatarProp_ArrayMap
+		local self = _ArrayOfAvatarProp_ArrayMapImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.item_hydration_specs,
+						_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.decode(value)
+					)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field_map = messages.AvatarConfigProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfAvatarProp_ArrayMapImpl.jsonEncode(self: ArrayOfAvatarProp_ArrayMap): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			local newOutput = {}
+			for _, value in self.item_hydration_specs do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.itemHydrationSpecs = newOutput
+		end
+
+		if self.field_map ~= nil then
+			output.fieldMap = self.field_map:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ArrayOfAvatarProp_ArrayMapImpl.jsonDecode(input: { [string]: any }): ArrayOfAvatarProp_ArrayMap
+		local self = _ArrayOfAvatarProp_ArrayMapImpl.new()
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.item_hydration_specs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.item_hydration_specs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.itemHydrationSpecs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.itemHydrationSpecs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.field_map ~= nil then
+			self.field_map = messages.AvatarConfigProp.jsonDecode(input.field_map)
+		end
+
+		if input.fieldMap ~= nil then
+			self.field_map = messages.AvatarConfigProp.jsonDecode(input.fieldMap)
+		end
+
+		return self
+	end
+
+	_ArrayOfAvatarProp_ArrayMapImpl.descriptor = {
+		name = "ArrayOfAvatarProp_ArrayMap",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayMap",
+	}
+
+	messages.ArrayOfAvatarProp_ArrayMap = _ArrayOfAvatarProp_ArrayMapImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfAvatarProp_ArrayMap)
+end
+
 return {
 	TranslationRef = messages.TranslationRef,
 	StringFormat = messages.StringFormat,
@@ -14320,4 +15508,11 @@ return {
 	UiScaledUDim2Prop = messages.UiScaledUDim2Prop,
 	UiScaledUDim2Prop_ConditionalOption = messages.UiScaledUDim2Prop_ConditionalOption,
 	UiScaledUDim2Prop_ConditionalOptions = messages.UiScaledUDim2Prop_ConditionalOptions,
+	AvatarConfigProp = messages.AvatarConfigProp,
+	AvatarProp = messages.AvatarProp,
+	ArrayOfAvatarProp = messages.ArrayOfAvatarProp,
+	ArrayOfAvatarProp_ConditionalOption = messages.ArrayOfAvatarProp_ConditionalOption,
+	ArrayOfAvatarProp_ConditionalOptions = messages.ArrayOfAvatarProp_ConditionalOptions,
+	ArrayOfAvatarProp_ArrayOfAvatars = messages.ArrayOfAvatarProp_ArrayOfAvatars,
+	ArrayOfAvatarProp_ArrayMap = messages.ArrayOfAvatarProp_ArrayMap,
 }

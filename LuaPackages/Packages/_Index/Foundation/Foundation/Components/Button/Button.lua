@@ -183,7 +183,13 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			AutomaticSize = if props.width.Scale == 0 and props.width.Offset == 0 then Enum.AutomaticSize.X else nil,
+			AutomaticSize = if (
+					not Flags.FoundationButtonFillBehaviorEqualSize or props.fillBehavior ~= FillBehavior.Fill
+				)
+					and props.width.Scale == 0
+					and props.width.Offset == 0
+				then Enum.AutomaticSize.X
+				else nil,
 			cornerRadius = UDim.new(0, variantProps.container.radius),
 			backgroundStyle = if variantProps.container.style
 				then getTransparency(variantProps.container.style.Transparency, disabledValues.transparency):map(

@@ -26,6 +26,7 @@ export type DisplayLocation =
 	| "DISPLAY_LOCATION_SEARCH_RESULTS"
 	| "DISPLAY_LOCATION_SEARCH_LANDING"
 	| "DISPLAY_LOCATION_SPOTLIGHT"
+	| "DISPLAY_LOCATION_HOME"
 	| number -- Unknown
 
 messages.DisplayLocation = {
@@ -56,6 +57,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_SEARCH_LANDING"
 		elseif value == 12 then
 			return "DISPLAY_LOCATION_SPOTLIGHT"
+		elseif value == 13 then
+			return "DISPLAY_LOCATION_HOME"
 		else
 			return nil
 		end
@@ -88,6 +91,8 @@ messages.DisplayLocation = {
 			return 11
 		elseif self == "DISPLAY_LOCATION_SPOTLIGHT" then
 			return 12
+		elseif self == "DISPLAY_LOCATION_HOME" then
+			return 13
 		else
 			return self
 		end
@@ -120,6 +125,8 @@ messages.DisplayLocation = {
 			return "DISPLAY_LOCATION_SEARCH_LANDING"
 		elseif name == "DISPLAY_LOCATION_SPOTLIGHT" then
 			return "DISPLAY_LOCATION_SPOTLIGHT"
+		elseif name == "DISPLAY_LOCATION_HOME" then
+			return "DISPLAY_LOCATION_HOME"
 		else
 			return nil
 		end

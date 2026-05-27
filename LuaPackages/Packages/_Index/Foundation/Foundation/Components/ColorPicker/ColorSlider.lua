@@ -19,8 +19,6 @@ type ColorSliderType = ColorSliderType.ColorSliderType
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
-
 type CommonProps = Types.CommonProps
 
 export type ColorSliderProps = {
@@ -102,7 +100,7 @@ local function ColorSlider(colorSliderProps: ColorSliderProps)
 		width = UDim.new(1, 0),
 		knobVisibility = Visibility.Always,
 		knob = React.createElement(Knob, {
-			size = if Flags.FoundationColorPickerDesignUpdate then InputSize.Small else InputSize.Large,
+			size = InputSize.Small,
 			style = knobStyle,
 			stroke = {
 				Color = tokens.Color.System.Contrast.Color3,
@@ -113,7 +111,7 @@ local function ColorSlider(colorSliderProps: ColorSliderProps)
 		}),
 	})
 
-	if Flags.FoundationColorPickerDesignUpdate and isAlpha then
+	if isAlpha then
 		-- Background + SliderContainer split: ClipsDescendants hides checkerboard edges without clipping the knob
 		return React.createElement(
 			View,
@@ -158,25 +156,6 @@ local function ColorSlider(colorSliderProps: ColorSliderProps)
 				}, {
 					Slider = sliderElement,
 				}),
-			}
-		)
-	end
-
-	if not Flags.FoundationColorPickerDesignUpdate then
-		-- Pre-design-update: single View for both hue and alpha sliders
-		return React.createElement(
-			View,
-			withCommonProps(props, {
-				tag = "size-full-0 auto-y stroke-standard stroke-emphasis radius-circle",
-				backgroundStyle = tokens.Color.Extended.White.White_100,
-			}),
-			{
-				Gradient = React.createElement("UIGradient", {
-					Color = gradient,
-					Transparency = gradientTransparency,
-				}),
-
-				Slider = sliderElement,
 			}
 		)
 	end

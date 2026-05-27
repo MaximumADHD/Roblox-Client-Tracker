@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -42,19 +41,14 @@ local function Story(props)
 			isDisabled = controls.isDisabled,
 			isRequired = controls.isRequired,
 			resizable = controls.resizable,
-			variant = if Flags.FoundationTextAreaVariant then controls.variant else nil,
-			focusBehavior = if Flags.FoundationTextInputFocusBehavior and controls.focusBehavior ~= React.None
-				then controls.focusBehavior
-				else nil,
+			variant = controls.variant,
+			focusBehavior = if controls.focusBehavior ~= React.None then controls.focusBehavior else nil,
 			onChanged = handleChange,
 			label = controls.label,
 			hint = controls.hint,
 			size = controls.size,
 			width = if controls.width == 0 then nil else UDim.new(0, controls.width),
-			hasClearButton = if not Flags.FoundationInternalTextInputClearButton
-					or controls.hasClearButton == React.None
-				then nil
-				else controls.hasClearButton,
+			hasClearButton = if controls.hasClearButton == React.None then nil else controls.hasClearButton,
 			numLines = controls.numLines,
 			placeholder = controls.placeholder,
 			text = text,
@@ -84,11 +78,9 @@ return {
 		hasError = false,
 		isDisabled = false,
 		numLines = 4,
-		variant = if Flags.FoundationTextAreaVariant then Dash.values(InputVariant) else nil,
-		focusBehavior = if Flags.FoundationTextInputFocusBehavior
-			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
-			else nil,
-		hasClearButton = if Flags.FoundationInternalTextInputClearButton then { React.None, false, true } else nil,
+		variant = Dash.values(InputVariant),
+		focusBehavior = { React.None, unpack(Dash.values(InputFocusBehavior)) },
+		hasClearButton = { React.None, false, true },
 		width = 0,
 		size = Dash.values(InputSize),
 		label = "Biography",

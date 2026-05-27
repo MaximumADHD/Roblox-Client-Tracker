@@ -30,6 +30,7 @@ type _GameSubscriptionDataFields = {
 	period_type: string,
 	is_subscribed: boolean,
 	price_in_robux: number,
+	price_tier: number,
 }
 
 type _GameSubscriptionDataPartialFields = {
@@ -41,6 +42,7 @@ type _GameSubscriptionDataPartialFields = {
 	period_type: string?,
 	is_subscribed: boolean?,
 	price_in_robux: number?,
+	price_tier: number?,
 }
 
 export type GameSubscriptionData = typeof(setmetatable(
@@ -63,6 +65,7 @@ do
 			period_type = if data == nil or data.period_type == nil then "" else data.period_type,
 			is_subscribed = if data == nil or data.is_subscribed == nil then false else data.is_subscribed,
 			price_in_robux = if data == nil or data.price_in_robux == nil then 0 else data.price_in_robux,
+			price_tier = if data == nil or data.price_tier == nil then 0 else data.price_tier,
 		}, _GameSubscriptionDataImpl :: _GameSubscriptionDataImpl)
 	end
 
@@ -110,6 +113,11 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.price_in_robux)
 		end
 
+		if self.price_tier ~= nil and self.price_tier ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.price_tier)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -138,6 +146,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.price_in_robux = value
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.price_tier = value
 					continue
 				end
 
@@ -228,6 +241,10 @@ do
 			output.priceInRobux = self.price_in_robux
 		end
 
+		if self.price_tier ~= nil and self.price_tier ~= 0 then
+			output.priceTier = self.price_tier
+		end
+
 		return output
 	end
 
@@ -284,6 +301,14 @@ do
 
 		if input.priceInRobux ~= nil then
 			self.price_in_robux = input.priceInRobux
+		end
+
+		if input.price_tier ~= nil then
+			self.price_tier = input.price_tier
+		end
+
+		if input.priceTier ~= nil then
+			self.price_tier = input.priceTier
 		end
 
 		return self

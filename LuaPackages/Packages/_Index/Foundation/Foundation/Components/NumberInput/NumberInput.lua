@@ -100,7 +100,7 @@ local function defaultFormatAsString(value: number)
 end
 
 local defaultProps = {
-	variant = if Flags.FoundationNumberInputVariant then InputVariant.Standard else nil :: never,
+	variant = InputVariant.Standard,
 	controlsVariant = NumberInputControlsVariant.Stacked,
 	size = InputSize.Large,
 	minimum = -math.huge,
@@ -142,14 +142,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		onReturnPressed: (() -> ())?,
 	} & Types.SelectionProps & Types.CommonProps
 
-	-- TODO: clean up with FFlagFoundationNumberInputVariant
-	if Flags.FoundationNumberInputVariant and props.variant == nil then
-		props.variant = InputVariant.Standard
-	end
-
 	local tokens = useTokens()
-	local variantProps =
-		useTextInputVariants(tokens, props.size, if Flags.FoundationNumberInputVariant then props.variant else nil)
+	local variantProps = useTextInputVariants(tokens, props.size, props.variant)
 	local NumberInputControlsVariantProps = useNumberInputVariants(tokens, props.size, props.controlsVariant)
 
 	local internalTextBoxRef = React.useRef(nil)
@@ -175,107 +169,54 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { props.step })
 
 	local upValue = React.useMemo(function()
-		if Flags.FoundationNumberInputBindableValue then
-			return mapBindable(props.value, function(value)
-				local roundedValue = round(value, props.precision)
-				local newUpValue = round(value + props.step, props.precision)
-				local snapUpValue = round(snapToStep(value, math.ceil), props.precision)
-				if roundedValue ~= snapUpValue then
-					newUpValue = snapUpValue
-				end
-				return clampValueToRange(newUpValue)
-			end)
-		else
-			local roundedValue = round(props.value :: number, props.precision)
-			local newUpValue = round((props.value :: number) + props.step, props.precision)
-			local snapUpValue = round(snapToStep(props.value :: number, math.ceil), props.precision)
+		return mapBindable(props.value, function(value)
+			local roundedValue = round(value, props.precision)
+			local newUpValue = round(value + props.step, props.precision)
+			local snapUpValue = round(snapToStep(value, math.ceil), props.precision)
 			if roundedValue ~= snapUpValue then
 				newUpValue = snapUpValue
 			end
 			return clampValueToRange(newUpValue)
-		end
+		end)
 	end, { props.value, props.step, props.precision, clampValueToRange, snapToStep } :: { unknown })
 
 	local downValue = React.useMemo(function()
-		if Flags.FoundationNumberInputBindableValue then
-			return mapBindable(props.value, function(value)
-				local roundedValue = round(value, props.precision)
-				local newDownValue = round(value - props.step, props.precision)
-				local snapDownValue = round(snapToStep(value, math.floor), props.precision)
-				if roundedValue ~= snapDownValue then
-					newDownValue = snapDownValue
-				end
-				return clampValueToRange(newDownValue)
-			end)
-		else
-			local roundedValue = round(props.value :: number, props.precision)
-			local newDownValue = round((props.value :: number) - props.step, props.precision)
-			local snapDownValue = round(snapToStep(props.value :: number, math.floor), props.precision)
+		return mapBindable(props.value, function(value)
+			local roundedValue = round(value, props.precision)
+			local newDownValue = round(value - props.step, props.precision)
+			local snapDownValue = round(snapToStep(value, math.floor), props.precision)
 			if roundedValue ~= snapDownValue then
 				newDownValue = snapDownValue
 			end
 			return clampValueToRange(newDownValue)
-		end
+		end)
 	end, { props.value, props.step, props.precision, clampValueToRange, snapToStep } :: { unknown })
 
 	local isUpDisabled = React.useMemo(function()
-		return if Flags.FoundationNumberInputBindableValue
-			then mapBindable(props.value, function(value)
-				return props.isDisabled or value == props.maximum
-			end)
-			else props.isDisabled or props.value == props.maximum
+		return mapBindable(props.value, function(value)
+			return props.isDisabled or value == props.maximum
+		end)
 	end, { props.isDisabled, props.value, props.maximum } :: { unknown })
 
 	local isDownDisabled = React.useMemo(function()
-		return if Flags.FoundationNumberInputBindableValue
-			then mapBindable(props.value, function(value)
-				return props.isDisabled or value == props.minimum
-			end)
-			else props.isDisabled or props.value == props.minimum
+		return mapBindable(props.value, function(value)
+			return props.isDisabled or value == props.minimum
+		end)
 	end, { props.isDisabled, props.value, props.minimum } :: { unknown })
 
 	local constrainValue = React.useCallback(function(value: number)
 		return round(math.clamp(value, props.minimum, props.maximum), props.precision)
 	end, { props.minimum, props.maximum, props.precision } :: { unknown })
 
-	local textInput, setTextInput = React.useBinding(
-		props.formatAsString(
-			constrainValue(
-				if Flags.FoundationNumberInputBindableValue
-					then getBindableValue(props.value)
-					else props.value :: number
-			)
-		)
-	)
+	local textInput, setTextInput =
+		React.useBinding(props.formatAsString(constrainValue(getBindableValue(props.value))))
 
 	local width = if props.width
 		then props.width :: UDim
 		else UDim.new(0, NumberInputControlsVariantProps.container.width)
 
-	-- TODO: clean this up with FoundationNumberInputBindableValue
-	-- Get percentage of where the value is between min and max
-	local scrubPercentage = if not Flags.FoundationNumberInputBindableValue
-		then React.useMemo(function()
-			if props.value and props.maximum and props.minimum then
-				local currentValue = clampValueToRange(props.value :: number)
-				if props.maximum == props.minimum then
-					return 1
-				else
-					return (currentValue - props.minimum) / (props.maximum - props.minimum)
-				end
-			end
-			return 0
-		end, { props.value, props.maximum, props.minimum, clampValueToRange } :: { unknown })
-		else nil :: never
-
 	local onFocus = React.useCallback(function()
-		setTextInput(
-			tostring(
-				if Flags.FoundationNumberInputBindableValue
-					then getBindableValue(props.value)
-					else props.value :: number
-			)
-		)
+		setTextInput(tostring(getBindableValue(props.value)))
 
 		if props.onFocusGained then
 			props.onFocusGained()
@@ -290,10 +231,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local onFocusLost = React.useCallback(function(inputObject: InputObject?)
 		setHasInvalidInput(false)
-		valueChanged(
-			if Flags.FoundationNumberInputBindableValue then getBindableValue(props.value) else props.value :: number,
-			OnChangeCallbackReason.FocusLost
-		)
+		valueChanged(getBindableValue(props.value), OnChangeCallbackReason.FocusLost)
 
 		if props.onFocusLost then
 			props.onFocusLost(inputObject)
@@ -317,27 +255,21 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { isFocused, props.onChanged } :: { unknown })
 
 	local onIncrement = React.useCallback(function()
-		if if Flags.FoundationNumberInputBindableValue then getBindableValue(isUpDisabled) else isUpDisabled then
+		if getBindableValue(isUpDisabled) then
 			return
 		end
-		valueChanged(
-			if Flags.FoundationNumberInputBindableValue then getBindableValue(upValue) else upValue :: number,
-			OnChangeCallbackReason.Activate
-		)
+		valueChanged(getBindableValue(upValue), OnChangeCallbackReason.Activate)
 	end, { isUpDisabled, upValue, valueChanged } :: { unknown })
 
 	local onDecrement = React.useCallback(function()
-		if if Flags.FoundationNumberInputBindableValue then getBindableValue(isDownDisabled) else isDownDisabled then
+		if getBindableValue(isDownDisabled) then
 			return
 		end
-		valueChanged(
-			if Flags.FoundationNumberInputBindableValue then getBindableValue(downValue) else downValue :: number,
-			OnChangeCallbackReason.Activate
-		)
+		valueChanged(getBindableValue(downValue), OnChangeCallbackReason.Activate)
 	end, { isDownDisabled, downValue, valueChanged } :: { unknown })
 
 	local controls = React.createElement(NumberInputControls, {
-		variant = if Flags.FoundationNumberInputVariant then props.variant else nil :: never,
+		variant = props.variant,
 		controlsVariant = controlsVariant :: NumberInputControlsVariant,
 		size = props.size,
 		increment = {
@@ -367,7 +299,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		if value then
 			dragStartTable.current = {
 				position = position.X,
-				value = if Flags.FoundationNumberInputBindableValue then getBindableValue(value) else value :: number,
+				value = getBindableValue(value),
 			}
 		end
 	end, { props.value } :: { unknown })
@@ -394,61 +326,38 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	local unfilledStyleTransparency = tokens.Color.Shift.Shift_100.Transparency
 	local scrubbableTransparencySequence = React.useMemo(
 		function()
-			if Flags.FoundationNumberInputBindableValue then
-				return mapBindable(props.value, function(value)
-					local percentageScrubbed = 0
-					if value and props.maximum and props.minimum then
-						local currentValue = clampValueToRange(value)
-						if props.maximum == props.minimum then
-							percentageScrubbed = 1
-						else
-							percentageScrubbed = (currentValue - props.minimum) / (props.maximum - props.minimum)
-						end
+			return mapBindable(props.value, function(value)
+				local percentageScrubbed = 0
+				if value and props.maximum and props.minimum then
+					local currentValue = clampValueToRange(value)
+					if props.maximum == props.minimum then
+						percentageScrubbed = 1
+					else
+						percentageScrubbed = (currentValue - props.minimum) / (props.maximum - props.minimum)
 					end
+				end
 
-					if percentageScrubbed == 0 then
-						return NumberSequence.new(unfilledStyleTransparency)
-					elseif percentageScrubbed == 1 then
-						return NumberSequence.new(filledStyleTransparency)
-					elseif percentageScrubbed > 0 or percentageScrubbed < 1 then
-						local numberSequenceKeypoints = {
-							NumberSequenceKeypoint.new(0, filledStyleTransparency),
-							NumberSequenceKeypoint.new(percentageScrubbed :: number, filledStyleTransparency),
-							NumberSequenceKeypoint.new(
-								math.min((percentageScrubbed :: number) + 0.001, 1),
-								unfilledStyleTransparency
-							),
-						}
-						if percentageScrubbed < 0.999 then
-							table.insert(
-								numberSequenceKeypoints,
-								NumberSequenceKeypoint.new(1, unfilledStyleTransparency)
-							)
-						end
-
-						return NumberSequence.new(numberSequenceKeypoints)
-					end
+				if percentageScrubbed == 0 then
 					return NumberSequence.new(unfilledStyleTransparency)
-				end)
-			else
-				if scrubPercentage == 0 then
-					return NumberSequence.new(unfilledStyleTransparency)
-				elseif scrubPercentage == 1 then
+				elseif percentageScrubbed == 1 then
 					return NumberSequence.new(filledStyleTransparency)
-				elseif scrubPercentage > 0 or scrubPercentage < 1 then
+				elseif percentageScrubbed > 0 or percentageScrubbed < 1 then
 					local numberSequenceKeypoints = {
 						NumberSequenceKeypoint.new(0, filledStyleTransparency),
-						NumberSequenceKeypoint.new(scrubPercentage, filledStyleTransparency),
-						NumberSequenceKeypoint.new(math.min(scrubPercentage + 0.001, 1), unfilledStyleTransparency),
+						NumberSequenceKeypoint.new(percentageScrubbed :: number, filledStyleTransparency),
+						NumberSequenceKeypoint.new(
+							math.min((percentageScrubbed :: number) + 0.001, 1),
+							unfilledStyleTransparency
+						),
 					}
-					if scrubPercentage < 0.999 then
+					if percentageScrubbed < 0.999 then
 						table.insert(numberSequenceKeypoints, NumberSequenceKeypoint.new(1, unfilledStyleTransparency))
 					end
 
 					return NumberSequence.new(numberSequenceKeypoints)
 				end
 				return NumberSequence.new(unfilledStyleTransparency)
-			end
+			end)
 		end,
 		{
 			filledStyleTransparency,
@@ -457,13 +366,11 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			clampValueToRange,
 			props.maximum,
 			props.minimum,
-			if Flags.FoundationNumberInputBindableValue then nil else scrubPercentage,
 		} :: { unknown }
 	)
 
 	React.useEffect(function()
-		local isBindingValue = Flags.FoundationNumberInputBindableValue and ReactIs.isBinding(props.value)
-		if not isFocused() and not isBindingValue then
+		if not isFocused() and not ReactIs.isBinding(props.value) then
 			setTextInput(props.formatAsString(constrainValue(props.value :: number)))
 		end
 	end, { props.value, props.formatAsString, constrainValue, isFocused } :: { unknown })
@@ -477,33 +384,25 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			label = props.label,
 			size = getInputTextSize(props.size),
 			isRequired = props.isRequired,
-			isDisabled = if Flags.FoundationNumberInputDisabledField then props.isDisabled else nil,
+			isDisabled = props.isDisabled,
 			hint = props.hint,
 			textBoxRef = numberInputRef,
 			input = function(inputRef)
 				local isSplitVariant = controlsVariant == NumberInputControlsVariant.Split
 
 				local input = React.createElement(InternalTextInput, {
-					text = (if Flags.FoundationNumberInputBindableValue
-						then joinBindables({
-							text = textInput,
-							value = props.value,
-						}, function(bindables)
-							if isFocused() then
-								return bindables.text
-							else
-								return props.formatAsString(constrainValue(bindables.value))
-							end
-						end)
-						else textInput:map(function(text)
-							if isFocused() then
-								return text
-							else
-								return props.formatAsString(constrainValue(props.value :: number))
-							end
-						end)) :: any, -- TODO: fix in new solver?
+					text = joinBindables({
+						text = textInput,
+						value = props.value,
+					}, function(bindables)
+						if isFocused() then
+							return bindables.text
+						else
+							return props.formatAsString(constrainValue(bindables.value))
+						end
+					end) :: any, -- TODO: fix in new solver?,
 					hasError = hasError,
-					variant = if Flags.FoundationNumberInputVariant then props.variant else nil,
+					variant = props.variant,
 					size = props.size,
 					Selectable = (if Flags.FoundationInputSelectionProps then props.Selectable else nil) :: any,
 					NextSelectionUp = (
@@ -519,9 +418,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 							if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil
 						) :: any,
 					horizontalPadding = {
-						left = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding,
+						left = variantProps.container.horizontalPadding,
 					},
 					focusBehavior = numberInputProps.focusBehavior,
 					onChanged = onTextChanged,

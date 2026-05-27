@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local InputLabel = require(Foundation.Components.InputLabel)
 local View = require(Foundation.Components.View)
 
@@ -24,7 +23,7 @@ local function Story(props)
 				Text = controls.Text,
 				size = size,
 				isRequired = controls.isRequired,
-				isDisabled = if Flags.FoundationInputFieldFixDisabled then controls.isDisabled else nil,
+				isDisabled = controls.isDisabled,
 				RichText = controls.RichText,
 				LayoutOrder = index,
 			})
@@ -38,7 +37,7 @@ return {
 	controls = {
 		Text = "Input label",
 		isRequired = { React.None, false, true },
-		isDisabled = if Flags.FoundationInputFieldFixDisabled then false else nil,
+		isDisabled = false,
 		RichText = false,
 	},
 }

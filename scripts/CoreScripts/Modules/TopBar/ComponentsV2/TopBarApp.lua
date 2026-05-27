@@ -40,6 +40,7 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 
 -- Components 
@@ -181,13 +182,13 @@ local function TopBarApp(props: TopBarProps)
 				Position = UDim2.new(0, screenSideOffset, 0, topBarTopMargin),
 				Visible = showTopBar,
 			}, {
-				MenuIcon = React.createElement(SelectionCursorProvider, {}, {
+				MenuIcon = if not FFlagEnableSideSheet then React.createElement(SelectionCursorProvider, {}, {
 					Icon = React.createElement(MenuIcon, {
 						showBadgeOver12 = showBadgeOver12,
 						menuIconRef = menuIconRef,
 						unibarMenuRef = unibarMenuRef,
 					}),
-				}),
+				}) else nil,
 				TraversalBackButton = if FFlagAddTraversalBackButton then React.createElement(TraversalBackButton) else nil,
 				UnibarFrame = React.createElement(MenuIconContext.Provider, {
 					value = {

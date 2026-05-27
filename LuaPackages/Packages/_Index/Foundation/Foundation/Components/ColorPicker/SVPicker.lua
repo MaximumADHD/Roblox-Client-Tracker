@@ -10,8 +10,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps
 
@@ -70,7 +68,7 @@ local function SVPicker(svPickerProps: SVPickerProps)
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			tag = if Flags.FoundationColorPickerDesignUpdate then "size-full radius-small" else "size-full",
+			tag = "size-full radius-small",
 			ref = pickerRef,
 			ClipsDescendants = true,
 		}),
@@ -116,7 +114,7 @@ local function SVPicker(svPickerProps: SVPickerProps)
 			}),
 			Knob = if props.showSelectionKnob
 				then React.createElement(Knob, {
-					size = if Flags.FoundationColorPickerDesignUpdate then InputSize.Medium else InputSize.Large,
+					size = InputSize.Medium,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = React.joinBindings({ saturation, value }):map(function(values)
 						local s, v = values[1], values[2]

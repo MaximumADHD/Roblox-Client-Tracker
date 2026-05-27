@@ -8,7 +8,6 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Checkbox = require(Foundation.Components.Checkbox)
 local Dialog = require(Foundation.Components.Dialog)
 local DialogSize = require(Foundation.Enums.DialogSize)
-local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local InputSize = require(Foundation.Enums.InputSize)
 local List = require(Foundation.Components.List)
@@ -115,9 +114,7 @@ function CustomMedia(props: {
 	aspectRatio: number?,
 })
 	return React.createElement(View, {
-		tag = `row align-x-center size-full-0 auto-y {if Flags.FoundationDialogBodyUpdate
-			then "padding-top-large"
-			else ""}`,
+		tag = "row align-x-center size-full-0 auto-y",
 	}, {
 		Image = React.createElement(Image, {
 			tag = {

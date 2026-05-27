@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -62,14 +61,9 @@ local function Story(props)
 			LayoutOrder = 1,
 			text = text,
 			textInputType = if controls.textInputType == React.None then nil else controls.textInputType,
-			focusBehavior = if Flags.FoundationTextInputFocusBehavior and controls.focusBehavior ~= React.None
-				then controls.focusBehavior
-				else nil,
-			hasClearButton = if not Flags.FoundationInternalTextInputClearButton
-					or controls.hasClearButton == React.None
-				then nil
-				else controls.hasClearButton,
-			variant = if Flags.FoundationTextInputVariant then controls.variant else nil,
+			focusBehavior = if controls.focusBehavior ~= React.None then controls.focusBehavior else nil,
+			hasClearButton = if controls.hasClearButton == React.None then nil else controls.hasClearButton,
+			variant = controls.variant,
 			hasError = controls.hasError,
 			isDisabled = controls.isDisabled,
 			isRequired = controls.isRequired,
@@ -126,17 +120,15 @@ return {
 		hasError = false,
 		isDisabled = false,
 		isRequired = { React.None, false, true },
-		focusBehavior = if Flags.FoundationTextInputFocusBehavior
-			then { React.None, unpack(Dash.values(InputFocusBehavior)) }
-			else nil,
-		hasClearButton = if Flags.FoundationInternalTextInputClearButton then { React.None, false, true } else nil,
+		focusBehavior = { React.None, unpack(Dash.values(InputFocusBehavior)) },
+		hasClearButton = { React.None, false, true },
 		textInputType = {
 			React.None,
 			Enum.TextInputType.Default,
 			Enum.TextInputType.Password,
 			Enum.TextInputType.Number,
 		},
-		variant = if Flags.FoundationTextInputVariant then Dash.values(InputVariant) else nil,
+		variant = Dash.values(InputVariant),
 		size = Dash.values(InputSize),
 		label = "Input Label",
 		hint = "Helper text goes here",

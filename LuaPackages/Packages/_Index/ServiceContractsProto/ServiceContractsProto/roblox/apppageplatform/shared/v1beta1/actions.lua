@@ -113,6 +113,8 @@ type _Messages =
 		OpenPurchasePromptAction_PurchaseAnalyticsMetadata: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataMessage,
 		OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralMessage,
 		OpenPurchasePromptAction_Params: _OpenPurchasePromptAction_ParamsMessage,
+		ReportSurfaceLoadTimeMilestoneAction: _ReportSurfaceLoadTimeMilestoneActionMessage,
+		ReportSurfaceLoadTimeMilestoneAction_Params: _ReportSurfaceLoadTimeMilestoneAction_ParamsMessage,
 		DismissGameFeedbackAction: _DismissGameFeedbackActionMessage,
 		DismissGameFeedbackAction_Params: _DismissGameFeedbackAction_ParamsMessage,
 		OpenGameFeedbackFormAction: _OpenGameFeedbackFormActionMessage,
@@ -123,6 +125,8 @@ type _Messages =
 		DismissEventNotificationsModalAction_Params: _DismissEventNotificationsModalAction_ParamsMessage,
 		OpenAmpWizardAction: _OpenAmpWizardActionMessage,
 		OpenAmpWizardAction_Params: _OpenAmpWizardAction_ParamsMessage,
+		OpenSocialProofUserListSheetAction: _OpenSocialProofUserListSheetActionMessage,
+		OpenSocialProofUserListSheetAction_Params: _OpenSocialProofUserListSheetAction_ParamsMessage,
 		Action: _ActionMessage,
 		ActionProp: _ActionPropMessage,
 		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -2087,11 +2091,33 @@ type _OpenSubscriptionPurchasePageAction_ParamsImpl = {
 type _OpenSubscriptionPurchasePageAction_ParamsFields = {
 	subscription_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	creator_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	creator_verified: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	period_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_subscribed: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	price_display: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	price_tier: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	thumbnail_string: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _OpenSubscriptionPurchasePageAction_ParamsPartialFields = {
 	subscription_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	creator_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	creator_verified: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	period_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_subscribed: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	price_display: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	price_tier: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	thumbnail_string: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type OpenSubscriptionPurchasePageAction_Params = typeof(setmetatable(
@@ -3163,6 +3189,66 @@ type _OpenPurchasePromptAction_ParamsMessage = proto.Message<
 	_OpenPurchasePromptAction_ParamsPartialFields
 >
 
+type _ReportSurfaceLoadTimeMilestoneActionImpl = {
+	__index: _ReportSurfaceLoadTimeMilestoneActionImpl,
+	new: (fields: _ReportSurfaceLoadTimeMilestoneActionPartialFields?) -> ReportSurfaceLoadTimeMilestoneAction,
+	encode: (self: ReportSurfaceLoadTimeMilestoneAction) -> buffer,
+	decode: (input: buffer) -> ReportSurfaceLoadTimeMilestoneAction,
+	jsonEncode: (self: ReportSurfaceLoadTimeMilestoneAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ReportSurfaceLoadTimeMilestoneAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ReportSurfaceLoadTimeMilestoneActionFields = {
+	action_type: ActionType,
+	action_params: ReportSurfaceLoadTimeMilestoneAction_Params?,
+}
+
+type _ReportSurfaceLoadTimeMilestoneActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ReportSurfaceLoadTimeMilestoneAction_Params?,
+}
+
+export type ReportSurfaceLoadTimeMilestoneAction = typeof(setmetatable(
+	{} :: _ReportSurfaceLoadTimeMilestoneActionFields,
+	{} :: _ReportSurfaceLoadTimeMilestoneActionImpl
+))
+type _ReportSurfaceLoadTimeMilestoneActionMessage = proto.Message<
+	ReportSurfaceLoadTimeMilestoneAction,
+	_ReportSurfaceLoadTimeMilestoneActionPartialFields
+>
+
+type _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl = {
+	__index: _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl,
+	new: (
+		fields: _ReportSurfaceLoadTimeMilestoneAction_ParamsPartialFields?
+	) -> ReportSurfaceLoadTimeMilestoneAction_Params,
+	encode: (self: ReportSurfaceLoadTimeMilestoneAction_Params) -> buffer,
+	decode: (input: buffer) -> ReportSurfaceLoadTimeMilestoneAction_Params,
+	jsonEncode: (self: ReportSurfaceLoadTimeMilestoneAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ReportSurfaceLoadTimeMilestoneAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ReportSurfaceLoadTimeMilestoneAction_ParamsFields = {
+	milestone: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	metadata: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+type _ReportSurfaceLoadTimeMilestoneAction_ParamsPartialFields = {
+	milestone: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	metadata: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+}
+
+export type ReportSurfaceLoadTimeMilestoneAction_Params = typeof(setmetatable(
+	{} :: _ReportSurfaceLoadTimeMilestoneAction_ParamsFields,
+	{} :: _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl
+))
+type _ReportSurfaceLoadTimeMilestoneAction_ParamsMessage = proto.Message<
+	ReportSurfaceLoadTimeMilestoneAction_Params,
+	_ReportSurfaceLoadTimeMilestoneAction_ParamsPartialFields
+>
+
 type _DismissGameFeedbackActionImpl = {
 	__index: _DismissGameFeedbackActionImpl,
 	new: (fields: _DismissGameFeedbackActionPartialFields?) -> DismissGameFeedbackAction,
@@ -3451,6 +3537,72 @@ type _OpenAmpWizardAction_ParamsMessage = proto.Message<
 	_OpenAmpWizardAction_ParamsPartialFields
 >
 
+type _OpenSocialProofUserListSheetActionImpl = {
+	__index: _OpenSocialProofUserListSheetActionImpl,
+	new: (fields: _OpenSocialProofUserListSheetActionPartialFields?) -> OpenSocialProofUserListSheetAction,
+	encode: (self: OpenSocialProofUserListSheetAction) -> buffer,
+	decode: (input: buffer) -> OpenSocialProofUserListSheetAction,
+	jsonEncode: (self: OpenSocialProofUserListSheetAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSocialProofUserListSheetAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSocialProofUserListSheetActionFields = {
+	action_type: ActionType,
+	action_params: OpenSocialProofUserListSheetAction_Params?,
+}
+
+type _OpenSocialProofUserListSheetActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSocialProofUserListSheetAction_Params?,
+}
+
+export type OpenSocialProofUserListSheetAction = typeof(setmetatable(
+	{} :: _OpenSocialProofUserListSheetActionFields,
+	{} :: _OpenSocialProofUserListSheetActionImpl
+))
+type _OpenSocialProofUserListSheetActionMessage = proto.Message<
+	OpenSocialProofUserListSheetAction,
+	_OpenSocialProofUserListSheetActionPartialFields
+>
+
+type _OpenSocialProofUserListSheetAction_ParamsImpl = {
+	__index: _OpenSocialProofUserListSheetAction_ParamsImpl,
+	new: (
+		fields: _OpenSocialProofUserListSheetAction_ParamsPartialFields?
+	) -> OpenSocialProofUserListSheetAction_Params,
+	encode: (self: OpenSocialProofUserListSheetAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSocialProofUserListSheetAction_Params,
+	jsonEncode: (self: OpenSocialProofUserListSheetAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSocialProofUserListSheetAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSocialProofUserListSheetAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	total_connections: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	user_ids: _roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfAvatarProp?,
+	sheet_title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenSocialProofUserListSheetAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	total_connections: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	user_ids: _roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfAvatarProp?,
+	sheet_title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenSocialProofUserListSheetAction_Params = typeof(setmetatable(
+	{} :: _OpenSocialProofUserListSheetAction_ParamsFields,
+	{} :: _OpenSocialProofUserListSheetAction_ParamsImpl
+))
+type _OpenSocialProofUserListSheetAction_ParamsMessage = proto.Message<
+	OpenSocialProofUserListSheetAction_Params,
+	_OpenSocialProofUserListSheetAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -3515,6 +3667,8 @@ type _ActionFields = {
 		| { type: "open_subscription_purchase_page_action", value: OpenSubscriptionPurchasePageAction }
 		| { type: "refresh_game_passes_action", value: RefreshGamePassesAction }
 		| { type: "refresh_playability_action", value: RefreshPlayabilityAction }
+		| { type: "open_social_proof_user_list_sheet_action", value: OpenSocialProofUserListSheetAction }
+		| { type: "report_surface_load_time_milestone_action", value: ReportSurfaceLoadTimeMilestoneAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -3574,6 +3728,8 @@ type _ActionPartialFields = {
 		| { type: "open_subscription_purchase_page_action", value: OpenSubscriptionPurchasePageAction }
 		| { type: "refresh_game_passes_action", value: RefreshGamePassesAction }
 		| { type: "refresh_playability_action", value: RefreshPlayabilityAction }
+		| { type: "open_social_proof_user_list_sheet_action", value: OpenSocialProofUserListSheetAction }
+		| { type: "report_surface_load_time_milestone_action", value: ReportSurfaceLoadTimeMilestoneAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -3888,6 +4044,8 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_SUBSCRIPTION_PURCHASE_PAGE"
 	| "ACTION_TYPE_REFRESH_GAME_PASSES"
 	| "ACTION_TYPE_REFRESH_PLAYABILITY"
+	| "ACTION_TYPE_OPEN_SOCIAL_PROOF_USER_LIST_SHEET"
+	| "ACTION_TYPE_REPORT_SURFACE_LOAD_TIME_MILESTONE"
 	| number -- Unknown
 
 do
@@ -13589,6 +13747,17 @@ do
 		return setmetatable({
 			subscription_id = if data == nil or data.subscription_id == nil then nil else data.subscription_id,
 			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			creator_name = if data == nil or data.creator_name == nil then nil else data.creator_name,
+			creator_verified = if data == nil or data.creator_verified == nil then nil else data.creator_verified,
+			name = if data == nil or data.name == nil then nil else data.name,
+			description = if data == nil or data.description == nil then nil else data.description,
+			image_asset_id = if data == nil or data.image_asset_id == nil then nil else data.image_asset_id,
+			period_type = if data == nil or data.period_type == nil then nil else data.period_type,
+			is_subscribed = if data == nil or data.is_subscribed == nil then nil else data.is_subscribed,
+			price_display = if data == nil or data.price_display == nil then nil else data.price_display,
+			price_in_robux = if data == nil or data.price_in_robux == nil then nil else data.price_in_robux,
+			price_tier = if data == nil or data.price_tier == nil then nil else data.price_tier,
+			thumbnail_string = if data == nil or data.thumbnail_string == nil then nil else data.thumbnail_string,
 		}, _OpenSubscriptionPurchasePageAction_ParamsImpl :: _OpenSubscriptionPurchasePageAction_ParamsImpl)
 	end
 
@@ -13607,6 +13776,72 @@ do
 		if self.universe_id ~= nil then
 			local encoded = self.universe_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.creator_name ~= nil then
+			local encoded = self.creator_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.creator_verified ~= nil then
+			local encoded = self.creator_verified:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.name ~= nil then
+			local encoded = self.name:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.description ~= nil then
+			local encoded = self.description:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_asset_id ~= nil then
+			local encoded = self.image_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.period_type ~= nil then
+			local encoded = self.period_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_subscribed ~= nil then
+			local encoded = self.is_subscribed:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_display ~= nil then
+			local encoded = self.price_display:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_in_robux ~= nil then
+			local encoded = self.price_in_robux:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_tier ~= nil then
+			local encoded = self.price_tier:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.thumbnail_string ~= nil then
+			local encoded = self.thumbnail_string:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -13640,6 +13875,61 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_verified = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.period_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_subscribed = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_display = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_in_robux = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_tier = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.thumbnail_string = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -13678,6 +13968,50 @@ do
 			output.universeId = self.universe_id:jsonEncode()
 		end
 
+		if self.creator_name ~= nil then
+			output.creatorName = self.creator_name:jsonEncode()
+		end
+
+		if self.creator_verified ~= nil then
+			output.creatorVerified = self.creator_verified:jsonEncode()
+		end
+
+		if self.name ~= nil then
+			output.name = self.name:jsonEncode()
+		end
+
+		if self.description ~= nil then
+			output.description = self.description:jsonEncode()
+		end
+
+		if self.image_asset_id ~= nil then
+			output.imageAssetId = self.image_asset_id:jsonEncode()
+		end
+
+		if self.period_type ~= nil then
+			output.periodType = self.period_type:jsonEncode()
+		end
+
+		if self.is_subscribed ~= nil then
+			output.isSubscribed = self.is_subscribed:jsonEncode()
+		end
+
+		if self.price_display ~= nil then
+			output.priceDisplay = self.price_display:jsonEncode()
+		end
+
+		if self.price_in_robux ~= nil then
+			output.priceInRobux = self.price_in_robux:jsonEncode()
+		end
+
+		if self.price_tier ~= nil then
+			output.priceTier = self.price_tier:jsonEncode()
+		end
+
+		if self.thumbnail_string ~= nil then
+			output.thumbnailString = self.thumbnail_string:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -13703,6 +14037,102 @@ do
 
 		if input.universeId ~= nil then
 			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.creator_name ~= nil then
+			self.creator_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.creator_name)
+		end
+
+		if input.creatorName ~= nil then
+			self.creator_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.creatorName)
+		end
+
+		if input.creator_verified ~= nil then
+			self.creator_verified =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.creator_verified)
+		end
+
+		if input.creatorVerified ~= nil then
+			self.creator_verified =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.creatorVerified)
+		end
+
+		if input.name ~= nil then
+			self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.name)
+		end
+
+		if input.description ~= nil then
+			self.description =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.description)
+		end
+
+		if input.image_asset_id ~= nil then
+			self.image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.image_asset_id)
+		end
+
+		if input.imageAssetId ~= nil then
+			self.image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.imageAssetId)
+		end
+
+		if input.period_type ~= nil then
+			self.period_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.period_type)
+		end
+
+		if input.periodType ~= nil then
+			self.period_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.periodType)
+		end
+
+		if input.is_subscribed ~= nil then
+			self.is_subscribed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_subscribed)
+		end
+
+		if input.isSubscribed ~= nil then
+			self.is_subscribed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isSubscribed)
+		end
+
+		if input.price_display ~= nil then
+			self.price_display =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.price_display)
+		end
+
+		if input.priceDisplay ~= nil then
+			self.price_display =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.priceDisplay)
+		end
+
+		if input.price_in_robux ~= nil then
+			self.price_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.price_in_robux)
+		end
+
+		if input.priceInRobux ~= nil then
+			self.price_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.priceInRobux)
+		end
+
+		if input.price_tier ~= nil then
+			self.price_tier = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.price_tier)
+		end
+
+		if input.priceTier ~= nil then
+			self.price_tier = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.priceTier)
+		end
+
+		if input.thumbnail_string ~= nil then
+			self.thumbnail_string =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.thumbnail_string)
+		end
+
+		if input.thumbnailString ~= nil then
+			self.thumbnail_string =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.thumbnailString)
 		end
 
 		return self
@@ -19197,6 +19627,283 @@ do
 end
 
 do
+	local _ReportSurfaceLoadTimeMilestoneActionImpl = {}
+	_ReportSurfaceLoadTimeMilestoneActionImpl.__index = _ReportSurfaceLoadTimeMilestoneActionImpl
+
+	function _ReportSurfaceLoadTimeMilestoneActionImpl.new(
+		data: _ReportSurfaceLoadTimeMilestoneActionPartialFields?
+	): ReportSurfaceLoadTimeMilestoneAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ReportSurfaceLoadTimeMilestoneActionImpl :: _ReportSurfaceLoadTimeMilestoneActionImpl)
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneActionImpl.encode(self: ReportSurfaceLoadTimeMilestoneAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneActionImpl.decode(input: buffer): ReportSurfaceLoadTimeMilestoneAction
+		local self = _ReportSurfaceLoadTimeMilestoneActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ReportSurfaceLoadTimeMilestoneAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneActionImpl.jsonEncode(self: ReportSurfaceLoadTimeMilestoneAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneActionImpl.jsonDecode(
+		input: { [string]: any }
+	): ReportSurfaceLoadTimeMilestoneAction
+		local self = _ReportSurfaceLoadTimeMilestoneActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ReportSurfaceLoadTimeMilestoneAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ReportSurfaceLoadTimeMilestoneAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ReportSurfaceLoadTimeMilestoneActionImpl.descriptor = {
+		name = "ReportSurfaceLoadTimeMilestoneAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ReportSurfaceLoadTimeMilestoneAction",
+	}
+
+	messages.ReportSurfaceLoadTimeMilestoneAction = _ReportSurfaceLoadTimeMilestoneActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ReportSurfaceLoadTimeMilestoneAction)
+end
+
+do
+	local _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl = {}
+	_ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.__index = _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl
+
+	function _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.new(
+		data: _ReportSurfaceLoadTimeMilestoneAction_ParamsPartialFields?
+	): ReportSurfaceLoadTimeMilestoneAction_Params
+		return setmetatable({
+			milestone = if data == nil or data.milestone == nil then nil else data.milestone,
+			metadata = if data == nil or data.metadata == nil then nil else data.metadata,
+		}, _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl :: _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl)
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.encode(
+		self: ReportSurfaceLoadTimeMilestoneAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.milestone ~= nil then
+			local encoded = self.milestone:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.metadata ~= nil then
+			local encoded = self.metadata:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.decode(
+		input: buffer
+	): ReportSurfaceLoadTimeMilestoneAction_Params
+		local self = _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.milestone = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.metadata = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.jsonEncode(
+		self: ReportSurfaceLoadTimeMilestoneAction_Params
+	): any
+		local output = {}
+
+		if self.milestone ~= nil then
+			output.milestone = self.milestone:jsonEncode()
+		end
+
+		if self.metadata ~= nil then
+			output.metadata = self.metadata:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ReportSurfaceLoadTimeMilestoneAction_Params
+		local self = _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.new()
+
+		if input.milestone ~= nil then
+			self.milestone = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.milestone)
+		end
+
+		if input.metadata ~= nil then
+			self.metadata = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.metadata)
+		end
+
+		return self
+	end
+
+	_ReportSurfaceLoadTimeMilestoneAction_ParamsImpl.descriptor = {
+		name = "ReportSurfaceLoadTimeMilestoneAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ReportSurfaceLoadTimeMilestoneAction_Params = _ReportSurfaceLoadTimeMilestoneAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ReportSurfaceLoadTimeMilestoneAction_Params)
+end
+
+do
 	local _DismissGameFeedbackActionImpl = {}
 	_DismissGameFeedbackActionImpl.__index = _DismissGameFeedbackActionImpl
 
@@ -20629,6 +21336,369 @@ do
 end
 
 do
+	local _OpenSocialProofUserListSheetActionImpl = {}
+	_OpenSocialProofUserListSheetActionImpl.__index = _OpenSocialProofUserListSheetActionImpl
+
+	function _OpenSocialProofUserListSheetActionImpl.new(
+		data: _OpenSocialProofUserListSheetActionPartialFields?
+	): OpenSocialProofUserListSheetAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSocialProofUserListSheetActionImpl :: _OpenSocialProofUserListSheetActionImpl)
+	end
+
+	function _OpenSocialProofUserListSheetActionImpl.encode(self: OpenSocialProofUserListSheetAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSocialProofUserListSheetActionImpl.decode(input: buffer): OpenSocialProofUserListSheetAction
+		local self = _OpenSocialProofUserListSheetActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSocialProofUserListSheetAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSocialProofUserListSheetActionImpl.jsonEncode(self: OpenSocialProofUserListSheetAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSocialProofUserListSheetActionImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenSocialProofUserListSheetAction
+		local self = _OpenSocialProofUserListSheetActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSocialProofUserListSheetAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSocialProofUserListSheetAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSocialProofUserListSheetActionImpl.descriptor = {
+		name = "OpenSocialProofUserListSheetAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSocialProofUserListSheetAction",
+	}
+
+	messages.OpenSocialProofUserListSheetAction = _OpenSocialProofUserListSheetActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSocialProofUserListSheetAction)
+end
+
+do
+	local _OpenSocialProofUserListSheetAction_ParamsImpl = {}
+	_OpenSocialProofUserListSheetAction_ParamsImpl.__index = _OpenSocialProofUserListSheetAction_ParamsImpl
+
+	function _OpenSocialProofUserListSheetAction_ParamsImpl.new(
+		data: _OpenSocialProofUserListSheetAction_ParamsPartialFields?
+	): OpenSocialProofUserListSheetAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			total_connections = if data == nil or data.total_connections == nil then nil else data.total_connections,
+			user_ids = if data == nil or data.user_ids == nil then nil else data.user_ids,
+			sheet_title = if data == nil or data.sheet_title == nil then nil else data.sheet_title,
+		}, _OpenSocialProofUserListSheetAction_ParamsImpl :: _OpenSocialProofUserListSheetAction_ParamsImpl)
+	end
+
+	function _OpenSocialProofUserListSheetAction_ParamsImpl.encode(
+		self: OpenSocialProofUserListSheetAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.total_connections ~= nil then
+			local encoded = self.total_connections:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.user_ids ~= nil then
+			local encoded = self.user_ids:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sheet_title ~= nil then
+			local encoded = self.sheet_title:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSocialProofUserListSheetAction_ParamsImpl.decode(
+		input: buffer
+	): OpenSocialProofUserListSheetAction_Params
+		local self = _OpenSocialProofUserListSheetAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.total_connections = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_ids = _roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfAvatarProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sheet_title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSocialProofUserListSheetAction_ParamsImpl.jsonEncode(
+		self: OpenSocialProofUserListSheetAction_Params
+	): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.total_connections ~= nil then
+			output.totalConnections = self.total_connections:jsonEncode()
+		end
+
+		if self.user_ids ~= nil then
+			output.userIds = self.user_ids:jsonEncode()
+		end
+
+		if self.sheet_title ~= nil then
+			output.sheetTitle = self.sheet_title:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSocialProofUserListSheetAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenSocialProofUserListSheetAction_Params
+		local self = _OpenSocialProofUserListSheetAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.total_connections ~= nil then
+			self.total_connections =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.total_connections)
+		end
+
+		if input.totalConnections ~= nil then
+			self.total_connections =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.totalConnections)
+		end
+
+		if input.user_ids ~= nil then
+			self.user_ids =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfAvatarProp.jsonDecode(input.user_ids)
+		end
+
+		if input.userIds ~= nil then
+			self.user_ids =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfAvatarProp.jsonDecode(input.userIds)
+		end
+
+		if input.sheet_title ~= nil then
+			self.sheet_title =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sheet_title)
+		end
+
+		if input.sheetTitle ~= nil then
+			self.sheet_title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sheetTitle)
+		end
+
+		return self
+	end
+
+	_OpenSocialProofUserListSheetAction_ParamsImpl.descriptor = {
+		name = "OpenSocialProofUserListSheetAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSocialProofUserListSheetAction_Params = _OpenSocialProofUserListSheetAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSocialProofUserListSheetAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -20854,6 +21924,14 @@ do
 			elseif self.kind.type == "refresh_playability_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 52, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_social_proof_user_list_sheet_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 53, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "report_surface_load_time_milestone_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 54, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -21240,6 +22318,22 @@ do
 					self.kind =
 						{ type = "refresh_playability_action", value = messages.RefreshPlayabilityAction.decode(value) }
 					continue
+				elseif field == 53 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_social_proof_user_list_sheet_action",
+						value = messages.OpenSocialProofUserListSheetAction.decode(value),
+					}
+					continue
+				elseif field == 54 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "report_surface_load_time_milestone_action",
+						value = messages.ReportSurfaceLoadTimeMilestoneAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -21383,6 +22477,10 @@ do
 				output.refreshGamePassesAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "refresh_playability_action" then
 				output.refreshPlayabilityAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_social_proof_user_list_sheet_action" then
+				output.openSocialProofUserListSheetAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "report_surface_load_time_milestone_action" then
+				output.reportSurfaceLoadTimeMilestoneAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -22119,6 +23217,42 @@ do
 			self.kind = {
 				type = "refresh_playability_action",
 				value = messages.RefreshPlayabilityAction.jsonDecode(input.refreshPlayabilityAction),
+			}
+		end
+
+		if input.open_social_proof_user_list_sheet_action ~= nil then
+			self.kind = {
+				type = "open_social_proof_user_list_sheet_action",
+				value = messages.OpenSocialProofUserListSheetAction.jsonDecode(
+					input.open_social_proof_user_list_sheet_action
+				),
+			}
+		end
+
+		if input.openSocialProofUserListSheetAction ~= nil then
+			self.kind = {
+				type = "open_social_proof_user_list_sheet_action",
+				value = messages.OpenSocialProofUserListSheetAction.jsonDecode(
+					input.openSocialProofUserListSheetAction
+				),
+			}
+		end
+
+		if input.report_surface_load_time_milestone_action ~= nil then
+			self.kind = {
+				type = "report_surface_load_time_milestone_action",
+				value = messages.ReportSurfaceLoadTimeMilestoneAction.jsonDecode(
+					input.report_surface_load_time_milestone_action
+				),
+			}
+		end
+
+		if input.reportSurfaceLoadTimeMilestoneAction ~= nil then
+			self.kind = {
+				type = "report_surface_load_time_milestone_action",
+				value = messages.ReportSurfaceLoadTimeMilestoneAction.jsonDecode(
+					input.reportSurfaceLoadTimeMilestoneAction
+				),
 			}
 		end
 
@@ -23400,6 +24534,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_REFRESH_GAME_PASSES"
 		elseif value == 52 then
 			return "ACTION_TYPE_REFRESH_PLAYABILITY"
+		elseif value == 53 then
+			return "ACTION_TYPE_OPEN_SOCIAL_PROOF_USER_LIST_SHEET"
+		elseif value == 54 then
+			return "ACTION_TYPE_REPORT_SURFACE_LOAD_TIME_MILESTONE"
 		else
 			return nil
 		end
@@ -23512,6 +24650,10 @@ messages.ActionType = {
 			return 51
 		elseif self == "ACTION_TYPE_REFRESH_PLAYABILITY" then
 			return 52
+		elseif self == "ACTION_TYPE_OPEN_SOCIAL_PROOF_USER_LIST_SHEET" then
+			return 53
+		elseif self == "ACTION_TYPE_REPORT_SURFACE_LOAD_TIME_MILESTONE" then
+			return 54
 		else
 			return self
 		end
@@ -23624,6 +24766,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_REFRESH_GAME_PASSES"
 		elseif name == "ACTION_TYPE_REFRESH_PLAYABILITY" then
 			return "ACTION_TYPE_REFRESH_PLAYABILITY"
+		elseif name == "ACTION_TYPE_OPEN_SOCIAL_PROOF_USER_LIST_SHEET" then
+			return "ACTION_TYPE_OPEN_SOCIAL_PROOF_USER_LIST_SHEET"
+		elseif name == "ACTION_TYPE_REPORT_SURFACE_LOAD_TIME_MILESTONE" then
+			return "ACTION_TYPE_REPORT_SURFACE_LOAD_TIME_MILESTONE"
 		else
 			return nil
 		end
@@ -23736,6 +24882,8 @@ return {
 	OpenPurchasePromptAction_PurchaseAnalyticsMetadata = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata,
 	OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
 	OpenPurchasePromptAction_Params = messages.OpenPurchasePromptAction_Params,
+	ReportSurfaceLoadTimeMilestoneAction = messages.ReportSurfaceLoadTimeMilestoneAction,
+	ReportSurfaceLoadTimeMilestoneAction_Params = messages.ReportSurfaceLoadTimeMilestoneAction_Params,
 	DismissGameFeedbackAction = messages.DismissGameFeedbackAction,
 	DismissGameFeedbackAction_Params = messages.DismissGameFeedbackAction_Params,
 	OpenGameFeedbackFormAction = messages.OpenGameFeedbackFormAction,
@@ -23746,6 +24894,8 @@ return {
 	DismissEventNotificationsModalAction_Params = messages.DismissEventNotificationsModalAction_Params,
 	OpenAmpWizardAction = messages.OpenAmpWizardAction,
 	OpenAmpWizardAction_Params = messages.OpenAmpWizardAction_Params,
+	OpenSocialProofUserListSheetAction = messages.OpenSocialProofUserListSheetAction,
+	OpenSocialProofUserListSheetAction_Params = messages.OpenSocialProofUserListSheetAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

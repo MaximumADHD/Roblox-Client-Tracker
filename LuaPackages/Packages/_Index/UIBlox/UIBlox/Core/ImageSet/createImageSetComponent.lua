@@ -12,8 +12,6 @@ local useTextSizeOffset = Foundation.Hooks.useTextSizeOffset
 local scaleSliceToResolution = require(UIBlox.App.ImageSet.scaleSliceToResolution)
 local ImagesInverse = require(UIBlox.App.ImageSet.ImagesInverse)
 local getBuilderIconElement = require(ImageSet.getBuilderIconElement)
-local FoundationImages = require(Packages.FoundationImages)
-local FoundationImagesFlags = FoundationImages.Flags
 
 return function(innerComponent, resolutionScale)
 	assert(
@@ -33,9 +31,7 @@ return function(innerComponent, resolutionScale)
 
 		for key, value in pairs(props) do
 			if key == "Image" and typeof(value) == "table" then
-				if
-					FoundationImagesFlags.FoundationImagesRemoveDeprecatedIconAssets and migrationLookup[value.Image]
-				then
+				if migrationLookup[value.Image] then
 					usesDeprecatedIconAsset = true
 					deprecatedImageName = value.Image
 				else

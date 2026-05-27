@@ -14,6 +14,7 @@ local RoactServices = require(CorePackages.Workspace.Packages.RoactServices).Roa
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 local FocusRoot = FocusNavigationUtils.FocusRoot
+local useRegistryEntry = FocusNavigationUtils.FocusNavigableSurfaceRegistry.useRegistryEntry
 local DynamicReportInExpContainer =
 	require(CorePackages.Workspace.Packages.GenericAbuseReporting.DynamicReportInExpContainer)
 
@@ -52,6 +53,11 @@ local function AbuseReportMenuContent(props: Props)
 	local isReportTabVisible, setIsReportTabVisible = React.useState(false)
 	local preselectedPlayer: Player?, setPreselectedPlayer = React.useState(nil :: Player?)
 
+	-- Yield RouterView focus when an InExp modal (CentralOverlay) is open so the two
+	-- FocusRoots don't fight for gamepad selection.
+	local centralOverlay = useRegistryEntry(FocusNavigableSurfaceIdentifierEnum.CentralOverlay)
+	local isFocusable = centralOverlay == nil
+
 	React.useEffect(function()
 		props.registerOnReportTabHidden(function()
 			setIsReportTabVisible(false)
@@ -76,6 +82,7 @@ local function AbuseReportMenuContent(props: Props)
 			frameProps = {
 				Size = UDim2.new(1, 0, 1, 0),
 			},
+			isFocusable = isFocusable,
 			isAutoFocusRoot = true,
 			isIsolated = true,
 			surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,

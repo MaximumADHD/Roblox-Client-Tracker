@@ -71,7 +71,7 @@ local function shouldChangeBreakpoint(
 	end
 end
 
-local function useBreakpoint(instance: GuiObject?, options: UseBreakpointOptions?): (Breakpoint, Vector2)
+local function useBreakpoint(instance: GuiBase2d?, options: UseBreakpointOptions?): (Breakpoint, Vector2)
 	local resolvedOptions = withDefaults(options or {}, {
 		throttleTime = Constants.DEFAULT_DELAY_TIME,
 	})

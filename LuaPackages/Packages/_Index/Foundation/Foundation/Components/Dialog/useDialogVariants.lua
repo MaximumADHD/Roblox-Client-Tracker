@@ -59,9 +59,7 @@ local function variantsFactory(tokens: Tokens)
 			tag = "shrink-1 size-full-0 auto-y clip bg-surface-100",
 		},
 		body = {
-			tag = `col size-full auto-y padding-bottom-xlarge {if Flags.FoundationDialogBodyUpdate
-				then "gap-xlarge"
-				else ""}`,
+			tag = "col size-full auto-y padding-bottom-xlarge",
 		},
 		heroMediaWrapper = {
 			tag = "shrink position-top-center size-full-full auto-y",
@@ -95,7 +93,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "radius-medium",
 			},
 			body = {
-				tag = `padding-x-large {if Flags.FoundationDialogBodyUpdate then "" else "gap-large"}`,
+				tag = "gap-large padding-x-large",
 			},
 			closeAffordance = {
 				offset = tokens.Size.Size_300,
@@ -123,7 +121,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "radius-large",
 			},
 			body = {
-				tag = `padding-x-xlarge {if Flags.FoundationDialogBodyUpdate then "" else "gap-xlarge"}`,
+				tag = "gap-xlarge padding-x-xlarge",
 			},
 			closeAffordance = {
 				offset = tokens.Size.Size_400,
@@ -151,7 +149,7 @@ local function variantsFactory(tokens: Tokens)
 				tag = "radius-large",
 			},
 			body = {
-				tag = `padding-x-xlarge {if Flags.FoundationDialogBodyUpdate then "" else "gap-xlarge"}`,
+				tag = "gap-xlarge padding-x-xlarge",
 			},
 			closeAffordance = {
 				offset = tokens.Size.Size_400,

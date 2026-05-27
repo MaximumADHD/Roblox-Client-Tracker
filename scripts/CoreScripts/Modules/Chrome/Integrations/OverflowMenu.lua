@@ -27,10 +27,16 @@ local BackpackModule: any = if not FFlagEnableNewBackpack then require(RobloxGui
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local useAppPolicy = UniversalAppPolicy.useAppPolicy
+
+local MenuIcon = require(RobloxGui.Modules.TopBar.ComponentsV2.MenuIcon)
+
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -48,6 +54,10 @@ local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon"
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
@@ -285,6 +295,12 @@ function HamburgerButton(props)
 		})
 		else nil
 
+	local showBadgeOver12 = if FFlagAddTopBarPoliciesToUniversalPolicies
+		then useAppPolicy(function(appPolicy)
+			return appPolicy.getShowBadgeOver12()
+		end)
+		else nil
+
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 		BorderSizePixel = 0,
@@ -297,37 +313,48 @@ function HamburgerButton(props)
 			Name = "Corner",
 			CornerRadius = UDim.new(1, 0),
 		}) :: any,
-		React.createElement(ImageSetLabel, {
-			Name = "Overflow",
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			BackgroundTransparency = 1,
-			Image = Images["icons/common/hamburgermenu"],
-			Size = toggleIconTransition:map(function(value: any): any
-				value = 1 - value
-				return UDim2.new(0, iconSize * value, 0, iconSize * value)
-			end),
-			ImageColor3 = style.Theme.IconEmphasis.Color,
+		if FFlagEnableSideSheet
+			then React.createElement(SelectionCursorProvider, {}, {
+				Icon = React.createElement(MenuIcon, {
+					showBadgeOver12 = showBadgeOver12,
+				}),
+			})
+			else nil,
+		if not FFlagEnableSideSheet
+			then React.createElement(ImageSetLabel, {
+				Name = "Overflow",
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				BackgroundTransparency = 1,
+				Image = Images["icons/common/hamburgermenu"],
+				Size = toggleIconTransition:map(function(value: any): any
+					value = 1 - value
+					return UDim2.new(0, iconSize * value, 0, iconSize * value)
+				end),
+				ImageColor3 = style.Theme.IconEmphasis.Color,
 
-			ImageTransparency = toggleIconTransition:map(function(value: any): any
-				return value * style.Theme.IconEmphasis.Transparency
-			end),
-		}) :: any,
-		React.createElement(ImageSetLabel, {
-			Name = "Close",
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			BackgroundTransparency = 1,
-			Image = Images["icons/navigation/close"],
-			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, mediumIconSize * value, 0, mediumIconSize * value)
-			end),
-			ImageColor3 = style.Theme.IconEmphasis.Color,
+				ImageTransparency = toggleIconTransition:map(function(value: any): any
+					return value * style.Theme.IconEmphasis.Transparency
+				end),
+			}) :: any
+			else nil,
+		if not FFlagEnableSideSheet
+			then React.createElement(ImageSetLabel, {
+				Name = "Close",
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				BackgroundTransparency = 1,
+				Image = Images["icons/navigation/close"],
+				Size = toggleIconTransition:map(function(value: any): any
+					return UDim2.new(0, mediumIconSize * value, 0, mediumIconSize * value)
+				end),
+				ImageColor3 = style.Theme.IconEmphasis.Color,
 
-			ImageTransparency = toggleIconTransition:map(function(value: any): any
-				return (1 - value) * style.Theme.IconEmphasis.Transparency
-			end),
-		}),
+				ImageTransparency = toggleIconTransition:map(function(value: any): any
+					return (1 - value) * style.Theme.IconEmphasis.Transparency
+				end),
+			}) :: any
+			else nil,
 		if SelfieView.useCameraOn()
 				and not ChromeService:isWindowOpen(SELFIE_ID)
 				and not submenuOpen
@@ -349,8 +376,9 @@ end
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
 	id = "nine_dot",
-	label = "CoreScripts.TopBar.MoreMenu",
+	label = if FFlagEnableSideSheet then "CoreScripts.TopBar.RobloxMenu" else "CoreScripts.TopBar.MoreMenu",
 	sideSheetPlacement = SideSheetPlacement.None,
+	hotkeyCodes = if FFlagEnableSideSheet then { Enum.KeyCode.Escape } else nil,
 	isActivated = if FFlagFixIntegrationActivated
 		then function()
 			return submenuVisibility:get()

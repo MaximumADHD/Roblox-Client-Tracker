@@ -30,6 +30,7 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
 local FFlagUserPlayerScriptsCTMDirectPlayerData = FlagUtil.getUserFlag("UserPlayerScriptsCTMDirectPlayerData")
 local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayerScriptsTapToMoveUsesIAS2")
+local FFlagUserPSIASClickToMoveRelaxTeleport = FlagUtil.getUserFlag("UserPSIASClickToMoveRelaxTeleport")
 
 --[[ Input Actions ]]--
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
@@ -623,7 +624,19 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 			-- Connect to events
 			this.SeatedConn = this.Humanoid.Seated:Connect(function(isSeated, seat) this:OnPathInterrupted() end)
 			this.DiedConn = this.Humanoid.Died:Connect(function() this:OnPathInterrupted() end)
-			this.TeleportedConn = this.Humanoid.RootPart:GetPropertyChangedSignal("CFrame"):Connect(function() this:OnPathInterrupted() end)
+			if FFlagUserPSIASClickToMoveRelaxTeleport then 
+				this.lastPosition = this.Humanoid.RootPart.CFrame.Position
+				this.TeleportedConn = this.Humanoid.RootPart:GetPropertyChangedSignal("CFrame"):Connect(function()
+					local newPosition = this.Humanoid.RootPart.CFrame.Position
+					local dist = (newPosition - this.lastPosition).Magnitude
+					this.lastPosition = newPosition
+					if dist > this.Humanoid.WalkSpeed then
+						this:OnPathInterrupted()
+					end
+				end)
+			else
+				this.TeleportedConn = this.Humanoid.RootPart:GetPropertyChangedSignal("CFrame"):Connect(function() this:OnPathInterrupted() end)
+			end
 
 			-- Actually start
 			this.CurrentPoint = 1 -- The first waypoint is always the start location. Skip it.

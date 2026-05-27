@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 local InputSize = require(Foundation.Enums.InputSize)
 local InternalTextInput = require(Foundation.Components.InternalTextInput)
@@ -32,7 +31,7 @@ local function Story(props)
 			label = controls.label,
 			size = controls.labelSize,
 			hint = controls.hint,
-			isDisabled = if Flags.FoundationInputFieldFixDisabled then controls.isDisabled else nil,
+			isDisabled = controls.isDisabled,
 			input = function(ref)
 				return React.createElement(InternalTextInput, {
 					ref = ref,
@@ -41,12 +40,8 @@ local function Story(props)
 					isDisabled = controls.isDisabled,
 					size = controls.size,
 					horizontalPadding = {
-						left = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding,
-						right = (if Flags.FoundationInputVariantsConsolidateContainer
-							then variantProps.container
-							else variantProps.innerContainer).horizontalPadding,
+						left = variantProps.container.horizontalPadding,
+						right = variantProps.container.horizontalPadding,
 					},
 					onChanged = handleChange,
 					placeholder = controls.placeholder,

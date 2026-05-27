@@ -19,28 +19,47 @@ type IconSize = IconSize.IconSize
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
 
+local InputVariant = require(Foundation.Enums.InputVariant)
+type InputVariant = InputVariant.InputVariant
+
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
+local Flags = require(Foundation.Utility.Flags)
 
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+local getInputVariantsFactory = require(Foundation.Components.InputField.getInputVariantsFactory)
 
 type DropdownVariantProps = {
-	container: { tag: string },
+	container: {
+		bgStyle: ColorStyleValue?,
+		strokeStyle: ColorStyleValue?,
+		strokeThickness: number,
+		tag: string,
+	},
 	text: { tag: string },
 	arrow: { size: IconSize },
 }
 
+-- TODO: clean up with FFlagFoundationDropdownVariant
 type State = ControlState | "Error"
 
-local function variantsFactory(tokens: Tokens)
+local function variantsFactory()
 	local common = {
 		container = {
-			tag = "row flex-x-between align-y-center stroke-standard stroke-position-inner",
+			tag = {
+				["row flex-x-between align-y-center stroke-standard stroke-position-inner"] = not Flags.FoundationDropdownVariant,
+				["row flex-x-between align-y-center"] = Flags.FoundationDropdownVariant,
+			},
 		},
-		text = { tag = "shrink auto-xy text-truncate-split" },
+		text = {
+			tag = {
+				["shrink auto-xy text-truncate-split content-emphasis"] = Flags.FoundationDropdownVariant,
+				["shrink auto-xy text-truncate-split"] = not Flags.FoundationDropdownVariant,
+			},
+		},
 	}
 
 	local sizes: { [InputSize]: VariantProps } = {
@@ -68,30 +87,38 @@ local function variantsFactory(tokens: Tokens)
 
 	local states: { [State]: VariantProps } = {
 		[ControlState.Disabled] = {
-			container = { tag = "stroke-muted" },
+			container = if Flags.FoundationDropdownVariant then nil :: never else { tag = "stroke-muted" },
 			text = { tag = "content-muted" },
 		},
 		[ControlState.Initialize] = {
-			container = { tag = "stroke-default" },
+			container = if Flags.FoundationDropdownVariant then nil :: never else { tag = "stroke-default" },
 			text = { tag = "content-default" },
 		},
-		[ControlState.Default] = {
-			container = { tag = "stroke-default" },
-			text = { tag = "content-default" },
-		},
-		[ControlState.Hover] = {
-			container = { tag = "stroke-emphasis" },
-			text = { tag = "content-emphasis" },
-		},
-		[ControlState.Pressed] = {
-			container = { tag = "stroke-emphasis" },
-			text = { tag = "content-emphasis" },
-		},
-		-- TODO: Error states do not currently have hover / etc effects
-		Error = {
-			container = { tag = "stroke-alert" },
-			text = { tag = "content-default" },
-		},
+		[ControlState.Default] = if Flags.FoundationDropdownVariant
+			then nil :: never
+			else {
+				container = { tag = "stroke-default" },
+				text = { tag = "content-default" },
+			},
+		[ControlState.Hover] = if Flags.FoundationDropdownVariant
+			then nil :: never
+			else {
+				container = { tag = "stroke-emphasis" },
+				text = { tag = "content-emphasis" },
+			},
+		[ControlState.Pressed] = if Flags.FoundationDropdownVariant
+			then nil :: never
+			else {
+				container = { tag = "stroke-emphasis" },
+				text = { tag = "content-emphasis" },
+			},
+		Error = if not Flags.FoundationDropdownVariant
+			-- TODO: Error states do not currently have hover / etc effects
+			then nil :: never
+			else {
+				container = { tag = "stroke-alert" },
+				text = { tag = "content-default" },
+			},
 	}
 
 	-- Placeholder existence should take precendent of content styling in any case.
@@ -113,15 +140,33 @@ end
 return function(
 	tokens: Tokens,
 	size: InputSize,
+	variant: InputVariant,
 	controlState: ControlState,
 	isPlaceholderShown: boolean,
-	hasError: boolean
+	hasError: boolean,
+	focused: boolean,
+	hover: boolean
 ): DropdownVariantProps
 	local props = VariantsContext.useVariants("Dropdown", variantsFactory, tokens)
-	local state = if hasError then "Error" else controlState
+	-- TODO: clean up with FFlagFoundationDropdownVariant
+	local inputProps = if Flags.FoundationDropdownVariant
+		then VariantsContext.useVariants("InputField", getInputVariantsFactory, tokens)
+		else nil :: never
+	local variantAttributes = if Flags.FoundationDropdownVariant
+		then inputProps.variants[variant or InputVariant.Standard]
+		else nil :: never
+	local state = if not Flags.FoundationDropdownVariant and hasError then "Error" else controlState
+
 	return composeStyleVariant(
+		if Flags.FoundationDropdownVariant then inputProps.common else {},
 		props.common,
+		if Flags.FoundationDropdownVariant then inputProps.sizes[size] else {},
 		props.sizes[size],
-		if isPlaceholderShown then props.placeholderStates[state] else props.states[state :: State]
+		if Flags.FoundationDropdownVariant and variant ~= InputVariant.Utility then variantAttributes else {},
+		if Flags.FoundationDropdownVariant then inputProps.hoverState[hover] else {},
+		if Flags.FoundationDropdownVariant then inputProps.focusedState[focused] else {},
+		if Flags.FoundationDropdownVariant then inputProps.errorState[hasError] else {},
+		if isPlaceholderShown then props.placeholderStates[state] else props.states[state :: State],
+		if Flags.FoundationDropdownVariant and variant == InputVariant.Utility then variantAttributes else {}
 	)
 end
