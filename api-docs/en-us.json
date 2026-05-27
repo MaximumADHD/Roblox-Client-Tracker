@@ -15886,19 +15886,19 @@
     "documentation": "A service that provides an interface for you to manage and display personalized content recommendations."
   },
   "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/1": {
-    "documentation": ""
+    "documentation": "The enum for the type of preference."
   },
   "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/2": {
-    "documentation": ""
+    "documentation": "The enum for the type of target."
   },
   "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/3": {
-    "documentation": ""
+    "documentation": "The identifier of the preference target. The format depends on <code>targetType</code>."
   },
   "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/4": {
-    "documentation": ""
+    "documentation": "The tracing ID returned from the <code>GenerateItemListAsync</code> response. Pass an empty string if the preference originates outside a recommendation feed."
   },
   "@roblox/globaltype/RecommendationService.LogPreferenceEvent/param/5": {
-    "documentation": ""
+    "documentation": "The item ID returned from the <code>GenerateItemListAsync</code> response. Pass an empty string if the preference originates outside a recommendation feed."
   },
   "@roblox/globaltype/RecommendationService.LogPreferenceEvent": {
     "documentation": "",
@@ -17744,16 +17744,16 @@
     "documentation": "The abstract base class for in-world objects that physically interact."
   },
   "@roblox/globaltype/BasePart.AngularAccelerationToTorque/param/1": {
-    "documentation": ""
+    "documentation": "The desired angular acceleration vector in world space."
   },
   "@roblox/globaltype/BasePart.AngularAccelerationToTorque/param/2": {
-    "documentation": ""
+    "documentation": "The current angular velocity of the assembly in world space. Defaults to <code>(0, 0, 0)</code>. Supply the assembly's angular velocity to account for gyroscopic effects."
   },
   "@roblox/globaltype/BasePart.AngularAccelerationToTorque/return/0": {
-    "documentation": ""
+    "documentation": "A <code>Vector3</code> representing the world-space torque required to produce the specified angular acceleration."
   },
   "@roblox/globaltype/BasePart.AngularAccelerationToTorque": {
-    "documentation": "",
+    "documentation": "Returns the torque needed to achieve a given angular acceleration on this part's assembly, optionally accounting for gyroscopic effects.",
     "params": [
       {
         "name": "self",
@@ -18426,16 +18426,16 @@
     "documentation": "The abstract base class for in-world objects that physically interact."
   },
   "@roblox/globaltype/BasePart.TorqueToAngularAcceleration/param/1": {
-    "documentation": ""
+    "documentation": "The torque vector applied to the assembly in world space."
   },
   "@roblox/globaltype/BasePart.TorqueToAngularAcceleration/param/2": {
-    "documentation": ""
+    "documentation": "The current angular velocity of the assembly in world space. Defaults to <code>(0, 0, 0)</code>. Supply the assembly's angular velocity to account for gyroscopic effects."
   },
   "@roblox/globaltype/BasePart.TorqueToAngularAcceleration/return/0": {
-    "documentation": ""
+    "documentation": "A <code>Vector3</code> representing the resulting angular acceleration in world space."
   },
   "@roblox/globaltype/BasePart.TorqueToAngularAcceleration": {
-    "documentation": "",
+    "documentation": "Returns the angular acceleration that would result from applying a given torque to this part's assembly, optionally accounting for gyroscopic effects.",
     "params": [
       {
         "name": "self",
@@ -27079,7 +27079,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.EnableSLIMAvatars": {
-    "documentation": "",
+    "documentation": "Controls whether SLIM rendering is used for avatars in the experience.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#EnableSLIMAvatars",
     "code_sample": ""
   },
@@ -59758,7 +59758,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/GuiService.GetInsetArea": {
-    "documentation": "",
+    "documentation": "Takes an <code>ScreenInsets</code> value and returns a <code>Rect2D</code> describing the inset region, relative to the <code>CoreUISafeInsets</code> area.",
     "params": [
       {
         "name": "self",
@@ -71152,7 +71152,7 @@
     "documentation": "A new <code>VirtualInput</code> object, or <code>nil</code> if the feature is not available."
   },
   "@roblox/globaltype/UserInputService.CreateVirtualInput": {
-    "documentation": "Creates a <code>VirtualInput</code> object that a Studio plugin can use to simulate mouse, keyboard, and pointer input.",
+    "documentation": "Creates a <code>VirtualInput</code> object for simulating mouse, keyboard, and pointer input.",
     "params": [
       {
         "name": "self",
@@ -75723,7 +75723,7 @@
       "@roblox/globaltype/GroupService.PromptJoinAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService#PromptJoinAsync",
-    "code_sample": "local GroupService = game:GetService(\"GroupService\")\n\nlocal GROUP_ID = 377251\n\n-- This should be done in a script running on the client\nlocal success, result = pcall(function()\n    return GroupService:PromptJoinAsync(GROUP_ID)\nend)\n\nif success then\n    if result == Enum.GroupMembershipStatus.Joined then\n        print(\"Player joined the group!\")\n    elseif result == Enum.GroupMembershipStatus.JoinRequestPending then\n        print(\"Join request sent\")\n    elseif result == Enum.GroupMembershipStatus.AlreadyMember then\n        print(\"Already a member\")\n    else\n        print(\"Did not join or not eligible\")\n    end\nelse\n    warn(\"Prompt failed:\", result)\nend"
+    "code_sample": "local GroupService = game:GetService(\"GroupService\")\n\nlocal GROUP_ID = 377251\n\n-- This should be done in a script running on the client\nlocal success, result = pcall(function()\n    return GroupService:PromptJoinAsync(GROUP_ID)\nend)\n\nif success then\n    if result == Enum.GroupMembershipStatus.Joined then\n        print(\"Player joined the group!\")\n    elseif result == Enum.GroupMembershipStatus.JoinRequestPending then\n        print(\"Player has an outstanding join request\")\n    elseif result == Enum.GroupMembershipStatus.AlreadyMember then\n        print(\"Already a member\")\n    else\n        print(\"Did not join or not eligible\")\n    end\nelse\n    warn(\"Prompt failed:\", result)\nend"
   },
   "@roblox/globaltype/AudioFilter": {
     "documentation": "Adjusts the frequency content of audio streams.",
@@ -84845,7 +84845,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.AreHingesDetected": {
-    "documentation": "Displays how many hinges are detected by the VehicleSeat. Useful for debugging vehicle designs.",
+    "documentation": "Displays how many hinges are detected by the <code>VehicleSeat</code>. Useful for debugging vehicle designs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#AreHingesDetected",
     "code_sample": ""
   },
@@ -84855,7 +84855,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.HeadsUpDisplay": {
-    "documentation": "If true, a fancy speed bar will be displayed speed on screen that tells you what speed the Vehicle is moving at.",
+    "documentation": "If <code>true</code>, a UI speed bar will be displayed on screen that tells you what speed the vehicle is moving at.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#HeadsUpDisplay",
     "code_sample": ""
   },
@@ -84865,32 +84865,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.Occupant": {
-    "documentation": "The humanoid that is sitting in the seat.",
+    "documentation": "The <code>Humanoid</code> that is sitting in the seat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#Occupant",
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.Steer": {
-    "documentation": "The direction of movement, tied to the keys A and D. Must be one of 1 (right), 0 (straight), or -1 (left). Will refresh back to 0 unless constantly set.",
+    "documentation": "The direction of movement, tied to left and right movement inputs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#Steer",
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.SteerFloat": {
-    "documentation": "Functions identically to <code>VehicleSeat.Steer</code>, but the value is not an integer.",
+    "documentation": "The left-to-right movement float, tied to left and right movement inputs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#SteerFloat",
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.Throttle": {
-    "documentation": "The direction of movement, tied to the keys W and S. Must be an integer 1 (forward) 0 (null) or -1 (reverse). Will refresh back to 0 unless constantly set.",
+    "documentation": "The direction of throttle, tied to forward and backward movement inputs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#Throttle",
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.ThrottleFloat": {
-    "documentation": "Functions identically to <code>VehicleSeat.Throttle</code>, but the value is not an integer.",
+    "documentation": "The forward-to-reverse throttle float, tied to forward and backward movement inputs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#ThrottleFloat",
     "code_sample": ""
   },
   "@roblox/globaltype/VehicleSeat.Torque": {
-    "documentation": "How fast the vehicles will be able to attain <code>VehicleSeat.MaxSpeed</code>. The greater the number, the faster it will reach the maximum speed.",
+    "documentation": "How fast the vehicle will be able to attain <code>MaxSpeed</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VehicleSeat#Torque",
     "code_sample": ""
   },
@@ -84903,10 +84903,10 @@
     "documentation": "A seat object that can be used to control a vehicle."
   },
   "@roblox/globaltype/VehicleSeat.Sit/param/1": {
-    "documentation": "The humanoid being forced to sit in the VehicleSeat."
+    "documentation": "The <code>Humanoid</code> being forced to sit in the <code>VehicleSeat</code>."
   },
   "@roblox/globaltype/VehicleSeat.Sit": {
-    "documentation": "Forces the character with the specified <code>Humanoid</code> to sit in the VehicleSeat.",
+    "documentation": "Forces the character with the specified <code>Humanoid</code> to sit in the <code>VehicleSeat</code>.",
     "params": [
       {
         "name": "self",
@@ -94257,7 +94257,7 @@
     "documentation": "A string previewId"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync": {
-    "documentation": "Creates a 2D avatar preview and returns a previewId.",
+    "documentation": "Creates a 2D avatar preview and returns a <code>previewId</code>.",
     "params": [
       {
         "name": "self",
@@ -95383,7 +95383,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player.",
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player.",
     "keys": {
       "SendKey": "@roblox/globaltype/VirtualInput.SendKey",
       "SendMouseButton": "@roblox/globaltype/VirtualInput.SendMouseButton",
@@ -95396,7 +95396,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput.SendKey/param/0": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player."
   },
   "@roblox/globaltype/VirtualInput.SendKey/param/1": {
     "documentation": "Whether to simulate a key press (<code>true</code>) or a key release (<code>false</code>)."
@@ -95432,7 +95432,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput.SendMouseButton/param/0": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player."
   },
   "@roblox/globaltype/VirtualInput.SendMouseButton/param/1": {
     "documentation": "The screen-space position in pixels at which to inject the event."
@@ -95475,7 +95475,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput.SendMouseDelta/param/0": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player."
   },
   "@roblox/globaltype/VirtualInput.SendMouseDelta/param/1": {
     "documentation": "The relative mouse movement in pixels along each axis."
@@ -95497,7 +95497,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput.SendMousePosition/param/0": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player."
   },
   "@roblox/globaltype/VirtualInput.SendMousePosition/param/1": {
     "documentation": "The target screen-space position in pixels."
@@ -95519,7 +95519,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput.SendPointerAction/param/0": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player."
   },
   "@roblox/globaltype/VirtualInput.SendPointerAction/param/1": {
     "documentation": "The screen-space position in pixels at which to inject the event."
@@ -95548,7 +95548,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/VirtualInput.SendTextInput/param/0": {
-    "documentation": "Allows Studio plugins to simulate mouse, keyboard, and pointer input as if it were performed by a real player."
+    "documentation": "Simulates mouse, keyboard, and pointer input as if it were performed by a real player."
   },
   "@roblox/globaltype/VirtualInput.SendTextInput/param/1": {
     "documentation": "The string to inject as text input."
@@ -99327,10 +99327,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.GetJointFromName/param/1": {
-    "documentation": ""
+    "documentation": "string"
   },
   "@roblox/globaltype/HumanoidRigDescription.GetJointFromName/return/0": {
-    "documentation": ""
+    "documentation": "Instance"
   },
   "@roblox/globaltype/HumanoidRigDescription.GetJointFromName": {
     "documentation": "",
@@ -99354,7 +99354,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.GetJointNames/return/0": {
-    "documentation": ""
+    "documentation": "Array"
   },
   "@roblox/globaltype/HumanoidRigDescription.GetJointNames": {
     "documentation": "",
@@ -99374,7 +99374,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.GetR15JointNames/return/0": {
-    "documentation": ""
+    "documentation": "Array"
   },
   "@roblox/globaltype/HumanoidRigDescription.GetR15JointNames": {
     "documentation": "",
@@ -99394,7 +99394,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HumanoidRigDescription.GetR6JointNames/return/0": {
-    "documentation": ""
+    "documentation": "Array"
   },
   "@roblox/globaltype/HumanoidRigDescription.GetR6JointNames": {
     "documentation": "",
@@ -103628,12 +103628,19 @@
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
+  "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/1": {
+    "documentation": "Optional <code>Dictionary</code> configuring the prompt. Supported keys: - <code>FeedbackType</code> (<code>FeedbackType</code>). Selects which feedback flow to display. Defaults to <code>FeedbackType.Feedback</code>."
+  },
   "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync": {
     "documentation": "Prompts the player to submit feedback about the current experience.",
     "params": [
       {
         "name": "self",
         "documentation": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/0"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync/param/1"
       }
     ],
     "returns": [],
@@ -106058,7 +106065,7 @@
     "code_sample": ""
   },
   "@roblox/enum/GroupMembershipStatus.JoinRequestPending": {
-    "documentation": "The player submitted a request to join the group.",
+    "documentation": "The player submitted a request to join the group, or already had a pending join request prior to prompting.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111620,7 +111627,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceTargetType.User": {
-    "documentation": "",
+    "documentation": "The target is another Roblox user. The <code>targetId</code> is the user key.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111630,7 +111637,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceTargetType.Universe": {
-    "documentation": "",
+    "documentation": "The target is a universe. The <code>targetId</code> is the universe ID as a string.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -111640,7 +111647,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceTargetType.CustomTag": {
-    "documentation": "",
+    "documentation": "The target is a custom content tag. The <code>targetId</code> is the tag string.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120615,7 +120622,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReceiptType.RobuxTransferSender": {
-    "documentation": "Used for processing receipts for the user who initiated a Robux transfer. The receipt's <code>PlayerId</code> is the sender's user ID and includes a <code>TransferRequestId</code> field.",
+    "documentation": "Used for processing receipts for the user who initiated a Robux transfer. The receipt's <code>PlayerId</code> is the sender's user ID and includes a <code>TransferRequestId</code> field. Delivered immediately if no receiver approval was required, otherwise deferred until the sender's next session join.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120625,7 +120632,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReceiptType.RobuxTransferReceiver": {
-    "documentation": "Used for processing receipts for the user who received Robux via a transfer. The receipt's <code>PlayerId</code> is the receiver's user ID and includes a <code>TransferRequestId</code> field.",
+    "documentation": "Used for processing receipts for the user who received Robux via a transfer. The receipt's <code>PlayerId</code> is the receiver's user ID and includes a <code>TransferRequestId</code> field. Always deferred until the receiver's next session join.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133757,7 +133764,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceType.AddFollow": {
-    "documentation": "",
+    "documentation": "The user started following the target.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133767,7 +133774,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceType.RemoveFollow": {
-    "documentation": "",
+    "documentation": "The user stopped following the target.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133777,7 +133784,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceType.AddMute": {
-    "documentation": "",
+    "documentation": "The user muted the target.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133787,7 +133794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationPreferenceType.RemoveMute": {
-    "documentation": "",
+    "documentation": "The user unmuted a previously muted target.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134282,7 +134289,7 @@
     "code_sample": ""
   },
   "@roblox/enum/OutfitType.All": {
-    "documentation": "",
+    "documentation": "Returns outfits of every type, with no filtering applied.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134292,7 +134299,7 @@
     "code_sample": ""
   },
   "@roblox/enum/OutfitType.Avatar": {
-    "documentation": "",
+    "documentation": "A full-body avatar outfit.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134302,7 +134309,7 @@
     "code_sample": ""
   },
   "@roblox/enum/OutfitType.DynamicHead": {
-    "documentation": "",
+    "documentation": "An outfit containing a dynamic head.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134312,7 +134319,7 @@
     "code_sample": ""
   },
   "@roblox/enum/OutfitType.Shoes": {
-    "documentation": "",
+    "documentation": "An outfit consisting of a pair of shoes.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -134321,13 +134328,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OutfitType#Shoes",
     "code_sample": ""
   },
+  "@roblox/enum/OutfitType.Makeup": {
+    "documentation": "An outfit consisting of makeup items applied to the avatar's face.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OutfitType#Makeup",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.OutfitType": {
     "documentation": "",
     "keys": {
       "All": "@roblox/enum/OutfitType.All",
       "Avatar": "@roblox/enum/OutfitType.Avatar",
       "DynamicHead": "@roblox/enum/OutfitType.DynamicHead",
-      "Shoes": "@roblox/enum/OutfitType.Shoes"
+      "Shoes": "@roblox/enum/OutfitType.Shoes",
+      "Makeup": "@roblox/enum/OutfitType.Makeup"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/OutfitType",
     "code_sample": ""
