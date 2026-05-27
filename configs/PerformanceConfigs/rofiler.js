@@ -3060,7 +3060,7 @@ function CloneArray(arr) {
 }
 
 function IsMouseOnXRayDetailedBar(hasTooltip) {
-    let tooltipCheck = !hasTooltip || g_Ext.currentPlugin.tooltipBarDetailed;
+    let tooltipCheck = !hasTooltip || (g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarDetailed);
     return (DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0 &&
         g_Ext.xray.isBarEnabled() && g_Ext.currentPlugin && tooltipCheck);
 }
@@ -5456,7 +5456,7 @@ function Draw(RedrawMode) {
     }
     DrawDetailedFrameHistory();
 
-    if (FFlagMicroProfilerNetworkPlugin && g_Ext.currentPlugin.DrawPluginFrameHistory) {
+    if (FFlagMicroProfilerNetworkPlugin && g_Ext.currentPlugin && g_Ext.currentPlugin.DrawPluginFrameHistory) {
         g_Ext.currentPlugin.DrawPluginFrameHistory();
     }
 

@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.1356+20260512"
+ServiceContractsProto = "1.0.1458+20260519"
 Rodux = "1.0"
 RoactRodux = "0.2"
 RoactAppExperiment = "0.4.1"
@@ -17,12 +17,12 @@ Cryo = "1.1.0"
 Dash = "3.3.1"
 LazyRequire = "0.1.4"
 llama = "1.0.0"
-LuaSocialLibrariesDeps = "1.9.0"
+LuaSocialLibrariesDeps = "1.10.0"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.254"
-Foundation = "1.86.0"
+UIBlox = "0.2.257"
+Foundation = "1.87.0"
 FoundationCloudAssets = "0.4.4"
-FoundationImages = "1.35.1"
+FoundationImages = "2.0.0"
 Thumbnailing = "0.5.9"
 Otter = "1.3.7"
 ReactOtter = "1.3.7"
@@ -31,7 +31,7 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.5", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.16"
+UrlBuilder = "1.2.18"
 FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"
@@ -96,7 +96,7 @@ Jest = "3.17.0"
 JestBenchmark = "3.17.0"
 JestGlobals = "2.4.1"
 JestGlobals3 = { version = "3.17.0", package = "JestGlobals" }
-FoundationTestingLibrary = "0.1.3"
+FoundationTestingLibrary = "0.1.5"
 LuauUIEcosystemLints = "0.5.0"
 ReactHMR = "0.1.1"
 ReactTestingLibrary = "12.3.4"

@@ -264,7 +264,7 @@ type ReflectedEvent = {
 
 type ReflectedClass = {
   Name: string,
-  Serialized: boolean?,
+  Serialized: boolean,
   Superclass: string?,
   Subclasses: {string},
   Display: {
@@ -373,6 +373,10 @@ type LinkSharingOptions = {
   PreviewDescription: string?,
   PreviewAssetId: number?,
   LaunchData: string?
+}
+
+type PromptFeedbackOptions = {
+  FeedbackType: Enum.FeedbackType?,
 }
 
 type ExperienceEvent = {
@@ -637,40 +641,6 @@ type VirtualInputPointerAction = {
     Wheel: number?,
     Pan: Vector2?,
     Pinch: number?,
-}
-
-type CreateAvatar2DPreviewParams = {
-    TextPrompt: string,
-    JobId: string?,
-    FileId: string?,
-}
-
-type CreateAvatar2DPreviewResults = {
-    JobId: string,
-    Image: EditableImage,
-}
-
-type CreateAvatarProgress = {
-    JobId: string,
-    Progress: number,
-    Status: string,
-}
-
-type CreateAvatarModelParams = {
-    JobIds: {string},
-    TextPrompt: string?,
-}
-
-type AccessoryResult = {
-    AccessoryType: Enum.AccessoryType,
-    IsLayered: boolean,
-    Instance: Model,
-}
-
-type CreateAvatarModelResults = {
-    JobId: string,
-    Body: Model?,
-    Accessories: {AccessoryResult},
 }
 
 

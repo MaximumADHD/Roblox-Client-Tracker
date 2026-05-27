@@ -1,6 +1,6 @@
 [package]
 name = "UIBlox"
-version = "0.2.254"
+version = "0.2.257"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -26,10 +26,10 @@ package = "RoactFitComponents"
 version = "^2.0.0"
 
 [dependencies.Foundation]
-version = "^1.85.0"
+version = "^1.87.0"
 
 [dependencies.FoundationImages]
-version = "^1.34.1"
+version = "^2.0.0"
 
 [dependencies.LazyRequire]
 target = "https://github.com/roblox/lua-lazy-require"

@@ -139,6 +139,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Property Instance.Parent: Instance? [📁LoadOnly] [NotReplicated]
 	Property Instance.PredictionMode: Enum.PredictionMode [ReadOnly] [NotScriptable]
 	Property Instance.Capabilities: SecurityCapabilities {🚧CapabilityControl}
+	Property Instance.IsInSandbox: boolean [ReadOnly] [NotScriptable]
 	Property Instance.Sandboxed: boolean {🚧CapabilityControl} [NotReplicated]
 	Property Instance.Attributes: string {🔒RobloxEngine} [Hidden] [ReadOnly] [NotScriptable]
 	Property Instance.AttributesReplicate: string {🔒RobloxEngine} [Hidden] [NotScriptable]
@@ -578,6 +579,8 @@ Class AppRatingPromptService : Instance {🔒RobloxScript} [NotCreatable] [Servi
 Class AppUpdateService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function AppUpdateService:CanPerformBinaryUpdate() -> boolean {🔒RobloxScript}
 	Function AppUpdateService:CheckForUpdate(handler: ((...any) -> ...any)?) -> () {🔒RobloxScript}
+	Function AppUpdateService:GetProtocolLaunchUpdateName() -> string {🔒RobloxScript}
+	Function AppUpdateService:GetProtocolLaunchUpdateType() -> string {🔒RobloxScript}
 	Function AppUpdateService:PerformManagedUpdate() -> boolean {🔒RobloxScript}
 Class AssetCounterService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1057,11 +1060,16 @@ Class AuroraService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Depr
 Class AvatarAbilityRules : Instance {🔒RobloxScript}
 	Property AvatarAbilityRules.CharacterControllerMode: Enum.AvatarSettingsCharacterControllerMode {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableClimbing: boolean {🔒RobloxScript}
+	Property AvatarAbilityRules.EnableCrouching: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableFallingDown: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableGettingUp: boolean {🔒RobloxScript}
+	Property AvatarAbilityRules.EnableHolding: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableJumping: boolean {🔒RobloxScript}
+	Property AvatarAbilityRules.EnableReaching: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableRunning: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSitting: boolean {🔒RobloxScript}
+	Property AvatarAbilityRules.EnableSprinting: boolean {🔒RobloxScript}
+	Property AvatarAbilityRules.EnableStrafing: boolean {🔒RobloxScript}
 	Property AvatarAbilityRules.EnableSwimming: boolean {🔒RobloxScript}
 Class AvatarAccessoryRules : Instance {🔒RobloxScript}
 	Property AvatarAccessoryRules.AccessoryMode: Enum.AvatarSettingsAccessoryMode {🔒RobloxScript}
@@ -1208,8 +1216,6 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
 	Function AvatarCreationService:ValidateUGCFullBodyAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
-	Function AvatarCreationService:CreateAvatar2DPreviewAsync(createAvatar2DPreviewParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function AvatarCreationService:CreateAvatarModelAsync(createAvatar2DPreviewParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function AvatarCreationService:CreateCageMeshPartsWithScaleForExportAsync(model: Model) -> Folder {🔒RobloxScript} [Yields]
 	Function AvatarCreationService:DeserializeAvatarModel(serializedModel: string) -> Instance? {🔒RobloxScript}
 	Function AvatarCreationService:HandleSelfieConsentResult(consentAccepted: boolean) -> () {🔒RobloxScript}
@@ -1952,6 +1958,10 @@ Class AngularVelocity : Constraint
 	Property AngularVelocity.ReactionTorqueEnabled: boolean {🚧Physics}
 	Property AngularVelocity.RelativeTo: Enum.ActuatorRelativeTo {🚧Physics}
 Class AnimationConstraint : Constraint
+	Property AnimationConstraint.AngularDamping: number {🚧Animation + Physics}
+	Property AnimationConstraint.AngularStrength: number {🚧Animation + Physics}
+	Property AnimationConstraint.LinearDamping: number {🚧Animation + Physics}
+	Property AnimationConstraint.LinearStrength: number {🚧Animation + Physics}
 	Property AnimationConstraint.MaxForce: number {🚧Animation + Physics}
 	Property AnimationConstraint.MaxTorque: number {🚧Animation + Physics}
 	Property AnimationConstraint.IsKinematic: boolean {🚧Animation + Physics}
@@ -2902,6 +2912,7 @@ Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GroupService:GetEnemiesAsync(groupId: number) -> StandardPages {🚧Groups} [Yields]
 	Function GroupService:GetGroupInfoAsync(groupId: number) -> any {🚧Groups} [Yields]
 	Function GroupService:GetGroupsAsync(userId: number) -> { any } {🚧Groups} [Yields]
+	Function GroupService:GetRolesInGroupAsync(userId: number, groupId: number) -> any {🚧Groups} [Yields]
 	Function GroupService:PromptJoinAsync(groupId: number) -> Enum.GroupMembershipStatus {🚧Groups} [Yields]
 	Function GroupService:PromptJoinCompleted(groupId: number, success: boolean, groupMembershipStatus: Enum.GroupMembershipStatus, errorMessage: string) -> () {🚧Groups} {🔒RobloxScript}
 	Event GroupService.ShowJoinPrompt(groupId: number) {🚧Groups} {🔒RobloxScript}
@@ -4725,7 +4736,11 @@ Class MetaBreakpointManager : Instance {🔒RobloxScript} [NotCreatable] [Servic
 	Event MetaBreakpointManager.MetaBreakpointSetChanged(breakpoint: MetaBreakpoint, detail: { [string]: any }) {🔒RobloxScript}
 Class MicroProfilerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property MicroProfilerService.ContextLabel: string {🔒RobloxScript}
+	Function MicroProfilerService:GetDataInRange(slotId: number, offset: number, size: number, destBuffer: buffer, destBufferOffset: number) -> number {🚧Logging} [CustomLuaState]
+	Function MicroProfilerService:GetDataSize(slotId: number) -> number {🚧Logging}
+	Function MicroProfilerService:ProcessCommand(cmdBuf: buffer, cmdOffset: number, cmdSize: number, respBuf: buffer, respOffset: number, respSize: number) -> number {🚧Logging} [CustomLuaState]
 	Function MicroProfilerService:DumpToFileAsync(secondsToDelay: number, framesToDump: number) -> string {🔒RobloxScript} [Yields]
+	Event MicroProfilerService.DataChanged(slotId: number, flags: number) {🚧Logging}
 Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ModerationService:BindReviewableContentEventProcessor(priority: number, callback: (...any) -> ...any) -> RBXScriptConnection {🚧Consequences}
 	Function ModerationService:CreateReviewableContentAsync(config: { [string]: any }) -> string {🚧Consequences} [Yields]
@@ -5134,7 +5149,6 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.MeshData2: SharedString {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property PartOperation.OffCentered: boolean {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.PhysicsData: BinaryString {🚧Basic + CSG} {🔒RobloxEngine} [Hidden] [NotScriptable]
-	Property PartOperation.SerializedOperationGraph: SharedString {🚧Basic + CSG} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.SolidMeshHolder: NetAssetRef {🚧Basic + CSG} [Hidden] [NotScriptable]
 	Function PartOperation:SubstituteGeometry(source: Instance) -> () {🚧Basic + CSG}
 Class IntersectOperation : PartOperation
@@ -5319,6 +5333,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.GlobalWind: Vector3 {🚧✏️Physics}
 	Property Workspace.Gravity: number {🚧✏️Physics}
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
+	Property Workspace.ImprovedAnimationConstraint: Enum.RolloutState [NotScriptable]
 	Property Workspace.LayeredClothingCacheOptimizations: Enum.RolloutState {🚧AvatarAppearance} [NotScriptable]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MeshStreamingAndImprovedLods: Enum.RolloutState [NotScriptable]
@@ -5370,6 +5385,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.StreamingEnabledAlias: boolean {🔒RobloxEngine} [NotReplicated] [NotScriptable]
 	Property Workspace.UseFixedSimulationAlias: Enum.RolloutState {🔒RobloxEngine} [NotReplicated] [NotScriptable]
 	Property Workspace.StreamingPauseMode: Enum.StreamingPauseMode [📁LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
+	Function Workspace:ApplyRecommendedStreamingSettings() -> boolean {🔒Plugin}
 	Function Workspace:ExperimentalSolverIsEnabled() -> boolean {🔒LocalUser}
 	Function Workspace:GetNumAwakeParts() -> number {🚧Basic} {🧬Safe}
 	Function Workspace:GetPhysicsThrottling() -> number {🚧Basic} {🧬Safe}
@@ -5705,8 +5721,6 @@ Class Player : Instance
 	Function Player:GetJoinData() -> { [string]: any } {🚧Players} [CustomLuaState]
 	Function Player:GetMouse() -> Mouse {🚧Input + Players}
 	Function Player:GetNetworkPing() -> number {🚧Players} {🧬Safe}
-	Function Player:GetRankInGroupAsync(groupId: number) -> number {🚧Groups + Players} [Yields]
-	Function Player:GetRoleInGroupAsync(groupId: number) -> string {🚧Groups + Players} [Yields]
 	Function Player:HasAppearanceLoaded() -> boolean {🚧Players}
 	Function Player:IsFriendsWithAsync(userId: number) -> boolean {🚧Players + Social} [Yields]
 	Function Player:IsInGroupAsync(groupId: number) -> boolean {🚧Groups + Players} [Yields]
@@ -5728,7 +5742,9 @@ Class Player : Instance
 	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🚧Players + Social} [Yields] [Deprecated]
 	Function Player:GetGameSessionID() -> string {🚧Players} {🔒RobloxEngine}
 	Function Player:GetRankInGroup(groupId: number) -> number {🚧Groups + Players} [Yields] [Deprecated]
+	Function Player:GetRankInGroupAsync(groupId: number) -> number {🚧Groups + Players} [Yields] [Deprecated]
 	Function Player:GetRoleInGroup(groupId: number) -> string {🚧Groups + Players} [Yields] [Deprecated]
+	Function Player:GetRoleInGroupAsync(groupId: number) -> string {🚧Groups + Players} [Yields] [Deprecated]
 	Function Player:GetUnder13() -> boolean {🚧Players} {🔒RobloxScript}
 	Function Player:IsBestFriendsWith(userId: number) -> boolean {🚧Players} [Yields] [Deprecated]
 	Function Player:IsFriendsWith(userId: number) -> boolean {🚧Players + Social} [Yields] [Deprecated]
@@ -6800,7 +6816,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance } {🚧Social}
 	Function SocialService:GetUpcomingExperienceEventsAsync() -> { any } {🚧Social} [Yields]
 	Function SocialService:HideSelfView() -> () {🚧Social}
-	Function SocialService:PromptFeedbackSubmissionAsync() -> () {🚧Social} [Yields]
+	Function SocialService:PromptFeedbackSubmissionAsync(options: { [string]: any }?) -> () {🚧Social} [Yields]
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> () {🚧Social}
 	Function SocialService:PromptLinkSharingAsync(player: Player, options: { [string]: any }? = nil) -> ...any {🚧Social} [Yields]
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> () {🚧Social}
@@ -6812,7 +6828,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:InvokeShareSheetClosed() -> () {🚧Social} {🔒RobloxScript}
 	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any {🚧Social} [Yields] [Deprecated]
 	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus, previousRsvpStatus: Enum.RsvpStatus? = "None") -> () {🚧Social} {🔒RobloxScript}
-	Function SocialService:SignalFeedbackSubmissionCompleted(feedback: string) -> () {🚧Social} {🔒RobloxScript}
+	Function SocialService:SignalFeedbackSubmissionCompleted(feedback: string, options: { [string]: any }?) -> () {🚧Social} {🔒RobloxScript}
 	Function SocialService:SignalFeedbackSubmissionPermissionDenied() -> () {🚧Social} {🔒RobloxScript}
 	Function SocialService:UpdatePlayerPartyData(partyId: string) -> () {🚧Social} {🔒RobloxScript}
 	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState) {🚧Social}
@@ -6826,8 +6842,8 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {🚧Social} {🔒RobloxScript}
 	Event SocialService.SelfViewHidden() {🚧Social} {🔒RobloxScript}
 	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {🚧Social} {🔒RobloxScript}
-	Event SocialService.ShowPromptFeedbackSubmission() {🚧Social} {🔒RobloxScript}
-	Event SocialService.ShowPromptFeedbackUnavailable(reason: string) {🚧Social} {🔒RobloxScript}
+	Event SocialService.ShowPromptFeedbackSubmission(feedbackType: Enum.FeedbackType) {🚧Social} {🔒RobloxScript}
+	Event SocialService.ShowPromptFeedbackUnavailable(reason: string, feedbackType: Enum.FeedbackType) {🚧Social} {🔒RobloxScript}
 	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {🚧Social} {🔒RobloxScript}
 	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance {🚧Social}
 Class Sound : Instance
@@ -6850,7 +6866,7 @@ Class Sound : Instance
 	Property Sound.PlaybackRegion: NumberRange {🚧LegacySound}
 	Property Sound.SoundGroup: SoundGroup? {🚧LegacySound}
 	Property Sound.AudioContent: Content {🚧LegacySound} [Hidden]
-	Property Sound.ChannelCount: number {🚧LegacySound} {🔒RobloxScript} [Hidden] [ReadOnly] [NotBrowsable]
+	Property Sound.ChannelCount: number {🚧LegacySound} {🔒RobloxScript} [Hidden] [ReadOnly]
 	Property Sound.AssetRepresentation: Enum.AssetRepresentation {🚧LegacySound} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property Sound.IsSpatial: boolean {🚧LegacySound} {🔒RobloxScript} [Hidden] [ReadOnly]
 	Property Sound.UsageContextPermission: Enum.UsageContext {🚧LegacySound} {🔒RobloxScript} [Hidden] [NotReplicated]
@@ -6902,7 +6918,7 @@ Class CompressorSoundEffect : SoundEffect
 	Property CompressorSoundEffect.Threshold: number {🚧LegacySound}
 Class CustomSoundEffect : SoundEffect {🔒RobloxScript} [NotCreatable]
 Class AssetSoundEffect : CustomSoundEffect {🔒RobloxScript} [NotCreatable]
-Class ChannelSelectorSoundEffect : CustomSoundEffect {🔒RobloxScript} [NotCreatable] [NotBrowsable]
+Class ChannelSelectorSoundEffect : CustomSoundEffect {🔒RobloxScript} [NotCreatable]
 	Property ChannelSelectorSoundEffect.Channel: number {🚧LegacySound}
 Class DistortionSoundEffect : SoundEffect
 	Property DistortionSoundEffect.Level: number {🚧LegacySound}
@@ -7881,6 +7897,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:SendExpChatWindowScroll() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatWindowStatusChange(timeClosed: number, timeOpen: number, timeBackgroundIdle: number, timeTextIdle: number) -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendUniverseChatMessageAsync(text: string, metadata: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
+	Function TextChatService:SendUniverseChatPresetAsync(presetId: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:setModerationModeEnabled(userId: number, enabled: boolean) -> boolean {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.BubbleDisplayed(partOrCharacter: Instance, textChatMessage: TextChatMessage) {🚧Chat}
 	Event TextChatService.MessageReceived(textChatMessage: TextChatMessage) {🚧Chat}
@@ -7890,6 +7907,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV4(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean, presetId: string, presetChatVersion: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
+	Event TextChatService.ClientToServerUniverseChatMessageSignalV2(text: string, metadata: string, messageId: string, userId: number, verified: boolean, presetId: string, presetChatVersion: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ExpChatFeatureValueChanged(userId: number, featureName: string, featureValue: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnUserChatSettingUpdateServer(featureName: string) {🚧Chat} {🔒RobloxEngine} [Hidden]
@@ -8423,6 +8441,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.StatusBarTapped(position: Vector2) {🚧Input} {🔒RobloxScript}
 	Event UserInputService.UserCFrameChanged(type: Enum.UserCFrame, value: CFrame) {🚧Input} [Deprecated]
 Class UserService : Instance [NotCreatable] [Service]
+	Function UserService:GetUserFromGlobalUserIdAsync(userId: number) -> User {🚧Basic} [Yields]
 	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } {🚧Basic} [Yields]
 Class VRService : Instance [NotCreatable] [Service]
 	Property VRService.AutomaticScaling: Enum.VRScaling {🚧Input}
@@ -8652,7 +8671,6 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function VoiceChatInternal:GetMicDevices() -> ...any {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:GetParticipants() -> { any } {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:GetSessionId() -> string {🚧Audio} {🔒RobloxScript}
-	Function VoiceChatInternal:GetSpeakerDevices() -> ...any {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:GetVoiceChatApiVersion() -> number {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:GetVoiceChatAvailable() -> number {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:GetVoiceExperienceId() -> string {🚧Audio} {🔒RobloxScript}
@@ -8666,7 +8684,6 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Function VoiceChatInternal:LogSubscriptionWebRTCStats() -> boolean {🚧Audio} {🔒RobloxScript}
 	Function VoiceChatInternal:PublishPause(paused: boolean) -> boolean {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:SetMicDevice(micDeviceName: string, micDeviceGuid: string) -> () {🚧Audio} [Deprecated]
-	Function VoiceChatInternal:SetSpeakerDevice(speakerDeviceName: string, speakerDeviceGuid: string) -> () {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:SubscribeBlock(userId: number) -> boolean {🚧Audio} {🔒RobloxScript}
 	Function VoiceChatInternal:SubscribePause(userId: number, paused: boolean) -> boolean {🚧Audio} [Deprecated]
 	Function VoiceChatInternal:SubscribePauseAll(paused: boolean) -> boolean {🚧Audio} [Deprecated]
@@ -8720,6 +8737,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SsrcUserIdMappingUpdate(ssrcs: { any }, userIds: { any }, feedIds: { any }, sessionId: string, eventTag: number) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
+	Event VoiceChatService.SubscriberAudioQualitySample(sampleJson: string) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeAcked(eventTag: number, handshakeAnswer: string, usersToMute: string, sessionId: string) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeAckedWithBothSdp(eventTag: number, fullHandshakeAnswer: string, compressedSdpAnswer: string, usersToMute: string, sessionId: string, compressMode: number) {🚧Audio + Chat} {🔒RobloxEngine} [Hidden]
@@ -10011,7 +10029,6 @@ Enum DisplaySize
 	EnumItem DisplaySize.Large : 2
 Enum DomainType
 	EnumItem DomainType.EXPERIENCE : 1
-	EnumItem DomainType.GROUP : 2
 	EnumItem DomainType.OAUTH : 3
 Enum DominantAxis
 	EnumItem DominantAxis.Width : 0
@@ -10195,6 +10212,9 @@ Enum FacsActionUnit
 Enum FeatureRestrictionAbuseVector
 	EnumItem FeatureRestrictionAbuseVector.ExperienceChat : 0
 	EnumItem FeatureRestrictionAbuseVector.Communication : 1
+Enum FeedbackType
+	EnumItem FeedbackType.Feedback : 0
+	EnumItem FeedbackType.PlayerSupport : 1
 Enum FieldOfViewMode
 	EnumItem FieldOfViewMode.Vertical : 0
 	EnumItem FieldOfViewMode.Diagonal : 1
@@ -11209,6 +11229,7 @@ Enum OutfitType
 	EnumItem OutfitType.Avatar : 2
 	EnumItem OutfitType.DynamicHead : 3
 	EnumItem OutfitType.Shoes : 4
+	EnumItem OutfitType.Makeup : 5
 Enum OutputLayoutMode
 	EnumItem OutputLayoutMode.Horizontal : 0
 	EnumItem OutputLayoutMode.Vertical : 1
