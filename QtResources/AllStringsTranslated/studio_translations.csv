@@ -6368,6 +6368,9 @@ Studio.GameSettings.Places.Window,,,Window,Window
 Studio.GameSettings.General.ErrorFieldEmpty,,,This is a required field.,This is a required field.
 Studio.GameSettings.AvatarChat.AudioTitleV2,,,Enable Voice Chat,Enable Voice Chat
 Studio.GameSettings.AvatarChat.AudioBodyV2,,,Enabling Voice Chat allows eligible users to communicate using their voice in your experience. Users must be age-checked and 13+ to access Voice Chat within eligible regions. [link],Enabling Voice Chat allows eligible users to communicate using their voice in your experience. Users must be age-checked and 13+ to access Voice Chat within eligible regions. [link]
+Studio.GameSettings.Errors.ErrorPriceChangeTooSoonNoDate,,,The private server price can only be changed once every 60 days.,The private server price can only be changed once every 60 days.
+Studio.GameSettings.Errors.ErrorPriceChangeTooSoonWithDate,,,You may not change the private server price for this game until {date}. Prices can only be changed once every 60 days.,You may not change the private server price for this game until {date}. Prices can only be changed once every 60 days.
+Studio.GameSettings.General.BannerSettingsMovedText,,,We’ve streamlined Experience Settings in Studio. Additional settings are on Creator Hub.,We’ve streamlined Experience Settings in Studio. Additional settings are on Creator Hub.
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -9419,7 +9422,7 @@ Studio.AssetManager.QuickShare.SharingOne,,,Sharing 1 asset,Sharing 1 asset
 Studio.AssetManager.QuickShare.ExperienceIdPlaceholder,,,Enter experience IDs,Enter experience IDs
 Studio.AssetManager.QuickShare.CollaboratorsTab,,,Collaborators,Collaborators
 Studio.AssetManager.QuickShare.ExperiencesTab,,,Experiences,Experiences
-Studio.AssetManager.QuickShare.CollaboratorPlaceholder,,,Search for a connection or group,Search for a connection or group
+Studio.AssetManager.QuickShare.CollaboratorPlaceholder,,,Search for a friend or group,Search for a friend or group
 Studio.AssetManager.QuickShare.DoneButton,,,Done,Done
 Studio.AssetManager.QuickShare.CancelButton,,,Cancel,Cancel
 Studio.AssetManager.QuickShare.CloseButton,,,Close,Close
@@ -9433,7 +9436,7 @@ Studio.AssetManager.ContextMenu.FindInExplorer,,,Find in Explorer,Find in Explor
 Studio.AssetManager.QuickShare.ShareButton,,,Share,Share
 Studio.AssetManager.QuickShare.DialogDescription,,,Configure who has permission to access your assets,Configure who has permission to access your assets
 Studio.AssetManager.QuickShare.CollaboratorsHintTitle,,,Add collaborators,Add collaborators
-Studio.AssetManager.QuickShare.CollaboratorsHintDescription,,,Give your connections and groups access to this asset,Give your connections and groups access to this asset
+Studio.AssetManager.QuickShare.CollaboratorsHintDescription,,,Give your friends and groups access to this asset,Give your friends and groups access to this asset
 Studio.AssetManager.QuickShare.ExperiencesHintTitle,,,Add experiences,Add experiences
 Studio.AssetManager.QuickShare.ExperiencesHintDescription,,,Share with experiences you have access to,Share with experiences you have access to
 Studio.AssetManager.ShortTitle,,,Assets,Assets
@@ -9511,6 +9514,26 @@ Studio.AssetManager.Toast.PartialMoveFailure,,,Some items were not able to be mo
 Studio.AssetManager.Toast.MoveFailure,,,Items were not able to be moved. The folder may need to be refreshed.,Items were not able to be moved. The folder may need to be refreshed.
 Studio.AssetManager.ContextMenu.NewStudioInstance,,,New Window,New Window
 Studio.AssetManager.ContextMenu.Open,,,Open,Open
+Studio.AssetManager.Toast.CannotBeSame,,,Source and destination folders cannot be the same.,Source and destination folders cannot be the same.
+Studio.AssetManager.PluginErrors.ErrorFetchAssetInfo,,,Could not fetch newly uploaded asset info.,Could not fetch newly uploaded asset info.
+Studio.AssetManager.PluginErrors.ErrorFetchGameName,,,Could not fetch game name.,Could not fetch game name.
+Studio.AssetManager.Dialogs.MoveToFolder,,,Move to {folder},Move to {folder}
+Studio.AssetManager.FolderCreate.GenericError,,,An error occurred while creating the folder. Please try again.,An error occurred while creating the folder. Please try again.
+Studio.AssetManager.FolderCreate.ExceedMaxFolderDepth,,,Cannot create folder since it would exceed the maximum folder depth of {maxFolderDepth}.,Cannot create folder since it would exceed the maximum folder depth of {maxFolderDepth}.
+Studio.AssetManager.FolderCreate.ExceedMaxFolders,,,Cannot create folder under {location} since it would exceed the maximum allowed {maxFolderCount} folders.,Cannot create folder under {location} since it would exceed the maximum allowed {maxFolderCount} folders.
+Studio.AssetManager.FolderCreate.ExceedMaxFoldersInAccount,,,Cannot create folder since this inventory cannot contain more than {maxFolderCount} folders.,Cannot create folder since this inventory cannot contain more than {maxFolderCount} folders.
+Studio.AssetManager.FolderMove.AssetsNotInOriginFolder,,,Cannot move assets since they do not exist in origin folder {originFolderName}.,Cannot move assets since they do not exist in origin folder {originFolderName}.
+Studio.AssetManager.FolderMove.CannotMoveIntoItself,,,Cannot move a folder into itself.,Cannot move a folder into itself.
+Studio.AssetManager.FolderMove.CycleDetected,,,Cannot move folders since it would create a cycle.,Cannot move folders since it would create a cycle.
+Studio.AssetManager.FolderMove.ExceedMaxFolderDepth,,,Cannot move folder since it would exceed the maximum folder depth of {maxFolderDepth}.,Cannot move folder since it would exceed the maximum folder depth of {maxFolderDepth}.
+Studio.AssetManager.FolderMove.ExceedMaxFoldersInDestination,,,Cannot move items since destination folder {destinationLabel} cannot contain more than {maxItemCount} items.,Cannot move items since destination folder {destinationLabel} cannot contain more than {maxItemCount} items.
+Studio.AssetManager.FolderMove.FoldersNotFound,,,Could not find folder {folderId} and {remainingCount} more.,Could not find folder {folderId} and {remainingCount} more.
+Studio.AssetManager.FolderMove.FoldersNotInOriginFolder,,,Cannot move folders since they do not exist in origin folder {originFolderName}.,Cannot move folders since they do not exist in origin folder {originFolderName}.
+Studio.AssetManager.FolderMove.FoldersNotInScope,,,Cannot move folders since they do not belong to this inventory.,Cannot move folders since they do not belong to this inventory.
+Studio.AssetManager.FolderMove.GenericError,,,An error occurred while moving folders. Please try again.,An error occurred while moving folders. Please try again.
+Studio.AssetManager.FolderMove.MovingTooManyAssets,,,You can only move {maxAssetCount} assets at a time.,You can only move {maxAssetCount} assets at a time.
+Studio.AssetManager.FolderMove.MovingTooManyFolders,,,You can only move {maxFolderCount} folders at a time.,You can only move {maxFolderCount} folders at a time.
+Studio.AssetManager.Folders.GenericError,,,An error occurred while managing folders. Please try again.,An error occurred while managing folders. Please try again.
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -13330,6 +13353,8 @@ Studio.VisualizationModes.ViewSection.SelectionStyleToolTip,,,Change the style o
 Studio.VisualizationModes.ViewSection.RenderingModeToolTip,,,Change the rendering mode of the viewport to highlight triangle usage in the scene.,Change the rendering mode of the viewport to highlight triangle usage in the scene.
 Studio.VisualizationModes.StudioModes.SLIM,,,SLIM,SLIM
 Studio.VisualizationModes.StudioModes.SLIMToolTip,,,Show the visuals of models that are SLIM,Show the visuals of models that are SLIM
+Studio.VisualizationModes.ShowAnimationSkeletonAxesToolTip,,,-,-
+Studio.VisualizationModes.StudioModes.ShowAnimationSkeletonRotationsToolTip,,,Show rotation arcs as axis-angle in the 3D view,Show rotation arcs as axis-angle in the 3D view
 Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...
 Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.
@@ -14202,6 +14227,13 @@ Studio.Assistant.FinalizePlan.OpenPlan,,,Open Plan,Open Plan
 Studio.Assistant.FinalizePlan.Versions,,,Versions,Versions
 Studio.Assistant.FinalizePlan.Save,,,Save,Save
 Studio.Assistant.FinalizePlan.Revert,,,Revert,Revert
+Studio.Assistant.MeshGen.InputPromptTitle,,,Prompt,Prompt
+Studio.Assistant.PrimitiveGen.InputPartNamesTitle,,,Part Names,Part Names
+Studio.Assistant.MeshGen.InputPartNamesPlaceholder,,,enter part name....,enter part name....
+Studio.Assistant.MeshGen.InputPromptModeTitle,,,Input Mode,Input Mode
+Studio.Assistant.Gen3d.PromptModeText,,,Prompt,Prompt
+Studio.Assistant.Gen3d.PromptModeImage,,,Image,Image
+Studio.Assistant.Gen3d.SuggestSegmentationTitle,,,Suggest segmentation,Suggest segmentation
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14880,7 +14912,7 @@ Studio.BetaFeatures.StylingTransitionsDescription,,,Adds the ability to create U
 Studio.BetaFeatures.SceneAnalysisDescription,,,"Enables detailed performance statistics for scene composition including instance counts, triangle counts, script memory, and unparented instances.","Enables detailed performance statistics for scene composition including instance counts, triangle counts, script memory, and unparented instances."
 Studio.BetaFeatures.SceneAnalysisTitle,,,Scene Analysis,Scene Analysis
 Studio.BetaFeatures.PackageOverridesTitle,,,Package Overrides,Package Overrides
-Studio.BetaFeatures.PackageOverridesDescription,,,Shows local package changes that override the published package version.,Shows local package changes that override the published package version.
+Studio.BetaFeatures.PackageOverridesDescription,,,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15390,6 +15422,7 @@ Studio.Reimport.Actions.ReimportRelativeToThis,,,Reimport relative to this,Reimp
 Studio.Reimport.Actions.Configure,,,Configure...,Configure...
 Studio.Reimport.Tooltips.Configure,,,Configure reimport settings,Configure reimport settings
 Studio.Reimport.Actions.ClearReimportConfig,,,Remove reimport config,Remove reimport config
+Studio.Reimport.Tooltips.ClearReimportConfig,,,Clears the association between an instance and a reimport config. Will not affect duplicates.,Clears the association between an instance and a reimport config. Will not affect duplicates.
 Studio.Reimport.ConfigDialog.Creator,,,Creator,Creator
 Studio.Reimport.ErrorDialog.Body,,,Errors occurred during reimport,Errors occurred during reimport
 Studio.Reimport.ErrorDialog.Close,,,Close,Close
@@ -15402,6 +15435,7 @@ Studio.Reimport.ConfigDialog.Preset,,,Import Preset,Import Preset
 Studio.Reimport.ConfigDialog.Me,,,Me,Me
 Studio.Reimport.ConfigDialog.Placeholder,,,Click to select file,Click to select file
 Studio.Reimport.Plugin.Name,,,Reimport,Reimport
+Studio.Reimport.ConfigDialog.SelectFile,,,Click to select file,Click to select file
 Studio.ParticleSystem.Tooltip.FlipbookLayout.IncompatibleTexture,,,The texture size must be an exact multiple of the flipbook layout size.,The texture size must be an exact multiple of the flipbook layout size.
 Studio.ShutdownManagement.ClosingStudio,,,Closing all Studio windows,Closing all Studio windows
 Studio.ShutdownManagement.Cancel,,,Cancel,Cancel
@@ -15507,6 +15541,8 @@ Studio.AdaptiveAnimationSupport.Plugin.Description,,,"Map joints, adjust T-Pose 
 Studio.AdaptiveAnimationSupport.Plugin.Button,,,Adaptive Animation,Adaptive Animation
 Studio.AdaptiveAnimationSupport.Plugin.Toolbar,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.AdaptiveAnimationSupport.Animation.AddCustom,,,Add Custom...,Add Custom...
+Studio.AdaptiveAnimationSupport.Mannequin.RemapRig,,,Remap Rig,Remap Rig
+Studio.AdaptiveAnimationSupport.Mannequin.Documentation,,,Documentation,Documentation
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
 Studio.TeamCreate.SafetyEvictDialog.BreakTermsOfUseAppealUnlock,,,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.,We found content in this Experience that breaks the rules of our Terms of Use. The owner needs to send an appeal to unlock this place.
@@ -15533,7 +15569,7 @@ Studio.TeamCreateCollaborators.ProfileInsights.ConnectedForOneDay,,,Connected fo
 Studio.TeamCreateCollaborators.ProfileInsights.NotConnected,,,Not Connected,Not Connected
 Studio.TeamCreateCollaborators.ProfileInsights.JoinedInYear,,,Joined in {year},Joined in {year}
 Studio.TeamCreateCollaborators.MainView.Title,,,Get a shareable link to add Trusted Connections,Get a shareable link to add Trusted Connections
-Studio.TeamCreateCollaborators.MainView.Subtitle,,,"This unlocks live collaboration in Studio, chat without filters, Party voice, and more.","This unlocks live collaboration in Studio, chat without filters, Party voice, and more."
+Studio.TeamCreateCollaborators.MainView.Subtitle,,,Do more on Roblox with trusted friends. Only add people you know and trust.,Do more on Roblox with trusted friends. Only add people you know and trust.
 Studio.TeamCreateCollaborators.MainView.AskParentButton,,,Ask parent,Ask parent
 Studio.TeamCreateCollaborators.TrustedConnectionWidget.AgeVerified,,,Age verified,Age verified
 Studio.TeamCreateCollaborators.TrustedConnectionWidget.AgeNotVerified,,,Age not verified,Age not verified
@@ -15560,6 +15596,8 @@ Studio.TeamCreateCollaborators.VPCRequestSentDialog.FailureBannerMessage,,,Unabl
 Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.EmailError,,,Incorrect email format,Incorrect email format
 Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.CancelButton,,,Cancel,Cancel
 Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.SendButton,,,Send,Send
+Studio.TeamCreateCollaborators.MainView.SnoozeAcknowledgement,,,"I understand collaboration will be blocked starting June 18, 2026","I understand collaboration will be blocked starting June 18, 2026"
+Studio.TeamCreateCollaborators.MainView.RemindMeLaterButton,,,Remind me later,Remind me later
 Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
 Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
 Studio.AssetPicker.OptionMenuItem.List,,,List,List
@@ -15591,7 +15629,11 @@ Studio.DialogPlugin.ScriptSyncConflictDialog.ModifyTitle,,,Modify {count:int} {n
 Studio.DialogPlugin.ScriptSyncConflictDialog.DeleteTitle,,,Delete {count:int} {noun},Delete {count:int} {noun}
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
 Studio.LoginPage.Label.SignUp1,,,Don't have an account?,Don't have an account?
-Studio.LoginPage.Label.SignUp2,,,Create One,Create One
+Studio.LoginPage.Label.SignUp2,,,Create one,Create one
 Studio.LoginPage.Heading.SignIn,,,Sign in,Sign in
 Studio.LoginPage.Heading.SignInUpsell,,,Jump back into your experiences,Jump back into your experiences
 Studio.LoginPage.Button.SignIn,,,Sign in,Sign in
+Studio.LoginPage.Heading.QuickSignIn,,,Use another device,Use another device
+Studio.LoginPage.Label.QuickSignInInstructions,,,"Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code.","Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code."
+Studio.LoginPage.Button.Terms,,,Terms,Terms
+Studio.LoginPage.Button.Privacy,,,Privacy,Privacy
