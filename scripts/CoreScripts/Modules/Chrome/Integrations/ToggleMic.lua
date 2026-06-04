@@ -21,8 +21,19 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 local ChromeService = require(Chrome.Service)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local RedVoiceDot = require(Chrome.Integrations.RedVoiceDot)
 local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+
+local FFlagChromeActivatedMappedSignal =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagChromeActivatedMappedSignal
+local MappedSignal = ChromeUtils.MappedSignal
+
+local micActivatedSignal: any = if FFlagChromeActivatedMappedSignal
+	then MappedSignal.new(VoiceChatServiceManager.muteChanged.Event, function()
+		return VoiceChatServiceManager.localMuted == false
+	end)
+	else nil
 
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
@@ -57,6 +68,7 @@ muteSelf = ChromeService:register({
 	label = "CoreScripts.TopBar.ToggleMic",
 	sideSheetPlacement = SideSheetPlacement.Unibar,
 	activated = toggleMic,
+	isActivated = if FFlagChromeActivatedMappedSignal then micActivatedSignal else nil,
 	components = {
 		Icon = function(props)
 			local unibarStyle

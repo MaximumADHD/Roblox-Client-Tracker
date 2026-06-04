@@ -21,6 +21,7 @@ local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: 
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
@@ -102,7 +103,7 @@ local function Initialize()
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.Name = "ReportAbuseMenuNewContainerPage"
-	this.ShouldShowBottomBar = true
+	this.ShouldShowBottomBar = not FFlagEnableSideSheet
 	this.ShouldShowHubBar = true
 	-- TODO: Need to flip FFlagAddAbilityToDisableIGMScroll before turning on FFlagAbuseReportMenuV2
 	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2

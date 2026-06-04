@@ -11,6 +11,10 @@ local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
 
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 local FFlagIsSquadEnabledAMP = require(CorePackages.Workspace.Packages.SharedFlags).FFlagIsSquadEnabledAMP
+local FIntSideSheetVariant = require(CorePackages.Workspace.Packages.SharedFlags).FIntSideSheetVariant
+local FFlagEnableSideSheet = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSideSheet
+
+local ConnectIconDropdown = require(script.Parent.ConnectIconDropdown)
 
 -- "Connect_Unibar" icon and option are used to open AppChat (InExperienceAppChat)
 -- It will also serve as an entry point for Party
@@ -31,6 +35,9 @@ end
 
 local integration = nil
 local squadSignalDisconnect: (() -> ())? = nil
+
+-- hide connect dropdown if connect unibar is shown for sidesheet grid variant
+local shouldHideDropdown = FFlagEnableSideSheet and FIntSideSheetVariant == 0 and ConnectIconDropdown ~= nil
 
 -- combine s1 and s2 logic into one function
 local function updateConnectIntegration(currentIntegrationSoleyForParty)
@@ -57,6 +64,9 @@ local function updateConnectIntegration(currentIntegrationSoleyForParty)
 		-- pin/re-pin connect_unibar if there is an active squad when party and connect dropdown is enabled
 		if hasActiveSquad then
 			integration.availability:pinned()
+			if shouldHideDropdown then
+				ConnectIconDropdown.availability:unavailable()
+			end
 		end
 
 		-- attach listener to update availability based on active squad
@@ -64,8 +74,14 @@ local function updateConnectIntegration(currentIntegrationSoleyForParty)
 			local conn = InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(function(currentSquadId)
 				if currentSquadId == "" then
 					integration.availability:unavailable()
+					if shouldHideDropdown then
+						ConnectIconDropdown.availability:available()
+					end
 				else
 					integration.availability:pinned()
+					if shouldHideDropdown then
+						ConnectIconDropdown.availability:unavailable()
+					end
 				end
 			end)
 			squadSignalDisconnect = function()
@@ -104,13 +120,22 @@ if isConnectUnibarEnabled() then
 			local hasActiveSquad = InExperienceAppChatModal.default.currentSquadId ~= ""
 			if hasActiveSquad then
 				integration.availability:pinned()
+				if shouldHideDropdown then
+					ConnectIconDropdown.availability:unavailable()
+				end
 			end
 
 			InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(function(currentSquadId)
 				if currentSquadId == "" then
 					integration.availability:unavailable()
+					if shouldHideDropdown then
+						ConnectIconDropdown.availability:available()
+					end
 				else
 					integration.availability:pinned()
+					if shouldHideDropdown then
+						ConnectIconDropdown.availability:unavailable()
+					end
 				end
 			end)
 		end

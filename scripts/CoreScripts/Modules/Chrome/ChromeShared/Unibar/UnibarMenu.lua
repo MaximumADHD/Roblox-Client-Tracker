@@ -49,6 +49,8 @@ local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommo
 local Signals = require(CorePackages.Packages.Signals)
 local createEffect = Signals.createEffect
 
+local SideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
 local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
 local isConnectUnibarEnabled = require(Root.Parent.Integrations.Connect.isConnectUnibarEnabled)
@@ -81,8 +83,11 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		-- ie. Voice Mute integration will only be shown is voice is enabled/active
 		local nineDot = { "leaderboard", "emotes", "backpack" }
 
-		-- append to end of nine-dot
-		table.insert(nineDot, "respawn")
+		if not FFlagEnableSideSheet then
+			-- append to end of nine-dot
+			table.insert(nineDot, "respawn")
+		end
+
 		-- prepend trust_and_safety to nine-dot menu
 		table.insert(nineDot, 1, "trust_and_safety")
 
@@ -135,15 +140,19 @@ if not GetFFlagChromeCentralizedConfiguration() then
 			table.insert(nineDot, 4, "music_entrypoint")
 		end
 
-		if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
-			table.insert(nineDot, "people")
-			table.insert(nineDot, "settings")
+		if FFlagEnableSideSheet then
+			if FFlagAddIGMToSideSheet then
+				table.insert(nineDot, "people")
+				table.insert(nineDot, "settings")
 
-			table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-			table.insert(nineDot, "trust_and_safety")
+				table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
+				table.insert(nineDot, "trust_and_safety")
 
-			table.insert(nineDot, "gallery")
-			table.insert(nineDot, "help")
+				table.insert(nineDot, "gallery")
+				table.insert(nineDot, "help")
+			end
+			table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)
+			table.insert(nineDot, SideSheet.Enums.ActionBinding.Respawn)
 		end
 
 		if FFlagEnableInExperienceShop then

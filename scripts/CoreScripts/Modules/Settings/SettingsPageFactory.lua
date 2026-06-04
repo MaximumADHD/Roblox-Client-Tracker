@@ -34,6 +34,7 @@ local FFlagIEMFocusNavSupportNewButtons = require(script.Parent.Flags.FFlagIEMFo
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePageToButtons
 
 local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
@@ -50,7 +51,7 @@ local function Initialize()
 	this.TabPosition = 0
 	this.Active = false
 	this.OpenStateChangedCount = 0
-	this.ShouldShowBottomBar = true
+	this.ShouldShowBottomBar = not FFlagEnableSideSheet
 	this.ShouldShowHubBar = true
 	this.ShouldDisableDefaultScroll = false
 	this.IsPageClipped = true

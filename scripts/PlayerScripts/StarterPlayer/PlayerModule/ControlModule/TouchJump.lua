@@ -13,12 +13,12 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
+local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 
 local Players = game:GetService("Players")
 
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationA
+local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationB
 	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
 	else nil
 
@@ -83,7 +83,7 @@ function TouchJump:_reset()
 	end
 
 	if self.jumpButton then
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 			avatarAbilitiesInterface:isEnabled() else
 			AvatarAbilitiesInterface.isEnabled()
 		if isCCLEnabled then
@@ -208,7 +208,7 @@ function TouchJump:Create()
 	self.jumpButton.Visible = false
 	self.jumpButton.BackgroundTransparency = 1
 
-	local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+	local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 		avatarAbilitiesInterface:isEnabled() else
 		AvatarAbilitiesInterface.isEnabled()
 	if isCCLEnabled then		
@@ -223,7 +223,7 @@ function TouchJump:Create()
 		local minAxis = math.min(self.parentUIFrame.AbsoluteSize.x, self.parentUIFrame.AbsoluteSize.y)
 		local isSmallScreen = minAxis <= 500
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 			avatarAbilitiesInterface:isEnabled() else
 			AvatarAbilitiesInterface.isEnabled()
 		if isCCLEnabled then
@@ -253,7 +253,7 @@ function TouchJump:Create()
 
 	ResizeJumpButton()
 	self.absoluteSizeChangedConn = self.parentUIFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeJumpButton)
-	if FFlagUserPlayerScriptsCCLIntegrationA then
+	if FFlagUserPlayerScriptsCCLIntegrationB then
 		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeJumpButton)
 	else
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeJumpButton)
@@ -271,7 +271,7 @@ function TouchJump:Create()
 			return
 		end
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 			avatarAbilitiesInterface:isEnabled() else
 			AvatarAbilitiesInterface.isEnabled()
 		if isCCLEnabled then
@@ -286,7 +286,7 @@ function TouchJump:Create()
 			return
 		end
 
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 			avatarAbilitiesInterface:isEnabled() else
 			AvatarAbilitiesInterface.isEnabled()
 		if isCCLEnabled then

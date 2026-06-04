@@ -4,11 +4,14 @@ local CorePackages = game:GetService("CorePackages")
 
 local React = require(CorePackages.Packages.React)
 local ChromeService = require(Chrome.Service)
+local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ConnectIcon = require(script.Parent.ConnectIcon)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
+
+local MappedSignal = ChromeUtils.MappedSignal
 
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 
@@ -23,7 +26,16 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local FFlagAppChatInExpUseUnibarNotification = game:DefineFastFlag("AppChatInExpUseUnibarNotification", false)
 local FFlagConnectIntegrationCheckForDirectionalInput =
 	game:DefineFastFlag("ConnectIntegrationCheckForDirectionalInput", false)
-local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
+
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
+local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
+
+local connectVisibilitySignal = if FFlagChromeActivatedMappedSignal
+	then MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
+		return InExperienceAppChatModal:getVisible()
+	end)
+	else nil :: any
 
 return function(id: string, initialAvailability: number)
 	-- only enable squad (a.k.a. party) indicator for the unibar icon, other variants, like dropdown icon, won't need it
@@ -54,9 +66,11 @@ return function(id: string, initialAvailability: number)
 			end
 			LocalStore.storeForLocalPlayer(GetFStringConnectTooltipLocalStorageKey(), true)
 		end,
-		isActivated = function()
-			return InExperienceAppChatModal:getVisible()
-		end,
+		isActivated = if FFlagChromeActivatedMappedSignal
+			then connectVisibilitySignal
+			else function()
+				return InExperienceAppChatModal:getVisible()
+			end,
 		components = {
 			Icon = function(props)
 				return React.createElement(ConnectIcon, {

@@ -41,7 +41,6 @@ local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagEnableVoiceNudge = VoiceChatCore.Flags.GetFFlagEnableVoiceNudge
 local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGamepadNavInVoiceModals
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
@@ -60,20 +59,13 @@ local GetFFlagEnableVoiceTrustedConnectionsToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 local FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceConnectToastCapturesTrustedFriendsSubtitle)
-local GetFFlagShowToastWhenAgeGatingVoice = SharedFlags.GetFFlagShowToastWhenAgeGatingVoice
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
 local locales = nil
-if
-	GetFFlagEnableSeamlessVoiceDataConsentToast()
-	or GetFFlagUpdateVoiceConnectionToasts()
-	or GetFFlagShowToastWhenAgeGatingVoice()
-then
-	local LocalizationService = game:GetService("LocalizationService")
-	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
-	locales = Localization.new(LocalizationService.RobloxLocaleId)
-end
+local LocalizationService = game:GetService("LocalizationService")
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 -- Constants
 local ICON_SIZE = 55
@@ -135,9 +127,7 @@ local PromptTitle = {
 	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagUpdateVoiceConnectionToasts()
 		then locales:Format("Feature.SettingsHub.Prompt.JoinedVoiceChatV3")
 		else nil,
-	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
-		then locales:Format("Feature.SettingsHub.Prompt.Title.AgeCheckForVoiceToast")
-		else nil,
+	[PromptType.AgeCheckForVoiceToast] = locales:Format("Feature.SettingsHub.Prompt.Title.AgeCheckForVoiceToast"),
 	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
 		then locales:Format("Feature.SettingsHub.Prompt.UpdateToVoiceChat")
 		else nil,
@@ -212,19 +202,14 @@ local PromptSubTitle = {
 	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
 		else nil,
-	[PromptType.UnifiedJoinVoiceToast] = if FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle then
-		RobloxTranslator:FormatByKey(
-			"Feature.Captures.Prompt.Subtitle.VoiceChatRecordingTrustedFriendsAgeGroup"
+	[PromptType.UnifiedJoinVoiceToast] = if FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle
+		then RobloxTranslator:FormatByKey("Feature.Captures.Prompt.Subtitle.VoiceChatRecordingTrustedFriendsAgeGroup")
+		elseif GetFFlagEnableVoiceTrustedConnectionsToasts() then locales:Format(unifiedJoinVoiceToastKey)
+		elseif GetFFlagUpdateVoiceConnectionToasts() then locales:Format(
+			"Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2"
 		)
-	elseif GetFFlagEnableVoiceTrustedConnectionsToasts() then
-		locales:Format(unifiedJoinVoiceToastKey)
-	elseif GetFFlagUpdateVoiceConnectionToasts() then
-		locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
-	else
-		nil,
-	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
-		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")
 		else nil,
+	[PromptType.AgeCheckForVoiceToast] = locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo"),
 	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
 		then locales:Format(updateOnAutoJoinToastKey)
 		else nil,
@@ -521,7 +506,7 @@ function VoiceChatPromptFrame:render()
 	local isVoiceConsentModal = IsVoiceConsentModal(self.state.promptType)
 	local isDevicePermissionsModal = GetFFlagShowDevicePermissionsModal()
 		and IsDevicePermissionsModal(self.state.promptType)
-	local automaticSize = if GetFFlagEnableVoiceNudge() then Enum.AutomaticSize.Y else Enum.AutomaticSize.None
+	local automaticSize = Enum.AutomaticSize.Y
 	local voiceChatPromptFrame
 	if PromptTypeIsModal(self.state.promptType) then
 		local titleText = self.state.toastContent.toastTitle
@@ -707,9 +692,7 @@ function VoiceChatPromptFrame:render()
 					AutomaticSize = automaticSize,
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
-						FillDirection = if GetFFlagEnableVoiceNudge()
-							then Enum.FillDirection.Vertical
-							else Enum.FillDirection.Horizontal,
+						FillDirection = Enum.FillDirection.Vertical,
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						Padding = UDim.new(0, PADDING),
 						SortOrder = Enum.SortOrder.LayoutOrder,
@@ -718,11 +701,9 @@ function VoiceChatPromptFrame:render()
 					ConfirmButton = Roact.createElement(Button, {
 						buttonType = ButtonType.PrimarySystem,
 						layoutOrder = 1,
-						size = if GetFFlagEnableVoiceNudge() then UDim2.new(1, -5, 0, 48) else UDim2.new(1, -5, 1, 0),
+						size = UDim2.new(1, -5, 0, 48),
 						text = if isNudgeModal then voiceChatGotIt else voiceChatSuspendedUnderstand,
-						onActivated = if GetFFlagEnableVoiceNudge()
-							then self.handlePrimayActivated
-							else self.closeVoiceBanPrompt,
+						onActivated = self.handlePrimayActivated,
 						Selectable = isSelectable,
 					}),
 					SecondaryButton = showSecondaryButton and Roact.createElement(UIBlox.App.Button.LinkButton, {

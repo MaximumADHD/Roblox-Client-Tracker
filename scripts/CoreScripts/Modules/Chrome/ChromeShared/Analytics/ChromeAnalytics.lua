@@ -17,6 +17,7 @@ local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
 local Tracker = require(Root.Analytics.Tracker)
@@ -266,7 +267,14 @@ function ChromeAnalytics:onIconActivated(integrationId: IntegrationId, props: Ac
 			notificationCount = tonumber(notification.value) or 0
 		end
 
-		local isToggleOn = if integration.isActivated then not integration.isActivated() else nil
+		local isToggleOn
+		if integration.isActivated then
+			if FFlagChromeActivatedMappedSignal then
+				isToggleOn = not (integration.isActivated :: any):get()
+			else
+				isToggleOn = not (integration.isActivated :: any)()
+			end
+		end
 
 		self._sendEvent(Constants.ANALYTICS.ICON_ACTIVATED, {
 			integration_id = integrationId,

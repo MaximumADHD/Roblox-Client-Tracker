@@ -94,6 +94,7 @@ return function(UrlBuilder)
 			parentalControls = UrlBuilder.fromString("www:my/account#!/parental-controls"),
 			billing = UrlBuilder.fromString("www:my/account#!/billing"),
 			subscriptions = UrlBuilder.fromString("www:my/account#!/subscriptions"),
+			robux = UrlBuilder.fromString("www:my/account#!/robux"),
 			notifications = UrlBuilder.fromString("www:my/account#!/notifications"),
 			appPermissions = UrlBuilder.fromString("www:my/account#!/app-permissions"),
 			screentimeSettings = UrlBuilder.fromString("www:my/account#!/privacy/Screentime"),

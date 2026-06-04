@@ -10,7 +10,7 @@ local IconSize = Foundation.Enums.IconSize
 local IconVariant = Foundation.Enums.IconVariant
 
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
-local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local useMappedSignal = require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 
 export type Props = {

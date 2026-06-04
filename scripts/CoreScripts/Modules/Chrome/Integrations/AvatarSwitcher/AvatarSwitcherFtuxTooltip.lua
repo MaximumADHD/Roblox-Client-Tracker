@@ -1,8 +1,10 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 
+local CorePackages = game:GetService("CorePackages")
+
 local ChromeService = require(Chrome.Service)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
-local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local useMappedSignal = require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
 local CommonFtuxTooltip = require(Chrome.Integrations.CommonFtuxTooltip)
 local FIntAvatarSwitcherTooltipPriority = game:DefineFastInt("AvatarSwitcherTooltipPriority", 3000)
 local FStringAvatarSwitcherTooltipStorageKey =

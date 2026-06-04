@@ -18,10 +18,12 @@ local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 local Foundation = require(CorePackages.Packages.Foundation)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local GetFFlagFixIGMTabTransitions = require(script.Parent.Parent.Flags.GetFFlagFixIGMTabTransitions)
 local FFlagIGMChangeCapturesToGallery = require(script.Parent.Parent.Flags.FFlagIGMChangeCapturesToGallery)
 local FFlagIGMChangeGalleryHeaderIcon = require(script.Parent.Parent.Flags.FFlagIGMChangeGalleryHeaderIcon)
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
 -- Initialize page
 local this = SettingsPageFactory:CreateNewPage()
@@ -48,7 +50,7 @@ else
 end
 
 this.PageListLayout.Parent = nil
-this.ShouldShowBottomBar = true
+this.ShouldShowBottomBar = not FFlagEnableSideSheet
 this.ShouldShowHubBar = true
 
 this.Page.Name = "Captures"

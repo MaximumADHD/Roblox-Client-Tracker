@@ -10,7 +10,7 @@ local IconSize = Foundation.Enums.IconSize
 local IconVariant = Foundation.Enums.IconVariant
 
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
-local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local useMappedSignal = require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 
 export type Props = {
@@ -32,7 +32,7 @@ local function ShopIcon(props: Props)
 		else tokens.Color.Content.Default
 
 	return React.createElement(Foundation.Icon, {
-		name = IconName.ShoppingBasket,
+		name = IconName.BuildingStore,
 		size = IconSize.Large,
 		variant = if isActive then IconVariant.Filled else IconVariant.Regular,
 		style = style,

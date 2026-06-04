@@ -21,6 +21,7 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeWindowSignalConstraintsToggle = SharedFlags.FFlagChromeWindowSignalConstraintsToggle
 local FFlagRemoveAvatarSwitcherIfUnsupported = SharedFlags.FFlagRemoveAvatarSwitcherIfUnsupported
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local AddAvatarsSwitcherToCoreGUIEnabled = game:GetEngineFeature("AddAvatarsSwitcherToCoreGUI")
 
 local isActive = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), function()
@@ -71,9 +72,11 @@ local integration = ChromeService:register({
 	activated = function(self)
 		ChromeService:toggleWindow(Constants.AVATAR_SWITCHER_ID)
 	end,
-	isActivated = function()
-		return isActive:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then isActive
+		else function()
+			return isActive:get()
+		end,
 	cachePosition = true,
 	draggable = true,
 	windowSize = windowSize,

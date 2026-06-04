@@ -3,6 +3,8 @@ local CorePackages = game:GetService("CorePackages")
 local PlayersService = game:GetService("Players")
 
 local ChatLineReporting = require(CorePackages.Workspace.Packages.ChatLineReporting)
+local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
+local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
 
 local isSystemMessage = ChatLineReporting.Helpers.isSystemMessage
 
@@ -17,7 +19,9 @@ local function buildReportTags(
 	reportTargetUser: string,
 	abuseReason: string,
 	abuseDescription: string,
-	reportTargetMessageId: string?
+	reportTargetMessageId: string?,
+	reportTargetPresetId: string?,
+	reportTargetPresetChatVersion: string?
 )
 	local reportRequest = {
 		tags = {
@@ -73,6 +77,21 @@ local function buildReportTags(
 		}
 	end
 
+	if FFlagExpChatPresetChatEnabled and reportTargetPresetId and reportTargetPresetId ~= "" then
+		reportRequest.tags.REPORT_TARGET_PRESET_ID = {
+			valueList = {
+				{ data = reportTargetPresetId },
+			},
+		}
+		if reportTargetPresetChatVersion and reportTargetPresetChatVersion ~= "" then
+			reportRequest.tags.REPORT_TARGET_PRESET_VERSION = {
+				valueList = {
+					{ data = reportTargetPresetChatVersion },
+				},
+			}
+		end
+	end
+
 	return reportRequest
 end
 
@@ -90,7 +109,9 @@ local submitChatLineReport = function(props: SubmissionProps)
 		props.reportTargetUser,
 		props.abuseReason,
 		props.abuseDescription,
-		props.selectedMessage.messageId
+		props.selectedMessage.messageId,
+		(props.selectedMessage :: any).presetId,
+		(props.selectedMessage :: any).presetChatVersion
 	)
 
 	-- Filter out ineligible messages (system messages, messages without userId or textChannel)

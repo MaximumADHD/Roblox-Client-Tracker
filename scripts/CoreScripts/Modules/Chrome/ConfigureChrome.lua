@@ -17,6 +17,8 @@ local isInExperienceUIVREnabled =
 local ConfigureShortcuts = require(Chrome.ChromeShared.Shortcuts.ConfigureShortcuts)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
+local SideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
@@ -41,8 +43,11 @@ local function configureUnibar()
 	-- ie. Voice Mute integration will only be shown is voice is enabled/active
 	local nineDot = { "leaderboard", "emotes", "backpack" }
 
-	-- append to end of nine-dot
-	table.insert(nineDot, "respawn")
+	if not FFlagEnableSideSheet then
+		-- append to end of nine-dot
+		table.insert(nineDot, "respawn")
+	end
+
 	-- prepend trust_and_safety to nine-dot menu
 	table.insert(nineDot, 1, "trust_and_safety")
 
@@ -95,15 +100,19 @@ local function configureUnibar()
 		table.insert(nineDot, 4, "music_entrypoint")
 	end
 
-	if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
-		table.insert(nineDot, "people")
-		table.insert(nineDot, "settings")
+	if FFlagEnableSideSheet then
+		if FFlagAddIGMToSideSheet then
+			table.insert(nineDot, "people")
+			table.insert(nineDot, "settings")
 
-		table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-		table.insert(nineDot, "trust_and_safety")
+			table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
+			table.insert(nineDot, "trust_and_safety")
 
-		table.insert(nineDot, "gallery")
-		table.insert(nineDot, "help")
+			table.insert(nineDot, "gallery")
+			table.insert(nineDot, "help")
+		end
+		table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)
+		table.insert(nineDot, SideSheet.Enums.ActionBinding.Respawn)
 	end
 
 	if FFlagEnableInExperienceShop then

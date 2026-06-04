@@ -14,6 +14,9 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
+
 local VrSpatialUi = require(CorePackages.Workspace.Packages.VrSpatialUi)
 local UIManager = VrSpatialUi.UIManager
 
@@ -37,9 +40,11 @@ local VRToggleButtonIntegration = ChromeService:register({
 	initialAvailability = initialAvailability,
 	id = "vr_toggle_button",
 	label = "Feature.Catalog.Label.Filter.Hide",
-	isActivated = function()
-		return mappedSignal:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then mappedSignal
+		else function()
+			return mappedSignal:get()
+		end,
 	activated = function()
 		if VRHub.ShowTopBar then
 			UIManager.getInstance():prepareGuiToggleAnimationState()

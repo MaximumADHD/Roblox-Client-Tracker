@@ -5,11 +5,11 @@ local RunService = game:GetService("RunService")
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
+local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 
 local InputReplication
 local avatarAbilitiesInterface
-if FFlagUserPlayerScriptsCCLIntegrationA then
+if FFlagUserPlayerScriptsCCLIntegrationB then
 	InputReplication = require(script.Parent:WaitForChild("InputReplication"))
 	local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
 	avatarAbilitiesInterface = AvatarAbilitiesInterface.get(Players.LocalPlayer)

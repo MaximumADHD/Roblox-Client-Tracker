@@ -12,6 +12,7 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagFixSpatialUICaptures = SharedFlags.FFlagFixSpatialUICaptures
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
 
@@ -36,9 +37,11 @@ return ChromeService:register({
 	activated = function(self)
 		InGameMenuIntegrationUtils.toggleIGMPage("CapturesPage", pageOpenSignal:get())
 	end,
-	isActivated = function()
-		return pageOpenSignal:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then pageOpenSignal
+		else function()
+			return pageOpenSignal:get()
+		end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/cameraOff", "icons/controls/cameraOn", pageOpenSignal)

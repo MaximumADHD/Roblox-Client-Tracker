@@ -893,11 +893,17 @@ local function CreateSettingsHub()
 			else
 				setResetEnabled(false)
 			end
+			if Flags.FFlagEnableSideSheet then
+				InExperienceSideSheet.setIsRespawnEnabled(false)
+			end
 		elseif not resetEnabledValue and (isBindableEvent or callback == true) then
 			if Flags.FFlagRelocateMobileMenuButtons and Flags.FIntRelocateMobileMenuButtonsVariant ~= 0 then
 				this:GetExperienceControlStore().setCanRespawn(true)
 			else
 				setResetEnabled(true)
+			end
+			if Flags.FFlagEnableSideSheet then
+				InExperienceSideSheet.setIsRespawnEnabled(true)
 			end
 		end
 		if isBindableEvent then
@@ -2287,7 +2293,7 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if not Theme.AlwaysShowBottomBar() then
+		if Flags.FFlagEnableSideSheet or not Theme.AlwaysShowBottomBar() then
 			barSize = this.HubBar.Size.Y.Offset
 		else
 			barSize = this.HubBar.Size.Y.Offset + this.BottomButtonFrame.Size.Y.Offset
@@ -2834,8 +2840,10 @@ local function CreateSettingsHub()
 			topExtra = UDim.new(0, this.HubBar.AbsoluteSize.Y)
 		end
 
-		if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) and not (Flags.FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper) then
-			bottomExtra = UDim.new(0, this.BottomButtonFrame.AbsoluteSize.Y)
+		if not Flags.FFlagEnableSideSheet then
+			if this.BottomButtonFrame and hasBottomButtons and not shouldShowBottomBar(pageToSwitchTo) and not (Flags.FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper) then
+				bottomExtra = UDim.new(0, this.BottomButtonFrame.AbsoluteSize.Y)
+			end
 		end
 
 		local pad = Theme.HubPadding()
@@ -3319,7 +3327,9 @@ local function CreateSettingsHub()
 				Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
 			)
 
-			ContextActionService:BindCoreAction("RbxSettingsHubSwitchTab", switchTabFromBumpers, false, Enum.KeyCode.ButtonR1, Enum.KeyCode.ButtonL1)
+			if not Flags.FFlagEnableSideSheet then
+				ContextActionService:BindCoreAction("RbxSettingsHubSwitchTab", switchTabFromBumpers, false, Enum.KeyCode.ButtonR1, Enum.KeyCode.ButtonL1)
+			end
 			ContextActionService:BindCoreAction("RbxSettingsScrollHotkey", scrollHotkeyFunc, false, Enum.KeyCode.PageUp, Enum.KeyCode.PageDown)
 			if shouldShowBottomBar() then
 				setBottomBarBindings()
@@ -3334,7 +3344,9 @@ local function CreateSettingsHub()
 				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_SHORTCUTBAR_ID)
 			end
 
-			this.TabConnection = UserInputService.InputBegan:connect(switchTabFromKeyboard)
+			if not Flags.FFlagEnableSideSheet then
+				this.TabConnection = UserInputService.InputBegan:connect(switchTabFromKeyboard)
+			end
 
 			setOverrideMouseIconBehavior()
 			lastInputChangedCon = UserInputService.LastInputTypeChanged:connect(setOverrideMouseIconBehavior)
@@ -3586,7 +3598,9 @@ local function CreateSettingsHub()
 
 			clearMenuStack()
 
-			ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
+			if not Flags.FFlagEnableSideSheet then
+				ContextActionService:UnbindCoreAction("RbxSettingsHubSwitchTab")
+			end
 			ContextActionService:UnbindCoreAction("RbxSettingsHubStopCharacter")
 			ContextActionService:UnbindCoreAction("RbxSettingsScrollHotkey")
 

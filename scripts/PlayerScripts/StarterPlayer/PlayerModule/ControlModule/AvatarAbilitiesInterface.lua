@@ -1,13 +1,9 @@
 local Players = game:GetService("Players")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
+local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 
-if FFlagUserPlayerScriptsCCLIntegrationA then
-    local AvatarAbilities = require("@rbx/AvatarAbilities")
-
-    local registry = game.SharedTableRegistry
-
+if FFlagUserPlayerScriptsCCLIntegrationB then
     local AvatarAbilitiesInterface = {}
     AvatarAbilitiesInterface.__index = AvatarAbilitiesInterface
 
@@ -47,6 +43,15 @@ if FFlagUserPlayerScriptsCCLIntegrationA then
         end
 
         return self
+    end
+
+    local AvatarAbilitiesModule
+
+    function AvatarAbilitiesInterface._avatarAbilities()
+        if not AvatarAbilitiesModule then
+            AvatarAbilitiesModule = require("@rbx/AvatarAbilities")
+        end
+        return AvatarAbilitiesModule
     end
 
     function AvatarAbilitiesInterface.get(player)
@@ -99,33 +104,37 @@ if FFlagUserPlayerScriptsCCLIntegrationA then
                     self._humanoid = self._character:FindFirstChildOfClass("Humanoid")
                 end
 
-                local inputMapChanged
-                self._inputMap, self._inputMapCleanup, inputMapChanged = AvatarAbilities.createMaintainedInputMap(self._character)
-
-                if self._inputMapChangedConnection then
-                    self._inputMapChangedConnection:Disconnect()
-                    self._inputMapChangedConnection = nil
-                end
-                self._inputMapChangedConnection = inputMapChanged:Connect(function(inputName)
-                    self._abilitiesChangedEvent:Fire()
-                end)
-                self._abilitiesChangedEvent:Fire()
-
-                for attributeName, events in self._abilityChangedEvents do
-                    for abilityName, event in events do
-                        event:Fire()
-                        self:_hookUpAbilityChangedEvent(abilityName, attributeName)
-                    end
-                end
-
                 if self._evaluateStateMachineChangedConnection then
                     self._evaluateStateMachineChangedConnection:Disconnect()
                     self._evaluateStateMachineChangedConnection = nil
                 end
-                self._evaluateStateMachineChangedConnection = self._humanoid:GetPropertyChangedSignal("EvaluateStateMachine"):Connect(function()
+                local function enabledChanged()
+                    if self:isEnabled() then
+                        local inputMapChanged
+                        self._inputMap, self._inputMapCleanup, inputMapChanged = self._avatarAbilities().createMaintainedInputMap(self._character)
+
+                        if self._inputMapChangedConnection then
+                            self._inputMapChangedConnection:Disconnect()
+                            self._inputMapChangedConnection = nil
+                        end
+                        self._inputMapChangedConnection = inputMapChanged:Connect(function(inputName)
+                            self._abilitiesChangedEvent:Fire()
+                        end)
+                        self._abilitiesChangedEvent:Fire()
+
+                        for attributeName, events in self._abilityChangedEvents do
+                            for abilityName, event in events do
+                                event:Fire()
+                                self:_hookUpAbilityChangedEvent(abilityName, attributeName)
+                            end
+                        end
+                    end
                     self._enabledChangedEvent:Fire()
+                end
+                self._evaluateStateMachineChangedConnection = self._humanoid:GetPropertyChangedSignal("EvaluateStateMachine"):Connect(function()
+                    enabledChanged()
                 end)
-                self._enabledChangedEvent:Fire()
+                enabledChanged()
             end
         end
     end
@@ -139,11 +148,11 @@ if FFlagUserPlayerScriptsCCLIntegrationA then
     end
 
     function AvatarAbilitiesInterface:SendInput(abilityName, value)
-        if not self._character then return end
+        if not self:isEnabled() then return end
         local oldVal = self._data[abilityName]
         if value ~= oldVal then
             self._data[abilityName] = value
-            AvatarAbilities.setAbilityManagerCommand(self._character, abilityName, value)
+            self._avatarAbilities().setAbilityManagerCommand(self._character, abilityName, value)
         end
     end
 
@@ -244,7 +253,7 @@ if FFlagUserPlayerScriptsCCLIntegrationA then
 
     return AvatarAbilitiesInterface
 
-else -- FFlagUserPlayerScriptsCCLIntegrationA
+else -- FFlagUserPlayerScriptsCCLIntegrationB
 
     local Players = game:GetService("Players")
 
@@ -305,4 +314,4 @@ else -- FFlagUserPlayerScriptsCCLIntegrationA
 
     return AvatarAbilitiesInterface
 
-end -- FFlagUserPlayerScriptsCCLIntegrationA
+end -- FFlagUserPlayerScriptsCCLIntegrationB

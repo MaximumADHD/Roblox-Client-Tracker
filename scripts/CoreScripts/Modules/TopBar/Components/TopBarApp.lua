@@ -73,8 +73,13 @@ local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeS
 
 local FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton
 local FFlagUseNewHeadsetDisconnectDialog = game:DefineFastFlag("UseNewHeadsetDisconnectDialog", false)
+local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
+local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
+local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
+local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -96,9 +101,13 @@ end
 
 local LocalStore
 local ChromeConstants
+local CommonIcon
 if ChromeEnabled() then
 	LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 	ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
+	if FFlagEnableExperienceShopGlobalIcon and FFlagAddIGMToSideSheet then
+		CommonIcon = require(Chrome.Integrations.CommonIcon)
+	end
 end
 
 local Connection = require(script.Parent.Connection)
@@ -308,6 +317,33 @@ function TopBarApp:init()
 			self.unibarMenuRef = React.createRef()
 			self.menuIconRef = Roact.createRef()
 		end
+
+		if FFlagEnableExperienceShopGlobalIcon then
+			self.shopGlobalIconDisposeEffect = Signals.createEffect(function(scope)
+				local getIconStore = InExperienceShop.GetShopGlobalIconStore
+				if not getIconStore then
+					return
+				end
+				local store = getIconStore(scope)
+				self:setState({
+					shopGlobalIconEnabled = store.getEnabled(scope),
+					shopGlobalStatusIndicatorEnabled = store.getStatusIndicatorEnabled(scope),
+				})
+			end)
+			self.onShopGlobalIconActivated = function()
+				ChromeService:toggleWindow(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+			end
+			self.shopGlobalIconCleanup = InExperienceShop.initShopGlobalIcon and InExperienceShop.initShopGlobalIcon()
+				if FFlagAddIGMToSideSheet then
+					local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
+					self.shopIsActiveMappedSignal = ChromeUtils.MappedSignal.new(
+						ChromeService:onIntegrationStatusChanged(),
+						function()
+							return ChromeService:isWindowOpen(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+						end
+					)
+				end
+		end
 	end
 
 	-- This chatVersion may be inaccurate if the game isn't loaded
@@ -333,6 +369,14 @@ function TopBarApp:didMount()
 				unibarAlignment = ChromeService:orderAlignment():get(),
 			})
 		end)
+
+		if FFlagEnableExperienceShopGlobalIcon then
+			self.shopIsActiveConnection = ChromeService:onIntegrationStatusChanged():connect(function()
+				self:setState({
+					shopGlobalIconIsActive = ChromeService:isWindowOpen(ChromeConstants.IN_EXPERIENCE_SHOP_ID),
+				})
+			end)
+		end
 
 		if FFlagEnableConsoleExpControls then
 			if FFlagDisableGamepadConnectorInVR then
@@ -373,6 +417,22 @@ function TopBarApp:willUnmount()
 
 	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
+	end
+
+	if FFlagEnableExperienceShopGlobalIcon then
+		if ChromeEnabled() and self.shopGlobalIconDisposeEffect then
+			self.shopGlobalIconDisposeEffect()
+		end
+
+		if self.shopIsActiveConnection then
+			self.shopIsActiveConnection:disconnect()
+			self.shopIsActiveConnection = nil
+		end
+
+		if self.shopGlobalIconCleanup then
+			self.shopGlobalIconCleanup()
+			self.shopGlobalIconCleanup = nil
+		end
 	end
 
 	if FFlagAddUILessMode then
@@ -454,12 +514,14 @@ function TopBarApp:renderWithStyle(style)
 	local topBarHeight = Constants.TopBarHeight * self.state.UiScale
 	local topBarTopMargin = Constants.TopBarTopMargin * self.state.UiScale
 	local topBarPadding = Constants.TopBarPadding * self.state.UiScale
+	local stackedElementsPaddingLeft = if FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
+		then 2 * ChromeConstants.UNIBAR_END_PADDING * self.state.UiScale
+		else topBarPadding
 	local legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize * self.state.UiScale
 	local unibarFramePaddingTop = Constants.UnibarFrame.PaddingTop * self.state.UiScale
 	local unibarFramePaddingBottom = Constants.UnibarFrame.PaddingBottom * self.state.UiScale
 	local unibarFramePaddingLeft = Constants.UnibarFrame.PaddingLeft * self.state.UiScale
 	local unibarFrameExtendedSize = Constants.UnibarFrame.ExtendedSize * self.state.UiScale
-
 	local isTiltMenuOpen = if FFlagTopBarSignalizeMenuOpen then self.tiltMenuOpen else self.props.menuOpen
 
 	if TenFootInterface:IsEnabled() then
@@ -775,7 +837,7 @@ function TopBarApp:renderWithStyle(style)
 						Size = UDim2.new(1, 0, 1, 0),
 					}, {
 						Padding = Roact.createElement("UIPadding", {
-							PaddingLeft = UDim.new(0, topBarPadding),
+							PaddingLeft = UDim.new(0, stackedElementsPaddingLeft),
 						}),
 						Layout = Roact.createElement("UIListLayout", {
 							Padding = UDim.new(0, topBarPadding),
@@ -784,6 +846,23 @@ function TopBarApp:renderWithStyle(style)
 							VerticalAlignment = Enum.VerticalAlignment.Top,
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
+
+						ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
+							then Roact.createElement(ShopGlobalIcon, {
+								buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
+								layoutOrder = 1,
+								leftGap = topBarPadding,
+								showStatusIndicator = self.state.shopGlobalStatusIndicatorEnabled,
+								onActivated = self.onShopGlobalIconActivated,
+								onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas
+									then self.keepOutAreasStore.setKeepOutArea
+									else self.props.setKeepOutArea,
+								isActive = self.state.shopGlobalIconIsActive,
+								icon = if CommonIcon and self.shopIsActiveMappedSignal
+									then CommonIcon("BuildingStore", nil, self.shopIsActiveMappedSignal)
+									else nil,
+							})
+							else nil,
 
 						HealthBar = if UseUpdatedHealthBar
 							then nil

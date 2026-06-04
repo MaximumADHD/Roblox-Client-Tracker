@@ -1,3 +1,0 @@
-local FFlagPlayerListClosedNoRenderWithTenFoot = game:DefineFastFlag("PlayerListClosedNoRenderWithTenFoot", false)
-
-return FFlagPlayerListClosedNoRenderWithTenFoot

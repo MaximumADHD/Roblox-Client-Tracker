@@ -7,20 +7,23 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
+local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
+
+local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+local Enums = InExperienceSideSheet.Enums
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
-local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
-
-local pageOpenSignal = InGameMenuIntegrationUtils.createPageOpenSignal("PlayersPage")
+local pageOpenSignal = InGameMenuIntegrationUtils.createPageOpenSignal("LeaveGamePage")
 
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,
-	id = "people",
-	label = "CoreScripts.InGameMenu.PageTitle.Players",
-	sideSheetPlacement = SideSheetPlacement.Page,
+	id = Enums.ActionBinding.Leave,
+	label = "CoreScripts.InGameMenu.LeaveGame",
+	sideSheetPlacement = SideSheetPlacement.SessionAction,
 	activated = function(self)
-		InGameMenuIntegrationUtils.toggleIGMPage("PlayersPage", pageOpenSignal:get())
+		InGameMenuIntegrationUtils.toggleIGMPage("LeaveGamePage", pageOpenSignal:get())
 	end,
 	isActivated = if FFlagChromeActivatedMappedSignal
 		then pageOpenSignal
@@ -29,7 +32,7 @@ return ChromeService:register({
 		end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/friends", "icons/menu/friendsOn", pageOpenSignal)
+			return CommonIcon("icons/actions/leave", nil, pageOpenSignal)
 		end,
 	},
 })

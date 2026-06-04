@@ -20,6 +20,7 @@ local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
 local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 local ShopCoreGuiToggleSupported = game:GetEngineFeature("ShopCoreGuiToggleSupported")
 local EnableOpenShopSignal = game:GetEngineFeature("EnableOpenShopSignal")
@@ -68,15 +69,17 @@ local integration = ChromeService:register({
 	activated = function(_self)
 		ChromeService:toggleWindow(Constants.IN_EXPERIENCE_SHOP_ID)
 	end,
-	isActivated = function()
-		return isActive:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then isActive
+		else function()
+			return isActive:get()
+		end,
 	components = {
 		-- TODO(DMP-2519): Drop the bespoke ShopIcon fallback once FFlagAddIGMToSideSheet is
 		-- fully rolled out and only the CommonIcon Foundation path is needed.
 		Icon = function()
 			if FFlagAddIGMToSideSheet then
-				return CommonIcon("ShoppingBasket", nil, isActive)
+				return CommonIcon("BuildingStore", nil, isActive)
 			end
 			return React.createElement(ShopIcon, {
 				isActive = isActive,

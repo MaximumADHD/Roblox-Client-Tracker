@@ -19,6 +19,9 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local ChromeUtils = require(Root.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
+
 local MUSIC_WINDOW_MAX_SIZE = MusicConstants.MUSIC_WINDOW_MAX_SIZE
 
 local useSignalState = SignalsReact.useSignalState
@@ -65,9 +68,11 @@ return ChromeService:register({
 			ChromeService:toggleWindow("music_entrypoint")
 		end
 	end,
-	isActivated = function()
-		return mappedMusicOpenSignal:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then mappedMusicOpenSignal
+		else function()
+			return mappedMusicOpenSignal:get()
+		end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/common/music", "icons/common/musicFilled_medium", mappedMusicOpenSignal)

@@ -42,6 +42,11 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
+local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
+local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
+local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 -- Components 
 local View = Foundation.View
@@ -70,8 +75,51 @@ local PartyMicBinder = require(Chrome.Integrations.Party.PartyMicBinder)
 local Unibar = require(Chrome.ChromeShared.Unibar)
 local VoiceChatServiceManager = require(Packages.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(Packages.VoiceChat.VoiceStateContext)
+local ChromeService = if FFlagEnableExperienceShopGlobalIcon then require(Chrome.Service) else nil
+local ChromeConstants = if FFlagEnableExperienceShopGlobalIcon
+	then require(Chrome.ChromeShared.Unibar.Constants)
+	else nil
+local CommonIcon = if FFlagEnableExperienceShopGlobalIcon and FFlagAddIGMToSideSheet
+	then require(Chrome.Integrations.CommonIcon)
+	else nil
+local useMappedSignal = if FFlagEnableExperienceShopGlobalIcon
+	then require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
+	else nil
+local shopIsActiveMappedSignal = if FFlagEnableExperienceShopGlobalIcon and ChromeService and ChromeConstants
+	then (require(Chrome.ChromeShared.Service.ChromeUtils)).MappedSignal.new(
+		ChromeService:onIntegrationStatusChanged(),
+		function()
+			return ChromeService:isWindowOpen(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+		end
+	)
+	else nil
 
 type TopBarProps = {}
+
+local function getShopGlobalIconEnabled(scope)
+	if not FFlagEnableExperienceShopGlobalIcon then
+		return false
+	end
+	local getStore = InExperienceShop.GetShopGlobalIconStore
+	return if getStore then getStore(scope).getEnabled(scope) else false
+end
+
+local function getShopGlobalStatusIndicatorEnabled(scope)
+	if not FFlagEnableExperienceShopGlobalIcon then
+		return false
+	end
+	local getStore = InExperienceShop.GetShopGlobalIconStore
+	return if getStore then getStore(scope).getStatusIndicatorEnabled(scope) else false
+end
+
+local function handleShopGlobalIconActivated()
+	if not FFlagEnableExperienceShopGlobalIcon then
+		return
+	end
+	if ChromeService and ChromeConstants then
+		ChromeService:toggleWindow(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+	end
+end
 
 local function TopBarApp(props: TopBarProps)
 	local useFoundationTokens = Foundation.Hooks.useTokens
@@ -89,7 +137,23 @@ local function TopBarApp(props: TopBarProps)
 	local uiScale = SignalsReact.useSignalState(function(scope) 
 		return Display.GetDisplayStore(scope).getUIScale(scope)
 	end)
-	
+
+	local shopGlobalIconEnabled = nil
+	local shopGlobalStatusIndicatorEnabled = nil
+	local onShopGlobalIconActivated = nil
+	local shopGlobalIconIsActive = nil
+	if FFlagEnableExperienceShopGlobalIcon then
+		shopGlobalIconEnabled = SignalsReact.useSignalState(getShopGlobalIconEnabled)
+		shopGlobalStatusIndicatorEnabled = SignalsReact.useSignalState(getShopGlobalStatusIndicatorEnabled)
+		onShopGlobalIconActivated = handleShopGlobalIconActivated
+		React.useEffect(function()
+			local cleanup = InExperienceShop.initShopGlobalIcon and InExperienceShop.initShopGlobalIcon()
+			return cleanup or function() end
+		end, {})
+		local safeUseMappedSignal = (useMappedSignal or function() end) :: (...any) -> nil
+		shopGlobalIconIsActive = safeUseMappedSignal(shopIsActiveMappedSignal)
+	end
+
 	local unibarMenuRef = React.useRef(nil :: GuiObject?)
 	local menuIconRef = React.useRef(nil :: GuiObject?)
 
@@ -202,6 +266,20 @@ local function TopBarApp(props: TopBarProps)
 						menuRef = unibarMenuRef
 					}),
 				}),
+				ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon
+						and shopGlobalIconEnabled
+						and ShopGlobalIcon ~= nil
+					then React.createElement(ShopGlobalIcon, {
+						buttonSize = topBarButtonHeight,
+						layoutOrder = 3,
+						showStatusIndicator = shopGlobalStatusIndicatorEnabled,
+						onActivated = onShopGlobalIconActivated,
+						isActive = shopGlobalIconIsActive,
+						icon = (if CommonIcon and shopIsActiveMappedSignal
+							then CommonIcon("BuildingStore", nil, shopIsActiveMappedSignal)
+							else nil) :: React.Node?,
+					})
+					else nil,
 			}),
 			TopRightFrame = React.createElement(View, {
 				tag = "anchor-top-right auto-x",

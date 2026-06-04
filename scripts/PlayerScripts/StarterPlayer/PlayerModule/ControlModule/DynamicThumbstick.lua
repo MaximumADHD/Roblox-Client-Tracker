@@ -28,7 +28,7 @@ local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsCCLIntegrationA = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationA")
+local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 
@@ -47,7 +47,7 @@ if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS then
 end
 
 local AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
-local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationA
+local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationB
 	then AvatarAbilitiesInterface.get(Players.LocalPlayer)
 	else nil
 
@@ -539,7 +539,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		local RADIUS_OF_MAX_SPEED = 20
 
 		local scaleFactor = isBigScreen and 2 or 1
-		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationA then
+		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 			avatarAbilitiesInterface:isEnabled() else
 			AvatarAbilitiesInterface.isEnabled()
 		if FFlagUserAllowAbilityControlsBonus and isCCLEnabled and isBigScreen then
@@ -571,7 +571,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if FFlagUserPlayerScriptsCCLIntegrationA then
+	if FFlagUserPlayerScriptsCCLIntegrationB then
 		self.avatarAbilitiesEnabledChangedConn = avatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	else
 		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)

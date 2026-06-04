@@ -18,8 +18,9 @@ local IconName = Foundation.Enums.IconName
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
-local UnibarStyle = require(CorePackages.Workspace.Packages.Chrome).UnibarStyle
+local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
+local useMappedSignal = ChromePackage.Hooks.useMappedSignal
+local UnibarStyle = ChromePackage.UnibarStyle
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet

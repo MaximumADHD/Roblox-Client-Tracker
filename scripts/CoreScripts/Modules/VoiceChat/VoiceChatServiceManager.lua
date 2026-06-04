@@ -40,7 +40,6 @@ local GetFFlagVoiceChatLogDisconnectReason =
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat = VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat
-local GetFFlagUseLuaSignalrConsumer = VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
@@ -60,13 +59,11 @@ local GetFFlagEnableCrossExperienceVoiceCaptureMute =
 local GetFFlagExpChatUseVoiceParticipantsStore =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagExpChatUseVoiceParticipantsStore
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
-local GetFFlagShowToastWhenAgeGatingVoice =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
 local GetFFlagEnableVoiceTrustedConnectionsToasts =
 	require(script.Parent.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
+local DebugShowAudioDeviceInputDebugger =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugShowAudioDeviceInputDebugger()
 
-local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
-local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
 local FFlagDebugSkipSeamlessVoiceAPICheck = game:DefineFastFlag("DebugSkipSeamlessVoiceAPICheck", false)
@@ -76,10 +73,8 @@ local FIntDebugConnectDisconnectInterval = game:DefineFastInt("DebugConnectDisco
 local FFlagSeamlessVoiceV2JoinVoiceToast = game:DefineFastFlag("SeamlessVoiceV2JoinVoiceToast", false)
 local FFlagDisablePermissionPromptDeeplink = game:DefineFastFlag("DisablePermissionPromptDeeplink", false)
 local FFlagVoiceEndedCheckDisregardIdleState = game:DefineFastFlag("VoiceEndedCheckDisregardIdleState", false)
-local FFlagDisableMicRejectedPromiseReject = game:DefineFastFlag("DisableMicRejectedPromiseReject", false)
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
-local FFlagInExperienceVoiceUpsellAnalytics = game:DefineFastFlag("InExperienceVoiceUpsellAnalyticsV2", false)
 local GetFIntThrottleParticipantsUpdateMs = VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs
 local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
@@ -94,7 +89,6 @@ local GetFFlagShowDevicePermissionsModal =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowDevicePermissionsModal
 local FFlagEnableRetryForLinkingProtocolFetch =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableRetryForLinkingProtocolFetch
-local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1", false)
 local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV3", false)
 local FFlagVoiceRewarmTelemetry =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
@@ -416,10 +410,8 @@ function VoiceChatServiceManager.new(
 		voiceConnectEventReportedForActiveSession = false,
 	}, VoiceChatServiceManager)
 
-	if GetFFlagUseLuaSignalrConsumer() then
-		for _, v in WATCHED_MESSAGE_TYPES do
-			self.SignalREventTable[v :: WatchedMessageTypes] = Instance.new("BindableEvent")
-		end
+	for _, v in WATCHED_MESSAGE_TYPES do
+		self.SignalREventTable[v :: WatchedMessageTypes] = Instance.new("BindableEvent")
 	end
 
 	-- shouldThrottleParticipantUpdate is only true if and only if FInt > 0 and user is in throttle IXP treatment
@@ -503,24 +495,35 @@ function VoiceChatServiceManager.new(
 			self.deniedMicPermissions = true
 		end
 		if GetFFlagEnableUniveralVoiceToasts() and not FFlagSkipVoicePermissionCheck then
-			if FFlagDisableMicRejectedPromiseReject then
-				return self:CheckAndShowPermissionPrompt()
-			else
-				return self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
-			end
+			return self:CheckAndShowPermissionPrompt()
 		end
 	end)
-	self.coreVoiceManager:subscribe("OnDevicePlayerChanged", function()
-		self:UpdateAudioDeviceInputDebugger()
-	end)
-	self.coreVoiceManager:subscribe("OnDeviceActiveChanged", function()
-		self:UpdateAudioDeviceInputDebugger()
-	end)
-	self.coreVoiceManager:subscribe("OnDeviceMuteChanged", function()
-		self:UpdateAudioDeviceInputDebugger()
-	end)
-	if FFlagEnablePartyVoiceChangersInLua then
-		self.coreVoiceManager:subscribe("OnVoiceChangerChanged", function()
+
+	if DebugShowAudioDeviceInputDebugger then
+		self.coreVoiceManager:subscribe("OnDevicePlayerChanged", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+		self.coreVoiceManager:subscribe("OnDeviceActiveChanged", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+		self.coreVoiceManager:subscribe("OnDeviceMuteChanged", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+		if FFlagEnablePartyVoiceChangersInLua then
+			self.coreVoiceManager:subscribe("OnVoiceChangerChanged", function()
+				self:UpdateAudioDeviceInputDebugger()
+			end)
+		end
+		self.coreVoiceManager:subscribe("OnPlayerMuted", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+		self.coreVoiceManager:subscribe("OnAudioDeviceInputAdded", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+		self.coreVoiceManager:subscribe("OnAudioDeviceInputRemoved", function()
+			self:UpdateAudioDeviceInputDebugger()
+		end)
+		self.coreVoiceManager:subscribe("OnDeviceMutedByLocalUserChanged", function()
 			self:UpdateAudioDeviceInputDebugger()
 		end)
 	end
@@ -563,12 +566,6 @@ function VoiceChatServiceManager.new(
 			self:showPrompt(VoiceChatPromptType.LeaveVoice)
 		end
 	end)
-	self.coreVoiceManager:subscribe("OnPlayerMuted", function()
-		self:UpdateAudioDeviceInputDebugger()
-	end)
-	self.coreVoiceManager:subscribe("OnAudioDeviceInputAdded", function()
-		self:UpdateAudioDeviceInputDebugger()
-	end)
 
 	self.coreVoiceManager:subscribe("OnVoiceChatServiceInitialized", function()
 		self:ShowVoiceUI()
@@ -593,9 +590,6 @@ function VoiceChatServiceManager.new(
 		end
 	end)
 
-	self.coreVoiceManager:subscribe("OnAudioDeviceInputRemoved", function()
-		self:UpdateAudioDeviceInputDebugger()
-	end)
 	self.coreVoiceManager:subscribe("OnInitialJoinFailed", function()
 		self:InitialJoinFailedPrompt()
 	end)
@@ -909,25 +903,14 @@ function VoiceChatServiceManager:VoiceChatFirstTimeUX(appStorageService: AppStor
 	-- We only want to do this once per voice session
 	if not FFlagDebugSkipSeamlessVoiceAPICheck then
 		local permissions = self:FetchAgeVerificationOverlay()
-		if FFlagSeamlessVoiceBugfixes then
-			if
-				type(permissions) == "table"
-				and permissions.voiceSettings
-				and permissions.voiceSettings.seamlessVoiceStatus
-					~= VoiceConstants.SEAMLESS_VOICE_STATUS_ENABLED_NEW_USER
-			then
-				log:debug("User not eligible for FTUX/STUX")
-				return
-			end
-		else
-			if
-				permissions.voiceSettings
-				and permissions.voiceSettings.seamlessVoiceStatus
-					~= VoiceConstants.SEAMLESS_VOICE_STATUS_ENABLED_NEW_USER
-			then
-				log:debug("User not eligible for FTUX/STUX")
-				return
-			end
+		if
+			type(permissions) == "table"
+			and permissions.voiceSettings
+			and permissions.voiceSettings.seamlessVoiceStatus
+				~= VoiceConstants.SEAMLESS_VOICE_STATUS_ENABLED_NEW_USER
+		then
+			log:debug("User not eligible for FTUX/STUX")
+			return
 		end
 	end
 	local function startFTUX()
@@ -1396,9 +1379,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 			onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
 				then function()
 					self:ShowVoiceToxicityFeedbackToast()
-					if FFlagFixNudgeDeniedEvents then
-						self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
-					end
+					self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
 				end
 				elseif isNudge then function()
 					self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())
@@ -1565,23 +1546,21 @@ function VoiceChatServiceManager:reportBanMessage(eventType: string)
 end
 
 function VoiceChatServiceManager:reportJoinVoiceUpsellEvent(eventType: "Shown" | "Click", buttonContext: string?, buttonConsequence: string?)
-	if FFlagInExperienceVoiceUpsellAnalytics then
-		local sessionId = AnalyticsService:GetPlaySessionId()
-		if FFlagVoiceRewarmTelemetry then
-			self.Analytics:reportJoinVoiceUpsellEvent(
-				eventType,
-				sessionId,
-				self:UserVoiceEnabled(),
-				buttonContext,
-				buttonConsequence
-			)
-		else
-			self.Analytics:reportJoinVoiceUpsellEvent(
-				eventType,
-				sessionId,
-				self:UserVoiceEnabled()
-			)
-		end
+	local sessionId = AnalyticsService:GetPlaySessionId()
+	if FFlagVoiceRewarmTelemetry then
+		self.Analytics:reportJoinVoiceUpsellEvent(
+			eventType,
+			sessionId,
+			self:UserVoiceEnabled(),
+			buttonContext,
+			buttonConsequence
+		)
+	else
+		self.Analytics:reportJoinVoiceUpsellEvent(
+			eventType,
+			sessionId,
+			self:UserVoiceEnabled()
+		)
 	end
 end
 
@@ -1816,7 +1795,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			local promptToShow = self:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
 			self:showPrompt(promptToShow)
 		end
-	elseif GetFFlagShowToastWhenAgeGatingVoice() and self:EligibleForAgeCheckToast() then
+	elseif self:EligibleForAgeCheckToast() then
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.AGE_CHECK_TOAST
 		end
@@ -1946,7 +1925,7 @@ function VoiceChatServiceManager:ShouldShowJoinVoice()
 
 	-- Show join voice button to users who are eligible to see the toast notifying them to age check to unlock voice
 	-- This logic will no longer apply when Phase 2 of Aegis is rolled out
-	if GetFFlagShowToastWhenAgeGatingVoice() and self:EligibleForAgeCheckToast() then
+	if self:EligibleForAgeCheckToast() then
 		return true
 	end
 

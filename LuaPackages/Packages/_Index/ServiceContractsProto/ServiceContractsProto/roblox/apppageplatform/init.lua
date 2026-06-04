@@ -15,6 +15,7 @@ local experienceevents = require(script.experienceevents.v1beta1)
 local home = require(script.home.v1beta1)
 local marketplacecatalog = require(script.marketplacecatalog.v1beta1)
 local prompts = require(script.prompts.v1beta1)
+local search = require(script.search.v1beta1)
 local shared = require(script.shared.v1beta1)
 
 -- Re-exported types from subdirectories
@@ -53,6 +54,9 @@ export type MarketplaceCatalogPageResponse = marketplacecatalog.MarketplaceCatal
 -- From prompts.v1beta1
 export type CustomPrompt = prompts.CustomPrompt
 export type GetEligiblePromptsResponse = prompts.GetEligiblePromptsResponse
+-- From search.v1beta1
+export type GetSearchResultsPageRequest = search.GetSearchResultsPageRequest
+export type GetSearchResultsPageResponse = search.GetSearchResultsPageResponse
 -- From shared.v1beta1
 export type AccessibilityProps = shared.AccessibilityProps
 export type Action = shared.Action
@@ -719,5 +723,6 @@ return {
 	home = home,
 	marketplacecatalog = marketplacecatalog,
 	prompts = prompts,
+	search = search,
 	shared = shared,
 }

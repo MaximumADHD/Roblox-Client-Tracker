@@ -785,6 +785,7 @@ if FFlagEnableSideSheet then
 		local toggle = {}
 		local unibar = {}
 		local page = {}
+		local sessionAction = {}
 
 		local function addIntegration(id: IntegrationId)
 			local integration = self._integrations[id]
@@ -801,6 +802,8 @@ if FFlagEnableSideSheet then
 				table.insert(unibar, self:createIconProps(id, order))
 			elseif FFlagAddIGMToSideSheet and integration.sideSheetPlacement == SideSheetPlacement.Page then
 				table.insert(page, self:createIconProps(id, order))
+			elseif integration.sideSheetPlacement == SideSheetPlacement.SessionAction then
+				table.insert(sessionAction, self:createIconProps(id, order))
 			else
 				table.insert(toggle, self:createIconProps(id, order))
 			end
@@ -836,6 +839,7 @@ if FFlagEnableSideSheet then
 			unibarIntegrations = unibar,
 			toggleIntegrations = toggle,
 			pageIntegrations = if FFlagAddIGMToSideSheet then page else {},
+			sessionActionIntegrations = sessionAction,
 		})
 	end
 end

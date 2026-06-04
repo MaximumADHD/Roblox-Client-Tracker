@@ -61,6 +61,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
+local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
@@ -721,7 +722,7 @@ local function Initialize()
 	})
 	this.ButtonsContainer = buttonsContainer
 
-	if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3) then
+	if FFlagEnableSideSheet or (FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3)) then
 		buttonsContainer.Parent = nil
 	end
 

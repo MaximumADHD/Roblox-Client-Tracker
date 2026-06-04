@@ -34,6 +34,7 @@ local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat.InExperienceAppChatModal)
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
@@ -162,9 +163,11 @@ chatChromeIntegration = ChromeService:register({
 			end
 		end
 	end,
-	isActivated = function()
-		return chatVisibilitySignal:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then chatVisibilitySignal
+		else function()
+			return chatVisibilitySignal:get()
+		end,
 	selected = if FFlagEnableConsoleExpControls
 		then function(self)
 			if FFlagExpChatUnibarThumbstickNavigate then

@@ -6,7 +6,7 @@ local Foundation = require(CorePackages.Packages.Foundation)
 local React = require(CorePackages.Packages.React)
 local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
-local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
+local useMappedSignal = require(CorePackages.Workspace.Packages.Chrome).Hooks.useMappedSignal
 local usePartyIcon = require(Chrome.Integrations.Party.usePartyIcon)
 
 local MappedSignal = ChromeUtils.MappedSignal

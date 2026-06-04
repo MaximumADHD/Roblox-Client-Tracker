@@ -10,6 +10,7 @@ type ObjectsFormat = {
 
 local R6_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/R6.rbxm"
 local R15_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/R15.rbxm"
+local R15_PLUS_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/R15-plus.rbxm"
 local RTHRO_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/Rthro.rbxm"
 
 local DEFAULT_PARENT_MANNEQUIN_TO_WORKSPACE = true
@@ -118,6 +119,13 @@ end
 
 function MannequinUtility.LoadRthroMannequin(parentToWorkspace: boolean?): Model
 	return loadMannequin(RTHRO_MANNEQUIN_CONTENT_ID, parentToWorkspace)
+end
+
+function MannequinUtility.LoadR15PlusMannequin(parentToWorkspace: boolean?): Model
+	if game:GetEngineFeature("R15PlusMannequinContent") then
+		return loadMannequin(R15_PLUS_MANNEQUIN_CONTENT_ID, parentToWorkspace)
+	end
+	return loadMannequin(R15_MANNEQUIN_CONTENT_ID, parentToWorkspace)
 end
 
 function MannequinUtility.LoadMannequinForScaleType(scaleType, parentToWorkspace: boolean?): Model

@@ -38,6 +38,11 @@ local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFFlagGateEducationalPopupVisibilityViaGUAC
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
+local FFlagEnableSideSheet = require(SharedFlags).FFlagEnableSideSheet
+local toggleSideSheet
+if FFlagEnableSideSheet then
+	toggleSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet).toggleSideSheet
+end
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Packages.Roact)
@@ -278,6 +283,10 @@ PageInstance.Displayed.Event:connect(function()
 		false,
 		Enum.KeyCode.ButtonB
 	)
+
+	if FFlagEnableSideSheet then
+		toggleSideSheet(false)
+	end
 end)
 
 PageInstance.Hidden.Event:connect(function()

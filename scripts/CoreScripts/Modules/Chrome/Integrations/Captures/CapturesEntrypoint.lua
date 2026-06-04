@@ -13,6 +13,7 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 
 local ChromePackage = require(CorePackages.Workspace.Packages.Chrome)
 local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
@@ -36,9 +37,11 @@ local capturesEntrypointIntegration = ChromeService:register({
 	activated = function(self)
 		CapturesApp.onToggleActivationFromChrome()
 	end,
-	isActivated = function()
-		return isActive:get()
-	end,
+	isActivated = if FFlagChromeActivatedMappedSignal
+		then isActive
+		else function()
+			return isActive:get()
+		end,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/controls/cameraOff", "icons/controls/cameraOn", isActive)
