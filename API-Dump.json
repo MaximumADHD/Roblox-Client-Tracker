@@ -1048,35 +1048,6 @@
                     }
                 },
                 {
-                    "Capabilities": {
-                        "Read": [
-                            "DynamicGeneration"
-                        ],
-                        "Write": [
-                            "DynamicGeneration"
-                        ]
-                    },
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "SkinningEnabled",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
                     "Capabilities": [
                         "DynamicGeneration"
                     ],
@@ -3577,6 +3548,7 @@
                         "Name": "Instance"
                     },
                     "Security": "None",
+                    "SimulationAccess": true,
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -4173,6 +4145,7 @@
                         "Name": "Instance"
                     },
                     "Security": "None",
+                    "SimulationAccess": true,
                     "Tags": [
                         "Deprecated"
                     ],
@@ -18941,15 +18914,18 @@
                     },
                     "Category": "State",
                     "MemberType": "Property",
-                    "Name": "Enabled",
+                    "Name": "DictationEnabled",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -18964,10 +18940,10 @@
                     },
                     "Category": "State",
                     "MemberType": "Property",
-                    "Name": "IsDictationEnabled",
+                    "Name": "Enabled",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -23144,6 +23120,21 @@
                                 "Category": "Primitive",
                                 "Name": "int64"
                             }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "outfitOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "outfitType",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -23518,6 +23509,21 @@
                             "Type": {
                                 "Category": "Enum",
                                 "Name": "HumanoidRigType"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "outfitOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        },
+                        {
+                            "Name": "outfitType",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
                             }
                         }
                     ],
@@ -47561,6 +47567,49 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "DeferredAssetManagerService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "ClearTokens",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetTokens",
+                    "Parameters": [
+                        {
+                            "Name": "payload",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DesignFoundationsService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -82739,35 +82788,6 @@
                     },
                     "Category": "Behavior",
                     "MemberType": "Property",
-                    "Name": "AllowClientInsertModels",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Capabilities": {
-                        "Read": [
-                            "LoadUnownedAsset"
-                        ],
-                        "Write": [
-                            "LoadUnownedAsset"
-                        ]
-                    },
-                    "Category": "Behavior",
-                    "MemberType": "Property",
                     "Name": "AllowInsertFreeModels",
                     "Security": {
                         "Read": "None",
@@ -90077,6 +90097,14 @@
                                 "Category": "Primitive",
                                 "Name": "string"
                             }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "purchaseOptions",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -91349,6 +91377,14 @@
                                 "Name": "string"
                             }
                         }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptRobuxTransferSubscriptionUpsellRequested",
+                    "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -107449,6 +107485,27 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "ImprovedPhysicsReplication",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RolloutState"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "InsertPoint",
@@ -118234,6 +118291,21 @@
                         "Players"
                     ],
                     "MemberType": "Function",
+                    "Name": "CreateThumbnailPlayer",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Player"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Function",
                     "Name": "GetPlayerByUserId",
                     "Parameters": [
                         {
@@ -127552,6 +127624,22 @@
                         "Name": "bool"
                     },
                     "Security": "PluginSecurity",
+                    "ThreadSafety": "Safe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "IsResimulating",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "SimulationAccess": true,
                     "ThreadSafety": "Safe"
                 },
                 {
@@ -141991,6 +142079,24 @@
                     "Category": "Camera",
                     "MemberType": "Property",
                     "Name": "CameraAdaptiveSpeed",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
+                    "Name": "CameraAltLeftMouseToRotate",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -164058,6 +164164,29 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Color3"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {

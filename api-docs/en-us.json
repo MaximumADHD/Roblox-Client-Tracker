@@ -31761,7 +31761,6 @@
   "@roblox/globaltype/InsertService": {
     "documentation": "Used to insert assets from the Roblox website.",
     "keys": {
-      "AllowClientInsertModels": "@roblox/globaltype/InsertService.AllowClientInsertModels",
       "AllowInsertFreeModels": "@roblox/globaltype/InsertService.AllowInsertFreeModels",
       "ApproveAssetId": "@roblox/globaltype/InsertService.ApproveAssetId",
       "ApproveAssetVersionId": "@roblox/globaltype/InsertService.ApproveAssetVersionId",
@@ -31782,11 +31781,6 @@
       "LoadAssetVersion": "@roblox/globaltype/InsertService.LoadAssetVersion"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/InsertService.AllowClientInsertModels": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#AllowClientInsertModels",
     "code_sample": ""
   },
   "@roblox/globaltype/InsertService.AllowInsertFreeModels": {
@@ -47489,7 +47483,7 @@
     "documentation": "The player's rank in the group."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync": {
-    "documentation": "Returns the player's rank in the group as an integer.",
+    "documentation": "<strong>Deprecated:</strong> This method only returns a single role rank and may produce arbitrary results when a user holds multiple roles. Use <code>GroupService:GetRolesInGroupAsync()</code> instead, which returns all roles.<br>Returns the player's rank in the group as an integer.",
     "params": [
       {
         "name": "self",
@@ -47543,7 +47537,7 @@
     "documentation": "The player's role in the specified group, or <code>Guest</code> if the player is not a member."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync": {
-    "documentation": "Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
+    "documentation": "<strong>Deprecated:</strong> This method only returns a single role name and may produce arbitrary results when a user holds multiple roles. Use <code>GroupService:GetRolesInGroupAsync()</code> instead, which returns all roles.<br>Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
     "params": [
       {
         "name": "self",
@@ -66665,7 +66659,6 @@
     "documentation": "Instance which allows for the runtime creation and manipulation of meshes.",
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
-      "SkinningEnabled": "@roblox/globaltype/EditableMesh.SkinningEnabled",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
       "AddColor": "@roblox/globaltype/EditableMesh.AddColor",
       "AddNormal": "@roblox/globaltype/EditableMesh.AddNormal",
@@ -66757,11 +66750,6 @@
   "@roblox/globaltype/EditableMesh.FixedSize": {
     "documentation": "Returns <code>true</code> if a mesh is fixed-size.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#FixedSize",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/EditableMesh.SkinningEnabled": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/EditableMesh#SkinningEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddBone/param/0": {
@@ -75585,6 +75573,7 @@
       "GetEnemiesAsync": "@roblox/globaltype/GroupService.GetEnemiesAsync",
       "GetGroupInfoAsync": "@roblox/globaltype/GroupService.GetGroupInfoAsync",
       "GetGroupsAsync": "@roblox/globaltype/GroupService.GetGroupsAsync",
+      "GetRolesInGroupAsync": "@roblox/globaltype/GroupService.GetRolesInGroupAsync",
       "PromptJoinAsync": "@roblox/globaltype/GroupService.PromptJoinAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService",
@@ -75697,6 +75686,40 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService#GetGroupsAsync",
     "code_sample": "local GroupService = game:GetService(\"GroupService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal function playerAdded(player)\n\t-- load a list of info on all groups the player is a member of\n\tlocal groups = GroupService:GetGroupsAsync(player.UserId)\n\n\tfor _, groupInfo in pairs(groups) do\n\t\tfor key, value in pairs(groupInfo) do\n\t\t\tprint(key .. \": \" .. tostring(value))\n\t\tend\n\n\t\tprint(\"--\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(playerAdded)\n\n-- go through existing players\nfor _, player in pairs(Players:GetPlayers()) do\n\tplayerAdded(player)\nend"
+  },
+  "@roblox/globaltype/GroupService.GetRolesInGroupAsync/param/0": {
+    "documentation": "GroupService is a service that allows developers to fetch information about a Roblox group from within a game."
+  },
+  "@roblox/globaltype/GroupService.GetRolesInGroupAsync/param/1": {
+    "documentation": "The user's ID."
+  },
+  "@roblox/globaltype/GroupService.GetRolesInGroupAsync/param/2": {
+    "documentation": "The group's ID."
+  },
+  "@roblox/globaltype/GroupService.GetRolesInGroupAsync/return/0": {
+    "documentation": "A table with two fields: <code>IsMember</code> (boolean) and <code>Roles</code> (array of public role tables). Each role table contains <code>Id</code> (int64), <code>Name</code> (string), and <code>Rank</code> (int). The array is ordered as returned by the backend."
+  },
+  "@roblox/globaltype/GroupService.GetRolesInGroupAsync": {
+    "documentation": "Returns all roles held by the specified user in the specified group, supporting multi-role group membership.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GroupService.GetRolesInGroupAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/GroupService.GetRolesInGroupAsync/param/1"
+      },
+      {
+        "name": "groupId",
+        "documentation": "@roblox/globaltype/GroupService.GetRolesInGroupAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/GroupService.GetRolesInGroupAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService#GetRolesInGroupAsync",
+    "code_sample": ""
   },
   "@roblox/globaltype/GroupService.PromptJoinAsync/param/0": {
     "documentation": "GroupService is a service that allows developers to fetch information about a Roblox group from within a game."

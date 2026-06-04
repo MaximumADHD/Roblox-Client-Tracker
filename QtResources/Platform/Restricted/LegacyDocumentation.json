@@ -108,9 +108,6 @@
         "InsertService": {
             "summary": "A service used to insert objects stored on the website into the game.",
             "members": {
-                "AllowClientInsertModels": {
-                    "summary": "Can be set in non-filtering-enabled places to allow LoadAsset to be used in LocalScripts."
-                },
                 "AllowInsertFreeModels": {
                     "summary": "Allows free models to be inserted into place."
                 },
