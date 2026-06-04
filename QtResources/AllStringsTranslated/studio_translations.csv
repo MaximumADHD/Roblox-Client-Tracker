@@ -6370,7 +6370,27 @@ Studio.GameSettings.AvatarChat.AudioTitleV2,,,Enable Voice Chat,Enable Voice Cha
 Studio.GameSettings.AvatarChat.AudioBodyV2,,,Enabling Voice Chat allows eligible users to communicate using their voice in your experience. Users must be age-checked and 13+ to access Voice Chat within eligible regions. [link],Enabling Voice Chat allows eligible users to communicate using their voice in your experience. Users must be age-checked and 13+ to access Voice Chat within eligible regions. [link]
 Studio.GameSettings.Errors.ErrorPriceChangeTooSoonNoDate,,,The private server price can only be changed once every 60 days.,The private server price can only be changed once every 60 days.
 Studio.GameSettings.Errors.ErrorPriceChangeTooSoonWithDate,,,You may not change the private server price for this game until {date}. Prices can only be changed once every 60 days.,You may not change the private server price for this game until {date}. Prices can only be changed once every 60 days.
-Studio.GameSettings.General.BannerSettingsMovedText,,,We’ve streamlined Experience Settings in Studio. Additional settings are on Creator Hub.,We’ve streamlined Experience Settings in Studio. Additional settings are on Creator Hub.
+Studio.GameSettings.General.ButtonOK,,,OK,OK
+Studio.GameSettings.General.TitleEnableTeamCreate,,,Team Create,Team Create
+Studio.GameSettings.General.EnableTeamCreateDescription,,,Enables collaboration and autosave to cloud. [link],Enables collaboration and autosave to cloud. [link]
+Studio.GameSettings.General.TeamCreateChangeWarningTooltip,,,Saving this change will automatically close and reopen the experience. Your work will be saved.,Saving this change will automatically close and reopen the experience. Your work will be saved.
+Studio.GameSettings.CreatorHub.Access,,,"Manage playable devices, paid access, and private servers.","Manage playable devices, paid access, and private servers."
+Studio.GameSettings.CreatorHub.PageTitle,,,We have streamlined Game Settings in Studio,We have streamlined Game Settings in Studio
+Studio.GameSettings.CreatorHub.AdditionalSettings,,,Additional settings can be found on Creator Hub,Additional settings can be found on Creator Hub
+Studio.GameSettings.General.CategoryCreatorHub,,,Additional Settings,Additional Settings
+Studio.GameSettings.CreatorHub.ContentMaturity,,,Set your experience’s content maturity label.,Set your experience’s content maturity label.
+Studio.GameSettings.CreatorHub.Monetization,,,Create and manage developer products.,Create and manage developer products.
+Studio.GameSettings.CreatorHub.Places,,,Access place settings and thumbnails.,Access place settings and thumbnails.
+Studio.GameSettings.CreatorHub.Localization,,,Manage language support and translation settings.,Manage language support and translation settings.
+Studio.GameSettings.CreatorHub.AccessLocation,,,Audience > Access,Audience > Access
+Studio.GameSettings.CreatorHub.ConfigureSettingsLocation,,,Configure > Settings,Configure > Settings
+Studio.GameSettings.CreatorHub.ConfigureSettings,,,Set experience icon and manage content settings.,Set experience icon and manage content settings.
+Studio.GameSettings.CreatorHub.ContentMaturityLocation,,,Configure > Questionnaire,Configure > Questionnaire
+Studio.GameSettings.CreatorHub.PlacesLocation,,,Configure > Places,Configure > Places
+Studio.GameSettings.CreatorHub.MonetizationLocation,,,Monetization > Developer Products,Monetization > Developer Products
+Studio.GameSettings.CreatorHub.EngagementLocation,,,Engagement > Badges,Engagement > Badges
+Studio.GameSettings.CreatorHub.Engagement,,,Create and manage badges.,Create and manage badges.
+Studio.GameSettings.CreatorHub.LocalizationLocation,,,Audience > Localization,Audience > Localization
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -10978,6 +10998,9 @@ Studio.ManageCollaborators.UpsellBanner.RecheckAge,,,Let's recheck your age.,Let
 Studio.ManageCollaborators.UpsellBanner.AgeCheckNotValid,,,Your age check is no longer valid.,Your age check is no longer valid.
 Studio.ManageCollaborators.UpsellDialog.TrustedFriendsButton,,,Establish trusted friends,Establish trusted friends
 Studio.ManageCollaborators.UpsellDialog.description.TFRename,,,"To use Studio collaboration with others who aren't in similar age groups, establish trusted friends or get parental consent.","To use Studio collaboration with others who aren't in similar age groups, establish trusted friends or get parental consent."
+Studio.ManageCollaborators.FeedbackAlert.OwnerNotAgeVerifiedTitle,,,Verify your age to collaborate with others,Verify your age to collaborate with others
+Studio.ManageCollaborators.FeedbackAlert.OwnerNotAgeVerifiedSubtitle,,,"To collaborate with others, verify your age","To collaborate with others, verify your age"
+Studio.ManageCollaborators.FeedbackAlert.VerifyYourAge,,,Verify your age,Verify your age
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -14234,6 +14257,28 @@ Studio.Assistant.MeshGen.InputPromptModeTitle,,,Input Mode,Input Mode
 Studio.Assistant.Gen3d.PromptModeText,,,Prompt,Prompt
 Studio.Assistant.Gen3d.PromptModeImage,,,Image,Image
 Studio.Assistant.Gen3d.SuggestSegmentationTitle,,,Suggest segmentation,Suggest segmentation
+Studio.Assistant.ScopePermissions.Subtitle,,,{enabled:int} of {total:int} scopes enabled,{enabled:int} of {total:int} scopes enabled
+Studio.Assistant.ScopePermissions.LearnMoreRiskLevels,,,Learn more about {linkStart}risk levels{linkEnd},Learn more about {linkStart}risk levels{linkEnd}
+Studio.Assistant.ScopePermissions.PresetCustom,,,Custom,Custom
+Studio.Assistant.ScopePermissions.PresetCustomDescription,,,Manual per-scope selection,Manual per-scope selection
+Studio.Assistant.ScopePermissions.PresetNone,,,None,None
+Studio.Assistant.ScopePermissions.PresetNoneDescription,,,No scopes enabled,No scopes enabled
+Studio.Assistant.ScopePermissions.PresetHig,,,High risk,High risk
+Studio.Assistant.ScopePermissions.PresetHigh,,,High risk,High risk
+Studio.Assistant.Skills.CreateNew,,,Create New,Create New
+Studio.Assistant.ScopePermissions.PresetHighDescription,,,Modifies or deletes private information,Modifies or deletes private information
+Studio.Assistant.ScopePermissions.PresetLow,,,Low risk,Low risk
+Studio.Assistant.ScopePermissions.PresetLowDescription,,,Retrieves publicly available information,Retrieves publicly available information
+Studio.Assistant.ScopePermissions.PresetMedium,,,Medium risk,Medium risk
+Studio.Assistant.ScopePermissions.PresetMediumDescription,,,"Creates, updates, or accesses private information","Creates, updates, or accesses private information"
+Studio.Assistant.ScopePermissions.Title,,,Open Cloud Scope Permissions,Open Cloud Scope Permissions
+Studio.Assistant.SettingsDialog.PermissionsTab,,,Permissions,Permissions
+Studio.Assistant.SettingsDialog.SkillsTab,,,Skills,Skills
+Studio.Assistant.Skills.Description,,,Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.,Skills are specialized capabilities that help the agent accomplish specific tasks. Skills will be invoked by the agent when relevant or can be triggered manually with / in chat.
+Studio.Assistant.Skills.ManageSkills,,,Manage Skills,Manage Skills
+Studio.Assistant.Skills.PersonalGroup,,,Personal,Personal
+Studio.Assistant.Skills.RobloxGroup,,,Roblox,Roblox
+Studio.Assistant.Skills.Upload,,,Upload,Upload
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -15401,6 +15446,36 @@ Studio.CreatorConfig.Plugin.Toolbar,,,Experience Configs,Experience Configs
 Studio.CreatorConfig.RobloxRibbonMainWindow.OpenConfigs,,,Open Configs,Open Configs
 Studio.CreatorConfig.Common.ConfigLoadFailed,,,Failed to load configs,Failed to load configs
 Studio.CreatorConfig.Common.Retry,,,Retry,Retry
+Studio.CreatorConfig.PublishDialog.Title,,,Add a publish message,Add a publish message
+Studio.CreatorConfig.PublishDialog.CancelButton,,,Cancel,Cancel
+Studio.CreatorConfig.PublishDialog.MessageFieldHint,,,Optional,Optional
+Studio.CreatorConfig.PublishDialog.MessageFieldLabel,,,Publish message,Publish message
+Studio.CreatorConfig.PublishDialog.MessageFieldPlaceholder,,,Enter a message,Enter a message
+Studio.CreatorConfig.PublishDialog.PublishButton,,,Publish,Publish
+Studio.CreatorConfig.PublishDialog.PublishNowTitle,,,Publish {changeCount} {noun},Publish {changeCount} {noun}
+Studio.CreatorConfig.PublishDialog.PublishSlowlyTitle,,,Publish {changeCount} {noun} over 15 min,Publish {changeCount} {noun} over 15 min
+Studio.CreatorConfig.Common.ConfigNounSingular,,,config,config
+Studio.CreatorConfig.Common.ConfigNounPlural,,,configs,configs
+Studio.CreatorConfig.PublishDialog.PublishSlowlyButton,,,Publish (15 min),Publish (15 min)
+Studio.CreatorConfig.CancelPublishDialog.Title,,,Cancel publish?,Cancel publish?
+Studio.CreatorConfig.CancelPublishDialog.ConfirmButton,,,OK,OK
+Studio.CreatorConfig.CancelPublishDialog.CancelButton,,,Cancel,Cancel
+Studio.CreatorConfig.CancelPublishDialog.Description,,,This will stop the ongoing publish and move non-published configs back to staged.,This will stop the ongoing publish and move non-published configs back to staged.
+Studio.CreatorConfig.PublishAsDialog.PublishNowTitle,,,Publish {changeCount} {noun} as,Publish {changeCount} {noun} as
+Studio.CreatorConfig.PublishAsDialog.PublishSlowlyTitle,,,Publish {changeCount} {noun} over 15 min,Publish {changeCount} {noun} over 15 min
+Studio.CreatorConfig.PublishAsDialog.SearchPlaceholder,,,Search,Search
+Studio.CreatorConfig.PublishAsDialog.MyExperiences,,,My Experiences,My Experiences
+Studio.CreatorConfig.PublishAsDialog.Description,,,Select an experience to overwrite configs to.,Select an experience to overwrite configs to.
+Studio.CreatorConfig.PublishAsDialog.FailedToLoadUniverses,,,Failed to load experiences,Failed to load experiences
+Studio.CreatorConfig.PublishAsDialog.FailedToLoadGroups,,,Failed to load groups,Failed to load groups
+Studio.CreatorConfig.PublishAsDialog.NoExperiencesMatchFilter,,,No experiences match this filter. Try changing your criteria.,No experiences match this filter. Try changing your criteria.
+Studio.CreatorConfig.PublishAsDialog.DoneButton,,,Done,Done
+Studio.CreatorConfig.PublishAsDialog.PublishSuccess,,,Successfully published configs!,Successfully published configs!
+Studio.CreatorConfig.PublishAsDialog.PublishFailure,,,Failed to publish configs,Failed to publish configs
+Studio.CreatorConfig.PublishAsDialog.PublishInProgress,,,Publish in progress...,Publish in progress...
+Studio.CreatorConfig.PublishFailureReason.Unknown,,,An unknown error occurred,An unknown error occurred
+Studio.CreatorConfig.PublishFailureReason.Timeout,,,Request timed out,Request timed out
+Studio.CreatorConfig.PublishFailureReason.OngoingPublish,,,A publish is already in progress for this experience,A publish is already in progress for this experience
 Studio.PartyEmulator.Action.AddParty,,,Add Party,Add Party
 Studio.PartyEmulator.Action.Delete,,,Delete,Delete
 Studio.PartyEmulator.Label.PartyPlayersCount,,,{current}/{max} Users,{current}/{max} Users
@@ -15598,6 +15673,7 @@ Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.CancelButton,,,Cancel,
 Studio.TeamCreateCollaborators.VPCTrustedConnectionDialog.SendButton,,,Send,Send
 Studio.TeamCreateCollaborators.MainView.SnoozeAcknowledgement,,,"I understand collaboration will be blocked starting June 18, 2026","I understand collaboration will be blocked starting June 18, 2026"
 Studio.TeamCreateCollaborators.MainView.RemindMeLaterButton,,,Remind me later,Remind me later
+Studio.TeamCreateCollaborators.VPCRequestSentDialog.TooManyRequestsFailureSubtitle,,,You've sent several requests for {universe_name} today. Please try again tomorrow.,You've sent several requests for {universe_name} today. Please try again tomorrow.
 Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
 Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
 Studio.AssetPicker.OptionMenuItem.List,,,List,List

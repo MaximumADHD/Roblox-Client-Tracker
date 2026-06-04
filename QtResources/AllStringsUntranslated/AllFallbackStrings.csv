@@ -1379,6 +1379,8 @@ Studio.App.IdeDoc.KillScript,Roblox IDE Doc,Kill Script,Kill Script
 Studio.App.IdeDoc.LegacyPartNotCompatibleWithPhysics,Roblox IDE Doc,"Legacy Part not compatible with Physics, try separating and simplifying","Legacy Part not compatible with Physics, try separating and simplifying"
 Studio.App.IdeDoc.LoadingPlacePleaseWait,Roblox IDE Doc,Loading Place. Please wait...,Loading Place. Please wait...
 Studio.App.IdeDoc.LogInRequired,Roblox IDE Doc,Log in required,Log in required
+Studio.App.IdeDoc.MeshStreamingRestartMessage,Message shown in the restart dialog when the MeshStreamingAndImprovedLods workspace property is changed,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?
+Studio.App.IdeDoc.MeshStreamingRestartTitle,Title for the restart dialog shown when the MeshStreamingAndImprovedLods workspace property is changed,Restart Studio,Restart Studio
 Studio.App.IdeDoc.NoFBXFileSelected,Roblox IDE Doc,No FBX file selected,No FBX file selected
 Studio.App.IdeDoc.NoRigWasPassedAsFirstArgument,Roblox IDE Doc,No rig was passed as first argument to ImportFbxAnimation,No rig was passed as first argument to ImportFbxAnimation
 Studio.App.IdeDoc.NotSavingChanges,Roblox IDE Doc,Not Saving Changes,Not Saving Changes
@@ -1470,8 +1472,6 @@ Studio.App.IdeDoc.WasSavedToFile1,Roblox IDE Doc,%1 was saved to file,%1 was sav
 Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you like to publish these changes?,Would you like to publish these changes?
 Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
-Studio.App.IdeDoc.MeshStreamingRestartTitle,Title for the restart dialog shown when the MeshStreamingAndImprovedLods workspace property is changed,Restart Studio,Restart Studio
-Studio.App.IdeDoc.MeshStreamingRestartMessage,Message shown in the restart dialog when the MeshStreamingAndImprovedLods workspace property is changed,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?,The Mesh Streaming and Improved LODs setting change will not take effect until you restart Studio. Would you like to restart now?
 Studio.App.ImportCostVerificationDialog.AudioUpload,,Audio Upload,Audio Upload
 Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
 Studio.App.ImportCostVerificationDialog.CopyrightDescription,,"By uploading this content, you certify that you have the rights to put this on Roblox and that the content does not infringe on anyone else's intellectual property rights.","By uploading this content, you certify that you have the rights to put this on Roblox and that the content does not infringe on anyone else's intellectual property rights."
@@ -2374,6 +2374,8 @@ Studio.App.Property.BubbleChatLifetime,,Bubble Chat Lifetime,Bubble Chat Lifetim
 Studio.App.Property.BubbleChatMaxBubbles,,Bubble Chat Max Bubbles,Bubble Chat Max Bubbles
 Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
 Studio.App.Property.CameraAdaptiveSpeed,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
+Studio.App.Property.CameraAltLeftMouseToRotate,"If checked, then the Alt + Left Mouse events perform Camera Rotation and do not get handled by Draggers",Alt + Left Mouse drag to rotate,Alt + Left Mouse drag to rotate
+Studio.App.Property.CameraInputMultiplier,"Multiplier applied to camera navigation with mouse, mouse wheel, or touchpad.",Input Multiplier,Input Multiplier
 Studio.App.Property.CameraLookSensitivity,Factor applied to the mouse delta when rotating the camera,Camera Look Sensitivity,Camera Look Sensitivity
 Studio.App.Property.CameraMouseMultiplier,Multiplier applied to camera navigation with the mouse,Mouse Multiplier,Mouse Multiplier
 Studio.App.Property.CameraMouseWheelMultiplier,Factor applied to camera navigation with the mouse wheel,Mouse Wheel Multiplier,Mouse Wheel Multiplier
@@ -3201,6 +3203,7 @@ Studio.App.RBXMainWindow.ToggleFSAndWindow,,Toggles between full screen and wind
 Studio.App.RBXMainWindow.ToggleGameAudio,,Toggle Game Audio,Toggle Game Audio
 Studio.App.RBXMainWindow.ToggleJoinSurfacesCheck,,Enable/disable a Join Surfaces Check,Enable/disable a Join Surfaces Check
 Studio.App.RBXMainWindow.ToggleLocalSpace,,Toggle Local Space,Toggle Local Space
+Studio.App.RBXMainWindow.ToggleNavModel,Switch camera navigation model between First Person (Look) and Focused (Orbit),Toggle Navigation Model,Toggle Navigation Model
 Studio.App.RBXMainWindow.TogglePlayerEmulator,,Toggle Player Emulator,Toggle Player Emulator
 Studio.App.RBXMainWindow.ToggleSelectionCommenting,,Toggle selection commenting,Toggle selection commenting
 Studio.App.RBXMainWindow.TogglesRotateSnapping,,Toggles the rotate grid snapping,Toggles the rotate grid snapping
@@ -3268,6 +3271,7 @@ Studio.App.RBXMainWindow.WireframeRendering,,Wireframe Rendering,Wireframe Rende
 Studio.App.RBXMainWindow.ZoomIn,,Zoom In,Zoom In
 Studio.App.RBXMainWindow.ZoomOut,,Zoom Out,Zoom Out
 Studio.App.RBXMainWindow.ZoomTo,,Zoom to,Zoom to
+Studio.App.RBXMainWindow.ZoomToKeepDistance,Center the selection in the camera but do move the camera in our out,Zoom To and Keep Distance,Zoom To and Keep Distance
 Studio.App.RemoteDebugger.AddRow,,Add Row,Add Row
 Studio.App.RemoteDebugger.AssetProxy,,Asset Proxy:,Asset Proxy:
 Studio.App.RemoteDebugger.AssetProxyError,,Error starting server,Error starting server
@@ -3592,7 +3596,7 @@ Studio.App.RobloxRibbonMainWindow.ATextEntryBox,,A text entry box,A text entry b
 Studio.App.RobloxRibbonMainWindow.Actions,,Actions,Actions
 Studio.App.RobloxRibbonMainWindow.ActionsAsTools,,Actions as Tools,Actions as Tools
 Studio.App.RobloxRibbonMainWindow.AdaptiveAnimation,"plugin name, matches Studio.AdaptiveAnimationSupport.Plugin.Name",Adaptive Animation,Adaptive Animation
-Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,"plugin ribbon tooltip, matches Studio.AdaptiveAnimationSupport.Plugin.Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description","Map joints, adjust T-Pose and preview animations using Humanoid Rig Description"
+Studio.App.RobloxRibbonMainWindow.AdaptiveAnimationTooltip,"plugin ribbon tooltip, matches Studio.AdaptiveAnimationSupport.Plugin.Description",Create and edit your rig retargeting settings,Create and edit your rig retargeting settings
 Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
 Studio.App.RobloxRibbonMainWindow.AddDebugPlugin,,Add Debug Plugin,Add Debug Plugin
 Studio.App.RobloxRibbonMainWindow.AddWeld,,Weld,Weld
@@ -4677,6 +4681,7 @@ Studio.App.GoToLineDialog.LineNumber,,Line number:,Line number:
 Studio.App.GradientEditor.Time,,Time,Time
 Studio.App.Help.OpenDeveloperForumUrl,Launches Developer Forum URL,Developer Forum,Developer Forum
 Studio.App.Help.OpenDocumentationUrl,Launches documentation DevHub URL,Documentation,Documentation
+Studio.App.Help.OpenLogsFolder,Opens the Roblox logs folder in the system file explorer,Open Logs Folder,Open Logs Folder
 Studio.App.Help.OpenTutorialsUrl,Launches tutorials DevHub URL,Tutorials,Tutorials
 Studio.App.Help.StartStudioTour,Starts the Studio Tour,Studio Tour,Studio Tour
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
@@ -5953,6 +5958,8 @@ Studio.BetaFeatures.ConversationalAITitleUpdated2,,Assistant Preview,Assistant P
 Studio.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
 Studio.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.BetaFeatures.CouldBeUnstable,,Note: Beta features could be unstable resulting in data loss or game corruption,Note: Beta features could be unstable resulting in data loss or game corruption
+Studio.BetaFeatures.CreateAnimationFromTextDescription,Description for beta feature that lets you generate animations in Assistant,Create animations using Assistant,Create animations using Assistant
+Studio.BetaFeatures.CreateAnimationFromTextTitle,Title for beta feature that lets you generate animations with Assistant,Create animation from text,Create animation from text
 Studio.BetaFeatures.CreateAnimationFromVideoDescription,,"Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar.","Animation clip editor will have a ""Live Animation Creator"" option in the Import menu to transfer 3D pose from a video to an avatar."
 Studio.BetaFeatures.CreateAnimationFromVideoTitle,,Live Animation Creator,Live Animation Creator
 Studio.BetaFeatures.CreateAssetAsyncDescription,,Enables the use of AssetService:CreateAssetAsync and AssetService:CreateAssetVersionAsync for programatic upload of assets from Lua,Enables the use of AssetService:CreateAssetAsync and AssetService:CreateAssetVersionAsync for programatic upload of assets from Lua
@@ -6144,6 +6151,8 @@ Studio.BetaFeatures.ScriptSyncTitle,,Script Sync [Early Preview],Script Sync [Ea
 Studio.BetaFeatures.ScriptSyncTitle2,Title for the Script Sync beta feature,Script Sync,Script Sync
 Studio.BetaFeatures.ScrollEventOverhaulDescription,Description of beta feature.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.
 Studio.BetaFeatures.ScrollEventOverhaulTitle,Title of beta feature which improves trackpad scrolling.,Scroll Event Overhaul,Scroll Event Overhaul
+Studio.BetaFeatures.SegmentByPartsDescription,beta feature description,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
+Studio.BetaFeatures.SegmentByPartsTitle,beta feature description,Segment by Parts,Segment by Parts
 Studio.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
 Studio.BetaFeatures.SelectionImprovementsDescription,,"Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects.","Enables a new selection outline style, the ability to select objects that are behind other objects, a new option for showing bounding boxes, and a context menu item for selecting parents of objects."
 Studio.BetaFeatures.SelectionImprovementsTitle,,Selection Improvements,Selection Improvements

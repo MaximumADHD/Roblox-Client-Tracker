@@ -213,6 +213,10 @@ DefaultUnifiedPlasticReflectionVS_40300000,Vertex
 DefaultUnifiedPlasticReflectionVS_40300006,Vertex
 DefaultUnifiedPlasticReflectionVS_40300026,Vertex
 DefaultUnifiedPlasticReflectionVS_80000000,Vertex
+DefaultUnifiedPlasticReflectionVS_80000002,Vertex
+DefaultUnifiedPlasticReflectionVS_80000006,Vertex
+DefaultUnifiedPlasticReflectionVS_80001000,Vertex
+DefaultUnifiedPlasticReflectionVS_80001002,Vertex
 DefaultUnifiedPlasticReflectionVS_80100001,Vertex
 DefaultUnifiedPlasticReflectionVS_80100007,Vertex
 DefaultUnifiedPlasticReflectionVS_80300000,Vertex
@@ -256,7 +260,6 @@ FXCompositingLinearFS,Fragment
 GenNormalsFS,Fragment
 GenTileBorderCS,Compute
 GenTileBorderRadialFS,Fragment
-HbaoCompositClippedFS,Fragment
 HbaoCompositFS,Fragment
 HBAODepthDownFS,Fragment
 HbaoFS,Fragment
@@ -376,13 +379,10 @@ SkyRGBEFS,Fragment
 SkyRGBELinearFS,Fragment
 SkyRGBELinearVColorFS,Fragment
 SkyVS,Vertex
-SmoothClusterDepthClippedFS,Fragment
 SmoothClusterDepthFS,Fragment
-SmoothClusterFeedbackClippedFS,Fragment
 SmoothClusterFeedbackDebugFS,Fragment
 SmoothClusterFeedbackFS,Fragment
 SmoothClusterFeedbackVS,Vertex
-SmoothClusterVTDepthClippedFS,Fragment
 SmoothClusterVTDepthFS,Fragment
 SmoothClusterVTDepthVS,Vertex
 SmoothClusterVTTranslationFS,Fragment
