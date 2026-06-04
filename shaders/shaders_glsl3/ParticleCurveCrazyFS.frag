@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <EmitterParams.h>
 uniform vec4 CB0[61];
-uniform vec4 CB1[4];
+uniform vec4 CB1[5];
 uniform sampler2D texTexture;
 
 in vec3 VARYING0;
