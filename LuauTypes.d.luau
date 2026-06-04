@@ -549,6 +549,10 @@ type ProductIdentifier = {
     InfoType: Enum.InfoType
 }
 
+type PurchaseOptions = {
+    Offers: { { Id: string } }?
+}
+
 type RankedItem = {
     ProductIdentifier: ProductIdentifier,
     ProductInfo: { [string]: any }

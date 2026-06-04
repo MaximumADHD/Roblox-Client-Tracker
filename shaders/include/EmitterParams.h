@@ -5,4 +5,5 @@ struct EmitterParams
     vec4 AtlasParams;
     vec2 Orientation_Brightness;
     vec2 FlipbookLayout;
+    vec4 EmitterRotation;
 };

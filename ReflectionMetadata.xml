@@ -282,12 +282,6 @@
       <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">AllowClientInsertModels</string>
-            <bool name="Browsable">true</bool>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
             <string name="Name">AllowInsertFreeModels</string>
             <bool name="Browsable">false</bool>
             <bool name="Deprecated">true</bool>

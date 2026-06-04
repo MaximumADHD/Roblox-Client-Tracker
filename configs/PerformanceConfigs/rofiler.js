@@ -521,7 +521,6 @@ function InitDataVars() {
 
 function InitViewerVars() {
     window.FFlagMicroprofilerPerFrameCpuSpeed = EnabledFastFlags.includes("MicroprofilerPerFrameCpuSpeed");
-    window.FFlagMicroProfilerNetworkPlugin = EnabledFastFlags.includes("MicroProfilerNetworkPlugin");
 
     // Part 1
     window.GroupInfoPerFrame = [];
@@ -546,15 +545,13 @@ function InitViewerVars() {
     window.nHeight = CanvasDetailedView.height;
     window.ReferenceTime = 33;
     window.FrameOverflowDetection = 33; window.nHistoryHeightOrig = 130; window.nHistoryHeight = nHistoryHeightOrig;
-    if (FFlagMicroProfilerNetworkPlugin) {
-        window.nNetworkHistoryHeightOrig = 150;
-        window.nNetworkHistoryHeight = window.nNetworkHistoryHeightOrig;
-        window.nNetworkHistoryBaseHeightOrig = 130;
-        window.nNetworkHistoryBaseHeight = window.nNetworkHistoryBaseHeightOrig;
-        window.nNetworkHistoryCurrentHeight = window.nNetworkHistoryHeightOrig;
-        window.nNetworkHistoryLegendHeightOrig = 20;
-        window.nNetworkHistoryLegendHeight = window.nNetworkHistoryLegendHeightOrig;
-    }
+    window.nNetworkHistoryHeightOrig = 150;
+    window.nNetworkHistoryHeight = window.nNetworkHistoryHeightOrig;
+    window.nNetworkHistoryBaseHeightOrig = 130;
+    window.nNetworkHistoryBaseHeight = window.nNetworkHistoryBaseHeightOrig;
+    window.nNetworkHistoryCurrentHeight = window.nNetworkHistoryHeightOrig;
+    window.nNetworkHistoryLegendHeightOrig = 20;
+    window.nNetworkHistoryLegendHeight = window.nNetworkHistoryLegendHeightOrig;
     window.nOffsetY = 0;
     window.nOffsetBarsX = 0;
     window.nOffsetBarsY = 0;
@@ -1460,19 +1457,15 @@ function ToggleZeroBasedBars() {
 }
 
 function ToggleNetworkPluginMode() {
-    if (FFlagMicroProfilerNetworkPlugin) {
-        window.DetailedNetworkMode = !window.DetailedNetworkMode;
-        UpdateOptionsMenu();
-        RequestRedraw();
-    }
+    window.DetailedNetworkMode = !window.DetailedNetworkMode;
+    UpdateOptionsMenu();
+    RequestRedraw();
 }
 
 function ToggleNetworkScale() {
-    if (FFlagMicroProfilerNetworkPlugin) {
-        window.NetworkLogScale = !window.NetworkLogScale;
-        UpdateOptionsMenu();
-        RequestRedraw();
-    }
+    window.NetworkLogScale = !window.NetworkLogScale;
+    UpdateOptionsMenu();
+    RequestRedraw();
 }
 
 function getMedian(arr) {
@@ -1866,13 +1859,11 @@ function SetMode(NewMode, Groups) {
     let extraEntriesStyle = isDetailed ? 'block' : 'none';
     ilPlugins.style['display'] = ilHighlight.style['display'] = ilExport.style['display'] = extraEntriesStyle;
 
-    if (FFlagMicroProfilerNetworkPlugin) {
-        if (g_Ext && g_Ext.currentPlugin) {
-            if (isDetailed && g_Ext.currentPlugin.ShowCanvas) {
-                g_Ext.currentPlugin.ShowCanvas();
-            } else if (!isDetailed && g_Ext.currentPlugin.HideCanvas) {
-                g_Ext.currentPlugin.HideCanvas();
-            }
+    if (g_Ext && g_Ext.currentPlugin) {
+        if (isDetailed && g_Ext.currentPlugin.ShowCanvas) {
+            g_Ext.currentPlugin.ShowCanvas();
+        } else if (!isDetailed && g_Ext.currentPlugin.HideCanvas) {
+            g_Ext.currentPlugin.HideCanvas();
         }
     }
 
@@ -5456,7 +5447,7 @@ function Draw(RedrawMode) {
     }
     DrawDetailedFrameHistory();
 
-    if (FFlagMicroProfilerNetworkPlugin && g_Ext.currentPlugin && g_Ext.currentPlugin.DrawPluginFrameHistory) {
+    if (g_Ext.currentPlugin && g_Ext.currentPlugin.DrawPluginFrameHistory) {
         g_Ext.currentPlugin.DrawPluginFrameHistory();
     }
 
@@ -5570,11 +5561,9 @@ function MeasureFont() {
 function ResizeCanvas() {
     DPR = window.devicePixelRatio;
     nHistoryHeight = nHistoryHeightOrig / (1 + (DPR - 1) * 0.4);
-    if (FFlagMicroProfilerNetworkPlugin) {
-        nNetworkHistoryHeight = nNetworkHistoryCurrentHeight / (1 + (DPR - 1) * 0.4);
-        nNetworkHistoryLegendHeight = nNetworkHistoryLegendHeightOrig / (1 + (DPR - 1) * 0.4);
-        nNetworkHistoryBaseHeight = nNetworkHistoryBaseHeightOrig / (1 + (DPR - 1) * 0.4);
-    }
+    nNetworkHistoryHeight = nNetworkHistoryCurrentHeight / (1 + (DPR - 1) * 0.4);
+    nNetworkHistoryLegendHeight = nNetworkHistoryLegendHeightOrig / (1 + (DPR - 1) * 0.4);
+    nNetworkHistoryBaseHeight = nNetworkHistoryBaseHeightOrig / (1 + (DPR - 1) * 0.4);
     nWidth = window.innerWidth;
     nHeight = window.innerHeight - nHistoryHeight - 2;
 
@@ -5590,13 +5579,11 @@ function ResizeCanvas() {
         CanvasHistory.getContext('2d').scale(DPR, DPR);
         CanvasDetailedView.getContext('2d').scale(DPR, DPR);
 
-        if (FFlagMicroProfilerNetworkPlugin) {
-            CanvasNetworkHistory.style.width = window.innerWidth + 'px';
-            CanvasNetworkHistory.style.height = nNetworkHistoryHeight + 'px';
-            CanvasNetworkHistory.width = window.innerWidth * DPR;
-            CanvasNetworkHistory.height = nNetworkHistoryHeight * DPR;
-            CanvasNetworkHistory.getContext('2d').scale(DPR, DPR);
-        }
+        CanvasNetworkHistory.style.width = window.innerWidth + 'px';
+        CanvasNetworkHistory.style.height = nNetworkHistoryHeight + 'px';
+        CanvasNetworkHistory.width = window.innerWidth * DPR;
+        CanvasNetworkHistory.height = nNetworkHistoryHeight * DPR;
+        CanvasNetworkHistory.getContext('2d').scale(DPR, DPR);
 
         CanvasDetailedOffscreen.style.width = nWidth + 'px';
         CanvasDetailedOffscreen.style.height = nHeight + 'px';
@@ -5612,10 +5599,8 @@ function ResizeCanvas() {
         CanvasDetailedOffscreen.width = nWidth;
         CanvasDetailedOffscreen.height = nHeight;
         CanvasHistory.width = window.innerWidth;
-        if (FFlagMicroProfilerNetworkPlugin) {
-            CanvasNetworkHistory.width = window.innerWidth;
-            CanvasNetworkHistory.height = nNetworkHistoryHeight;
-        }
+        CanvasNetworkHistory.width = window.innerWidth;
+        CanvasNetworkHistory.height = nNetworkHistoryHeight;
     }
     RequestRedraw();
 }
@@ -5883,7 +5868,7 @@ function MouseDrag(Source, Event) {
         ShowDiffWindow(false);
 
         if (Source == MouseDragUp) {
-            if (FFlagMicroProfilerNetworkPlugin && MouseDragTarget === g_Ext.currentPlugin.canvas && g_Ext.currentPlugin.handleCanvasClick) {
+            if (MouseDragTarget === g_Ext.currentPlugin.canvas && g_Ext.currentPlugin.handleCanvasClick) {
                 g_Ext.currentPlugin.handleCanvasClick(Event);
             } else {
                 MouseHandleDragClick();
@@ -8477,12 +8462,7 @@ function PrepareEvents() {
                             });
                         } else if (scopeStack.length > 0) {
                             const curScope = scopeStack[scopeStack.length - 1];
-                            if (FFlagMicroProfilerNetworkPlugin) {
-                                if (!ctx.hidden) {
-                                    curScope.txEntry.add(ctx.value, ctx.count);
-                                    curScope.frame.txAcc.add(ctx.value, ctx.count);
-                                }
-                            } else {
+                            if (!ctx.hidden) {
                                 curScope.txEntry.add(ctx.value, ctx.count);
                                 curScope.frame.txAcc.add(ctx.value, ctx.count);
                             }
@@ -8545,7 +8525,7 @@ function ShowEvents(Show, frame, pluginInfo) {
         display: none;`;
     var hoverEvents;
     if (Show) {
-        if (FFlagMicroProfilerNetworkPlugin && frame !== undefined) {
+        if (frame !== undefined) {
             hoverEvents = GatherFrameEvents(frame, pluginInfo);
         } else {
             hoverEvents = GatherHoverEvents(nHoverToken, nHoverTokenIndex, nHoverTokenLogIndex, nHoverFrame);
@@ -8777,7 +8757,7 @@ function SetCurrentPlugin(p) {
         p.ShowCanvas();
     }
     g_Ext.currentPlugin = p;
-    if (FFlagMicroProfilerNetworkPlugin && p.preset && p.preset.mode) {
+    if (p.preset && p.preset.mode) {
         g_Ext.xray.mode = p.preset.mode;
     }
 }
@@ -9664,20 +9644,18 @@ DefinePlugin(function () {
             }
         },
         rowClickOverride: function(hoverEvents, index, EventsWindow) {
-            if (FFlagMicroProfilerNetworkPlugin) {
-                if (hoverEvents[index].isReplica) {
-                    this.findDeserialize(hoverEvents[index]);
-                }
-                if (hoverEvents[index].hasDeferred) {
-                    this.expandEvent(hoverEvents, index, EventsWindow);
-                    return true;
-                }
+            if (hoverEvents[index].isReplica) {
+                this.findDeserialize(hoverEvents[index]);
+            }
+            if (hoverEvents[index].hasDeferred) {
+                this.expandEvent(hoverEvents, index, EventsWindow);
+                return true;
             }
             return false;
         },
         extendDetail: function(ctx) {
             let rows = '';
-            if (FFlagMicroProfilerNetworkPlugin && ctx.assetIds && ctx.assetIds.length > 0) {
+            if (ctx.assetIds && ctx.assetIds.length > 0) {
                 let label = ctx.assetIds.length > 1 ? "Asset IDs" : "Asset ID";
                 rows += "<tr style='background-color: #555555;'><td>" + label + "</td></tr>";
                 ctx.assetIds.forEach((assetId) => {
@@ -9711,24 +9689,22 @@ DefinePlugin(function () {
             window.open(url);
         },
         detailEventListeners: function(ctx, EventsWindow, defaults) {
-            if (FFlagMicroProfilerNetworkPlugin) {
-                let assetIdRows = EventsWindow.querySelectorAll('.assetId');
-                assetIdRows.forEach((row, index) => {
-                    row.addEventListener('click', () => {
-                        this.assetIdClick(ctx, index);
-                    });
-                    row.addEventListener('mouseover', defaults.DivOnFn);
-                    row.addEventListener('mouseout', defaults.DivOffFn);
+            let assetIdRows = EventsWindow.querySelectorAll('.assetId');
+            assetIdRows.forEach((row, index) => {
+                row.addEventListener('click', () => {
+                    this.assetIdClick(ctx, index);
                 });
-                let assetIdLinkRows = EventsWindow.querySelectorAll('.assetIdLink');
-                assetIdLinkRows.forEach((row, index) => {
-                    row.addEventListener('click', () => {
-                        this.assetIdLinkClick(ctx, index);
-                    });
-                    row.addEventListener('mouseover', defaults.DivOnFn);
-                    row.addEventListener('mouseout', defaults.DivOffFn);
-                })
-            }
+                row.addEventListener('mouseover', defaults.DivOnFn);
+                row.addEventListener('mouseout', defaults.DivOffFn);
+            });
+            let assetIdLinkRows = EventsWindow.querySelectorAll('.assetIdLink');
+            assetIdLinkRows.forEach((row, index) => {
+                row.addEventListener('click', () => {
+                    this.assetIdLinkClick(ctx, index);
+                });
+                row.addEventListener('mouseover', defaults.DivOnFn);
+                row.addEventListener('mouseout', defaults.DivOffFn);
+            })
         },
         handleCanvasClick: function(Event) {
             const MouseButtonRight = 3;
@@ -9833,13 +9809,6 @@ DefinePlugin(function () {
         },
         decorate: ValueByMode,
         decode: function (evt, full) {
-            if (!FFlagMicroProfilerNetworkPlugin) {
-                return {
-                    value: 0,
-                    count: 0,
-                    evt: evt,
-                }
-            }
             if (evt.type <= 2) {
                 return this.decodeCurl(evt, full);
             } else {
@@ -9927,9 +9896,6 @@ DefinePlugin(function () {
             return ctx;
         },
         prepareEventsBefore: function () {
-            if (!FFlagMicroProfilerNetworkPlugin) {
-                return;
-            }
             this.eventStats = {
                 total: new NetType(),
                 max: new NetType(),
@@ -9958,9 +9924,6 @@ DefinePlugin(function () {
             h: 250,
         },
         displayColumns: function (ctxs) {
-            if (!FFlagMicroProfilerNetworkPlugin) {
-                return [];
-            }
             var hasCurl = false;
             var hasReplica = false;
             ctxs.forEach(function (ctx) {
@@ -9978,9 +9941,6 @@ DefinePlugin(function () {
             return ["#", "Subsystem", "Direction", "Size", "Type"];
         },
         display: function (ctx) {
-            if (!FFlagMicroProfilerNetworkPlugin) {
-                return [];
-            }
             var dsp = [
                 ctx.count,
                 ctx.subsystemName,
@@ -9999,12 +9959,6 @@ DefinePlugin(function () {
             return dsp;
         },
         detail: function (ctx) {
-            if (!FFlagMicroProfilerNetworkPlugin) {
-                return {
-                    headers: [],
-                    fields: [],
-                }
-            }
             var headers = ["#", "Subsystem", "Direction"];
             var fields = [
                 ctx.count,

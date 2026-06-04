@@ -42,7 +42,6 @@ Class EditableMesh : Object [NotCreatable]
 	Property EditableMesh.FixedSize: boolean {🚧DynamicGeneration} {✏️RobloxEngine} [ReadOnly]
 	Property EditableMesh.IsReplicatedCopy: boolean {🚧DynamicGeneration} {🔒RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property EditableMesh.MeshData: SharedString {🚧DynamicGeneration} {🔒RobloxEngine} [Hidden] [NotScriptable]
-	Property EditableMesh.SkinningEnabled: boolean {🚧DynamicGeneration} [Deprecated]
 	Function EditableMesh:AddBone(boneProperties: { [string]: any }) -> number {🚧DynamicGeneration}
 	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number {🚧DynamicGeneration}
 	Function EditableMesh:AddFace(vertexIds: { any }) -> number {🚧DynamicGeneration}
@@ -975,7 +974,7 @@ Class AudioSpeechToText : Instance
 	Property AudioSpeechToText.Enabled: boolean {🚧Audio}
 	Property AudioSpeechToText.Text: string {🚧Audio}
 	Property AudioSpeechToText.VoiceDetected: boolean {🚧Audio} [ReadOnly]
-	Property AudioSpeechToText.IsDictationEnabled: boolean {🚧Audio} {🔒RobloxScript}
+	Property AudioSpeechToText.DictationEnabled: boolean {🚧Audio} {🔒RobloxScript} [Hidden]
 	Function AudioSpeechToText:GetConnectedWires(pin: string) -> { Instance } {🚧Audio}
 	Event AudioSpeechToText.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioTextToSpeech : Instance
@@ -1248,7 +1247,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service]
 	Function AvatarEditorService:GetRecommendedAssetsAsync(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } {🚧AssetRead} [Yields]
 	Function AvatarEditorService:GetRecommendedBundlesAsync(bundleId: number) -> { any } {🚧AssetRead} [Yields]
 	Function AvatarEditorService:PromptAllowInventoryReadAccess() -> () {🚧AssetRead + Players}
-	Function AvatarEditorService:PromptCreateOutfit(outfit: HumanoidDescription, rigType: Enum.HumanoidRigType) -> () {🚧PlatformAvatarEditing + Players}
+	Function AvatarEditorService:PromptCreateOutfit(outfit: HumanoidDescription, rigType: Enum.HumanoidRigType, outfitOptions: { [string]: any }? = nil, outfitType: any) -> () {🚧PlatformAvatarEditing + Players}
 	Function AvatarEditorService:PromptDeleteOutfit(outfitId: number) -> () {🚧PlatformAvatarEditing + Players}
 	Function AvatarEditorService:PromptRenameOutfit(outfitId: number) -> () {🚧PlatformAvatarEditing + Players}
 	Function AvatarEditorService:PromptSaveAvatar(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType) -> () {🚧PlatformAvatarEditing + Players}
@@ -1267,7 +1266,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service]
 	Function AvatarEditorService:GetOutfits(outfitSource: Enum.OutfitSource? = "All", outfitType: Enum.OutfitType? = "All") -> OutfitPages {🚧AssetRead + Players} [Yields] [Deprecated]
 	Function AvatarEditorService:GetRecommendedAssets(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } {🚧AssetRead} [Yields] [Deprecated]
 	Function AvatarEditorService:GetRecommendedBundles(bundleId: number) -> { any } {🚧AssetRead} [Yields] [Deprecated]
-	Function AvatarEditorService:NoPromptCreateOutfit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, name: string, gearAssetId: number? = 0) -> boolean {🔒RobloxScript}
+	Function AvatarEditorService:NoPromptCreateOutfit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, name: string, gearAssetId: number? = 0, outfitOptions: { [string]: any }? = nil, outfitType: any) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptDeleteOutfit(outfitId: number) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptRenameOutfit(outfitId: number, name: string) -> boolean {🔒RobloxScript}
 	Function AvatarEditorService:NoPromptSaveAvatar(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, saveDict: { [string]: any }, gearAssetId: number? = 0) -> boolean {🔒RobloxScript}
@@ -2424,6 +2423,9 @@ Class DebuggerWatch : Instance {🔒LocalUser}
 Class DeferredAssetManagerService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function DeferredAssetManagerService:GetPrefetchDownloadStatus() -> Enum.PrefetchDownloadStatus {🔒RobloxScript}
 	Event DeferredAssetManagerService.PrefetchDownloadStatusChanged(status: Enum.PrefetchDownloadStatus) {🔒RobloxScript}
+Class DesignFoundationsService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
+	Function DesignFoundationsService:ClearTokens() -> () {🔒RobloxScript}
+	Function DesignFoundationsService:SetTokens(payload: { [string]: any }) -> () {🔒RobloxScript}
 Class DeviceIdService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function DeviceIdService:GetDeviceId() -> string {🔒RobloxScript}
 Class Dialog : Instance
@@ -4107,7 +4109,6 @@ Class InputObject : Instance [NotCreatable]
 	Property InputObject.UserInputState: Enum.UserInputState {🚧Input}
 	Function InputObject:IsModifierKeyDown(modifierKey: Enum.ModifierKey) -> boolean {🚧Input}
 Class InsertService : Instance [NotCreatable] [Service]
-	Property InsertService.AllowClientInsertModels: boolean {🚧LoadUnownedAsset} [NotScriptable]
 	Property InsertService.AllowInsertFreeModels: boolean {🚧LoadUnownedAsset} [NotReplicated] [NotBrowsable] [Deprecated]
 	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart {🚧Basic} [Yields]
 	Function InsertService:GetFreeDecalsAsync(searchText: string, pageNum: number) -> { any } {🚧AssetRead} [Yields]
@@ -4357,6 +4358,7 @@ Class CloudLocalizationTable : LocalizationTable {🔒RobloxEngine} [NotCreatabl
 Class LodDataEntity : Instance {🔒RobloxEngine} [NotCreatable]
 	Property LodDataEntity.EntityData: SharedString [Hidden] [NotScriptable]
 	Property LodDataEntity.EntityLodEnabled: boolean [Hidden] [NotReplicated]
+	Property LodDataEntity.EntityModelSize: Vector3 {🔒RobloxEngine} [Hidden] [NotScriptable]
 	Property LodDataEntity.EntityPosition: CFrame [Hidden] [NotScriptable]
 	Property LodDataEntity.EntityScale: Vector3 [Hidden] [NotScriptable]
 	Property LodDataEntity.EntitySource: Instance? [Hidden] [NotScriptable]
@@ -4493,7 +4495,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:IsPurchaseSimulated() -> boolean {🔒RobloxScript}
 	Function MarketplaceService:PerformBulkPurchase(orderRequest: { [string]: any }, options: { [string]: any }) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformCancelSubscription(subscriptionId: string) -> () {🔒RobloxScript} [Yields]
-	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "", timedOptionsDays: number? = 0, purchasePayload: string? = "") -> { [string]: any } {🔒RobloxScript} [Yields]
+	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "", timedOptionsDays: number? = 0, purchasePayload: string? = "", purchaseOptions: { [string]: any }? = nil) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformPurchaseV2(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectiblesProductDetails: { [string]: any }) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformSubscriptionPurchase(subscriptionId: string) -> string {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformSubscriptionPurchaseV2(subscriptionId: string, paymentProvider: string) -> () {🔒RobloxScript} [Yields]
@@ -4565,6 +4567,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.PromptRobloxPurchaseRequested(assetId: number, equipIfPurchased: boolean) {🔒RobloxScript}
 	Event MarketplaceService.PromptRobloxSubscriptionPurchaseRequested() {🔒RobloxScript}
 	Event MarketplaceService.PromptRobuxTransferRequested(player: Instance, jsonResponse: string) {🔒RobloxScript}
+	Event MarketplaceService.PromptRobuxTransferSubscriptionUpsellRequested() {🔒RobloxScript}
 	Event MarketplaceService.PromptSubscriptionPurchaseRequested(subscriptionId: string) {🔒RobloxScript}
 	Event MarketplaceService.PromptThirdPartyPurchaseRequested(player: Instance, productId: string) {🔒RobloxEngine} [Hidden]
 	Event MarketplaceService.RobuxTransferCompleted(userId: number) {🔒RobloxScript}
@@ -5334,6 +5337,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.Gravity: number {🚧✏️Physics}
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
 	Property Workspace.ImprovedAnimationConstraint: Enum.RolloutState [NotScriptable]
+	Property Workspace.ImprovedPhysicsReplication: Enum.RolloutState [NotScriptable]
 	Property Workspace.LayeredClothingCacheOptimizations: Enum.RolloutState {🚧AvatarAppearance} [NotScriptable]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.MeshStreamingAndImprovedLods: Enum.RolloutState [NotScriptable]
@@ -5932,6 +5936,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:WhisperChat(message: string, player: Instance) -> () {🚧Players} {🔒LocalUser}
 	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model {🚧AvatarAppearance + Players} [Yields] [Deprecated]
 	Function Players:CreateHumanoidModelFromUserId(userId: number) -> Model {🚧Players} [Yields] [Deprecated]
+	Function Players:CreateThumbnailPlayer() -> Player {🚧Players} {🔒RobloxScript}
 	Function Players:GetCharacterAppearanceAsync(userId: number) -> Model {🚧Players} [Yields] [Deprecated]
 	Function Players:GetHumanoidDescriptionFromOutfitId(outfitId: number) -> HumanoidDescription {🚧AvatarAppearance + Players} [Yields] [Deprecated]
 	Function Players:GetHumanoidDescriptionFromUserId(userId: number) -> HumanoidDescription {🚧AvatarAppearance + Players} [Yields] [Deprecated]
@@ -6398,6 +6403,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:GetPredictionStatus(context: Instance) -> Enum.PredictionStatus {🚧Basic}
 	Function RunService:IsClient() -> boolean {🚧Basic} {🧬Safe}
 	Function RunService:IsEdit() -> boolean {🚧Basic} {🔒Plugin} {🧬Safe}
+	Function RunService:IsResimulating() -> boolean {🚧Basic} {🧬Safe}
 	Function RunService:IsRunMode() -> boolean {🚧Basic} {🧬Safe}
 	Function RunService:IsRunning() -> boolean {🚧Basic}
 	Function RunService:IsServer() -> boolean {🚧Basic} {🧬Safe}
@@ -7244,6 +7250,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Camera Pan Speed: number {🔒RobloxScript}
 	Property Studio.Camera Speed Adjust Binding: Enum.CameraSpeedAdjustBinding {🔒RobloxScript}
 	Property Studio.CameraAdaptiveSpeed: boolean {🔒RobloxScript}
+	Property Studio.CameraAltLeftMouseToRotate: boolean {🔒RobloxScript}
 	Property Studio.CameraMouseMultiplier: number {🔒RobloxScript}
 	Property Studio.CameraNavigationModel: Enum.CameraNavigationModel {🔒RobloxScript}
 	Property Studio.CameraOrbitSensitivity: number {🔒RobloxScript}
@@ -8245,6 +8252,7 @@ Class UIShadow : UIComponent [NotBrowsable]
 	Property UIShadow.Spread: UDim2 {🚧UI}
 	Property UIShadow.Transparency: number {🚧UI}
 	Property UIShadow.ZIndex: number {🚧UI}
+	Property UIShadow.Enabled: boolean {🚧UI}
 Class UIStroke : UIComponent
 	Property UIStroke.ApplyStrokeMode: Enum.ApplyStrokeMode {🚧UI}
 	Property UIStroke.BorderOffset: UDim {🚧UI}
