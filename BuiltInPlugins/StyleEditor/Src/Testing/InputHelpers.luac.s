@@ -74,7 +74,7 @@ PROTO_1:
        67 GETUPVAL                         R2 2
        68 GETTABLEKS                       R4 R1 K6 ["X"]
        70 GETTABLEKS                       R5 R1 K10 ["Y"]
-       72 LOADN                            R6 0
+       72 GETUPVAL                         R6 3
        73 LOADB                            R7 1
        74 MOVE                             R8 R0
        75 LOADN                            R9 1
@@ -86,7 +86,7 @@ PROTO_1:
        83 GETUPVAL                         R2 2
        84 GETTABLEKS                       R4 R1 K6 ["X"]
        86 GETTABLEKS                       R5 R1 K10 ["Y"]
-       88 LOADN                            R6 0
+       88 GETUPVAL                         R6 3
        89 LOADB                            R7 0
        90 MOVE                             R8 R0
        91 LOADN                            R9 1
@@ -98,15 +98,38 @@ PROTO_1:
        99 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 NEWCLOSURE                       R3 P0
+        0 GETUPVAL                         R3 0
+        1 NEWCLOSURE                       R4 P0
         2 CAPTURE                          VAL R0
         3 CAPTURE                          VAL R1
         4 CAPTURE                          UPVAL U1
-        5 CALL                             R2 1 0
-        6 RETURN                           R0 0
+        5 CAPTURE                          VAL R2
+        6 CALL                             R3 1 0
+        7 RETURN                           R0 0
 
 PROTO_3:
+        0 GETUPVAL                         R2 0
+        1 LOADN                            R4 0
+        2 NEWCLOSURE                       R3 P0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          VAL R4
+        7 CALL                             R2 1 0
+        8 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R2 0
+        1 LOADN                            R4 1
+        2 NEWCLOSURE                       R3 P0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          VAL R4
+        7 CALL                             R2 1 0
+        8 RETURN                           R0 0
+
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R3 R3 K0 ["AbsolutePosition"]
@@ -135,7 +158,7 @@ PROTO_3:
        36 CALL                             R0 1 0
        37 RETURN                           R0 0
 
-PROTO_4:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          UPVAL U1
@@ -143,7 +166,7 @@ PROTO_4:
         4 CALL                             R1 1 0
         5 RETURN                           R0 0
 
-PROTO_5:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["X"]
@@ -157,7 +180,7 @@ PROTO_5:
        14 CALL                             R0 1 0
        15 RETURN                           R0 0
 
-PROTO_6:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["X"]
@@ -174,7 +197,7 @@ PROTO_6:
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
 
-PROTO_7:
+PROTO_9:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["WaitForInputEventsProcessed"]
         3 CALL                             R0 1 0
@@ -202,7 +225,7 @@ PROTO_7:
        33 CALL                             R0 1 0
        34 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["X"]
@@ -219,7 +242,7 @@ PROTO_8:
        17 CALL                             R0 1 0
        18 RETURN                           R0 0
 
-PROTO_9:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["getPosInElement"]
         3 MOVE                             R3 R0
@@ -257,7 +280,7 @@ PROTO_9:
        37 CALL                             R4 1 0
        38 RETURN                           R0 0
 
-PROTO_10:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["CaptureFocus"]
         3 CALL                             R0 1 0
@@ -279,7 +302,7 @@ PROTO_10:
        24 CALL                             R0 2 0
        25 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R3 0
         1 NEWCLOSURE                       R4 P0
         2 CAPTURE                          VAL R0
@@ -312,18 +335,25 @@ MAIN:
        33 DUPCLOSURE                       R6 K16 [PROTO_2]
        34 CAPTURE                          VAL R3
        35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R6 R5 K17 ["clickInObject"]
-       38 DUPCLOSURE                       R6 K18 [PROTO_4]
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          VAL R0
-       41 SETTABLEKS                       R6 R5 K19 ["hoverOverGuiBase"]
-       43 DUPCLOSURE                       R6 K20 [PROTO_9]
-       44 CAPTURE                          VAL R5
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R0
-       47 SETTABLEKS                       R6 R5 K21 ["clickAndDragElementTo"]
-       49 DUPCLOSURE                       R6 K22 [PROTO_11]
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R4
-       52 SETTABLEKS                       R6 R5 K23 ["focusAndType"]
-       54 RETURN                           R5 1
+       36 DUPCLOSURE                       R7 K17 [PROTO_3]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R0
+       39 SETTABLEKS                       R7 R5 K18 ["clickInObject"]
+       41 DUPCLOSURE                       R7 K19 [PROTO_4]
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R0
+       44 SETTABLEKS                       R7 R5 K20 ["rightClickInObject"]
+       46 DUPCLOSURE                       R7 K21 [PROTO_6]
+       47 CAPTURE                          VAL R3
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R7 R5 K22 ["hoverOverGuiBase"]
+       51 DUPCLOSURE                       R7 K23 [PROTO_11]
+       52 CAPTURE                          VAL R5
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R0
+       55 SETTABLEKS                       R7 R5 K24 ["clickAndDragElementTo"]
+       57 DUPCLOSURE                       R7 K25 [PROTO_13]
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R4
+       60 SETTABLEKS                       R7 R5 K26 ["focusAndType"]
+       62 RETURN                           R5 1

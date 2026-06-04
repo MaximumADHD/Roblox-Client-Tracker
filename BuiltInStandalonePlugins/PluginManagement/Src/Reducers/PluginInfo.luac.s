@@ -180,43 +180,44 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K8 ["Rodux"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K9 ["Cryo"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R5 R0 K10 ["Src"]
-       34 GETTABLEKS                       R5 R5 K11 ["Constants"]
-       36 GETTABLEKS                       R5 R5 K12 ["PluginInstalledStatus"]
-       38 CALL                             R4 1 1
-       39 GETTABLEKS                       R5 R2 K13 ["createReducer"]
-       41 DUPTABLE                         R6 K15 [{"plugins"}]
-       42 NEWTABLE                         R7 0 0
-       44 SETTABLEKS                       R7 R6 K14 ["plugins"]
-       46 DUPTABLE                         R7 K20 [{"SetPluginId", "ClearPluginData", "SetPluginMetadata", "SetPluginInstallStatus"}]
-       47 DUPCLOSURE                       R8 K21 [PROTO_0]
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R4
-       51 SETTABLEKS                       R8 R7 K16 ["SetPluginId"]
-       53 DUPCLOSURE                       R8 K22 [PROTO_1]
-       54 CAPTURE                          VAL R1
-       55 CAPTURE                          VAL R3
-       56 SETTABLEKS                       R8 R7 K17 ["ClearPluginData"]
-       58 DUPCLOSURE                       R8 K23 [PROTO_2]
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R3
-       61 SETTABLEKS                       R8 R7 K18 ["SetPluginMetadata"]
-       63 DUPCLOSURE                       R8 K24 [PROTO_3]
-       64 CAPTURE                          VAL R1
-       65 CAPTURE                          VAL R3
-       66 SETTABLEKS                       R8 R7 K19 ["SetPluginInstallStatus"]
-       68 CALL                             R5 2 -1
-       69 RETURN                           R5 -1
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Rodux"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["Cryo"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K4 [require]
+       34 GETTABLEKS                       R5 R0 K5 ["Src"]
+       36 GETTABLEKS                       R5 R5 K11 ["Constants"]
+       38 GETTABLEKS                       R5 R5 K12 ["PluginInstalledStatus"]
+       40 CALL                             R4 1 1
+       41 GETTABLEKS                       R5 R2 K13 ["createReducer"]
+       43 DUPTABLE                         R6 K15 [{"plugins"}]
+       44 NEWTABLE                         R7 0 0
+       46 SETTABLEKS                       R7 R6 K14 ["plugins"]
+       48 DUPTABLE                         R7 K20 [{"SetPluginId", "ClearPluginData", "SetPluginMetadata", "SetPluginInstallStatus"}]
+       49 DUPCLOSURE                       R8 K21 [PROTO_0]
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R4
+       53 SETTABLEKS                       R8 R7 K16 ["SetPluginId"]
+       55 DUPCLOSURE                       R8 K22 [PROTO_1]
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R3
+       58 SETTABLEKS                       R8 R7 K17 ["ClearPluginData"]
+       60 DUPCLOSURE                       R8 K23 [PROTO_2]
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R3
+       63 SETTABLEKS                       R8 R7 K18 ["SetPluginMetadata"]
+       65 DUPCLOSURE                       R8 K24 [PROTO_3]
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R3
+       68 SETTABLEKS                       R8 R7 K19 ["SetPluginInstallStatus"]
+       70 CALL                             R5 2 -1
+       71 RETURN                           R5 -1

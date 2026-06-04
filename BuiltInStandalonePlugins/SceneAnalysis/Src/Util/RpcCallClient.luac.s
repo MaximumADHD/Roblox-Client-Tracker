@@ -93,27 +93,44 @@ PROTO_4:
        32 MOVE                             R13 R2
        33 NAMECALL                         R8 R8 K11 ["Invoke"]
        35 CALL                             R8 5 0
-       36 GETIMPORT                        R8 K14 [task.delay]
-       38 ORK                              R9 R3 K15 [5]
-       39 NEWCLOSURE                       R10 P1
-       40 CAPTURE                          REF R6
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          REF R7
-       44 CAPTURE                          VAL R5
-       45 CALL                             R8 2 0
-       46 GETIMPORT                        R8 K17 [coroutine.yield]
-       48 CALL                             R8 0 -1
-       49 CLOSEUPVALS                      R6
-       50 RETURN                           R8 -1
+       36 GETUPVAL                         R9 0
+       37 GETTABLEKS                       R9 R9 K12 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       39 CALL                             R9 0 1
+       40 JUMPIFNOT                        R9 ; [+2]
+       41 LOADN                            R8 2
+       42 JUMP                             ; [+1]
+       43 LOADN                            R8 5
+       44 GETIMPORT                        R9 K15 [task.delay]
+       46 OR                               R10 R3 R8
+       47 NEWCLOSURE                       R11 P1
+       48 CAPTURE                          REF R6
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          VAL R4
+       51 CAPTURE                          REF R7
+       52 CAPTURE                          VAL R5
+       53 CALL                             R9 2 0
+       54 GETIMPORT                        R9 K17 [coroutine.yield]
+       56 CALL                             R9 0 -1
+       57 CLOSEUPVALS                      R6
+       58 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 4 0
-        3 SETTABLEKS                       R0 R0 K0 ["__index"]
-        5 DUPCLOSURE                       R1 K1 [PROTO_1]
-        6 CAPTURE                          VAL R0
-        7 SETTABLEKS                       R1 R0 K2 ["new"]
-        9 DUPCLOSURE                       R1 K3 [PROTO_4]
-       10 SETTABLEKS                       R1 R0 K4 ["CallMethodAsync"]
-       12 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["SceneAnalysis"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R2 R2 K7 ["Common"]
+       13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
+       15 CALL                             R1 1 1
+       16 NEWTABLE                         R2 4 0
+       18 SETTABLEKS                       R2 R2 K9 ["__index"]
+       20 DUPCLOSURE                       R3 K10 [PROTO_1]
+       21 CAPTURE                          VAL R2
+       22 SETTABLEKS                       R3 R2 K11 ["new"]
+       24 DUPCLOSURE                       R3 K12 [PROTO_4]
+       25 CAPTURE                          VAL R1
+       26 SETTABLEKS                       R3 R2 K13 ["CallMethodAsync"]
+       28 RETURN                           R2 1

@@ -240,29 +240,30 @@ PROTO_7:
         7 GETTABLEKS                       R2 R1 K0 ["CanCollaborate"]
         9 JUMPIFNOTEQKB                    R2 TRUE ; [+11]
        11 GETTABLEKS                       R2 R1 K1 ["Error"]
-       13 JUMPIFNOT                        R2 ; [+15]
+       13 JUMPIFNOT                        R2 ; [+16]
        14 GETTABLEKS                       R2 R1 K1 ["Error"]
        16 GETUPVAL                         R3 1
        17 GETTABLEKS                       R3 R3 K2 ["None"]
-       19 JUMPIFEQ                         R2 R3 ; [+9]
+       19 JUMPIFEQ                         R2 R3 ; [+10]
        21 GETUPVAL                         R2 2
        22 MOVE                             R3 R1
        23 GETUPVAL                         R4 3
        24 GETUPVAL                         R5 4
        25 GETUPVAL                         R6 5
        26 GETUPVAL                         R7 6
-       27 CALL                             R2 5 0
-       28 RETURN                           R0 0
-       29 GETUPVAL                         R2 7
-       30 GETUPVAL                         R4 8
-       31 GETUPVAL                         R5 3
-       32 GETUPVAL                         R7 9
-       33 JUMPIFEQKB                       R7 TRUE ; [+2]
-       35 LOADB                            R6 0 +1
-       36 LOADB                            R6 1
-       37 NAMECALL                         R2 R2 K3 ["openPlace"]
-       39 CALL                             R2 4 0
-       40 RETURN                           R0 0
+       27 GETUPVAL                         R8 7
+       28 CALL                             R2 6 0
+       29 RETURN                           R0 0
+       30 GETUPVAL                         R2 8
+       31 GETUPVAL                         R4 4
+       32 GETUPVAL                         R5 3
+       33 GETUPVAL                         R7 9
+       34 JUMPIFEQKB                       R7 TRUE ; [+2]
+       36 LOADB                            R6 0 +1
+       37 LOADB                            R6 1
+       38 NAMECALL                         R2 R2 K3 ["openPlace"]
+       40 CALL                             R2 4 0
+       41 RETURN                           R0 0
 
 PROTO_8:
         0 GETIMPORT                        R1 K1 [warn]
@@ -359,11 +360,11 @@ PROTO_9:
       100 CAPTURE                          UPVAL U14
       101 CAPTURE                          UPVAL U15
       102 CAPTURE                          VAL R1
-      103 CAPTURE                          VAL R7
-      104 CAPTURE                          VAL R8
-      105 CAPTURE                          VAL R9
-      106 CAPTURE                          UPVAL U12
-      107 CAPTURE                          VAL R2
+      103 CAPTURE                          VAL R2
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R9
+      107 CAPTURE                          UPVAL U12
       108 CAPTURE                          VAL R10
       109 NAMECALL                         R15 R15 K14 ["andThen"]
       111 CALL                             R15 2 1

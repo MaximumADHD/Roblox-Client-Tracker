@@ -135,7 +135,10 @@ PROTO_5:
        23 GETUPVAL                         R2 0
        24 GETTABLEKS                       R3 R0 K5 ["Enabled"]
        26 SETTABLEKS                       R3 R2 K6 ["Visible"]
-       28 RETURN                           R0 0
+       28 GETUPVAL                         R2 0
+       29 GETTABLEKS                       R3 R0 K7 ["Checked"]
+       31 SETTABLEKS                       R3 R2 K7 ["Checked"]
+       33 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -179,7 +182,10 @@ PROTO_7:
        33 GETUPVAL                         R2 2
        34 GETTABLEKS                       R3 R0 K6 ["Enabled"]
        36 SETTABLEKS                       R3 R2 K7 ["Visible"]
-       38 RETURN                           R0 0
+       38 GETUPVAL                         R2 2
+       39 GETTABLEKS                       R3 R0 K8 ["Checked"]
+       41 SETTABLEKS                       R3 R2 K8 ["Checked"]
+       43 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0

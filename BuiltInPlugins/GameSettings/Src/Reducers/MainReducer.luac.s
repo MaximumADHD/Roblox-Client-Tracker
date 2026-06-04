@@ -48,37 +48,22 @@ MAIN:
        83 GETTABLEKS                       R10 R10 K8 ["Reducers"]
        85 GETTABLEKS                       R10 R10 K16 ["EditAsset"]
        87 CALL                             R9 1 1
-       88 GETIMPORT                        R10 K18 [game]
-       90 LOADK                            R12 K19 ["RemoveGameSettingsPermissionsPage"]
-       91 NAMECALL                         R10 R10 K20 ["GetFastFlag"]
-       93 CALL                             R10 2 1
-       94 GETIMPORT                        R11 K4 [require]
-       96 GETTABLEKS                       R12 R0 K21 ["Pages"]
-       98 GETTABLEKS                       R12 R12 K22 ["PermissionsPage"]
-      100 GETTABLEKS                       R12 R12 K8 ["Reducers"]
-      102 GETTABLEKS                       R12 R12 K23 ["CollaboratorSearch"]
-      104 CALL                             R11 1 1
-      105 GETIMPORT                        R12 K4 [require]
-      107 GETTABLEKS                       R13 R0 K21 ["Pages"]
-      109 GETTABLEKS                       R13 R13 K24 ["AvatarPage"]
-      111 GETTABLEKS                       R13 R13 K8 ["Reducers"]
-      113 GETTABLEKS                       R13 R13 K25 ["MorpherEditorRoot"]
-      115 CALL                             R12 1 1
-      116 GETTABLEKS                       R13 R1 K26 ["combineReducers"]
-      118 DUPTABLE                         R14 K28 [{"Settings", "Status", "MorpherEditorRoot", "CollaboratorSearch", "PageLoadState", "PageSaveState", "Metadata", "GameOwnerMetadata", "EditAsset", "ComponentLoadState"}]
-      119 SETTABLEKS                       R6 R14 K13 ["Settings"]
-      121 SETTABLEKS                       R7 R14 K14 ["Status"]
-      123 SETTABLEKS                       R12 R14 K25 ["MorpherEditorRoot"]
-      125 JUMPIF                           R10 ; [+2]
-      126 MOVE                             R15 R11
-      127 JUMP                             ; [+1]
-      128 LOADNIL                          R15
-      129 SETTABLEKS                       R15 R14 K23 ["CollaboratorSearch"]
-      131 SETTABLEKS                       R4 R14 K11 ["PageLoadState"]
-      133 SETTABLEKS                       R5 R14 K12 ["PageSaveState"]
-      135 SETTABLEKS                       R2 R14 K27 ["Metadata"]
-      137 SETTABLEKS                       R3 R14 K10 ["GameOwnerMetadata"]
-      139 SETTABLEKS                       R9 R14 K16 ["EditAsset"]
-      141 SETTABLEKS                       R8 R14 K15 ["ComponentLoadState"]
-      143 CALL                             R13 1 -1
-      144 RETURN                           R13 -1
+       88 GETIMPORT                        R10 K4 [require]
+       90 GETTABLEKS                       R11 R0 K17 ["Pages"]
+       92 GETTABLEKS                       R11 R11 K18 ["AvatarPage"]
+       94 GETTABLEKS                       R11 R11 K8 ["Reducers"]
+       96 GETTABLEKS                       R11 R11 K19 ["MorpherEditorRoot"]
+       98 CALL                             R10 1 1
+       99 GETTABLEKS                       R11 R1 K20 ["combineReducers"]
+      101 DUPTABLE                         R12 K22 [{"Settings", "Status", "MorpherEditorRoot", "PageLoadState", "PageSaveState", "Metadata", "GameOwnerMetadata", "EditAsset", "ComponentLoadState"}]
+      102 SETTABLEKS                       R6 R12 K13 ["Settings"]
+      104 SETTABLEKS                       R7 R12 K14 ["Status"]
+      106 SETTABLEKS                       R10 R12 K19 ["MorpherEditorRoot"]
+      108 SETTABLEKS                       R4 R12 K11 ["PageLoadState"]
+      110 SETTABLEKS                       R5 R12 K12 ["PageSaveState"]
+      112 SETTABLEKS                       R2 R12 K21 ["Metadata"]
+      114 SETTABLEKS                       R3 R12 K10 ["GameOwnerMetadata"]
+      116 SETTABLEKS                       R9 R12 K16 ["EditAsset"]
+      118 SETTABLEKS                       R8 R12 K15 ["ComponentLoadState"]
+      120 CALL                             R11 1 -1
+      121 RETURN                           R11 -1

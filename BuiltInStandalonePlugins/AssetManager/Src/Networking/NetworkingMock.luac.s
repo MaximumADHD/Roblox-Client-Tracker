@@ -424,29 +424,36 @@ PROTO_22:
         9 RETURN                           R2 1
 
 PROTO_23:
-        0 JUMPIFNOT                        R0 ; [+10]
-        1 GETUPVAL                         R2 0
-        2 LOADB                            R3 1
-        3 GETUPVAL                         R4 1
-        4 GETTABLEKS                       R4 R4 K0 ["map"]
-        6 GETUPVAL                         R5 2
-        7 DUPCLOSURE                       R6 K1 [PROTO_22]
-        8 CALL                             R4 2 -1
-        9 CALL                             R2 -1 0
-       10 RETURN                           R0 0
-       11 GETUPVAL                         R2 0
-       12 LOADB                            R3 1
-       13 NEWTABLE                         R4 0 0
-       15 CALL                             R2 2 0
-       16 RETURN                           R0 0
+        0 JUMPIFNOT                        R0 ; [+20]
+        1 NEWTABLE                         R2 0 0
+        3 JUMPIFEQKB                       R1 FALSE ; [+8]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K0 ["map"]
+        8 GETUPVAL                         R4 1
+        9 DUPCLOSURE                       R5 K1 [PROTO_22]
+       10 CALL                             R3 2 1
+       11 MOVE                             R2 R3
+       12 GETUPVAL                         R3 2
+       13 LENGTH                           R5 R2
+       14 JUMPIFNOTEQKN                    R5 K2 [0] ; [+2]
+       16 LOADB                            R4 0 +1
+       17 LOADB                            R4 1
+       18 MOVE                             R5 R2
+       19 CALL                             R3 2 0
+       20 RETURN                           R0 0
+       21 GETUPVAL                         R2 2
+       22 LOADB                            R3 1
+       23 NEWTABLE                         R4 0 0
+       25 CALL                             R2 2 0
+       26 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R6 0
         1 GETTABLEKS                       R6 R6 K0 ["ResumeAsync"]
         3 NEWCLOSURE                       R7 P0
-        4 CAPTURE                          VAL R5
-        5 CAPTURE                          UPVAL U1
-        6 CAPTURE                          VAL R0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          VAL R5
         7 SETTABLEKS                       R7 R6 K1 ["GrantAssetsPermissions"]
         9 RETURN                           R0 0
 

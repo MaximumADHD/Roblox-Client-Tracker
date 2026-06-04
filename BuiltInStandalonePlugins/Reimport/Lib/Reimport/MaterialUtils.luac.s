@@ -1,35 +1,38 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOTEQKNIL                  R0 ; [+27]
+        1 JUMPIFNOTEQKNIL                  R0 ; [+30]
         3 NEWTABLE                         R0 0 0
         5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R1 R1 K0 ["knownSuffixes"]
-        8 LOADNIL                          R2
-        9 LOADNIL                          R3
-       10 FORGPREP                         R1
-       11 MOVE                             R6 R5
-       12 LOADNIL                          R7
-       13 LOADNIL                          R8
-       14 FORGPREP                         R6
-       15 LENGTH                           R11 R10
-       16 GETTABLE                         R12 R0 R11
-       17 JUMPIFNOTEQKNIL                  R12 ; [+4]
-       19 NEWTABLE                         R12 0 0
-       21 SETTABLE                         R12 R0 R11
-       22 GETTABLE                         R12 R0 R11
-       23 SETTABLE                         R4 R12 R10
-       24 FORGLOOP                         R6 2 ; [-10]
-       26 FORGLOOP                         R1 2 ; [-16]
-       28 SETUPVAL                         R0 0
-       29 GETUPVAL                         R2 0
-       30 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       32 LOADB                            R1 0 +1
-       33 LOADB                            R1 1
-       34 FASTCALL1                        ASSERT R1 ; [+2]
-       35 GETIMPORT                        R0 K2 [assert]
-       37 CALL                             R0 1 0
-       38 GETUPVAL                         R0 0
-       39 RETURN                           R0 1
+        6 LOADNIL                          R2
+        7 LOADNIL                          R3
+        8 FORGPREP                         R1
+        9 GETUPVAL                         R6 2
+       10 CALL                             R6 0 1
+       11 JUMPIF                           R6 ; [+2]
+       12 JUMPIFEQKS                       R4 K0 ["Emissive"] ; [+16]
+       14 MOVE                             R6 R5
+       15 LOADNIL                          R7
+       16 LOADNIL                          R8
+       17 FORGPREP                         R6
+       18 LENGTH                           R11 R10
+       19 GETTABLE                         R12 R0 R11
+       20 JUMPIFNOTEQKNIL                  R12 ; [+4]
+       22 NEWTABLE                         R12 0 0
+       24 SETTABLE                         R12 R0 R11
+       25 GETTABLE                         R12 R0 R11
+       26 SETTABLE                         R4 R12 R10
+       27 FORGLOOP                         R6 2 ; [-10]
+       29 FORGLOOP                         R1 2 ; [-21]
+       31 SETUPVAL                         R0 0
+       32 GETUPVAL                         R2 0
+       33 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       35 LOADB                            R1 0 +1
+       36 LOADB                            R1 1
+       37 FASTCALL1                        ASSERT R1 ; [+2]
+       38 GETIMPORT                        R0 K2 [assert]
+       40 CALL                             R0 1 0
+       41 GETUPVAL                         R0 0
+       42 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -127,7 +130,7 @@ PROTO_3:
        10 CONCAT                           R8 R9 R10
        11 CALL                             R7 1 1
        12 SETTABLEKS                       R7 R0 K5 ["ColorMapContent"]
-       14 JUMP                             ; [+32]
+       14 JUMP                             ; [+56]
        15 JUMPIFNOTEQKS                    R5 K6 ["Metal"] ; [+10]
        17 GETIMPORT                        R7 K3 [Content.fromUri]
        19 LOADK                            R9 K4 ["rbxassetid://"]
@@ -135,7 +138,7 @@ PROTO_3:
        21 CONCAT                           R8 R9 R10
        22 CALL                             R7 1 1
        23 SETTABLEKS                       R7 R0 K7 ["MetalnessMapContent"]
-       25 JUMP                             ; [+21]
+       25 JUMP                             ; [+45]
        26 JUMPIFNOTEQKS                    R5 K8 ["Rough"] ; [+10]
        28 GETIMPORT                        R7 K3 [Content.fromUri]
        30 LOADK                            R9 K4 ["rbxassetid://"]
@@ -143,16 +146,35 @@ PROTO_3:
        32 CONCAT                           R8 R9 R10
        33 CALL                             R7 1 1
        34 SETTABLEKS                       R7 R0 K9 ["RoughnessMapContent"]
-       36 JUMP                             ; [+10]
-       37 JUMPIFNOTEQKS                    R5 K10 ["Normal"] ; [+9]
+       36 JUMP                             ; [+34]
+       37 JUMPIFNOTEQKS                    R5 K10 ["Normal"] ; [+10]
        39 GETIMPORT                        R7 K3 [Content.fromUri]
        41 LOADK                            R9 K4 ["rbxassetid://"]
        42 MOVE                             R10 R6
        43 CONCAT                           R8 R9 R10
        44 CALL                             R7 1 1
        45 SETTABLEKS                       R7 R0 K11 ["NormalMapContent"]
-       47 FORGLOOP                         R2 2 ; [-44]
-       49 RETURN                           R0 0
+       47 JUMP                             ; [+23]
+       48 GETUPVAL                         R7 0
+       49 CALL                             R7 0 1
+       50 JUMPIFNOT                        R7 ; [+20]
+       51 JUMPIFNOTEQKS                    R5 K12 ["Emissive"] ; [+19]
+       53 LOADK                            R9 K13 ["SurfaceAppearance"]
+       54 NAMECALL                         R7 R0 K14 ["IsA"]
+       56 CALL                             R7 2 1
+       57 JUMPIFNOT                        R7 ; [+9]
+       58 GETIMPORT                        R7 K3 [Content.fromUri]
+       60 LOADK                            R9 K4 ["rbxassetid://"]
+       61 MOVE                             R10 R6
+       62 CONCAT                           R8 R9 R10
+       63 CALL                             R7 1 1
+       64 SETTABLEKS                       R7 R0 K15 ["EmissiveMaskContent"]
+       66 JUMP                             ; [+4]
+       67 GETIMPORT                        R7 K17 [warn]
+       69 LOADK                            R8 K18 ["Reimport: did not apply emissive mask to Decal"]
+       70 CALL                             R7 1 0
+       71 FORGLOOP                         R2 2 ; [-68]
+       73 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -173,56 +195,74 @@ MAIN:
        25 GETTABLEKS                       R4 R0 K9 ["Flags"]
        27 GETTABLEKS                       R4 R4 K11 ["GetFFlagReimportNormalizeMapPaths"]
        29 CALL                             R3 1 1
-       30 NEWTABLE                         R4 4 0
-       32 DUPTABLE                         R5 K16 [{"Color", "Metal", "Rough", "Normal"}]
-       33 NEWTABLE                         R6 0 7
-       35 LOADK                            R7 K17 ["diffuse"]
-       36 LOADK                            R8 K18 ["diff"]
-       37 LOADK                            R9 K19 ["albedo"]
-       38 LOADK                            R10 K20 ["base"]
-       39 LOADK                            R11 K21 ["col"]
-       40 LOADK                            R12 K22 ["color"]
-       41 LOADK                            R13 K23 ["alb"]
-       42 SETLIST                          R6 R7 7 [1]
-       44 SETTABLEKS                       R6 R5 K12 ["Color"]
-       46 NEWTABLE                         R6 0 5
-       48 LOADK                            R7 K24 ["metallic"]
-       49 LOADK                            R8 K25 ["metalness"]
-       50 LOADK                            R9 K26 ["metal"]
-       51 LOADK                            R10 K27 ["mtl"]
-       52 LOADK                            R11 K28 ["met"]
-       53 SETLIST                          R6 R7 5 [1]
-       55 SETTABLEKS                       R6 R5 K13 ["Metal"]
-       57 NEWTABLE                         R6 0 3
-       59 LOADK                            R7 K29 ["roughness"]
-       60 LOADK                            R8 K30 ["rough"]
-       61 LOADK                            R9 K31 ["rgh"]
-       62 SETLIST                          R6 R7 3 [1]
-       64 SETTABLEKS                       R6 R5 K14 ["Rough"]
-       66 NEWTABLE                         R6 0 5
-       68 LOADK                            R7 K32 ["normal"]
-       69 LOADK                            R8 K33 ["nor"]
-       70 LOADK                            R9 K34 ["nrm"]
-       71 LOADK                            R10 K35 ["nrml"]
-       72 LOADK                            R11 K36 ["norm"]
-       73 SETLIST                          R6 R7 5 [1]
-       75 SETTABLEKS                       R6 R5 K15 ["Normal"]
-       77 SETTABLEKS                       R5 R4 K37 ["knownSuffixes"]
-       79 LOADNIL                          R5
-       80 NEWCLOSURE                       R6 P0
-       81 CAPTURE                          REF R5
-       82 CAPTURE                          VAL R4
-       83 DUPCLOSURE                       R7 K38 [PROTO_1]
-       84 CAPTURE                          VAL R1
-       85 CAPTURE                          VAL R6
-       86 SETTABLEKS                       R7 R4 K39 ["matchSuffix"]
-       88 DUPCLOSURE                       R7 K40 [PROTO_2]
-       89 CAPTURE                          VAL R3
-       90 CAPTURE                          VAL R1
-       91 CAPTURE                          VAL R4
-       92 CAPTURE                          VAL R2
-       93 SETTABLEKS                       R7 R4 K41 ["findMaps"]
-       95 DUPCLOSURE                       R7 K42 [PROTO_3]
-       96 SETTABLEKS                       R7 R4 K43 ["setMaps"]
-       98 CLOSEUPVALS                      R5
-       99 RETURN                           R4 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R5 R0 K9 ["Flags"]
+       34 GETTABLEKS                       R5 R5 K12 ["GetFFlagReimportEmissiveMaps"]
+       36 CALL                             R4 1 1
+       37 NEWTABLE                         R5 4 0
+       39 DUPTABLE                         R6 K18 [{"Color", "Metal", "Rough", "Normal", "Emissive"}]
+       40 NEWTABLE                         R7 0 7
+       42 LOADK                            R8 K19 ["diffuse"]
+       43 LOADK                            R9 K20 ["diff"]
+       44 LOADK                            R10 K21 ["albedo"]
+       45 LOADK                            R11 K22 ["base"]
+       46 LOADK                            R12 K23 ["col"]
+       47 LOADK                            R13 K24 ["color"]
+       48 LOADK                            R14 K25 ["alb"]
+       49 SETLIST                          R7 R8 7 [1]
+       51 SETTABLEKS                       R7 R6 K13 ["Color"]
+       53 NEWTABLE                         R7 0 5
+       55 LOADK                            R8 K26 ["metallic"]
+       56 LOADK                            R9 K27 ["metalness"]
+       57 LOADK                            R10 K28 ["metal"]
+       58 LOADK                            R11 K29 ["mtl"]
+       59 LOADK                            R12 K30 ["met"]
+       60 SETLIST                          R7 R8 5 [1]
+       62 SETTABLEKS                       R7 R6 K14 ["Metal"]
+       64 NEWTABLE                         R7 0 3
+       66 LOADK                            R8 K31 ["roughness"]
+       67 LOADK                            R9 K32 ["rough"]
+       68 LOADK                            R10 K33 ["rgh"]
+       69 SETLIST                          R7 R8 3 [1]
+       71 SETTABLEKS                       R7 R6 K15 ["Rough"]
+       73 NEWTABLE                         R7 0 5
+       75 LOADK                            R8 K34 ["normal"]
+       76 LOADK                            R9 K35 ["nor"]
+       77 LOADK                            R10 K36 ["nrm"]
+       78 LOADK                            R11 K37 ["nrml"]
+       79 LOADK                            R12 K38 ["norm"]
+       80 SETLIST                          R7 R8 5 [1]
+       82 SETTABLEKS                       R7 R6 K16 ["Normal"]
+       84 NEWTABLE                         R7 0 10
+       86 LOADK                            R8 K39 ["emissive"]
+       87 LOADK                            R9 K40 ["emission"]
+       88 LOADK                            R10 K41 ["emiss"]
+       89 LOADK                            R11 K42 ["emit"]
+       90 LOADK                            R12 K43 ["glow"]
+       91 LOADK                            R13 K44 ["illum"]
+       92 LOADK                            R14 K45 ["selfillum"]
+       93 LOADK                            R15 K46 ["light"]
+       94 LOADK                            R16 K47 ["luminance"]
+       95 LOADK                            R17 K48 ["emissivemask"]
+       96 SETLIST                          R7 R8 10 [1]
+       98 SETTABLEKS                       R7 R6 K17 ["Emissive"]
+      100 LOADNIL                          R7
+      101 NEWCLOSURE                       R8 P0
+      102 CAPTURE                          REF R7
+      103 CAPTURE                          VAL R6
+      104 CAPTURE                          VAL R4
+      105 DUPCLOSURE                       R9 K49 [PROTO_1]
+      106 CAPTURE                          VAL R1
+      107 CAPTURE                          VAL R8
+      108 SETTABLEKS                       R9 R5 K50 ["matchSuffix"]
+      110 DUPCLOSURE                       R9 K51 [PROTO_2]
+      111 CAPTURE                          VAL R3
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R5
+      114 CAPTURE                          VAL R2
+      115 SETTABLEKS                       R9 R5 K52 ["findMaps"]
+      117 DUPCLOSURE                       R9 K53 [PROTO_3]
+      118 CAPTURE                          VAL R4
+      119 SETTABLEKS                       R9 R5 K54 ["setMaps"]
+      121 CLOSEUPVALS                      R7
+      122 RETURN                           R5 1

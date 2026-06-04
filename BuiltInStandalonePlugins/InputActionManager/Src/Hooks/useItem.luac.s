@@ -13,15 +13,8 @@ PROTO_0:
        15 GETUPVAL                         R1 2
        16 CALL                             R0 1 -1
        17 RETURN                           R0 -1
-       18 GETUPVAL                         R0 0
-       19 JUMPIFNOTEQKS                    R0 K4 ["InputBinding"] ; [+7]
-       21 GETUPVAL                         R0 1
-       22 GETTABLEKS                       R0 R0 K5 ["getBinding"]
-       24 GETUPVAL                         R1 2
-       25 CALL                             R0 1 -1
-       26 RETURN                           R0 -1
-       27 LOADNIL                          R0
-       28 RETURN                           R0 1
+       18 LOADNIL                          R0
+       19 RETURN                           R0 1
 
 PROTO_1:
         0 JUMPIFNOT                        R0 ; [+3]
@@ -42,34 +35,27 @@ PROTO_3:
         4 GETTABLEKS                       R0 R0 K1 ["getContext"]
         6 GETUPVAL                         R1 2
         7 CALL                             R0 1 1
-        8 JUMP                             ; [+19]
+        8 JUMP                             ; [+10]
         9 GETUPVAL                         R1 0
        10 JUMPIFNOTEQKS                    R1 K2 ["InputAction"] ; [+7]
        12 GETUPVAL                         R0 1
        13 GETTABLEKS                       R0 R0 K3 ["getAction"]
        15 GETUPVAL                         R1 2
        16 CALL                             R0 1 1
-       17 JUMP                             ; [+10]
-       18 GETUPVAL                         R1 0
-       19 JUMPIFNOTEQKS                    R1 K4 ["InputBinding"] ; [+7]
-       21 GETUPVAL                         R0 1
-       22 GETTABLEKS                       R0 R0 K5 ["getBinding"]
-       24 GETUPVAL                         R1 2
-       25 CALL                             R0 1 1
-       26 JUMP                             ; [+1]
-       27 LOADNIL                          R0
-       28 GETUPVAL                         R1 3
-       29 MOVE                             R2 R0
-       30 CALL                             R1 1 0
-       31 GETUPVAL                         R1 1
-       32 GETTABLEKS                       R1 R1 K6 ["subscribe"]
-       34 GETUPVAL                         R2 2
-       35 NEWCLOSURE                       R3 P0
-       36 CAPTURE                          UPVAL U3
-       37 CALL                             R1 2 1
-       38 NEWCLOSURE                       R2 P1
-       39 CAPTURE                          VAL R1
-       40 RETURN                           R2 1
+       17 JUMP                             ; [+1]
+       18 LOADNIL                          R0
+       19 GETUPVAL                         R1 3
+       20 MOVE                             R2 R0
+       21 CALL                             R1 1 0
+       22 GETUPVAL                         R1 1
+       23 GETTABLEKS                       R1 R1 K4 ["subscribe"]
+       25 GETUPVAL                         R2 2
+       26 NEWCLOSURE                       R3 P0
+       27 CAPTURE                          UPVAL U3
+       28 CALL                             R1 2 1
+       29 NEWCLOSURE                       R2 P1
+       30 CAPTURE                          VAL R1
+       31 RETURN                           R2 1
 
 PROTO_4:
         0 GETUPVAL                         R2 0

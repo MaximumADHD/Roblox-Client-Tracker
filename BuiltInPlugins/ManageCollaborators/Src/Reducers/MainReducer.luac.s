@@ -62,39 +62,56 @@ MAIN:
       108 GETTABLEKS                       R13 R13 K19 ["Reducers"]
       110 GETTABLEKS                       R13 R13 K20 ["CanCollaborateResponses"]
       112 CALL                             R12 1 1
-      113 LOADNIL                          R13
-      114 GETIMPORT                        R14 K22 [game]
-      116 LOADK                            R16 K23 ["Collab8766_LogCollabSearchItemClickedEventV4"]
-      117 NAMECALL                         R14 R14 K24 ["GetFastFlag"]
-      119 CALL                             R14 2 1
-      120 JUMPIFNOT                        R14 ; [+10]
-      121 GETIMPORT                        R15 K4 [require]
-      123 GETIMPORT                        R16 K1 [script]
-      125 GETTABLEKS                       R16 R16 K2 ["Parent"]
-      127 GETTABLEKS                       R16 R16 K25 ["SearchItemLogs"]
-      129 CALL                             R15 1 1
-      130 MOVE                             R13 R15
-      131 GETTABLEKS                       R15 R1 K26 ["combineReducers"]
-      133 DUPTABLE                         R16 K27 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs", "CanCollaborateResponses"}]
-      134 SETTABLEKS                       R7 R16 K13 ["GameOwnerMetadata"]
-      136 SETTABLEKS                       R3 R16 K9 ["Permissions"]
-      138 SETTABLEKS                       R4 R16 K10 ["GranularPermissions"]
-      140 SETTABLEKS                       R5 R16 K11 ["GroupMetadata"]
-      142 SETTABLEKS                       R6 R16 K12 ["GroupRolePermissions"]
-      144 SETTABLEKS                       R8 R16 K14 ["CollaboratorSearch"]
-      146 SETTABLEKS                       R9 R16 K15 ["LoadState"]
-      148 SETTABLEKS                       R10 R16 K16 ["SaveState"]
-      150 SETTABLEKS                       R11 R16 K17 ["FilterPills"]
-      152 JUMPIFNOT                        R14 ; [+2]
-      153 MOVE                             R17 R13
-      154 JUMP                             ; [+1]
-      155 LOADNIL                          R17
-      156 SETTABLEKS                       R17 R16 K25 ["SearchItemLogs"]
-      158 GETTABLEKS                       R18 R2 K28 ["fflagManageCollaboratorsActionNeededLabel"]
-      160 JUMPIFNOT                        R18 ; [+2]
-      161 MOVE                             R17 R12
-      162 JUMP                             ; [+1]
-      163 LOADNIL                          R17
-      164 SETTABLEKS                       R17 R16 K20 ["CanCollaborateResponses"]
-      166 CALL                             R15 1 1
-      167 RETURN                           R15 1
+      113 GETIMPORT                        R13 K4 [require]
+      115 GETTABLEKS                       R14 R0 K18 ["Src"]
+      117 GETTABLEKS                       R14 R14 K19 ["Reducers"]
+      119 GETTABLEKS                       R14 R14 K21 ["RequiresTrustedConnectionData"]
+      121 CALL                             R13 1 1
+      122 LOADNIL                          R14
+      123 GETIMPORT                        R15 K23 [game]
+      125 LOADK                            R17 K24 ["Collab8766_LogCollabSearchItemClickedEventV4"]
+      126 NAMECALL                         R15 R15 K25 ["GetFastFlag"]
+      128 CALL                             R15 2 1
+      129 JUMPIFNOT                        R15 ; [+10]
+      130 GETIMPORT                        R16 K4 [require]
+      132 GETIMPORT                        R17 K1 [script]
+      134 GETTABLEKS                       R17 R17 K2 ["Parent"]
+      136 GETTABLEKS                       R17 R17 K26 ["SearchItemLogs"]
+      138 CALL                             R16 1 1
+      139 MOVE                             R14 R16
+      140 GETTABLEKS                       R16 R1 K27 ["combineReducers"]
+      142 DUPTABLE                         R17 K28 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs", "CanCollaborateResponses", "RequiresTrustedConnectionData"}]
+      143 SETTABLEKS                       R7 R17 K13 ["GameOwnerMetadata"]
+      145 SETTABLEKS                       R3 R17 K9 ["Permissions"]
+      147 SETTABLEKS                       R4 R17 K10 ["GranularPermissions"]
+      149 SETTABLEKS                       R5 R17 K11 ["GroupMetadata"]
+      151 SETTABLEKS                       R6 R17 K12 ["GroupRolePermissions"]
+      153 SETTABLEKS                       R8 R17 K14 ["CollaboratorSearch"]
+      155 SETTABLEKS                       R9 R17 K15 ["LoadState"]
+      157 SETTABLEKS                       R10 R17 K16 ["SaveState"]
+      159 SETTABLEKS                       R11 R17 K17 ["FilterPills"]
+      161 JUMPIFNOT                        R15 ; [+2]
+      162 MOVE                             R18 R14
+      163 JUMP                             ; [+1]
+      164 LOADNIL                          R18
+      165 SETTABLEKS                       R18 R17 K26 ["SearchItemLogs"]
+      167 GETTABLEKS                       R19 R2 K29 ["fflagManageCollaboratorsActionNeededLabel"]
+      169 JUMPIF                           R19 ; [+9]
+      170 GETTABLEKS                       R19 R2 K30 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
+      172 JUMPIF                           R19 ; [+6]
+      173 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      175 JUMPIF                           R19 ; [+3]
+      176 GETTABLEKS                       R19 R2 K32 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      178 JUMPIFNOT                        R19 ; [+2]
+      179 MOVE                             R18 R12
+      180 JUMP                             ; [+1]
+      181 LOADNIL                          R18
+      182 SETTABLEKS                       R18 R17 K20 ["CanCollaborateResponses"]
+      184 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      186 JUMPIFNOT                        R19 ; [+2]
+      187 MOVE                             R18 R13
+      188 JUMP                             ; [+1]
+      189 LOADNIL                          R18
+      190 SETTABLEKS                       R18 R17 K21 ["RequiresTrustedConnectionData"]
+      192 CALL                             R16 1 1
+      193 RETURN                           R16 1

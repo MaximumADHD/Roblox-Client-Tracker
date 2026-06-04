@@ -265,6 +265,25 @@ PROTO_17:
        19 RETURN                           R7 -1
 
 PROTO_18:
+        0 MOVE                             R9 R1
+        1 NAMECALL                         R7 R0 K0 ["permissionsV2GET"]
+        3 CALL                             R7 2 1
+        4 NAMECALL                         R7 R7 K1 ["await"]
+        6 CALL                             R7 1 1
+        7 GETTABLEKS                       R8 R7 K2 ["responseBody"]
+        9 GETTABLEKS                       R8 R8 K3 ["data"]
+       11 GETUPVAL                         R9 0
+       12 GETTABLEKS                       R9 R9 K4 ["DeserializePermissions"]
+       14 MOVE                             R10 R8
+       15 MOVE                             R11 R2
+       16 MOVE                             R12 R3
+       17 MOVE                             R13 R4
+       18 MOVE                             R14 R5
+       19 MOVE                             R15 R6
+       20 CALL                             R9 6 -1
+       21 RETURN                           R9 -1
+
+PROTO_19:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["SerializePermissions"]
         3 MOVE                             R5 R2
@@ -319,7 +338,7 @@ PROTO_18:
        63 CALL                             R7 1 0
        64 RETURN                           R4 2
 
-PROTO_19:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["GetUserIdFromNameAsync"]
@@ -361,7 +380,7 @@ PROTO_19:
        50 CALL                             R3 2 0
        51 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["apisSearchUsers"]
         3 CALL                             R2 2 1
@@ -411,7 +430,7 @@ PROTO_20:
        63 SETTABLE                         R3 R4 R5
        64 RETURN                           R4 1
 
-PROTO_21:
+PROTO_22:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["searchGroupsV1GET"]
         3 CALL                             R2 2 1
@@ -449,7 +468,7 @@ PROTO_21:
        52 SETTABLE                         R5 R4 R6
        53 RETURN                           R4 1
 
-PROTO_22:
+PROTO_23:
         0 GETTABLEKS                       R3 R0 K0 ["__networking"]
         2 LOADK                            R6 K1 ["apis"]
         3 LOADK                            R7 K2 ["/experience-guidelines-service/v1beta1/multi-creator-eligibility"]
@@ -467,7 +486,7 @@ PROTO_22:
        22 CALL                             R4 4 -1
        23 RETURN                           R4 -1
 
-PROTO_23:
+PROTO_24:
         0 MOVE                             R5 R1
         1 NAMECALL                         R3 R0 K0 ["searchUsers"]
         3 CALL                             R3 2 1
@@ -536,7 +555,7 @@ PROTO_23:
        88 CALL                             R6 2 1
        89 RETURN                           R6 1
 
-PROTO_24:
+PROTO_25:
         0 GETTABLEKS                       R2 R0 K0 ["__networking"]
         2 LOADK                            R5 K1 ["apis"]
         3 LOADK                            R6 K2 ["/experience-guidelines-service/v1beta1/multi-age-recommendation"]
@@ -551,7 +570,7 @@ PROTO_24:
        17 CALL                             R3 4 -1
        18 RETURN                           R3 -1
 
-PROTO_25:
+PROTO_26:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["guidelinesPOST"]
         3 CALL                             R2 2 1
@@ -684,30 +703,33 @@ MAIN:
       152 SETTABLEKS                       R15 R14 K58 ["setActive"]
       154 DUPCLOSURE                       R15 K59 [PROTO_17]
       155 CAPTURE                          VAL R2
-      156 SETTABLEKS                       R15 R14 K60 ["getPermissions"]
+      156 SETTABLEKS                       R15 R14 K60 ["getPermissions_DEPRECATED"]
       158 DUPCLOSURE                       R15 K61 [PROTO_18]
-      159 CAPTURE                          VAL R3
-      160 CAPTURE                          VAL R12
-      161 SETTABLEKS                       R15 R14 K62 ["setPermissions"]
-      163 NEWCLOSURE                       R15 P18
-      164 CAPTURE                          VAL R4
-      165 CAPTURE                          VAL R10
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          REF R11
-      168 SETTABLEKS                       R15 R14 K63 ["searchUsers"]
-      170 DUPCLOSURE                       R15 K64 [PROTO_21]
-      171 CAPTURE                          VAL R4
-      172 SETTABLEKS                       R15 R14 K65 ["searchGroups"]
+      159 CAPTURE                          VAL R2
+      160 SETTABLEKS                       R15 R14 K62 ["getPermissions"]
+      162 DUPCLOSURE                       R15 K63 [PROTO_19]
+      163 CAPTURE                          VAL R3
+      164 CAPTURE                          VAL R12
+      165 SETTABLEKS                       R15 R14 K64 ["setPermissions"]
+      167 NEWCLOSURE                       R15 P19
+      168 CAPTURE                          VAL R4
+      169 CAPTURE                          VAL R10
+      170 CAPTURE                          VAL R7
+      171 CAPTURE                          REF R11
+      172 SETTABLEKS                       R15 R14 K65 ["searchUsers"]
       174 DUPCLOSURE                       R15 K66 [PROTO_22]
-      175 CAPTURE                          VAL R5
-      176 SETTABLEKS                       R15 R14 K67 ["creatorEligibilitiesPOST"]
+      175 CAPTURE                          VAL R4
+      176 SETTABLEKS                       R15 R14 K67 ["searchGroups"]
       178 DUPCLOSURE                       R15 K68 [PROTO_23]
-      179 CAPTURE                          VAL R4
-      180 CAPTURE                          VAL R1
-      181 SETTABLEKS                       R15 R14 K69 ["search"]
-      183 DUPCLOSURE                       R15 K70 [PROTO_24]
-      184 SETTABLEKS                       R15 R14 K71 ["guidelinesPOST"]
-      186 DUPCLOSURE                       R15 K72 [PROTO_25]
-      187 SETTABLEKS                       R15 R14 K73 ["getMinimumAgeRecommendation"]
-      189 CLOSEUPVALS                      R11
-      190 RETURN                           R14 1
+      179 CAPTURE                          VAL R5
+      180 SETTABLEKS                       R15 R14 K69 ["creatorEligibilitiesPOST"]
+      182 DUPCLOSURE                       R15 K70 [PROTO_24]
+      183 CAPTURE                          VAL R4
+      184 CAPTURE                          VAL R1
+      185 SETTABLEKS                       R15 R14 K71 ["search"]
+      187 DUPCLOSURE                       R15 K72 [PROTO_25]
+      188 SETTABLEKS                       R15 R14 K73 ["guidelinesPOST"]
+      190 DUPCLOSURE                       R15 K74 [PROTO_26]
+      191 SETTABLEKS                       R15 R14 K75 ["getMinimumAgeRecommendation"]
+      193 CLOSEUPVALS                      R11
+      194 RETURN                           R14 1

@@ -24,7 +24,7 @@ PROTO_0:
        36 GETUPVAL                         R5 2
        37 GETTABLEKS                       R5 R5 K6 ["ContextStack"]
        39 DUPTABLE                         R6 K10 [{"providers"}]
-       40 NEWTABLE                         R7 0 2
+       40 NEWTABLE                         R7 0 4
        42 GETUPVAL                         R8 1
        43 GETTABLEKS                       R8 R8 K8 ["createElement"]
        45 GETUPVAL                         R9 3
@@ -34,15 +34,36 @@ PROTO_0:
        51 GETUPVAL                         R9 1
        52 GETTABLEKS                       R9 R9 K8 ["createElement"]
        54 GETUPVAL                         R10 3
-       55 GETTABLEKS                       R10 R10 K13 ["GraphPlayedContext"]
+       55 GETTABLEKS                       R10 R10 K13 ["NativeGraphContext"]
        57 GETTABLEKS                       R10 R10 K14 ["PreviewDataModelProvider"]
-       59 CALL                             R9 1 -1
-       60 SETLIST                          R7 R8 -1 [1]
-       62 SETTABLEKS                       R7 R6 K9 ["providers"]
-       64 CALL                             R4 2 1
-       65 SETTABLEKS                       R4 R3 K6 ["ContextStack"]
-       67 CALL                             R1 2 -1
-       68 RETURN                           R1 -1
+       59 CALL                             R9 1 1
+       60 GETUPVAL                         R11 4
+       61 CALL                             R11 0 1
+       62 JUMPIFNOT                        R11 ; [+10]
+       63 GETUPVAL                         R10 1
+       64 GETTABLEKS                       R10 R10 K8 ["createElement"]
+       66 GETUPVAL                         R11 3
+       67 GETTABLEKS                       R11 R11 K15 ["GraphDebugDataContext"]
+       69 GETTABLEKS                       R11 R11 K12 ["EditableDataModelProvider"]
+       71 CALL                             R10 1 1
+       72 JUMP                             ; [+7]
+       73 GETUPVAL                         R10 1
+       74 GETTABLEKS                       R10 R10 K8 ["createElement"]
+       76 GETUPVAL                         R11 1
+       77 GETTABLEKS                       R11 R11 K16 ["Fragment"]
+       79 CALL                             R10 1 1
+       80 GETUPVAL                         R11 1
+       81 GETTABLEKS                       R11 R11 K8 ["createElement"]
+       83 GETUPVAL                         R12 3
+       84 GETTABLEKS                       R12 R12 K17 ["GraphPlayedContext"]
+       86 GETTABLEKS                       R12 R12 K14 ["PreviewDataModelProvider"]
+       88 CALL                             R11 1 -1
+       89 SETLIST                          R7 R8 -1 [1]
+       91 SETTABLEKS                       R7 R6 K9 ["providers"]
+       93 CALL                             R4 2 1
+       94 SETTABLEKS                       R4 R3 K6 ["ContextStack"]
+       96 CALL                             R1 2 -1
+       97 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -66,9 +87,15 @@ MAIN:
        30 GETTABLEKS                       R5 R0 K6 ["Packages"]
        32 GETTABLEKS                       R5 R5 K10 ["ReactUtils"]
        34 CALL                             R4 1 1
-       35 DUPCLOSURE                       R5 K11 [PROTO_0]
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R4
-       39 CAPTURE                          VAL R1
-       40 RETURN                           R5 1
+       35 GETIMPORT                        R5 K5 [require]
+       37 GETTABLEKS                       R6 R0 K11 ["Src"]
+       39 GETTABLEKS                       R6 R6 K12 ["Flags"]
+       41 GETTABLEKS                       R6 R6 K13 ["getFFlagAnimGraphUI_RunTimeDebug"]
+       43 CALL                             R5 1 1
+       44 DUPCLOSURE                       R6 K14 [PROTO_0]
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R5
+       50 RETURN                           R6 1

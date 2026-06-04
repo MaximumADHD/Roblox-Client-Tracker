@@ -95,14 +95,13 @@ PROTO_5:
         8 CALL                             R3 -1 1
         9 GETUPVAL                         R4 1
        10 GETTABLEKS                       R5 R1 K1 ["ItemsController"]
-       12 GETTABLEKS                       R6 R1 K3 ["PluginController"]
-       14 GETTABLEKS                       R7 R1 K4 ["Localization"]
-       16 MOVE                             R8 R3
-       17 GETTABLEKS                       R9 R1 K5 ["LayoutController"]
-       19 NAMECALL                         R9 R9 K6 ["getColumns"]
-       21 CALL                             R9 1 -1
-       22 CALL                             R4 -1 0
-       23 RETURN                           R0 0
+       12 GETTABLEKS                       R6 R1 K3 ["Localization"]
+       14 MOVE                             R7 R3
+       15 GETTABLEKS                       R8 R1 K4 ["LayoutController"]
+       17 NAMECALL                         R8 R8 K5 ["getColumns"]
+       19 CALL                             R8 1 -1
+       20 CALL                             R4 -1 0
+       21 RETURN                           R0 0
 
 PROTO_6:
         0 LOADB                            R3 1
@@ -203,21 +202,47 @@ PROTO_11:
        46 RETURN                           R0 0
 
 PROTO_12:
-        0 GETIMPORT                        R4 K1 [next]
-        2 GETTABLEKS                       R5 R1 K2 ["ItemsController"]
-        4 NAMECALL                         R5 R5 K3 ["getSelection"]
-        6 CALL                             R5 1 -1
-        7 CALL                             R4 -1 1
-        8 JUMPIFNOTEQKNIL                  R4 ; [+2]
-       10 LOADB                            R3 0 +1
-       11 LOADB                            R3 1
-       12 LOADB                            R4 0
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K4 ["MenuContext"]
-       16 GETTABLEKS                       R5 R5 K5 ["Asset"]
-       18 JUMPIFNOTEQ                      R0 R5 ; [+2]
-       20 MOVE                             R4 R3
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["MenuContext"]
+        3 GETTABLEKS                       R3 R3 K1 ["Asset"]
+        5 JUMPIFEQ                         R0 R3 ; [+3]
+        7 LOADB                            R3 0
+        8 RETURN                           R3 1
+        9 GETTABLEKS                       R3 R1 K2 ["ItemsController"]
+       11 NAMECALL                         R3 R3 K3 ["getSelection"]
+       13 CALL                             R3 1 1
+       14 GETIMPORT                        R4 K5 [next]
+       16 MOVE                             R5 R3
+       17 CALL                             R4 1 1
+       18 JUMPIFNOTEQKNIL                  R4 ; [+3]
+       20 LOADB                            R4 0
        21 RETURN                           R4 1
+       22 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
+       24 NAMECALL                         R4 R4 K6 ["getItemsCache"]
+       26 CALL                             R4 1 1
+       27 GETTABLEKS                       R5 R1 K2 ["ItemsController"]
+       29 NAMECALL                         R5 R5 K7 ["getCurrentShownScope"]
+       31 CALL                             R5 1 1
+       32 LOADB                            R6 0
+       33 MOVE                             R7 R3
+       34 LOADNIL                          R8
+       35 LOADNIL                          R9
+       36 FORGPREP                         R7
+       37 GETTABLEKS                       R14 R5 K8 ["Uid"]
+       39 MOVE                             R15 R10
+       40 GETUPVAL                         R16 0
+       41 GETTABLEKS                       R16 R16 K9 ["AssetInfoField"]
+       43 GETTABLEKS                       R16 R16 K10 ["AssetType"]
+       45 NAMECALL                         R12 R4 K11 ["getItemField"]
+       47 CALL                             R12 4 1
+       48 GETUPVAL                         R13 0
+       49 GETTABLEKS                       R13 R13 K10 ["AssetType"]
+       51 GETTABLEKS                       R13 R13 K12 ["Folder"]
+       53 JUMPIFEQ                         R12 R13 ; [+3]
+       55 LOADB                            R6 1
+       56 RETURN                           R6 1
+       57 FORGLOOP                         R7 2 ; [-21]
+       59 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

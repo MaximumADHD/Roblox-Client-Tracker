@@ -171,18 +171,26 @@ PROTO_3:
       207 GETUPVAL                         R15 18
       208 CALL                             R14 1 1
       209 SETTABLEKS                       R14 R13 K46 ["Toast"]
-      211 GETUPVAL                         R14 8
-      212 GETTABLEKS                       R14 R14 K3 ["createElement"]
-      214 GETUPVAL                         R15 19
-      215 NEWTABLE                         R16 2 0
-      217 SETTABLEKS                       R9 R16 K47 ["ForwardRef"]
-      219 GETUPVAL                         R17 8
-      220 GETTABLEKS                       R17 R17 K18 ["Tag"]
-      222 LOADK                            R18 K48 ["App X-Fill"]
-      223 SETTABLE                         R18 R16 R17
-      224 MOVE                             R17 R13
-      225 CALL                             R14 3 -1
-      226 RETURN                           R14 -1
+      211 GETUPVAL                         R14 19
+      212 CALL                             R14 0 1
+      213 JUMPIFNOT                        R14 ; [+7]
+      214 GETUPVAL                         R14 8
+      215 GETTABLEKS                       R14 R14 K3 ["createElement"]
+      217 GETUPVAL                         R15 20
+      218 CALL                             R14 1 1
+      219 SETTABLEKS                       R14 R13 K47 ["DragInvalidPopover"]
+      221 GETUPVAL                         R14 8
+      222 GETTABLEKS                       R14 R14 K3 ["createElement"]
+      224 GETUPVAL                         R15 21
+      225 NEWTABLE                         R16 2 0
+      227 SETTABLEKS                       R9 R16 K48 ["ForwardRef"]
+      229 GETUPVAL                         R17 8
+      230 GETTABLEKS                       R17 R17 K18 ["Tag"]
+      232 LOADK                            R18 K49 ["App X-Fill"]
+      233 SETTABLE                         R18 R16 R17
+      234 MOVE                             R17 R13
+      235 CALL                             R14 3 -1
+      236 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -228,66 +236,77 @@ MAIN:
        70 GETTABLEKS                       R13 R13 K19 ["Toast"]
        72 CALL                             R12 1 1
        73 GETIMPORT                        R13 K5 [require]
-       75 GETTABLEKS                       R14 R0 K20 ["Src"]
-       77 GETTABLEKS                       R14 R14 K21 ["Controllers"]
-       79 GETTABLEKS                       R14 R14 K22 ["LayoutController"]
-       81 CALL                             R13 1 1
-       82 GETTABLEKS                       R14 R1 K23 ["useEffect"]
-       84 GETTABLEKS                       R15 R1 K24 ["useRef"]
-       86 GETIMPORT                        R16 K5 [require]
-       88 GETTABLEKS                       R17 R0 K20 ["Src"]
-       90 GETTABLEKS                       R17 R17 K25 ["Hooks"]
-       92 GETTABLEKS                       R17 R17 K26 ["useDialogs"]
-       94 CALL                             R16 1 1
-       95 GETIMPORT                        R17 K5 [require]
-       97 GETTABLEKS                       R18 R0 K20 ["Src"]
-       99 GETTABLEKS                       R18 R18 K25 ["Hooks"]
-      101 GETTABLEKS                       R18 R18 K27 ["usePluginSize"]
-      103 CALL                             R17 1 1
-      104 GETIMPORT                        R18 K5 [require]
-      106 GETTABLEKS                       R19 R0 K20 ["Src"]
-      108 GETTABLEKS                       R19 R19 K25 ["Hooks"]
-      110 GETTABLEKS                       R19 R19 K28 ["useAppSizes"]
-      112 CALL                             R18 1 1
-      113 GETIMPORT                        R19 K5 [require]
-      115 GETTABLEKS                       R20 R0 K20 ["Src"]
-      117 GETTABLEKS                       R20 R20 K25 ["Hooks"]
-      119 GETTABLEKS                       R20 R20 K29 ["useShowSidebar"]
-      121 CALL                             R19 1 1
-      122 GETIMPORT                        R20 K5 [require]
-      124 GETTABLEKS                       R21 R0 K20 ["Src"]
-      126 GETTABLEKS                       R21 R21 K25 ["Hooks"]
-      128 GETTABLEKS                       R21 R21 K30 ["useExplorerInfo"]
-      130 CALL                             R20 1 1
-      131 GETIMPORT                        R21 K5 [require]
-      133 GETTABLEKS                       R22 R0 K20 ["Src"]
-      135 GETTABLEKS                       R22 R22 K31 ["Flags"]
-      137 GETTABLEKS                       R22 R22 K32 ["getFFlagAmrFoundationifyContextMenu"]
-      139 CALL                             R21 1 1
-      140 GETIMPORT                        R22 K5 [require]
-      142 GETTABLEKS                       R23 R0 K20 ["Src"]
-      144 GETTABLEKS                       R23 R23 K31 ["Flags"]
-      146 GETTABLEKS                       R23 R23 K33 ["getFFlagAmrCustomToastNotifications"]
-      148 CALL                             R22 1 1
-      149 DUPCLOSURE                       R23 K34 [PROTO_3]
-      150 CAPTURE                          VAL R4
-      151 CAPTURE                          VAL R13
-      152 CAPTURE                          VAL R19
-      153 CAPTURE                          VAL R17
-      154 CAPTURE                          VAL R16
-      155 CAPTURE                          VAL R20
-      156 CAPTURE                          VAL R15
-      157 CAPTURE                          VAL R14
-      158 CAPTURE                          VAL R1
-      159 CAPTURE                          VAL R9
-      160 CAPTURE                          VAL R8
-      161 CAPTURE                          VAL R18
-      162 CAPTURE                          VAL R7
-      163 CAPTURE                          VAL R3
-      164 CAPTURE                          VAL R10
-      165 CAPTURE                          VAL R21
-      166 CAPTURE                          VAL R11
-      167 CAPTURE                          VAL R22
-      168 CAPTURE                          VAL R12
-      169 CAPTURE                          VAL R6
-      170 RETURN                           R23 1
+       75 GETIMPORT                        R14 K1 [script]
+       77 GETTABLEKS                       R14 R14 K20 ["DragInvalidPopover"]
+       79 CALL                             R13 1 1
+       80 GETIMPORT                        R14 K5 [require]
+       82 GETTABLEKS                       R15 R0 K21 ["Src"]
+       84 GETTABLEKS                       R15 R15 K22 ["Controllers"]
+       86 GETTABLEKS                       R15 R15 K23 ["LayoutController"]
+       88 CALL                             R14 1 1
+       89 GETTABLEKS                       R15 R1 K24 ["useEffect"]
+       91 GETTABLEKS                       R16 R1 K25 ["useRef"]
+       93 GETIMPORT                        R17 K5 [require]
+       95 GETTABLEKS                       R18 R0 K21 ["Src"]
+       97 GETTABLEKS                       R18 R18 K26 ["Hooks"]
+       99 GETTABLEKS                       R18 R18 K27 ["useDialogs"]
+      101 CALL                             R17 1 1
+      102 GETIMPORT                        R18 K5 [require]
+      104 GETTABLEKS                       R19 R0 K21 ["Src"]
+      106 GETTABLEKS                       R19 R19 K26 ["Hooks"]
+      108 GETTABLEKS                       R19 R19 K28 ["usePluginSize"]
+      110 CALL                             R18 1 1
+      111 GETIMPORT                        R19 K5 [require]
+      113 GETTABLEKS                       R20 R0 K21 ["Src"]
+      115 GETTABLEKS                       R20 R20 K26 ["Hooks"]
+      117 GETTABLEKS                       R20 R20 K29 ["useAppSizes"]
+      119 CALL                             R19 1 1
+      120 GETIMPORT                        R20 K5 [require]
+      122 GETTABLEKS                       R21 R0 K21 ["Src"]
+      124 GETTABLEKS                       R21 R21 K26 ["Hooks"]
+      126 GETTABLEKS                       R21 R21 K30 ["useShowSidebar"]
+      128 CALL                             R20 1 1
+      129 GETIMPORT                        R21 K5 [require]
+      131 GETTABLEKS                       R22 R0 K21 ["Src"]
+      133 GETTABLEKS                       R22 R22 K26 ["Hooks"]
+      135 GETTABLEKS                       R22 R22 K31 ["useExplorerInfo"]
+      137 CALL                             R21 1 1
+      138 GETIMPORT                        R22 K5 [require]
+      140 GETTABLEKS                       R23 R0 K21 ["Src"]
+      142 GETTABLEKS                       R23 R23 K32 ["Flags"]
+      144 GETTABLEKS                       R23 R23 K33 ["getFFlagAmrFoundationifyContextMenu"]
+      146 CALL                             R22 1 1
+      147 GETIMPORT                        R23 K5 [require]
+      149 GETTABLEKS                       R24 R0 K21 ["Src"]
+      151 GETTABLEKS                       R24 R24 K32 ["Flags"]
+      153 GETTABLEKS                       R24 R24 K34 ["getFFlagAmrCustomToastNotifications"]
+      155 CALL                             R23 1 1
+      156 GETIMPORT                        R24 K5 [require]
+      158 GETTABLEKS                       R25 R0 K21 ["Src"]
+      160 GETTABLEKS                       R25 R25 K32 ["Flags"]
+      162 GETTABLEKS                       R25 R25 K35 ["getFFlagAmrOrganizationFoundation"]
+      164 CALL                             R24 1 1
+      165 DUPCLOSURE                       R25 K36 [PROTO_3]
+      166 CAPTURE                          VAL R4
+      167 CAPTURE                          VAL R14
+      168 CAPTURE                          VAL R20
+      169 CAPTURE                          VAL R18
+      170 CAPTURE                          VAL R17
+      171 CAPTURE                          VAL R21
+      172 CAPTURE                          VAL R16
+      173 CAPTURE                          VAL R15
+      174 CAPTURE                          VAL R1
+      175 CAPTURE                          VAL R9
+      176 CAPTURE                          VAL R8
+      177 CAPTURE                          VAL R19
+      178 CAPTURE                          VAL R7
+      179 CAPTURE                          VAL R3
+      180 CAPTURE                          VAL R10
+      181 CAPTURE                          VAL R22
+      182 CAPTURE                          VAL R11
+      183 CAPTURE                          VAL R23
+      184 CAPTURE                          VAL R12
+      185 CAPTURE                          VAL R24
+      186 CAPTURE                          VAL R13
+      187 CAPTURE                          VAL R6
+      188 RETURN                           R25 1

@@ -16,124 +16,128 @@ MAIN:
        24 GETTABLEKS                       R4 R4 K12 ["Images"]
        26 CALL                             R3 1 1
        27 GETTABLEKS                       R4 R3 K13 ["AvailableImages"]
-       29 DUPTABLE                         R5 K42 [{"ArrowDownIcon", "ArrowRightIcon", "ArrowUpIcon", "CheckmarkIcon", "ClearIcon", "FilterIcon", "FolderIcon", "GroupDefaultIcon", "GroupFolderIcon", "GroupLargeDefaultIcon", "ImportIcon", "NotificationIcon", "PackageLinkIcon", "PlaceholderAssetIcon", "PlaceholderIcon", "PlacesFolderIcon", "RefreshIcon", "SearchIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "SortIcon", "UniverseDefaultIcon", "UniverseLargeDefaultIcon", "UserDefaultIcon", "UserFolderIcon", "UserLargeDefaultIcon", "AmContentEmphasis", "TestCol"}]
-       30 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       32 GETTABLEKS                       R7 R4 K44 ["ArrowDown"]
+       29 DUPTABLE                         R5 K43 [{"ArrowDownIcon", "ArrowRightIcon", "ArrowUpIcon", "CheckmarkIcon", "ClearIcon", "FilterIcon", "FolderIcon", "GameFolderIcon", "GroupDefaultIcon", "GroupFolderIcon", "GroupLargeDefaultIcon", "ImportIcon", "NotificationIcon", "PackageLinkIcon", "PlaceholderAssetIcon", "PlaceholderIcon", "PlacesFolderIcon", "RefreshIcon", "SearchIcon", "SidebarCollapseIcon", "SidebarExpandIcon", "SortIcon", "UniverseDefaultIcon", "UniverseLargeDefaultIcon", "UserDefaultIcon", "UserFolderIcon", "UserLargeDefaultIcon", "AmContentEmphasis", "TestCol"}]
+       30 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       32 GETTABLEKS                       R7 R4 K45 ["ArrowDown"]
        34 CALL                             R6 1 1
        35 SETTABLEKS                       R6 R5 K14 ["ArrowDownIcon"]
-       37 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       39 GETTABLEKS                       R7 R4 K45 ["ArrowRight"]
+       37 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       39 GETTABLEKS                       R7 R4 K46 ["ArrowRight"]
        41 CALL                             R6 1 1
        42 SETTABLEKS                       R6 R5 K15 ["ArrowRightIcon"]
-       44 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       46 GETTABLEKS                       R7 R4 K46 ["ArrowUp"]
+       44 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       46 GETTABLEKS                       R7 R4 K47 ["ArrowUp"]
        48 CALL                             R6 1 1
        49 SETTABLEKS                       R6 R5 K16 ["ArrowUpIcon"]
-       51 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       53 GETTABLEKS                       R7 R4 K47 ["Checkmark"]
+       51 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       53 GETTABLEKS                       R7 R4 K48 ["Checkmark"]
        55 CALL                             R6 1 1
        56 SETTABLEKS                       R6 R5 K17 ["CheckmarkIcon"]
-       58 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       60 GETTABLEKS                       R7 R4 K48 ["Clear"]
+       58 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       60 GETTABLEKS                       R7 R4 K49 ["Clear"]
        62 CALL                             R6 1 1
        63 SETTABLEKS                       R6 R5 K18 ["ClearIcon"]
-       65 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       67 GETTABLEKS                       R7 R4 K49 ["Filter"]
+       65 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       67 GETTABLEKS                       R7 R4 K50 ["Filter"]
        69 CALL                             R6 1 1
        70 SETTABLEKS                       R6 R5 K19 ["FilterIcon"]
-       72 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       74 GETTABLEKS                       R7 R4 K50 ["Folder"]
+       72 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       74 GETTABLEKS                       R7 R4 K51 ["Folder"]
        76 CALL                             R6 1 1
        77 SETTABLEKS                       R6 R5 K20 ["FolderIcon"]
-       79 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       81 GETTABLEKS                       R7 R4 K51 ["Group"]
+       79 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       81 GETTABLEKS                       R7 R4 K52 ["GameFolder"]
        83 CALL                             R6 1 1
-       84 SETTABLEKS                       R6 R5 K21 ["GroupDefaultIcon"]
-       86 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       88 GETTABLEKS                       R7 R4 K52 ["GroupFolder"]
+       84 SETTABLEKS                       R6 R5 K21 ["GameFolderIcon"]
+       86 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       88 GETTABLEKS                       R7 R4 K53 ["Group"]
        90 CALL                             R6 1 1
-       91 SETTABLEKS                       R6 R5 K22 ["GroupFolderIcon"]
-       93 GETTABLEKS                       R6 R3 K43 ["getDark"]
-       95 GETTABLEKS                       R7 R4 K53 ["GroupLarge"]
+       91 SETTABLEKS                       R6 R5 K22 ["GroupDefaultIcon"]
+       93 GETTABLEKS                       R6 R3 K44 ["getDark"]
+       95 GETTABLEKS                       R7 R4 K54 ["GroupFolder"]
        97 CALL                             R6 1 1
-       98 SETTABLEKS                       R6 R5 K23 ["GroupLargeDefaultIcon"]
-      100 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      102 GETTABLEKS                       R7 R4 K54 ["Import"]
+       98 SETTABLEKS                       R6 R5 K23 ["GroupFolderIcon"]
+      100 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      102 GETTABLEKS                       R7 R4 K55 ["GroupLarge"]
       104 CALL                             R6 1 1
-      105 SETTABLEKS                       R6 R5 K24 ["ImportIcon"]
-      107 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      109 GETTABLEKS                       R7 R4 K55 ["Notification"]
+      105 SETTABLEKS                       R6 R5 K24 ["GroupLargeDefaultIcon"]
+      107 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      109 GETTABLEKS                       R7 R4 K56 ["Import"]
       111 CALL                             R6 1 1
-      112 SETTABLEKS                       R6 R5 K25 ["NotificationIcon"]
-      114 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      116 GETTABLEKS                       R7 R4 K56 ["PackageLink"]
+      112 SETTABLEKS                       R6 R5 K25 ["ImportIcon"]
+      114 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      116 GETTABLEKS                       R7 R4 K57 ["Notification"]
       118 CALL                             R6 1 1
-      119 SETTABLEKS                       R6 R5 K26 ["PackageLinkIcon"]
-      121 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      123 GETTABLEKS                       R7 R4 K57 ["PlaceholderAsset"]
+      119 SETTABLEKS                       R6 R5 K26 ["NotificationIcon"]
+      121 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      123 GETTABLEKS                       R7 R4 K58 ["PackageLink"]
       125 CALL                             R6 1 1
-      126 SETTABLEKS                       R6 R5 K27 ["PlaceholderAssetIcon"]
-      128 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      130 GETTABLEKS                       R7 R4 K58 ["Placeholder"]
+      126 SETTABLEKS                       R6 R5 K27 ["PackageLinkIcon"]
+      128 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      130 GETTABLEKS                       R7 R4 K59 ["PlaceholderAsset"]
       132 CALL                             R6 1 1
-      133 SETTABLEKS                       R6 R5 K28 ["PlaceholderIcon"]
-      135 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      137 GETTABLEKS                       R7 R4 K59 ["PlacesFolder"]
+      133 SETTABLEKS                       R6 R5 K28 ["PlaceholderAssetIcon"]
+      135 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      137 GETTABLEKS                       R7 R4 K60 ["Placeholder"]
       139 CALL                             R6 1 1
-      140 SETTABLEKS                       R6 R5 K29 ["PlacesFolderIcon"]
-      142 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      144 GETTABLEKS                       R7 R4 K60 ["Refresh"]
+      140 SETTABLEKS                       R6 R5 K29 ["PlaceholderIcon"]
+      142 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      144 GETTABLEKS                       R7 R4 K61 ["PlacesFolder"]
       146 CALL                             R6 1 1
-      147 SETTABLEKS                       R6 R5 K30 ["RefreshIcon"]
-      149 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      151 GETTABLEKS                       R7 R4 K61 ["Search"]
+      147 SETTABLEKS                       R6 R5 K30 ["PlacesFolderIcon"]
+      149 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      151 GETTABLEKS                       R7 R4 K62 ["Refresh"]
       153 CALL                             R6 1 1
-      154 SETTABLEKS                       R6 R5 K31 ["SearchIcon"]
-      156 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      158 GETTABLEKS                       R7 R4 K62 ["SidebarCollapse"]
+      154 SETTABLEKS                       R6 R5 K31 ["RefreshIcon"]
+      156 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      158 GETTABLEKS                       R7 R4 K63 ["Search"]
       160 CALL                             R6 1 1
-      161 SETTABLEKS                       R6 R5 K32 ["SidebarCollapseIcon"]
-      163 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      165 GETTABLEKS                       R7 R4 K63 ["SidebarExpand"]
+      161 SETTABLEKS                       R6 R5 K32 ["SearchIcon"]
+      163 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      165 GETTABLEKS                       R7 R4 K64 ["SidebarCollapse"]
       167 CALL                             R6 1 1
-      168 SETTABLEKS                       R6 R5 K33 ["SidebarExpandIcon"]
-      170 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      172 GETTABLEKS                       R7 R4 K64 ["Sort"]
+      168 SETTABLEKS                       R6 R5 K33 ["SidebarCollapseIcon"]
+      170 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      172 GETTABLEKS                       R7 R4 K65 ["SidebarExpand"]
       174 CALL                             R6 1 1
-      175 SETTABLEKS                       R6 R5 K34 ["SortIcon"]
-      177 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      179 GETTABLEKS                       R7 R4 K65 ["Universe"]
+      175 SETTABLEKS                       R6 R5 K34 ["SidebarExpandIcon"]
+      177 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      179 GETTABLEKS                       R7 R4 K66 ["Sort"]
       181 CALL                             R6 1 1
-      182 SETTABLEKS                       R6 R5 K35 ["UniverseDefaultIcon"]
-      184 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      186 GETTABLEKS                       R7 R4 K66 ["UniverseLarge"]
+      182 SETTABLEKS                       R6 R5 K35 ["SortIcon"]
+      184 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      186 GETTABLEKS                       R7 R4 K67 ["Universe"]
       188 CALL                             R6 1 1
-      189 SETTABLEKS                       R6 R5 K36 ["UniverseLargeDefaultIcon"]
-      191 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      193 GETTABLEKS                       R7 R4 K67 ["User"]
+      189 SETTABLEKS                       R6 R5 K36 ["UniverseDefaultIcon"]
+      191 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      193 GETTABLEKS                       R7 R4 K68 ["UniverseLarge"]
       195 CALL                             R6 1 1
-      196 SETTABLEKS                       R6 R5 K37 ["UserDefaultIcon"]
-      198 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      200 GETTABLEKS                       R7 R4 K68 ["UserFolder"]
+      196 SETTABLEKS                       R6 R5 K37 ["UniverseLargeDefaultIcon"]
+      198 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      200 GETTABLEKS                       R7 R4 K69 ["User"]
       202 CALL                             R6 1 1
-      203 SETTABLEKS                       R6 R5 K38 ["UserFolderIcon"]
-      205 GETTABLEKS                       R6 R3 K43 ["getDark"]
-      207 GETTABLEKS                       R7 R4 K69 ["UserLarge"]
+      203 SETTABLEKS                       R6 R5 K38 ["UserDefaultIcon"]
+      205 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      207 GETTABLEKS                       R7 R4 K70 ["UserFolder"]
       209 CALL                             R6 1 1
-      210 SETTABLEKS                       R6 R5 K39 ["UserLargeDefaultIcon"]
-      212 GETIMPORT                        R6 K72 [Color3.fromHex]
-      214 LOADK                            R7 K73 ["#EEEFF1"]
-      215 CALL                             R6 1 1
-      216 SETTABLEKS                       R6 R5 K40 ["AmContentEmphasis"]
-      218 GETIMPORT                        R6 K75 [Color3.fromRGB]
-      220 LOADN                            R7 255
-      221 LOADN                            R8 0
-      222 LOADN                            R9 0
-      223 CALL                             R6 3 1
-      224 SETTABLEKS                       R6 R5 K41 ["TestCol"]
-      226 MOVE                             R6 R2
-      227 LOADK                            R7 K76 ["AssetManagerDarkTheme"]
-      228 NEWTABLE                         R8 0 0
-      230 MOVE                             R9 R5
-      231 CALL                             R6 3 -1
-      232 RETURN                           R6 -1
+      210 SETTABLEKS                       R6 R5 K39 ["UserFolderIcon"]
+      212 GETTABLEKS                       R6 R3 K44 ["getDark"]
+      214 GETTABLEKS                       R7 R4 K71 ["UserLarge"]
+      216 CALL                             R6 1 1
+      217 SETTABLEKS                       R6 R5 K40 ["UserLargeDefaultIcon"]
+      219 GETIMPORT                        R6 K74 [Color3.fromHex]
+      221 LOADK                            R7 K75 ["#EEEFF1"]
+      222 CALL                             R6 1 1
+      223 SETTABLEKS                       R6 R5 K41 ["AmContentEmphasis"]
+      225 GETIMPORT                        R6 K77 [Color3.fromRGB]
+      227 LOADN                            R7 255
+      228 LOADN                            R8 0
+      229 LOADN                            R9 0
+      230 CALL                             R6 3 1
+      231 SETTABLEKS                       R6 R5 K42 ["TestCol"]
+      233 MOVE                             R6 R2
+      234 LOADK                            R7 K78 ["AssetManagerDarkTheme"]
+      235 NEWTABLE                         R8 0 0
+      237 MOVE                             R9 R5
+      238 CALL                             R6 3 -1
+      239 RETURN                           R6 -1

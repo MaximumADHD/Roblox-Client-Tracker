@@ -118,31 +118,32 @@ PROTO_2:
        19 MOVE                             R8 R5
        20 NAMECALL                         R6 R6 K5 ["getScopeWithUid"]
        22 CALL                             R6 2 1
-       23 GETIMPORT                        R7 K3 [string.lower]
-       25 GETTABLEKS                       R8 R6 K6 ["Name"]
-       27 CALL                             R7 1 1
-       28 JUMPIFNOTEQ                      R7 R0 ; [+26]
-       30 GETUPVAL                         R7 3
-       31 MOVE                             R9 R5
-       32 NAMECALL                         R7 R7 K7 ["setScope"]
-       34 CALL                             R7 2 0
-       35 GETUPVAL                         R7 4
-       36 LOADB                            R8 0
-       37 CALL                             R7 1 0
-       38 GETUPVAL                         R7 0
-       39 GETTABLEKS                       R7 R7 K0 ["current"]
-       41 GETTABLEKS                       R7 R7 K4 ["Text"]
-       43 GETTABLEKS                       R8 R6 K6 ["Name"]
-       45 JUMPIFEQ                         R7 R8 ; [+8]
-       47 GETUPVAL                         R7 0
-       48 GETTABLEKS                       R7 R7 K0 ["current"]
-       50 GETTABLEKS                       R8 R6 K6 ["Name"]
-       52 SETTABLEKS                       R8 R7 K4 ["Text"]
-       54 RETURN                           R0 0
-       55 FORGLOOP                         R1 2 ; [-38]
-       57 GETUPVAL                         R1 5
-       58 CALL                             R1 0 0
-       59 RETURN                           R0 0
+       23 JUMPIFEQKNIL                     R6 ; [+33]
+       25 GETIMPORT                        R7 K3 [string.lower]
+       27 GETTABLEKS                       R8 R6 K6 ["Name"]
+       29 CALL                             R7 1 1
+       30 JUMPIFNOTEQ                      R7 R0 ; [+26]
+       32 GETUPVAL                         R7 3
+       33 MOVE                             R9 R5
+       34 NAMECALL                         R7 R7 K7 ["setScope"]
+       36 CALL                             R7 2 0
+       37 GETUPVAL                         R7 4
+       38 LOADB                            R8 0
+       39 CALL                             R7 1 0
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K0 ["current"]
+       43 GETTABLEKS                       R7 R7 K4 ["Text"]
+       45 GETTABLEKS                       R8 R6 K6 ["Name"]
+       47 JUMPIFEQ                         R7 R8 ; [+8]
+       49 GETUPVAL                         R7 0
+       50 GETTABLEKS                       R7 R7 K0 ["current"]
+       52 GETTABLEKS                       R8 R6 K6 ["Name"]
+       54 SETTABLEKS                       R8 R7 K4 ["Text"]
+       56 RETURN                           R0 0
+       57 FORGLOOP                         R1 2 ; [-40]
+       59 GETUPVAL                         R1 5
+       60 CALL                             R1 0 0
+       61 RETURN                           R0 0
 
 PROTO_3:
         0 JUMPIF                           R0 ; [+3]

@@ -5,30 +5,38 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
-       11 GETTABLEKS                       R2 R2 K7 ["Framework"]
-       13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K16 [{"VisualizationModesHighlightColor", "VisualizationModesHighlightTextColor", "VisualizationModesDivider", "VisualizationModesDimActionHover", "VisualizationModesBadgeBackground", "VisualizationModesBadgeText", "VisualizationModesCameraSpeedUnlocked", "VisualizationModesCameraSpeedLocked"}]
-       15 LOADK                            R3 K17 ["$Blue70"]
-       16 SETTABLEKS                       R3 R2 K8 ["VisualizationModesHighlightColor"]
-       18 LOADK                            R3 K18 ["$White"]
-       19 SETTABLEKS                       R3 R2 K9 ["VisualizationModesHighlightTextColor"]
-       21 LOADK                            R3 K19 ["$Gray110"]
-       22 SETTABLEKS                       R3 R2 K10 ["VisualizationModesDivider"]
-       24 LOADK                            R3 K20 ["$Gray80"]
-       25 SETTABLEKS                       R3 R2 K11 ["VisualizationModesDimActionHover"]
-       27 LOADK                            R3 K21 ["$Gray70"]
-       28 SETTABLEKS                       R3 R2 K12 ["VisualizationModesBadgeBackground"]
-       30 LOADK                            R3 K18 ["$White"]
-       31 SETTABLEKS                       R3 R2 K13 ["VisualizationModesBadgeText"]
-       33 LOADK                            R3 K22 ["rbxasset://studio_svg_textures/Lua/VisualizationModes/Dark/Standard/cameraSpeedLockOpen.png"]
-       34 SETTABLEKS                       R3 R2 K14 ["VisualizationModesCameraSpeedUnlocked"]
-       36 LOADK                            R3 K23 ["rbxasset://studio_svg_textures/Lua/VisualizationModes/Dark/Standard/cameraSpeedLockClosed.png"]
-       37 SETTABLEKS                       R3 R2 K15 ["VisualizationModesCameraSpeedLocked"]
-       39 GETTABLEKS                       R3 R1 K24 ["Styling"]
-       41 GETTABLEKS                       R3 R3 K25 ["createStyleSheet"]
-       43 LOADK                            R4 K26 ["VisualizationModesDarkTheme"]
-       44 NEWTABLE                         R5 0 0
-       46 MOVE                             R6 R2
-       47 CALL                             R3 3 -1
-       48 RETURN                           R3 -1
+        9 GETTABLEKS                       R2 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
+       13 GETTABLEKS                       R2 R2 K8 ["getEngineFeatureNewCameraControls_BetaUpdate"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R3 K10 ["Framework"]
+       22 CALL                             R2 1 1
+       23 DUPTABLE                         R3 K17 [{"VisualizationModesHighlightColor", "VisualizationModesHighlightTextColor", "VisualizationModesDivider", "VisualizationModesDimActionHover", "VisualizationModesBadgeBackground", "VisualizationModesBadgeText"}]
+       24 LOADK                            R4 K18 ["$Blue70"]
+       25 SETTABLEKS                       R4 R3 K11 ["VisualizationModesHighlightColor"]
+       27 LOADK                            R4 K19 ["$White"]
+       28 SETTABLEKS                       R4 R3 K12 ["VisualizationModesHighlightTextColor"]
+       30 LOADK                            R4 K20 ["$Gray110"]
+       31 SETTABLEKS                       R4 R3 K13 ["VisualizationModesDivider"]
+       33 LOADK                            R4 K21 ["$Gray80"]
+       34 SETTABLEKS                       R4 R3 K14 ["VisualizationModesDimActionHover"]
+       36 LOADK                            R4 K22 ["$Gray70"]
+       37 SETTABLEKS                       R4 R3 K15 ["VisualizationModesBadgeBackground"]
+       39 LOADK                            R4 K19 ["$White"]
+       40 SETTABLEKS                       R4 R3 K16 ["VisualizationModesBadgeText"]
+       42 MOVE                             R4 R1
+       43 CALL                             R4 0 1
+       44 JUMPIF                           R4 ; [+6]
+       45 LOADK                            R4 K23 ["rbxasset://studio_svg_textures/Lua/VisualizationModes/Dark/Standard/cameraSpeedLockOpen.png"]
+       46 SETTABLEKS                       R4 R3 K24 ["VisualizationModesCameraSpeedUnlocked"]
+       48 LOADK                            R4 K25 ["rbxasset://studio_svg_textures/Lua/VisualizationModes/Dark/Standard/cameraSpeedLockClosed.png"]
+       49 SETTABLEKS                       R4 R3 K26 ["VisualizationModesCameraSpeedLocked"]
+       51 GETTABLEKS                       R4 R2 K27 ["Styling"]
+       53 GETTABLEKS                       R4 R4 K28 ["createStyleSheet"]
+       55 LOADK                            R5 K29 ["VisualizationModesDarkTheme"]
+       56 NEWTABLE                         R6 0 0
+       58 MOVE                             R7 R3
+       59 CALL                             R4 3 -1
+       60 RETURN                           R4 -1

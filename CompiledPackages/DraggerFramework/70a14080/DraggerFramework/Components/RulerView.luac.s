@@ -1,0 +1,271 @@
+PROTO_0:
+        0 GETTABLEKS                       R2 R1 K0 ["Size"]
+        2 GETTABLEKS                       R3 R2 K1 ["X"]
+        4 GETTABLEKS                       R4 R2 K2 ["Z"]
+        6 GETTABLEKS                       R5 R1 K3 ["Color3"]
+        8 SETTABLEKS                       R5 R0 K3 ["Color3"]
+       10 LOADN                            R10 0
+       11 LOADN                            R11 0
+       12 FASTCALL3                        VECTOR R3 R10 R11
+       14 MOVE                             R9 R3
+       15 GETIMPORT                        R8 K6 [Vector3.new]
+       17 CALL                             R8 3 1
+       18 LOADN                            R11 0
+       19 FASTCALL3                        VECTOR R3 R11 R4
+       21 MOVE                             R10 R3
+       22 MOVE                             R12 R4
+       23 GETIMPORT                        R9 K6 [Vector3.new]
+       25 CALL                             R9 3 1
+       26 NAMECALL                         R6 R0 K7 ["AddLine"]
+       28 CALL                             R6 3 0
+       29 LOADN                            R9 0
+       30 LOADN                            R10 0
+       31 FASTCALL3                        VECTOR R9 R10 R4
+       33 MOVE                             R11 R4
+       34 GETIMPORT                        R8 K6 [Vector3.new]
+       36 CALL                             R8 3 1
+       37 LOADN                            R11 0
+       38 FASTCALL3                        VECTOR R3 R11 R4
+       40 MOVE                             R10 R3
+       41 MOVE                             R12 R4
+       42 GETIMPORT                        R9 K6 [Vector3.new]
+       44 CALL                             R9 3 1
+       45 NAMECALL                         R6 R0 K7 ["AddLine"]
+       47 CALL                             R6 3 0
+       48 GETTABLEKS                       R6 R1 K8 ["ExtraSize"]
+       50 JUMPIFNOT                        R6 ; [+46]
+       51 LOADN                            R10 0
+       52 FASTCALL3                        VECTOR R3 R10 R4
+       54 MOVE                             R9 R3
+       55 MOVE                             R11 R4
+       56 GETIMPORT                        R8 K6 [Vector3.new]
+       58 CALL                             R8 3 1
+       59 LOADN                            R11 0
+       60 GETTABLEKS                       R13 R1 K8 ["ExtraSize"]
+       62 GETTABLEKS                       R13 R13 K2 ["Z"]
+       64 ADD                              R12 R4 R13
+       65 FASTCALL3                        VECTOR R3 R11 R12
+       67 MOVE                             R10 R3
+       68 GETIMPORT                        R9 K6 [Vector3.new]
+       70 CALL                             R9 3 1
+       71 NAMECALL                         R6 R0 K7 ["AddLine"]
+       73 CALL                             R6 3 0
+       74 LOADN                            R10 0
+       75 FASTCALL3                        VECTOR R3 R10 R4
+       77 MOVE                             R9 R3
+       78 MOVE                             R11 R4
+       79 GETIMPORT                        R8 K6 [Vector3.new]
+       81 CALL                             R8 3 1
+       82 GETTABLEKS                       R11 R1 K8 ["ExtraSize"]
+       84 GETTABLEKS                       R11 R11 K1 ["X"]
+       86 ADD                              R10 R3 R11
+       87 LOADN                            R11 0
+       88 FASTCALL3                        VECTOR R10 R11 R4
+       90 MOVE                             R12 R4
+       91 GETIMPORT                        R9 K6 [Vector3.new]
+       93 CALL                             R9 3 1
+       94 NAMECALL                         R6 R0 K7 ["AddLine"]
+       96 CALL                             R6 3 0
+       97 GETTABLEKS                       R6 R1 K9 ["GridSize"]
+       99 GETTABLEKS                       R8 R1 K11 ["MajorStep"]
+      101 ORK                              R7 R8 K10 [5]
+      102 JUMPIFNOT                        R6 ; [+115]
+      103 LOADK                            R9 K12 [0.15]
+      104 MUL                              R8 R9 R6
+      105 LOADK                            R10 K13 [0.65]
+      106 MUL                              R9 R10 R6
+      107 DIV                              R13 R3 R6
+      108 ADDK                             R12 R13 K15 [0.001]
+      109 FASTCALL1                        MATH_FLOOR R12 ; [+2]
+      110 GETIMPORT                        R11 K18 [math.floor]
+      112 CALL                             R11 1 1
+      113 ADDK                             R10 R11 K14 [1]
+      114 LOADN                            R11 48
+      115 JUMPIFNOTLT                      R10 R11 ; [+34]
+      117 LOADN                            R13 1
+      118 MOVE                             R11 R10
+      119 LOADN                            R12 1
+      120 FORNPREP                         R11
+      121 LOADNIL                          R14
+      122 SUBK                             R16 R13 K14 [1]
+      123 MOD                              R15 R16 R7
+      124 JUMPIFNOTEQKN                    R15 K19 [0] ; [+3]
+      126 MOVE                             R14 R9
+      127 JUMP                             ; [+1]
+      128 MOVE                             R14 R8
+      129 SUBK                             R19 R13 K14 [1]
+      130 MUL                              R18 R19 R6
+      131 LOADN                            R19 0
+      132 SUB                              R20 R4 R14
+      133 FASTCALL                         VECTOR ; [+2]
+      134 GETIMPORT                        R17 K6 [Vector3.new]
+      136 CALL                             R17 3 1
+      137 SUBK                             R20 R13 K14 [1]
+      138 MUL                              R19 R20 R6
+      139 LOADN                            R20 0
+      140 ADD                              R21 R4 R14
+      141 FASTCALL                         VECTOR ; [+2]
+      142 GETIMPORT                        R18 K6 [Vector3.new]
+      144 CALL                             R18 3 1
+      145 NAMECALL                         R15 R0 K7 ["AddLine"]
+      147 CALL                             R15 3 0
+      148 FORNLOOP                         R11
+      149 JUMP                             ; [+12]
+      150 LOADK                            R13 K20 [{0, 0, 0}]
+      151 LOADN                            R16 0
+      152 LOADN                            R17 0
+      153 FASTCALL3                        VECTOR R3 R16 R17
+      155 MOVE                             R15 R3
+      156 GETIMPORT                        R14 K6 [Vector3.new]
+      158 CALL                             R14 3 1
+      159 NAMECALL                         R11 R0 K7 ["AddLine"]
+      161 CALL                             R11 3 0
+      162 DIV                              R14 R4 R6
+      163 ADDK                             R13 R14 K15 [0.001]
+      164 FASTCALL1                        MATH_FLOOR R13 ; [+2]
+      165 GETIMPORT                        R12 K18 [math.floor]
+      167 CALL                             R12 1 1
+      168 ADDK                             R11 R12 K14 [1]
+      169 LOADN                            R12 48
+      170 JUMPIFNOTLT                      R11 R12 ; [+34]
+      172 LOADN                            R14 1
+      173 MOVE                             R12 R11
+      174 LOADN                            R13 1
+      175 FORNPREP                         R12
+      176 LOADNIL                          R15
+      177 SUBK                             R17 R14 K14 [1]
+      178 MOD                              R16 R17 R7
+      179 JUMPIFNOTEQKN                    R16 K19 [0] ; [+3]
+      181 MOVE                             R15 R9
+      182 JUMP                             ; [+1]
+      183 MOVE                             R15 R8
+      184 SUB                              R19 R3 R15
+      185 LOADN                            R20 0
+      186 SUBK                             R22 R14 K14 [1]
+      187 MUL                              R21 R22 R6
+      188 FASTCALL                         VECTOR ; [+2]
+      189 GETIMPORT                        R18 K6 [Vector3.new]
+      191 CALL                             R18 3 1
+      192 ADD                              R20 R3 R15
+      193 LOADN                            R21 0
+      194 SUBK                             R23 R14 K14 [1]
+      195 MUL                              R22 R23 R6
+      196 FASTCALL                         VECTOR ; [+2]
+      197 GETIMPORT                        R19 K6 [Vector3.new]
+      199 CALL                             R19 3 1
+      200 NAMECALL                         R16 R0 K7 ["AddLine"]
+      202 CALL                             R16 3 0
+      203 FORNLOOP                         R12
+      204 RETURN                           R0 0
+      205 LOADK                            R14 K20 [{0, 0, 0}]
+      206 LOADN                            R16 0
+      207 LOADN                            R17 0
+      208 FASTCALL3                        VECTOR R16 R17 R4
+      210 MOVE                             R18 R4
+      211 GETIMPORT                        R15 K6 [Vector3.new]
+      213 CALL                             R15 3 1
+      214 NAMECALL                         R12 R0 K7 ["AddLine"]
+      216 CALL                             R12 3 0
+      217 RETURN                           R0 0
+      218 LOADK                            R10 K20 [{0, 0, 0}]
+      219 LOADN                            R12 0
+      220 LOADN                            R13 0
+      221 FASTCALL3                        VECTOR R12 R13 R4
+      223 MOVE                             R14 R4
+      224 GETIMPORT                        R11 K6 [Vector3.new]
+      226 CALL                             R11 3 1
+      227 NAMECALL                         R8 R0 K7 ["AddLine"]
+      229 CALL                             R8 3 0
+      230 LOADK                            R10 K20 [{0, 0, 0}]
+      231 LOADN                            R13 0
+      232 LOADN                            R14 0
+      233 FASTCALL3                        VECTOR R3 R13 R14
+      235 MOVE                             R12 R3
+      236 GETIMPORT                        R11 K6 [Vector3.new]
+      238 CALL                             R11 3 1
+      239 NAMECALL                         R8 R0 K7 ["AddLine"]
+      241 CALL                             R8 3 0
+      242 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 GETUPVAL                         R3 1
+        3 CALL                             R1 2 0
+        4 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 GETUPVAL                         R3 1
+        3 CALL                             R1 2 0
+        4 RETURN                           R0 0
+
+PROTO_3:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["createFragment"]
+        5 DUPTABLE                         R3 K4 [{"OnTop", "Underneath"}]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K5 ["createElement"]
+        9 GETUPVAL                         R5 1
+       10 DUPTABLE                         R6 K11 [{"CFrame", "Color3", "AlwaysOnTop", "Transparency", "Render"}]
+       11 GETTABLEKS                       R7 R1 K6 ["CFrame"]
+       13 SETTABLEKS                       R7 R6 K6 ["CFrame"]
+       15 GETTABLEKS                       R7 R1 K7 ["Color3"]
+       17 SETTABLEKS                       R7 R6 K7 ["Color3"]
+       19 LOADB                            R7 1
+       20 SETTABLEKS                       R7 R6 K8 ["AlwaysOnTop"]
+       22 GETTABLEKS                       R7 R1 K12 ["DimTransparency"]
+       24 SETTABLEKS                       R7 R6 K9 ["Transparency"]
+       26 NEWCLOSURE                       R7 P0
+       27 CAPTURE                          UPVAL U2
+       28 CAPTURE                          VAL R1
+       29 SETTABLEKS                       R7 R6 K10 ["Render"]
+       31 CALL                             R4 2 1
+       32 SETTABLEKS                       R4 R3 K2 ["OnTop"]
+       34 GETUPVAL                         R4 0
+       35 GETTABLEKS                       R4 R4 K5 ["createElement"]
+       37 GETUPVAL                         R5 1
+       38 DUPTABLE                         R6 K11 [{"CFrame", "Color3", "AlwaysOnTop", "Transparency", "Render"}]
+       39 GETTABLEKS                       R7 R1 K6 ["CFrame"]
+       41 SETTABLEKS                       R7 R6 K6 ["CFrame"]
+       43 GETTABLEKS                       R7 R1 K7 ["Color3"]
+       45 SETTABLEKS                       R7 R6 K7 ["Color3"]
+       47 LOADB                            R7 0
+       48 SETTABLEKS                       R7 R6 K8 ["AlwaysOnTop"]
+       50 GETTABLEKS                       R7 R1 K13 ["MainTransparency"]
+       52 SETTABLEKS                       R7 R6 K9 ["Transparency"]
+       54 NEWCLOSURE                       R7 P1
+       55 CAPTURE                          UPVAL U2
+       56 CAPTURE                          VAL R1
+       57 SETTABLEKS                       R7 R6 K10 ["Render"]
+       59 CALL                             R4 2 1
+       60 SETTABLEKS                       R4 R3 K3 ["Underneath"]
+       62 CALL                             R2 1 -1
+       63 RETURN                           R2 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K2 ["Parent"]
+        9 GETIMPORT                        R2 K4 [require]
+       11 GETTABLEKS                       R3 R1 K5 ["Roact"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K4 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Components"]
+       18 GETTABLEKS                       R4 R4 K7 ["WireframeHandleAdornment"]
+       20 CALL                             R3 1 1
+       21 DUPCLOSURE                       R4 K8 [PROTO_0]
+       22 GETTABLEKS                       R5 R2 K9 ["PureComponent"]
+       24 LOADK                            R7 K10 ["RulerView"]
+       25 NAMECALL                         R5 R5 K11 ["extend"]
+       27 CALL                             R5 2 1
+       28 DUPCLOSURE                       R6 K12 [PROTO_3]
+       29 CAPTURE                          VAL R2
+       30 CAPTURE                          VAL R3
+       31 CAPTURE                          VAL R4
+       32 SETTABLEKS                       R6 R5 K13 ["render"]
+       34 RETURN                           R5 1

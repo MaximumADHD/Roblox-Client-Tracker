@@ -220,7 +220,7 @@ PROTO_4:
       265 GETTABLEKS                       R17 R17 K35 ["join"]
       267 GETTABLEKS                       R18 R5 K36 ["fontStyle"]
       269 GETTABLEKS                       R18 R18 K37 ["Normal"]
-      271 DUPTABLE                         R19 K64 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Text", "ZIndex"}]
+      271 DUPTABLE                         R19 K64 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Text", "TextColor3", "ZIndex"}]
       272 LOADN                            R20 1
       273 SETTABLEKS                       R20 R19 K16 ["BackgroundTransparency"]
       275 GETIMPORT                        R20 K14 [UDim2.new]
@@ -247,15 +247,23 @@ PROTO_4:
       302 NAMECALL                         R20 R6 K53 ["getText"]
       304 CALL                             R20 3 1
       305 SETTABLEKS                       R20 R19 K44 ["Text"]
-      307 LOADN                            R20 5
-      308 SETTABLEKS                       R20 R19 K43 ["ZIndex"]
-      310 CALL                             R17 2 -1
-      311 CALL                             R15 -1 1
-      312 SETTABLEKS                       R15 R14 K44 ["Text"]
-      314 CALL                             R11 3 1
-      315 SETTABLEKS                       R11 R10 K26 ["Change"]
-      317 CALL                             R7 3 -1
-      318 RETURN                           R7 -1
+      307 GETUPVAL                         R21 3
+      308 CALL                             R21 0 1
+      309 JUMPIFNOT                        R21 ; [+4]
+      310 GETUPVAL                         R20 2
+      311 GETTABLEKS                       R20 R20 K48 ["WHITE"]
+      313 JUMP                             ; [+1]
+      314 LOADNIL                          R20
+      315 SETTABLEKS                       R20 R19 K40 ["TextColor3"]
+      317 LOADN                            R20 5
+      318 SETTABLEKS                       R20 R19 K43 ["ZIndex"]
+      320 CALL                             R17 2 -1
+      321 CALL                             R15 -1 1
+      322 SETTABLEKS                       R15 R14 K44 ["Text"]
+      324 CALL                             R11 3 1
+      325 SETTABLEKS                       R11 R10 K26 ["Change"]
+      327 CALL                             R7 3 -1
+      328 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -283,29 +291,35 @@ MAIN:
        40 GETTABLEKS                       R7 R7 K12 ["Util"]
        42 GETTABLEKS                       R7 R7 K13 ["DEPRECATED_Constants"]
        44 CALL                             R6 1 1
-       45 GETTABLEKS                       R7 R1 K14 ["PureComponent"]
-       47 LOADK                            R9 K15 ["UploadableIcon"]
-       48 NAMECALL                         R7 R7 K16 ["extend"]
-       50 CALL                             R7 2 1
-       51 DUPCLOSURE                       R8 K17 [PROTO_0]
-       52 SETTABLEKS                       R8 R7 K18 ["init"]
-       54 DUPCLOSURE                       R8 K19 [PROTO_1]
-       55 SETTABLEKS                       R8 R7 K20 ["mouseHoverChanged"]
-       57 DUPCLOSURE                       R8 K21 [PROTO_4]
-       58 CAPTURE                          VAL R1
-       59 CAPTURE                          VAL R3
-       60 CAPTURE                          VAL R6
-       61 SETTABLEKS                       R8 R7 K22 ["render"]
-       63 MOVE                             R8 R5
-       64 DUPTABLE                         R9 K26 [{"Stylizer", "Localization", "Mouse"}]
-       65 GETTABLEKS                       R10 R4 K23 ["Stylizer"]
-       67 SETTABLEKS                       R10 R9 K23 ["Stylizer"]
-       69 GETTABLEKS                       R10 R4 K24 ["Localization"]
-       71 SETTABLEKS                       R10 R9 K24 ["Localization"]
-       73 GETTABLEKS                       R10 R4 K25 ["Mouse"]
-       75 SETTABLEKS                       R10 R9 K25 ["Mouse"]
-       77 CALL                             R8 1 1
-       78 MOVE                             R9 R7
-       79 CALL                             R8 1 1
-       80 MOVE                             R7 R8
-       81 RETURN                           R7 1
+       45 GETIMPORT                        R7 K4 [require]
+       47 GETTABLEKS                       R8 R0 K11 ["Src"]
+       49 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       51 GETTABLEKS                       R8 R8 K15 ["getFFlagGameSettingsFixIconChangeTextContrast"]
+       53 CALL                             R7 1 1
+       54 GETTABLEKS                       R8 R1 K16 ["PureComponent"]
+       56 LOADK                            R10 K17 ["UploadableIcon"]
+       57 NAMECALL                         R8 R8 K18 ["extend"]
+       59 CALL                             R8 2 1
+       60 DUPCLOSURE                       R9 K19 [PROTO_0]
+       61 SETTABLEKS                       R9 R8 K20 ["init"]
+       63 DUPCLOSURE                       R9 K21 [PROTO_1]
+       64 SETTABLEKS                       R9 R8 K22 ["mouseHoverChanged"]
+       66 DUPCLOSURE                       R9 K23 [PROTO_4]
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R7
+       71 SETTABLEKS                       R9 R8 K24 ["render"]
+       73 MOVE                             R9 R5
+       74 DUPTABLE                         R10 K28 [{"Stylizer", "Localization", "Mouse"}]
+       75 GETTABLEKS                       R11 R4 K25 ["Stylizer"]
+       77 SETTABLEKS                       R11 R10 K25 ["Stylizer"]
+       79 GETTABLEKS                       R11 R4 K26 ["Localization"]
+       81 SETTABLEKS                       R11 R10 K26 ["Localization"]
+       83 GETTABLEKS                       R11 R4 K27 ["Mouse"]
+       85 SETTABLEKS                       R11 R10 K27 ["Mouse"]
+       87 CALL                             R9 1 1
+       88 MOVE                             R10 R8
+       89 CALL                             R9 1 1
+       90 MOVE                             R8 R9
+       91 RETURN                           R8 1

@@ -23,19 +23,21 @@ PROTO_0:
        29 LOADK                            R8 K17 [2.2]
        30 SETTABLEKS                       R8 R7 K10 ["Exponent"]
        32 SETTABLEKS                       R4 R7 K11 ["Transparency"]
-       34 GETIMPORT                        R8 K20 [UDim2.new]
-       36 LOADN                            R9 0
-       37 LOADN                            R10 83
-       38 LOADN                            R11 0
-       39 LOADN                            R12 22
-       40 CALL                             R8 4 1
-       41 SETTABLEKS                       R8 R7 K12 ["Size"]
-       43 GETTABLEKS                       R8 R0 K13 ["LayoutOrder"]
-       45 SETTABLEKS                       R8 R7 K13 ["LayoutOrder"]
-       47 LOADN                            R8 20
-       48 SETTABLEKS                       R8 R7 K14 ["ZIndex"]
-       50 CALL                             R5 2 -1
-       51 RETURN                           R5 -1
+       34 GETTABLEKS                       R8 R0 K12 ["Size"]
+       36 JUMPIF                           R8 ; [+7]
+       37 GETIMPORT                        R8 K20 [UDim2.new]
+       39 LOADN                            R9 0
+       40 LOADN                            R10 83
+       41 LOADN                            R11 0
+       42 LOADN                            R12 22
+       43 CALL                             R8 4 1
+       44 SETTABLEKS                       R8 R7 K12 ["Size"]
+       46 GETTABLEKS                       R8 R0 K13 ["LayoutOrder"]
+       48 SETTABLEKS                       R8 R7 K13 ["LayoutOrder"]
+       50 LOADN                            R8 20
+       51 SETTABLEKS                       R8 R7 K14 ["ZIndex"]
+       53 CALL                             R5 2 -1
+       54 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

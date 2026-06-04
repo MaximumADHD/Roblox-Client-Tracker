@@ -1,7 +1,7 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 MOVE                             R2 R0
-        2 CALL                             R1 1 0
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 0
         3 RETURN                           R0 0
 
 PROTO_1:

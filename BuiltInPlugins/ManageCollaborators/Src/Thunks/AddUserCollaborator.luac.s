@@ -1,4 +1,15 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NEWTABLE                         R3 0 1
+        4 GETUPVAL                         R4 2
+        5 SETLIST                          R3 R4 1 [1]
+        7 CALL                             R2 1 -1
+        8 NAMECALL                         R0 R0 K0 ["dispatch"]
+       10 CALL                             R0 -1 0
+       11 RETURN                           R0 0
+
+PROTO_1:
         0 NAMECALL                         R2 R0 K0 ["getState"]
         2 CALL                             R2 1 1
         3 GETTABLEKS                       R3 R2 K1 ["Permissions"]
@@ -34,9 +45,23 @@ PROTO_0:
        44 CALL                             R7 1 -1
        45 NAMECALL                         R5 R0 K8 ["dispatch"]
        47 CALL                             R5 -1 0
-       48 RETURN                           R0 0
+       48 GETUPVAL                         R5 6
+       49 GETTABLEKS                       R5 R5 K9 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
+       51 JUMPIF                           R5 ; [+4]
+       52 GETUPVAL                         R5 6
+       53 GETTABLEKS                       R5 R5 K10 ["fflagManageCollaboratorsEditorBlockingBanner"]
+       55 JUMPIFNOT                        R5 ; [+9]
+       56 GETIMPORT                        R5 K13 [coroutine.wrap]
+       58 NEWCLOSURE                       R6 P0
+       59 CAPTURE                          VAL R0
+       60 CAPTURE                          UPVAL U7
+       61 CAPTURE                          UPVAL U2
+       62 CALL                             R5 1 1
+       63 MOVE                             R6 R5
+       64 CALL                             R6 0 0
+       65 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 NEWCLOSURE                       R3 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
@@ -44,7 +69,9 @@ PROTO_1:
         4 CAPTURE                          VAL R1
         5 CAPTURE                          VAL R2
         6 CAPTURE                          UPVAL U2
-        7 RETURN                           R3 1
+        7 CAPTURE                          UPVAL U3
+        8 CAPTURE                          UPVAL U4
+        9 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -56,20 +83,31 @@ MAIN:
        11 GETTABLEKS                       R2 R0 K5 ["Packages"]
        13 GETTABLEKS                       R2 R2 K6 ["Framework"]
        15 CALL                             R1 1 1
-       16 GETTABLEKS                       R2 R1 K7 ["Util"]
-       18 GETTABLEKS                       R2 R2 K8 ["deepJoin"]
-       20 GETIMPORT                        R3 K4 [require]
-       22 GETTABLEKS                       R4 R0 K9 ["Src"]
-       24 GETTABLEKS                       R4 R4 K10 ["Actions"]
-       26 GETTABLEKS                       R4 R4 K11 ["SetUserPermission"]
-       28 CALL                             R3 1 1
-       29 GETIMPORT                        R4 K4 [require]
-       31 GETTABLEKS                       R5 R0 K9 ["Src"]
-       33 GETTABLEKS                       R5 R5 K7 ["Util"]
-       35 GETTABLEKS                       R5 R5 K12 ["PermissionsConstants"]
-       37 CALL                             R4 1 1
-       38 DUPCLOSURE                       R5 K13 [PROTO_1]
-       39 CAPTURE                          VAL R2
-       40 CAPTURE                          VAL R4
-       41 CAPTURE                          VAL R3
-       42 RETURN                           R5 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R3 R0 K7 ["Bin"]
+       20 GETTABLEKS                       R3 R3 K8 ["defineLuaFlags"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R1 K9 ["Util"]
+       25 GETTABLEKS                       R3 R3 K10 ["deepJoin"]
+       27 GETIMPORT                        R4 K4 [require]
+       29 GETTABLEKS                       R5 R0 K11 ["Src"]
+       31 GETTABLEKS                       R5 R5 K12 ["Actions"]
+       33 GETTABLEKS                       R5 R5 K13 ["SetUserPermission"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K4 [require]
+       38 GETTABLEKS                       R6 R0 K11 ["Src"]
+       40 GETTABLEKS                       R6 R6 K9 ["Util"]
+       42 GETTABLEKS                       R6 R6 K14 ["PermissionsConstants"]
+       44 CALL                             R5 1 1
+       45 GETIMPORT                        R6 K4 [require]
+       47 GETTABLEKS                       R7 R0 K11 ["Src"]
+       49 GETTABLEKS                       R7 R7 K15 ["Thunks"]
+       51 GETTABLEKS                       R7 R7 K16 ["FetchCanCollaborateResponses"]
+       53 CALL                             R6 1 1
+       54 DUPCLOSURE                       R7 K17 [PROTO_2]
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R4
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R6
+       60 RETURN                           R7 1

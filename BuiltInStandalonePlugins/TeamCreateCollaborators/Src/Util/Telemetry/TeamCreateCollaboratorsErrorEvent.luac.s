@@ -1,0 +1,32 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["TeamCreateCollaboratorsTelemetry"]
+        4 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        6 CALL                             R0 2 1
+        7 JUMPIFNOT                        R0 ; [+35]
+        8 DUPTABLE                         R1 K10 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+        9 LOADK                            R2 K11 ["TeamCreateCollaboratorsError"]
+       10 SETTABLEKS                       R2 R1 K4 ["eventName"]
+       12 NEWTABLE                         R2 0 1
+       14 LOADK                            R3 K12 ["Points"]
+       15 SETLIST                          R2 R3 1 [1]
+       17 SETTABLEKS                       R2 R1 K5 ["backends"]
+       19 GETIMPORT                        R2 K1 [game]
+       21 LOADK                            R4 K13 ["TeamCreateCollaboratorsErrorThrottleHundredthsPercent"]
+       22 NAMECALL                         R2 R2 K14 ["GetFastInt"]
+       24 CALL                             R2 2 1
+       25 SETTABLEKS                       R2 R1 K6 ["throttlingPercentage"]
+       27 NEWTABLE                         R2 0 3
+       29 LOADN                            R3 21
+       30 LOADN                            R4 5
+       31 LOADN                            R5 26
+       32 SETLIST                          R2 R3 3 [1]
+       34 SETTABLEKS                       R2 R1 K7 ["lastUpdated"]
+       36 LOADK                            R2 K15 ["Reports failures from network calls made by the TeamCreateCollaborators plugin, including:\n\t- the source enum identifying which backend call failed (getAMPRequest, postProfileInsights,\n\t  postGetTrustedFriendsLink, postSendRequestToNewParent, postSendRequestToAllParents)\n\t- error details (HTTP error message, decode error, or exception string)\n\t- optional HTTP status code"]
+       37 SETTABLEKS                       R2 R1 K8 ["description"]
+       39 LOADK                            R2 K16 [""]
+       40 SETTABLEKS                       R2 R1 K9 ["links"]
+       42 RETURN                           R1 1
+       43 NEWTABLE                         R1 0 0
+       45 RETURN                           R1 1

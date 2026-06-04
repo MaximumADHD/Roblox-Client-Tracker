@@ -152,81 +152,85 @@ MAIN:
        55 NAMECALL                         R8 R8 K18 ["extend"]
        57 CALL                             R8 2 1
        58 GETIMPORT                        R9 K20 [game]
-       60 LOADK                            R11 K21 ["RemoveGameSettingsPermissionsPage"]
+       60 LOADK                            R11 K21 ["RemoveGameSettingsMonetizationPage"]
        61 NAMECALL                         R9 R9 K22 ["GetFastFlag"]
        63 CALL                             R9 2 1
-       64 LOADNIL                          R10
-       65 NEWTABLE                         R11 4 0
-       67 DUPTABLE                         R12 K26 [{"name", "description", "playableDevices"}]
-       68 LOADB                            R13 1
-       69 SETTABLEKS                       R13 R12 K23 ["name"]
-       71 LOADB                            R13 1
-       72 SETTABLEKS                       R13 R12 K24 ["description"]
-       74 LOADB                            R13 1
-       75 SETTABLEKS                       R13 R12 K25 ["playableDevices"]
-       77 SETTABLEKS                       R12 R11 K27 ["BasicInfo"]
-       79 DUPTABLE                         R12 K29 [{"universeAvatarAssetOverrides"}]
-       80 LOADB                            R13 1
-       81 SETTABLEKS                       R13 R12 K28 ["universeAvatarAssetOverrides"]
-       83 SETTABLEKS                       R12 R11 K30 ["Avatar"]
-       85 DUPTABLE                         R12 K34 [{"gravity", "walkSpeed", "maxSlopeAngle"}]
-       86 LOADB                            R13 1
-       87 SETTABLEKS                       R13 R12 K31 ["gravity"]
-       89 LOADB                            R13 1
-       90 SETTABLEKS                       R13 R12 K32 ["walkSpeed"]
-       92 LOADB                            R13 1
-       93 SETTABLEKS                       R13 R12 K33 ["maxSlopeAngle"]
-       95 SETTABLEKS                       R12 R11 K35 ["World"]
-       97 MOVE                             R10 R11
-       98 NEWTABLE                         R11 2 0
-      100 DUPTABLE                         R12 K37 [{"isActive"}]
-      101 JUMPIFNOT                        R9 ; [+2]
-      102 LOADB                            R13 0
-      103 JUMP                             ; [+1]
-      104 LOADB                            R13 1
-      105 SETTABLEKS                       R13 R12 K36 ["isActive"]
-      107 SETTABLEKS                       R12 R11 K38 ["Permissions"]
-      109 DUPTABLE                         R12 K40 [{"universeAvatarType"}]
-      110 LOADB                            R13 1
-      111 SETTABLEKS                       R13 R12 K39 ["universeAvatarType"]
-      113 SETTABLEKS                       R12 R11 K30 ["Avatar"]
-      115 GETTABLEKS                       R12 R10 K27 ["BasicInfo"]
-      117 LOADB                            R13 1
-      118 SETTABLEKS                       R13 R12 K41 ["thumbnails"]
-      120 GETTABLEKS                       R12 R10 K27 ["BasicInfo"]
-      122 LOADB                            R13 1
-      123 SETTABLEKS                       R13 R12 K42 ["gameIcon"]
-      125 GETIMPORT                        R12 K44 [settings]
-      127 CALL                             R12 0 1
-      128 LOADK                            R14 K45 ["DeveloperSubscriptionsEnabled"]
-      129 NAMECALL                         R12 R12 K46 ["GetFFlag"]
-      131 CALL                             R12 2 1
-      132 JUMPIFNOT                        R12 ; [+6]
-      133 DUPTABLE                         R12 K48 [{"DeveloperSubscriptions"}]
-      134 LOADB                            R13 1
-      135 SETTABLEKS                       R13 R12 K47 ["DeveloperSubscriptions"]
-      137 SETTABLEKS                       R12 R10 K49 ["Monetization"]
-      139 NEWCLOSURE                       R12 P0
-      140 CAPTURE                          VAL R1
-      141 CAPTURE                          REF R10
-      142 CAPTURE                          VAL R11
-      143 CAPTURE                          VAL R7
-      144 CAPTURE                          VAL R6
-      145 SETTABLEKS                       R12 R8 K50 ["render"]
-      147 MOVE                             R12 R5
-      148 DUPTABLE                         R13 K53 [{"Stylizer", "Localization"}]
-      149 GETTABLEKS                       R14 R4 K51 ["Stylizer"]
-      151 SETTABLEKS                       R14 R13 K51 ["Stylizer"]
-      153 GETTABLEKS                       R14 R4 K52 ["Localization"]
-      155 SETTABLEKS                       R14 R13 K52 ["Localization"]
-      157 CALL                             R12 1 1
-      158 MOVE                             R13 R8
-      159 CALL                             R12 1 1
-      160 MOVE                             R8 R12
-      161 GETTABLEKS                       R12 R3 K54 ["connect"]
-      163 DUPCLOSURE                       R13 K55 [PROTO_2]
-      164 CALL                             R12 1 1
-      165 MOVE                             R13 R8
-      166 CALL                             R12 1 -1
-      167 CLOSEUPVALS                      R10
-      168 RETURN                           R12 -1
+       64 GETIMPORT                        R10 K20 [game]
+       66 LOADK                            R12 K23 ["RemoveGameSettingsAvatarPage"]
+       67 NAMECALL                         R10 R10 K22 ["GetFastFlag"]
+       69 CALL                             R10 2 1
+       70 LOADNIL                          R11
+       71 NEWTABLE                         R12 4 0
+       73 DUPTABLE                         R13 K27 [{"name", "description", "playableDevices"}]
+       74 LOADB                            R14 1
+       75 SETTABLEKS                       R14 R13 K24 ["name"]
+       77 LOADB                            R14 1
+       78 SETTABLEKS                       R14 R13 K25 ["description"]
+       80 LOADB                            R14 1
+       81 SETTABLEKS                       R14 R13 K26 ["playableDevices"]
+       83 SETTABLEKS                       R13 R12 K28 ["BasicInfo"]
+       85 JUMPIFNOT                        R10 ; [+2]
+       86 LOADNIL                          R13
+       87 JUMP                             ; [+4]
+       88 DUPTABLE                         R13 K30 [{"universeAvatarAssetOverrides"}]
+       89 LOADB                            R14 1
+       90 SETTABLEKS                       R14 R13 K29 ["universeAvatarAssetOverrides"]
+       92 SETTABLEKS                       R13 R12 K31 ["Avatar"]
+       94 DUPTABLE                         R13 K35 [{"gravity", "walkSpeed", "maxSlopeAngle"}]
+       95 LOADB                            R14 1
+       96 SETTABLEKS                       R14 R13 K32 ["gravity"]
+       98 LOADB                            R14 1
+       99 SETTABLEKS                       R14 R13 K33 ["walkSpeed"]
+      101 LOADB                            R14 1
+      102 SETTABLEKS                       R14 R13 K34 ["maxSlopeAngle"]
+      104 SETTABLEKS                       R13 R12 K36 ["World"]
+      106 MOVE                             R11 R12
+      107 NEWTABLE                         R12 1 0
+      109 JUMPIFNOT                        R10 ; [+2]
+      110 LOADNIL                          R13
+      111 JUMP                             ; [+4]
+      112 DUPTABLE                         R13 K38 [{"universeAvatarType"}]
+      113 LOADB                            R14 1
+      114 SETTABLEKS                       R14 R13 K37 ["universeAvatarType"]
+      116 SETTABLEKS                       R13 R12 K31 ["Avatar"]
+      118 GETTABLEKS                       R13 R11 K28 ["BasicInfo"]
+      120 LOADB                            R14 1
+      121 SETTABLEKS                       R14 R13 K39 ["thumbnails"]
+      123 GETTABLEKS                       R13 R11 K28 ["BasicInfo"]
+      125 LOADB                            R14 1
+      126 SETTABLEKS                       R14 R13 K40 ["gameIcon"]
+      128 JUMPIF                           R9 ; [+14]
+      129 GETIMPORT                        R13 K42 [settings]
+      131 CALL                             R13 0 1
+      132 LOADK                            R15 K43 ["DeveloperSubscriptionsEnabled"]
+      133 NAMECALL                         R13 R13 K44 ["GetFFlag"]
+      135 CALL                             R13 2 1
+      136 JUMPIFNOT                        R13 ; [+6]
+      137 DUPTABLE                         R13 K46 [{"DeveloperSubscriptions"}]
+      138 LOADB                            R14 1
+      139 SETTABLEKS                       R14 R13 K45 ["DeveloperSubscriptions"]
+      141 SETTABLEKS                       R13 R11 K47 ["Monetization"]
+      143 NEWCLOSURE                       R13 P0
+      144 CAPTURE                          VAL R1
+      145 CAPTURE                          REF R11
+      146 CAPTURE                          VAL R12
+      147 CAPTURE                          VAL R7
+      148 CAPTURE                          VAL R6
+      149 SETTABLEKS                       R13 R8 K48 ["render"]
+      151 MOVE                             R13 R5
+      152 DUPTABLE                         R14 K51 [{"Stylizer", "Localization"}]
+      153 GETTABLEKS                       R15 R4 K49 ["Stylizer"]
+      155 SETTABLEKS                       R15 R14 K49 ["Stylizer"]
+      157 GETTABLEKS                       R15 R4 K50 ["Localization"]
+      159 SETTABLEKS                       R15 R14 K50 ["Localization"]
+      161 CALL                             R13 1 1
+      162 MOVE                             R14 R8
+      163 CALL                             R13 1 1
+      164 MOVE                             R8 R13
+      165 GETTABLEKS                       R13 R3 K52 ["connect"]
+      167 DUPCLOSURE                       R14 K53 [PROTO_2]
+      168 CALL                             R13 1 1
+      169 MOVE                             R14 R8
+      170 CALL                             R13 1 -1
+      171 CLOSEUPVALS                      R11
+      172 RETURN                           R13 -1

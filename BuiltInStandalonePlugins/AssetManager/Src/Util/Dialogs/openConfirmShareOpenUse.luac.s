@@ -1,4 +1,33 @@
 PROTO_0:
+        0 JUMPIFNOT                        R2 ; [+25]
+        1 DUPTABLE                         R6 K3 [{"Key", "SubKey", "Args"}]
+        2 LOADK                            R7 K4 ["OpenUse"]
+        3 SETTABLEKS                       R7 R6 K0 ["Key"]
+        5 JUMPIFNOTEQKN                    R3 K5 [1] ; [+3]
+        7 LOADK                            R7 K6 ["OneAsset"]
+        8 JUMP                             ; [+1]
+        9 LOADK                            R7 K7 ["MultipleAssets"]
+       10 SETTABLEKS                       R7 R6 K1 ["SubKey"]
+       12 DUPTABLE                         R7 K9 [{"count"}]
+       13 FASTCALL1                        TOSTRING R3 ; [+3]
+       14 MOVE                             R9 R3
+       15 GETIMPORT                        R8 K11 [tostring]
+       17 CALL                             R8 1 1
+       18 SETTABLEKS                       R8 R7 K8 ["count"]
+       20 SETTABLEKS                       R7 R6 K2 ["Args"]
+       22 NAMECALL                         R4 R0 K12 ["showToast"]
+       24 CALL                             R4 2 0
+       25 RETURN                           R0 0
+       26 DUPTABLE                         R6 K13 [{"Key", "SubKey"}]
+       27 LOADK                            R7 K14 ["QuickShare"]
+       28 SETTABLEKS                       R7 R6 K0 ["Key"]
+       30 LOADK                            R7 K15 ["FailedToGrant"]
+       31 SETTABLEKS                       R7 R6 K1 ["SubKey"]
+       33 NAMECALL                         R4 R0 K12 ["showToast"]
+       35 CALL                             R4 2 0
+       36 RETURN                           R0 0
+
+PROTO_1:
         0 LOADK                            R6 K0 ["ContextMenu"]
         1 LOADK                            R7 K1 ["OpenUse"]
         2 NAMECALL                         R4 R1 K2 ["getText"]
@@ -34,13 +63,13 @@ PROTO_0:
        38 CALL                             R5 4 0
        39 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["closeDialog"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 NEWTABLE                         R4 0 0
         2 MOVE                             R5 R2
         3 LOADNIL                          R6
@@ -92,7 +121,7 @@ PROTO_2:
        69 CALL                             R7 3 0
        70 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["closeDialog"]
         3 CALL                             R2 1 0
@@ -118,7 +147,7 @@ PROTO_3:
        25 CALL                             R2 4 0
        26 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -135,11 +164,11 @@ PROTO_4:
        18 LOADB                            R0 1
        19 RETURN                           R0 1
 
-PROTO_5:
+PROTO_6:
         0 NEWTABLE                         R5 0 0
         2 NAMECALL                         R6 R0 K0 ["getItemsCache"]
         4 CALL                             R6 1 1
-        5 NAMECALL                         R7 R1 K1 ["getCurrentScope"]
+        5 NAMECALL                         R7 R0 K1 ["getCurrentShownScope"]
         7 CALL                             R7 1 1
         8 GETTABLEKS                       R10 R7 K2 ["Uid"]
        10 MOVE                             R11 R4
@@ -233,17 +262,27 @@ MAIN:
        45 GETTABLEKS                       R6 R6 K15 ["Flags"]
        47 GETTABLEKS                       R6 R6 K16 ["getFStringAmrOpenUsePage"]
        49 CALL                             R5 1 1
-       50 DUPCLOSURE                       R6 K17 [PROTO_0]
-       51 CAPTURE                          VAL R4
-       52 DUPCLOSURE                       R7 K18 [PROTO_2]
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          VAL R1
-       55 CAPTURE                          VAL R5
-       56 DUPCLOSURE                       R8 K19 [PROTO_5]
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R2
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R6
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R5
-       63 RETURN                           R8 1
+       50 GETIMPORT                        R6 K5 [require]
+       52 GETTABLEKS                       R7 R0 K6 ["Src"]
+       54 GETTABLEKS                       R7 R7 K15 ["Flags"]
+       56 GETTABLEKS                       R7 R7 K17 ["getFFlagAmrCustomToastNotifications"]
+       58 CALL                             R6 1 1
+       59 MOVE                             R8 R6
+       60 CALL                             R8 0 1
+       61 JUMPIFNOT                        R8 ; [+2]
+       62 DUPCLOSURE                       R7 K18 [PROTO_0]
+       63 JUMP                             ; [+2]
+       64 DUPCLOSURE                       R7 K19 [PROTO_1]
+       65 CAPTURE                          VAL R4
+       66 DUPCLOSURE                       R8 K20 [PROTO_3]
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R5
+       70 DUPCLOSURE                       R9 K21 [PROTO_6]
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R2
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          VAL R3
+       76 CAPTURE                          VAL R5
+       77 RETURN                           R9 1

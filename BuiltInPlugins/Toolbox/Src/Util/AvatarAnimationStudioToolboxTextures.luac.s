@@ -8,21 +8,21 @@ PROTO_1:
         2 JUMPIF                           R1 ; [+2]
         3 LOADNIL                          R1
         4 RETURN                           R1 1
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R1 R1 K0 ["UGC_AVATAR_ANIMATIONS_PART_NAMES_TO_ASSET_TYPE"]
-        8 JUMPIFNOTEQKNIL                  R1 ; [+3]
-       10 LOADNIL                          R2
-       11 RETURN                           R2 1
-       12 GETTABLEKS                       R3 R0 K1 ["Name"]
-       14 GETTABLE                         R2 R1 R3
-       15 JUMPIFEQKNIL                     R2 ; [+7]
-       17 LOADK                            R3 K2 ["rbxasset://textures/StudioToolbox/"]
-       18 GETTABLEKS                       R4 R0 K1 ["Name"]
-       20 LOADK                            R5 K3 ["Thumbnail.png"]
-       21 CONCAT                           R2 R3 R5
-       22 RETURN                           R2 1
-       23 LOADNIL                          R2
-       24 RETURN                           R2 1
+        5 JUMPIFNOTEQKS                    R0 K0 ["EmoteAnimation"] ; [+3]
+        7 LOADK                            R1 K1 ["rbxasset://textures/StudioToolbox/DefaultEmoteAnimation.png"]
+        8 RETURN                           R1 1
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K2 ["UGC_AVATAR_ANIMATIONS_PART_NAMES_TO_ASSET_TYPE"]
+       12 JUMPIFEQKNIL                     R1 ; [+4]
+       14 GETTABLE                         R2 R1 R0
+       15 JUMPIFNOTEQKNIL                  R2 ; [+3]
+       17 LOADNIL                          R2
+       18 RETURN                           R2 1
+       19 LOADK                            R3 K3 ["rbxasset://textures/StudioToolbox/"]
+       20 MOVE                             R4 R0
+       21 LOADK                            R5 K4 ["Thumbnail.png"]
+       22 CONCAT                           R2 R3 R5
+       23 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

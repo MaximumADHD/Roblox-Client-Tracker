@@ -32,76 +32,90 @@ PROTO_2:
        20 GETTABLEKS                       R8 R8 K4 ["SessionState"]
        22 GETTABLEKS                       R8 R8 K5 ["Parsing"]
        24 JUMPIFEQ                         R7 R8 ; [+11]
-       26 JUMPIFNOT                        R2 ; [+27]
+       26 JUMPIFNOT                        R2 ; [+46]
        27 GETTABLEKS                       R7 R3 K3 ["state"]
        29 GETUPVAL                         R8 4
        30 GETTABLEKS                       R8 R8 K4 ["SessionState"]
        32 GETTABLEKS                       R8 R8 K6 ["Importing"]
-       34 JUMPIFNOTEQ                      R7 R8 ; [+19]
-       36 GETUPVAL                         R7 5
-       37 GETUPVAL                         R8 6
-       38 GETTABLEKS                       R8 R8 K7 ["Loading"]
-       40 DUPTABLE                         R9 K10 [{"size", "testId"}]
-       41 GETUPVAL                         R10 7
-       42 GETTABLEKS                       R10 R10 K11 ["IconSize"]
-       44 GETTABLEKS                       R10 R10 K12 ["Small"]
-       46 SETTABLEKS                       R10 R9 K8 ["size"]
-       48 LOADK                            R10 K13 ["asset-row-loading"]
-       49 SETTABLEKS                       R10 R9 K9 ["testId"]
-       51 CALL                             R7 2 1
-       52 MOVE                             R5 R7
-       53 JUMP                             ; [+61]
-       54 GETTABLEKS                       R7 R3 K3 ["state"]
-       56 GETUPVAL                         R8 4
-       57 GETTABLEKS                       R8 R8 K4 ["SessionState"]
-       59 GETTABLEKS                       R8 R8 K14 ["Imported"]
-       61 JUMPIFNOTEQ                      R7 R8 ; [+53]
-       63 GETTABLEKS                       R8 R3 K15 ["uploadResults"]
-       65 FASTCALL2K                       ASSERT R8 K16 ; [+4]
-       67 LOADK                            R9 K16 ["Imported file must have uploadResults"]
-       68 GETIMPORT                        R7 K18 [assert]
-       70 CALL                             R7 2 0
-       71 GETTABLEKS                       R7 R3 K15 ["uploadResults"]
-       73 GETTABLEKS                       R7 R7 K19 ["Succeeded"]
-       75 JUMPIFNOT                        R7 ; [+2]
-       76 LOADNIL                          R6
-       77 JUMP                             ; [+1]
-       78 MOVE                             R6 R4
-       79 GETTABLEKS                       R8 R3 K15 ["uploadResults"]
-       81 GETTABLEKS                       R8 R8 K19 ["Succeeded"]
-       83 JUMPIFNOT                        R8 ; [+10]
-       84 GETUPVAL                         R7 8
-       85 GETTABLEKS                       R7 R7 K20 ["get"]
-       87 GETUPVAL                         R8 8
-       88 GETTABLEKS                       R8 R8 K21 ["AvailableImages"]
-       90 GETTABLEKS                       R8 R8 K22 ["Success"]
-       92 CALL                             R7 1 1
-       93 JUMP                             ; [+9]
-       94 GETUPVAL                         R7 8
-       95 GETTABLEKS                       R7 R7 K20 ["get"]
-       97 GETUPVAL                         R8 8
-       98 GETTABLEKS                       R8 R8 K21 ["AvailableImages"]
-      100 GETTABLEKS                       R8 R8 K23 ["Error"]
-      102 CALL                             R7 1 1
-      103 GETUPVAL                         R8 5
-      104 GETUPVAL                         R9 6
-      105 GETTABLEKS                       R9 R9 K24 ["Image"]
-      107 DUPTABLE                         R10 K26 [{"tag", "Image"}]
-      108 LOADK                            R11 K27 ["size-400-400"]
-      109 SETTABLEKS                       R11 R10 K25 ["tag"]
-      111 SETTABLEKS                       R7 R10 K24 ["Image"]
-      113 CALL                             R8 2 1
-      114 MOVE                             R5 R8
-      115 GETUPVAL                         R7 5
-      116 GETUPVAL                         R8 6
-      117 GETTABLEKS                       R8 R8 K28 ["View"]
-      119 DUPTABLE                         R9 K30 [{"tag", "onActivated"}]
-      120 LOADK                            R10 K31 ["col size-full align-x-center align-y-center data-testid=asset-row-status"]
-      121 SETTABLEKS                       R10 R9 K25 ["tag"]
-      123 SETTABLEKS                       R6 R9 K29 ["onActivated"]
-      125 MOVE                             R10 R5
-      126 CALL                             R7 3 -1
-      127 RETURN                           R7 -1
+       34 JUMPIFNOTEQ                      R7 R8 ; [+38]
+       36 GETUPVAL                         R7 2
+       37 GETTABLEKS                       R7 R7 K7 ["createElement"]
+       39 LOADK                            R8 K8 ["CanvasGroup"]
+       40 DUPTABLE                         R9 K11 [{"Size", "BackgroundTransparency"}]
+       41 GETIMPORT                        R10 K14 [UDim2.fromOffset]
+       43 LOADN                            R11 16
+       44 LOADN                            R12 16
+       45 CALL                             R10 2 1
+       46 SETTABLEKS                       R10 R9 K9 ["Size"]
+       48 LOADN                            R10 1
+       49 SETTABLEKS                       R10 R9 K10 ["BackgroundTransparency"]
+       51 DUPTABLE                         R10 K16 [{"Loading"}]
+       52 GETUPVAL                         R11 5
+       53 GETUPVAL                         R12 6
+       54 GETTABLEKS                       R12 R12 K15 ["Loading"]
+       56 DUPTABLE                         R13 K19 [{"size", "testId"}]
+       57 GETUPVAL                         R14 7
+       58 GETTABLEKS                       R14 R14 K20 ["IconSize"]
+       60 GETTABLEKS                       R14 R14 K21 ["Small"]
+       62 SETTABLEKS                       R14 R13 K17 ["size"]
+       64 LOADK                            R14 K22 ["asset-row-loading"]
+       65 SETTABLEKS                       R14 R13 K18 ["testId"]
+       67 CALL                             R11 2 1
+       68 SETTABLEKS                       R11 R10 K15 ["Loading"]
+       70 CALL                             R7 3 1
+       71 MOVE                             R5 R7
+       72 JUMP                             ; [+61]
+       73 GETTABLEKS                       R7 R3 K3 ["state"]
+       75 GETUPVAL                         R8 4
+       76 GETTABLEKS                       R8 R8 K4 ["SessionState"]
+       78 GETTABLEKS                       R8 R8 K23 ["Imported"]
+       80 JUMPIFNOTEQ                      R7 R8 ; [+53]
+       82 GETTABLEKS                       R8 R3 K24 ["uploadResults"]
+       84 FASTCALL2K                       ASSERT R8 K25 ; [+4]
+       86 LOADK                            R9 K25 ["Imported file must have uploadResults"]
+       87 GETIMPORT                        R7 K27 [assert]
+       89 CALL                             R7 2 0
+       90 GETTABLEKS                       R7 R3 K24 ["uploadResults"]
+       92 GETTABLEKS                       R7 R7 K28 ["Succeeded"]
+       94 JUMPIFNOT                        R7 ; [+2]
+       95 LOADNIL                          R6
+       96 JUMP                             ; [+1]
+       97 MOVE                             R6 R4
+       98 GETTABLEKS                       R8 R3 K24 ["uploadResults"]
+      100 GETTABLEKS                       R8 R8 K28 ["Succeeded"]
+      102 JUMPIFNOT                        R8 ; [+10]
+      103 GETUPVAL                         R7 8
+      104 GETTABLEKS                       R7 R7 K29 ["get"]
+      106 GETUPVAL                         R8 8
+      107 GETTABLEKS                       R8 R8 K30 ["AvailableImages"]
+      109 GETTABLEKS                       R8 R8 K31 ["Success"]
+      111 CALL                             R7 1 1
+      112 JUMP                             ; [+9]
+      113 GETUPVAL                         R7 8
+      114 GETTABLEKS                       R7 R7 K29 ["get"]
+      116 GETUPVAL                         R8 8
+      117 GETTABLEKS                       R8 R8 K30 ["AvailableImages"]
+      119 GETTABLEKS                       R8 R8 K32 ["Error"]
+      121 CALL                             R7 1 1
+      122 GETUPVAL                         R8 5
+      123 GETUPVAL                         R9 6
+      124 GETTABLEKS                       R9 R9 K33 ["Image"]
+      126 DUPTABLE                         R10 K35 [{"tag", "Image"}]
+      127 LOADK                            R11 K36 ["size-400-400"]
+      128 SETTABLEKS                       R11 R10 K34 ["tag"]
+      130 SETTABLEKS                       R7 R10 K33 ["Image"]
+      132 CALL                             R8 2 1
+      133 MOVE                             R5 R8
+      134 GETUPVAL                         R7 5
+      135 GETUPVAL                         R8 6
+      136 GETTABLEKS                       R8 R8 K37 ["View"]
+      138 DUPTABLE                         R9 K39 [{"tag", "onActivated"}]
+      139 LOADK                            R10 K40 ["col size-full align-x-center align-y-center data-testid=asset-row-status"]
+      140 SETTABLEKS                       R10 R9 K34 ["tag"]
+      142 SETTABLEKS                       R6 R9 K38 ["onActivated"]
+      144 MOVE                             R10 R5
+      145 CALL                             R7 3 -1
+      146 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

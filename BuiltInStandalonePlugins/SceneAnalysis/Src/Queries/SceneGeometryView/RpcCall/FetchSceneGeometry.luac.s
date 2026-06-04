@@ -1,10 +1,4 @@
 PROTO_0:
-        0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["GetRenderAttributionAsync"]
-        3 CALL                             R0 1 -1
-        4 RETURN                           R0 -1
-
-PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["DrawcallCount"]
         2 JUMPIFNOT                        R1 ; [+7]
         3 GETTABLEKS                       R1 R0 K1 ["InstanceCount"]
@@ -23,61 +17,95 @@ PROTO_1:
        21 FORGLOOP                         R1 2 ; [-4]
        23 RETURN                           R0 0
 
+PROTO_1:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["GetRenderAttributionAsync"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
+
 PROTO_2:
+        0 GETIMPORT                        R1 K1 [pcall]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          VAL R0
+        4 CALL                             R1 1 2
+        5 JUMPIFNOT                        R1 ; [+1]
+        6 JUMPIF                           R2 ; [+25]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K2 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       10 CALL                             R3 0 1
+       11 JUMPIF                           R3 ; [+5]
+       12 GETIMPORT                        R3 K4 [warn]
+       14 LOADK                            R4 K5 ["[SceneAnalysis] GetRenderAttributionAsync failed:"]
+       15 MOVE                             R5 R2
+       16 CALL                             R3 2 0
+       17 DUPTABLE                         R3 K10 [{"Id", "Name", "Size", "Children"}]
+       18 LOADN                            R4 0
+       19 SETTABLEKS                       R4 R3 K6 ["Id"]
+       21 LOADK                            R4 K11 ["Root"]
+       22 SETTABLEKS                       R4 R3 K7 ["Name"]
+       24 LOADN                            R4 0
+       25 SETTABLEKS                       R4 R3 K8 ["Size"]
+       27 NEWTABLE                         R4 0 0
+       29 SETTABLEKS                       R4 R3 K9 ["Children"]
+       31 RETURN                           R3 1
+       32 GETTABLEKS                       R3 R2 K12 ["DrawcallCount"]
+       34 JUMPIFNOT                        R3 ; [+7]
+       35 GETTABLEKS                       R3 R2 K13 ["InstanceCount"]
+       37 JUMPIF                           R3 ; [+4]
+       38 GETTABLEKS                       R3 R2 K12 ["DrawcallCount"]
+       40 SETTABLEKS                       R3 R2 K13 ["InstanceCount"]
+       42 GETTABLEKS                       R3 R2 K9 ["Children"]
+       44 JUMPIFNOT                        R3 ; [+10]
+       45 GETTABLEKS                       R3 R2 K9 ["Children"]
+       47 LOADNIL                          R4
+       48 LOADNIL                          R5
+       49 FORGPREP                         R3
+       50 GETUPVAL                         R8 1
+       51 MOVE                             R9 R7
+       52 CALL                             R8 1 0
+       53 FORGLOOP                         R3 2 ; [-4]
+       55 RETURN                           R2 1
+
+PROTO_3:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["SceneAnalysisService"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
         5 CALL                             R0 2 1
-        6 GETIMPORT                        R1 K5 [pcall]
-        8 NEWCLOSURE                       R2 P0
-        9 CAPTURE                          VAL R0
-       10 CALL                             R1 1 2
-       11 JUMPIFNOT                        R1 ; [+1]
-       12 JUMPIF                           R2 ; [+20]
-       13 GETIMPORT                        R3 K7 [warn]
-       15 LOADK                            R4 K8 ["[SceneAnalysis] GetRenderAttributionAsync failed:"]
-       16 MOVE                             R5 R2
-       17 CALL                             R3 2 0
-       18 DUPTABLE                         R3 K13 [{"Id", "Name", "Size", "Children"}]
-       19 LOADN                            R4 0
-       20 SETTABLEKS                       R4 R3 K9 ["Id"]
-       22 LOADK                            R4 K14 ["Root"]
-       23 SETTABLEKS                       R4 R3 K10 ["Name"]
-       25 LOADN                            R4 0
-       26 SETTABLEKS                       R4 R3 K11 ["Size"]
-       28 NEWTABLE                         R4 0 0
-       30 SETTABLEKS                       R4 R3 K12 ["Children"]
-       32 RETURN                           R3 1
-       33 DUPCLOSURE                       R3 K15 [PROTO_1]
-       34 CAPTURE                          VAL R3
-       35 GETTABLEKS                       R4 R2 K16 ["DrawcallCount"]
-       37 JUMPIFNOT                        R4 ; [+7]
-       38 GETTABLEKS                       R4 R2 K17 ["InstanceCount"]
-       40 JUMPIF                           R4 ; [+4]
-       41 GETTABLEKS                       R4 R2 K16 ["DrawcallCount"]
-       43 SETTABLEKS                       R4 R2 K17 ["InstanceCount"]
-       45 GETTABLEKS                       R4 R2 K12 ["Children"]
-       47 JUMPIFNOT                        R4 ; [+10]
-       48 GETTABLEKS                       R4 R2 K12 ["Children"]
-       50 LOADNIL                          R5
-       51 LOADNIL                          R6
-       52 FORGPREP                         R4
-       53 MOVE                             R9 R3
-       54 MOVE                             R10 R8
-       55 CALL                             R9 1 0
-       56 FORGLOOP                         R4 2 ; [-4]
-       58 RETURN                           R2 1
+        6 GETUPVAL                         R1 0
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 1
+        9 RETURN                           R1 1
 
-PROTO_3:
+PROTO_4:
         0 LOADK                            R4 K0 ["FetchSceneGeometry"]
-        1 DUPCLOSURE                       R5 K1 [PROTO_2]
-        2 NAMECALL                         R2 R1 K2 ["Bind"]
-        4 CALL                             R2 3 0
-        5 RETURN                           R0 0
+        1 DUPCLOSURE                       R5 K1 [PROTO_3]
+        2 CAPTURE                          UPVAL U0
+        3 NAMECALL                         R2 R1 K2 ["Bind"]
+        5 CALL                             R2 3 0
+        6 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 1 0
-        3 DUPCLOSURE                       R1 K0 [PROTO_3]
-        4 SETTABLEKS                       R1 R0 K1 ["Init"]
-        6 RETURN                           R0 1
+        1 NEWTABLE                         R0 2 0
+        3 GETIMPORT                        R1 K1 [script]
+        5 LOADK                            R3 K2 ["SceneAnalysis"]
+        6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
+        8 CALL                             R1 2 1
+        9 GETIMPORT                        R2 K5 [require]
+       11 GETTABLEKS                       R3 R1 K6 ["Bin"]
+       13 GETTABLEKS                       R3 R3 K7 ["Common"]
+       15 GETTABLEKS                       R3 R3 K8 ["defineLuaFlags"]
+       17 CALL                             R2 1 1
+       18 DUPCLOSURE                       R3 K9 [PROTO_0]
+       19 CAPTURE                          VAL R3
+       20 DUPCLOSURE                       R4 K10 [PROTO_2]
+       21 CAPTURE                          VAL R2
+       22 CAPTURE                          VAL R3
+       23 DUPCLOSURE                       R5 K11 [PROTO_4]
+       24 CAPTURE                          VAL R4
+       25 SETTABLEKS                       R5 R0 K12 ["Init"]
+       27 DUPTABLE                         R5 K15 [{"handleRequest", "normalizeNodes"}]
+       28 SETTABLEKS                       R4 R5 K13 ["handleRequest"]
+       30 SETTABLEKS                       R3 R5 K14 ["normalizeNodes"]
+       32 SETTABLEKS                       R5 R0 K16 ["_testOnly"]
+       34 RETURN                           R0 1

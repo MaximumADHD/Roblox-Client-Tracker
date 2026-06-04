@@ -133,21 +133,19 @@ PROTO_12:
         5 NAMECALL                         R0 R0 K2 ["setState"]
         7 CALL                             R0 2 0
         8 GETUPVAL                         R0 1
-        9 JUMPIFNOT                        R0 ; [+17]
-       10 GETUPVAL                         R0 2
-       11 GETTABLEKS                       R0 R0 K3 ["Plugin"]
-       13 LOADK                            R3 K4 ["placeid"]
-       14 LOADNIL                          R4
-       15 NAMECALL                         R1 R0 K5 ["SetItem"]
-       17 CALL                             R1 3 0
-       18 LOADK                            R3 K6 ["universeid"]
-       19 LOADNIL                          R4
-       20 NAMECALL                         R1 R0 K5 ["SetItem"]
-       22 CALL                             R1 3 0
-       23 LOADK                            R3 K7 ["idsupdated"]
-       24 NAMECALL                         R1 R0 K8 ["Invoke"]
-       26 CALL                             R1 2 0
-       27 RETURN                           R0 0
+        9 GETTABLEKS                       R0 R0 K3 ["Plugin"]
+       11 LOADK                            R3 K4 ["placeid"]
+       12 LOADNIL                          R4
+       13 NAMECALL                         R1 R0 K5 ["SetItem"]
+       15 CALL                             R1 3 0
+       16 LOADK                            R3 K6 ["universeid"]
+       17 LOADNIL                          R4
+       18 NAMECALL                         R1 R0 K5 ["SetItem"]
+       20 CALL                             R1 3 0
+       21 LOADK                            R3 K7 ["idsupdated"]
+       22 NAMECALL                         R1 R0 K8 ["Invoke"]
+       24 CALL                             R1 2 0
+       25 RETURN                           R0 0
 
 PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["enabled"]
@@ -276,20 +274,19 @@ PROTO_15:
       129 GETTABLEKS                       R5 R5 K38 ["PlaceDocPanelClosed"]
       131 NEWCLOSURE                       R7 P7
       132 CAPTURE                          VAL R0
-      133 CAPTURE                          UPVAL U9
-      134 CAPTURE                          VAL R1
-      135 NAMECALL                         R5 R5 K39 ["Connect"]
-      137 CALL                             R5 2 0
-      138 GETUPVAL                         R5 10
-      139 JUMPIFNOT                        R5 ; [+9]
-      140 GETTABLEKS                       R5 R1 K10 ["Plugin"]
-      142 LOADK                            R7 K40 ["DmChanged"]
-      143 NEWCLOSURE                       R8 P8
-      144 CAPTURE                          VAL R0
-      145 CAPTURE                          UPVAL U11
-      146 NAMECALL                         R5 R5 K41 ["OnInvoke"]
-      148 CALL                             R5 3 0
-      149 RETURN                           R0 0
+      133 CAPTURE                          VAL R1
+      134 NAMECALL                         R5 R5 K39 ["Connect"]
+      136 CALL                             R5 2 0
+      137 GETUPVAL                         R5 9
+      138 JUMPIFNOT                        R5 ; [+9]
+      139 GETTABLEKS                       R5 R1 K10 ["Plugin"]
+      141 LOADK                            R7 K40 ["DmChanged"]
+      142 NEWCLOSURE                       R8 P8
+      143 CAPTURE                          VAL R0
+      144 CAPTURE                          UPVAL U10
+      145 NAMECALL                         R5 R5 K41 ["OnInvoke"]
+      147 CALL                             R5 3 0
+      148 RETURN                           R0 0
 
 PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -475,48 +472,45 @@ MAIN:
        94 CALL                             R18 0 1
        95 GETTABLEKS                       R19 R17 K35 ["getFFlagCreatorConfigDmChangedListener"]
        97 CALL                             R19 0 1
-       98 GETTABLEKS                       R20 R17 K36 ["getFFlagFixCreatorConfigUrls"]
-      100 CALL                             R20 0 1
-      101 GETTABLEKS                       R21 R1 K37 ["PureComponent"]
-      103 LOADK                            R23 K38 ["MainPlugin"]
-      104 NAMECALL                         R21 R21 K39 ["extend"]
-      106 CALL                             R21 2 1
-      107 GETIMPORT                        R22 K5 [require]
-      109 GETTABLEKS                       R23 R0 K6 ["Packages"]
-      111 GETTABLEKS                       R23 R23 K40 ["WebView"]
-      113 CALL                             R22 1 1
-      114 GETTABLEKS                       R22 R22 K41 ["WebViewManagerContext"]
-      116 GETTABLEKS                       R23 R11 K42 ["fromAction"]
-      118 LOADK                            R24 K2 ["CreatorConfig"]
-      119 LOADK                            R25 K43 ["Toggle"]
-      120 CALL                             R23 2 1
-      121 LOADB                            R24 0
-      122 NEWCLOSURE                       R25 P0
-      123 CAPTURE                          VAL R22
-      124 CAPTURE                          VAL R23
-      125 CAPTURE                          VAL R18
-      126 CAPTURE                          VAL R6
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R14
-      129 CAPTURE                          VAL R10
-      130 CAPTURE                          VAL R3
-      131 CAPTURE                          VAL R12
-      132 CAPTURE                          VAL R20
-      133 CAPTURE                          VAL R19
-      134 CAPTURE                          REF R24
-      135 SETTABLEKS                       R25 R21 K44 ["init"]
-      137 DUPCLOSURE                       R25 K45 [PROTO_16]
-      138 CAPTURE                          VAL R6
-      139 CAPTURE                          VAL R7
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          VAL R10
-      142 CAPTURE                          VAL R9
-      143 CAPTURE                          VAL R1
-      144 CAPTURE                          VAL R5
-      145 CAPTURE                          VAL R4
-      146 CAPTURE                          VAL R16
-      147 SETTABLEKS                       R25 R21 K46 ["render"]
-      149 DUPCLOSURE                       R25 K47 [PROTO_17]
-      150 SETTABLEKS                       R25 R21 K48 ["willUnmount"]
-      152 CLOSEUPVALS                      R24
-      153 RETURN                           R21 1
+       98 GETTABLEKS                       R20 R1 K36 ["PureComponent"]
+      100 LOADK                            R22 K37 ["MainPlugin"]
+      101 NAMECALL                         R20 R20 K38 ["extend"]
+      103 CALL                             R20 2 1
+      104 GETIMPORT                        R21 K5 [require]
+      106 GETTABLEKS                       R22 R0 K6 ["Packages"]
+      108 GETTABLEKS                       R22 R22 K39 ["WebView"]
+      110 CALL                             R21 1 1
+      111 GETTABLEKS                       R21 R21 K40 ["WebViewManagerContext"]
+      113 GETTABLEKS                       R22 R11 K41 ["fromAction"]
+      115 LOADK                            R23 K2 ["CreatorConfig"]
+      116 LOADK                            R24 K42 ["Toggle"]
+      117 CALL                             R22 2 1
+      118 LOADB                            R23 0
+      119 NEWCLOSURE                       R24 P0
+      120 CAPTURE                          VAL R21
+      121 CAPTURE                          VAL R22
+      122 CAPTURE                          VAL R18
+      123 CAPTURE                          VAL R6
+      124 CAPTURE                          VAL R13
+      125 CAPTURE                          VAL R14
+      126 CAPTURE                          VAL R10
+      127 CAPTURE                          VAL R3
+      128 CAPTURE                          VAL R12
+      129 CAPTURE                          VAL R19
+      130 CAPTURE                          REF R23
+      131 SETTABLEKS                       R24 R20 K43 ["init"]
+      133 DUPCLOSURE                       R24 K44 [PROTO_16]
+      134 CAPTURE                          VAL R6
+      135 CAPTURE                          VAL R7
+      136 CAPTURE                          VAL R8
+      137 CAPTURE                          VAL R10
+      138 CAPTURE                          VAL R9
+      139 CAPTURE                          VAL R1
+      140 CAPTURE                          VAL R5
+      141 CAPTURE                          VAL R4
+      142 CAPTURE                          VAL R16
+      143 SETTABLEKS                       R24 R20 K45 ["render"]
+      145 DUPCLOSURE                       R24 K46 [PROTO_17]
+      146 SETTABLEKS                       R24 R20 K47 ["willUnmount"]
+      148 CLOSEUPVALS                      R23
+      149 RETURN                           R20 1

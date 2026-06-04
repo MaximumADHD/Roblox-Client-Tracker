@@ -36,49 +36,40 @@ MAIN:
        26 CALL                             R2 0 1
        27 JUMPIFNOT                        R2 ; [+1]
        28 RETURN                           R0 0
-       29 GETIMPORT                        R2 K7 [require]
-       31 GETTABLEKS                       R3 R0 K13 ["Bin"]
-       33 GETTABLEKS                       R3 R3 K14 ["Common"]
-       35 GETTABLEKS                       R3 R3 K15 ["defineLuaFlags"]
-       37 CALL                             R2 1 1
-       38 GETTABLEKS                       R3 R2 K16 ["getFFlagEnableFindReplaceAll"]
-       40 CALL                             R3 0 1
-       41 JUMPIF                           R3 ; [+1]
-       42 RETURN                           R0 0
-       43 GETIMPORT                        R3 K1 [plugin]
-       45 GETTABLEKS                       R3 R3 K17 ["MultipleDocumentInterfaceInstance"]
-       47 GETTABLEKS                       R4 R3 K18 ["FocusedDataModelSession"]
-       49 GETTABLEKS                       R5 R4 K19 ["CurrentDataModelTypeAboutToChange"]
-       51 DUPCLOSURE                       R7 K20 [PROTO_0]
-       52 NAMECALL                         R5 R5 K21 ["Connect"]
-       54 CALL                             R5 2 0
-       55 GETTABLEKS                       R5 R4 K22 ["CurrentDataModelTypeChanged"]
-       57 DUPCLOSURE                       R7 K23 [PROTO_1]
-       58 CAPTURE                          VAL R4
-       59 NAMECALL                         R5 R5 K21 ["Connect"]
-       61 CALL                             R5 2 0
-       62 GETIMPORT                        R5 K7 [require]
-       64 GETTABLEKS                       R6 R0 K13 ["Bin"]
-       66 GETTABLEKS                       R6 R6 K14 ["Common"]
-       68 GETTABLEKS                       R6 R6 K24 ["pluginType"]
-       70 CALL                             R5 1 1
-       71 GETTABLEKS                       R6 R5 K25 ["get"]
-       73 CALL                             R6 0 1
-       74 GETTABLEKS                       R7 R5 K26 ["Asset"]
-       76 JUMPIFEQ                         R6 R7 ; [+2]
-       78 RETURN                           R0 0
-       79 GETIMPORT                        R6 K7 [require]
-       81 GETTABLEKS                       R7 R0 K13 ["Bin"]
-       83 GETTABLEKS                       R7 R7 K14 ["Common"]
-       85 GETTABLEKS                       R7 R7 K27 ["setup"]
-       87 CALL                             R6 1 1
-       88 GETIMPORT                        R7 K7 [require]
-       90 GETTABLEKS                       R8 R0 K13 ["Bin"]
-       92 GETTABLEKS                       R8 R8 K14 ["Common"]
-       94 GETTABLEKS                       R8 R8 K28 ["setupMain"]
-       96 CALL                             R7 1 1
-       97 MOVE                             R8 R6
-       98 GETIMPORT                        R9 K1 [plugin]
-      100 MOVE                             R10 R7
-      101 CALL                             R8 2 0
-      102 RETURN                           R0 0
+       29 GETIMPORT                        R2 K1 [plugin]
+       31 GETTABLEKS                       R2 R2 K13 ["MultipleDocumentInterfaceInstance"]
+       33 GETTABLEKS                       R3 R2 K14 ["FocusedDataModelSession"]
+       35 GETTABLEKS                       R4 R3 K15 ["CurrentDataModelTypeAboutToChange"]
+       37 DUPCLOSURE                       R6 K16 [PROTO_0]
+       38 NAMECALL                         R4 R4 K17 ["Connect"]
+       40 CALL                             R4 2 0
+       41 GETTABLEKS                       R4 R3 K18 ["CurrentDataModelTypeChanged"]
+       43 DUPCLOSURE                       R6 K19 [PROTO_1]
+       44 CAPTURE                          VAL R3
+       45 NAMECALL                         R4 R4 K17 ["Connect"]
+       47 CALL                             R4 2 0
+       48 GETIMPORT                        R4 K7 [require]
+       50 GETTABLEKS                       R5 R0 K20 ["Bin"]
+       52 GETTABLEKS                       R5 R5 K21 ["Common"]
+       54 GETTABLEKS                       R5 R5 K22 ["pluginType"]
+       56 CALL                             R4 1 1
+       57 GETTABLEKS                       R5 R4 K23 ["get"]
+       59 CALL                             R5 0 1
+       60 GETTABLEKS                       R6 R4 K24 ["Asset"]
+       62 JUMPIFEQ                         R5 R6 ; [+2]
+       64 RETURN                           R0 0
+       65 GETIMPORT                        R5 K7 [require]
+       67 GETTABLEKS                       R6 R0 K20 ["Bin"]
+       69 GETTABLEKS                       R6 R6 K21 ["Common"]
+       71 GETTABLEKS                       R6 R6 K25 ["setup"]
+       73 CALL                             R5 1 1
+       74 GETIMPORT                        R6 K7 [require]
+       76 GETTABLEKS                       R7 R0 K20 ["Bin"]
+       78 GETTABLEKS                       R7 R7 K21 ["Common"]
+       80 GETTABLEKS                       R7 R7 K26 ["setupMain"]
+       82 CALL                             R6 1 1
+       83 MOVE                             R7 R5
+       84 GETIMPORT                        R8 K1 [plugin]
+       86 MOVE                             R9 R6
+       87 CALL                             R7 2 0
+       88 RETURN                           R0 0

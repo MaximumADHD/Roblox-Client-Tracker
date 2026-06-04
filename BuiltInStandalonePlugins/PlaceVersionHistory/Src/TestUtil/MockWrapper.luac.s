@@ -133,7 +133,7 @@ MAIN:
        67 GETTABLEKS                       R13 R6 K19 ["ControllerContextProvider"]
        69 CALL                             R12 1 1
        70 GETIMPORT                        R13 K5 [require]
-       72 GETTABLEKS                       R14 R6 K20 ["DialogContextProvider_NEW"]
+       72 GETTABLEKS                       R14 R6 K20 ["DialogContextProvider"]
        74 CALL                             R13 1 1
        75 GETIMPORT                        R14 K5 [require]
        77 GETTABLEKS                       R15 R6 K21 ["PopoverContextProvider"]

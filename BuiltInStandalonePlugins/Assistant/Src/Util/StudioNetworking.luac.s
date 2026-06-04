@@ -1,45 +1,45 @@
 PROTO_0:
+        0 LOADK                            R3 K0 ["%*_%*"]
+        1 GETUPVAL                         R5 0
+        2 GETTABLEKS                       R5 R5 K1 ["Version"]
+        4 GETUPVAL                         R6 1
+        5 MOVE                             R7 R0
+        6 MOVE                             R8 R1
+        7 CALL                             R6 2 1
+        8 NAMECALL                         R3 R3 K2 ["format"]
+       10 CALL                             R3 3 1
+       11 MOVE                             R2 R3
+       12 RETURN                           R2 1
+
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["plugin"]
         3 SETTABLEKS                       R2 R1 K0 ["plugin"]
-        5 GETTABLEKS                       R1 R0 K1 ["isHost"]
-        7 GETTABLEKS                       R2 R0 K2 ["isGuest"]
-        9 JUMPIFNOTEQ                      R1 R2 ; [+20]
-       11 GETUPVAL                         R1 1
-       12 GETTABLEKS                       R1 R1 K3 ["new"]
-       14 MOVE                             R2 R0
-       15 CALL                             R1 1 1
-       16 GETTABLEKS                       R2 R1 K4 ["_logger"]
-       18 GETUPVAL                         R4 2
-       19 CALL                             R4 0 -1
-       20 NAMECALL                         R2 R2 K5 ["setEnabled"]
-       22 CALL                             R2 -1 0
-       23 GETUPVAL                         R2 4
-       24 GETTABLEKS                       R2 R2 K3 ["new"]
-       26 MOVE                             R3 R1
-       27 CALL                             R2 1 1
-       28 SETUPVAL                         R2 3
-       29 JUMP                             ; [+18]
-       30 GETUPVAL                         R1 5
-       31 GETTABLEKS                       R1 R1 K3 ["new"]
-       33 MOVE                             R2 R0
-       34 CALL                             R1 1 1
-       35 GETTABLEKS                       R2 R1 K4 ["_logger"]
-       37 GETUPVAL                         R4 2
-       38 CALL                             R4 0 -1
-       39 NAMECALL                         R2 R2 K5 ["setEnabled"]
-       41 CALL                             R2 -1 0
-       42 GETUPVAL                         R2 4
-       43 GETTABLEKS                       R2 R2 K3 ["new"]
-       45 MOVE                             R3 R1
-       46 CALL                             R2 1 1
-       47 SETUPVAL                         R2 3
-       48 GETUPVAL                         R1 0
-       49 GETTABLEKS                       R1 R1 K6 ["get"]
-       51 CALL                             R1 0 -1
-       52 RETURN                           R1 -1
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K1 ["new"]
+        8 MOVE                             R2 R0
+        9 CALL                             R1 1 1
+       10 GETTABLEKS                       R2 R1 K2 ["_logger"]
+       12 GETUPVAL                         R4 2
+       13 CALL                             R4 0 -1
+       14 NAMECALL                         R2 R2 K3 ["setEnabled"]
+       16 CALL                             R2 -1 0
+       17 GETTABLEKS                       R2 R1 K4 ["_makeKey"]
+       19 NEWCLOSURE                       R3 P0
+       20 CAPTURE                          UPVAL U3
+       21 CAPTURE                          VAL R2
+       22 SETTABLEKS                       R3 R1 K4 ["_makeKey"]
+       24 GETUPVAL                         R3 5
+       25 GETTABLEKS                       R3 R3 K1 ["new"]
+       27 MOVE                             R4 R1
+       28 CALL                             R3 1 1
+       29 SETUPVAL                         R3 4
+       30 GETUPVAL                         R3 0
+       31 GETTABLEKS                       R3 R3 K5 ["get"]
+       33 CALL                             R3 0 -1
+       34 RETURN                           R3 -1
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 FASTCALL2K                       ASSERT R1 K0 ; [+4]
         3 LOADK                            R2 K0 ["Networking is not initialized. Call Networking.create first."]
@@ -48,7 +48,7 @@ PROTO_1:
         7 GETUPVAL                         R0 0
         8 RETURN                           R0 1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+6]
         2 GETUPVAL                         R0 0
@@ -76,26 +76,24 @@ MAIN:
        23 GETTABLEKS                       R3 R3 K10 ["Shared"]
        25 GETTABLEKS                       R3 R3 K11 ["FFlagDebugLogAssistantUI"]
        27 GETTABLEKS                       R4 R2 K12 ["Implementations"]
-       29 GETTABLEKS                       R4 R4 K13 ["CallbackNetworking"]
-       31 GETTABLEKS                       R5 R2 K12 ["Implementations"]
-       33 GETTABLEKS                       R5 R5 K14 ["StudioNetworking"]
-       35 DUPTABLE                         R6 K16 [{"plugin"}]
-       36 LOADNIL                          R7
-       37 SETTABLEKS                       R7 R6 K15 ["plugin"]
-       39 LOADNIL                          R7
-       40 NEWCLOSURE                       R8 P0
-       41 CAPTURE                          VAL R6
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          REF R7
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          VAL R5
-       47 SETTABLEKS                       R8 R6 K17 ["create"]
-       49 NEWCLOSURE                       R8 P1
-       50 CAPTURE                          REF R7
-       51 SETTABLEKS                       R8 R6 K18 ["get"]
-       53 NEWCLOSURE                       R8 P2
-       54 CAPTURE                          REF R7
-       55 SETTABLEKS                       R8 R6 K19 ["Destroy"]
-       57 CLOSEUPVALS                      R7
-       58 RETURN                           R6 1
+       29 GETTABLEKS                       R4 R4 K13 ["StudioNetworking"]
+       31 DUPTABLE                         R5 K15 [{"plugin"}]
+       32 LOADNIL                          R6
+       33 SETTABLEKS                       R6 R5 K14 ["plugin"]
+       35 LOADNIL                          R6
+       36 NEWCLOSURE                       R7 P0
+       37 CAPTURE                          VAL R5
+       38 CAPTURE                          VAL R4
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          REF R6
+       42 CAPTURE                          VAL R2
+       43 SETTABLEKS                       R7 R5 K16 ["create"]
+       45 NEWCLOSURE                       R7 P1
+       46 CAPTURE                          REF R6
+       47 SETTABLEKS                       R7 R5 K17 ["get"]
+       49 NEWCLOSURE                       R7 P2
+       50 CAPTURE                          REF R6
+       51 SETTABLEKS                       R7 R5 K18 ["Destroy"]
+       53 CLOSEUPVALS                      R6
+       54 RETURN                           R5 1

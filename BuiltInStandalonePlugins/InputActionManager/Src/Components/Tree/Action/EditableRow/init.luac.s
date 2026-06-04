@@ -2,7 +2,7 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createNextOrder"]
         3 CALL                             R1 0 1
-        4 NEWTABLE                         R2 0 0
+        4 NEWTABLE                         R2 2 0
         6 GETTABLEKS                       R5 R0 K1 ["nodeProps"]
         8 GETTABLEKS                       R5 R5 K2 ["action"]
        10 JUMPIFNOTEQKNIL                  R5 ; [+2]
@@ -13,96 +13,60 @@ PROTO_0:
        17 GETIMPORT                        R3 K5 [assert]
        19 CALL                             R3 2 0
        20 GETUPVAL                         R3 1
-       21 CALL                             R3 0 3
-       22 FORGPREP                         R3
-       23 GETUPVAL                         R8 2
-       24 GETTABLEKS                       R8 R8 K6 ["createElement"]
-       26 GETUPVAL                         R9 3
-       27 DUPTABLE                         R10 K12 [{"action", "binding", "LayoutOrder", "onCreated", "property", "schema"}]
-       28 GETTABLEKS                       R11 R0 K1 ["nodeProps"]
-       30 GETTABLEKS                       R11 R11 K2 ["action"]
-       32 SETTABLEKS                       R11 R10 K2 ["action"]
-       34 GETTABLEKS                       R12 R0 K13 ["bindings"]
-       36 GETTABLE                         R11 R12 R7
-       37 SETTABLEKS                       R11 R10 K7 ["binding"]
-       39 SETTABLEKS                       R6 R10 K8 ["LayoutOrder"]
-       41 GETTABLEKS                       R11 R0 K9 ["onCreated"]
-       43 SETTABLEKS                       R11 R10 K9 ["onCreated"]
-       45 GETTABLEKS                       R11 R0 K10 ["property"]
-       47 SETTABLEKS                       R11 R10 K10 ["property"]
-       49 SETTABLEKS                       R7 R10 K11 ["schema"]
-       51 CALL                             R8 2 1
-       52 SETTABLE                         R8 R2 R7
-       53 FORGLOOP                         R3 2 ; [-31]
-       55 GETUPVAL                         R3 2
-       56 GETTABLEKS                       R3 R3 K6 ["createElement"]
-       58 GETUPVAL                         R4 4
-       59 DUPTABLE                         R5 K15 [{"tag", "LayoutOrder"}]
-       60 LOADK                            R6 K16 ["tree-row row align-y-center"]
-       61 SETTABLEKS                       R6 R5 K14 ["tag"]
-       63 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
-       65 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       67 DUPTABLE                         R6 K20 [{"Node", "Divider", "Row"}]
-       68 GETUPVAL                         R7 2
-       69 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       71 GETUPVAL                         R8 5
-       72 GETTABLEKS                       R9 R0 K1 ["nodeProps"]
-       74 CALL                             R7 2 1
-       75 SETTABLEKS                       R7 R6 K17 ["Node"]
-       77 GETUPVAL                         R7 2
-       78 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       80 GETUPVAL                         R8 6
-       81 DUPTABLE                         R9 K22 [{"LayoutOrder", "orientation", "tag"}]
-       82 MOVE                             R10 R1
-       83 CALL                             R10 0 1
-       84 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-       86 GETUPVAL                         R10 7
-       87 GETTABLEKS                       R10 R10 K23 ["Vertical"]
-       89 SETTABLEKS                       R10 R9 K21 ["orientation"]
-       91 LOADK                            R10 K24 ["auto-y"]
-       92 SETTABLEKS                       R10 R9 K14 ["tag"]
-       94 CALL                             R7 2 1
-       95 SETTABLEKS                       R7 R6 K18 ["Divider"]
-       97 GETUPVAL                         R7 2
-       98 GETTABLEKS                       R7 R7 K6 ["createElement"]
-      100 GETUPVAL                         R8 4
-      101 DUPTABLE                         R9 K25 [{"LayoutOrder", "tag"}]
-      102 MOVE                             R10 R1
-      103 CALL                             R10 0 1
-      104 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-      106 LOADK                            R10 K26 ["columns-fill auto-y align-y-center col"]
-      107 SETTABLEKS                       R10 R9 K14 ["tag"]
-      109 DUPTABLE                         R10 K29 [{"Cells", "CellDivider"}]
-      110 GETUPVAL                         R11 2
-      111 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      113 GETUPVAL                         R12 4
-      114 DUPTABLE                         R13 K25 [{"LayoutOrder", "tag"}]
-      115 MOVE                             R14 R1
-      116 CALL                             R14 0 1
-      117 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-      119 LOADK                            R14 K30 ["size-full-divider row columns-flex align-y-center"]
-      120 SETTABLEKS                       R14 R13 K14 ["tag"]
-      122 MOVE                             R14 R2
-      123 CALL                             R11 3 1
-      124 SETTABLEKS                       R11 R10 K27 ["Cells"]
-      126 GETUPVAL                         R11 2
-      127 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      129 GETUPVAL                         R12 6
-      130 DUPTABLE                         R13 K22 [{"LayoutOrder", "orientation", "tag"}]
-      131 MOVE                             R14 R1
-      132 CALL                             R14 0 1
-      133 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-      135 GETUPVAL                         R14 7
-      136 GETTABLEKS                       R14 R14 K31 ["Horizontal"]
-      138 SETTABLEKS                       R14 R13 K21 ["orientation"]
-      140 LOADK                            R14 K32 ["auto-x"]
-      141 SETTABLEKS                       R14 R13 K14 ["tag"]
-      143 CALL                             R11 2 1
-      144 SETTABLEKS                       R11 R10 K28 ["CellDivider"]
-      146 CALL                             R7 3 1
-      147 SETTABLEKS                       R7 R6 K19 ["Row"]
-      149 CALL                             R3 3 -1
-      150 RETURN                           R3 -1
+       21 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R5 R0 K1 ["nodeProps"]
+       26 CALL                             R3 2 1
+       27 SETTABLEKS                       R3 R2 K7 ["Node"]
+       29 GETUPVAL                         R3 1
+       30 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       32 GETUPVAL                         R4 3
+       33 DUPTABLE                         R5 K11 [{"LayoutOrder", "orientation", "tag"}]
+       34 MOVE                             R6 R1
+       35 CALL                             R6 0 1
+       36 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       38 GETUPVAL                         R6 4
+       39 GETTABLEKS                       R6 R6 K12 ["Vertical"]
+       41 SETTABLEKS                       R6 R5 K9 ["orientation"]
+       43 LOADK                            R6 K13 ["auto-y"]
+       44 SETTABLEKS                       R6 R5 K10 ["tag"]
+       46 CALL                             R3 2 1
+       47 SETTABLEKS                       R3 R2 K14 ["Divider"]
+       49 GETUPVAL                         R3 5
+       50 CALL                             R3 0 3
+       51 FORGPREP                         R3
+       52 GETUPVAL                         R8 1
+       53 GETTABLEKS                       R8 R8 K6 ["createElement"]
+       55 GETUPVAL                         R9 6
+       56 DUPTABLE                         R10 K19 [{"action", "binding", "LayoutOrder", "onCreated", "property", "schema"}]
+       57 GETTABLEKS                       R11 R0 K1 ["nodeProps"]
+       59 GETTABLEKS                       R11 R11 K2 ["action"]
+       61 SETTABLEKS                       R11 R10 K2 ["action"]
+       63 GETTABLEKS                       R12 R0 K20 ["bindings"]
+       65 GETTABLE                         R11 R12 R7
+       66 SETTABLEKS                       R11 R10 K15 ["binding"]
+       68 MOVE                             R11 R1
+       69 CALL                             R11 0 1
+       70 SETTABLEKS                       R11 R10 K8 ["LayoutOrder"]
+       72 GETTABLEKS                       R11 R0 K16 ["onCreated"]
+       74 SETTABLEKS                       R11 R10 K16 ["onCreated"]
+       76 GETTABLEKS                       R11 R0 K17 ["property"]
+       78 SETTABLEKS                       R11 R10 K17 ["property"]
+       80 SETTABLEKS                       R7 R10 K18 ["schema"]
+       82 CALL                             R8 2 1
+       83 SETTABLE                         R8 R2 R7
+       84 FORGLOOP                         R3 2 ; [-33]
+       86 GETUPVAL                         R3 1
+       87 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       89 GETUPVAL                         R4 7
+       90 DUPTABLE                         R5 K21 [{"tag", "LayoutOrder"}]
+       91 LOADK                            R6 K22 ["tree-row row align-y-center"]
+       92 SETTABLEKS                       R6 R5 K10 ["tag"]
+       94 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
+       96 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       98 MOVE                             R6 R2
+       99 CALL                             R3 3 -1
+      100 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -151,11 +115,11 @@ MAIN:
        77 CALL                             R10 1 1
        78 DUPCLOSURE                       R11 K24 [PROTO_0]
        79 CAPTURE                          VAL R2
-       80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R1
-       82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R9
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R9
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R10
+       85 CAPTURE                          VAL R8
+       86 CAPTURE                          VAL R4
        87 RETURN                           R11 1

@@ -363,12 +363,12 @@ MAIN:
       200 GETIMPORT                        R22 K5 [require]
       202 GETTABLEKS                       R23 R0 K9 ["Src"]
       204 GETTABLEKS                       R23 R23 K29 ["Flags"]
-      206 GETTABLEKS                       R23 R23 K32 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+      206 GETTABLEKS                       R23 R23 K32 ["getFFlagAvatarPreviewerStartFromAssetId"]
       208 CALL                             R22 1 1
       209 GETIMPORT                        R23 K5 [require]
       211 GETTABLEKS                       R24 R0 K9 ["Src"]
       213 GETTABLEKS                       R24 R24 K29 ["Flags"]
-      215 GETTABLEKS                       R24 R24 K33 ["getFFlagAvatarPreviewerOpenLastEquippedPalette"]
+      215 GETTABLEKS                       R24 R24 K33 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
       217 CALL                             R23 1 1
       218 GETIMPORT                        R24 K5 [require]
       220 GETTABLEKS                       R25 R0 K9 ["Src"]
@@ -402,9 +402,9 @@ MAIN:
       257 CAPTURE                          VAL R14
       258 CAPTURE                          VAL R9
       259 CAPTURE                          VAL R15
-      260 CAPTURE                          VAL R23
+      260 CAPTURE                          VAL R22
       261 CAPTURE                          VAL R16
-      262 CAPTURE                          VAL R22
+      262 CAPTURE                          VAL R23
       263 CAPTURE                          VAL R17
       264 CAPTURE                          VAL R18
       265 CAPTURE                          VAL R3

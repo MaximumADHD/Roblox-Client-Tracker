@@ -351,8 +351,8 @@ PROTO_12:
       235 SETTABLEKS                       R18 R33 K32 ["onActivated"]
       237 GETUPVAL                         R34 8
       238 GETTABLEKS                       R34 R34 K25 ["Enums"]
-      240 GETTABLEKS                       R34 R34 K39 ["IconSize"]
-      242 GETTABLEKS                       R34 R34 K40 ["Small"]
+      240 GETTABLEKS                       R34 R34 K39 ["InputSize"]
+      242 GETTABLEKS                       R34 R34 K40 ["XSmall"]
       244 SETTABLEKS                       R34 R33 K33 ["size"]
       246 LOADK                            R35 K41 ["expand-%*"]
       247 GETTABLEKS                       R37 R0 K3 ["name"]
@@ -416,19 +416,19 @@ PROTO_12:
       331 SETTABLEKS                       R16 R34 K65 ["onChanged"]
       333 SETTABLEKS                       R15 R34 K66 ["onReturnPressed"]
       335 GETUPVAL                         R35 12
-      336 GETTABLEKS                       R35 R35 K40 ["Small"]
+      336 GETTABLEKS                       R35 R35 K72 ["Small"]
       338 SETTABLEKS                       R35 R34 K33 ["size"]
-      340 LOADK                            R36 K72 ["rename-%*"]
+      340 LOADK                            R36 K73 ["rename-%*"]
       341 GETTABLEKS                       R38 R0 K3 ["name"]
       343 NAMECALL                         R36 R36 K15 ["format"]
       345 CALL                             R36 2 1
       346 MOVE                             R35 R36
       347 SETTABLEKS                       R35 R34 K34 ["testId"]
-      349 GETTABLEKS                       R35 R3 K73 ["current"]
+      349 GETTABLEKS                       R35 R3 K74 ["current"]
       351 SETTABLEKS                       R35 R34 K67 ["text"]
-      353 GETIMPORT                        R35 K76 [Enum.TextInputType.Default]
+      353 GETIMPORT                        R35 K77 [Enum.TextInputType.Default]
       355 SETTABLEKS                       R35 R34 K68 ["textInputType"]
-      357 GETIMPORT                        R35 K79 [UDim.new]
+      357 GETIMPORT                        R35 K80 [UDim.new]
       359 LOADN                            R36 1
       360 LOADN                            R37 251
       361 CALL                             R35 2 1
@@ -438,8 +438,8 @@ PROTO_12:
       366 GETUPVAL                         R32 0
       367 GETTABLEKS                       R32 R32 K16 ["createElement"]
       369 GETUPVAL                         R33 13
-      370 DUPTABLE                         R34 K80 [{"tag", "Text"}]
-      371 LOADK                            R35 K81 ["label text-body-medium auto-xy"]
+      370 DUPTABLE                         R34 K81 [{"tag", "Text"}]
+      371 LOADK                            R35 K82 ["label text-body-medium auto-xy"]
       372 SETTABLEKS                       R35 R34 K18 ["tag"]
       374 GETTABLEKS                       R35 R0 K3 ["name"]
       376 SETTABLEKS                       R35 R34 K61 ["Text"]
@@ -449,7 +449,7 @@ PROTO_12:
       382 SETTABLEKS                       R28 R27 K44 ["InstanceName"]
       384 JUMPIF                           R13 ; [+7]
       385 LOADB                            R28 0
-      386 GETTABLEKS                       R29 R0 K82 ["onCreateMenuItemSelected"]
+      386 GETTABLEKS                       R29 R0 K83 ["onCreateMenuItemSelected"]
       388 JUMPIFEQKNIL                     R29 ; [+120]
       390 MOVE                             R28 R7
       391 JUMPIFNOT                        R28 ; [+117]
@@ -460,75 +460,75 @@ PROTO_12:
       397 MOVE                             R31 R26
       398 CALL                             R31 0 1
       399 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      401 LOADK                            R31 K83 ["spacer align-y-center align-x-center padding-small"]
+      401 LOADK                            R31 K84 ["spacer align-y-center align-x-center padding-small"]
       402 SETTABLEKS                       R31 R30 K18 ["tag"]
-      404 DUPTABLE                         R31 K85 [{"PlusControl"}]
+      404 DUPTABLE                         R31 K86 [{"PlusControl"}]
       405 GETTABLEKS                       R33 R0 K9 ["createMenu"]
       407 JUMPIFEQKNIL                     R33 ; [+69]
       409 GETUPVAL                         R32 0
       410 GETTABLEKS                       R32 R32 K16 ["createElement"]
       412 GETUPVAL                         R33 14
-      413 DUPTABLE                         R34 K91 [{"align", "isOpen", "items", "onActivated", "onPressedOutside", "side", "testId"}]
+      413 DUPTABLE                         R34 K92 [{"align", "isOpen", "items", "onActivated", "onPressedOutside", "side", "testId"}]
       414 GETUPVAL                         R35 15
-      415 GETTABLEKS                       R35 R35 K92 ["Start"]
-      417 SETTABLEKS                       R35 R34 K86 ["align"]
-      419 SETTABLEKS                       R13 R34 K87 ["isOpen"]
+      415 GETTABLEKS                       R35 R35 K93 ["Start"]
+      417 SETTABLEKS                       R35 R34 K87 ["align"]
+      419 SETTABLEKS                       R13 R34 K88 ["isOpen"]
       421 GETTABLEKS                       R35 R0 K9 ["createMenu"]
-      423 SETTABLEKS                       R35 R34 K88 ["items"]
+      423 SETTABLEKS                       R35 R34 K89 ["items"]
       425 SETTABLEKS                       R22 R34 K32 ["onActivated"]
-      427 SETTABLEKS                       R21 R34 K89 ["onPressedOutside"]
+      427 SETTABLEKS                       R21 R34 K90 ["onPressedOutside"]
       429 GETUPVAL                         R35 16
-      430 GETTABLEKS                       R35 R35 K93 ["Right"]
-      432 SETTABLEKS                       R35 R34 K90 ["side"]
-      434 LOADK                            R36 K94 ["create-menu-%*"]
+      430 GETTABLEKS                       R35 R35 K94 ["Right"]
+      432 SETTABLEKS                       R35 R34 K91 ["side"]
+      434 LOADK                            R36 K95 ["create-menu-%*"]
       435 GETTABLEKS                       R38 R0 K3 ["name"]
       437 NAMECALL                         R36 R36 K15 ["format"]
       439 CALL                             R36 2 1
       440 MOVE                             R35 R36
       441 SETTABLEKS                       R35 R34 K34 ["testId"]
-      443 DUPTABLE                         R35 K96 [{"Plus"}]
+      443 DUPTABLE                         R35 K97 [{"Plus"}]
       444 GETUPVAL                         R36 0
       445 GETTABLEKS                       R36 R36 K16 ["createElement"]
       447 GETUPVAL                         R37 9
       448 DUPTABLE                         R38 K35 [{"icon", "onActivated", "size", "testId"}]
-      449 LOADK                            R39 K97 ["plus-small"]
+      449 LOADK                            R39 K98 ["plus-small"]
       450 SETTABLEKS                       R39 R38 K6 ["icon"]
       452 SETTABLEKS                       R20 R38 K32 ["onActivated"]
       454 GETUPVAL                         R39 8
       455 GETTABLEKS                       R39 R39 K25 ["Enums"]
-      457 GETTABLEKS                       R39 R39 K39 ["IconSize"]
-      459 GETTABLEKS                       R39 R39 K40 ["Small"]
+      457 GETTABLEKS                       R39 R39 K99 ["IconSize"]
+      459 GETTABLEKS                       R39 R39 K72 ["Small"]
       461 SETTABLEKS                       R39 R38 K33 ["size"]
-      463 LOADK                            R40 K98 ["add-%*"]
+      463 LOADK                            R40 K100 ["add-%*"]
       464 GETTABLEKS                       R42 R0 K3 ["name"]
       466 NAMECALL                         R40 R40 K15 ["format"]
       468 CALL                             R40 2 1
       469 MOVE                             R39 R40
       470 SETTABLEKS                       R39 R38 K34 ["testId"]
       472 CALL                             R36 2 1
-      473 SETTABLEKS                       R36 R35 K95 ["Plus"]
+      473 SETTABLEKS                       R36 R35 K96 ["Plus"]
       475 CALL                             R32 3 1
       476 JUMP                             ; [+29]
       477 GETUPVAL                         R32 0
       478 GETTABLEKS                       R32 R32 K16 ["createElement"]
       480 GETUPVAL                         R33 9
       481 DUPTABLE                         R34 K35 [{"icon", "onActivated", "size", "testId"}]
-      482 LOADK                            R35 K97 ["plus-small"]
+      482 LOADK                            R35 K98 ["plus-small"]
       483 SETTABLEKS                       R35 R34 K6 ["icon"]
       485 SETTABLEKS                       R20 R34 K32 ["onActivated"]
       487 GETUPVAL                         R35 8
       488 GETTABLEKS                       R35 R35 K25 ["Enums"]
-      490 GETTABLEKS                       R35 R35 K39 ["IconSize"]
-      492 GETTABLEKS                       R35 R35 K40 ["Small"]
+      490 GETTABLEKS                       R35 R35 K99 ["IconSize"]
+      492 GETTABLEKS                       R35 R35 K72 ["Small"]
       494 SETTABLEKS                       R35 R34 K33 ["size"]
-      496 LOADK                            R36 K98 ["add-%*"]
+      496 LOADK                            R36 K100 ["add-%*"]
       497 GETTABLEKS                       R38 R0 K3 ["name"]
       499 NAMECALL                         R36 R36 K15 ["format"]
       501 CALL                             R36 2 1
       502 MOVE                             R35 R36
       503 SETTABLEKS                       R35 R34 K34 ["testId"]
       505 CALL                             R32 2 1
-      506 SETTABLEKS                       R32 R31 K84 ["PlusControl"]
+      506 SETTABLEKS                       R32 R31 K85 ["PlusControl"]
       508 CALL                             R28 3 1
       509 SETTABLEKS                       R28 R27 K45 ["AddButton"]
       511 GETTABLEKS                       R28 R0 K13 ["depth"]
@@ -541,37 +541,37 @@ PROTO_12:
       521 MOVE                             R31 R26
       522 CALL                             R31 0 1
       523 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      525 LOADK                            R31 K99 ["col grow align-y-center size-0-full"]
+      525 LOADK                            R31 K101 ["col grow align-y-center size-0-full"]
       526 SETTABLEKS                       R31 R30 K18 ["tag"]
-      528 DUPTABLE                         R31 K101 [{"LabelContainer", "Divider"}]
+      528 DUPTABLE                         R31 K103 [{"LabelContainer", "Divider"}]
       529 GETUPVAL                         R32 0
       530 GETTABLEKS                       R32 R32 K16 ["createElement"]
       532 GETUPVAL                         R33 6
       533 DUPTABLE                         R34 K19 [{"LayoutOrder", "tag"}]
       534 LOADN                            R35 1
       535 SETTABLEKS                       R35 R34 K17 ["LayoutOrder"]
-      537 LOADK                            R35 K102 ["tree-row row align-y-center size-full-full padding-right-small"]
+      537 LOADK                            R35 K104 ["row align-y-center size-full-full padding-right-small"]
       538 SETTABLEKS                       R35 R34 K18 ["tag"]
       540 MOVE                             R35 R27
       541 CALL                             R32 3 1
-      542 SETTABLEKS                       R32 R31 K100 ["LabelContainer"]
+      542 SETTABLEKS                       R32 R31 K102 ["LabelContainer"]
       544 GETUPVAL                         R32 0
       545 GETTABLEKS                       R32 R32 K16 ["createElement"]
       547 GETUPVAL                         R33 7
-      548 DUPTABLE                         R34 K103 [{"LayoutOrder", "orientation", "tag"}]
+      548 DUPTABLE                         R34 K105 [{"LayoutOrder", "orientation", "tag"}]
       549 LOADN                            R35 2
       550 SETTABLEKS                       R35 R34 K17 ["LayoutOrder"]
       552 GETUPVAL                         R35 8
       553 GETTABLEKS                       R35 R35 K25 ["Enums"]
       555 GETTABLEKS                       R35 R35 K26 ["Orientation"]
-      557 GETTABLEKS                       R35 R35 K104 ["Horizontal"]
+      557 GETTABLEKS                       R35 R35 K106 ["Horizontal"]
       559 SETTABLEKS                       R35 R34 K23 ["orientation"]
-      561 LOADK                            R35 K105 ["auto-x"]
+      561 LOADK                            R35 K107 ["auto-x"]
       562 SETTABLEKS                       R35 R34 K18 ["tag"]
       564 CALL                             R32 2 1
       565 SETTABLEKS                       R32 R31 K21 ["Divider"]
       567 CALL                             R28 3 1
-      568 SETTABLEKS                       R28 R1 K106 ["StackedInstanceLabel"]
+      568 SETTABLEKS                       R28 R1 K108 ["StackedInstanceLabel"]
       570 JUMP                             ; [+16]
       571 GETUPVAL                         R28 0
       572 GETTABLEKS                       R28 R28 K16 ["createElement"]
@@ -580,27 +580,27 @@ PROTO_12:
       576 MOVE                             R31 R26
       577 CALL                             R31 0 1
       578 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      580 LOADK                            R31 K107 ["row grow align-y-center size-0-full padding-right-small"]
+      580 LOADK                            R31 K109 ["row grow align-y-center size-0-full padding-right-small"]
       581 SETTABLEKS                       R31 R30 K18 ["tag"]
       583 MOVE                             R31 R27
       584 CALL                             R28 3 1
-      585 SETTABLEKS                       R28 R1 K100 ["LabelContainer"]
+      585 SETTABLEKS                       R28 R1 K102 ["LabelContainer"]
       587 GETTABLEKS                       R29 R0 K8 ["editMenu"]
       589 JUMPIFNOT                        R29 ; [+33]
       590 GETUPVAL                         R28 0
       591 GETTABLEKS                       R28 R28 K16 ["createElement"]
       593 GETUPVAL                         R29 14
-      594 DUPTABLE                         R30 K109 [{"anchorRef", "isOpen", "items", "onActivated", "onPressedOutside", "side", "testId"}]
-      595 SETTABLEKS                       R10 R30 K108 ["anchorRef"]
-      597 SETTABLEKS                       R11 R30 K87 ["isOpen"]
+      594 DUPTABLE                         R30 K111 [{"anchorRef", "isOpen", "items", "onActivated", "onPressedOutside", "side", "testId"}]
+      595 SETTABLEKS                       R10 R30 K110 ["anchorRef"]
+      597 SETTABLEKS                       R11 R30 K88 ["isOpen"]
       599 GETTABLEKS                       R31 R0 K8 ["editMenu"]
-      601 SETTABLEKS                       R31 R30 K88 ["items"]
+      601 SETTABLEKS                       R31 R30 K89 ["items"]
       603 SETTABLEKS                       R24 R30 K32 ["onActivated"]
-      605 SETTABLEKS                       R23 R30 K89 ["onPressedOutside"]
+      605 SETTABLEKS                       R23 R30 K90 ["onPressedOutside"]
       607 GETUPVAL                         R31 16
-      608 GETTABLEKS                       R31 R31 K93 ["Right"]
-      610 SETTABLEKS                       R31 R30 K90 ["side"]
-      612 LOADK                            R32 K110 ["edit-menu-%*"]
+      608 GETTABLEKS                       R31 R31 K94 ["Right"]
+      610 SETTABLEKS                       R31 R30 K91 ["side"]
+      612 LOADK                            R32 K112 ["edit-menu-%*"]
       613 GETTABLEKS                       R34 R0 K3 ["name"]
       615 NAMECALL                         R32 R32 K15 ["format"]
       617 CALL                             R32 2 1
@@ -609,14 +609,14 @@ PROTO_12:
       621 CALL                             R28 2 1
       622 JUMP                             ; [+1]
       623 LOADNIL                          R28
-      624 SETTABLEKS                       R28 R1 K111 ["EditMenu"]
+      624 SETTABLEKS                       R28 R1 K113 ["EditMenu"]
       626 GETUPVAL                         R28 0
       627 GETTABLEKS                       R28 R28 K16 ["createElement"]
       629 GETUPVAL                         R29 6
-      630 DUPTABLE                         R30 K115 [{"LayoutOrder", "onStateChanged", "onSecondaryActivated", "ref", "tag", "testId"}]
-      631 LOADN                            R31 1
+      630 DUPTABLE                         R30 K117 [{"LayoutOrder", "onStateChanged", "onSecondaryActivated", "ref", "tag", "testId"}]
+      631 LOADN                            R31 255
       632 SETTABLEKS                       R31 R30 K17 ["LayoutOrder"]
-      634 SETTABLEKS                       R17 R30 K112 ["onStateChanged"]
+      634 SETTABLEKS                       R17 R30 K114 ["onStateChanged"]
       636 GETTABLEKS                       R32 R0 K8 ["editMenu"]
       638 JUMPIFEQKNIL                     R32 ; [+9]
       640 GETTABLEKS                       R33 R0 K8 ["editMenu"]
@@ -626,15 +626,15 @@ PROTO_12:
       646 MOVE                             R31 R25
       647 JUMP                             ; [+1]
       648 LOADNIL                          R31
-      649 SETTABLEKS                       R31 R30 K113 ["onSecondaryActivated"]
-      651 SETTABLEKS                       R10 R30 K114 ["ref"]
-      653 LOADK                            R31 K116 ["columns-tree row align-y-center"]
+      649 SETTABLEKS                       R31 R30 K115 ["onSecondaryActivated"]
+      651 SETTABLEKS                       R10 R30 K116 ["ref"]
+      653 LOADK                            R31 K118 ["columns-tree row align-y-center"]
       654 SETTABLEKS                       R31 R30 K18 ["tag"]
       656 GETTABLEKS                       R32 R0 K5 ["onCreated"]
       658 JUMPIFNOT                        R32 ; [+2]
-      659 LOADK                            R31 K117 ["node-creating"]
+      659 LOADK                            R31 K119 ["node-creating"]
       660 JUMP                             ; [+7]
-      661 LOADK                            R32 K118 ["node-%*"]
+      661 LOADK                            R32 K120 ["node-%*"]
       662 GETTABLEKS                       R34 R0 K3 ["name"]
       664 NAMECALL                         R32 R32 K15 ["format"]
       666 CALL                             R32 2 1

@@ -116,66 +116,74 @@ PROTO_2:
       160 GETUPVAL                         R4 3
       161 GETTABLEKS                       R4 R4 K7 ["new"]
       163 CALL                             R4 0 1
-      164 SETTABLEKS                       R4 R3 K43 ["OnGridStateUpdated"]
+      164 SETTABLEKS                       R4 R3 K43 ["OnContentScrollChanged"]
       166 GETUPVAL                         R4 3
       167 GETTABLEKS                       R4 R4 K7 ["new"]
       169 CALL                             R4 0 1
-      170 SETTABLEKS                       R4 R3 K44 ["OnIsCompactChanged"]
+      170 SETTABLEKS                       R4 R3 K44 ["OnGridStateUpdated"]
       172 GETUPVAL                         R4 3
       173 GETTABLEKS                       R4 R4 K7 ["new"]
       175 CALL                             R4 0 1
-      176 SETTABLEKS                       R4 R3 K45 ["OnLayoutFolderLimitChanged"]
+      176 SETTABLEKS                       R4 R3 K45 ["OnIsCompactChanged"]
       178 GETUPVAL                         R4 3
       179 GETTABLEKS                       R4 R4 K7 ["new"]
       181 CALL                             R4 0 1
-      182 SETTABLEKS                       R4 R3 K46 ["OnPluginFrameSet"]
+      182 SETTABLEKS                       R4 R3 K46 ["OnLayoutFolderLimitChanged"]
       184 GETUPVAL                         R4 3
       185 GETTABLEKS                       R4 R4 K7 ["new"]
       187 CALL                             R4 0 1
-      188 SETTABLEKS                       R4 R3 K47 ["OnPluginHeightChanged"]
+      188 SETTABLEKS                       R4 R3 K47 ["OnPluginFrameSet"]
       190 GETUPVAL                         R4 3
       191 GETTABLEKS                       R4 R4 K7 ["new"]
       193 CALL                             R4 0 1
-      194 SETTABLEKS                       R4 R3 K48 ["OnPluginWidthChanged"]
+      194 SETTABLEKS                       R4 R3 K48 ["OnPluginHeightChanged"]
       196 GETUPVAL                         R4 3
       197 GETTABLEKS                       R4 R4 K7 ["new"]
       199 CALL                             R4 0 1
-      200 SETTABLEKS                       R4 R3 K49 ["OnSidebarScrollChanged"]
+      200 SETTABLEKS                       R4 R3 K49 ["OnPluginWidthChanged"]
       202 GETUPVAL                         R4 3
       203 GETTABLEKS                       R4 R4 K7 ["new"]
       205 CALL                             R4 0 1
-      206 SETTABLEKS                       R4 R3 K50 ["OnSidebarToggled"]
-      208 GETUPVAL                         R6 4
-      209 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-      211 MOVE                             R5 R3
-      212 GETIMPORT                        R4 K52 [setmetatable]
-      214 CALL                             R4 2 0
-      215 GETTABLEKS                       R4 R3 K34 ["_columns"]
-      217 LOADNIL                          R5
-      218 LOADNIL                          R6
-      219 FORGPREP                         R4
-      220 GETTABLEKS                       R9 R3 K27 ["_columnWidths"]
-      222 GETUPVAL                         R10 2
-      223 SETTABLE                         R10 R9 R7
-      224 FORGLOOP                         R4 2 ; [-5]
-      226 GETUPVAL                         R4 5
-      227 CALL                             R4 0 1
-      228 JUMPIFNOT                        R4 ; [+22]
-      229 GETTABLEKS                       R4 R3 K38 ["_connections"]
-      231 GETTABLEKS                       R5 R1 K53 ["WindowFocused"]
-      233 NEWCLOSURE                       R7 P0
-      234 CAPTURE                          VAL R3
-      235 NAMECALL                         R5 R5 K54 ["Connect"]
-      237 CALL                             R5 2 1
-      238 SETTABLEKS                       R5 R4 K55 ["GuiWindowFocused"]
-      240 GETTABLEKS                       R4 R3 K38 ["_connections"]
-      242 GETTABLEKS                       R5 R1 K56 ["WindowFocusReleased"]
-      244 NEWCLOSURE                       R7 P1
-      245 CAPTURE                          VAL R3
-      246 NAMECALL                         R5 R5 K54 ["Connect"]
-      248 CALL                             R5 2 1
-      249 SETTABLEKS                       R5 R4 K57 ["GuiWindowFocusReleased"]
-      251 RETURN                           R3 1
+      206 SETTABLEKS                       R4 R3 K50 ["OnSidebarScrollableChanged"]
+      208 GETUPVAL                         R4 3
+      209 GETTABLEKS                       R4 R4 K7 ["new"]
+      211 CALL                             R4 0 1
+      212 SETTABLEKS                       R4 R3 K51 ["OnSidebarScrollChanged"]
+      214 GETUPVAL                         R4 3
+      215 GETTABLEKS                       R4 R4 K7 ["new"]
+      217 CALL                             R4 0 1
+      218 SETTABLEKS                       R4 R3 K52 ["OnSidebarToggled"]
+      220 GETUPVAL                         R6 4
+      221 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+      223 MOVE                             R5 R3
+      224 GETIMPORT                        R4 K54 [setmetatable]
+      226 CALL                             R4 2 0
+      227 GETTABLEKS                       R4 R3 K34 ["_columns"]
+      229 LOADNIL                          R5
+      230 LOADNIL                          R6
+      231 FORGPREP                         R4
+      232 GETTABLEKS                       R9 R3 K27 ["_columnWidths"]
+      234 GETUPVAL                         R10 2
+      235 SETTABLE                         R10 R9 R7
+      236 FORGLOOP                         R4 2 ; [-5]
+      238 GETUPVAL                         R4 5
+      239 CALL                             R4 0 1
+      240 JUMPIFNOT                        R4 ; [+22]
+      241 GETTABLEKS                       R4 R3 K38 ["_connections"]
+      243 GETTABLEKS                       R5 R1 K55 ["WindowFocused"]
+      245 NEWCLOSURE                       R7 P0
+      246 CAPTURE                          VAL R3
+      247 NAMECALL                         R5 R5 K56 ["Connect"]
+      249 CALL                             R5 2 1
+      250 SETTABLEKS                       R5 R4 K57 ["GuiWindowFocused"]
+      252 GETTABLEKS                       R4 R3 K38 ["_connections"]
+      254 GETTABLEKS                       R5 R1 K58 ["WindowFocusReleased"]
+      256 NEWCLOSURE                       R7 P1
+      257 CAPTURE                          VAL R3
+      258 NAMECALL                         R5 R5 K56 ["Connect"]
+      260 CALL                             R5 2 1
+      261 SETTABLEKS                       R5 R4 K59 ["GuiWindowFocusReleased"]
+      263 RETURN                           R3 1
 
 PROTO_3:
         0 DUPTABLE                         R1 K5 [{"WindowFocused", "WindowFocusReleased", "PluginDragEntered", "PluginDragLeft", "PluginDragDropped"}]
@@ -217,31 +225,35 @@ PROTO_4:
         9 LOADNIL                          R1
        10 SETTABLEKS                       R1 R0 K3 ["OnColumnWidthsChanged"]
        12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K4 ["OnGridStateUpdated"]
+       13 SETTABLEKS                       R1 R0 K4 ["OnContentScrollChanged"]
        15 LOADNIL                          R1
-       16 SETTABLEKS                       R1 R0 K5 ["OnIsCompactChanged"]
+       16 SETTABLEKS                       R1 R0 K5 ["OnGridStateUpdated"]
        18 LOADNIL                          R1
-       19 SETTABLEKS                       R1 R0 K6 ["OnLayoutFolderLimitChanged"]
+       19 SETTABLEKS                       R1 R0 K6 ["OnIsCompactChanged"]
        21 LOADNIL                          R1
-       22 SETTABLEKS                       R1 R0 K7 ["OnPluginFrameSet"]
+       22 SETTABLEKS                       R1 R0 K7 ["OnLayoutFolderLimitChanged"]
        24 LOADNIL                          R1
-       25 SETTABLEKS                       R1 R0 K8 ["OnPluginHeightChanged"]
+       25 SETTABLEKS                       R1 R0 K8 ["OnPluginFrameSet"]
        27 LOADNIL                          R1
-       28 SETTABLEKS                       R1 R0 K9 ["OnPluginWidthChanged"]
+       28 SETTABLEKS                       R1 R0 K9 ["OnPluginHeightChanged"]
        30 LOADNIL                          R1
-       31 SETTABLEKS                       R1 R0 K10 ["OnSidebarScrollChanged"]
+       31 SETTABLEKS                       R1 R0 K10 ["OnPluginWidthChanged"]
        33 LOADNIL                          R1
-       34 SETTABLEKS                       R1 R0 K11 ["OnSidebarToggled"]
+       34 SETTABLEKS                       R1 R0 K11 ["OnSidebarScrollableChanged"]
        36 LOADNIL                          R1
-       37 SETTABLEKS                       R1 R0 K12 ["_pluginFrame"]
-       39 NAMECALL                         R1 R0 K13 ["_unbindScroll"]
-       41 CALL                             R1 1 0
-       42 GETUPVAL                         R1 0
-       43 GETTABLEKS                       R2 R0 K14 ["_connections"]
-       45 CALL                             R1 1 0
-       46 LOADNIL                          R1
-       47 SETTABLEKS                       R1 R0 K14 ["_connections"]
-       49 RETURN                           R0 0
+       37 SETTABLEKS                       R1 R0 K12 ["OnSidebarScrollChanged"]
+       39 LOADNIL                          R1
+       40 SETTABLEKS                       R1 R0 K13 ["OnSidebarToggled"]
+       42 LOADNIL                          R1
+       43 SETTABLEKS                       R1 R0 K14 ["_pluginFrame"]
+       45 NAMECALL                         R1 R0 K15 ["_unbindScroll"]
+       47 CALL                             R1 1 0
+       48 GETUPVAL                         R1 0
+       49 GETTABLEKS                       R2 R0 K16 ["_connections"]
+       51 CALL                             R1 1 0
+       52 LOADNIL                          R1
+       53 SETTABLEKS                       R1 R0 K16 ["_connections"]
+       55 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_pluginGui"]
@@ -627,6 +639,18 @@ PROTO_28:
        32 RETURN                           R1 1
 
 PROTO_29:
+        0 GETTABLEKS                       R1 R0 K0 ["_browserLayout"]
+        2 GETTABLEKS                       R1 R1 K1 ["ViewType"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["ViewType"]
+        7 GETTABLEKS                       R2 R2 K2 ["Grid"]
+        9 JUMPIFNOTEQ                      R1 R2 ; [+4]
+       11 GETTABLEKS                       R1 R0 K3 ["_contentGrid"]
+       13 RETURN                           R1 1
+       14 GETTABLEKS                       R1 R0 K4 ["_contentList"]
+       16 RETURN                           R1 1
+
+PROTO_30:
         0 SETTABLEKS                       R1 R0 K0 ["_columnWidths"]
         2 GETTABLEKS                       R2 R0 K1 ["OnColumnWidthsChanged"]
         4 GETTABLEKS                       R4 R0 K0 ["_columnWidths"]
@@ -634,11 +658,11 @@ PROTO_29:
         8 CALL                             R2 2 0
         9 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 GETTABLEKS                       R1 R0 K0 ["_columnWidths"]
         2 RETURN                           R1 1
 
-PROTO_31:
+PROTO_32:
         0 GETIMPORT                        R2 K2 [table.clone]
         2 GETTABLEKS                       R3 R0 K3 ["_columnWidths"]
         4 CALL                             R2 1 1
@@ -653,7 +677,7 @@ PROTO_31:
        17 CALL                             R3 2 0
        18 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETIMPORT                        R1 K2 [table.clone]
         2 GETTABLEKS                       R2 R0 K3 ["_columnWidths"]
         4 CALL                             R1 1 1
@@ -669,7 +693,7 @@ PROTO_32:
        19 CALL                             R2 2 0
        20 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 SETTABLEKS                       R1 R0 K0 ["_columns"]
         2 GETTABLEKS                       R2 R0 K1 ["OnColumnsChanged"]
         4 GETTABLEKS                       R4 R0 K0 ["_columns"]
@@ -677,18 +701,18 @@ PROTO_33:
         8 CALL                             R2 2 0
         9 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["_columns"]
         2 RETURN                           R1 1
 
-PROTO_35:
+PROTO_36:
         0 GETUPVAL                         R2 0
         1 JUMPIFEQ                         R2 R0 ; [+2]
         3 LOADB                            R1 0 +1
         4 LOADB                            R1 1
         5 RETURN                           R1 1
 
-PROTO_36:
+PROTO_37:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["findIndex"]
         3 GETTABLEKS                       R3 R0 K1 ["_columns"]
@@ -697,7 +721,7 @@ PROTO_36:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_37:
+PROTO_38:
         0 MOVE                             R4 R1
         1 NAMECALL                         R2 R0 K0 ["getColumnIndex"]
         3 CALL                             R2 2 1
@@ -725,7 +749,7 @@ PROTO_37:
        35 CALL                             R4 2 0
        36 RETURN                           R0 0
 
-PROTO_38:
+PROTO_39:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["_headerRow"]
         3 GETIMPORT                        R1 K3 [Vector2.new]
@@ -736,9 +760,16 @@ PROTO_38:
        12 LOADN                            R3 0
        13 CALL                             R1 2 1
        14 SETTABLEKS                       R1 R0 K5 ["CanvasPosition"]
-       16 RETURN                           R0 0
+       16 GETUPVAL                         R0 1
+       17 CALL                             R0 0 1
+       18 JUMPIFNOT                        R0 ; [+6]
+       19 GETUPVAL                         R0 0
+       20 GETTABLEKS                       R0 R0 K7 ["OnContentScrollChanged"]
+       22 NAMECALL                         R0 R0 K8 ["Fire"]
+       24 CALL                             R0 1 0
+       25 RETURN                           R0 0
 
-PROTO_39:
+PROTO_40:
         0 NAMECALL                         R1 R0 K0 ["_unbindScroll"]
         2 CALL                             R1 1 0
         3 GETTABLEKS                       R1 R0 K1 ["_contentList"]
@@ -747,12 +778,13 @@ PROTO_39:
         8 CALL                             R1 2 1
         9 NEWCLOSURE                       R3 P0
        10 CAPTURE                          VAL R0
-       11 NAMECALL                         R1 R1 K4 ["Connect"]
-       13 CALL                             R1 2 1
-       14 SETTABLEKS                       R1 R0 K5 ["_scrollerConnection"]
-       16 RETURN                           R0 0
+       11 CAPTURE                          UPVAL U0
+       12 NAMECALL                         R1 R1 K4 ["Connect"]
+       14 CALL                             R1 2 1
+       15 SETTABLEKS                       R1 R0 K5 ["_scrollerConnection"]
+       17 RETURN                           R0 0
 
-PROTO_40:
+PROTO_41:
         0 GETTABLEKS                       R1 R0 K0 ["_scrollerConnection"]
         2 JUMPIFNOT                        R1 ; [+8]
         3 GETTABLEKS                       R1 R0 K0 ["_scrollerConnection"]
@@ -762,7 +794,7 @@ PROTO_40:
         9 SETTABLEKS                       R1 R0 K0 ["_scrollerConnection"]
        11 RETURN                           R0 0
 
-PROTO_41:
+PROTO_42:
         0 GETTABLEKS                       R2 R0 K0 ["_browserLayout"]
         2 GETTABLEKS                       R2 R2 K1 ["GridSize"]
         4 FASTCALL1                        MATH_FLOOR R2 ; [+3]
@@ -858,7 +890,7 @@ PROTO_41:
       130 SETTABLEKS                       R14 R4 K17 ["CanvasPosition"]
       132 RETURN                           R0 0
 
-PROTO_42:
+PROTO_43:
         0 GETTABLEKS                       R2 R0 K0 ["_mainSidebarScrollFrame"]
         2 JUMPIF                           R2 ; [+1]
         3 RETURN                           R0 0
@@ -884,7 +916,7 @@ PROTO_42:
        31 SETTABLEKS                       R6 R2 K9 ["CanvasPosition"]
        33 RETURN                           R0 0
 
-PROTO_43:
+PROTO_44:
         0 SETTABLEKS                       R1 R0 K0 ["_contentList"]
         2 GETTABLEKS                       R2 R0 K0 ["_contentList"]
         4 JUMPIFNOT                        R2 ; [+7]
@@ -897,7 +929,7 @@ PROTO_43:
        14 CALL                             R2 1 0
        15 RETURN                           R0 0
 
-PROTO_44:
+PROTO_45:
         0 SETTABLEKS                       R1 R0 K0 ["_headerRow"]
         2 GETTABLEKS                       R2 R0 K1 ["_contentList"]
         4 JUMPIFNOT                        R2 ; [+7]
@@ -910,7 +942,7 @@ PROTO_44:
        14 CALL                             R2 1 0
        15 RETURN                           R0 0
 
-PROTO_45:
+PROTO_46:
         0 GETTABLEKS                       R1 R0 K0 ["_browserLayout"]
         2 GETTABLEKS                       R3 R0 K0 ["_browserLayout"]
         4 GETTABLEKS                       R3 R3 K1 ["GridSize"]
@@ -971,7 +1003,7 @@ PROTO_45:
        82 CALL                             R4 1 0
        83 RETURN                           R0 0
 
-PROTO_46:
+PROTO_47:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIFNOT                        R1 ; [+12]
@@ -986,17 +1018,24 @@ PROTO_46:
        15 GETTABLEKS                       R1 R0 K3 ["_gridWidth"]
        17 RETURN                           R1 1
 
-PROTO_47:
+PROTO_48:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["_updateGridState"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_48:
+PROTO_49:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnContentScrollChanged"]
+        3 NAMECALL                         R0 R0 K1 ["Fire"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
+
+PROTO_50:
         0 SETTABLEKS                       R1 R0 K0 ["_contentGrid"]
         2 GETUPVAL                         R2 0
         3 CALL                             R2 0 1
-        4 JUMPIFNOT                        R2 ; [+35]
+        4 JUMPIFNOT                        R2 ; [+51]
         5 GETTABLEKS                       R2 R0 K1 ["_connections"]
         7 JUMPIF                           R2 ; [+1]
         8 RETURN                           R0 0
@@ -1010,7 +1049,7 @@ PROTO_48:
        21 GETTABLEKS                       R2 R0 K1 ["_connections"]
        23 LOADNIL                          R3
        24 SETTABLEKS                       R3 R2 K2 ["ContentGrid"]
-       26 JUMPIFNOT                        R1 ; [+13]
+       26 JUMPIFNOT                        R1 ; [+29]
        27 GETTABLEKS                       R2 R0 K1 ["_connections"]
        29 LOADK                            R5 K4 ["AbsoluteSize"]
        30 NAMECALL                         R3 R1 K5 ["GetPropertyChangedSignal"]
@@ -1020,11 +1059,23 @@ PROTO_48:
        35 NAMECALL                         R3 R3 K6 ["Connect"]
        37 CALL                             R3 2 1
        38 SETTABLEKS                       R3 R2 K2 ["ContentGrid"]
-       40 NAMECALL                         R2 R0 K7 ["_updateGridState"]
-       42 CALL                             R2 1 0
-       43 RETURN                           R0 0
+       40 GETUPVAL                         R2 1
+       41 CALL                             R2 0 1
+       42 JUMPIFNOT                        R2 ; [+13]
+       43 GETTABLEKS                       R2 R0 K1 ["_connections"]
+       45 LOADK                            R5 K7 ["CanvasPosition"]
+       46 NAMECALL                         R3 R1 K5 ["GetPropertyChangedSignal"]
+       48 CALL                             R3 2 1
+       49 NEWCLOSURE                       R5 P1
+       50 CAPTURE                          VAL R0
+       51 NAMECALL                         R3 R3 K6 ["Connect"]
+       53 CALL                             R3 2 1
+       54 SETTABLEKS                       R3 R2 K8 ["GridScrollConnection"]
+       56 NAMECALL                         R2 R0 K9 ["_updateGridState"]
+       58 CALL                             R2 1 0
+       59 RETURN                           R0 0
 
-PROTO_49:
+PROTO_51:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["CanvasPosition"]
         3 GETTABLEKS                       R0 R0 K1 ["Y"]
@@ -1054,7 +1105,7 @@ PROTO_49:
        38 CALL                             R1 1 0
        39 RETURN                           R0 0
 
-PROTO_50:
+PROTO_52:
         0 GETTABLEKS                       R4 R0 K0 ["_connections"]
         2 JUMPIF                           R4 ; [+1]
         3 RETURN                           R0 0
@@ -1086,18 +1137,85 @@ PROTO_50:
        39 SETTABLEKS                       R5 R4 K1 ["SidebarScrollSync"]
        41 RETURN                           R0 0
 
-PROTO_51:
-        0 SETTABLEKS                       R1 R0 K0 ["_mainSidebarScrollFrame"]
-        2 SETTABLEKS                       R2 R0 K1 ["_underlaySidebarScrollFrame"]
-        4 SETTABLEKS                       R3 R0 K2 ["_overlaySidebarScrollFrame"]
-        6 MOVE                             R6 R2
-        7 MOVE                             R7 R1
-        8 MOVE                             R8 R3
-        9 NAMECALL                         R4 R0 K3 ["_syncSidebarScroll"]
-       11 CALL                             R4 4 0
-       12 RETURN                           R0 0
+PROTO_53:
+        0 GETTABLEKS                       R1 R0 K0 ["_mainSidebarScrollFrame"]
+        2 JUMPIF                           R1 ; [+2]
+        3 LOADB                            R2 0
+        4 RETURN                           R2 1
+        5 GETTABLEKS                       R3 R1 K1 ["CanvasSize"]
+        7 GETTABLEKS                       R3 R3 K2 ["Y"]
+        9 GETTABLEKS                       R3 R3 K3 ["Offset"]
+       11 GETTABLEKS                       R4 R1 K4 ["AbsoluteSize"]
+       13 GETTABLEKS                       R4 R4 K2 ["Y"]
+       15 JUMPIFLT                         R4 R3 ; [+2]
+       17 LOADB                            R2 0 +1
+       18 LOADB                            R2 1
+       19 RETURN                           R2 1
 
-PROTO_52:
+PROTO_54:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["OnSidebarScrollableChanged"]
+        3 NAMECALL                         R0 R0 K1 ["Fire"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
+
+PROTO_55:
+        0 GETTABLEKS                       R4 R0 K0 ["_connections"]
+        2 JUMPIF                           R4 ; [+1]
+        3 RETURN                           R0 0
+        4 SETTABLEKS                       R1 R0 K1 ["_mainSidebarScrollFrame"]
+        6 SETTABLEKS                       R2 R0 K2 ["_underlaySidebarScrollFrame"]
+        8 SETTABLEKS                       R3 R0 K3 ["_overlaySidebarScrollFrame"]
+       10 GETTABLEKS                       R4 R0 K0 ["_connections"]
+       12 GETTABLEKS                       R4 R4 K4 ["SidebarScrollableCanvasSize"]
+       14 JUMPIFNOT                        R4 ; [+12]
+       15 GETTABLEKS                       R4 R0 K0 ["_connections"]
+       17 GETTABLEKS                       R4 R4 K4 ["SidebarScrollableCanvasSize"]
+       19 NAMECALL                         R4 R4 K5 ["Disconnect"]
+       21 CALL                             R4 1 0
+       22 GETTABLEKS                       R4 R0 K0 ["_connections"]
+       24 LOADNIL                          R5
+       25 SETTABLEKS                       R5 R4 K4 ["SidebarScrollableCanvasSize"]
+       27 GETTABLEKS                       R4 R0 K0 ["_connections"]
+       29 GETTABLEKS                       R4 R4 K6 ["SidebarScrollableAbsoluteSize"]
+       31 JUMPIFNOT                        R4 ; [+12]
+       32 GETTABLEKS                       R4 R0 K0 ["_connections"]
+       34 GETTABLEKS                       R4 R4 K6 ["SidebarScrollableAbsoluteSize"]
+       36 NAMECALL                         R4 R4 K5 ["Disconnect"]
+       38 CALL                             R4 1 0
+       39 GETTABLEKS                       R4 R0 K0 ["_connections"]
+       41 LOADNIL                          R5
+       42 SETTABLEKS                       R5 R4 K6 ["SidebarScrollableAbsoluteSize"]
+       44 JUMPIFNOT                        R1 ; [+31]
+       45 NEWCLOSURE                       R4 P0
+       46 CAPTURE                          VAL R0
+       47 GETTABLEKS                       R5 R0 K0 ["_connections"]
+       49 LOADK                            R8 K7 ["CanvasSize"]
+       50 NAMECALL                         R6 R1 K8 ["GetPropertyChangedSignal"]
+       52 CALL                             R6 2 1
+       53 MOVE                             R8 R4
+       54 NAMECALL                         R6 R6 K9 ["Connect"]
+       56 CALL                             R6 2 1
+       57 SETTABLEKS                       R6 R5 K4 ["SidebarScrollableCanvasSize"]
+       59 GETTABLEKS                       R5 R0 K0 ["_connections"]
+       61 LOADK                            R8 K10 ["AbsoluteSize"]
+       62 NAMECALL                         R6 R1 K8 ["GetPropertyChangedSignal"]
+       64 CALL                             R6 2 1
+       65 MOVE                             R8 R4
+       66 NAMECALL                         R6 R6 K9 ["Connect"]
+       68 CALL                             R6 2 1
+       69 SETTABLEKS                       R6 R5 K6 ["SidebarScrollableAbsoluteSize"]
+       71 GETTABLEKS                       R5 R0 K11 ["OnSidebarScrollableChanged"]
+       73 NAMECALL                         R5 R5 K12 ["Fire"]
+       75 CALL                             R5 1 0
+       76 MOVE                             R6 R2
+       77 MOVE                             R7 R1
+       78 MOVE                             R8 R3
+       79 NAMECALL                         R4 R0 K13 ["_syncSidebarScroll"]
+       81 CALL                             R4 4 0
+       82 RETURN                           R0 0
+
+PROTO_56:
         0 GETTABLEKS                       R2 R0 K0 ["_mainSidebarScrollFrame"]
         2 JUMPIF                           R2 ; [+2]
         3 LOADNIL                          R3
@@ -1119,7 +1237,7 @@ PROTO_52:
        24 ADD                              R4 R5 R6
        25 RETURN                           R4 1
 
-PROTO_53:
+PROTO_57:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
         2 JUMPIF                           R1 ; [+16]
@@ -1188,131 +1306,143 @@ MAIN:
        85 GETIMPORT                        R13 K5 [require]
        87 GETTABLEKS                       R14 R0 K10 ["Src"]
        89 GETTABLEKS                       R14 R14 K22 ["Flags"]
-       91 GETTABLEKS                       R14 R14 K24 ["getFFlagAmrFoundationifyContextMenu"]
+       91 GETTABLEKS                       R14 R14 K24 ["getFFlagAmrFoundationifyBrowser"]
        93 CALL                             R13 1 1
-       94 GETIMPORT                        R14 K27 [UDim.new]
-       96 LOADN                            R15 0
-       97 LOADN                            R16 150
-       98 CALL                             R14 2 1
-       99 DUPCLOSURE                       R15 K28 [PROTO_2]
-      100 CAPTURE                          VAL R4
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R14
-      103 CAPTURE                          VAL R8
-      104 CAPTURE                          VAL R11
-      105 CAPTURE                          VAL R12
-      106 SETTABLEKS                       R15 R11 K26 ["new"]
-      108 DUPCLOSURE                       R15 K29 [PROTO_3]
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          VAL R11
-      111 SETTABLEKS                       R15 R11 K30 ["mock"]
-      113 DUPCLOSURE                       R15 K31 [PROTO_4]
-      114 CAPTURE                          VAL R9
-      115 SETTABLEKS                       R15 R11 K32 ["destroy"]
-      117 DUPCLOSURE                       R15 K33 [PROTO_5]
-      118 SETTABLEKS                       R15 R11 K34 ["getPluginGui"]
-      120 DUPCLOSURE                       R15 K35 [PROTO_6]
-      121 SETTABLEKS                       R15 R11 K36 ["isPluginGuiFocused"]
-      123 DUPCLOSURE                       R15 K37 [PROTO_9]
-      124 CAPTURE                          VAL R12
-      125 CAPTURE                          VAL R13
-      126 SETTABLEKS                       R15 R11 K38 ["setPluginFrame"]
-      128 DUPCLOSURE                       R15 K39 [PROTO_10]
-      129 SETTABLEKS                       R15 R11 K40 ["getPluginFrame"]
-      131 DUPCLOSURE                       R15 K41 [PROTO_11]
-      132 SETTABLEKS                       R15 R11 K42 ["getFolderLimit"]
-      134 DUPCLOSURE                       R15 K43 [PROTO_12]
-      135 CAPTURE                          VAL R4
-      136 CAPTURE                          VAL R6
-      137 SETTABLEKS                       R15 R11 K44 ["_updateFolderLimit"]
-      139 DUPCLOSURE                       R15 K45 [PROTO_13]
-      140 SETTABLEKS                       R15 R11 K46 ["_normalizeColumnWidths"]
-      142 DUPCLOSURE                       R15 K47 [PROTO_14]
-      143 CAPTURE                          VAL R4
-      144 SETTABLEKS                       R15 R11 K48 ["populateSavedSettings"]
-      146 DUPCLOSURE                       R15 K49 [PROTO_15]
-      147 SETTABLEKS                       R15 R11 K50 ["getShowSidebar"]
-      149 DUPCLOSURE                       R15 K51 [PROTO_16]
-      150 SETTABLEKS                       R15 R11 K52 ["toggleSidebar"]
-      152 DUPCLOSURE                       R15 K53 [PROTO_17]
-      153 SETTABLEKS                       R15 R11 K54 ["_setShowSidebar"]
-      155 DUPCLOSURE                       R15 K55 [PROTO_18]
-      156 SETTABLEKS                       R15 R11 K56 ["getIsCompact"]
-      158 DUPCLOSURE                       R15 K57 [PROTO_19]
-      159 SETTABLEKS                       R15 R11 K58 ["getPluginWidth"]
-      161 DUPCLOSURE                       R15 K59 [PROTO_20]
-      162 SETTABLEKS                       R15 R11 K60 ["getPluginHeight"]
-      164 DUPCLOSURE                       R15 K61 [PROTO_21]
-      165 SETTABLEKS                       R15 R11 K62 ["_setPluginWidth"]
-      167 DUPCLOSURE                       R15 K63 [PROTO_22]
-      168 SETTABLEKS                       R15 R11 K64 ["_setPluginHeight"]
-      170 DUPCLOSURE                       R15 K65 [PROTO_23]
-      171 CAPTURE                          VAL R12
-      172 SETTABLEKS                       R15 R11 K66 ["setAppSizes"]
-      174 DUPCLOSURE                       R15 K67 [PROTO_24]
-      175 SETTABLEKS                       R15 R11 K68 ["getAppSizes"]
-      177 DUPCLOSURE                       R15 K69 [PROTO_25]
-      178 SETTABLEKS                       R15 R11 K70 ["getAppMinSizes"]
-      180 DUPCLOSURE                       R15 K71 [PROTO_26]
-      181 SETTABLEKS                       R15 R11 K72 ["setBrowserLayout"]
-      183 DUPCLOSURE                       R15 K73 [PROTO_27]
-      184 SETTABLEKS                       R15 R11 K74 ["getBrowserLayout"]
-      186 DUPCLOSURE                       R15 K75 [PROTO_28]
-      187 CAPTURE                          VAL R12
-      188 CAPTURE                          VAL R4
-      189 CAPTURE                          VAL R7
-      190 SETTABLEKS                       R15 R11 K76 ["getBrowserLayoutThumbnailSize"]
-      192 DUPCLOSURE                       R15 K77 [PROTO_29]
-      193 SETTABLEKS                       R15 R11 K78 ["setColumnWidths"]
-      195 DUPCLOSURE                       R15 K79 [PROTO_30]
-      196 SETTABLEKS                       R15 R11 K80 ["getColumnWidths"]
-      198 DUPCLOSURE                       R15 K81 [PROTO_31]
-      199 SETTABLEKS                       R15 R11 K82 ["_removeColumnWidth"]
-      201 DUPCLOSURE                       R15 K83 [PROTO_32]
-      202 CAPTURE                          VAL R14
-      203 SETTABLEKS                       R15 R11 K84 ["_addColumnWidth"]
-      205 DUPCLOSURE                       R15 K85 [PROTO_33]
-      206 SETTABLEKS                       R15 R11 K86 ["setColumns"]
-      208 DUPCLOSURE                       R15 K87 [PROTO_34]
-      209 SETTABLEKS                       R15 R11 K88 ["getColumns"]
-      211 DUPCLOSURE                       R15 K89 [PROTO_36]
-      212 CAPTURE                          VAL R5
-      213 SETTABLEKS                       R15 R11 K90 ["getColumnIndex"]
-      215 DUPCLOSURE                       R15 K91 [PROTO_37]
-      216 SETTABLEKS                       R15 R11 K92 ["toggleColumn"]
-      218 DUPCLOSURE                       R15 K93 [PROTO_39]
-      219 SETTABLEKS                       R15 R11 K94 ["_bindScroll"]
-      221 DUPCLOSURE                       R15 K95 [PROTO_40]
-      222 SETTABLEKS                       R15 R11 K96 ["_unbindScroll"]
-      224 DUPCLOSURE                       R15 K97 [PROTO_41]
-      225 CAPTURE                          VAL R4
-      226 CAPTURE                          VAL R7
-      227 SETTABLEKS                       R15 R11 K98 ["scrollToItem"]
-      229 DUPCLOSURE                       R15 K99 [PROTO_42]
-      230 CAPTURE                          VAL R7
-      231 SETTABLEKS                       R15 R11 K100 ["scrollToSidebarItem"]
-      233 DUPCLOSURE                       R15 K101 [PROTO_43]
-      234 SETTABLEKS                       R15 R11 K102 ["setContentList"]
-      236 DUPCLOSURE                       R15 K103 [PROTO_44]
-      237 SETTABLEKS                       R15 R11 K104 ["setListHeaderRow"]
-      239 DUPCLOSURE                       R15 K105 [PROTO_45]
-      240 CAPTURE                          VAL R12
-      241 CAPTURE                          VAL R7
-      242 SETTABLEKS                       R15 R11 K106 ["_updateGridState"]
-      244 DUPCLOSURE                       R15 K107 [PROTO_46]
-      245 CAPTURE                          VAL R12
-      246 SETTABLEKS                       R15 R11 K108 ["getGridWidth"]
-      248 DUPCLOSURE                       R15 K109 [PROTO_48]
-      249 CAPTURE                          VAL R12
-      250 SETTABLEKS                       R15 R11 K110 ["setContentGrid"]
-      252 DUPCLOSURE                       R15 K111 [PROTO_50]
-      253 SETTABLEKS                       R15 R11 K112 ["_syncSidebarScroll"]
-      255 DUPCLOSURE                       R15 K113 [PROTO_51]
-      256 SETTABLEKS                       R15 R11 K114 ["setSidebarScrollFrame"]
-      258 DUPCLOSURE                       R15 K115 [PROTO_52]
-      259 CAPTURE                          VAL R10
-      260 SETTABLEKS                       R15 R11 K116 ["getSidebarHoveredCanvasY"]
-      262 DUPCLOSURE                       R15 K117 [PROTO_53]
+       94 GETIMPORT                        R14 K5 [require]
+       96 GETTABLEKS                       R15 R0 K10 ["Src"]
+       98 GETTABLEKS                       R15 R15 K22 ["Flags"]
+      100 GETTABLEKS                       R15 R15 K25 ["getFFlagAmrFoundationifyContextMenu"]
+      102 CALL                             R14 1 1
+      103 GETIMPORT                        R15 K28 [UDim.new]
+      105 LOADN                            R16 0
+      106 LOADN                            R17 150
+      107 CALL                             R15 2 1
+      108 DUPCLOSURE                       R16 K29 [PROTO_2]
+      109 CAPTURE                          VAL R4
+      110 CAPTURE                          VAL R6
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R8
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R12
+      115 SETTABLEKS                       R16 R11 K27 ["new"]
+      117 DUPCLOSURE                       R16 K30 [PROTO_3]
+      118 CAPTURE                          VAL R8
+      119 CAPTURE                          VAL R11
+      120 SETTABLEKS                       R16 R11 K31 ["mock"]
+      122 DUPCLOSURE                       R16 K32 [PROTO_4]
+      123 CAPTURE                          VAL R9
+      124 SETTABLEKS                       R16 R11 K33 ["destroy"]
+      126 DUPCLOSURE                       R16 K34 [PROTO_5]
+      127 SETTABLEKS                       R16 R11 K35 ["getPluginGui"]
+      129 DUPCLOSURE                       R16 K36 [PROTO_6]
+      130 SETTABLEKS                       R16 R11 K37 ["isPluginGuiFocused"]
+      132 DUPCLOSURE                       R16 K38 [PROTO_9]
+      133 CAPTURE                          VAL R12
+      134 CAPTURE                          VAL R14
+      135 SETTABLEKS                       R16 R11 K39 ["setPluginFrame"]
+      137 DUPCLOSURE                       R16 K40 [PROTO_10]
+      138 SETTABLEKS                       R16 R11 K41 ["getPluginFrame"]
+      140 DUPCLOSURE                       R16 K42 [PROTO_11]
+      141 SETTABLEKS                       R16 R11 K43 ["getFolderLimit"]
+      143 DUPCLOSURE                       R16 K44 [PROTO_12]
+      144 CAPTURE                          VAL R4
+      145 CAPTURE                          VAL R6
+      146 SETTABLEKS                       R16 R11 K45 ["_updateFolderLimit"]
+      148 DUPCLOSURE                       R16 K46 [PROTO_13]
+      149 SETTABLEKS                       R16 R11 K47 ["_normalizeColumnWidths"]
+      151 DUPCLOSURE                       R16 K48 [PROTO_14]
+      152 CAPTURE                          VAL R4
+      153 SETTABLEKS                       R16 R11 K49 ["populateSavedSettings"]
+      155 DUPCLOSURE                       R16 K50 [PROTO_15]
+      156 SETTABLEKS                       R16 R11 K51 ["getShowSidebar"]
+      158 DUPCLOSURE                       R16 K52 [PROTO_16]
+      159 SETTABLEKS                       R16 R11 K53 ["toggleSidebar"]
+      161 DUPCLOSURE                       R16 K54 [PROTO_17]
+      162 SETTABLEKS                       R16 R11 K55 ["_setShowSidebar"]
+      164 DUPCLOSURE                       R16 K56 [PROTO_18]
+      165 SETTABLEKS                       R16 R11 K57 ["getIsCompact"]
+      167 DUPCLOSURE                       R16 K58 [PROTO_19]
+      168 SETTABLEKS                       R16 R11 K59 ["getPluginWidth"]
+      170 DUPCLOSURE                       R16 K60 [PROTO_20]
+      171 SETTABLEKS                       R16 R11 K61 ["getPluginHeight"]
+      173 DUPCLOSURE                       R16 K62 [PROTO_21]
+      174 SETTABLEKS                       R16 R11 K63 ["_setPluginWidth"]
+      176 DUPCLOSURE                       R16 K64 [PROTO_22]
+      177 SETTABLEKS                       R16 R11 K65 ["_setPluginHeight"]
+      179 DUPCLOSURE                       R16 K66 [PROTO_23]
+      180 CAPTURE                          VAL R12
+      181 SETTABLEKS                       R16 R11 K67 ["setAppSizes"]
+      183 DUPCLOSURE                       R16 K68 [PROTO_24]
+      184 SETTABLEKS                       R16 R11 K69 ["getAppSizes"]
+      186 DUPCLOSURE                       R16 K70 [PROTO_25]
+      187 SETTABLEKS                       R16 R11 K71 ["getAppMinSizes"]
+      189 DUPCLOSURE                       R16 K72 [PROTO_26]
+      190 SETTABLEKS                       R16 R11 K73 ["setBrowserLayout"]
+      192 DUPCLOSURE                       R16 K74 [PROTO_27]
+      193 SETTABLEKS                       R16 R11 K75 ["getBrowserLayout"]
+      195 DUPCLOSURE                       R16 K76 [PROTO_28]
+      196 CAPTURE                          VAL R12
+      197 CAPTURE                          VAL R4
+      198 CAPTURE                          VAL R7
+      199 SETTABLEKS                       R16 R11 K77 ["getBrowserLayoutThumbnailSize"]
+      201 DUPCLOSURE                       R16 K78 [PROTO_29]
+      202 CAPTURE                          VAL R4
+      203 SETTABLEKS                       R16 R11 K79 ["getContentFrame"]
+      205 DUPCLOSURE                       R16 K80 [PROTO_30]
+      206 SETTABLEKS                       R16 R11 K81 ["setColumnWidths"]
+      208 DUPCLOSURE                       R16 K82 [PROTO_31]
+      209 SETTABLEKS                       R16 R11 K83 ["getColumnWidths"]
+      211 DUPCLOSURE                       R16 K84 [PROTO_32]
+      212 SETTABLEKS                       R16 R11 K85 ["_removeColumnWidth"]
+      214 DUPCLOSURE                       R16 K86 [PROTO_33]
+      215 CAPTURE                          VAL R15
+      216 SETTABLEKS                       R16 R11 K87 ["_addColumnWidth"]
+      218 DUPCLOSURE                       R16 K88 [PROTO_34]
+      219 SETTABLEKS                       R16 R11 K89 ["setColumns"]
+      221 DUPCLOSURE                       R16 K90 [PROTO_35]
+      222 SETTABLEKS                       R16 R11 K91 ["getColumns"]
+      224 DUPCLOSURE                       R16 K92 [PROTO_37]
+      225 CAPTURE                          VAL R5
+      226 SETTABLEKS                       R16 R11 K93 ["getColumnIndex"]
+      228 DUPCLOSURE                       R16 K94 [PROTO_38]
+      229 SETTABLEKS                       R16 R11 K95 ["toggleColumn"]
+      231 DUPCLOSURE                       R16 K96 [PROTO_40]
+      232 CAPTURE                          VAL R13
+      233 SETTABLEKS                       R16 R11 K97 ["_bindScroll"]
+      235 DUPCLOSURE                       R16 K98 [PROTO_41]
+      236 SETTABLEKS                       R16 R11 K99 ["_unbindScroll"]
+      238 DUPCLOSURE                       R16 K100 [PROTO_42]
+      239 CAPTURE                          VAL R4
+      240 CAPTURE                          VAL R7
+      241 SETTABLEKS                       R16 R11 K101 ["scrollToItem"]
+      243 DUPCLOSURE                       R16 K102 [PROTO_43]
+      244 CAPTURE                          VAL R7
+      245 SETTABLEKS                       R16 R11 K103 ["scrollToSidebarItem"]
+      247 DUPCLOSURE                       R16 K104 [PROTO_44]
+      248 SETTABLEKS                       R16 R11 K105 ["setContentList"]
+      250 DUPCLOSURE                       R16 K106 [PROTO_45]
+      251 SETTABLEKS                       R16 R11 K107 ["setListHeaderRow"]
+      253 DUPCLOSURE                       R16 K108 [PROTO_46]
+      254 CAPTURE                          VAL R12
+      255 CAPTURE                          VAL R7
+      256 SETTABLEKS                       R16 R11 K109 ["_updateGridState"]
+      258 DUPCLOSURE                       R16 K110 [PROTO_47]
+      259 CAPTURE                          VAL R12
+      260 SETTABLEKS                       R16 R11 K111 ["getGridWidth"]
+      262 DUPCLOSURE                       R16 K112 [PROTO_50]
       263 CAPTURE                          VAL R12
-      264 SETTABLEKS                       R15 R11 K118 ["getGridCellsPerRow"]
-      266 RETURN                           R11 1
+      264 CAPTURE                          VAL R13
+      265 SETTABLEKS                       R16 R11 K113 ["setContentGrid"]
+      267 DUPCLOSURE                       R16 K114 [PROTO_52]
+      268 SETTABLEKS                       R16 R11 K115 ["_syncSidebarScroll"]
+      270 DUPCLOSURE                       R16 K116 [PROTO_53]
+      271 SETTABLEKS                       R16 R11 K117 ["isSidebarScrollable"]
+      273 DUPCLOSURE                       R16 K118 [PROTO_55]
+      274 SETTABLEKS                       R16 R11 K119 ["setSidebarScrollFrame"]
+      276 DUPCLOSURE                       R16 K120 [PROTO_56]
+      277 CAPTURE                          VAL R10
+      278 SETTABLEKS                       R16 R11 K121 ["getSidebarHoveredCanvasY"]
+      280 DUPCLOSURE                       R16 K122 [PROTO_57]
+      281 CAPTURE                          VAL R12
+      282 SETTABLEKS                       R16 R11 K123 ["getGridCellsPerRow"]
+      284 RETURN                           R11 1

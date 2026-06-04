@@ -73,25 +73,17 @@ MAIN:
         8 GETIMPORT                        R2 K5 [require]
        10 GETTABLEKS                       R3 R1 K6 ["Src"]
        12 GETTABLEKS                       R3 R3 K7 ["Flags"]
-       14 GETTABLEKS                       R3 R3 K8 ["getFFlagLuaExplorerFileSync"]
+       14 GETTABLEKS                       R3 R3 K8 ["getFFlagLuaExplorerHierarchySync"]
        16 CALL                             R2 1 1
-       17 GETIMPORT                        R3 K5 [require]
-       19 GETTABLEKS                       R4 R1 K6 ["Src"]
-       21 GETTABLEKS                       R4 R4 K7 ["Flags"]
-       23 GETTABLEKS                       R4 R4 K9 ["getFFlagLuaExplorerHierarchySync"]
-       25 CALL                             R3 1 1
-       26 MOVE                             R4 R2
-       27 CALL                             R4 0 1
-       28 JUMPIF                           R4 ; [+3]
-       29 MOVE                             R4 R3
-       30 CALL                             R4 0 1
-       31 JUMPIFNOT                        R4 ; [+7]
-       32 GETIMPORT                        R4 K11 [game]
-       34 LOADK                            R6 K12 ["LiveSyncService"]
-       35 NAMECALL                         R4 R4 K13 ["GetService"]
-       37 CALL                             R4 2 1
-       38 MOVE                             R0 R4
-       39 NEWCLOSURE                       R4 P0
-       40 CAPTURE                          REF R0
-       41 CLOSEUPVALS                      R0
-       42 RETURN                           R4 1
+       17 MOVE                             R3 R2
+       18 CALL                             R3 0 1
+       19 JUMPIFNOT                        R3 ; [+7]
+       20 GETIMPORT                        R3 K10 [game]
+       22 LOADK                            R5 K11 ["LiveSyncService"]
+       23 NAMECALL                         R3 R3 K12 ["GetService"]
+       25 CALL                             R3 2 1
+       26 MOVE                             R0 R3
+       27 NEWCLOSURE                       R3 P0
+       28 CAPTURE                          REF R0
+       29 CLOSEUPVALS                      R0
+       30 RETURN                           R3 1

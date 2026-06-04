@@ -14,24 +14,26 @@ PROTO_1:
         3 GETUPVAL                         R2 1
         4 MOVE                             R3 R0
         5 CALL                             R2 1 1
-        6 DUPTABLE                         R3 K7 [{"Destroy", "getIconAsync", "Request", "GetContextsAsync", "UpdateContext", "UpdateAction", "UpdateBinding"}]
+        6 DUPTABLE                         R3 K8 [{"Destroy", "GetContextsAsync", "getIconAsync", "Request", "ResetSelection", "UpdateContext", "UpdateAction", "UpdateBinding"}]
         7 NEWCLOSURE                       R4 P0
         8 CAPTURE                          VAL R1
         9 CAPTURE                          VAL R2
        10 SETTABLEKS                       R4 R3 K0 ["Destroy"]
-       12 GETTABLEKS                       R4 R1 K1 ["getIconAsync"]
-       14 SETTABLEKS                       R4 R3 K1 ["getIconAsync"]
-       16 GETTABLEKS                       R4 R2 K2 ["Request"]
-       18 SETTABLEKS                       R4 R3 K2 ["Request"]
-       20 GETTABLEKS                       R4 R2 K3 ["GetContextsAsync"]
-       22 SETTABLEKS                       R4 R3 K3 ["GetContextsAsync"]
-       24 GETTABLEKS                       R4 R2 K4 ["UpdateContext"]
-       26 SETTABLEKS                       R4 R3 K4 ["UpdateContext"]
-       28 GETTABLEKS                       R4 R2 K5 ["UpdateAction"]
-       30 SETTABLEKS                       R4 R3 K5 ["UpdateAction"]
-       32 GETTABLEKS                       R4 R2 K6 ["UpdateBinding"]
-       34 SETTABLEKS                       R4 R3 K6 ["UpdateBinding"]
-       36 RETURN                           R3 1
+       12 GETTABLEKS                       R4 R2 K1 ["GetContextsAsync"]
+       14 SETTABLEKS                       R4 R3 K1 ["GetContextsAsync"]
+       16 GETTABLEKS                       R4 R1 K2 ["getIconAsync"]
+       18 SETTABLEKS                       R4 R3 K2 ["getIconAsync"]
+       20 GETTABLEKS                       R4 R2 K3 ["Request"]
+       22 SETTABLEKS                       R4 R3 K3 ["Request"]
+       24 GETTABLEKS                       R4 R2 K4 ["ResetSelection"]
+       26 SETTABLEKS                       R4 R3 K4 ["ResetSelection"]
+       28 GETTABLEKS                       R4 R2 K5 ["UpdateContext"]
+       30 SETTABLEKS                       R4 R3 K5 ["UpdateContext"]
+       32 GETTABLEKS                       R4 R2 K6 ["UpdateAction"]
+       34 SETTABLEKS                       R4 R3 K6 ["UpdateAction"]
+       36 GETTABLEKS                       R4 R2 K7 ["UpdateBinding"]
+       38 SETTABLEKS                       R4 R3 K7 ["UpdateBinding"]
+       40 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -646,37 +646,48 @@ PROTO_20:
         6 LENGTH                           R3 R4
         7 JUMPIF                           R3 ; [+1]
         8 LOADN                            R3 0
-        9 JUMPIFNOTEQKN                    R3 K1 [0] ; [+17]
-       11 GETTABLEKS                       R4 R0 K2 ["treemapRenderedFrame"]
-       13 JUMPIFNOT                        R4 ; [+13]
-       14 GETTABLEKS                       R6 R0 K4 ["_consecutiveEmptyCount"]
-       16 ORK                              R5 R6 K1 [0]
-       17 ADDK                             R4 R5 K3 [1]
-       18 SETTABLEKS                       R4 R0 K4 ["_consecutiveEmptyCount"]
-       20 GETTABLEKS                       R4 R0 K4 ["_consecutiveEmptyCount"]
-       22 LOADN                            R5 3
-       23 JUMPIFNOTLT                      R4 R5 ; [+6]
-       25 RETURN                           R0 0
-       26 JUMP                             ; [+3]
-       27 LOADN                            R4 0
-       28 SETTABLEKS                       R4 R0 K4 ["_consecutiveEmptyCount"]
-       30 LOADB                            R4 1
-       31 SETTABLEKS                       R4 R0 K5 ["treemapSolveDirty"]
-       33 SETTABLEKS                       R1 R0 K6 ["treemapInputData"]
-       35 SETTABLEKS                       R2 R0 K7 ["sizeKey"]
-       37 LOADN                            R5 0
-       38 JUMPIFLT                         R5 R3 ; [+2]
-       40 LOADB                            R4 0 +1
-       41 LOADB                            R4 1
-       42 JUMPIFNOT                        R4 ; [+7]
-       43 DUPTABLE                         R7 K9 [{"hasData"}]
-       44 LOADB                            R8 1
-       45 SETTABLEKS                       R8 R7 K8 ["hasData"]
-       47 NAMECALL                         R5 R0 K10 ["setState"]
-       49 CALL                             R5 2 0
-       50 NAMECALL                         R5 R0 K11 ["repaintTreemap"]
-       52 CALL                             R5 1 0
-       53 RETURN                           R0 0
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K1 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       12 CALL                             R4 0 1
+       13 JUMPIF                           R4 ; [+21]
+       14 JUMPIFNOTEQKN                    R3 K2 [0] ; [+17]
+       16 GETTABLEKS                       R5 R0 K3 ["treemapRenderedFrame"]
+       18 JUMPIFNOT                        R5 ; [+13]
+       19 GETTABLEKS                       R7 R0 K5 ["_consecutiveEmptyCount"]
+       21 ORK                              R6 R7 K2 [0]
+       22 ADDK                             R5 R6 K4 [1]
+       23 SETTABLEKS                       R5 R0 K5 ["_consecutiveEmptyCount"]
+       25 GETTABLEKS                       R5 R0 K5 ["_consecutiveEmptyCount"]
+       27 LOADN                            R6 3
+       28 JUMPIFNOTLT                      R5 R6 ; [+6]
+       30 RETURN                           R0 0
+       31 JUMP                             ; [+3]
+       32 LOADN                            R5 0
+       33 SETTABLEKS                       R5 R0 K5 ["_consecutiveEmptyCount"]
+       35 LOADB                            R5 1
+       36 SETTABLEKS                       R5 R0 K6 ["treemapSolveDirty"]
+       38 SETTABLEKS                       R1 R0 K7 ["treemapInputData"]
+       40 SETTABLEKS                       R2 R0 K8 ["sizeKey"]
+       42 JUMPIFNOT                        R4 ; [+12]
+       43 DUPTABLE                         R7 K10 [{"hasData"}]
+       44 LOADN                            R9 0
+       45 JUMPIFLT                         R9 R3 ; [+2]
+       47 LOADB                            R8 0 +1
+       48 LOADB                            R8 1
+       49 SETTABLEKS                       R8 R7 K9 ["hasData"]
+       51 NAMECALL                         R5 R0 K11 ["setState"]
+       53 CALL                             R5 2 0
+       54 JUMP                             ; [+10]
+       55 LOADN                            R5 0
+       56 JUMPIFNOTLT                      R5 R3 ; [+8]
+       58 DUPTABLE                         R7 K10 [{"hasData"}]
+       59 LOADB                            R8 1
+       60 SETTABLEKS                       R8 R7 K9 ["hasData"]
+       62 NAMECALL                         R5 R0 K11 ["setState"]
+       64 CALL                             R5 2 0
+       65 NAMECALL                         R5 R0 K12 ["repaintTreemap"]
+       67 CALL                             R5 1 0
+       68 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -689,81 +700,87 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETIMPORT                        R3 K1 [script]
-       18 GETTABLEKS                       R3 R3 K8 ["Parent"]
-       20 GETTABLEKS                       R3 R3 K9 ["Treemap"]
-       22 GETTABLEKS                       R3 R3 K10 ["SquarifiedTreemapTree"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETIMPORT                        R4 K1 [script]
-       29 GETTABLEKS                       R4 R4 K8 ["Parent"]
-       31 GETTABLEKS                       R4 R4 K9 ["Treemap"]
-       33 GETTABLEKS                       R4 R4 K11 ["TreemapToFrames"]
-       35 CALL                             R3 1 1
-       36 GETIMPORT                        R4 K5 [require]
-       38 GETIMPORT                        R5 K1 [script]
-       40 GETTABLEKS                       R5 R5 K8 ["Parent"]
-       42 GETTABLEKS                       R5 R5 K9 ["Treemap"]
-       44 GETTABLEKS                       R5 R5 K12 ["TreemapTooltip"]
-       46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K5 [require]
-       49 GETTABLEKS                       R6 R0 K6 ["Packages"]
-       51 GETTABLEKS                       R6 R6 K13 ["Dash"]
-       53 CALL                             R5 1 1
-       54 GETIMPORT                        R6 K5 [require]
-       56 GETTABLEKS                       R7 R0 K14 ["Src"]
-       58 GETTABLEKS                       R7 R7 K15 ["Components"]
-       60 GETTABLEKS                       R7 R7 K9 ["Treemap"]
-       62 GETTABLEKS                       R7 R7 K16 ["TreemapTypes"]
-       64 CALL                             R6 1 1
-       65 GETIMPORT                        R7 K5 [require]
-       67 GETTABLEKS                       R8 R0 K14 ["Src"]
-       69 GETTABLEKS                       R8 R8 K15 ["Components"]
-       71 GETTABLEKS                       R8 R8 K9 ["Treemap"]
-       73 GETTABLEKS                       R8 R8 K17 ["TreemapContext"]
-       75 CALL                             R7 1 1
-       76 GETTABLEKS                       R8 R1 K18 ["PureComponent"]
-       78 LOADK                            R10 K9 ["Treemap"]
-       79 NAMECALL                         R8 R8 K19 ["extend"]
-       81 CALL                             R8 2 1
-       82 DUPCLOSURE                       R9 K20 [PROTO_0]
-       83 CAPTURE                          VAL R1
-       84 SETTABLEKS                       R9 R8 K21 ["init"]
-       86 DUPCLOSURE                       R9 K22 [PROTO_1]
-       87 SETTABLEKS                       R9 R8 K23 ["getCurrentPath"]
-       89 DUPCLOSURE                       R9 K24 [PROTO_2]
-       90 SETTABLEKS                       R9 R8 K25 ["popCurrentPath"]
-       92 DUPCLOSURE                       R9 K26 [PROTO_3]
-       93 CAPTURE                          VAL R3
-       94 SETTABLEKS                       R9 R8 K27 ["heartbeat"]
-       96 DUPCLOSURE                       R9 K28 [PROTO_4]
-       97 CAPTURE                          VAL R2
-       98 SETTABLEKS                       R9 R8 K29 ["handleMouseMove"]
-      100 DUPCLOSURE                       R9 K30 [PROTO_5]
-      101 SETTABLEKS                       R9 R8 K31 ["repaintTreemapPerformanceAware"]
-      103 DUPCLOSURE                       R9 K32 [PROTO_6]
-      104 SETTABLEKS                       R9 R8 K33 ["setSelectedNodeIdsFromContext"]
-      106 DUPCLOSURE                       R9 K34 [PROTO_7]
-      107 CAPTURE                          VAL R3
-      108 SETTABLEKS                       R9 R8 K35 ["rerenderSelection"]
-      110 DUPCLOSURE                       R9 K36 [PROTO_8]
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R2
-      113 SETTABLEKS                       R9 R8 K37 ["repaintTreemap"]
-      115 DUPCLOSURE                       R9 K38 [PROTO_14]
-      116 SETTABLEKS                       R9 R8 K39 ["didMount"]
-      118 DUPCLOSURE                       R9 K40 [PROTO_15]
-      119 SETTABLEKS                       R9 R8 K41 ["willUnmount"]
-      121 DUPCLOSURE                       R9 K42 [PROTO_16]
-      122 CAPTURE                          VAL R3
-      123 SETTABLEKS                       R9 R8 K43 ["mouseOverNode"]
-      125 DUPCLOSURE                       R9 K44 [PROTO_18]
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          VAL R5
-      128 CAPTURE                          VAL R4
-      129 SETTABLEKS                       R9 R8 K45 ["render"]
-      131 DUPCLOSURE                       R9 K46 [PROTO_19]
-      132 SETTABLEKS                       R9 R8 K47 ["findNodeById"]
-      134 DUPCLOSURE                       R9 K48 [PROTO_20]
-      135 SETTABLEKS                       R9 R8 K49 ["submitTreemapNodes"]
-      137 RETURN                           R8 1
+       16 GETTABLEKS                       R3 R0 K8 ["Bin"]
+       18 GETTABLEKS                       R3 R3 K9 ["Common"]
+       20 GETTABLEKS                       R3 R3 K10 ["defineLuaFlags"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETIMPORT                        R4 K1 [script]
+       27 GETTABLEKS                       R4 R4 K11 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K12 ["Treemap"]
+       31 GETTABLEKS                       R4 R4 K13 ["SquarifiedTreemapTree"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETIMPORT                        R5 K1 [script]
+       38 GETTABLEKS                       R5 R5 K11 ["Parent"]
+       40 GETTABLEKS                       R5 R5 K12 ["Treemap"]
+       42 GETTABLEKS                       R5 R5 K14 ["TreemapToFrames"]
+       44 CALL                             R4 1 1
+       45 GETIMPORT                        R5 K5 [require]
+       47 GETIMPORT                        R6 K1 [script]
+       49 GETTABLEKS                       R6 R6 K11 ["Parent"]
+       51 GETTABLEKS                       R6 R6 K12 ["Treemap"]
+       53 GETTABLEKS                       R6 R6 K15 ["TreemapTooltip"]
+       55 CALL                             R5 1 1
+       56 GETIMPORT                        R6 K5 [require]
+       58 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       60 GETTABLEKS                       R7 R7 K16 ["Dash"]
+       62 CALL                             R6 1 1
+       63 GETIMPORT                        R7 K5 [require]
+       65 GETTABLEKS                       R8 R0 K17 ["Src"]
+       67 GETTABLEKS                       R8 R8 K18 ["Components"]
+       69 GETTABLEKS                       R8 R8 K12 ["Treemap"]
+       71 GETTABLEKS                       R8 R8 K19 ["TreemapTypes"]
+       73 CALL                             R7 1 1
+       74 GETIMPORT                        R8 K5 [require]
+       76 GETTABLEKS                       R9 R0 K17 ["Src"]
+       78 GETTABLEKS                       R9 R9 K18 ["Components"]
+       80 GETTABLEKS                       R9 R9 K12 ["Treemap"]
+       82 GETTABLEKS                       R9 R9 K20 ["TreemapContext"]
+       84 CALL                             R8 1 1
+       85 GETTABLEKS                       R9 R1 K21 ["PureComponent"]
+       87 LOADK                            R11 K12 ["Treemap"]
+       88 NAMECALL                         R9 R9 K22 ["extend"]
+       90 CALL                             R9 2 1
+       91 DUPCLOSURE                       R10 K23 [PROTO_0]
+       92 CAPTURE                          VAL R1
+       93 SETTABLEKS                       R10 R9 K24 ["init"]
+       95 DUPCLOSURE                       R10 K25 [PROTO_1]
+       96 SETTABLEKS                       R10 R9 K26 ["getCurrentPath"]
+       98 DUPCLOSURE                       R10 K27 [PROTO_2]
+       99 SETTABLEKS                       R10 R9 K28 ["popCurrentPath"]
+      101 DUPCLOSURE                       R10 K29 [PROTO_3]
+      102 CAPTURE                          VAL R4
+      103 SETTABLEKS                       R10 R9 K30 ["heartbeat"]
+      105 DUPCLOSURE                       R10 K31 [PROTO_4]
+      106 CAPTURE                          VAL R3
+      107 SETTABLEKS                       R10 R9 K32 ["handleMouseMove"]
+      109 DUPCLOSURE                       R10 K33 [PROTO_5]
+      110 SETTABLEKS                       R10 R9 K34 ["repaintTreemapPerformanceAware"]
+      112 DUPCLOSURE                       R10 K35 [PROTO_6]
+      113 SETTABLEKS                       R10 R9 K36 ["setSelectedNodeIdsFromContext"]
+      115 DUPCLOSURE                       R10 K37 [PROTO_7]
+      116 CAPTURE                          VAL R4
+      117 SETTABLEKS                       R10 R9 K38 ["rerenderSelection"]
+      119 DUPCLOSURE                       R10 K39 [PROTO_8]
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R3
+      122 SETTABLEKS                       R10 R9 K40 ["repaintTreemap"]
+      124 DUPCLOSURE                       R10 K41 [PROTO_14]
+      125 SETTABLEKS                       R10 R9 K42 ["didMount"]
+      127 DUPCLOSURE                       R10 K43 [PROTO_15]
+      128 SETTABLEKS                       R10 R9 K44 ["willUnmount"]
+      130 DUPCLOSURE                       R10 K45 [PROTO_16]
+      131 CAPTURE                          VAL R4
+      132 SETTABLEKS                       R10 R9 K46 ["mouseOverNode"]
+      134 DUPCLOSURE                       R10 K47 [PROTO_18]
+      135 CAPTURE                          VAL R1
+      136 CAPTURE                          VAL R6
+      137 CAPTURE                          VAL R5
+      138 SETTABLEKS                       R10 R9 K48 ["render"]
+      140 DUPCLOSURE                       R10 K49 [PROTO_19]
+      141 SETTABLEKS                       R10 R9 K50 ["findNodeById"]
+      143 DUPCLOSURE                       R10 K51 [PROTO_20]
+      144 CAPTURE                          VAL R2
+      145 SETTABLEKS                       R10 R9 K52 ["submitTreemapNodes"]
+      147 RETURN                           R9 1

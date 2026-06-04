@@ -325,6 +325,11 @@ PROTO_6:
         2 RETURN                           R0 0
 
 PROTO_7:
+        0 MOVE                             R1 R0
+        1 CALL                             R1 0 0
+        2 RETURN                           R0 0
+
+PROTO_8:
         0 GETIMPORT                        R1 K1 [pairs]
         2 MOVE                             R2 R0
         3 CALL                             R1 1 3
@@ -382,101 +387,127 @@ PROTO_7:
        72 FORGLOOP                         R1 2 ; [-68]
        74 RETURN                           R0 0
 
-PROTO_8:
-        0 GETIMPORT                        R5 K3 [Enum.CreatorType.User]
-        2 JUMPIFNOTEQ                      R3 R5 ; [+5]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R4 R4 K4 ["UserId"]
-        7 JUMPIF                           R4 ; [+3]
-        8 GETUPVAL                         R4 0
-        9 GETTABLEKS                       R4 R4 K5 ["GroupId"]
-       11 LOADB                            R5 0
-       12 GETIMPORT                        R6 K7 [pairs]
-       14 MOVE                             R7 R0
-       15 CALL                             R6 1 3
-       16 FORGPREP_NEXT                    R6
-       17 GETTABLE                         R11 R10 R4
-       18 JUMPIFNOTEQ                      R11 R2 ; [+3]
-       20 LOADB                            R5 1
-       21 JUMP                             ; [+2]
-       22 FORGLOOP                         R6 2 ; [-6]
-       24 JUMPIFNOT                        R5 ; [+6]
-       25 GETUPVAL                         R6 1
-       26 GETTABLEKS                       R6 R6 K8 ["new"]
-       28 DUPCLOSURE                       R7 K9 [PROTO_5]
-       29 CALL                             R6 1 -1
-       30 RETURN                           R6 -1
-       31 GETIMPORT                        R6 K3 [Enum.CreatorType.User]
-       33 JUMPIFNOTEQ                      R3 R6 ; [+30]
-       35 NEWTABLE                         R8 4 0
-       37 GETUPVAL                         R9 0
-       38 GETTABLEKS                       R9 R9 K4 ["UserId"]
-       40 SETTABLE                         R2 R8 R9
-       41 GETUPVAL                         R9 0
-       42 GETTABLEKS                       R9 R9 K10 ["UserName"]
-       44 SETTABLE                         R1 R8 R9
-       45 GETUPVAL                         R9 0
-       46 GETTABLEKS                       R9 R9 K11 ["Action"]
-       48 GETUPVAL                         R10 0
-       49 GETTABLEKS                       R10 R10 K12 ["EditAction"]
-       51 SETTABLE                         R10 R8 R9
-       52 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
-       54 MOVE                             R7 R0
-       55 GETIMPORT                        R6 K15 [table.insert]
-       57 CALL                             R6 2 0
-       58 GETUPVAL                         R6 1
-       59 GETTABLEKS                       R6 R6 K8 ["new"]
-       61 DUPCLOSURE                       R7 K16 [PROTO_6]
-       62 CALL                             R6 1 -1
-       63 RETURN                           R6 -1
-       64 NEWTABLE                         R8 4 0
-       66 GETUPVAL                         R9 0
-       67 GETTABLEKS                       R9 R9 K5 ["GroupId"]
-       69 SETTABLE                         R2 R8 R9
-       70 GETUPVAL                         R9 0
-       71 GETTABLEKS                       R9 R9 K17 ["GroupName"]
-       73 SETTABLE                         R1 R8 R9
-       74 GETUPVAL                         R9 0
-       75 GETTABLEKS                       R9 R9 K11 ["Action"]
-       77 LOADNIL                          R10
-       78 SETTABLE                         R10 R8 R9
-       79 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
-       81 MOVE                             R7 R0
-       82 GETIMPORT                        R6 K15 [table.insert]
-       84 CALL                             R6 2 0
-       85 GETUPVAL                         R6 2
-       86 GETTABLEKS                       R6 R6 K18 ["Get"]
-       88 MOVE                             R7 R2
-       89 CALL                             R6 1 1
-       90 NEWCLOSURE                       R8 P2
-       91 CAPTURE                          UPVAL U0
-       92 CAPTURE                          VAL R0
-       93 CAPTURE                          UPVAL U3
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          VAL R1
-       96 NAMECALL                         R6 R6 K19 ["andThen"]
-       98 CALL                             R6 2 -1
-       99 RETURN                           R6 -1
-
 PROTO_9:
-        0 GETUPVAL                         R4 0
-        1 GETTABLEKS                       R4 R4 K0 ["_DEPRECATEDFixEndpointKeyTypes"]
-        3 MOVE                             R5 R0
-        4 CALL                             R4 1 0
-        5 GETUPVAL                         R4 0
-        6 GETTABLEKS                       R4 R4 K1 ["_addOwnerIfMissing"]
-        8 MOVE                             R5 R0
-        9 MOVE                             R6 R1
-       10 MOVE                             R7 R2
-       11 MOVE                             R8 R3
-       12 CALL                             R4 4 1
-       13 NAMECALL                         R4 R4 K2 ["await"]
-       15 CALL                             R4 1 0
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R4 R4 K3 ["_deserializeAll"]
-       19 MOVE                             R5 R0
-       20 CALL                             R4 1 2
-       21 RETURN                           R4 2
+        0 GETIMPORT                        R7 K3 [Enum.CreatorType.User]
+        2 JUMPIFNOTEQ                      R3 R7 ; [+5]
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R6 R6 K4 ["UserId"]
+        7 JUMPIF                           R6 ; [+3]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K5 ["GroupId"]
+       11 LOADB                            R7 0
+       12 GETIMPORT                        R8 K7 [pairs]
+       14 MOVE                             R9 R0
+       15 CALL                             R8 1 3
+       16 FORGPREP_NEXT                    R8
+       17 GETTABLE                         R13 R12 R6
+       18 JUMPIFNOTEQ                      R13 R2 ; [+3]
+       20 LOADB                            R7 1
+       21 JUMP                             ; [+2]
+       22 FORGLOOP                         R8 2 ; [-6]
+       24 JUMPIFNOT                        R7 ; [+6]
+       25 GETUPVAL                         R8 1
+       26 GETTABLEKS                       R8 R8 K8 ["new"]
+       28 DUPCLOSURE                       R9 K9 [PROTO_5]
+       29 CALL                             R8 1 -1
+       30 RETURN                           R8 -1
+       31 GETIMPORT                        R8 K3 [Enum.CreatorType.User]
+       33 JUMPIFNOTEQ                      R3 R8 ; [+30]
+       35 NEWTABLE                         R10 4 0
+       37 GETUPVAL                         R11 0
+       38 GETTABLEKS                       R11 R11 K4 ["UserId"]
+       40 SETTABLE                         R2 R10 R11
+       41 GETUPVAL                         R11 0
+       42 GETTABLEKS                       R11 R11 K10 ["UserName"]
+       44 SETTABLE                         R1 R10 R11
+       45 GETUPVAL                         R11 0
+       46 GETTABLEKS                       R11 R11 K11 ["Action"]
+       48 GETUPVAL                         R12 0
+       49 GETTABLEKS                       R12 R12 K12 ["EditAction"]
+       51 SETTABLE                         R12 R10 R11
+       52 FASTCALL2                        TABLE_INSERT R0 R10 ; [+4]
+       54 MOVE                             R9 R0
+       55 GETIMPORT                        R8 K15 [table.insert]
+       57 CALL                             R8 2 0
+       58 GETUPVAL                         R8 1
+       59 GETTABLEKS                       R8 R8 K8 ["new"]
+       61 DUPCLOSURE                       R9 K16 [PROTO_6]
+       62 CALL                             R8 1 -1
+       63 RETURN                           R8 -1
+       64 NEWTABLE                         R10 4 0
+       66 GETUPVAL                         R11 0
+       67 GETTABLEKS                       R11 R11 K5 ["GroupId"]
+       69 SETTABLE                         R2 R10 R11
+       70 GETUPVAL                         R11 0
+       71 GETTABLEKS                       R11 R11 K17 ["GroupName"]
+       73 SETTABLE                         R1 R10 R11
+       74 GETUPVAL                         R11 0
+       75 GETTABLEKS                       R11 R11 K11 ["Action"]
+       77 LOADNIL                          R12
+       78 SETTABLE                         R12 R10 R11
+       79 FASTCALL2                        TABLE_INSERT R0 R10 ; [+4]
+       81 MOVE                             R9 R0
+       82 GETIMPORT                        R8 K15 [table.insert]
+       84 CALL                             R8 2 0
+       85 GETUPVAL                         R8 2
+       86 GETTABLEKS                       R8 R8 K18 ["fflagOwnerRolesetDeprecation"]
+       88 JUMPIFNOT                        R8 ; [+32]
+       89 JUMPIFNOT                        R4 ; [+25]
+       90 JUMPIFEQKN                       R4 K19 [0] ; [+24]
+       92 NEWTABLE                         R10 4 0
+       94 GETUPVAL                         R11 0
+       95 GETTABLEKS                       R11 R11 K4 ["UserId"]
+       97 SETTABLE                         R4 R10 R11
+       98 GETUPVAL                         R11 0
+       99 GETTABLEKS                       R11 R11 K10 ["UserName"]
+      101 SETTABLE                         R5 R10 R11
+      102 GETUPVAL                         R11 0
+      103 GETTABLEKS                       R11 R11 K11 ["Action"]
+      105 GETUPVAL                         R12 0
+      106 GETTABLEKS                       R12 R12 K12 ["EditAction"]
+      108 SETTABLE                         R12 R10 R11
+      109 FASTCALL2                        TABLE_INSERT R0 R10 ; [+4]
+      111 MOVE                             R9 R0
+      112 GETIMPORT                        R8 K15 [table.insert]
+      114 CALL                             R8 2 0
+      115 GETUPVAL                         R8 1
+      116 GETTABLEKS                       R8 R8 K8 ["new"]
+      118 DUPCLOSURE                       R9 K20 [PROTO_7]
+      119 CALL                             R8 1 -1
+      120 RETURN                           R8 -1
+      121 GETUPVAL                         R8 3
+      122 GETTABLEKS                       R8 R8 K21 ["Get"]
+      124 MOVE                             R9 R2
+      125 CALL                             R8 1 1
+      126 NEWCLOSURE                       R10 P3
+      127 CAPTURE                          UPVAL U0
+      128 CAPTURE                          VAL R0
+      129 CAPTURE                          UPVAL U4
+      130 CAPTURE                          VAL R2
+      131 CAPTURE                          VAL R1
+      132 NAMECALL                         R8 R8 K22 ["andThen"]
+      134 CALL                             R8 2 -1
+      135 RETURN                           R8 -1
+
+PROTO_10:
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R6 R6 K0 ["_DEPRECATEDFixEndpointKeyTypes"]
+        3 MOVE                             R7 R0
+        4 CALL                             R6 1 0
+        5 GETUPVAL                         R6 0
+        6 GETTABLEKS                       R6 R6 K1 ["_addOwnerIfMissing"]
+        8 MOVE                             R7 R0
+        9 MOVE                             R8 R1
+       10 MOVE                             R9 R2
+       11 MOVE                             R10 R3
+       12 MOVE                             R11 R4
+       13 MOVE                             R12 R5
+       14 CALL                             R6 6 0
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K2 ["_deserializeAll"]
+       18 MOVE                             R7 R0
+       19 CALL                             R6 1 2
+       20 RETURN                           R6 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -496,47 +527,52 @@ MAIN:
        26 GETTABLEKS                       R4 R4 K9 ["Cryo"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K4 [require]
-       31 GETTABLEKS                       R5 R0 K10 ["Src"]
-       33 GETTABLEKS                       R5 R5 K11 ["Networking"]
-       35 GETTABLEKS                       R5 R5 K12 ["Requests"]
-       37 GETTABLEKS                       R5 R5 K13 ["GroupRoles"]
-       39 CALL                             R4 1 1
-       40 GETIMPORT                        R5 K4 [require]
-       42 GETTABLEKS                       R6 R0 K10 ["Src"]
-       44 GETTABLEKS                       R6 R6 K7 ["Util"]
-       46 GETTABLEKS                       R6 R6 K14 ["PermissionsConstants"]
-       48 CALL                             R5 1 1
-       49 GETIMPORT                        R6 K4 [require]
-       51 GETTABLEKS                       R7 R0 K10 ["Src"]
-       53 GETTABLEKS                       R7 R7 K11 ["Networking"]
-       55 GETTABLEKS                       R7 R7 K15 ["WebKeyConstants"]
-       57 CALL                             R6 1 1
-       58 DUPCLOSURE                       R7 K16 [PROTO_0]
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R5
-       61 DUPCLOSURE                       R8 K17 [PROTO_1]
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R5
-       64 NEWTABLE                         R9 8 0
-       66 DUPCLOSURE                       R10 K18 [PROTO_2]
+       31 GETTABLEKS                       R5 R0 K10 ["Bin"]
+       33 GETTABLEKS                       R5 R5 K11 ["defineLuaFlags"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K4 [require]
+       38 GETTABLEKS                       R6 R0 K12 ["Src"]
+       40 GETTABLEKS                       R6 R6 K13 ["Networking"]
+       42 GETTABLEKS                       R6 R6 K14 ["Requests"]
+       44 GETTABLEKS                       R6 R6 K15 ["GroupRoles"]
+       46 CALL                             R5 1 1
+       47 GETIMPORT                        R6 K4 [require]
+       49 GETTABLEKS                       R7 R0 K12 ["Src"]
+       51 GETTABLEKS                       R7 R7 K7 ["Util"]
+       53 GETTABLEKS                       R7 R7 K16 ["PermissionsConstants"]
+       55 CALL                             R6 1 1
+       56 GETIMPORT                        R7 K4 [require]
+       58 GETTABLEKS                       R8 R0 K12 ["Src"]
+       60 GETTABLEKS                       R8 R8 K13 ["Networking"]
+       62 GETTABLEKS                       R8 R8 K17 ["WebKeyConstants"]
+       64 CALL                             R7 1 1
+       65 DUPCLOSURE                       R8 K18 [PROTO_0]
+       66 CAPTURE                          VAL R7
        67 CAPTURE                          VAL R6
-       68 SETTABLEKS                       R10 R9 K19 ["_DEPRECATEDFixEndpointKeyTypes"]
-       70 DUPCLOSURE                       R10 K20 [PROTO_3]
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R6
-       73 SETTABLEKS                       R10 R9 K21 ["_deserializeOne"]
-       75 DUPCLOSURE                       R10 K22 [PROTO_4]
-       76 CAPTURE                          VAL R5
-       77 CAPTURE                          VAL R6
-       78 CAPTURE                          VAL R9
-       79 SETTABLEKS                       R10 R9 K23 ["_deserializeAll"]
-       81 DUPCLOSURE                       R10 K24 [PROTO_8]
-       82 CAPTURE                          VAL R6
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R3
-       86 SETTABLEKS                       R10 R9 K25 ["_addOwnerIfMissing"]
-       88 DUPCLOSURE                       R10 K26 [PROTO_9]
-       89 CAPTURE                          VAL R9
-       90 SETTABLEKS                       R10 R9 K27 ["DeserializePermissions"]
-       92 RETURN                           R9 1
+       68 DUPCLOSURE                       R9 K19 [PROTO_1]
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          VAL R6
+       71 NEWTABLE                         R10 8 0
+       73 DUPCLOSURE                       R11 K20 [PROTO_2]
+       74 CAPTURE                          VAL R7
+       75 SETTABLEKS                       R11 R10 K21 ["_DEPRECATEDFixEndpointKeyTypes"]
+       77 DUPCLOSURE                       R11 K22 [PROTO_3]
+       78 CAPTURE                          VAL R6
+       79 CAPTURE                          VAL R7
+       80 SETTABLEKS                       R11 R10 K23 ["_deserializeOne"]
+       82 DUPCLOSURE                       R11 K24 [PROTO_4]
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R10
+       86 SETTABLEKS                       R11 R10 K25 ["_deserializeAll"]
+       88 DUPCLOSURE                       R11 K26 [PROTO_9]
+       89 CAPTURE                          VAL R7
+       90 CAPTURE                          VAL R2
+       91 CAPTURE                          VAL R4
+       92 CAPTURE                          VAL R5
+       93 CAPTURE                          VAL R3
+       94 SETTABLEKS                       R11 R10 K27 ["_addOwnerIfMissing"]
+       96 DUPCLOSURE                       R11 K28 [PROTO_10]
+       97 CAPTURE                          VAL R10
+       98 SETTABLEKS                       R11 R10 K29 ["DeserializePermissions"]
+      100 RETURN                           R10 1

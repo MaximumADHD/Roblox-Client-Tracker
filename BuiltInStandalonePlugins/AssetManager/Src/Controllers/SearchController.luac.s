@@ -58,14 +58,27 @@ PROTO_2:
        50 CALL                             R5 2 -1
        51 CALL                             R3 -1 0
        52 GETUPVAL                         R3 0
-       53 SETTABLEKS                       R0 R3 K13 ["_sourceList"]
-       55 GETUPVAL                         R3 0
-       56 GETTABLEKS                       R3 R3 K14 ["OnSourceListChanged"]
-       58 GETUPVAL                         R5 0
-       59 GETTABLEKS                       R5 R5 K13 ["_sourceList"]
-       61 NAMECALL                         R3 R3 K15 ["Fire"]
-       63 CALL                             R3 2 0
-       64 RETURN                           R0 0
+       53 GETTABLEKS                       R3 R3 K11 ["_explorerController"]
+       55 GETUPVAL                         R5 0
+       56 GETTABLEKS                       R5 R5 K13 ["_searchOptions"]
+       58 GETTABLEKS                       R5 R5 K14 ["ScopeInfo"]
+       60 GETTABLEKS                       R5 R5 K4 ["Uid"]
+       62 NAMECALL                         R3 R3 K15 ["getScopeWithUid"]
+       64 CALL                             R3 2 1
+       65 JUMPIF                           R3 ; [+5]
+       66 GETUPVAL                         R3 0
+       67 MOVE                             R5 R2
+       68 NAMECALL                         R3 R3 K16 ["setScope"]
+       70 CALL                             R3 2 0
+       71 GETUPVAL                         R3 0
+       72 SETTABLEKS                       R0 R3 K17 ["_sourceList"]
+       74 GETUPVAL                         R3 0
+       75 GETTABLEKS                       R3 R3 K18 ["OnSourceListChanged"]
+       77 GETUPVAL                         R5 0
+       78 GETTABLEKS                       R5 R5 K17 ["_sourceList"]
+       80 NAMECALL                         R3 R3 K19 ["Fire"]
+       82 CALL                             R3 2 0
+       83 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

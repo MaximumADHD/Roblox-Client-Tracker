@@ -1,4 +1,35 @@
 PROTO_0:
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R2 R0 K3 ["palette"]
+        6 GETTABLEKS                       R2 R2 K4 ["Key"]
+        8 SETTABLEKS                       R2 R1 K3 ["palette"]
+       10 GETTABLEKS                       R2 R0 K5 ["assetType"]
+       12 GETTABLEKS                       R2 R2 K6 ["Name"]
+       14 SETTABLEKS                       R2 R1 K5 ["assetType"]
+       16 GETUPVAL                         R2 0
+       17 MOVE                             R4 R1
+       18 NAMECALL                         R2 R2 K7 ["JSONEncode"]
+       20 CALL                             R2 2 -1
+       21 RETURN                           R2 -1
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["JSONDecode"]
+        4 CALL                             R1 2 1
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R3 R1 K1 ["palette"]
+        8 CALL                             R2 1 1
+        9 SETTABLEKS                       R2 R1 K1 ["palette"]
+       11 GETIMPORT                        R3 K4 [Enum.AssetType]
+       13 GETTABLEKS                       R4 R1 K5 ["assetType"]
+       15 GETTABLE                         R2 R3 R4
+       16 SETTABLEKS                       R2 R1 K5 ["assetType"]
+       18 RETURN                           R1 1
+
+PROTO_2:
         0 FASTCALL1                        TYPEOF R0 ; [+3]
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [typeof]
@@ -8,7 +39,7 @@ PROTO_0:
         8 GETTABLEKS                       R1 R0 K3 ["uniqueId"]
        10 RETURN                           R1 1
 
-PROTO_1:
+PROTO_3:
         0 NEWTABLE                         R1 0 0
         2 NEWTABLE                         R2 0 0
         4 MOVE                             R3 R0
@@ -21,7 +52,7 @@ PROTO_1:
        12 FORGLOOP                         R3 2 ; [-5]
        14 RETURN                           R1 2
 
-PROTO_2:
+PROTO_4:
         0 NEWTABLE                         R3 0 0
         2 NEWTABLE                         R4 0 0
         4 MOVE                             R5 R0
@@ -70,7 +101,7 @@ PROTO_2:
        73 SETTABLEKS                       R2 R5 K19 ["assetFetchSet"]
        75 RETURN                           R5 1
 
-PROTO_3:
+PROTO_5:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -84,7 +115,7 @@ PROTO_3:
        13 FORGLOOP                         R2 2 ; [-8]
        15 RETURN                           R1 1
 
-PROTO_4:
+PROTO_6:
         0 GETTABLEKS                       R6 R0 K0 ["Id"]
         2 GETTABLE                         R5 R1 R6
         3 JUMPIFNOTEQKNIL                  R5 ; [+18]
@@ -168,7 +199,7 @@ PROTO_4:
       120 LOADNIL                          R7
       121 RETURN                           R6 2
 
-PROTO_5:
+PROTO_7:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["MARKETPLACE_ASSET_TYPE_TO_PALETTE_KEY"]
         3 GETTABLEKS                       R5 R0 K1 ["AssetType"]
@@ -239,7 +270,7 @@ PROTO_5:
       105 SETTABLEKS                       R7 R6 K12 ["hasVerifiedBadge"]
       107 RETURN                           R5 2
 
-PROTO_6:
+PROTO_8:
         0 NEWTABLE                         R3 0 0
         2 NEWTABLE                         R4 0 0
         4 NEWTABLE                         R5 0 0
@@ -295,7 +326,7 @@ PROTO_6:
        73 SETTABLEKS                       R6 R8 K14 ["individualShoesFound"]
        75 RETURN                           R8 1
 
-PROTO_7:
+PROTO_9:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -315,7 +346,7 @@ PROTO_7:
        22 FORGLOOP                         R2 2 ; [-17]
        24 RETURN                           R1 1
 
-PROTO_8:
+PROTO_10:
         0 NEWTABLE                         R4 0 0
         2 MOVE                             R5 R0
         3 LOADNIL                          R6
@@ -340,7 +371,7 @@ PROTO_8:
        28 FORGLOOP                         R5 2 ; [-23]
        30 RETURN                           R4 1
 
-PROTO_9:
+PROTO_11:
         0 LOADNIL                          R3
         1 LOADN                            R4 0
         2 MOVE                             R5 R1
@@ -387,47 +418,60 @@ PROTO_9:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["HttpService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Types"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Src"]
-       18 GETTABLEKS                       R3 R3 K8 ["Util"]
-       20 GETTABLEKS                       R3 R3 K9 ["Constants"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K6 ["Src"]
-       27 GETTABLEKS                       R4 R4 K8 ["Util"]
-       29 GETTABLEKS                       R4 R4 K10 ["getPaletteFromKey"]
-       31 CALL                             R3 1 1
-       32 NEWTABLE                         R4 16 0
-       34 DUPCLOSURE                       R5 K11 [PROTO_0]
-       35 SETTABLEKS                       R5 R4 K12 ["extractUniqueId"]
-       37 DUPCLOSURE                       R5 K13 [PROTO_1]
-       38 SETTABLEKS                       R5 R4 K14 ["initializeItemStatus"]
-       40 DUPCLOSURE                       R5 K15 [PROTO_2]
-       41 SETTABLEKS                       R5 R4 K16 ["processBundleData"]
-       43 DUPCLOSURE                       R5 K17 [PROTO_3]
-       44 SETTABLEKS                       R5 R4 K18 ["buildAssetFetchList"]
-       46 DUPCLOSURE                       R5 K19 [PROTO_4]
-       47 CAPTURE                          VAL R3
-       48 SETTABLEKS                       R5 R4 K20 ["processShoeAsset"]
-       50 DUPCLOSURE                       R5 K21 [PROTO_5]
-       51 CAPTURE                          VAL R2
-       52 CAPTURE                          VAL R3
-       53 SETTABLEKS                       R5 R4 K22 ["processRegularAsset"]
-       55 DUPCLOSURE                       R5 K23 [PROTO_6]
-       56 CAPTURE                          VAL R4
-       57 SETTABLEKS                       R5 R4 K24 ["processAssetData"]
-       59 DUPCLOSURE                       R5 K25 [PROTO_7]
-       60 SETTABLEKS                       R5 R4 K26 ["findLostIds"]
-       62 DUPCLOSURE                       R5 K27 [PROTO_8]
-       63 SETTABLEKS                       R5 R4 K28 ["buildItemRows"]
-       65 DUPCLOSURE                       R5 K29 [PROTO_9]
-       66 SETTABLEKS                       R5 R4 K30 ["buildErrorData"]
-       68 RETURN                           R4 1
+        7 GETIMPORT                        R1 K5 [script]
+        9 LOADK                            R3 K6 ["AvatarCompatibilityPreviewer"]
+       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R3 R1 K10 ["Src"]
+       17 GETTABLEKS                       R3 R3 K11 ["Types"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K9 [require]
+       22 GETTABLEKS                       R4 R1 K10 ["Src"]
+       24 GETTABLEKS                       R4 R4 K12 ["Util"]
+       26 GETTABLEKS                       R4 R4 K13 ["Constants"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K9 [require]
+       31 GETTABLEKS                       R5 R1 K10 ["Src"]
+       33 GETTABLEKS                       R5 R5 K12 ["Util"]
+       35 GETTABLEKS                       R5 R5 K14 ["getPaletteFromKey"]
+       37 CALL                             R4 1 1
+       38 NEWTABLE                         R5 16 0
+       40 LOADK                            R6 K15 ["MarketplaceItems"]
+       41 SETTABLEKS                       R6 R5 K16 ["MARKETPLACE_ITEMS_VALUE_NAME"]
+       43 DUPCLOSURE                       R6 K17 [PROTO_0]
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R6 R5 K18 ["encodeMarketplaceItem"]
+       47 DUPCLOSURE                       R6 K19 [PROTO_1]
+       48 CAPTURE                          VAL R0
+       49 CAPTURE                          VAL R4
+       50 SETTABLEKS                       R6 R5 K20 ["decodeMarketplaceItem"]
+       52 DUPCLOSURE                       R6 K21 [PROTO_2]
+       53 SETTABLEKS                       R6 R5 K22 ["extractUniqueId"]
+       55 DUPCLOSURE                       R6 K23 [PROTO_3]
+       56 SETTABLEKS                       R6 R5 K24 ["initializeItemStatus"]
+       58 DUPCLOSURE                       R6 K25 [PROTO_4]
+       59 SETTABLEKS                       R6 R5 K26 ["processBundleData"]
+       61 DUPCLOSURE                       R6 K27 [PROTO_5]
+       62 SETTABLEKS                       R6 R5 K28 ["buildAssetFetchList"]
+       64 DUPCLOSURE                       R6 K29 [PROTO_6]
+       65 CAPTURE                          VAL R4
+       66 SETTABLEKS                       R6 R5 K30 ["processShoeAsset"]
+       68 DUPCLOSURE                       R6 K31 [PROTO_7]
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R4
+       71 SETTABLEKS                       R6 R5 K32 ["processRegularAsset"]
+       73 DUPCLOSURE                       R6 K33 [PROTO_8]
+       74 CAPTURE                          VAL R5
+       75 SETTABLEKS                       R6 R5 K34 ["processAssetData"]
+       77 DUPCLOSURE                       R6 K35 [PROTO_9]
+       78 SETTABLEKS                       R6 R5 K36 ["findLostIds"]
+       80 DUPCLOSURE                       R6 K37 [PROTO_10]
+       81 SETTABLEKS                       R6 R5 K38 ["buildItemRows"]
+       83 DUPCLOSURE                       R6 K39 [PROTO_11]
+       84 SETTABLEKS                       R6 R5 K40 ["buildErrorData"]
+       86 RETURN                           R5 1

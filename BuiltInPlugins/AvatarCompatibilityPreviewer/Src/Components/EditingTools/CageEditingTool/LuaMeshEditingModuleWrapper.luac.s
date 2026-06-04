@@ -10,87 +10,86 @@ PROTO_1:
         0 GETIMPORT                        R2 K2 [Content.fromUri]
         2 GETTABLEKS                       R3 R0 K3 ["CageMeshId"]
         4 CALL                             R2 1 1
-        5 GETUPVAL                         R3 0
-        6 CALL                             R3 0 1
-        7 JUMPIFNOT                        R3 ; [+20]
-        8 LOADB                            R3 0
-        9 GETIMPORT                        R4 K5 [pcall]
-       11 NEWCLOSURE                       R5 P0
-       12 CAPTURE                          REF R3
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          VAL R2
-       15 CALL                             R4 1 2
-       16 JUMPIF                           R4 ; [+7]
-       17 GETIMPORT                        R6 K7 [warn]
-       19 LOADK                            R7 K8 ["Failed to check if asset can be edited"]
-       20 MOVE                             R8 R5
-       21 CALL                             R6 2 0
+        5 LOADB                            R3 0
+        6 GETIMPORT                        R4 K5 [pcall]
+        8 NEWCLOSURE                       R5 P0
+        9 CAPTURE                          REF R3
+       10 CAPTURE                          UPVAL U0
+       11 CAPTURE                          VAL R2
+       12 CALL                             R4 1 2
+       13 JUMPIF                           R4 ; [+7]
+       14 GETIMPORT                        R6 K7 [warn]
+       16 LOADK                            R7 K8 ["Failed to check if asset can be edited"]
+       17 MOVE                             R8 R5
+       18 CALL                             R6 2 0
+       19 CLOSEUPVALS                      R3
+       20 RETURN                           R0 0
+       21 JUMPIF                           R3 ; [+2]
        22 CLOSEUPVALS                      R3
        23 RETURN                           R0 0
-       24 JUMPIF                           R3 ; [+2]
-       25 CLOSEUPVALS                      R3
-       26 RETURN                           R0 0
-       27 CLOSEUPVALS                      R3
-       28 GETUPVAL                         R3 1
-       29 GETTABLEKS                       R3 R3 K9 ["createEditableMeshAsync"]
-       31 MOVE                             R4 R2
-       32 CALL                             R3 1 1
-       33 NAMECALL                         R4 R3 K10 ["GetVertices"]
-       35 CALL                             R4 1 1
-       36 LOADB                            R5 0
-       37 MOVE                             R6 R1
-       38 LOADNIL                          R7
-       39 LOADNIL                          R8
-       40 FORGPREP                         R6
-       41 GETTABLE                         R11 R4 R9
-       42 JUMPIFNOT                        R11 ; [+15]
-       43 MOVE                             R14 R11
-       44 NAMECALL                         R12 R3 K11 ["GetPosition"]
-       46 CALL                             R12 2 1
-       47 MOVE                             R15 R12
-       48 NAMECALL                         R13 R10 K12 ["FuzzyEq"]
-       50 CALL                             R13 2 1
-       51 JUMPIF                           R13 ; [+6]
-       52 LOADB                            R5 1
-       53 MOVE                             R15 R11
-       54 MOVE                             R16 R10
-       55 NAMECALL                         R13 R3 K13 ["SetPosition"]
-       57 CALL                             R13 3 0
-       58 FORGLOOP                         R6 2 ; [-18]
-       60 JUMPIF                           R5 ; [+1]
-       61 RETURN                           R0 0
-       62 GETUPVAL                         R6 2
-       63 GETTABLEKS                       R6 R6 K14 ["getCreatorData"]
-       65 CALL                             R6 0 1
-       66 DUPTABLE                         R7 K20 [{"Name", "Description", "CreatorId", "CreatorType", "IsPackage"}]
-       67 LOADK                            R8 K21 ["Outer cage mesh (Edited by Roblox Studio)"]
-       68 SETTABLEKS                       R8 R7 K15 ["Name"]
-       70 LOADK                            R8 K22 ["Cage mesh edited in Studio via the Avatar Compatibility Previewer plugin"]
-       71 SETTABLEKS                       R8 R7 K16 ["Description"]
-       73 GETTABLEKS                       R8 R6 K23 ["creatorId"]
-       75 SETTABLEKS                       R8 R7 K17 ["CreatorId"]
-       77 GETTABLEKS                       R8 R6 K24 ["creatorType"]
-       79 SETTABLEKS                       R8 R7 K18 ["CreatorType"]
-       81 LOADB                            R8 0
-       82 SETTABLEKS                       R8 R7 K19 ["IsPackage"]
-       84 GETUPVAL                         R8 1
-       85 GETTABLEKS                       R8 R8 K25 ["createAssetAsync"]
-       87 MOVE                             R9 R3
-       88 GETIMPORT                        R10 K29 [Enum.AssetType.Mesh]
-       90 MOVE                             R11 R7
-       91 CALL                             R8 3 2
-       92 GETIMPORT                        R10 K32 [Enum.CreateAssetResult.Success]
-       94 JUMPIFNOTEQ                      R8 R10 ; [+8]
-       96 LOADK                            R11 K33 ["rbxassetid://%*"]
-       97 MOVE                             R13 R9
-       98 NAMECALL                         R11 R11 K34 ["format"]
-      100 CALL                             R11 2 1
-      101 MOVE                             R10 R11
-      102 RETURN                           R10 1
-      103 GETIMPORT                        R10 K36 [error]
-      105 LOADK                            R11 K37 ["Failed to upload asset"]
-      106 CALL                             R10 1 0
-      107 RETURN                           R0 0
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K9 ["createEditableMeshAsync"]
+       27 MOVE                             R7 R2
+       28 CALL                             R6 1 1
+       29 NAMECALL                         R7 R6 K10 ["GetVertices"]
+       31 CALL                             R7 1 1
+       32 LOADB                            R8 0
+       33 MOVE                             R9 R1
+       34 LOADNIL                          R10
+       35 LOADNIL                          R11
+       36 FORGPREP                         R9
+       37 GETTABLE                         R14 R7 R12
+       38 JUMPIFNOT                        R14 ; [+15]
+       39 MOVE                             R17 R14
+       40 NAMECALL                         R15 R6 K11 ["GetPosition"]
+       42 CALL                             R15 2 1
+       43 MOVE                             R18 R15
+       44 NAMECALL                         R16 R13 K12 ["FuzzyEq"]
+       46 CALL                             R16 2 1
+       47 JUMPIF                           R16 ; [+6]
+       48 LOADB                            R8 1
+       49 MOVE                             R18 R14
+       50 MOVE                             R19 R13
+       51 NAMECALL                         R16 R6 K13 ["SetPosition"]
+       53 CALL                             R16 3 0
+       54 FORGLOOP                         R9 2 ; [-18]
+       56 JUMPIF                           R8 ; [+2]
+       57 CLOSEUPVALS                      R3
+       58 RETURN                           R0 0
+       59 GETUPVAL                         R9 1
+       60 GETTABLEKS                       R9 R9 K14 ["getCreatorData"]
+       62 CALL                             R9 0 1
+       63 DUPTABLE                         R10 K20 [{"Name", "Description", "CreatorId", "CreatorType", "IsPackage"}]
+       64 LOADK                            R11 K21 ["Outer cage mesh (Edited by Roblox Studio)"]
+       65 SETTABLEKS                       R11 R10 K15 ["Name"]
+       67 LOADK                            R11 K22 ["Cage mesh edited in Studio via the Avatar Compatibility Previewer plugin"]
+       68 SETTABLEKS                       R11 R10 K16 ["Description"]
+       70 GETTABLEKS                       R11 R9 K23 ["creatorId"]
+       72 SETTABLEKS                       R11 R10 K17 ["CreatorId"]
+       74 GETTABLEKS                       R11 R9 K24 ["creatorType"]
+       76 SETTABLEKS                       R11 R10 K18 ["CreatorType"]
+       78 LOADB                            R11 0
+       79 SETTABLEKS                       R11 R10 K19 ["IsPackage"]
+       81 GETUPVAL                         R11 0
+       82 GETTABLEKS                       R11 R11 K25 ["createAssetAsync"]
+       84 MOVE                             R12 R6
+       85 GETIMPORT                        R13 K29 [Enum.AssetType.Mesh]
+       87 MOVE                             R14 R10
+       88 CALL                             R11 3 2
+       89 GETIMPORT                        R13 K32 [Enum.CreateAssetResult.Success]
+       91 JUMPIFNOTEQ                      R11 R13 ; [+9]
+       93 LOADK                            R14 K33 ["rbxassetid://%*"]
+       94 MOVE                             R16 R12
+       95 NAMECALL                         R14 R14 K34 ["format"]
+       97 CALL                             R14 2 1
+       98 MOVE                             R13 R14
+       99 CLOSEUPVALS                      R3
+      100 RETURN                           R13 1
+      101 GETIMPORT                        R13 K36 [error]
+      103 LOADK                            R14 K37 ["Failed to upload asset"]
+      104 CALL                             R13 1 0
+      105 CLOSEUPVALS                      R3
+      106 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -385,91 +384,90 @@ PROTO_13:
        35 GETUPVAL                         R6 1
        36 GETTABLEKS                       R6 R6 K8 ["useCallback"]
        38 NEWCLOSURE                       R7 P0
-       39 CAPTURE                          UPVAL U3
-       40 CAPTURE                          VAL R4
-       41 CAPTURE                          UPVAL U4
-       42 NEWTABLE                         R8 0 1
-       44 MOVE                             R9 R4
-       45 SETLIST                          R8 R9 1 [1]
-       47 CALL                             R6 2 1
-       48 GETUPVAL                         R7 1
-       49 GETTABLEKS                       R7 R7 K9 ["useEffect"]
-       51 NEWCLOSURE                       R8 P1
-       52 CAPTURE                          VAL R5
-       53 CAPTURE                          UPVAL U5
-       54 CAPTURE                          VAL R6
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          UPVAL U3
+       41 NEWTABLE                         R8 0 1
+       43 MOVE                             R9 R4
+       44 SETLIST                          R8 R9 1 [1]
+       46 CALL                             R6 2 1
+       47 GETUPVAL                         R7 1
+       48 GETTABLEKS                       R7 R7 K9 ["useEffect"]
+       50 NEWCLOSURE                       R8 P1
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          VAL R6
+       54 CAPTURE                          UPVAL U5
        55 CAPTURE                          UPVAL U6
-       56 CAPTURE                          UPVAL U7
-       57 NEWTABLE                         R9 0 0
-       59 CALL                             R7 2 0
-       60 GETUPVAL                         R7 1
-       61 GETTABLEKS                       R7 R7 K8 ["useCallback"]
-       63 NEWCLOSURE                       R8 P2
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          VAL R1
-       66 CAPTURE                          UPVAL U8
-       67 CAPTURE                          VAL R5
-       68 NEWTABLE                         R9 0 1
-       70 MOVE                             R10 R1
-       71 SETLIST                          R9 R10 1 [1]
-       73 CALL                             R7 2 1
-       74 GETUPVAL                         R8 1
-       75 GETTABLEKS                       R8 R8 K10 ["useMemo"]
-       77 NEWCLOSURE                       R9 P3
-       78 CAPTURE                          UPVAL U9
-       79 CAPTURE                          VAL R7
-       80 CAPTURE                          UPVAL U7
-       81 NEWTABLE                         R10 0 1
-       83 MOVE                             R11 R7
-       84 SETLIST                          R10 R11 1 [1]
-       86 CALL                             R8 2 1
-       87 GETUPVAL                         R9 1
-       88 GETTABLEKS                       R9 R9 K9 ["useEffect"]
-       90 NEWCLOSURE                       R10 P4
-       91 CAPTURE                          VAL R1
-       92 CAPTURE                          UPVAL U10
-       93 CAPTURE                          VAL R0
-       94 CAPTURE                          UPVAL U11
-       95 CAPTURE                          VAL R8
-       96 NEWTABLE                         R11 0 1
-       98 MOVE                             R12 R1
-       99 SETLIST                          R11 R12 1 [1]
-      101 CALL                             R9 2 0
-      102 GETUPVAL                         R9 1
-      103 GETTABLEKS                       R9 R9 K9 ["useEffect"]
-      105 NEWCLOSURE                       R10 P5
-      106 CAPTURE                          VAL R0
-      107 NEWTABLE                         R11 0 4
-      109 GETTABLEKS                       R12 R0 K11 ["symmetrical"]
-      111 GETTABLEKS                       R13 R0 K12 ["symmetryMap"]
-      113 GETTABLEKS                       R14 R0 K13 ["segmentationMap"]
-      115 GETTABLEKS                       R15 R0 K14 ["outerCageContextRef"]
-      117 GETTABLEKS                       R15 R15 K15 ["current"]
-      119 SETLIST                          R11 R12 4 [1]
-      121 CALL                             R9 2 0
-      122 GETTABLEKS                       R9 R0 K16 ["brushToolRef"]
-      124 GETTABLEKS                       R9 R9 K15 ["current"]
-      126 JUMPIFNOTEQKNIL                  R9 ; [+3]
-      128 LOADNIL                          R9
-      129 RETURN                           R9 1
-      130 GETUPVAL                         R9 1
-      131 GETTABLEKS                       R9 R9 K17 ["createElement"]
-      133 GETUPVAL                         R10 12
-      134 DUPTABLE                         R11 K23 [{"Mouse", "Plugin", "VertexToolBase", "Radius", "Falloff", "Mannequin", "OnChangeSelectedPositions"}]
-      135 SETTABLEKS                       R2 R11 K2 ["Mouse"]
-      137 SETTABLEKS                       R3 R11 K5 ["Plugin"]
-      139 GETTABLEKS                       R12 R0 K16 ["brushToolRef"]
-      141 GETTABLEKS                       R12 R12 K15 ["current"]
-      143 SETTABLEKS                       R12 R11 K18 ["VertexToolBase"]
-      145 GETTABLEKS                       R12 R0 K24 ["radius"]
-      147 SETTABLEKS                       R12 R11 K19 ["Radius"]
-      149 GETTABLEKS                       R12 R0 K25 ["falloff"]
-      151 SETTABLEKS                       R12 R11 K20 ["Falloff"]
-      153 SETTABLEKS                       R1 R11 K21 ["Mannequin"]
-      155 GETTABLEKS                       R12 R0 K26 ["onChangeSelectedPositions"]
-      157 SETTABLEKS                       R12 R11 K22 ["OnChangeSelectedPositions"]
-      159 CALL                             R9 2 -1
-      160 RETURN                           R9 -1
+       56 NEWTABLE                         R9 0 0
+       58 CALL                             R7 2 0
+       59 GETUPVAL                         R7 1
+       60 GETTABLEKS                       R7 R7 K8 ["useCallback"]
+       62 NEWCLOSURE                       R8 P2
+       63 CAPTURE                          VAL R0
+       64 CAPTURE                          VAL R1
+       65 CAPTURE                          UPVAL U7
+       66 CAPTURE                          VAL R5
+       67 NEWTABLE                         R9 0 1
+       69 MOVE                             R10 R1
+       70 SETLIST                          R9 R10 1 [1]
+       72 CALL                             R7 2 1
+       73 GETUPVAL                         R8 1
+       74 GETTABLEKS                       R8 R8 K10 ["useMemo"]
+       76 NEWCLOSURE                       R9 P3
+       77 CAPTURE                          UPVAL U8
+       78 CAPTURE                          VAL R7
+       79 CAPTURE                          UPVAL U6
+       80 NEWTABLE                         R10 0 1
+       82 MOVE                             R11 R7
+       83 SETLIST                          R10 R11 1 [1]
+       85 CALL                             R8 2 1
+       86 GETUPVAL                         R9 1
+       87 GETTABLEKS                       R9 R9 K9 ["useEffect"]
+       89 NEWCLOSURE                       R10 P4
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          UPVAL U9
+       92 CAPTURE                          VAL R0
+       93 CAPTURE                          UPVAL U10
+       94 CAPTURE                          VAL R8
+       95 NEWTABLE                         R11 0 1
+       97 MOVE                             R12 R1
+       98 SETLIST                          R11 R12 1 [1]
+      100 CALL                             R9 2 0
+      101 GETUPVAL                         R9 1
+      102 GETTABLEKS                       R9 R9 K9 ["useEffect"]
+      104 NEWCLOSURE                       R10 P5
+      105 CAPTURE                          VAL R0
+      106 NEWTABLE                         R11 0 4
+      108 GETTABLEKS                       R12 R0 K11 ["symmetrical"]
+      110 GETTABLEKS                       R13 R0 K12 ["symmetryMap"]
+      112 GETTABLEKS                       R14 R0 K13 ["segmentationMap"]
+      114 GETTABLEKS                       R15 R0 K14 ["outerCageContextRef"]
+      116 GETTABLEKS                       R15 R15 K15 ["current"]
+      118 SETLIST                          R11 R12 4 [1]
+      120 CALL                             R9 2 0
+      121 GETTABLEKS                       R9 R0 K16 ["brushToolRef"]
+      123 GETTABLEKS                       R9 R9 K15 ["current"]
+      125 JUMPIFNOTEQKNIL                  R9 ; [+3]
+      127 LOADNIL                          R9
+      128 RETURN                           R9 1
+      129 GETUPVAL                         R9 1
+      130 GETTABLEKS                       R9 R9 K17 ["createElement"]
+      132 GETUPVAL                         R10 11
+      133 DUPTABLE                         R11 K23 [{"Mouse", "Plugin", "VertexToolBase", "Radius", "Falloff", "Mannequin", "OnChangeSelectedPositions"}]
+      134 SETTABLEKS                       R2 R11 K2 ["Mouse"]
+      136 SETTABLEKS                       R3 R11 K5 ["Plugin"]
+      138 GETTABLEKS                       R12 R0 K16 ["brushToolRef"]
+      140 GETTABLEKS                       R12 R12 K15 ["current"]
+      142 SETTABLEKS                       R12 R11 K18 ["VertexToolBase"]
+      144 GETTABLEKS                       R12 R0 K24 ["radius"]
+      146 SETTABLEKS                       R12 R11 K19 ["Radius"]
+      148 GETTABLEKS                       R12 R0 K25 ["falloff"]
+      150 SETTABLEKS                       R12 R11 K20 ["Falloff"]
+      152 SETTABLEKS                       R1 R11 K21 ["Mannequin"]
+      154 GETTABLEKS                       R12 R0 K26 ["onChangeSelectedPositions"]
+      156 SETTABLEKS                       R12 R11 K22 ["OnChangeSelectedPositions"]
+      158 CALL                             R9 2 -1
+      159 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -528,32 +526,26 @@ MAIN:
        92 CALL                             R11 1 1
        93 GETIMPORT                        R12 K9 [require]
        95 GETTABLEKS                       R13 R0 K10 ["Src"]
-       97 GETTABLEKS                       R13 R13 K23 ["Flags"]
-       99 GETTABLEKS                       R13 R13 K24 ["getFFlagEnableCanEditAssetAsync"]
+       97 GETTABLEKS                       R13 R13 K23 ["Hooks"]
+       99 GETTABLEKS                       R13 R13 K24 ["useAsync"]
       101 CALL                             R12 1 1
-      102 GETIMPORT                        R13 K9 [require]
-      104 GETTABLEKS                       R14 R0 K10 ["Src"]
-      106 GETTABLEKS                       R14 R14 K25 ["Hooks"]
-      108 GETTABLEKS                       R14 R14 K26 ["useAsync"]
-      110 CALL                             R13 1 1
-      111 GETTABLEKS                       R14 R6 K27 ["MeshEditingContexts"]
-      113 GETTABLEKS                       R14 R14 K28 ["CageEditingContext"]
-      115 GETTABLEKS                       R15 R6 K13 ["Components"]
-      117 GETTABLEKS                       R15 R15 K29 ["FreeformMeshEditingComponent"]
-      119 GETTABLEKS                       R16 R6 K11 ["Util"]
-      121 GETTABLEKS                       R16 R16 K30 ["WrapUtil"]
-      123 DUPCLOSURE                       R17 K31 [PROTO_13]
-      124 CAPTURE                          VAL R5
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R3
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R2
-      129 CAPTURE                          VAL R8
-      130 CAPTURE                          VAL R1
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R16
-      133 CAPTURE                          VAL R11
-      134 CAPTURE                          VAL R14
-      135 CAPTURE                          VAL R6
-      136 CAPTURE                          VAL R15
-      137 RETURN                           R17 1
+      102 GETTABLEKS                       R13 R6 K25 ["MeshEditingContexts"]
+      104 GETTABLEKS                       R13 R13 K26 ["CageEditingContext"]
+      106 GETTABLEKS                       R14 R6 K13 ["Components"]
+      108 GETTABLEKS                       R14 R14 K27 ["FreeformMeshEditingComponent"]
+      110 GETTABLEKS                       R15 R6 K11 ["Util"]
+      112 GETTABLEKS                       R15 R15 K28 ["WrapUtil"]
+      114 DUPCLOSURE                       R16 K29 [PROTO_13]
+      115 CAPTURE                          VAL R5
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R3
+      118 CAPTURE                          VAL R2
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R1
+      121 CAPTURE                          VAL R4
+      122 CAPTURE                          VAL R15
+      123 CAPTURE                          VAL R11
+      124 CAPTURE                          VAL R13
+      125 CAPTURE                          VAL R6
+      126 CAPTURE                          VAL R14
+      127 RETURN                           R16 1

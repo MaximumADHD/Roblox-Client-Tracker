@@ -19,6 +19,13 @@ PROTO_2:
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
+PROTO_3:
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["SceneAnalysisBugfixesMay2026"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
@@ -31,11 +38,18 @@ MAIN:
        11 LOADB                            R3 0
        12 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        14 CALL                             R0 3 0
-       15 DUPTABLE                         R0 K8 [{"getFFlagEnableRIDE11651", "getFFlagRegisterActionsPluginLoader", "getFFlagSceneAnalysisRenderAttribution"}]
-       16 DUPCLOSURE                       R1 K9 [PROTO_0]
-       17 SETTABLEKS                       R1 R0 K5 ["getFFlagEnableRIDE11651"]
-       19 DUPCLOSURE                       R1 K10 [PROTO_1]
-       20 SETTABLEKS                       R1 R0 K6 ["getFFlagRegisterActionsPluginLoader"]
-       22 DUPCLOSURE                       R1 K11 [PROTO_2]
-       23 SETTABLEKS                       R1 R0 K7 ["getFFlagSceneAnalysisRenderAttribution"]
-       25 RETURN                           R0 1
+       15 GETIMPORT                        R0 K1 [game]
+       17 LOADK                            R2 K5 ["SceneAnalysisBugfixesMay2026"]
+       18 LOADB                            R3 0
+       19 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
+       21 CALL                             R0 3 0
+       22 DUPTABLE                         R0 K10 [{"getFFlagEnableRIDE11651", "getFFlagRegisterActionsPluginLoader", "getFFlagSceneAnalysisRenderAttribution", "getFFlagSceneAnalysisBugfixesMay2026"}]
+       23 DUPCLOSURE                       R1 K11 [PROTO_0]
+       24 SETTABLEKS                       R1 R0 K6 ["getFFlagEnableRIDE11651"]
+       26 DUPCLOSURE                       R1 K12 [PROTO_1]
+       27 SETTABLEKS                       R1 R0 K7 ["getFFlagRegisterActionsPluginLoader"]
+       29 DUPCLOSURE                       R1 K13 [PROTO_2]
+       30 SETTABLEKS                       R1 R0 K8 ["getFFlagSceneAnalysisRenderAttribution"]
+       32 DUPCLOSURE                       R1 K14 [PROTO_3]
+       33 SETTABLEKS                       R1 R0 K9 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       35 RETURN                           R0 1

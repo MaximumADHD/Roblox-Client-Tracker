@@ -300,79 +300,122 @@ PROTO_9:
        67 LOADN                            R19 0
        68 CALL                             R15 4 1
        69 SETTABLEKS                       R15 R14 K21 ["Position"]
-       71 DUPTABLE                         R15 K33 [{"Layout", "ViewSelector", "Speed"}]
+       71 DUPTABLE                         R15 K34 [{"Layout", "Padding", "ViewSelector", "NavRow"}]
        72 GETUPVAL                         R16 3
        73 GETTABLEKS                       R16 R16 K11 ["createElement"]
-       75 LOADK                            R17 K34 ["UIListLayout"]
-       76 DUPTABLE                         R18 K38 [{"FillDirection", "ItemLineAlignment", "SortOrder"}]
-       77 GETIMPORT                        R19 K40 [Enum.FillDirection.Vertical]
-       79 SETTABLEKS                       R19 R18 K35 ["FillDirection"]
-       81 GETIMPORT                        R19 K42 [Enum.ItemLineAlignment.Center]
-       83 SETTABLEKS                       R19 R18 K36 ["ItemLineAlignment"]
-       85 GETIMPORT                        R19 K44 [Enum.SortOrder.LayoutOrder]
-       87 SETTABLEKS                       R19 R18 K37 ["SortOrder"]
-       89 CALL                             R16 2 1
-       90 SETTABLEKS                       R16 R15 K30 ["Layout"]
-       92 GETTABLEKS                       R16 R0 K1 ["state"]
-       94 GETTABLEKS                       R16 R16 K45 ["viewSelectorActive"]
-       96 JUMPIFNOT                        R16 ; [+11]
-       97 GETUPVAL                         R16 3
-       98 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      100 GETUPVAL                         R17 5
-      101 DUPTABLE                         R18 K46 [{"LayoutOrder", "Plugin"}]
-      102 LOADN                            R19 0
-      103 SETTABLEKS                       R19 R18 K43 ["LayoutOrder"]
-      105 SETTABLEKS                       R3 R18 K2 ["Plugin"]
-      107 CALL                             R16 2 1
-      108 SETTABLEKS                       R16 R15 K31 ["ViewSelector"]
-      110 GETUPVAL                         R16 3
-      111 GETTABLEKS                       R16 R16 K11 ["createElement"]
-      113 LOADK                            R17 K17 ["Frame"]
-      114 DUPTABLE                         R18 K48 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
-      115 LOADN                            R19 1
-      116 SETTABLEKS                       R19 R18 K43 ["LayoutOrder"]
-      118 LOADN                            R19 1
-      119 SETTABLEKS                       R19 R18 K19 ["BackgroundTransparency"]
-      121 GETIMPORT                        R19 K29 [UDim2.new]
-      123 LOADN                            R20 0
-      124 LOADN                            R21 128
-      125 LOADN                            R22 0
-      126 LOADN                            R23 27
-      127 CALL                             R19 4 1
-      128 SETTABLEKS                       R19 R18 K47 ["Size"]
-      130 DUPTABLE                         R19 K50 [{"Layout", "SpeedSlider"}]
-      131 GETUPVAL                         R20 3
-      132 GETTABLEKS                       R20 R20 K11 ["createElement"]
-      134 LOADK                            R21 K34 ["UIListLayout"]
-      135 DUPTABLE                         R22 K53 [{"FillDirection", "ItemLineAlignment", "SortOrder", "HorizontalFlex", "VerticalFlex"}]
-      136 GETIMPORT                        R23 K55 [Enum.FillDirection.Horizontal]
-      138 SETTABLEKS                       R23 R22 K35 ["FillDirection"]
-      140 GETIMPORT                        R23 K42 [Enum.ItemLineAlignment.Center]
-      142 SETTABLEKS                       R23 R22 K36 ["ItemLineAlignment"]
-      144 GETIMPORT                        R23 K44 [Enum.SortOrder.LayoutOrder]
-      146 SETTABLEKS                       R23 R22 K37 ["SortOrder"]
-      148 GETIMPORT                        R23 K58 [Enum.UIFlexAlignment.SpaceEvenly]
-      150 SETTABLEKS                       R23 R22 K51 ["HorizontalFlex"]
-      152 GETIMPORT                        R23 K58 [Enum.UIFlexAlignment.SpaceEvenly]
-      154 SETTABLEKS                       R23 R22 K52 ["VerticalFlex"]
-      156 CALL                             R20 2 1
-      157 SETTABLEKS                       R20 R19 K30 ["Layout"]
-      159 GETUPVAL                         R20 3
-      160 GETTABLEKS                       R20 R20 K11 ["createElement"]
-      162 GETUPVAL                         R21 6
-      163 DUPTABLE                         R22 K59 [{"LayoutOrder"}]
-      164 LOADN                            R23 0
-      165 SETTABLEKS                       R23 R22 K43 ["LayoutOrder"]
-      167 CALL                             R20 2 1
-      168 SETTABLEKS                       R20 R19 K49 ["SpeedSlider"]
-      170 CALL                             R16 3 1
-      171 SETTABLEKS                       R16 R15 K32 ["Speed"]
-      173 CALL                             R12 3 1
-      174 SETTABLEKS                       R12 R11 K15 ["Panel"]
-      176 CALL                             R8 3 1
-      177 SETTABLEKS                       R8 R7 K9 ["FoundationProvider"]
-      179 CALL                             R5 2 -1
-      180 RETURN                           R5 -1
+       75 LOADK                            R17 K35 ["UIListLayout"]
+       76 DUPTABLE                         R18 K39 [{"FillDirection", "ItemLineAlignment", "SortOrder", "Padding"}]
+       77 GETIMPORT                        R19 K41 [Enum.FillDirection.Vertical]
+       79 SETTABLEKS                       R19 R18 K36 ["FillDirection"]
+       81 GETIMPORT                        R19 K43 [Enum.ItemLineAlignment.Center]
+       83 SETTABLEKS                       R19 R18 K37 ["ItemLineAlignment"]
+       85 GETIMPORT                        R19 K45 [Enum.SortOrder.LayoutOrder]
+       87 SETTABLEKS                       R19 R18 K38 ["SortOrder"]
+       89 GETIMPORT                        R19 K47 [UDim.new]
+       91 LOADN                            R20 0
+       92 LOADN                            R21 5
+       93 CALL                             R19 2 1
+       94 SETTABLEKS                       R19 R18 K31 ["Padding"]
+       96 CALL                             R16 2 1
+       97 SETTABLEKS                       R16 R15 K30 ["Layout"]
+       99 GETUPVAL                         R16 3
+      100 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      102 LOADK                            R17 K48 ["UIPadding"]
+      103 DUPTABLE                         R18 K50 [{"PaddingTop"}]
+      104 GETIMPORT                        R19 K47 [UDim.new]
+      106 LOADN                            R20 0
+      107 LOADN                            R21 5
+      108 CALL                             R19 2 1
+      109 SETTABLEKS                       R19 R18 K49 ["PaddingTop"]
+      111 CALL                             R16 2 1
+      112 SETTABLEKS                       R16 R15 K31 ["Padding"]
+      114 GETTABLEKS                       R16 R0 K1 ["state"]
+      116 GETTABLEKS                       R16 R16 K51 ["viewSelectorActive"]
+      118 JUMPIFNOT                        R16 ; [+11]
+      119 GETUPVAL                         R16 3
+      120 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      122 GETUPVAL                         R17 5
+      123 DUPTABLE                         R18 K52 [{"LayoutOrder", "Plugin"}]
+      124 LOADN                            R19 0
+      125 SETTABLEKS                       R19 R18 K44 ["LayoutOrder"]
+      127 SETTABLEKS                       R3 R18 K2 ["Plugin"]
+      129 CALL                             R16 2 1
+      130 SETTABLEKS                       R16 R15 K32 ["ViewSelector"]
+      132 GETUPVAL                         R16 3
+      133 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      135 LOADK                            R17 K17 ["Frame"]
+      136 DUPTABLE                         R18 K54 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
+      137 LOADN                            R19 1
+      138 SETTABLEKS                       R19 R18 K44 ["LayoutOrder"]
+      140 LOADN                            R19 1
+      141 SETTABLEKS                       R19 R18 K19 ["BackgroundTransparency"]
+      143 GETIMPORT                        R19 K29 [UDim2.new]
+      145 LOADN                            R20 0
+      146 LOADN                            R21 128
+      147 LOADN                            R22 0
+      148 LOADN                            R23 27
+      149 CALL                             R19 4 1
+      150 SETTABLEKS                       R19 R18 K53 ["Size"]
+      152 DUPTABLE                         R19 K57 [{"Layout", "Padding", "NavButtons", "SpeedSlider"}]
+      153 GETUPVAL                         R20 3
+      154 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      156 LOADK                            R21 K35 ["UIListLayout"]
+      157 DUPTABLE                         R22 K39 [{"FillDirection", "ItemLineAlignment", "SortOrder", "Padding"}]
+      158 GETIMPORT                        R23 K59 [Enum.FillDirection.Horizontal]
+      160 SETTABLEKS                       R23 R22 K36 ["FillDirection"]
+      162 GETIMPORT                        R23 K43 [Enum.ItemLineAlignment.Center]
+      164 SETTABLEKS                       R23 R22 K37 ["ItemLineAlignment"]
+      166 GETIMPORT                        R23 K45 [Enum.SortOrder.LayoutOrder]
+      168 SETTABLEKS                       R23 R22 K38 ["SortOrder"]
+      170 GETIMPORT                        R23 K47 [UDim.new]
+      172 LOADN                            R24 0
+      173 LOADN                            R25 5
+      174 CALL                             R23 2 1
+      175 SETTABLEKS                       R23 R22 K31 ["Padding"]
+      177 CALL                             R20 2 1
+      178 SETTABLEKS                       R20 R19 K30 ["Layout"]
+      180 GETUPVAL                         R20 3
+      181 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      183 LOADK                            R21 K48 ["UIPadding"]
+      184 DUPTABLE                         R22 K61 [{"PaddingRight"}]
+      185 GETIMPORT                        R23 K47 [UDim.new]
+      187 LOADN                            R24 0
+      188 LOADN                            R25 5
+      189 CALL                             R23 2 1
+      190 SETTABLEKS                       R23 R22 K60 ["PaddingRight"]
+      192 CALL                             R20 2 1
+      193 SETTABLEKS                       R20 R19 K31 ["Padding"]
+      195 GETUPVAL                         R20 3
+      196 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      198 GETUPVAL                         R21 6
+      199 DUPTABLE                         R22 K62 [{"LayoutOrder"}]
+      200 LOADN                            R23 0
+      201 SETTABLEKS                       R23 R22 K44 ["LayoutOrder"]
+      203 CALL                             R20 2 1
+      204 SETTABLEKS                       R20 R19 K55 ["NavButtons"]
+      206 GETUPVAL                         R20 3
+      207 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      209 GETUPVAL                         R21 7
+      210 DUPTABLE                         R22 K63 [{"LayoutOrder", "Size"}]
+      211 LOADN                            R23 1
+      212 SETTABLEKS                       R23 R22 K44 ["LayoutOrder"]
+      214 GETIMPORT                        R23 K29 [UDim2.new]
+      216 LOADN                            R24 0
+      217 LOADN                            R25 96
+      218 LOADN                            R26 0
+      219 LOADN                            R27 22
+      220 CALL                             R23 4 1
+      221 SETTABLEKS                       R23 R22 K53 ["Size"]
+      223 CALL                             R20 2 1
+      224 SETTABLEKS                       R20 R19 K56 ["SpeedSlider"]
+      226 CALL                             R16 3 1
+      227 SETTABLEKS                       R16 R15 K33 ["NavRow"]
+      229 CALL                             R12 3 1
+      230 SETTABLEKS                       R12 R11 K15 ["Panel"]
+      232 CALL                             R8 3 1
+      233 SETTABLEKS                       R8 R7 K9 ["FoundationProvider"]
+      235 CALL                             R5 2 -1
+      236 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -421,27 +464,31 @@ MAIN:
        77 GETIMPORT                        R15 K5 [require]
        79 GETTABLEKS                       R16 R12 K29 ["SpeedSlider"]
        81 CALL                             R15 1 1
-       82 GETIMPORT                        R16 K31 [game]
-       84 LOADK                            R18 K32 ["StudioCameraService"]
-       85 NAMECALL                         R16 R16 K33 ["GetService"]
-       87 CALL                             R16 2 1
-       88 DUPCLOSURE                       R17 K34 [PROTO_7]
-       89 CAPTURE                          VAL R16
-       90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R10
-       92 CAPTURE                          VAL R11
-       93 CAPTURE                          VAL R8
-       94 CAPTURE                          VAL R9
-       95 SETTABLEKS                       R17 R13 K35 ["init"]
-       97 DUPCLOSURE                       R17 K36 [PROTO_8]
-       98 SETTABLEKS                       R17 R13 K37 ["willUnmount"]
-      100 DUPCLOSURE                       R17 K38 [PROTO_9]
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R6
-      103 CAPTURE                          VAL R7
-      104 CAPTURE                          VAL R1
-      105 CAPTURE                          VAL R4
-      106 CAPTURE                          VAL R14
-      107 CAPTURE                          VAL R15
-      108 SETTABLEKS                       R17 R13 K39 ["render"]
-      110 RETURN                           R13 1
+       82 GETIMPORT                        R16 K5 [require]
+       84 GETTABLEKS                       R17 R12 K30 ["NavModelButtons"]
+       86 CALL                             R16 1 1
+       87 GETIMPORT                        R17 K32 [game]
+       89 LOADK                            R19 K33 ["StudioCameraService"]
+       90 NAMECALL                         R17 R17 K34 ["GetService"]
+       92 CALL                             R17 2 1
+       93 DUPCLOSURE                       R18 K35 [PROTO_7]
+       94 CAPTURE                          VAL R17
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R11
+       98 CAPTURE                          VAL R8
+       99 CAPTURE                          VAL R9
+      100 SETTABLEKS                       R18 R13 K36 ["init"]
+      102 DUPCLOSURE                       R18 K37 [PROTO_8]
+      103 SETTABLEKS                       R18 R13 K38 ["willUnmount"]
+      105 DUPCLOSURE                       R18 K39 [PROTO_9]
+      106 CAPTURE                          VAL R5
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R7
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R14
+      112 CAPTURE                          VAL R16
+      113 CAPTURE                          VAL R15
+      114 SETTABLEKS                       R18 R13 K40 ["render"]
+      116 RETURN                           R13 1

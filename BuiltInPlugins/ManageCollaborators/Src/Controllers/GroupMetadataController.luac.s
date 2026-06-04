@@ -36,7 +36,7 @@ PROTO_2:
 PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["__metadataCache"]
         2 GETTABLE                         R2 R3 R1
-        3 JUMPIF                           R2 ; [+40]
+        3 JUMPIF                           R2 ; [+51]
         4 MOVE                             R4 R1
         5 NAMECALL                         R2 R0 K1 ["groupsV1GET"]
         7 CALL                             R2 2 1
@@ -44,27 +44,34 @@ PROTO_3:
        10 CALL                             R2 1 1
        11 GETTABLEKS                       R4 R0 K0 ["__metadataCache"]
        13 GETTABLE                         R3 R4 R1
-       14 JUMPIF                           R3 ; [+29]
+       14 JUMPIF                           R3 ; [+40]
        15 GETTABLEKS                       R3 R2 K3 ["responseBody"]
        17 GETTABLEKS                       R4 R0 K0 ["__metadataCache"]
-       19 DUPTABLE                         R5 K8 [{"name", "ownerId", "memberCount", "isSequestered"}]
+       19 DUPTABLE                         R5 K9 [{"name", "ownerId", "ownerName", "memberCount", "isSequestered"}]
        20 GETTABLEKS                       R6 R3 K4 ["name"]
        22 SETTABLEKS                       R6 R5 K4 ["name"]
-       24 GETTABLEKS                       R7 R3 K9 ["owner"]
+       24 GETTABLEKS                       R7 R3 K10 ["owner"]
        26 JUMPIFNOT                        R7 ; [+5]
-       27 GETTABLEKS                       R6 R3 K9 ["owner"]
-       29 GETTABLEKS                       R6 R6 K10 ["userId"]
+       27 GETTABLEKS                       R6 R3 K10 ["owner"]
+       29 GETTABLEKS                       R6 R6 K11 ["userId"]
        31 JUMP                             ; [+1]
        32 LOADN                            R6 0
        33 SETTABLEKS                       R6 R5 K5 ["ownerId"]
-       35 GETTABLEKS                       R6 R3 K6 ["memberCount"]
-       37 SETTABLEKS                       R6 R5 K6 ["memberCount"]
-       39 GETTABLEKS                       R6 R3 K11 ["isLocked"]
-       41 SETTABLEKS                       R6 R5 K7 ["isSequestered"]
-       43 SETTABLE                         R5 R4 R1
-       44 GETTABLEKS                       R3 R0 K0 ["__metadataCache"]
-       46 GETTABLE                         R2 R3 R1
-       47 RETURN                           R2 1
+       35 GETTABLEKS                       R7 R3 K10 ["owner"]
+       37 JUMPIFNOT                        R7 ; [+5]
+       38 GETTABLEKS                       R6 R3 K10 ["owner"]
+       40 GETTABLEKS                       R6 R6 K12 ["username"]
+       42 JUMP                             ; [+1]
+       43 LOADNIL                          R6
+       44 SETTABLEKS                       R6 R5 K6 ["ownerName"]
+       46 GETTABLEKS                       R6 R3 K7 ["memberCount"]
+       48 SETTABLEKS                       R6 R5 K7 ["memberCount"]
+       50 GETTABLEKS                       R6 R3 K13 ["isLocked"]
+       52 SETTABLEKS                       R6 R5 K8 ["isSequestered"]
+       54 SETTABLE                         R5 R4 R1
+       55 GETTABLEKS                       R3 R0 K0 ["__metadataCache"]
+       57 GETTABLE                         R2 R3 R1
+       58 RETURN                           R2 1
 
 PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["__rolesetCache"]

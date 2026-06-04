@@ -1,143 +1,128 @@
 PROTO_0:
-        0 GETTABLEKS                       R1 R0 K0 ["UserId"]
-        2 RETURN                           R1 1
-
-PROTO_1:
-        0 GETUPVAL                         R6 0
-        1 FASTCALL1                        ASSERT R6 ; [+2]
-        2 GETIMPORT                        R5 K1 [assert]
-        4 CALL                             R5 1 0
+        0 GETUPVAL                         R7 0
+        1 FASTCALL1                        ASSERT R7 ; [+2]
+        2 GETIMPORT                        R6 K1 [assert]
+        4 CALL                             R6 1 0
         5 JUMPIFNOT                        R0 ; [+3]
-        6 GETTABLEKS                       R5 R0 K2 ["Error"]
-        8 JUMPIF                           R5 ; [+1]
+        6 GETTABLEKS                       R6 R0 K2 ["Error"]
+        8 JUMPIF                           R6 ; [+1]
         9 RETURN                           R0 0
-       10 GETTABLEKS                       R5 R0 K2 ["Error"]
-       12 LOADNIL                          R6
-       13 LOADNIL                          R7
-       14 LOADNIL                          R8
-       15 LOADNIL                          R9
-       16 LOADNIL                          R10
-       17 LOADNIL                          R11
-       18 GETUPVAL                         R12 1
-       19 GETTABLEKS                       R12 R12 K3 ["NotAgeVerified"]
-       21 JUMPIFNOTEQ                      R5 R12 ; [+28]
-       23 LOADK                            R14 K4 ["Plugin"]
-       24 LOADK                            R15 K5 ["VerifyAgeGateDialog.Title"]
-       25 NAMECALL                         R12 R4 K6 ["getText"]
-       27 CALL                             R12 3 1
-       28 MOVE                             R6 R12
-       29 LOADK                            R14 K4 ["Plugin"]
-       30 LOADK                            R15 K7 ["VerifyAgeGateDialog.Description"]
-       31 NAMECALL                         R12 R4 K6 ["getText"]
-       33 CALL                             R12 3 1
-       34 MOVE                             R7 R12
-       35 LOADK                            R10 K8 ["SafetyDialog/Verify"]
-       36 LOADK                            R14 K4 ["Plugin"]
-       37 LOADK                            R15 K9 ["VerifyAgeGateDialog.PrimaryAction"]
-       38 NAMECALL                         R12 R4 K6 ["getText"]
-       40 CALL                             R12 3 1
-       41 MOVE                             R8 R12
-       42 LOADK                            R11 K10 ["SafetyDialog/Cancel"]
-       43 LOADK                            R14 K4 ["Plugin"]
-       44 LOADK                            R15 K11 ["VerifyAgeGateDialog.SecondaryAction"]
-       45 NAMECALL                         R12 R4 K6 ["getText"]
-       47 CALL                             R12 3 1
-       48 MOVE                             R9 R12
+       10 GETTABLEKS                       R6 R0 K2 ["Error"]
+       12 LOADNIL                          R7
+       13 LOADNIL                          R8
+       14 LOADNIL                          R9
+       15 LOADNIL                          R10
+       16 LOADNIL                          R11
+       17 LOADNIL                          R12
+       18 GETUPVAL                         R13 1
+       19 GETTABLEKS                       R13 R13 K3 ["NotAgeVerified"]
+       21 JUMPIFNOTEQ                      R6 R13 ; [+28]
+       23 LOADK                            R15 K4 ["Plugin"]
+       24 LOADK                            R16 K5 ["VerifyAgeGateDialog.Title"]
+       25 NAMECALL                         R13 R5 K6 ["getText"]
+       27 CALL                             R13 3 1
+       28 MOVE                             R7 R13
+       29 LOADK                            R15 K4 ["Plugin"]
+       30 LOADK                            R16 K7 ["VerifyAgeGateDialog.Description"]
+       31 NAMECALL                         R13 R5 K6 ["getText"]
+       33 CALL                             R13 3 1
+       34 MOVE                             R8 R13
+       35 LOADK                            R11 K8 ["SafetyDialog/Verify"]
+       36 LOADK                            R15 K4 ["Plugin"]
+       37 LOADK                            R16 K9 ["VerifyAgeGateDialog.PrimaryAction"]
+       38 NAMECALL                         R13 R5 K6 ["getText"]
+       40 CALL                             R13 3 1
+       41 MOVE                             R9 R13
+       42 LOADK                            R12 K10 ["SafetyDialog/Cancel"]
+       43 LOADK                            R15 K4 ["Plugin"]
+       44 LOADK                            R16 K11 ["VerifyAgeGateDialog.SecondaryAction"]
+       45 NAMECALL                         R13 R5 K6 ["getText"]
+       47 CALL                             R13 3 1
+       48 MOVE                             R10 R13
        49 JUMP                             ; [+36]
-       50 GETUPVAL                         R12 1
-       51 GETTABLEKS                       R12 R12 K12 ["OutsideAgeBucket"]
-       53 JUMPIFEQ                         R5 R12 ; [+6]
-       55 GETUPVAL                         R12 1
-       56 GETTABLEKS                       R12 R12 K13 ["PCBlock"]
-       58 JUMPIFNOTEQ                      R5 R12 ; [+27]
-       60 LOADK                            R14 K4 ["Plugin"]
-       61 LOADK                            R15 K14 ["TrustedConnectionsGateDialog.Title"]
-       62 NAMECALL                         R12 R4 K6 ["getText"]
-       64 CALL                             R12 3 1
-       65 MOVE                             R6 R12
-       66 LOADK                            R14 K4 ["Plugin"]
-       67 LOADK                            R15 K15 ["TrustedConnectionsGateDialog.Description"]
-       68 NAMECALL                         R12 R4 K6 ["getText"]
-       70 CALL                             R12 3 1
-       71 MOVE                             R7 R12
-       72 LOADK                            R10 K16 ["SafetyDialog/AddTrustedConnections"]
-       73 LOADK                            R14 K4 ["Plugin"]
-       74 LOADK                            R15 K17 ["TrustedConnectionsGateDialog.PrimaryAction"]
-       75 NAMECALL                         R12 R4 K6 ["getText"]
-       77 CALL                             R12 3 1
-       78 MOVE                             R8 R12
-       79 LOADK                            R11 K8 ["SafetyDialog/Verify"]
-       80 LOADK                            R14 K4 ["Plugin"]
-       81 LOADK                            R15 K18 ["TrustedConnectionsGateDialog.SecondaryAction"]
-       82 NAMECALL                         R12 R4 K6 ["getText"]
-       84 CALL                             R12 3 1
-       85 MOVE                             R9 R12
-       86 LOADNIL                          R12
-       87 JUMPIFNOT                        R6 ; [+45]
-       88 DUPTABLE                         R15 K21 [{"PluginId", "ItemId"}]
-       89 LOADK                            R16 K22 ["StartPage"]
-       90 SETTABLEKS                       R16 R15 K19 ["PluginId"]
-       92 LOADK                            R16 K23 ["SafetyDialog"]
-       93 SETTABLEKS                       R16 R15 K20 ["ItemId"]
-       95 DUPTABLE                         R16 K29 [{"Type", "Title", "Description", "PrimaryButton", "SecondaryButton"}]
-       96 LOADK                            R17 K30 ["Critical"]
-       97 SETTABLEKS                       R17 R16 K24 ["Type"]
-       99 SETTABLEKS                       R6 R16 K25 ["Title"]
-      101 SETTABLEKS                       R7 R16 K26 ["Description"]
-      103 DUPTABLE                         R17 K33 [{"Uri", "Text"}]
-      104 DUPTABLE                         R18 K21 [{"PluginId", "ItemId"}]
-      105 LOADK                            R19 K22 ["StartPage"]
-      106 SETTABLEKS                       R19 R18 K19 ["PluginId"]
-      108 SETTABLEKS                       R10 R18 K20 ["ItemId"]
-      110 SETTABLEKS                       R18 R17 K31 ["Uri"]
-      112 SETTABLEKS                       R8 R17 K32 ["Text"]
-      114 SETTABLEKS                       R17 R16 K27 ["PrimaryButton"]
-      116 DUPTABLE                         R17 K33 [{"Uri", "Text"}]
-      117 DUPTABLE                         R18 K21 [{"PluginId", "ItemId"}]
-      118 LOADK                            R19 K22 ["StartPage"]
-      119 SETTABLEKS                       R19 R18 K19 ["PluginId"]
-      121 SETTABLEKS                       R11 R18 K20 ["ItemId"]
-      123 SETTABLEKS                       R18 R17 K31 ["Uri"]
-      125 SETTABLEKS                       R9 R17 K32 ["Text"]
-      127 SETTABLEKS                       R17 R16 K28 ["SecondaryButton"]
-      129 NAMECALL                         R13 R3 K34 ["ShowDialogAsync"]
-      131 CALL                             R13 3 1
-      132 MOVE                             R12 R13
-      133 JUMPIFNOT                        R12 ; [+47]
-      134 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
-      136 JUMPIFNOT                        R13 ; [+44]
-      137 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
-      139 GETTABLEKS                       R13 R13 K20 ["ItemId"]
-      141 JUMPIFNOT                        R13 ; [+39]
-      142 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
-      144 GETTABLEKS                       R13 R13 K20 ["ItemId"]
-      146 JUMPIFNOTEQKS                    R13 K8 ["SafetyDialog/Verify"] ; [+7]
-      148 GETUPVAL                         R13 2
-      149 GETUPVAL                         R15 3
-      150 NAMECALL                         R13 R13 K36 ["openLink"]
-      152 CALL                             R13 2 0
+       50 GETUPVAL                         R13 1
+       51 GETTABLEKS                       R13 R13 K12 ["OutsideAgeBucket"]
+       53 JUMPIFEQ                         R6 R13 ; [+6]
+       55 GETUPVAL                         R13 1
+       56 GETTABLEKS                       R13 R13 K13 ["PCBlock"]
+       58 JUMPIFNOTEQ                      R6 R13 ; [+27]
+       60 LOADK                            R15 K4 ["Plugin"]
+       61 LOADK                            R16 K14 ["TrustedConnectionsGateDialog.Title"]
+       62 NAMECALL                         R13 R5 K6 ["getText"]
+       64 CALL                             R13 3 1
+       65 MOVE                             R7 R13
+       66 LOADK                            R15 K4 ["Plugin"]
+       67 LOADK                            R16 K15 ["TrustedConnectionsGateDialog.Description"]
+       68 NAMECALL                         R13 R5 K6 ["getText"]
+       70 CALL                             R13 3 1
+       71 MOVE                             R8 R13
+       72 LOADK                            R11 K16 ["SafetyDialog/AddTrustedConnections"]
+       73 LOADK                            R15 K4 ["Plugin"]
+       74 LOADK                            R16 K17 ["TrustedConnectionsGateDialog.PrimaryAction"]
+       75 NAMECALL                         R13 R5 K6 ["getText"]
+       77 CALL                             R13 3 1
+       78 MOVE                             R9 R13
+       79 LOADK                            R12 K8 ["SafetyDialog/Verify"]
+       80 LOADK                            R15 K4 ["Plugin"]
+       81 LOADK                            R16 K18 ["TrustedConnectionsGateDialog.SecondaryAction"]
+       82 NAMECALL                         R13 R5 K6 ["getText"]
+       84 CALL                             R13 3 1
+       85 MOVE                             R10 R13
+       86 LOADNIL                          R13
+       87 JUMPIFNOT                        R7 ; [+45]
+       88 DUPTABLE                         R16 K21 [{"PluginId", "ItemId"}]
+       89 LOADK                            R17 K22 ["StartPage"]
+       90 SETTABLEKS                       R17 R16 K19 ["PluginId"]
+       92 LOADK                            R17 K23 ["SafetyDialog"]
+       93 SETTABLEKS                       R17 R16 K20 ["ItemId"]
+       95 DUPTABLE                         R17 K29 [{"Type", "Title", "Description", "PrimaryButton", "SecondaryButton"}]
+       96 LOADK                            R18 K30 ["Critical"]
+       97 SETTABLEKS                       R18 R17 K24 ["Type"]
+       99 SETTABLEKS                       R7 R17 K25 ["Title"]
+      101 SETTABLEKS                       R8 R17 K26 ["Description"]
+      103 DUPTABLE                         R18 K33 [{"Uri", "Text"}]
+      104 DUPTABLE                         R19 K21 [{"PluginId", "ItemId"}]
+      105 LOADK                            R20 K22 ["StartPage"]
+      106 SETTABLEKS                       R20 R19 K19 ["PluginId"]
+      108 SETTABLEKS                       R11 R19 K20 ["ItemId"]
+      110 SETTABLEKS                       R19 R18 K31 ["Uri"]
+      112 SETTABLEKS                       R9 R18 K32 ["Text"]
+      114 SETTABLEKS                       R18 R17 K27 ["PrimaryButton"]
+      116 DUPTABLE                         R18 K33 [{"Uri", "Text"}]
+      117 DUPTABLE                         R19 K21 [{"PluginId", "ItemId"}]
+      118 LOADK                            R20 K22 ["StartPage"]
+      119 SETTABLEKS                       R20 R19 K19 ["PluginId"]
+      121 SETTABLEKS                       R12 R19 K20 ["ItemId"]
+      123 SETTABLEKS                       R19 R18 K31 ["Uri"]
+      125 SETTABLEKS                       R10 R18 K32 ["Text"]
+      127 SETTABLEKS                       R18 R17 K28 ["SecondaryButton"]
+      129 NAMECALL                         R14 R4 K34 ["ShowDialogAsync"]
+      131 CALL                             R14 3 1
+      132 MOVE                             R13 R14
+      133 JUMPIFNOT                        R13 ; [+33]
+      134 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
+      136 JUMPIFNOT                        R14 ; [+30]
+      137 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
+      139 GETTABLEKS                       R14 R14 K20 ["ItemId"]
+      141 JUMPIFNOT                        R14 ; [+25]
+      142 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
+      144 GETTABLEKS                       R14 R14 K20 ["ItemId"]
+      146 JUMPIFNOTEQKS                    R14 K8 ["SafetyDialog/Verify"] ; [+7]
+      148 GETUPVAL                         R14 2
+      149 GETUPVAL                         R16 3
+      150 NAMECALL                         R14 R14 K36 ["openLink"]
+      152 CALL                             R14 2 0
       153 RETURN                           R0 0
-      154 GETUPVAL                         R13 4
-      155 CALL                             R13 0 1
-      156 JUMPIFNOT                        R13 ; [+24]
-      157 GETTABLEKS                       R13 R12 K35 ["SelectedButtonUri"]
-      159 GETTABLEKS                       R13 R13 K20 ["ItemId"]
-      161 JUMPIFNOTEQKS                    R13 K16 ["SafetyDialog/AddTrustedConnections"] ; [+19]
-      163 GETUPVAL                         R13 5
-      164 GETTABLEKS                       R13 R13 K37 ["map"]
-      166 GETTABLEKS                       R14 R0 K38 ["RequiresTrustedConnection"]
-      168 DUPCLOSURE                       R15 K39 [PROTO_0]
-      169 CALL                             R13 2 1
-      170 GETUPVAL                         R14 6
-      171 LOADK                            R16 K40 ["CanCollaborateResponse"]
-      172 MOVE                             R17 R13
-      173 MOVE                             R18 R1
-      174 NAMECALL                         R14 R14 K41 ["Fire"]
-      176 CALL                             R14 4 0
-      177 GETUPVAL                         R16 7
-      178 NAMECALL                         R14 R2 K42 ["ActivateAsync"]
-      180 CALL                             R14 2 0
-      181 RETURN                           R0 0
+      154 GETUPVAL                         R14 4
+      155 CALL                             R14 0 1
+      156 JUMPIFNOT                        R14 ; [+10]
+      157 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
+      159 GETTABLEKS                       R14 R14 K20 ["ItemId"]
+      161 JUMPIFNOTEQKS                    R14 K16 ["SafetyDialog/AddTrustedConnections"] ; [+5]
+      163 GETUPVAL                         R16 5
+      164 NAMECALL                         R14 R3 K37 ["ActivateAsync"]
+      166 CALL                             R14 2 0
+      167 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -152,62 +137,47 @@ MAIN:
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["StartPageManager"]
        18 GETIMPORT                        R3 K5 [require]
-       20 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       22 GETTABLEKS                       R4 R4 K11 ["Dash"]
-       24 CALL                             R3 1 1
-       25 GETIMPORT                        R4 K5 [require]
-       27 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       29 GETTABLEKS                       R5 R5 K12 ["Framework"]
-       31 CALL                             R4 1 1
-       32 GETTABLEKS                       R5 R4 K7 ["Util"]
-       34 GETTABLEKS                       R5 R5 K13 ["CrossPluginCommunication"]
-       36 GETTABLEKS                       R6 R5 K14 ["new"]
-       38 LOADK                            R7 K15 ["StartPageTeamCreateCollaborators"]
-       39 CALL                             R6 1 1
-       40 GETIMPORT                        R7 K5 [require]
-       42 GETTABLEKS                       R8 R0 K6 ["Src"]
-       44 GETTABLEKS                       R8 R8 K16 ["SharedFlags"]
-       46 GETTABLEKS                       R8 R8 K17 ["getFStringLuaStartPageVerifyAgeLink"]
-       48 CALL                             R7 1 1
-       49 GETIMPORT                        R8 K5 [require]
-       51 GETTABLEKS                       R9 R0 K6 ["Src"]
-       53 GETTABLEKS                       R9 R9 K18 ["Models"]
-       55 GETTABLEKS                       R9 R9 K19 ["CanCollaborateError"]
-       57 CALL                             R8 1 1
-       58 GETIMPORT                        R9 K5 [require]
-       60 GETTABLEKS                       R10 R0 K6 ["Src"]
-       62 GETTABLEKS                       R10 R10 K18 ["Models"]
-       64 GETTABLEKS                       R10 R10 K20 ["CanCollaborateResponse"]
-       66 CALL                             R9 1 1
-       67 MOVE                             R10 R7
-       68 CALL                             R10 0 1
-       69 GETIMPORT                        R11 K5 [require]
-       71 GETTABLEKS                       R12 R0 K6 ["Src"]
-       73 GETTABLEKS                       R12 R12 K16 ["SharedFlags"]
-       75 GETTABLEKS                       R12 R12 K21 ["getFFlagEnableTeamCreateCollaborators"]
-       77 CALL                             R11 1 1
-       78 GETIMPORT                        R12 K5 [require]
-       80 GETTABLEKS                       R13 R0 K6 ["Src"]
-       82 GETTABLEKS                       R13 R13 K16 ["SharedFlags"]
-       84 GETTABLEKS                       R13 R13 K22 ["getFFlagLuaStartPageTCAgeGatingCheck"]
-       86 CALL                             R12 1 1
-       87 CALL                             R12 0 1
-       88 DUPTABLE                         R13 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       89 LOADK                            R14 K28 ["Standalone"]
-       90 SETTABLEKS                       R14 R13 K23 ["DataModel"]
-       92 LOADK                            R14 K29 ["TeamCreateCollaborators"]
-       93 SETTABLEKS                       R14 R13 K24 ["PluginId"]
-       95 LOADK                            R14 K30 ["Actions"]
-       96 SETTABLEKS                       R14 R13 K25 ["Category"]
-       98 LOADK                            R14 K31 ["Toggle"]
-       99 SETTABLEKS                       R14 R13 K26 ["ItemId"]
-      101 DUPCLOSURE                       R14 K32 [PROTO_1]
-      102 CAPTURE                          VAL R12
-      103 CAPTURE                          VAL R8
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          VAL R10
-      106 CAPTURE                          VAL R11
-      107 CAPTURE                          VAL R3
-      108 CAPTURE                          VAL R6
-      109 CAPTURE                          VAL R13
-      110 RETURN                           R14 1
+       20 GETTABLEKS                       R4 R0 K6 ["Src"]
+       22 GETTABLEKS                       R4 R4 K10 ["SharedFlags"]
+       24 GETTABLEKS                       R4 R4 K11 ["getFStringLuaStartPageVerifyAgeLink"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K5 [require]
+       29 GETTABLEKS                       R5 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K12 ["Models"]
+       33 GETTABLEKS                       R5 R5 K13 ["CanCollaborateError"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K5 [require]
+       38 GETTABLEKS                       R6 R0 K6 ["Src"]
+       40 GETTABLEKS                       R6 R6 K12 ["Models"]
+       42 GETTABLEKS                       R6 R6 K14 ["CanCollaborateResponse"]
+       44 CALL                             R5 1 1
+       45 MOVE                             R6 R3
+       46 CALL                             R6 0 1
+       47 GETIMPORT                        R7 K5 [require]
+       49 GETTABLEKS                       R8 R0 K6 ["Src"]
+       51 GETTABLEKS                       R8 R8 K10 ["SharedFlags"]
+       53 GETTABLEKS                       R8 R8 K15 ["getFFlagEnableTeamCreateCollaborators"]
+       55 CALL                             R7 1 1
+       56 GETIMPORT                        R8 K5 [require]
+       58 GETTABLEKS                       R9 R0 K6 ["Src"]
+       60 GETTABLEKS                       R9 R9 K10 ["SharedFlags"]
+       62 GETTABLEKS                       R9 R9 K16 ["getFFlagLuaStartPageTCAgeGatingCheck"]
+       64 CALL                             R8 1 1
+       65 CALL                             R8 0 1
+       66 DUPTABLE                         R9 K21 [{"DataModel", "PluginId", "Category", "ItemId"}]
+       67 LOADK                            R10 K22 ["Standalone"]
+       68 SETTABLEKS                       R10 R9 K17 ["DataModel"]
+       70 LOADK                            R10 K23 ["TeamCreateCollaborators"]
+       71 SETTABLEKS                       R10 R9 K18 ["PluginId"]
+       73 LOADK                            R10 K24 ["Actions"]
+       74 SETTABLEKS                       R10 R9 K19 ["Category"]
+       76 LOADK                            R10 K25 ["Toggle"]
+       77 SETTABLEKS                       R10 R9 K20 ["ItemId"]
+       79 DUPCLOSURE                       R10 K26 [PROTO_0]
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R9
+       86 RETURN                           R10 1

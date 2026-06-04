@@ -505,17 +505,6 @@ PROTO_61:
        15 RETURN                           R1 1
 
 PROTO_62:
-        0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+8]
-        2 GETIMPORT                        R1 K1 [settings]
-        4 CALL                             R1 0 1
-        5 GETTABLEKS                       R1 R1 K2 ["Studio"]
-        7 GETTABLEKS                       R1 R1 K3 ["CameraNavigationModel"]
-        9 RETURN                           R1 1
-       10 LOADNIL                          R1
-       11 RETURN                           R1 1
-
-PROTO_63:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOT                        R1 ; [+4]
         2 NAMECALL                         R1 R0 K0 ["isShiftKeyDown"]
@@ -527,6 +516,19 @@ PROTO_63:
        10 NAMECALL                         R1 R0 K0 ["isShiftKeyDown"]
        12 CALL                             R1 1 1
        13 RETURN                           R1 1
+
+PROTO_63:
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+8]
+        2 NAMECALL                         R1 R0 K0 ["isAltKeyDown"]
+        4 CALL                             R1 1 1
+        5 JUMPIF                           R1 ; [+3]
+        6 NAMECALL                         R1 R0 K1 ["isCtrlKeyDown"]
+        8 CALL                             R1 1 1
+        9 RETURN                           R1 1
+       10 NAMECALL                         R1 R0 K0 ["isAltKeyDown"]
+       12 CALL                             R1 1 -1
+       13 RETURN                           R1 -1
 
 PROTO_64:
         0 GETUPVAL                         R1 0
@@ -980,10 +982,10 @@ MAIN:
       246 SETTABLEKS                       R11 R9 K139 ["isShiftKeyDown"]
       248 DUPCLOSURE                       R11 K140 [PROTO_62]
       249 CAPTURE                          VAL R8
-      250 SETTABLEKS                       R11 R9 K141 ["getNavigationModel"]
+      250 SETTABLEKS                       R11 R9 K141 ["shouldExtendSelection"]
       252 DUPCLOSURE                       R11 K142 [PROTO_63]
       253 CAPTURE                          VAL R8
-      254 SETTABLEKS                       R11 R9 K143 ["shouldExtendSelection"]
+      254 SETTABLEKS                       R11 R9 K143 ["isSelectionCycleModifierDown"]
       256 DUPCLOSURE                       R11 K144 [PROTO_64]
       257 CAPTURE                          VAL R6
       258 SETTABLEKS                       R11 R9 K145 ["getGridSize"]

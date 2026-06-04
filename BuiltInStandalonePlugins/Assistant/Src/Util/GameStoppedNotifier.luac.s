@@ -2,26 +2,32 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["GAME_STOPPED_KEY"]
-        4 LOADK                            R3 K1 ["Standalone"]
-        5 NAMECALL                         R0 R0 K2 ["FireGuest"]
-        7 CALL                             R0 3 0
-        8 RETURN                           R0 0
+        4 GETUPVAL                         R3 2
+        5 GETTABLEKS                       R3 R3 K1 ["Types"]
+        7 GETTABLEKS                       R3 R3 K2 ["Standalone"]
+        9 NAMECALL                         R0 R0 K3 ["FireGuest"]
+       11 CALL                             R0 3 0
+       12 RETURN                           R0 0
 
 PROTO_1:
-        0 JUMPIFEQKS                       R0 K0 ["Server"] ; [+2]
-        2 LOADB                            R4 0 +1
-        3 LOADB                            R4 1
-        4 FASTCALL2K                       ASSERT R4 K1 ; [+4]
-        6 LOADK                            R5 K1 ["GameStoppedNotifier can only be initialized for server data model"]
-        7 GETIMPORT                        R3 K3 [assert]
-        9 CALL                             R3 2 0
-       10 GETIMPORT                        R3 K5 [game]
-       12 NEWCLOSURE                       R5 P0
-       13 CAPTURE                          VAL R2
-       14 CAPTURE                          UPVAL U0
-       15 NAMECALL                         R3 R3 K6 ["BindToClose"]
-       17 CALL                             R3 2 0
-       18 RETURN                           R0 0
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R5 R5 K0 ["Types"]
+        3 GETTABLEKS                       R5 R5 K1 ["Server"]
+        5 JUMPIFEQ                         R0 R5 ; [+2]
+        7 LOADB                            R4 0 +1
+        8 LOADB                            R4 1
+        9 FASTCALL2K                       ASSERT R4 K2 ; [+4]
+       11 LOADK                            R5 K2 ["GameStoppedNotifier can only be initialized for server data model"]
+       12 GETIMPORT                        R3 K4 [assert]
+       14 CALL                             R3 2 0
+       15 GETIMPORT                        R3 K6 [game]
+       17 NEWCLOSURE                       R5 P0
+       18 CAPTURE                          VAL R2
+       19 CAPTURE                          UPVAL U1
+       20 CAPTURE                          UPVAL U0
+       21 NAMECALL                         R3 R3 K7 ["BindToClose"]
+       23 CALL                             R3 2 0
+       24 RETURN                           R0 0
 
 PROTO_2:
         0 NAMECALL                         R3 R0 K0 ["IsGuest"]
@@ -55,13 +61,16 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
        18 GETTABLEKS                       R3 R3 K8 ["DMNetworking"]
        20 CALL                             R2 1 1
-       21 NEWTABLE                         R3 4 0
-       23 LOADK                            R4 K9 ["GameStoppedNotifier_GameStopped"]
-       24 SETTABLEKS                       R4 R3 K10 ["GAME_STOPPED_KEY"]
-       26 DUPCLOSURE                       R4 K11 [PROTO_1]
-       27 CAPTURE                          VAL R3
-       28 SETTABLEKS                       R4 R3 K12 ["init"]
-       30 DUPCLOSURE                       R4 K13 [PROTO_2]
+       21 GETTABLEKS                       R3 R1 K9 ["Utils"]
+       23 GETTABLEKS                       R3 R3 K10 ["DataModelType"]
+       25 NEWTABLE                         R4 4 0
+       27 LOADK                            R5 K11 ["GameStoppedNotifier_GameStopped"]
+       28 SETTABLEKS                       R5 R4 K12 ["GAME_STOPPED_KEY"]
+       30 DUPCLOSURE                       R5 K13 [PROTO_1]
        31 CAPTURE                          VAL R3
-       32 SETTABLEKS                       R4 R3 K14 ["subscribeGameStopped"]
-       34 RETURN                           R3 1
+       32 CAPTURE                          VAL R4
+       33 SETTABLEKS                       R5 R4 K14 ["init"]
+       35 DUPCLOSURE                       R5 K15 [PROTO_2]
+       36 CAPTURE                          VAL R4
+       37 SETTABLEKS                       R5 R4 K16 ["subscribeGameStopped"]
+       39 RETURN                           R4 1

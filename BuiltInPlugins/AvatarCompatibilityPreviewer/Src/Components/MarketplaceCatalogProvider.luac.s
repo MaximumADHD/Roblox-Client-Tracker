@@ -1,27 +1,36 @@
 PROTO_0:
-        0 GETIMPORT                        R1 K2 [table.clone]
-        2 MOVE                             R2 R0
+        0 GETIMPORT                        R1 K2 [Instance.new]
+        2 LOADK                            R2 K3 ["StringValue"]
         3 CALL                             R1 1 1
-        4 GETTABLEKS                       R2 R0 K3 ["palette"]
-        6 GETTABLEKS                       R2 R2 K4 ["Key"]
-        8 SETTABLEKS                       R2 R1 K3 ["palette"]
-       10 GETTABLEKS                       R2 R0 K5 ["assetType"]
-       12 GETTABLEKS                       R2 R2 K6 ["Name"]
-       14 SETTABLEKS                       R2 R1 K5 ["assetType"]
-       16 GETUPVAL                         R2 0
-       17 MOVE                             R4 R1
-       18 NAMECALL                         R2 R2 K7 ["JSONEncode"]
-       20 CALL                             R2 2 1
-       21 GETIMPORT                        R3 K10 [Instance.new]
-       23 LOADK                            R4 K11 ["StringValue"]
-       24 CALL                             R3 1 1
-       25 GETTABLEKS                       R5 R0 K12 ["uniqueId"]
-       27 FASTCALL1                        TOSTRING R5 ; [+2]
-       28 GETIMPORT                        R4 K14 [tostring]
-       30 CALL                             R4 1 1
-       31 SETTABLEKS                       R4 R3 K6 ["Name"]
-       33 SETTABLEKS                       R2 R3 K15 ["Value"]
-       35 RETURN                           R3 1
+        4 GETTABLEKS                       R3 R0 K4 ["uniqueId"]
+        6 FASTCALL1                        TOSTRING R3 ; [+2]
+        7 GETIMPORT                        R2 K6 [tostring]
+        9 CALL                             R2 1 1
+       10 SETTABLEKS                       R2 R1 K7 ["Name"]
+       12 GETUPVAL                         R2 0
+       13 CALL                             R2 0 1
+       14 JUMPIFNOT                        R2 ; [+8]
+       15 GETUPVAL                         R2 1
+       16 GETTABLEKS                       R2 R2 K8 ["encodeMarketplaceItem"]
+       18 MOVE                             R3 R0
+       19 CALL                             R2 1 1
+       20 SETTABLEKS                       R2 R1 K9 ["Value"]
+       22 RETURN                           R1 1
+       23 GETIMPORT                        R2 K12 [table.clone]
+       25 MOVE                             R3 R0
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R3 R0 K13 ["palette"]
+       29 GETTABLEKS                       R3 R3 K14 ["Key"]
+       31 SETTABLEKS                       R3 R2 K13 ["palette"]
+       33 GETTABLEKS                       R3 R0 K15 ["assetType"]
+       35 GETTABLEKS                       R3 R3 K7 ["Name"]
+       37 SETTABLEKS                       R3 R2 K15 ["assetType"]
+       39 GETUPVAL                         R3 2
+       40 MOVE                             R5 R2
+       41 NAMECALL                         R3 R3 K16 ["JSONEncode"]
+       43 CALL                             R3 2 1
+       44 SETTABLEKS                       R3 R1 K9 ["Value"]
+       46 RETURN                           R1 1
 
 PROTO_1:
         0 JUMPIFNOTEQKNIL                  R0 ; [+6]
@@ -36,38 +45,49 @@ PROTO_1:
        15 LOADK                            R10 K1 ["StringValue"]
        16 NAMECALL                         R8 R7 K2 ["IsA"]
        18 CALL                             R8 2 1
-       19 JUMPIFNOT                        R8 ; [+46]
-       20 GETUPVAL                         R8 0
-       21 GETTABLEKS                       R10 R7 K3 ["Value"]
-       23 NAMECALL                         R8 R8 K4 ["JSONDecode"]
-       25 CALL                             R8 2 1
-       26 GETUPVAL                         R9 1
-       27 GETTABLEKS                       R10 R8 K5 ["palette"]
+       19 JUMPIFNOT                        R8 ; [+59]
+       20 LOADNIL                          R8
+       21 GETUPVAL                         R9 0
+       22 CALL                             R9 0 1
+       23 JUMPIFNOT                        R9 ; [+8]
+       24 GETUPVAL                         R9 1
+       25 GETTABLEKS                       R9 R9 K3 ["decodeMarketplaceItem"]
+       27 GETTABLEKS                       R10 R7 K4 ["Value"]
        29 CALL                             R9 1 1
-       30 SETTABLEKS                       R9 R8 K5 ["palette"]
-       32 GETIMPORT                        R10 K8 [Enum.AssetType]
-       34 GETTABLEKS                       R11 R8 K9 ["assetType"]
-       36 GETTABLE                         R9 R10 R11
-       37 SETTABLEKS                       R9 R8 K9 ["assetType"]
-       39 DUPTABLE                         R9 K11 [{"palette", "item"}]
-       40 GETTABLEKS                       R10 R8 K5 ["palette"]
-       42 SETTABLEKS                       R10 R9 K5 ["palette"]
-       44 DUPTABLE                         R10 K14 [{"source", "marketplaceItem"}]
-       45 GETUPVAL                         R11 2
-       46 GETTABLEKS                       R11 R11 K15 ["SOURCE_MARKETPLACE"]
-       48 SETTABLEKS                       R11 R10 K12 ["source"]
-       50 GETTABLEKS                       R11 R8 K13 ["marketplaceItem"]
-       52 SETTABLEKS                       R11 R10 K13 ["marketplaceItem"]
-       54 SETTABLEKS                       R10 R9 K10 ["item"]
-       56 FASTCALL2                        TABLE_INSERT R2 R9 ; [+5]
-       58 MOVE                             R11 R2
-       59 MOVE                             R12 R9
-       60 GETIMPORT                        R10 K18 [table.insert]
-       62 CALL                             R10 2 0
-       63 GETTABLEKS                       R10 R8 K19 ["uniqueId"]
-       65 SETTABLE                         R8 R1 R10
-       66 FORGLOOP                         R3 2 ; [-52]
-       68 RETURN                           R1 2
+       30 MOVE                             R8 R9
+       31 JUMP                             ; [+20]
+       32 GETUPVAL                         R9 2
+       33 GETTABLEKS                       R11 R7 K4 ["Value"]
+       35 NAMECALL                         R9 R9 K5 ["JSONDecode"]
+       37 CALL                             R9 2 1
+       38 GETUPVAL                         R10 3
+       39 GETTABLEKS                       R11 R9 K6 ["palette"]
+       41 CALL                             R10 1 1
+       42 SETTABLEKS                       R10 R9 K6 ["palette"]
+       44 GETIMPORT                        R11 K9 [Enum.AssetType]
+       46 GETTABLEKS                       R12 R9 K10 ["assetType"]
+       48 GETTABLE                         R10 R11 R12
+       49 SETTABLEKS                       R10 R9 K10 ["assetType"]
+       51 MOVE                             R8 R9
+       52 DUPTABLE                         R9 K12 [{"palette", "item"}]
+       53 GETTABLEKS                       R10 R8 K6 ["palette"]
+       55 SETTABLEKS                       R10 R9 K6 ["palette"]
+       57 DUPTABLE                         R10 K15 [{"source", "marketplaceItem"}]
+       58 GETUPVAL                         R11 4
+       59 GETTABLEKS                       R11 R11 K16 ["SOURCE_MARKETPLACE"]
+       61 SETTABLEKS                       R11 R10 K13 ["source"]
+       63 GETTABLEKS                       R11 R8 K14 ["marketplaceItem"]
+       65 SETTABLEKS                       R11 R10 K14 ["marketplaceItem"]
+       67 SETTABLEKS                       R10 R9 K11 ["item"]
+       69 FASTCALL2                        TABLE_INSERT R2 R9 ; [+5]
+       71 MOVE                             R11 R2
+       72 MOVE                             R12 R9
+       73 GETIMPORT                        R10 K19 [table.insert]
+       75 CALL                             R10 2 0
+       76 GETTABLEKS                       R10 R8 K20 ["uniqueId"]
+       78 SETTABLE                         R8 R1 R10
+       79 FORGLOOP                         R3 2 ; [-65]
+       81 RETURN                           R1 2
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -306,20 +326,29 @@ MAIN:
        85 GETTABLEKS                       R11 R1 K12 ["Src"]
        87 GETTABLEKS                       R11 R11 K23 ["Types"]
        89 CALL                             R10 1 1
-       90 DUPCLOSURE                       R11 K24 [PROTO_0]
-       91 CAPTURE                          VAL R0
-       92 DUPCLOSURE                       R12 K25 [PROTO_1]
-       93 CAPTURE                          VAL R0
-       94 CAPTURE                          VAL R8
-       95 CAPTURE                          VAL R3
-       96 DUPCLOSURE                       R13 K26 [PROTO_6]
-       97 CAPTURE                          VAL R2
-       98 CAPTURE                          VAL R7
-       99 CAPTURE                          VAL R5
-      100 CAPTURE                          VAL R12
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R3
-      103 CAPTURE                          VAL R4
+       90 GETIMPORT                        R11 K9 [require]
+       92 GETTABLEKS                       R12 R1 K12 ["Src"]
+       94 GETTABLEKS                       R12 R12 K24 ["Flags"]
+       96 GETTABLEKS                       R12 R12 K25 ["getFFlagAvatarPreviewerStartFromAssetId"]
+       98 CALL                             R11 1 1
+       99 DUPCLOSURE                       R12 K26 [PROTO_0]
+      100 CAPTURE                          VAL R11
+      101 CAPTURE                          VAL R4
+      102 CAPTURE                          VAL R0
+      103 DUPCLOSURE                       R13 K27 [PROTO_1]
       104 CAPTURE                          VAL R11
-      105 CAPTURE                          VAL R6
-      106 RETURN                           R13 1
+      105 CAPTURE                          VAL R4
+      106 CAPTURE                          VAL R0
+      107 CAPTURE                          VAL R8
+      108 CAPTURE                          VAL R3
+      109 DUPCLOSURE                       R14 K28 [PROTO_6]
+      110 CAPTURE                          VAL R2
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R9
+      115 CAPTURE                          VAL R3
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R12
+      118 CAPTURE                          VAL R6
+      119 RETURN                           R14 1

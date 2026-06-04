@@ -24,240 +24,617 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
-        4 JUMPIF                           R1 ; [+38]
-        5 GETUPVAL                         R1 0
-        6 JUMPIFNOT                        R1 ; [+34]
-        7 LOADK                            R2 K2 ["%*dashboard/analytics/studio-configs"]
-        8 GETIMPORT                        R5 K4 [game]
-       10 LOADK                            R7 K5 ["CreatorConfigWVUrl"]
-       11 NAMECALL                         R5 R5 K6 ["GetFastString"]
-       13 CALL                             R5 2 1
-       14 JUMPIFEQKS                       R5 K7 [""] ; [+3]
-       16 MOVE                             R6 R5
-       17 JUMP                             ; [+8]
-       18 GETUPVAL                         R6 1
-       19 GETTABLEKS                       R6 R6 K8 ["BaseUrl"]
-       21 LOADK                            R8 K9 ["https?://www%."]
-       22 LOADK                            R9 K10 ["https://create."]
-       23 NAMECALL                         R6 R6 K11 ["gsub"]
-       25 CALL                             R6 3 1
-       26 LENGTH                           R9 R6
-       27 NAMECALL                         R7 R6 K12 ["sub"]
-       29 CALL                             R7 2 1
-       30 JUMPIFEQKS                       R7 K13 ["/"] ; [+4]
-       32 MOVE                             R7 R6
-       33 LOADK                            R8 K13 ["/"]
-       34 CONCAT                           R6 R7 R8
-       35 MOVE                             R4 R6
-       36 NAMECALL                         R2 R2 K14 ["format"]
-       38 CALL                             R2 2 1
-       39 MOVE                             R1 R2
-       40 RETURN                           R1 1
-       41 LOADK                            R1 K15 ["https://create.roblox.com/dashboard/analytics/studio-configs"]
-       42 RETURN                           R1 1
-       43 GETTABLEKS                       R1 R0 K0 ["props"]
-       45 GETTABLEKS                       R1 R1 K1 ["Plugin"]
-       47 LOADK                            R3 K16 ["universeid"]
-       48 NAMECALL                         R1 R1 K17 ["GetItem"]
-       50 CALL                             R1 2 1
-       51 JUMPIFNOT                        R1 ; [+3]
-       52 LOADN                            R2 0
-       53 JUMPIFNOTLE                      R1 R2 ; [+42]
-       55 GETUPVAL                         R2 0
-       56 JUMPIFNOT                        R2 ; [+37]
-       57 JUMPIFNOT                        R1 ; [+34]
-       58 LOADK                            R3 K2 ["%*dashboard/analytics/studio-configs"]
-       59 GETIMPORT                        R6 K4 [game]
-       61 LOADK                            R8 K5 ["CreatorConfigWVUrl"]
-       62 NAMECALL                         R6 R6 K6 ["GetFastString"]
-       64 CALL                             R6 2 1
-       65 JUMPIFEQKS                       R6 K7 [""] ; [+3]
-       67 MOVE                             R7 R6
-       68 JUMP                             ; [+8]
-       69 GETUPVAL                         R7 1
-       70 GETTABLEKS                       R7 R7 K8 ["BaseUrl"]
-       72 LOADK                            R9 K9 ["https?://www%."]
-       73 LOADK                            R10 K10 ["https://create."]
-       74 NAMECALL                         R7 R7 K11 ["gsub"]
-       76 CALL                             R7 3 1
-       77 LENGTH                           R10 R7
-       78 NAMECALL                         R8 R7 K12 ["sub"]
-       80 CALL                             R8 2 1
-       81 JUMPIFEQKS                       R8 K13 ["/"] ; [+4]
-       83 MOVE                             R8 R7
-       84 LOADK                            R9 K13 ["/"]
-       85 CONCAT                           R7 R8 R9
-       86 MOVE                             R5 R7
-       87 NAMECALL                         R3 R3 K14 ["format"]
-       89 CALL                             R3 2 1
-       90 MOVE                             R2 R3
-       91 RETURN                           R2 1
-       92 LOADK                            R2 K7 [""]
-       93 RETURN                           R2 1
-       94 LOADK                            R2 K15 ["https://create.roblox.com/dashboard/analytics/studio-configs"]
-       95 RETURN                           R2 1
-       96 GETUPVAL                         R2 0
-       97 JUMPIFNOT                        R2 ; [+35]
-       98 LOADK                            R3 K18 ["%*dashboard/creations/experiences/%*/configs/studio"]
-       99 GETIMPORT                        R6 K4 [game]
-      101 LOADK                            R8 K5 ["CreatorConfigWVUrl"]
-      102 NAMECALL                         R6 R6 K6 ["GetFastString"]
-      104 CALL                             R6 2 1
-      105 JUMPIFEQKS                       R6 K7 [""] ; [+3]
-      107 MOVE                             R7 R6
-      108 JUMP                             ; [+8]
-      109 GETUPVAL                         R7 1
-      110 GETTABLEKS                       R7 R7 K8 ["BaseUrl"]
-      112 LOADK                            R9 K9 ["https?://www%."]
-      113 LOADK                            R10 K10 ["https://create."]
-      114 NAMECALL                         R7 R7 K11 ["gsub"]
-      116 CALL                             R7 3 1
-      117 LENGTH                           R10 R7
-      118 NAMECALL                         R8 R7 K12 ["sub"]
-      120 CALL                             R8 2 1
-      121 JUMPIFEQKS                       R8 K13 ["/"] ; [+4]
-      123 MOVE                             R8 R7
-      124 LOADK                            R9 K13 ["/"]
-      125 CONCAT                           R7 R8 R9
-      126 MOVE                             R5 R7
-      127 MOVE                             R6 R1
-      128 NAMECALL                         R3 R3 K14 ["format"]
-      130 CALL                             R3 3 1
-      131 MOVE                             R2 R3
-      132 RETURN                           R2 1
-      133 LOADK                            R3 K19 ["https://create.roblox.com/dashboard/creations/experiences/"]
-      134 MOVE                             R4 R1
-      135 LOADK                            R5 K20 ["/configs/studio"]
-      136 CONCAT                           R2 R3 R5
-      137 RETURN                           R2 1
+        4 JUMPIF                           R1 ; [+34]
+        5 LOADK                            R2 K2 ["%*dashboard/analytics/studio-configs"]
+        6 GETIMPORT                        R5 K4 [game]
+        8 LOADK                            R7 K5 ["CreatorConfigWVUrl"]
+        9 NAMECALL                         R5 R5 K6 ["GetFastString"]
+       11 CALL                             R5 2 1
+       12 JUMPIFEQKS                       R5 K7 [""] ; [+3]
+       14 MOVE                             R6 R5
+       15 JUMP                             ; [+8]
+       16 GETUPVAL                         R6 0
+       17 GETTABLEKS                       R6 R6 K8 ["BaseUrl"]
+       19 LOADK                            R8 K9 ["https?://www%."]
+       20 LOADK                            R9 K10 ["https://create."]
+       21 NAMECALL                         R6 R6 K11 ["gsub"]
+       23 CALL                             R6 3 1
+       24 LENGTH                           R9 R6
+       25 NAMECALL                         R7 R6 K12 ["sub"]
+       27 CALL                             R7 2 1
+       28 JUMPIFEQKS                       R7 K13 ["/"] ; [+4]
+       30 MOVE                             R7 R6
+       31 LOADK                            R8 K13 ["/"]
+       32 CONCAT                           R6 R7 R8
+       33 MOVE                             R4 R6
+       34 NAMECALL                         R2 R2 K14 ["format"]
+       36 CALL                             R2 2 1
+       37 MOVE                             R1 R2
+       38 RETURN                           R1 1
+       39 GETTABLEKS                       R1 R0 K0 ["props"]
+       41 GETTABLEKS                       R1 R1 K1 ["Plugin"]
+       43 LOADK                            R3 K15 ["universeid"]
+       44 NAMECALL                         R1 R1 K16 ["GetItem"]
+       46 CALL                             R1 2 1
+       47 JUMPIFNOT                        R1 ; [+3]
+       48 LOADN                            R2 0
+       49 JUMPIFNOTLE                      R1 R2 ; [+38]
+       51 JUMPIFNOT                        R1 ; [+34]
+       52 LOADK                            R3 K2 ["%*dashboard/analytics/studio-configs"]
+       53 GETIMPORT                        R6 K4 [game]
+       55 LOADK                            R8 K5 ["CreatorConfigWVUrl"]
+       56 NAMECALL                         R6 R6 K6 ["GetFastString"]
+       58 CALL                             R6 2 1
+       59 JUMPIFEQKS                       R6 K7 [""] ; [+3]
+       61 MOVE                             R7 R6
+       62 JUMP                             ; [+8]
+       63 GETUPVAL                         R7 0
+       64 GETTABLEKS                       R7 R7 K8 ["BaseUrl"]
+       66 LOADK                            R9 K9 ["https?://www%."]
+       67 LOADK                            R10 K10 ["https://create."]
+       68 NAMECALL                         R7 R7 K11 ["gsub"]
+       70 CALL                             R7 3 1
+       71 LENGTH                           R10 R7
+       72 NAMECALL                         R8 R7 K12 ["sub"]
+       74 CALL                             R8 2 1
+       75 JUMPIFEQKS                       R8 K13 ["/"] ; [+4]
+       77 MOVE                             R8 R7
+       78 LOADK                            R9 K13 ["/"]
+       79 CONCAT                           R7 R8 R9
+       80 MOVE                             R5 R7
+       81 NAMECALL                         R3 R3 K14 ["format"]
+       83 CALL                             R3 2 1
+       84 MOVE                             R2 R3
+       85 RETURN                           R2 1
+       86 LOADK                            R2 K7 [""]
+       87 RETURN                           R2 1
+       88 LOADK                            R3 K17 ["%*dashboard/creations/experiences/%*/configs/studio"]
+       89 GETIMPORT                        R6 K4 [game]
+       91 LOADK                            R8 K5 ["CreatorConfigWVUrl"]
+       92 NAMECALL                         R6 R6 K6 ["GetFastString"]
+       94 CALL                             R6 2 1
+       95 JUMPIFEQKS                       R6 K7 [""] ; [+3]
+       97 MOVE                             R7 R6
+       98 JUMP                             ; [+8]
+       99 GETUPVAL                         R7 0
+      100 GETTABLEKS                       R7 R7 K8 ["BaseUrl"]
+      102 LOADK                            R9 K9 ["https?://www%."]
+      103 LOADK                            R10 K10 ["https://create."]
+      104 NAMECALL                         R7 R7 K11 ["gsub"]
+      106 CALL                             R7 3 1
+      107 LENGTH                           R10 R7
+      108 NAMECALL                         R8 R7 K12 ["sub"]
+      110 CALL                             R8 2 1
+      111 JUMPIFEQKS                       R8 K13 ["/"] ; [+4]
+      113 MOVE                             R8 R7
+      114 LOADK                            R9 K13 ["/"]
+      115 CONCAT                           R7 R8 R9
+      116 MOVE                             R5 R7
+      117 MOVE                             R6 R1
+      118 NAMECALL                         R3 R3 K14 ["format"]
+      120 CALL                             R3 3 1
+      121 MOVE                             R2 R3
+      122 RETURN                           R2 1
 
 PROTO_2:
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Localization"]
+        4 DUPTABLE                         R3 K7 [{"Common", "PublishDialog", "PublishAsDialog", "CancelPublishDialog", "PublishFailureReason"}]
+        5 DUPTABLE                         R4 K11 [{"ConfigNounSingular", "ConfigNounPlural", "Retry"}]
+        6 LOADK                            R7 K2 ["Common"]
+        7 LOADK                            R8 K8 ["ConfigNounSingular"]
+        8 NAMECALL                         R5 R2 K12 ["getText"]
+       10 CALL                             R5 3 1
+       11 SETTABLEKS                       R5 R4 K8 ["ConfigNounSingular"]
+       13 LOADK                            R7 K2 ["Common"]
+       14 LOADK                            R8 K9 ["ConfigNounPlural"]
+       15 NAMECALL                         R5 R2 K12 ["getText"]
+       17 CALL                             R5 3 1
+       18 SETTABLEKS                       R5 R4 K9 ["ConfigNounPlural"]
+       20 LOADK                            R7 K2 ["Common"]
+       21 LOADK                            R8 K10 ["Retry"]
+       22 NAMECALL                         R5 R2 K12 ["getText"]
+       24 CALL                             R5 3 1
+       25 SETTABLEKS                       R5 R4 K10 ["Retry"]
+       27 SETTABLEKS                       R4 R3 K2 ["Common"]
+       29 DUPTABLE                         R4 K18 [{"MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton"}]
+       30 LOADK                            R7 K3 ["PublishDialog"]
+       31 LOADK                            R8 K13 ["MessageFieldLabel"]
+       32 NAMECALL                         R5 R2 K12 ["getText"]
+       34 CALL                             R5 3 1
+       35 SETTABLEKS                       R5 R4 K13 ["MessageFieldLabel"]
+       37 LOADK                            R7 K3 ["PublishDialog"]
+       38 LOADK                            R8 K14 ["MessageFieldHint"]
+       39 NAMECALL                         R5 R2 K12 ["getText"]
+       41 CALL                             R5 3 1
+       42 SETTABLEKS                       R5 R4 K14 ["MessageFieldHint"]
+       44 LOADK                            R7 K3 ["PublishDialog"]
+       45 LOADK                            R8 K15 ["MessageFieldPlaceholder"]
+       46 NAMECALL                         R5 R2 K12 ["getText"]
+       48 CALL                             R5 3 1
+       49 SETTABLEKS                       R5 R4 K15 ["MessageFieldPlaceholder"]
+       51 DUPTABLE                         R5 K21 [{"GradualRollout", "ImmediateRollout"}]
+       52 LOADK                            R8 K3 ["PublishDialog"]
+       53 LOADK                            R9 K22 ["PublishSlowlyButton"]
+       54 NAMECALL                         R6 R2 K12 ["getText"]
+       56 CALL                             R6 3 1
+       57 SETTABLEKS                       R6 R5 K19 ["GradualRollout"]
+       59 LOADK                            R8 K3 ["PublishDialog"]
+       60 LOADK                            R9 K16 ["PublishButton"]
+       61 NAMECALL                         R6 R2 K12 ["getText"]
+       63 CALL                             R6 3 1
+       64 SETTABLEKS                       R6 R5 K20 ["ImmediateRollout"]
+       66 SETTABLEKS                       R5 R4 K16 ["PublishButton"]
+       68 LOADK                            R7 K3 ["PublishDialog"]
+       69 LOADK                            R8 K17 ["CancelButton"]
+       70 NAMECALL                         R5 R2 K12 ["getText"]
+       72 CALL                             R5 3 1
+       73 SETTABLEKS                       R5 R4 K17 ["CancelButton"]
+       75 SETTABLEKS                       R4 R3 K3 ["PublishDialog"]
+       77 DUPTABLE                         R4 K33 [{"SearchPlaceholder", "MyExperiences", "Description", "FailedToLoadUniverses", "FailedToLoadGroups", "NoExperiencesMatchFilter", "DoneButton", "PublishSuccess", "PublishFailure", "PublishInProgress"}]
+       78 LOADK                            R7 K4 ["PublishAsDialog"]
+       79 LOADK                            R8 K23 ["SearchPlaceholder"]
+       80 NAMECALL                         R5 R2 K12 ["getText"]
+       82 CALL                             R5 3 1
+       83 SETTABLEKS                       R5 R4 K23 ["SearchPlaceholder"]
+       85 LOADK                            R7 K4 ["PublishAsDialog"]
+       86 LOADK                            R8 K24 ["MyExperiences"]
+       87 NAMECALL                         R5 R2 K12 ["getText"]
+       89 CALL                             R5 3 1
+       90 SETTABLEKS                       R5 R4 K24 ["MyExperiences"]
+       92 LOADK                            R7 K4 ["PublishAsDialog"]
+       93 LOADK                            R8 K25 ["Description"]
+       94 NAMECALL                         R5 R2 K12 ["getText"]
+       96 CALL                             R5 3 1
+       97 SETTABLEKS                       R5 R4 K25 ["Description"]
+       99 LOADK                            R7 K4 ["PublishAsDialog"]
+      100 LOADK                            R8 K26 ["FailedToLoadUniverses"]
+      101 NAMECALL                         R5 R2 K12 ["getText"]
+      103 CALL                             R5 3 1
+      104 SETTABLEKS                       R5 R4 K26 ["FailedToLoadUniverses"]
+      106 LOADK                            R7 K4 ["PublishAsDialog"]
+      107 LOADK                            R8 K27 ["FailedToLoadGroups"]
+      108 NAMECALL                         R5 R2 K12 ["getText"]
+      110 CALL                             R5 3 1
+      111 SETTABLEKS                       R5 R4 K27 ["FailedToLoadGroups"]
+      113 LOADK                            R7 K4 ["PublishAsDialog"]
+      114 LOADK                            R8 K28 ["NoExperiencesMatchFilter"]
+      115 NAMECALL                         R5 R2 K12 ["getText"]
+      117 CALL                             R5 3 1
+      118 SETTABLEKS                       R5 R4 K28 ["NoExperiencesMatchFilter"]
+      120 LOADK                            R7 K4 ["PublishAsDialog"]
+      121 LOADK                            R8 K29 ["DoneButton"]
+      122 NAMECALL                         R5 R2 K12 ["getText"]
+      124 CALL                             R5 3 1
+      125 SETTABLEKS                       R5 R4 K29 ["DoneButton"]
+      127 LOADK                            R7 K4 ["PublishAsDialog"]
+      128 LOADK                            R8 K30 ["PublishSuccess"]
+      129 NAMECALL                         R5 R2 K12 ["getText"]
+      131 CALL                             R5 3 1
+      132 SETTABLEKS                       R5 R4 K30 ["PublishSuccess"]
+      134 LOADK                            R7 K4 ["PublishAsDialog"]
+      135 LOADK                            R8 K31 ["PublishFailure"]
+      136 NAMECALL                         R5 R2 K12 ["getText"]
+      138 CALL                             R5 3 1
+      139 SETTABLEKS                       R5 R4 K31 ["PublishFailure"]
+      141 LOADK                            R7 K4 ["PublishAsDialog"]
+      142 LOADK                            R8 K32 ["PublishInProgress"]
+      143 NAMECALL                         R5 R2 K12 ["getText"]
+      145 CALL                             R5 3 1
+      146 SETTABLEKS                       R5 R4 K32 ["PublishInProgress"]
+      148 SETTABLEKS                       R4 R3 K4 ["PublishAsDialog"]
+      150 DUPTABLE                         R4 K36 [{"Title", "Description", "ConfirmButton", "CancelButton"}]
+      151 LOADK                            R7 K5 ["CancelPublishDialog"]
+      152 LOADK                            R8 K34 ["Title"]
+      153 NAMECALL                         R5 R2 K12 ["getText"]
+      155 CALL                             R5 3 1
+      156 SETTABLEKS                       R5 R4 K34 ["Title"]
+      158 LOADK                            R7 K5 ["CancelPublishDialog"]
+      159 LOADK                            R8 K25 ["Description"]
+      160 NAMECALL                         R5 R2 K12 ["getText"]
+      162 CALL                             R5 3 1
+      163 SETTABLEKS                       R5 R4 K25 ["Description"]
+      165 LOADK                            R7 K5 ["CancelPublishDialog"]
+      166 LOADK                            R8 K35 ["ConfirmButton"]
+      167 NAMECALL                         R5 R2 K12 ["getText"]
+      169 CALL                             R5 3 1
+      170 SETTABLEKS                       R5 R4 K35 ["ConfirmButton"]
+      172 LOADK                            R7 K5 ["CancelPublishDialog"]
+      173 LOADK                            R8 K17 ["CancelButton"]
+      174 NAMECALL                         R5 R2 K12 ["getText"]
+      176 CALL                             R5 3 1
+      177 SETTABLEKS                       R5 R4 K17 ["CancelButton"]
+      179 SETTABLEKS                       R4 R3 K5 ["CancelPublishDialog"]
+      181 DUPTABLE                         R4 K40 [{"unknown", "timeout", "ongoingPublish"}]
+      182 LOADK                            R7 K6 ["PublishFailureReason"]
+      183 LOADK                            R8 K41 ["Unknown"]
+      184 NAMECALL                         R5 R2 K12 ["getText"]
+      186 CALL                             R5 3 1
+      187 SETTABLEKS                       R5 R4 K37 ["unknown"]
+      189 LOADK                            R7 K6 ["PublishFailureReason"]
+      190 LOADK                            R8 K42 ["Timeout"]
+      191 NAMECALL                         R5 R2 K12 ["getText"]
+      193 CALL                             R5 3 1
+      194 SETTABLEKS                       R5 R4 K38 ["timeout"]
+      196 LOADK                            R7 K6 ["PublishFailureReason"]
+      197 LOADK                            R8 K43 ["OngoingPublish"]
+      198 NAMECALL                         R5 R2 K12 ["getText"]
+      200 CALL                             R5 3 1
+      201 SETTABLEKS                       R5 R4 K39 ["ongoingPublish"]
+      203 SETTABLEKS                       R4 R3 K6 ["PublishFailureReason"]
+      205 RETURN                           R3 1
+
+PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["strategy"]
         2 JUMPIFEQKS                       R2 K1 ["DEPLOYMENT_STRATEGY_GRADUAL_ROLLOUT"] ; [+2]
         4 LOADB                            R1 0 +1
         5 LOADB                            R1 1
         6 GETTABLEKS                       R3 R0 K3 ["changeCount"]
         8 ORK                              R2 R3 K2 [1]
-        9 GETUPVAL                         R3 0
-       10 LOADK                            R5 K4 ["Common"]
-       11 JUMPIFNOTEQKN                    R2 K2 [1] ; [+3]
-       13 LOADK                            R6 K5 ["ConfigNounSingular"]
-       14 JUMP                             ; [+1]
-       15 LOADK                            R6 K6 ["ConfigNounPlural"]
-       16 NAMECALL                         R3 R3 K7 ["getText"]
-       18 CALL                             R3 3 1
-       19 GETUPVAL                         R4 1
-       20 GETUPVAL                         R6 2
-       21 DUPTABLE                         R7 K9 [{"translationStrings"}]
-       22 DUPTABLE                         R8 K16 [{"Title", "MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton"}]
-       23 GETUPVAL                         R9 0
-       24 LOADK                            R11 K17 ["PublishDialog"]
-       25 JUMPIFNOT                        R1 ; [+2]
-       26 LOADK                            R12 K18 ["PublishSlowlyTitle"]
-       27 JUMP                             ; [+1]
-       28 LOADK                            R12 K19 ["PublishNowTitle"]
-       29 DUPTABLE                         R13 K21 [{"changeCount", "noun"}]
-       30 FASTCALL1                        TOSTRING R2 ; [+3]
-       31 MOVE                             R15 R2
-       32 GETIMPORT                        R14 K23 [tostring]
-       34 CALL                             R14 1 1
-       35 SETTABLEKS                       R14 R13 K3 ["changeCount"]
-       37 SETTABLEKS                       R3 R13 K20 ["noun"]
-       39 NAMECALL                         R9 R9 K7 ["getText"]
-       41 CALL                             R9 4 1
-       42 SETTABLEKS                       R9 R8 K10 ["Title"]
-       44 GETUPVAL                         R9 0
-       45 LOADK                            R11 K17 ["PublishDialog"]
-       46 LOADK                            R12 K11 ["MessageFieldLabel"]
-       47 NAMECALL                         R9 R9 K7 ["getText"]
-       49 CALL                             R9 3 1
-       50 SETTABLEKS                       R9 R8 K11 ["MessageFieldLabel"]
-       52 GETUPVAL                         R9 0
-       53 LOADK                            R11 K17 ["PublishDialog"]
-       54 LOADK                            R12 K12 ["MessageFieldHint"]
-       55 NAMECALL                         R9 R9 K7 ["getText"]
-       57 CALL                             R9 3 1
-       58 SETTABLEKS                       R9 R8 K12 ["MessageFieldHint"]
-       60 GETUPVAL                         R9 0
-       61 LOADK                            R11 K17 ["PublishDialog"]
-       62 LOADK                            R12 K13 ["MessageFieldPlaceholder"]
-       63 NAMECALL                         R9 R9 K7 ["getText"]
-       65 CALL                             R9 3 1
-       66 SETTABLEKS                       R9 R8 K13 ["MessageFieldPlaceholder"]
-       68 GETUPVAL                         R9 0
-       69 LOADK                            R11 K17 ["PublishDialog"]
-       70 JUMPIFNOT                        R1 ; [+2]
-       71 LOADK                            R12 K24 ["PublishSlowlyButton"]
-       72 JUMP                             ; [+1]
-       73 LOADK                            R12 K14 ["PublishButton"]
-       74 NAMECALL                         R9 R9 K7 ["getText"]
-       76 CALL                             R9 3 1
-       77 SETTABLEKS                       R9 R8 K14 ["PublishButton"]
-       79 GETUPVAL                         R9 0
-       80 LOADK                            R11 K17 ["PublishDialog"]
-       81 LOADK                            R12 K15 ["CancelButton"]
-       82 NAMECALL                         R9 R9 K7 ["getText"]
-       84 CALL                             R9 3 1
-       85 SETTABLEKS                       R9 R8 K15 ["CancelButton"]
-       87 SETTABLEKS                       R8 R7 K8 ["translationStrings"]
-       89 NAMECALL                         R4 R4 K25 ["ShowCustomDialogAsync"]
-       91 CALL                             R4 3 1
-       92 JUMPIFEQKNIL                     R4 ; [+19]
-       94 GETUPVAL                         R5 3
-       95 GETUPVAL                         R7 4
-       96 GETTABLEKS                       R7 R7 K26 ["WebEvents"]
-       98 GETTABLEKS                       R7 R7 K27 ["StartPublishWorkflow"]
-      100 DUPTABLE                         R8 K29 [{"strategy", "message"}]
-      101 GETTABLEKS                       R9 R0 K0 ["strategy"]
-      103 SETTABLEKS                       R9 R8 K0 ["strategy"]
-      105 GETTABLEKS                       R9 R4 K28 ["message"]
-      107 SETTABLEKS                       R9 R8 K28 ["message"]
-      109 NAMECALL                         R5 R5 K30 ["fire"]
-      111 CALL                             R5 3 0
-      112 RETURN                           R0 0
+        9 JUMPIFNOTEQKN                    R2 K2 [1] ; [+7]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K4 ["Common"]
+       14 GETTABLEKS                       R3 R3 K5 ["ConfigNounSingular"]
+       16 JUMPIF                           R3 ; [+5]
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K4 ["Common"]
+       20 GETTABLEKS                       R3 R3 K6 ["ConfigNounPlural"]
+       22 GETUPVAL                         R4 1
+       23 GETUPVAL                         R6 2
+       24 DUPTABLE                         R7 K9 [{"deploymentStrategy", "translationStrings"}]
+       25 GETTABLEKS                       R8 R0 K0 ["strategy"]
+       27 SETTABLEKS                       R8 R7 K7 ["deploymentStrategy"]
+       29 DUPTABLE                         R8 K16 [{"Title", "MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton"}]
+       30 GETUPVAL                         R9 3
+       31 LOADK                            R11 K17 ["PublishDialog"]
+       32 JUMPIFNOT                        R1 ; [+2]
+       33 LOADK                            R12 K18 ["PublishSlowlyTitle"]
+       34 JUMP                             ; [+1]
+       35 LOADK                            R12 K19 ["PublishNowTitle"]
+       36 DUPTABLE                         R13 K21 [{"changeCount", "noun"}]
+       37 FASTCALL1                        TOSTRING R2 ; [+3]
+       38 MOVE                             R15 R2
+       39 GETIMPORT                        R14 K23 [tostring]
+       41 CALL                             R14 1 1
+       42 SETTABLEKS                       R14 R13 K3 ["changeCount"]
+       44 SETTABLEKS                       R3 R13 K20 ["noun"]
+       46 NAMECALL                         R9 R9 K24 ["getText"]
+       48 CALL                             R9 4 1
+       49 SETTABLEKS                       R9 R8 K10 ["Title"]
+       51 GETUPVAL                         R9 0
+       52 GETTABLEKS                       R9 R9 K17 ["PublishDialog"]
+       54 GETTABLEKS                       R9 R9 K11 ["MessageFieldLabel"]
+       56 SETTABLEKS                       R9 R8 K11 ["MessageFieldLabel"]
+       58 GETUPVAL                         R9 0
+       59 GETTABLEKS                       R9 R9 K17 ["PublishDialog"]
+       61 GETTABLEKS                       R9 R9 K12 ["MessageFieldHint"]
+       63 SETTABLEKS                       R9 R8 K12 ["MessageFieldHint"]
+       65 GETUPVAL                         R9 0
+       66 GETTABLEKS                       R9 R9 K17 ["PublishDialog"]
+       68 GETTABLEKS                       R9 R9 K13 ["MessageFieldPlaceholder"]
+       70 SETTABLEKS                       R9 R8 K13 ["MessageFieldPlaceholder"]
+       72 JUMPIFNOT                        R1 ; [+8]
+       73 GETUPVAL                         R9 0
+       74 GETTABLEKS                       R9 R9 K17 ["PublishDialog"]
+       76 GETTABLEKS                       R9 R9 K14 ["PublishButton"]
+       78 GETTABLEKS                       R9 R9 K25 ["GradualRollout"]
+       80 JUMPIF                           R9 ; [+7]
+       81 GETUPVAL                         R9 0
+       82 GETTABLEKS                       R9 R9 K17 ["PublishDialog"]
+       84 GETTABLEKS                       R9 R9 K14 ["PublishButton"]
+       86 GETTABLEKS                       R9 R9 K26 ["ImmediateRollout"]
+       88 SETTABLEKS                       R9 R8 K14 ["PublishButton"]
+       90 GETUPVAL                         R9 0
+       91 GETTABLEKS                       R9 R9 K17 ["PublishDialog"]
+       93 GETTABLEKS                       R9 R9 K15 ["CancelButton"]
+       95 SETTABLEKS                       R9 R8 K15 ["CancelButton"]
+       97 SETTABLEKS                       R8 R7 K8 ["translationStrings"]
+       99 NAMECALL                         R4 R4 K27 ["ShowCustomDialogAsync"]
+      101 CALL                             R4 3 1
+      102 JUMPIFEQKNIL                     R4 ; [+19]
+      104 GETUPVAL                         R5 4
+      105 GETUPVAL                         R7 5
+      106 GETTABLEKS                       R7 R7 K28 ["WebEvents"]
+      108 GETTABLEKS                       R7 R7 K29 ["StartPublishWorkflow"]
+      110 DUPTABLE                         R8 K31 [{"strategy", "message"}]
+      111 GETTABLEKS                       R9 R0 K0 ["strategy"]
+      113 SETTABLEKS                       R9 R8 K0 ["strategy"]
+      115 GETTABLEKS                       R9 R4 K30 ["message"]
+      117 SETTABLEKS                       R9 R8 K30 ["message"]
+      119 NAMECALL                         R5 R5 K32 ["fire"]
+      121 CALL                             R5 3 0
+      122 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
         2 DUPTABLE                         R4 K1 [{"translationStrings"}]
         3 DUPTABLE                         R5 K6 [{"Title", "Description", "ConfirmButton", "CancelButton"}]
         4 GETUPVAL                         R6 2
-        5 LOADK                            R8 K7 ["CancelPublishDialog"]
-        6 LOADK                            R9 K2 ["Title"]
-        7 NAMECALL                         R6 R6 K8 ["getText"]
-        9 CALL                             R6 3 1
-       10 SETTABLEKS                       R6 R5 K2 ["Title"]
-       12 GETUPVAL                         R6 2
-       13 LOADK                            R8 K7 ["CancelPublishDialog"]
-       14 LOADK                            R9 K3 ["Description"]
-       15 NAMECALL                         R6 R6 K8 ["getText"]
-       17 CALL                             R6 3 1
-       18 SETTABLEKS                       R6 R5 K3 ["Description"]
-       20 GETUPVAL                         R6 2
-       21 LOADK                            R8 K7 ["CancelPublishDialog"]
-       22 LOADK                            R9 K4 ["ConfirmButton"]
-       23 NAMECALL                         R6 R6 K8 ["getText"]
-       25 CALL                             R6 3 1
-       26 SETTABLEKS                       R6 R5 K4 ["ConfirmButton"]
-       28 GETUPVAL                         R6 2
-       29 LOADK                            R8 K7 ["CancelPublishDialog"]
-       30 LOADK                            R9 K5 ["CancelButton"]
-       31 NAMECALL                         R6 R6 K8 ["getText"]
-       33 CALL                             R6 3 1
-       34 SETTABLEKS                       R6 R5 K5 ["CancelButton"]
-       36 SETTABLEKS                       R5 R4 K0 ["translationStrings"]
-       38 NAMECALL                         R1 R1 K9 ["ShowCustomDialogAsync"]
-       40 CALL                             R1 3 1
-       41 JUMPIFNOT                        R1 ; [+9]
-       42 GETUPVAL                         R2 3
-       43 GETUPVAL                         R4 4
-       44 GETTABLEKS                       R4 R4 K10 ["WebEvents"]
-       46 GETTABLEKS                       R4 R4 K11 ["CancelPublishWorkflow"]
-       48 NAMECALL                         R2 R2 K12 ["fire"]
-       50 CALL                             R2 2 0
-       51 RETURN                           R0 0
+        5 GETTABLEKS                       R6 R6 K7 ["CancelPublishDialog"]
+        7 GETTABLEKS                       R6 R6 K2 ["Title"]
+        9 SETTABLEKS                       R6 R5 K2 ["Title"]
+       11 GETUPVAL                         R6 2
+       12 GETTABLEKS                       R6 R6 K7 ["CancelPublishDialog"]
+       14 GETTABLEKS                       R6 R6 K3 ["Description"]
+       16 SETTABLEKS                       R6 R5 K3 ["Description"]
+       18 GETUPVAL                         R6 2
+       19 GETTABLEKS                       R6 R6 K7 ["CancelPublishDialog"]
+       21 GETTABLEKS                       R6 R6 K4 ["ConfirmButton"]
+       23 SETTABLEKS                       R6 R5 K4 ["ConfirmButton"]
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K7 ["CancelPublishDialog"]
+       28 GETTABLEKS                       R6 R6 K5 ["CancelButton"]
+       30 SETTABLEKS                       R6 R5 K5 ["CancelButton"]
+       32 SETTABLEKS                       R5 R4 K0 ["translationStrings"]
+       34 NAMECALL                         R1 R1 K8 ["ShowCustomDialogAsync"]
+       36 CALL                             R1 3 1
+       37 JUMPIFNOT                        R1 ; [+9]
+       38 GETUPVAL                         R2 3
+       39 GETUPVAL                         R4 4
+       40 GETTABLEKS                       R4 R4 K9 ["WebEvents"]
+       42 GETTABLEKS                       R4 R4 K10 ["CancelPublishWorkflow"]
+       44 NAMECALL                         R2 R2 K11 ["fire"]
+       46 CALL                             R2 2 0
+       47 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
+        0 SETUPVAL                         R0 0
+        1 RETURN                           R0 0
+
+PROTO_6:
+        0 LOADNIL                          R1
+        1 SETUPVAL                         R1 0
+        2 RETURN                           R0 0
+
+PROTO_7:
+        0 LOADNIL                          R2
+        1 GETUPVAL                         R3 0
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R3 2 1
+        5 NEWCLOSURE                       R5 P0
+        6 CAPTURE                          REF R2
+        7 NAMECALL                         R3 R3 K0 ["andThen"]
+        9 CALL                             R3 2 1
+       10 NEWCLOSURE                       R5 P1
+       11 CAPTURE                          REF R2
+       12 NAMECALL                         R3 R3 K1 ["catch"]
+       14 CALL                             R3 2 1
+       15 NAMECALL                         R3 R3 K2 ["await"]
+       17 CALL                             R3 1 0
+       18 CLOSEUPVALS                      R2
+       19 RETURN                           R2 1
+
+PROTO_8:
+        0 SETUPVAL                         R0 0
+        1 RETURN                           R0 0
+
+PROTO_9:
+        0 LOADNIL                          R1
+        1 SETUPVAL                         R1 0
+        2 RETURN                           R0 0
+
+PROTO_10:
+        0 LOADNIL                          R0
+        1 GETUPVAL                         R1 0
+        2 CALL                             R1 0 1
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          REF R0
+        5 NAMECALL                         R1 R1 K0 ["andThen"]
+        7 CALL                             R1 2 1
+        8 NEWCLOSURE                       R3 P1
+        9 CAPTURE                          REF R0
+       10 NAMECALL                         R1 R1 K1 ["catch"]
+       12 CALL                             R1 2 1
+       13 NAMECALL                         R1 R1 K2 ["await"]
+       15 CALL                             R1 1 0
+       16 CLOSEUPVALS                      R0
+       17 RETURN                           R0 1
+
+PROTO_11:
+        0 DUPTABLE                         R1 K1 [{"success"}]
+        1 LOADB                            R2 1
+        2 SETTABLEKS                       R2 R1 K0 ["success"]
+        4 SETUPVAL                         R1 0
+        5 RETURN                           R0 0
+
+PROTO_12:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["PublishFailureReason"]
+        3 GETTABLE                         R1 R2 R0
+        4 JUMPIF                           R1 ; [+5]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R1 R1 K0 ["PublishFailureReason"]
+        8 GETTABLEKS                       R1 R1 K1 ["unknown"]
+       10 DUPTABLE                         R2 K4 [{"success", "error"}]
+       11 LOADB                            R3 0
+       12 SETTABLEKS                       R3 R2 K2 ["success"]
+       14 SETTABLEKS                       R1 R2 K3 ["error"]
+       16 SETUPVAL                         R2 1
+       17 RETURN                           R0 0
+
+PROTO_13:
+        0 LOADNIL                          R1
+        1 GETUPVAL                         R2 0
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R4 R4 K0 ["WebEvents"]
+        5 GETTABLEKS                       R4 R4 K1 ["StartPublishAsWorkflow"]
+        7 DUPTABLE                         R5 K5 [{"strategy", "message", "universeId"}]
+        8 GETUPVAL                         R6 2
+        9 GETTABLEKS                       R6 R6 K2 ["strategy"]
+       11 SETTABLEKS                       R6 R5 K2 ["strategy"]
+       13 GETTABLEKS                       R6 R0 K3 ["message"]
+       15 SETTABLEKS                       R6 R5 K3 ["message"]
+       17 GETTABLEKS                       R6 R0 K4 ["universeId"]
+       19 SETTABLEKS                       R6 R5 K4 ["universeId"]
+       21 NAMECALL                         R2 R2 K6 ["requestPublish"]
+       23 CALL                             R2 3 1
+       24 NEWCLOSURE                       R4 P0
+       25 CAPTURE                          REF R1
+       26 NAMECALL                         R2 R2 K7 ["andThen"]
+       28 CALL                             R2 2 1
+       29 NEWCLOSURE                       R4 P1
+       30 CAPTURE                          UPVAL U3
+       31 CAPTURE                          REF R1
+       32 NAMECALL                         R2 R2 K8 ["catch"]
+       34 CALL                             R2 2 1
+       35 NAMECALL                         R2 R2 K9 ["await"]
+       37 CALL                             R2 1 0
+       38 CLOSEUPVALS                      R1
+       39 RETURN                           R1 1
+
+PROTO_14:
+        0 DUPCLOSURE                       R1 K0 [PROTO_7]
+        1 CAPTURE                          UPVAL U0
+        2 DUPCLOSURE                       R2 K1 [PROTO_10]
+        3 CAPTURE                          UPVAL U1
+        4 NEWCLOSURE                       R3 P2
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          UPVAL U3
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U4
+        9 GETTABLEKS                       R5 R0 K2 ["strategy"]
+       11 JUMPIFEQKS                       R5 K3 ["DEPLOYMENT_STRATEGY_GRADUAL_ROLLOUT"] ; [+2]
+       13 LOADB                            R4 0 +1
+       14 LOADB                            R4 1
+       15 GETTABLEKS                       R6 R0 K5 ["configsCount"]
+       17 ORK                              R5 R6 K4 [1]
+       18 GETUPVAL                         R6 5
+       19 LOADK                            R8 K6 ["Common"]
+       20 JUMPIFNOTEQKN                    R5 K4 [1] ; [+3]
+       22 LOADK                            R9 K7 ["ConfigNounSingular"]
+       23 JUMP                             ; [+1]
+       24 LOADK                            R9 K8 ["ConfigNounPlural"]
+       25 NAMECALL                         R6 R6 K9 ["getText"]
+       27 CALL                             R6 3 1
+       28 GETUPVAL                         R7 6
+       29 GETUPVAL                         R9 7
+       30 DUPTABLE                         R10 K15 [{"deploymentStrategy", "getUniverses", "getGroups", "requestPublish", "translationStrings"}]
+       31 GETTABLEKS                       R11 R0 K2 ["strategy"]
+       33 SETTABLEKS                       R11 R10 K10 ["deploymentStrategy"]
+       35 SETTABLEKS                       R1 R10 K11 ["getUniverses"]
+       37 SETTABLEKS                       R2 R10 K12 ["getGroups"]
+       39 SETTABLEKS                       R3 R10 K13 ["requestPublish"]
+       41 DUPTABLE                         R11 K33 [{"Title", "MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton", "SearchPlaceholder", "MyExperiences", "Description", "FailedToLoadUniverses", "FailedToLoadGroups", "NoExperiencesMatchFilter", "RetryButton", "DoneButton", "PublishSuccess", "PublishFailure", "PublishInProgress"}]
+       42 GETUPVAL                         R12 5
+       43 LOADK                            R14 K34 ["PublishAsDialog"]
+       44 JUMPIFNOT                        R4 ; [+2]
+       45 LOADK                            R15 K35 ["PublishSlowlyTitle"]
+       46 JUMP                             ; [+1]
+       47 LOADK                            R15 K36 ["PublishNowTitle"]
+       48 DUPTABLE                         R16 K39 [{"changeCount", "noun"}]
+       49 FASTCALL1                        TOSTRING R5 ; [+3]
+       50 MOVE                             R18 R5
+       51 GETIMPORT                        R17 K41 [tostring]
+       53 CALL                             R17 1 1
+       54 SETTABLEKS                       R17 R16 K37 ["changeCount"]
+       56 SETTABLEKS                       R6 R16 K38 ["noun"]
+       58 NAMECALL                         R12 R12 K9 ["getText"]
+       60 CALL                             R12 4 1
+       61 SETTABLEKS                       R12 R11 K16 ["Title"]
+       63 GETUPVAL                         R12 4
+       64 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
+       66 GETTABLEKS                       R12 R12 K17 ["MessageFieldLabel"]
+       68 SETTABLEKS                       R12 R11 K17 ["MessageFieldLabel"]
+       70 GETUPVAL                         R12 4
+       71 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
+       73 GETTABLEKS                       R12 R12 K18 ["MessageFieldHint"]
+       75 SETTABLEKS                       R12 R11 K18 ["MessageFieldHint"]
+       77 GETUPVAL                         R12 4
+       78 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
+       80 GETTABLEKS                       R12 R12 K19 ["MessageFieldPlaceholder"]
+       82 SETTABLEKS                       R12 R11 K19 ["MessageFieldPlaceholder"]
+       84 JUMPIFNOT                        R4 ; [+8]
+       85 GETUPVAL                         R12 4
+       86 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
+       88 GETTABLEKS                       R12 R12 K20 ["PublishButton"]
+       90 GETTABLEKS                       R12 R12 K43 ["GradualRollout"]
+       92 JUMPIF                           R12 ; [+7]
+       93 GETUPVAL                         R12 4
+       94 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
+       96 GETTABLEKS                       R12 R12 K20 ["PublishButton"]
+       98 GETTABLEKS                       R12 R12 K44 ["ImmediateRollout"]
+      100 SETTABLEKS                       R12 R11 K20 ["PublishButton"]
+      102 GETUPVAL                         R12 4
+      103 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
+      105 GETTABLEKS                       R12 R12 K21 ["CancelButton"]
+      107 SETTABLEKS                       R12 R11 K21 ["CancelButton"]
+      109 GETUPVAL                         R12 4
+      110 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      112 GETTABLEKS                       R12 R12 K22 ["SearchPlaceholder"]
+      114 SETTABLEKS                       R12 R11 K22 ["SearchPlaceholder"]
+      116 GETUPVAL                         R12 4
+      117 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      119 GETTABLEKS                       R12 R12 K23 ["MyExperiences"]
+      121 SETTABLEKS                       R12 R11 K23 ["MyExperiences"]
+      123 GETUPVAL                         R12 4
+      124 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      126 GETTABLEKS                       R12 R12 K24 ["Description"]
+      128 SETTABLEKS                       R12 R11 K24 ["Description"]
+      130 GETUPVAL                         R12 4
+      131 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      133 GETTABLEKS                       R12 R12 K25 ["FailedToLoadUniverses"]
+      135 SETTABLEKS                       R12 R11 K25 ["FailedToLoadUniverses"]
+      137 GETUPVAL                         R12 4
+      138 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      140 GETTABLEKS                       R12 R12 K26 ["FailedToLoadGroups"]
+      142 SETTABLEKS                       R12 R11 K26 ["FailedToLoadGroups"]
+      144 GETUPVAL                         R12 4
+      145 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      147 GETTABLEKS                       R12 R12 K27 ["NoExperiencesMatchFilter"]
+      149 SETTABLEKS                       R12 R11 K27 ["NoExperiencesMatchFilter"]
+      151 GETUPVAL                         R12 4
+      152 GETTABLEKS                       R12 R12 K6 ["Common"]
+      154 GETTABLEKS                       R12 R12 K45 ["Retry"]
+      156 SETTABLEKS                       R12 R11 K28 ["RetryButton"]
+      158 GETUPVAL                         R12 4
+      159 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      161 GETTABLEKS                       R12 R12 K29 ["DoneButton"]
+      163 SETTABLEKS                       R12 R11 K29 ["DoneButton"]
+      165 GETUPVAL                         R12 4
+      166 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      168 GETTABLEKS                       R12 R12 K30 ["PublishSuccess"]
+      170 SETTABLEKS                       R12 R11 K30 ["PublishSuccess"]
+      172 GETUPVAL                         R12 4
+      173 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      175 GETTABLEKS                       R12 R12 K31 ["PublishFailure"]
+      177 SETTABLEKS                       R12 R11 K31 ["PublishFailure"]
+      179 GETUPVAL                         R12 4
+      180 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
+      182 GETTABLEKS                       R12 R12 K32 ["PublishInProgress"]
+      184 SETTABLEKS                       R12 R11 K32 ["PublishInProgress"]
+      186 SETTABLEKS                       R11 R10 K14 ["translationStrings"]
+      188 NAMECALL                         R7 R7 K46 ["ShowCustomDialogAsync"]
+      190 CALL                             R7 3 0
+      191 RETURN                           R0 0
+
+PROTO_15:
+        0 GETTABLEKS                       R1 R0 K0 ["publishSessionUuid"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R3 R3 K1 ["pendingPublishes"]
+        5 GETTABLE                         R2 R3 R1
+        6 JUMPIF                           R2 ; [+1]
+        7 RETURN                           R0 0
+        8 GETIMPORT                        R3 K4 [task.cancel]
+       10 GETTABLEKS                       R4 R2 K5 ["timeoutTask"]
+       12 CALL                             R3 1 0
+       13 GETTABLEKS                       R3 R0 K6 ["success"]
+       15 JUMPIFNOT                        R3 ; [+4]
+       16 GETTABLEKS                       R3 R2 K7 ["resolve"]
+       18 CALL                             R3 0 0
+       19 JUMP                             ; [+6]
+       20 GETTABLEKS                       R3 R2 K8 ["reject"]
+       22 GETTABLEKS                       R5 R0 K10 ["error"]
+       24 ORK                              R4 R5 K9 ["unknown"]
+       25 CALL                             R3 1 0
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K1 ["pendingPublishes"]
+       29 LOADNIL                          R4
+       30 SETTABLE                         R4 R3 R1
+       31 RETURN                           R0 0
+
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 LOADK                            R4 K2 ["DialogManager"]
@@ -265,30 +642,102 @@ PROTO_4:
         7 CALL                             R2 2 1
         8 GETTABLEKS                       R3 R1 K4 ["WebViewManagerContext"]
        10 GETTABLEKS                       R4 R1 K5 ["Localization"]
-       12 NEWTABLE                         R5 2 0
-       14 GETUPVAL                         R6 0
-       15 GETTABLEKS                       R6 R6 K6 ["WebEvents"]
-       17 GETTABLEKS                       R6 R6 K7 ["OpenPublishModal"]
-       19 NEWCLOSURE                       R7 P0
-       20 CAPTURE                          VAL R4
-       21 CAPTURE                          VAL R2
-       22 CAPTURE                          UPVAL U1
-       23 CAPTURE                          VAL R3
-       24 CAPTURE                          UPVAL U0
-       25 SETTABLE                         R7 R5 R6
-       26 GETUPVAL                         R6 0
-       27 GETTABLEKS                       R6 R6 K6 ["WebEvents"]
-       29 GETTABLEKS                       R6 R6 K8 ["CancelPublishModal"]
-       31 NEWCLOSURE                       R7 P1
-       32 CAPTURE                          VAL R2
-       33 CAPTURE                          UPVAL U2
-       34 CAPTURE                          VAL R4
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          UPVAL U0
-       37 SETTABLE                         R7 R5 R6
-       38 RETURN                           R5 1
+       12 GETTABLEKS                       R5 R0 K6 ["translationStrings"]
+       14 NEWTABLE                         R6 4 0
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
+       19 GETTABLEKS                       R7 R7 K8 ["OpenPublishModal"]
+       21 NEWCLOSURE                       R8 P0
+       22 CAPTURE                          VAL R5
+       23 CAPTURE                          VAL R2
+       24 CAPTURE                          UPVAL U1
+       25 CAPTURE                          VAL R4
+       26 CAPTURE                          VAL R3
+       27 CAPTURE                          UPVAL U0
+       28 SETTABLE                         R8 R6 R7
+       29 GETUPVAL                         R7 0
+       30 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
+       32 GETTABLEKS                       R7 R7 K9 ["CancelPublishModal"]
+       34 NEWCLOSURE                       R8 P1
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          UPVAL U2
+       37 CAPTURE                          VAL R5
+       38 CAPTURE                          VAL R3
+       39 CAPTURE                          UPVAL U0
+       40 SETTABLE                         R8 R6 R7
+       41 GETUPVAL                         R7 0
+       42 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
+       44 GETTABLEKS                       R7 R7 K10 ["OpenPublishAsModal"]
+       46 NEWCLOSURE                       R8 P2
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          UPVAL U4
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          UPVAL U0
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          UPVAL U5
+       55 SETTABLE                         R8 R6 R7
+       56 GETUPVAL                         R7 0
+       57 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
+       59 GETTABLEKS                       R7 R7 K11 ["PublishCompleted"]
+       61 NEWCLOSURE                       R8 P3
+       62 CAPTURE                          VAL R0
+       63 SETTABLE                         R8 R6 R7
+       64 RETURN                           R6 1
 
-PROTO_5:
+PROTO_17:
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R1 K0 ["timeout"]
+        2 CALL                             R0 1 0
+        3 GETUPVAL                         R0 1
+        4 GETTABLEKS                       R0 R0 K1 ["pendingPublishes"]
+        6 GETUPVAL                         R1 2
+        7 LOADNIL                          R2
+        8 SETTABLE                         R2 R0 R1
+        9 RETURN                           R0 0
+
+PROTO_18:
+        0 GETIMPORT                        R2 K2 [task.delay]
+        2 GETUPVAL                         R4 0
+        3 ORK                              R3 R4 K3 [30]
+        4 NEWCLOSURE                       R4 P0
+        5 CAPTURE                          VAL R1
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 CALL                             R2 2 1
+        9 GETUPVAL                         R3 1
+       10 GETTABLEKS                       R3 R3 K4 ["pendingPublishes"]
+       12 GETUPVAL                         R4 2
+       13 DUPTABLE                         R5 K8 [{"resolve", "reject", "timeoutTask"}]
+       14 SETTABLEKS                       R0 R5 K5 ["resolve"]
+       16 SETTABLEKS                       R1 R5 K6 ["reject"]
+       18 SETTABLEKS                       R2 R5 K7 ["timeoutTask"]
+       20 SETTABLE                         R5 R3 R4
+       21 RETURN                           R0 0
+
+PROTO_19:
+        0 GETTABLEKS                       R4 R0 K0 ["props"]
+        2 GETTABLEKS                       R4 R4 K1 ["WebViewManagerContext"]
+        4 GETUPVAL                         R5 0
+        5 LOADB                            R7 0
+        6 NAMECALL                         R5 R5 K2 ["GenerateGUID"]
+        8 CALL                             R5 2 1
+        9 SETTABLEKS                       R5 R2 K3 ["publishSessionUuid"]
+       11 MOVE                             R8 R1
+       12 MOVE                             R9 R2
+       13 NAMECALL                         R6 R4 K4 ["fire"]
+       15 CALL                             R6 3 0
+       16 GETUPVAL                         R6 1
+       17 GETTABLEKS                       R6 R6 K5 ["new"]
+       19 NEWCLOSURE                       R7 P0
+       20 CAPTURE                          VAL R3
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          VAL R5
+       23 CALL                             R6 1 -1
+       24 RETURN                           R6 -1
+
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["getConfigUrl"]
         3 CALL                             R0 1 1
@@ -306,7 +755,7 @@ PROTO_5:
        20 CALL                             R1 2 0
        21 RETURN                           R0 0
 
-PROTO_6:
+PROTO_21:
         0 DUPTABLE                         R1 K1 [{"configUrl"}]
         1 NAMECALL                         R2 R0 K2 ["getConfigUrl"]
         3 CALL                             R2 1 1
@@ -322,57 +771,60 @@ PROTO_6:
        18 SETTABLEKS                       R1 R0 K8 ["idsUpdatedConnection"]
        20 GETUPVAL                         R1 0
        21 CALL                             R1 0 1
-       22 JUMPIFNOT                        R1 ; [+5]
-       23 NAMECALL                         R1 R0 K9 ["getEventHandlers"]
+       22 JUMPIFNOT                        R1 ; [+14]
+       23 NAMECALL                         R1 R0 K9 ["getStaticTranslationStrings"]
        25 CALL                             R1 1 1
-       26 SETTABLEKS                       R1 R0 K10 ["eventHandlers"]
-       28 RETURN                           R0 0
+       26 SETTABLEKS                       R1 R0 K10 ["translationStrings"]
+       28 NAMECALL                         R1 R0 K11 ["getEventHandlers"]
+       30 CALL                             R1 1 1
+       31 SETTABLEKS                       R1 R0 K12 ["eventHandlers"]
+       33 NEWTABLE                         R1 0 0
+       35 SETTABLEKS                       R1 R0 K13 ["pendingPublishes"]
+       37 RETURN                           R0 0
 
-PROTO_7:
+PROTO_22:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R2 R2 K2 ["configUrl"]
-        6 JUMPIFNOT                        R2 ; [+8]
-        7 GETUPVAL                         R2 0
-        8 JUMPIFNOT                        R2 ; [+8]
-        9 GETTABLEKS                       R2 R0 K1 ["state"]
-       11 GETTABLEKS                       R2 R2 K2 ["configUrl"]
-       13 JUMPIFNOTEQKS                    R2 K3 [""] ; [+3]
-       15 LOADNIL                          R2
-       16 RETURN                           R2 1
-       17 GETTABLEKS                       R2 R1 K4 ["Plugin"]
-       19 LOADK                            R4 K5 ["CreatorConfigManager"]
-       20 NAMECALL                         R2 R2 K6 ["GetPluginComponent"]
-       22 CALL                             R2 2 1
-       23 GETUPVAL                         R3 1
-       24 GETTABLEKS                       R3 R3 K7 ["createElement"]
-       26 GETUPVAL                         R4 2
-       27 DUPTABLE                         R5 K17 [{"Plugin", "PluginManagerComponent", "WebViewManagerContext", "Url", "analyticsContext", "offsetHeight", "initAutoRetryMaxAttempts", "retryTitle", "retryButtonText", "eventHandlers"}]
-       28 GETTABLEKS                       R6 R1 K4 ["Plugin"]
-       30 SETTABLEKS                       R6 R5 K4 ["Plugin"]
-       32 SETTABLEKS                       R2 R5 K8 ["PluginManagerComponent"]
-       34 GETTABLEKS                       R6 R1 K9 ["WebViewManagerContext"]
-       36 SETTABLEKS                       R6 R5 K9 ["WebViewManagerContext"]
-       38 GETTABLEKS                       R6 R0 K1 ["state"]
-       40 GETTABLEKS                       R6 R6 K2 ["configUrl"]
-       42 SETTABLEKS                       R6 R5 K10 ["Url"]
-       44 LOADK                            R6 K18 ["creatorConfig"]
-       45 SETTABLEKS                       R6 R5 K11 ["analyticsContext"]
-       47 LOADN                            R6 0
-       48 SETTABLEKS                       R6 R5 K12 ["offsetHeight"]
-       50 GETUPVAL                         R6 3
-       51 CALL                             R6 0 1
-       52 SETTABLEKS                       R6 R5 K13 ["initAutoRetryMaxAttempts"]
-       54 GETTABLEKS                       R6 R1 K14 ["retryTitle"]
-       56 SETTABLEKS                       R6 R5 K14 ["retryTitle"]
-       58 GETTABLEKS                       R6 R1 K15 ["retryButtonText"]
-       60 SETTABLEKS                       R6 R5 K15 ["retryButtonText"]
-       62 GETTABLEKS                       R6 R0 K16 ["eventHandlers"]
-       64 SETTABLEKS                       R6 R5 K16 ["eventHandlers"]
-       66 CALL                             R3 2 -1
-       67 RETURN                           R3 -1
+        6 JUMPIFNOT                        R2 ; [+6]
+        7 GETTABLEKS                       R2 R0 K1 ["state"]
+        9 GETTABLEKS                       R2 R2 K2 ["configUrl"]
+       11 JUMPIFNOTEQKS                    R2 K3 [""] ; [+3]
+       13 LOADNIL                          R2
+       14 RETURN                           R2 1
+       15 GETTABLEKS                       R2 R1 K4 ["Plugin"]
+       17 LOADK                            R4 K5 ["CreatorConfigManager"]
+       18 NAMECALL                         R2 R2 K6 ["GetPluginComponent"]
+       20 CALL                             R2 2 1
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R3 R3 K7 ["createElement"]
+       24 GETUPVAL                         R4 1
+       25 DUPTABLE                         R5 K17 [{"Plugin", "PluginManagerComponent", "WebViewManagerContext", "Url", "analyticsContext", "offsetHeight", "initAutoRetryMaxAttempts", "retryTitle", "retryButtonText", "eventHandlers"}]
+       26 GETTABLEKS                       R6 R1 K4 ["Plugin"]
+       28 SETTABLEKS                       R6 R5 K4 ["Plugin"]
+       30 SETTABLEKS                       R2 R5 K8 ["PluginManagerComponent"]
+       32 GETTABLEKS                       R6 R1 K9 ["WebViewManagerContext"]
+       34 SETTABLEKS                       R6 R5 K9 ["WebViewManagerContext"]
+       36 GETTABLEKS                       R6 R0 K1 ["state"]
+       38 GETTABLEKS                       R6 R6 K2 ["configUrl"]
+       40 SETTABLEKS                       R6 R5 K10 ["Url"]
+       42 LOADK                            R6 K18 ["creatorConfig"]
+       43 SETTABLEKS                       R6 R5 K11 ["analyticsContext"]
+       45 LOADN                            R6 0
+       46 SETTABLEKS                       R6 R5 K12 ["offsetHeight"]
+       48 GETUPVAL                         R6 2
+       49 CALL                             R6 0 1
+       50 SETTABLEKS                       R6 R5 K13 ["initAutoRetryMaxAttempts"]
+       52 GETTABLEKS                       R6 R1 K14 ["retryTitle"]
+       54 SETTABLEKS                       R6 R5 K14 ["retryTitle"]
+       56 GETTABLEKS                       R6 R1 K15 ["retryButtonText"]
+       58 SETTABLEKS                       R6 R5 K15 ["retryButtonText"]
+       60 GETTABLEKS                       R6 R0 K16 ["eventHandlers"]
+       62 SETTABLEKS                       R6 R5 K16 ["eventHandlers"]
+       64 CALL                             R3 2 -1
+       65 RETURN                           R3 -1
 
-PROTO_8:
+PROTO_23:
         0 GETTABLEKS                       R1 R0 K0 ["idsUpdatedConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["idsUpdatedConnection"]
@@ -390,70 +842,97 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 GETTABLEKS                       R2 R0 K8 ["Packages"]
-       16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R4 R2 K9 ["Roact"]
-       20 CALL                             R3 1 1
-       21 GETIMPORT                        R4 K5 [require]
-       23 GETTABLEKS                       R5 R2 K10 ["StudioFoundation"]
-       25 CALL                             R4 1 1
-       26 GETIMPORT                        R5 K5 [require]
-       28 GETTABLEKS                       R6 R2 K11 ["WebView"]
-       30 CALL                             R5 1 1
-       31 GETTABLEKS                       R6 R5 K12 ["WebViewPane"]
-       33 GETIMPORT                        R7 K5 [require]
-       35 GETTABLEKS                       R8 R0 K6 ["Src"]
-       37 GETTABLEKS                       R8 R8 K13 ["Util"]
-       39 GETTABLEKS                       R8 R8 K14 ["ConfigWebViewInitAutoRetry"]
-       41 CALL                             R7 1 1
-       42 GETTABLEKS                       R7 R7 K15 ["getIntMaxAttempts"]
-       44 GETTABLEKS                       R8 R3 K16 ["PureComponent"]
-       46 LOADK                            R10 K17 ["CreatorConfigWebViewConnector"]
-       47 NAMECALL                         R8 R8 K18 ["extend"]
-       49 CALL                             R8 2 1
-       50 GETIMPORT                        R9 K20 [game]
-       52 LOADK                            R11 K21 ["ContentProvider"]
-       53 NAMECALL                         R9 R9 K22 ["GetService"]
-       55 CALL                             R9 2 1
-       56 GETIMPORT                        R10 K5 [require]
-       58 GETTABLEKS                       R11 R0 K23 ["Bin"]
-       60 GETTABLEKS                       R11 R11 K24 ["Common"]
-       62 GETTABLEKS                       R11 R11 K25 ["defineLuaFlags"]
-       64 CALL                             R10 1 1
-       65 GETTABLEKS                       R11 R10 K26 ["getFFlagFixCreatorConfigUrls"]
-       67 CALL                             R11 0 1
-       68 GETTABLEKS                       R12 R10 K27 ["getFFlagCreatorConfigStudioPublishWorkflow"]
-       70 GETTABLEKS                       R13 R4 K13 ["Util"]
-       72 GETTABLEKS                       R13 R13 K28 ["StudioUri"]
-       74 GETTABLEKS                       R14 R13 K29 ["fromWidget"]
-       76 LOADK                            R15 K2 ["CreatorConfig"]
-       77 LOADK                            R16 K30 ["PublishDialog"]
-       78 CALL                             R14 2 1
-       79 GETTABLEKS                       R15 R13 K29 ["fromWidget"]
-       81 LOADK                            R16 K2 ["CreatorConfig"]
-       82 LOADK                            R17 K31 ["CancelPublishDialog"]
-       83 CALL                             R15 2 1
-       84 DUPCLOSURE                       R16 K32 [PROTO_0]
-       85 CAPTURE                          VAL R9
-       86 DUPCLOSURE                       R17 K33 [PROTO_1]
-       87 CAPTURE                          VAL R11
-       88 CAPTURE                          VAL R9
-       89 SETTABLEKS                       R17 R8 K34 ["getConfigUrl"]
-       91 DUPCLOSURE                       R17 K35 [PROTO_4]
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          VAL R14
-       94 CAPTURE                          VAL R15
-       95 SETTABLEKS                       R17 R8 K36 ["getEventHandlers"]
-       97 DUPCLOSURE                       R17 K37 [PROTO_6]
-       98 CAPTURE                          VAL R12
-       99 SETTABLEKS                       R17 R8 K38 ["init"]
-      101 DUPCLOSURE                       R17 K39 [PROTO_7]
-      102 CAPTURE                          VAL R11
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R7
-      106 SETTABLEKS                       R17 R8 K40 ["render"]
-      108 JUMPIFNOT                        R11 ; [+3]
-      109 DUPCLOSURE                       R17 K41 [PROTO_8]
-      110 SETTABLEKS                       R17 R8 K42 ["willUnmount"]
-      112 RETURN                           R8 1
+       14 GETIMPORT                        R2 K9 [game]
+       16 LOADK                            R4 K10 ["HttpService"]
+       17 NAMECALL                         R2 R2 K11 ["GetService"]
+       19 CALL                             R2 2 1
+       20 GETTABLEKS                       R3 R0 K12 ["Packages"]
+       22 GETIMPORT                        R4 K5 [require]
+       24 GETTABLEKS                       R5 R3 K13 ["Roact"]
+       26 CALL                             R4 1 1
+       27 GETIMPORT                        R5 K5 [require]
+       29 GETTABLEKS                       R6 R3 K14 ["StudioFoundation"]
+       31 CALL                             R5 1 1
+       32 GETIMPORT                        R6 K5 [require]
+       34 GETTABLEKS                       R7 R3 K15 ["Framework"]
+       36 CALL                             R6 1 1
+       37 GETTABLEKS                       R7 R6 K16 ["Util"]
+       39 GETTABLEKS                       R7 R7 K17 ["Promise"]
+       41 GETIMPORT                        R8 K5 [require]
+       43 GETTABLEKS                       R9 R3 K18 ["WebView"]
+       45 CALL                             R8 1 1
+       46 GETTABLEKS                       R9 R8 K19 ["WebViewPane"]
+       48 GETIMPORT                        R10 K5 [require]
+       50 GETTABLEKS                       R11 R0 K6 ["Src"]
+       52 GETTABLEKS                       R11 R11 K16 ["Util"]
+       54 GETTABLEKS                       R11 R11 K20 ["ConfigWebViewInitAutoRetry"]
+       56 CALL                             R10 1 1
+       57 GETTABLEKS                       R10 R10 K21 ["getIntMaxAttempts"]
+       59 GETIMPORT                        R11 K5 [require]
+       61 GETTABLEKS                       R12 R0 K6 ["Src"]
+       63 GETTABLEKS                       R12 R12 K22 ["Network"]
+       65 GETTABLEKS                       R12 R12 K23 ["GetCreatorUniverses"]
+       67 CALL                             R11 1 1
+       68 GETIMPORT                        R12 K5 [require]
+       70 GETTABLEKS                       R13 R0 K6 ["Src"]
+       72 GETTABLEKS                       R13 R13 K22 ["Network"]
+       74 GETTABLEKS                       R13 R13 K24 ["GetUserGroups"]
+       76 CALL                             R12 1 1
+       77 GETTABLEKS                       R13 R4 K25 ["PureComponent"]
+       79 LOADK                            R15 K26 ["CreatorConfigWebViewConnector"]
+       80 NAMECALL                         R13 R13 K27 ["extend"]
+       82 CALL                             R13 2 1
+       83 GETIMPORT                        R14 K9 [game]
+       85 LOADK                            R16 K28 ["ContentProvider"]
+       86 NAMECALL                         R14 R14 K11 ["GetService"]
+       88 CALL                             R14 2 1
+       89 GETIMPORT                        R15 K5 [require]
+       91 GETTABLEKS                       R16 R0 K29 ["Bin"]
+       93 GETTABLEKS                       R16 R16 K30 ["Common"]
+       95 GETTABLEKS                       R16 R16 K31 ["defineLuaFlags"]
+       97 CALL                             R15 1 1
+       98 GETTABLEKS                       R16 R15 K32 ["getFFlagCreatorConfigStudioPublishWorkflow"]
+      100 GETTABLEKS                       R17 R5 K16 ["Util"]
+      102 GETTABLEKS                       R17 R17 K33 ["StudioUri"]
+      104 GETTABLEKS                       R18 R17 K34 ["fromWidget"]
+      106 LOADK                            R19 K2 ["CreatorConfig"]
+      107 LOADK                            R20 K35 ["PublishDialog"]
+      108 CALL                             R18 2 1
+      109 GETTABLEKS                       R19 R17 K34 ["fromWidget"]
+      111 LOADK                            R20 K2 ["CreatorConfig"]
+      112 LOADK                            R21 K36 ["PublishAsDialog"]
+      113 CALL                             R19 2 1
+      114 GETTABLEKS                       R20 R17 K34 ["fromWidget"]
+      116 LOADK                            R21 K2 ["CreatorConfig"]
+      117 LOADK                            R22 K37 ["CancelPublishDialog"]
+      118 CALL                             R20 2 1
+      119 DUPCLOSURE                       R21 K38 [PROTO_0]
+      120 CAPTURE                          VAL R14
+      121 DUPCLOSURE                       R22 K39 [PROTO_1]
+      122 CAPTURE                          VAL R14
+      123 SETTABLEKS                       R22 R13 K40 ["getConfigUrl"]
+      125 DUPCLOSURE                       R22 K41 [PROTO_2]
+      126 SETTABLEKS                       R22 R13 K42 ["getStaticTranslationStrings"]
+      128 DUPCLOSURE                       R22 K43 [PROTO_16]
+      129 CAPTURE                          VAL R1
+      130 CAPTURE                          VAL R18
+      131 CAPTURE                          VAL R20
+      132 CAPTURE                          VAL R11
+      133 CAPTURE                          VAL R12
+      134 CAPTURE                          VAL R19
+      135 SETTABLEKS                       R22 R13 K44 ["getEventHandlers"]
+      137 DUPCLOSURE                       R22 K45 [PROTO_19]
+      138 CAPTURE                          VAL R2
+      139 CAPTURE                          VAL R7
+      140 SETTABLEKS                       R22 R13 K46 ["requestPublish"]
+      142 DUPCLOSURE                       R22 K47 [PROTO_21]
+      143 CAPTURE                          VAL R16
+      144 SETTABLEKS                       R22 R13 K48 ["init"]
+      146 DUPCLOSURE                       R22 K49 [PROTO_22]
+      147 CAPTURE                          VAL R4
+      148 CAPTURE                          VAL R9
+      149 CAPTURE                          VAL R10
+      150 SETTABLEKS                       R22 R13 K50 ["render"]
+      152 DUPCLOSURE                       R22 K51 [PROTO_23]
+      153 SETTABLEKS                       R22 R13 K52 ["willUnmount"]
+      155 RETURN                           R13 1

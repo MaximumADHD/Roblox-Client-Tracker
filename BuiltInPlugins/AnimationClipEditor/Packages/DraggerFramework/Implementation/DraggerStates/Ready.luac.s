@@ -340,124 +340,124 @@ PROTO_11:
         8 RETURN                           R0 0
 
 PROTO_12:
-        0 NAMECALL                         R2 R1 K0 ["getNavigationModel"]
-        2 CALL                             R2 1 1
-        3 GETIMPORT                        R3 K4 [Enum.CameraNavigationModel.IndustryCompatible]
-        5 JUMPIFNOTEQ                      R2 R3 ; [+13]
-        7 LOADB                            R3 1
-        8 GETIMPORT                        R4 K7 [Enum.KeyCode.LeftControl]
-       10 JUMPIFEQ                         R0 R4 ; [+7]
-       12 GETIMPORT                        R4 K9 [Enum.KeyCode.RightControl]
-       14 JUMPIFEQ                         R0 R4 ; [+2]
-       16 LOADB                            R3 0 +1
-       17 LOADB                            R3 1
-       18 RETURN                           R3 1
-       19 LOADB                            R3 1
-       20 GETIMPORT                        R4 K11 [Enum.KeyCode.LeftAlt]
-       22 JUMPIFEQ                         R0 R4 ; [+7]
-       24 GETIMPORT                        R4 K13 [Enum.KeyCode.RightAlt]
-       26 JUMPIFEQ                         R0 R4 ; [+2]
-       28 LOADB                            R3 0 +1
-       29 LOADB                            R3 1
-       30 RETURN                           R3 1
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+22]
+        2 LOADB                            R1 1
+        3 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
+        5 JUMPIFEQ                         R0 R2 ; [+17]
+        7 LOADB                            R1 1
+        8 GETIMPORT                        R2 K5 [Enum.KeyCode.RightAlt]
+       10 JUMPIFEQ                         R0 R2 ; [+12]
+       12 LOADB                            R1 1
+       13 GETIMPORT                        R2 K7 [Enum.KeyCode.LeftControl]
+       15 JUMPIFEQ                         R0 R2 ; [+7]
+       17 GETIMPORT                        R2 K9 [Enum.KeyCode.RightControl]
+       19 JUMPIFEQ                         R0 R2 ; [+2]
+       21 LOADB                            R1 0 +1
+       22 LOADB                            R1 1
+       23 RETURN                           R1 1
+       24 LOADB                            R1 1
+       25 GETIMPORT                        R2 K3 [Enum.KeyCode.LeftAlt]
+       27 JUMPIFEQ                         R0 R2 ; [+7]
+       29 GETIMPORT                        R2 K5 [Enum.KeyCode.RightAlt]
+       31 JUMPIFEQ                         R0 R2 ; [+2]
+       33 LOADB                            R1 0 +1
+       34 LOADB                            R1 1
+       35 RETURN                           R1 1
 
 PROTO_13:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
-        2 GETTABLEKS                       R4 R0 K0 ["_draggerToolModel"]
-        4 GETTABLEKS                       R4 R4 K1 ["_draggerContext"]
-        6 CALL                             R2 2 1
-        7 JUMPIFNOT                        R2 ; [+4]
-        8 NAMECALL                         R2 R0 K2 ["_scopeSelectChanged"]
-       10 CALL                             R2 1 0
-       11 JUMP                             ; [+20]
-       12 GETUPVAL                         R2 1
-       13 CALL                             R2 0 1
-       14 JUMPIFNOT                        R2 ; [+17]
-       15 GETIMPORT                        R2 K6 [Enum.KeyCode.Tab]
-       17 JUMPIFNOTEQ                      R1 R2 ; [+14]
-       19 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-       21 NAMECALL                         R2 R2 K7 ["_beginSummon"]
-       23 CALL                             R2 1 0
-       24 NAMECALL                         R2 R0 K8 ["_updateHoverTracker"]
-       26 CALL                             R2 1 0
-       27 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-       29 NAMECALL                         R2 R2 K9 ["_scheduleRender"]
-       31 CALL                             R2 1 0
-       32 GETIMPORT                        R2 K11 [pairs]
-       34 GETTABLEKS                       R3 R0 K0 ["_draggerToolModel"]
-       36 NAMECALL                         R3 R3 K12 ["getHandlesList"]
-       38 CALL                             R3 1 -1
-       39 CALL                             R2 -1 3
-       40 FORGPREP_NEXT                    R2
-       41 GETTABLEKS                       R7 R6 K13 ["keyDown"]
-       43 JUMPIFNOT                        R7 ; [+13]
-       44 MOVE                             R9 R1
-       45 NAMECALL                         R7 R6 K13 ["keyDown"]
-       47 CALL                             R7 2 1
-       48 JUMPIFNOT                        R7 ; [+8]
-       49 NAMECALL                         R7 R0 K14 ["processViewChanged"]
-       51 CALL                             R7 1 0
-       52 GETTABLEKS                       R7 R0 K0 ["_draggerToolModel"]
-       54 NAMECALL                         R7 R7 K9 ["_scheduleRender"]
-       56 CALL                             R7 1 0
-       57 FORGLOOP                         R2 2 ; [-17]
-       59 RETURN                           R0 0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+4]
+        4 NAMECALL                         R2 R0 K0 ["_scopeSelectChanged"]
+        6 CALL                             R2 1 0
+        7 JUMP                             ; [+20]
+        8 GETUPVAL                         R2 1
+        9 CALL                             R2 0 1
+       10 JUMPIFNOT                        R2 ; [+17]
+       11 GETIMPORT                        R2 K4 [Enum.KeyCode.Tab]
+       13 JUMPIFNOTEQ                      R1 R2 ; [+14]
+       15 GETTABLEKS                       R2 R0 K5 ["_draggerToolModel"]
+       17 NAMECALL                         R2 R2 K6 ["_beginSummon"]
+       19 CALL                             R2 1 0
+       20 NAMECALL                         R2 R0 K7 ["_updateHoverTracker"]
+       22 CALL                             R2 1 0
+       23 GETTABLEKS                       R2 R0 K5 ["_draggerToolModel"]
+       25 NAMECALL                         R2 R2 K8 ["_scheduleRender"]
+       27 CALL                             R2 1 0
+       28 GETIMPORT                        R2 K10 [pairs]
+       30 GETTABLEKS                       R3 R0 K5 ["_draggerToolModel"]
+       32 NAMECALL                         R3 R3 K11 ["getHandlesList"]
+       34 CALL                             R3 1 -1
+       35 CALL                             R2 -1 3
+       36 FORGPREP_NEXT                    R2
+       37 GETTABLEKS                       R7 R6 K12 ["keyDown"]
+       39 JUMPIFNOT                        R7 ; [+13]
+       40 MOVE                             R9 R1
+       41 NAMECALL                         R7 R6 K12 ["keyDown"]
+       43 CALL                             R7 2 1
+       44 JUMPIFNOT                        R7 ; [+8]
+       45 NAMECALL                         R7 R0 K13 ["processViewChanged"]
+       47 CALL                             R7 1 0
+       48 GETTABLEKS                       R7 R0 K5 ["_draggerToolModel"]
+       50 NAMECALL                         R7 R7 K8 ["_scheduleRender"]
+       52 CALL                             R7 1 0
+       53 FORGLOOP                         R2 2 ; [-17]
+       55 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R1
-        2 GETTABLEKS                       R4 R0 K0 ["_draggerToolModel"]
-        4 GETTABLEKS                       R4 R4 K1 ["_draggerContext"]
-        6 CALL                             R2 2 1
-        7 JUMPIFNOT                        R2 ; [+23]
-        8 NAMECALL                         R2 R0 K2 ["_scopeSelectChanged"]
-       10 CALL                             R2 1 0
-       11 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-       13 GETTABLEKS                       R2 R2 K3 ["_selectionCycleCache"]
-       15 GETTABLEKS                       R3 R2 K4 ["_analyticsNumberOfClicks"]
-       17 NAMECALL                         R4 R2 K5 ["size"]
-       19 CALL                             R4 1 1
-       20 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
-       22 MOVE                             R7 R3
-       23 MOVE                             R8 R4
-       24 NAMECALL                         R5 R5 K6 ["_analyticsSendSelectionCycle"]
-       26 CALL                             R5 3 0
-       27 NAMECALL                         R5 R2 K7 ["computeSelectionCycleCandidates"]
-       29 CALL                             R5 1 0
-       30 JUMP                             ; [+20]
-       31 GETUPVAL                         R2 1
-       32 CALL                             R2 0 1
-       33 JUMPIFNOT                        R2 ; [+17]
-       34 GETIMPORT                        R2 K11 [Enum.KeyCode.Tab]
-       36 JUMPIFNOTEQ                      R1 R2 ; [+14]
-       38 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-       40 NAMECALL                         R2 R2 K12 ["_endSummon"]
-       42 CALL                             R2 1 0
-       43 NAMECALL                         R2 R0 K13 ["_updateHoverTracker"]
-       45 CALL                             R2 1 0
-       46 GETTABLEKS                       R2 R0 K0 ["_draggerToolModel"]
-       48 NAMECALL                         R2 R2 K14 ["_scheduleRender"]
-       50 CALL                             R2 1 0
-       51 GETIMPORT                        R2 K16 [pairs]
-       53 GETTABLEKS                       R3 R0 K0 ["_draggerToolModel"]
-       55 NAMECALL                         R3 R3 K17 ["getHandlesList"]
-       57 CALL                             R3 1 -1
-       58 CALL                             R2 -1 3
-       59 FORGPREP_NEXT                    R2
-       60 GETTABLEKS                       R7 R6 K18 ["keyUp"]
-       62 JUMPIFNOT                        R7 ; [+13]
-       63 MOVE                             R9 R1
-       64 NAMECALL                         R7 R6 K18 ["keyUp"]
-       66 CALL                             R7 2 1
-       67 JUMPIFNOT                        R7 ; [+8]
-       68 NAMECALL                         R7 R0 K19 ["processViewChanged"]
-       70 CALL                             R7 1 0
-       71 GETTABLEKS                       R7 R0 K0 ["_draggerToolModel"]
-       73 NAMECALL                         R7 R7 K14 ["_scheduleRender"]
-       75 CALL                             R7 1 0
-       76 FORGLOOP                         R2 2 ; [-17]
-       78 RETURN                           R0 0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+23]
+        4 NAMECALL                         R2 R0 K0 ["_scopeSelectChanged"]
+        6 CALL                             R2 1 0
+        7 GETTABLEKS                       R2 R0 K1 ["_draggerToolModel"]
+        9 GETTABLEKS                       R2 R2 K2 ["_selectionCycleCache"]
+       11 GETTABLEKS                       R3 R2 K3 ["_analyticsNumberOfClicks"]
+       13 NAMECALL                         R4 R2 K4 ["size"]
+       15 CALL                             R4 1 1
+       16 GETTABLEKS                       R5 R0 K1 ["_draggerToolModel"]
+       18 MOVE                             R7 R3
+       19 MOVE                             R8 R4
+       20 NAMECALL                         R5 R5 K5 ["_analyticsSendSelectionCycle"]
+       22 CALL                             R5 3 0
+       23 NAMECALL                         R5 R2 K6 ["computeSelectionCycleCandidates"]
+       25 CALL                             R5 1 0
+       26 JUMP                             ; [+20]
+       27 GETUPVAL                         R2 1
+       28 CALL                             R2 0 1
+       29 JUMPIFNOT                        R2 ; [+17]
+       30 GETIMPORT                        R2 K10 [Enum.KeyCode.Tab]
+       32 JUMPIFNOTEQ                      R1 R2 ; [+14]
+       34 GETTABLEKS                       R2 R0 K1 ["_draggerToolModel"]
+       36 NAMECALL                         R2 R2 K11 ["_endSummon"]
+       38 CALL                             R2 1 0
+       39 NAMECALL                         R2 R0 K12 ["_updateHoverTracker"]
+       41 CALL                             R2 1 0
+       42 GETTABLEKS                       R2 R0 K1 ["_draggerToolModel"]
+       44 NAMECALL                         R2 R2 K13 ["_scheduleRender"]
+       46 CALL                             R2 1 0
+       47 GETIMPORT                        R2 K15 [pairs]
+       49 GETTABLEKS                       R3 R0 K1 ["_draggerToolModel"]
+       51 NAMECALL                         R3 R3 K16 ["getHandlesList"]
+       53 CALL                             R3 1 -1
+       54 CALL                             R2 -1 3
+       55 FORGPREP_NEXT                    R2
+       56 GETTABLEKS                       R7 R6 K17 ["keyUp"]
+       58 JUMPIFNOT                        R7 ; [+13]
+       59 MOVE                             R9 R1
+       60 NAMECALL                         R7 R6 K17 ["keyUp"]
+       62 CALL                             R7 2 1
+       63 JUMPIFNOT                        R7 ; [+8]
+       64 NAMECALL                         R7 R0 K18 ["processViewChanged"]
+       66 CALL                             R7 1 0
+       67 GETTABLEKS                       R7 R0 K1 ["_draggerToolModel"]
+       69 NAMECALL                         R7 R7 K13 ["_scheduleRender"]
+       71 CALL                             R7 1 0
+       72 FORGLOOP                         R2 2 ; [-17]
+       74 RETURN                           R0 0
 
 PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["_hoverTracker"]
@@ -697,58 +697,63 @@ MAIN:
        74 GETTABLEKS                       R12 R0 K15 ["Flags"]
        76 GETTABLEKS                       R12 R12 K18 ["getFFlagNextGenDraggers"]
        78 CALL                             R11 1 1
-       79 NEWTABLE                         R12 16 0
-       81 SETTABLEKS                       R12 R12 K19 ["__index"]
-       83 DUPCLOSURE                       R13 K20 [PROTO_0]
-       84 CAPTURE                          VAL R12
-       85 SETTABLEKS                       R13 R12 K21 ["new"]
-       87 DUPCLOSURE                       R13 K22 [PROTO_2]
-       88 CAPTURE                          VAL R7
-       89 CAPTURE                          VAL R10
-       90 CAPTURE                          VAL R11
-       91 SETTABLEKS                       R13 R12 K23 ["enter"]
-       93 DUPCLOSURE                       R13 K24 [PROTO_3]
-       94 SETTABLEKS                       R13 R12 K25 ["leave"]
-       96 DUPCLOSURE                       R13 K26 [PROTO_4]
-       97 CAPTURE                          VAL R2
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R10
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R11
-      103 SETTABLEKS                       R13 R12 K27 ["render"]
-      105 DUPCLOSURE                       R13 K28 [PROTO_5]
-      106 SETTABLEKS                       R13 R12 K29 ["processSelectionChanged"]
-      108 DUPCLOSURE                       R13 K30 [PROTO_6]
-      109 CAPTURE                          VAL R11
-      110 CAPTURE                          VAL R3
-      111 SETTABLEKS                       R13 R12 K31 ["processMouseDown"]
-      113 DUPCLOSURE                       R13 K32 [PROTO_7]
-      114 SETTABLEKS                       R13 R12 K33 ["processViewChanged"]
-      116 DUPCLOSURE                       R13 K34 [PROTO_8]
-      117 SETTABLEKS                       R13 R12 K35 ["processMouseUp"]
-      119 DUPCLOSURE                       R13 K36 [PROTO_9]
-      120 SETTABLEKS                       R13 R12 K37 ["processMouseEnter"]
-      122 DUPCLOSURE                       R13 K38 [PROTO_10]
-      123 SETTABLEKS                       R13 R12 K39 ["processMouseLeave"]
-      125 DUPCLOSURE                       R13 K40 [PROTO_11]
-      126 SETTABLEKS                       R13 R12 K41 ["_scopeSelectChanged"]
-      128 DUPCLOSURE                       R13 K42 [PROTO_12]
-      129 DUPCLOSURE                       R14 K43 [PROTO_13]
-      130 CAPTURE                          VAL R13
-      131 CAPTURE                          VAL R10
-      132 SETTABLEKS                       R14 R12 K44 ["processKeyDown"]
-      134 DUPCLOSURE                       R14 K45 [PROTO_14]
-      135 CAPTURE                          VAL R13
-      136 CAPTURE                          VAL R10
-      137 SETTABLEKS                       R14 R12 K46 ["processKeyUp"]
-      139 DUPCLOSURE                       R14 K47 [PROTO_15]
-      140 CAPTURE                          VAL R9
-      141 SETTABLEKS                       R14 R12 K48 ["_updateHoverTracker"]
-      143 DUPCLOSURE                       R14 K49 [PROTO_16]
-      144 DUPCLOSURE                       R15 K50 [PROTO_17]
-      145 CAPTURE                          VAL R10
-      146 CAPTURE                          VAL R6
-      147 CAPTURE                          VAL R3
-      148 SETTABLEKS                       R15 R12 K51 ["_clickInWorld"]
-      150 RETURN                           R12 1
+       79 GETIMPORT                        R12 K20 [game]
+       81 LOADK                            R14 K21 ["NewCameraControls_BetaUpdate"]
+       82 NAMECALL                         R12 R12 K22 ["GetEngineFeature"]
+       84 CALL                             R12 2 1
+       85 NEWTABLE                         R13 16 0
+       87 SETTABLEKS                       R13 R13 K23 ["__index"]
+       89 DUPCLOSURE                       R14 K24 [PROTO_0]
+       90 CAPTURE                          VAL R13
+       91 SETTABLEKS                       R14 R13 K25 ["new"]
+       93 DUPCLOSURE                       R14 K26 [PROTO_2]
+       94 CAPTURE                          VAL R7
+       95 CAPTURE                          VAL R10
+       96 CAPTURE                          VAL R11
+       97 SETTABLEKS                       R14 R13 K27 ["enter"]
+       99 DUPCLOSURE                       R14 K28 [PROTO_3]
+      100 SETTABLEKS                       R14 R13 K29 ["leave"]
+      102 DUPCLOSURE                       R14 K30 [PROTO_4]
+      103 CAPTURE                          VAL R2
+      104 CAPTURE                          VAL R4
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R8
+      107 CAPTURE                          VAL R5
+      108 CAPTURE                          VAL R11
+      109 SETTABLEKS                       R14 R13 K31 ["render"]
+      111 DUPCLOSURE                       R14 K32 [PROTO_5]
+      112 SETTABLEKS                       R14 R13 K33 ["processSelectionChanged"]
+      114 DUPCLOSURE                       R14 K34 [PROTO_6]
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R3
+      117 SETTABLEKS                       R14 R13 K35 ["processMouseDown"]
+      119 DUPCLOSURE                       R14 K36 [PROTO_7]
+      120 SETTABLEKS                       R14 R13 K37 ["processViewChanged"]
+      122 DUPCLOSURE                       R14 K38 [PROTO_8]
+      123 SETTABLEKS                       R14 R13 K39 ["processMouseUp"]
+      125 DUPCLOSURE                       R14 K40 [PROTO_9]
+      126 SETTABLEKS                       R14 R13 K41 ["processMouseEnter"]
+      128 DUPCLOSURE                       R14 K42 [PROTO_10]
+      129 SETTABLEKS                       R14 R13 K43 ["processMouseLeave"]
+      131 DUPCLOSURE                       R14 K44 [PROTO_11]
+      132 SETTABLEKS                       R14 R13 K45 ["_scopeSelectChanged"]
+      134 DUPCLOSURE                       R14 K46 [PROTO_12]
+      135 CAPTURE                          VAL R12
+      136 DUPCLOSURE                       R15 K47 [PROTO_13]
+      137 CAPTURE                          VAL R14
+      138 CAPTURE                          VAL R10
+      139 SETTABLEKS                       R15 R13 K48 ["processKeyDown"]
+      141 DUPCLOSURE                       R15 K49 [PROTO_14]
+      142 CAPTURE                          VAL R14
+      143 CAPTURE                          VAL R10
+      144 SETTABLEKS                       R15 R13 K50 ["processKeyUp"]
+      146 DUPCLOSURE                       R15 K51 [PROTO_15]
+      147 CAPTURE                          VAL R9
+      148 SETTABLEKS                       R15 R13 K52 ["_updateHoverTracker"]
+      150 DUPCLOSURE                       R15 K53 [PROTO_16]
+      151 DUPCLOSURE                       R16 K54 [PROTO_17]
+      152 CAPTURE                          VAL R10
+      153 CAPTURE                          VAL R6
+      154 CAPTURE                          VAL R3
+      155 SETTABLEKS                       R16 R13 K55 ["_clickInWorld"]
+      157 RETURN                           R13 1

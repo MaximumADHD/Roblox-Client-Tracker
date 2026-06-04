@@ -271,13 +271,32 @@ PROTO_18:
         1 GETTABLEKS                       R0 R0 K0 ["Settings"]
         3 GETTABLEKS                       R0 R0 K1 ["Changed"]
         5 GETTABLEKS                       R0 R0 K2 ["vipServersPrice"]
-        7 JUMPIFEQKNIL                     R0 ; [+7]
+        7 JUMPIFEQKNIL                     R0 ; [+30]
         9 GETUPVAL                         R1 1
-       10 GETUPVAL                         R3 2
-       11 MOVE                             R4 R0
-       12 NAMECALL                         R1 R1 K3 ["setVIPServersPrice"]
-       14 CALL                             R1 3 0
-       15 RETURN                           R0 0
+       10 JUMPIFNOT                        R1 ; [+21]
+       11 GETUPVAL                         R1 2
+       12 GETUPVAL                         R3 3
+       13 MOVE                             R4 R0
+       14 NAMECALL                         R1 R1 K3 ["setVIPServersPrice"]
+       16 CALL                             R1 3 1
+       17 JUMPIFNOT                        R1 ; [+20]
+       18 GETUPVAL                         R2 4
+       19 GETUPVAL                         R4 5
+       20 DUPTABLE                         R5 K5 [{"vipServersPriceChangeTooSoon"}]
+       21 SETTABLEKS                       R1 R5 K4 ["vipServersPriceChangeTooSoon"]
+       23 CALL                             R4 1 -1
+       24 NAMECALL                         R2 R2 K6 ["dispatch"]
+       26 CALL                             R2 -1 0
+       27 GETIMPORT                        R2 K8 [error]
+       29 MOVE                             R3 R1
+       30 CALL                             R2 1 0
+       31 RETURN                           R0 0
+       32 GETUPVAL                         R1 2
+       33 GETUPVAL                         R3 3
+       34 MOVE                             R4 R0
+       35 NAMECALL                         R1 R1 K3 ["setVIPServersPrice"]
+       37 CALL                             R1 3 0
+       38 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R0 0
@@ -376,82 +395,85 @@ PROTO_25:
        57 CAPTURE                          VAL R3
        58 NEWCLOSURE                       R15 P3
        59 CAPTURE                          VAL R2
-       60 CAPTURE                          VAL R4
-       61 CAPTURE                          VAL R3
-       62 NEWCLOSURE                       R16 P4
-       63 CAPTURE                          VAL R10
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R3
-       67 SETLIST                          R11 R12 5 [1]
-       69 JUMPIFEQKNIL                     R6 ; [+18]
-       71 GETIMPORT                        R12 K13 [pairs]
-       73 MOVE                             R13 R6
-       74 CALL                             R12 1 3
-       75 FORGPREP_NEXT                    R12
-       76 NEWCLOSURE                       R19 P5
-       77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R3
-       79 CAPTURE                          VAL R16
-       80 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
-       82 MOVE                             R18 R11
-       83 GETIMPORT                        R17 K16 [table.insert]
-       85 CALL                             R17 2 0
-       86 FORGLOOP                         R12 2 ; [-11]
-       88 JUMPIFEQKNIL                     R7 ; [+18]
-       90 GETIMPORT                        R12 K13 [pairs]
-       92 MOVE                             R13 R7
-       93 CALL                             R12 1 3
-       94 FORGPREP_NEXT                    R12
-       95 NEWCLOSURE                       R19 P6
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          VAL R16
-       99 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
-      101 MOVE                             R18 R11
-      102 GETIMPORT                        R17 K16 [table.insert]
-      104 CALL                             R17 2 0
-      105 FORGLOOP                         R12 2 ; [-11]
-      107 GETUPVAL                         R12 0
-      108 JUMPIFNOT                        R12 ; [+49]
-      109 JUMPIFEQKNIL                     R9 ; [+48]
-      111 GETIMPORT                        R12 K13 [pairs]
-      113 MOVE                             R13 R9
-      114 CALL                             R12 1 3
-      115 FORGPREP_NEXT                    R12
-      116 GETTABLEKS                       R17 R16 K17 ["IsNew"]
-      118 JUMPIFNOT                        R17 ; [+11]
-      119 NEWCLOSURE                       R19 P7
-      120 CAPTURE                          VAL R5
-      121 CAPTURE                          VAL R3
-      122 CAPTURE                          VAL R16
-      123 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
-      125 MOVE                             R18 R11
-      126 GETIMPORT                        R17 K16 [table.insert]
-      128 CALL                             R17 2 0
-      129 JUMP                             ; [+26]
-      130 GETTABLEKS                       R17 R16 K18 ["Active"]
-      132 JUMPIFNOTEQKB                    R17 FALSE ; [+12]
-      134 NEWCLOSURE                       R19 P8
-      135 CAPTURE                          VAL R5
-      136 CAPTURE                          VAL R8
-      137 CAPTURE                          VAL R15
-      138 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
-      140 MOVE                             R18 R11
-      141 GETIMPORT                        R17 K16 [table.insert]
-      143 CALL                             R17 2 0
-      144 JUMP                             ; [+11]
-      145 NEWCLOSURE                       R19 P9
-      146 CAPTURE                          VAL R5
-      147 CAPTURE                          VAL R8
-      148 CAPTURE                          VAL R15
-      149 CAPTURE                          VAL R16
-      150 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
-      152 MOVE                             R18 R11
-      153 GETIMPORT                        R17 K16 [table.insert]
-      155 CALL                             R17 2 0
-      156 FORGLOOP                         R12 2 ; [-41]
-      158 RETURN                           R11 1
+       60 CAPTURE                          UPVAL U0
+       61 CAPTURE                          VAL R4
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R0
+       64 CAPTURE                          UPVAL U1
+       65 NEWCLOSURE                       R16 P4
+       66 CAPTURE                          VAL R10
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R3
+       70 SETLIST                          R11 R12 5 [1]
+       72 JUMPIFEQKNIL                     R6 ; [+18]
+       74 GETIMPORT                        R12 K13 [pairs]
+       76 MOVE                             R13 R6
+       77 CALL                             R12 1 3
+       78 FORGPREP_NEXT                    R12
+       79 NEWCLOSURE                       R19 P5
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R16
+       83 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
+       85 MOVE                             R18 R11
+       86 GETIMPORT                        R17 K16 [table.insert]
+       88 CALL                             R17 2 0
+       89 FORGLOOP                         R12 2 ; [-11]
+       91 JUMPIFEQKNIL                     R7 ; [+18]
+       93 GETIMPORT                        R12 K13 [pairs]
+       95 MOVE                             R13 R7
+       96 CALL                             R12 1 3
+       97 FORGPREP_NEXT                    R12
+       98 NEWCLOSURE                       R19 P6
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          VAL R16
+      102 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
+      104 MOVE                             R18 R11
+      105 GETIMPORT                        R17 K16 [table.insert]
+      107 CALL                             R17 2 0
+      108 FORGLOOP                         R12 2 ; [-11]
+      110 GETUPVAL                         R12 2
+      111 JUMPIFNOT                        R12 ; [+49]
+      112 JUMPIFEQKNIL                     R9 ; [+48]
+      114 GETIMPORT                        R12 K13 [pairs]
+      116 MOVE                             R13 R9
+      117 CALL                             R12 1 3
+      118 FORGPREP_NEXT                    R12
+      119 GETTABLEKS                       R17 R16 K17 ["IsNew"]
+      121 JUMPIFNOT                        R17 ; [+11]
+      122 NEWCLOSURE                       R19 P7
+      123 CAPTURE                          VAL R5
+      124 CAPTURE                          VAL R3
+      125 CAPTURE                          VAL R16
+      126 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
+      128 MOVE                             R18 R11
+      129 GETIMPORT                        R17 K16 [table.insert]
+      131 CALL                             R17 2 0
+      132 JUMP                             ; [+26]
+      133 GETTABLEKS                       R17 R16 K18 ["Active"]
+      135 JUMPIFNOTEQKB                    R17 FALSE ; [+12]
+      137 NEWCLOSURE                       R19 P8
+      138 CAPTURE                          VAL R5
+      139 CAPTURE                          VAL R8
+      140 CAPTURE                          VAL R15
+      141 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
+      143 MOVE                             R18 R11
+      144 GETIMPORT                        R17 K16 [table.insert]
+      146 CALL                             R17 2 0
+      147 JUMP                             ; [+11]
+      148 NEWCLOSURE                       R19 P9
+      149 CAPTURE                          VAL R5
+      150 CAPTURE                          VAL R8
+      151 CAPTURE                          VAL R15
+      152 CAPTURE                          VAL R16
+      153 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
+      155 MOVE                             R18 R11
+      156 GETIMPORT                        R17 K16 [table.insert]
+      158 CALL                             R17 2 0
+      159 FORGLOOP                         R12 2 ; [-41]
+      161 RETURN                           R11 1
 
 PROTO_26:
         0 GETTABLEKS                       R2 R1 K0 ["Settings"]
@@ -475,71 +497,71 @@ PROTO_26:
        29 GETTABLEKS                       R6 R6 K6 ["vipServersPrice"]
        31 JUMPIFEQKNIL                     R6 ; [+2]
        33 LOADB                            R4 1
-       34 DUPTABLE                         R6 K25 [{"TaxRate", "MinimumFee", "RewardedOnDemandAdsSetting", "PaidAccess", "VIPServers", "UnsavedDevProducts", "DevProducts", "EditedDevProducts", "EditDevProductId", "AccessPriceError", "DevProductPriceError", "DevProductNameError", "isEditingSubscription", "editedSubscriptionKey", "Badges", "BadgeLoadState", "isPublic", "isInitiallyEnabled"}]
+       34 DUPTABLE                         R6 K26 [{"TaxRate", "MinimumFee", "RewardedOnDemandAdsSetting", "PaidAccess", "VIPServers", "UnsavedDevProducts", "DevProducts", "EditedDevProducts", "EditDevProductId", "AccessPriceError", "VIPServersPriceChangeTooSoon", "DevProductPriceError", "DevProductNameError", "isEditingSubscription", "editedSubscriptionKey", "Badges", "BadgeLoadState", "isPublic", "isInitiallyEnabled"}]
        35 MOVE                             R7 R0
-       36 LOADK                            R8 K26 ["taxRate"]
+       36 LOADK                            R8 K27 ["taxRate"]
        37 CALL                             R7 1 1
        38 SETTABLEKS                       R7 R6 K7 ["TaxRate"]
        40 MOVE                             R7 R0
-       41 LOADK                            R8 K27 ["minimumFee"]
+       41 LOADK                            R8 K28 ["minimumFee"]
        42 CALL                             R7 1 1
        43 SETTABLEKS                       R7 R6 K8 ["MinimumFee"]
-       45 DUPTABLE                         R7 K32 [{"showRewardedAdsToggle", "isUniverseEligibleForRewardedOnDemandAds", "isRewardedOnDemandAdsAllowed", "isUniverseSuspendedFromRewardedAds", "hasUniverseBeenEligible"}]
+       45 DUPTABLE                         R7 K33 [{"showRewardedAdsToggle", "isUniverseEligibleForRewardedOnDemandAds", "isRewardedOnDemandAdsAllowed", "isUniverseSuspendedFromRewardedAds", "hasUniverseBeenEligible"}]
        46 SETTABLEKS                       R3 R7 K2 ["showRewardedAdsToggle"]
        48 JUMPIFNOT                        R3 ; [+4]
        49 MOVE                             R8 R0
-       50 LOADK                            R9 K28 ["isUniverseEligibleForRewardedOnDemandAds"]
+       50 LOADK                            R9 K29 ["isUniverseEligibleForRewardedOnDemandAds"]
        51 CALL                             R8 1 1
        52 JUMP                             ; [+1]
        53 LOADNIL                          R8
-       54 SETTABLEKS                       R8 R7 K28 ["isUniverseEligibleForRewardedOnDemandAds"]
+       54 SETTABLEKS                       R8 R7 K29 ["isUniverseEligibleForRewardedOnDemandAds"]
        56 JUMPIFNOT                        R3 ; [+7]
        57 GETTABLEKS                       R8 R1 K0 ["Settings"]
        59 GETTABLEKS                       R8 R8 K5 ["Current"]
-       61 GETTABLEKS                       R8 R8 K29 ["isRewardedOnDemandAdsAllowed"]
+       61 GETTABLEKS                       R8 R8 K30 ["isRewardedOnDemandAdsAllowed"]
        63 JUMP                             ; [+1]
        64 LOADNIL                          R8
-       65 SETTABLEKS                       R8 R7 K29 ["isRewardedOnDemandAdsAllowed"]
+       65 SETTABLEKS                       R8 R7 K30 ["isRewardedOnDemandAdsAllowed"]
        67 MOVE                             R8 R0
-       68 LOADK                            R9 K30 ["isUniverseSuspendedFromRewardedAds"]
+       68 LOADK                            R9 K31 ["isUniverseSuspendedFromRewardedAds"]
        69 CALL                             R8 1 1
-       70 SETTABLEKS                       R8 R7 K30 ["isUniverseSuspendedFromRewardedAds"]
+       70 SETTABLEKS                       R8 R7 K31 ["isUniverseSuspendedFromRewardedAds"]
        72 MOVE                             R8 R0
-       73 LOADK                            R9 K33 ["hasUniverseBeenEligibleForRewardedAds"]
+       73 LOADK                            R9 K34 ["hasUniverseBeenEligibleForRewardedAds"]
        74 CALL                             R8 1 1
-       75 SETTABLEKS                       R8 R7 K31 ["hasUniverseBeenEligible"]
+       75 SETTABLEKS                       R8 R7 K32 ["hasUniverseBeenEligible"]
        77 SETTABLEKS                       R7 R6 K9 ["RewardedOnDemandAdsSetting"]
-       79 DUPTABLE                         R7 K37 [{"enabled", "price", "initialPrice"}]
+       79 DUPTABLE                         R7 K38 [{"enabled", "price", "initialPrice"}]
        80 MOVE                             R8 R0
        81 GETUPVAL                         R9 0
        82 CALL                             R9 0 -1
        83 CALL                             R8 -1 1
-       84 SETTABLEKS                       R8 R7 K34 ["enabled"]
+       84 SETTABLEKS                       R8 R7 K35 ["enabled"]
        86 MOVE                             R8 R0
-       87 LOADK                            R9 K35 ["price"]
+       87 LOADK                            R9 K36 ["price"]
        88 CALL                             R8 1 1
-       89 SETTABLEKS                       R8 R7 K35 ["price"]
+       89 SETTABLEKS                       R8 R7 K36 ["price"]
        91 GETTABLEKS                       R9 R1 K0 ["Settings"]
        93 GETTABLEKS                       R9 R9 K5 ["Current"]
-       95 GETTABLEKS                       R9 R9 K35 ["price"]
+       95 GETTABLEKS                       R9 R9 K36 ["price"]
        97 JUMPIFNOT                        R9 ; [+7]
        98 GETTABLEKS                       R8 R1 K0 ["Settings"]
       100 GETTABLEKS                       R8 R8 K5 ["Current"]
-      102 GETTABLEKS                       R8 R8 K35 ["price"]
+      102 GETTABLEKS                       R8 R8 K36 ["price"]
       104 JUMPIF                           R8 ; [+1]
       105 LOADN                            R8 0
-      106 SETTABLEKS                       R8 R7 K36 ["initialPrice"]
+      106 SETTABLEKS                       R8 R7 K37 ["initialPrice"]
       108 SETTABLEKS                       R7 R6 K10 ["PaidAccess"]
-      110 DUPTABLE                         R7 K43 [{"isEnabled", "price", "initialPrice", "activeServersCount", "activeSubscriptionsCount", "changed", "willShutdown"}]
+      110 DUPTABLE                         R7 K44 [{"isEnabled", "price", "initialPrice", "activeServersCount", "activeSubscriptionsCount", "changed", "willShutdown"}]
       111 MOVE                             R8 R0
       112 GETUPVAL                         R9 1
       113 CALL                             R9 0 -1
       114 CALL                             R8 -1 1
-      115 SETTABLEKS                       R8 R7 K38 ["isEnabled"]
+      115 SETTABLEKS                       R8 R7 K39 ["isEnabled"]
       117 MOVE                             R8 R0
       118 LOADK                            R9 K6 ["vipServersPrice"]
       119 CALL                             R8 1 1
-      120 SETTABLEKS                       R8 R7 K35 ["price"]
+      120 SETTABLEKS                       R8 R7 K36 ["price"]
       122 GETTABLEKS                       R9 R1 K0 ["Settings"]
       124 GETTABLEKS                       R9 R9 K5 ["Current"]
       126 GETTABLEKS                       R9 R9 K6 ["vipServersPrice"]
@@ -549,95 +571,101 @@ PROTO_26:
       133 GETTABLEKS                       R8 R8 K6 ["vipServersPrice"]
       135 JUMPIF                           R8 ; [+1]
       136 LOADN                            R8 0
-      137 SETTABLEKS                       R8 R7 K36 ["initialPrice"]
+      137 SETTABLEKS                       R8 R7 K37 ["initialPrice"]
       139 MOVE                             R8 R0
-      140 LOADK                            R9 K44 ["vipServersActiveServersCount"]
+      140 LOADK                            R9 K45 ["vipServersActiveServersCount"]
       141 CALL                             R8 1 1
-      142 SETTABLEKS                       R8 R7 K39 ["activeServersCount"]
+      142 SETTABLEKS                       R8 R7 K40 ["activeServersCount"]
       144 MOVE                             R8 R0
-      145 LOADK                            R9 K45 ["vipServersActiveSubscriptionsCount"]
+      145 LOADK                            R9 K46 ["vipServersActiveSubscriptionsCount"]
       146 CALL                             R8 1 1
-      147 SETTABLEKS                       R8 R7 K40 ["activeSubscriptionsCount"]
-      149 SETTABLEKS                       R4 R7 K41 ["changed"]
-      151 SETTABLEKS                       R5 R7 K42 ["willShutdown"]
+      147 SETTABLEKS                       R8 R7 K41 ["activeSubscriptionsCount"]
+      149 SETTABLEKS                       R4 R7 K42 ["changed"]
+      151 SETTABLEKS                       R5 R7 K43 ["willShutdown"]
       153 SETTABLEKS                       R7 R6 K11 ["VIPServers"]
       155 MOVE                             R7 R0
-      156 LOADK                            R8 K46 ["unsavedDevProducts"]
+      156 LOADK                            R8 K47 ["unsavedDevProducts"]
       157 CALL                             R7 1 1
       158 SETTABLEKS                       R7 R6 K12 ["UnsavedDevProducts"]
       160 GETTABLEKS                       R7 R1 K0 ["Settings"]
       162 GETTABLEKS                       R7 R7 K5 ["Current"]
-      164 GETTABLEKS                       R7 R7 K47 ["developerProducts"]
+      164 GETTABLEKS                       R7 R7 K48 ["developerProducts"]
       166 SETTABLEKS                       R7 R6 K13 ["DevProducts"]
       168 GETTABLEKS                       R7 R1 K0 ["Settings"]
       170 GETTABLEKS                       R7 R7 K3 ["Changed"]
-      172 GETTABLEKS                       R7 R7 K48 ["editedDeveloperProducts"]
+      172 GETTABLEKS                       R7 R7 K49 ["editedDeveloperProducts"]
       174 SETTABLEKS                       R7 R6 K14 ["EditedDevProducts"]
-      176 GETTABLEKS                       R7 R1 K49 ["EditAsset"]
-      178 GETTABLEKS                       R7 R7 K50 ["editDevProductId"]
+      176 GETTABLEKS                       R7 R1 K50 ["EditAsset"]
+      178 GETTABLEKS                       R7 R7 K51 ["editDevProductId"]
       180 SETTABLEKS                       R7 R6 K15 ["EditDevProductId"]
-      182 GETTABLEKS                       R7 R2 K51 ["monetizationPrice"]
+      182 GETTABLEKS                       R7 R2 K52 ["monetizationPrice"]
       184 SETTABLEKS                       R7 R6 K16 ["AccessPriceError"]
-      186 GETTABLEKS                       R7 R2 K52 ["devProductPrice"]
-      188 SETTABLEKS                       R7 R6 K17 ["DevProductPriceError"]
-      190 GETTABLEKS                       R7 R2 K53 ["devProductName"]
-      192 SETTABLEKS                       R7 R6 K18 ["DevProductNameError"]
-      194 MOVE                             R7 R0
-      195 LOADK                            R8 K19 ["isEditingSubscription"]
-      196 CALL                             R7 1 1
-      197 SETTABLEKS                       R7 R6 K19 ["isEditingSubscription"]
-      199 MOVE                             R7 R0
-      200 LOADK                            R8 K20 ["editedSubscriptionKey"]
-      201 CALL                             R7 1 1
-      202 SETTABLEKS                       R7 R6 K20 ["editedSubscriptionKey"]
-      204 GETTABLEKS                       R7 R1 K0 ["Settings"]
-      206 GETTABLEKS                       R7 R7 K5 ["Current"]
-      208 GETTABLEKS                       R7 R7 K54 ["badges"]
-      210 SETTABLEKS                       R7 R6 K21 ["Badges"]
-      212 GETTABLEKS                       R7 R1 K55 ["ComponentLoadState"]
-      214 GETTABLEKS                       R7 R7 K21 ["Badges"]
-      216 SETTABLEKS                       R7 R6 K22 ["BadgeLoadState"]
-      218 MOVE                             R7 R0
-      219 GETUPVAL                         R8 2
-      220 CALL                             R8 0 -1
-      221 CALL                             R7 -1 1
-      222 JUMPIFNOT                        R7 ; [+5]
-      223 MOVE                             R8 R0
-      224 GETUPVAL                         R9 3
-      225 CALL                             R9 0 -1
-      226 CALL                             R8 -1 1
-      227 NOT                              R7 R8
-      228 SETTABLEKS                       R7 R6 K23 ["isPublic"]
-      230 GETTABLEKS                       R9 R1 K0 ["Settings"]
-      232 GETTABLEKS                       R9 R9 K5 ["Current"]
-      234 GETUPVAL                         R10 2
-      235 CALL                             R10 0 1
-      236 GETTABLE                         R8 R9 R10
-      237 JUMPIFNOT                        R8 ; [+8]
-      238 GETTABLEKS                       R8 R1 K0 ["Settings"]
-      240 GETTABLEKS                       R8 R8 K5 ["Current"]
-      242 GETUPVAL                         R9 3
-      243 CALL                             R9 0 1
-      244 GETTABLE                         R7 R8 R9
-      245 JUMPIFNOT                        R7 ; [+15]
+      186 GETUPVAL                         R8 2
+      187 JUMPIFNOT                        R8 ; [+3]
+      188 GETTABLEKS                       R7 R2 K53 ["vipServersPriceChangeTooSoon"]
+      190 JUMP                             ; [+1]
+      191 LOADNIL                          R7
+      192 SETTABLEKS                       R7 R6 K17 ["VIPServersPriceChangeTooSoon"]
+      194 GETTABLEKS                       R7 R2 K54 ["devProductPrice"]
+      196 SETTABLEKS                       R7 R6 K18 ["DevProductPriceError"]
+      198 GETTABLEKS                       R7 R2 K55 ["devProductName"]
+      200 SETTABLEKS                       R7 R6 K19 ["DevProductNameError"]
+      202 MOVE                             R7 R0
+      203 LOADK                            R8 K20 ["isEditingSubscription"]
+      204 CALL                             R7 1 1
+      205 SETTABLEKS                       R7 R6 K20 ["isEditingSubscription"]
+      207 MOVE                             R7 R0
+      208 LOADK                            R8 K21 ["editedSubscriptionKey"]
+      209 CALL                             R7 1 1
+      210 SETTABLEKS                       R7 R6 K21 ["editedSubscriptionKey"]
+      212 GETTABLEKS                       R7 R1 K0 ["Settings"]
+      214 GETTABLEKS                       R7 R7 K5 ["Current"]
+      216 GETTABLEKS                       R7 R7 K56 ["badges"]
+      218 SETTABLEKS                       R7 R6 K22 ["Badges"]
+      220 GETTABLEKS                       R7 R1 K57 ["ComponentLoadState"]
+      222 GETTABLEKS                       R7 R7 K22 ["Badges"]
+      224 SETTABLEKS                       R7 R6 K23 ["BadgeLoadState"]
+      226 MOVE                             R7 R0
+      227 GETUPVAL                         R8 3
+      228 CALL                             R8 0 -1
+      229 CALL                             R7 -1 1
+      230 JUMPIFNOT                        R7 ; [+5]
+      231 MOVE                             R8 R0
+      232 GETUPVAL                         R9 4
+      233 CALL                             R9 0 -1
+      234 CALL                             R8 -1 1
+      235 NOT                              R7 R8
+      236 SETTABLEKS                       R7 R6 K24 ["isPublic"]
+      238 GETTABLEKS                       R9 R1 K0 ["Settings"]
+      240 GETTABLEKS                       R9 R9 K5 ["Current"]
+      242 GETUPVAL                         R10 3
+      243 CALL                             R10 0 1
+      244 GETTABLE                         R8 R9 R10
+      245 JUMPIFNOT                        R8 ; [+8]
       246 GETTABLEKS                       R8 R1 K0 ["Settings"]
       248 GETTABLEKS                       R8 R8 K5 ["Current"]
-      250 GETUPVAL                         R9 0
+      250 GETUPVAL                         R9 4
       251 CALL                             R9 0 1
       252 GETTABLE                         R7 R8 R9
-      253 JUMPIF                           R7 ; [+7]
+      253 JUMPIFNOT                        R7 ; [+15]
       254 GETTABLEKS                       R8 R1 K0 ["Settings"]
       256 GETTABLEKS                       R8 R8 K5 ["Current"]
-      258 GETUPVAL                         R9 1
+      258 GETUPVAL                         R9 0
       259 CALL                             R9 0 1
       260 GETTABLE                         R7 R8 R9
-      261 SETTABLEKS                       R7 R6 K24 ["isInitiallyEnabled"]
-      263 GETUPVAL                         R7 4
-      264 JUMPIFNOT                        R7 ; [+6]
-      265 GETTABLEKS                       R7 R1 K56 ["Metadata"]
-      267 GETTABLEKS                       R7 R7 K57 ["gameId"]
-      269 SETTABLEKS                       R7 R6 K58 ["GameId"]
-      271 RETURN                           R6 1
+      261 JUMPIF                           R7 ; [+7]
+      262 GETTABLEKS                       R8 R1 K0 ["Settings"]
+      264 GETTABLEKS                       R8 R8 K5 ["Current"]
+      266 GETUPVAL                         R9 1
+      267 CALL                             R9 0 1
+      268 GETTABLE                         R7 R8 R9
+      269 SETTABLEKS                       R7 R6 K25 ["isInitiallyEnabled"]
+      271 GETUPVAL                         R7 5
+      272 JUMPIFNOT                        R7 ; [+6]
+      273 GETTABLEKS                       R7 R1 K58 ["Metadata"]
+      275 GETTABLEKS                       R7 R7 K59 ["gameId"]
+      277 SETTABLEKS                       R7 R6 K60 ["GameId"]
+      279 RETURN                           R6 1
 
 PROTO_27:
         0 JUMPIFNOTEQKS                    R2 K0 ["Name"] ; [+16]
@@ -1831,68 +1859,87 @@ PROTO_54:
       354 SETTABLEKS                       R14 R41 K88 ["VIPServersData"]
       356 SETTABLEKS                       R5 R41 K5 ["TaxRate"]
       358 SETTABLEKS                       R6 R41 K6 ["MinimumFee"]
-      360 GETTABLEKS                       R43 R14 K36 ["isEnabled"]
-      362 JUMPIFNOT                        R43 ; [+2]
-      363 MOVE                             R42 R36
-      364 JUMPIF                           R42 ; [+1]
-      365 LOADNIL                          R42
-      366 SETTABLEKS                       R42 R41 K82 ["PriceError"]
-      368 NAMECALL                         R42 R37 K65 ["getNextOrder"]
-      370 CALL                             R42 1 1
-      371 SETTABLEKS                       R42 R41 K62 ["LayoutOrder"]
-      373 LOADB                            R42 0
-      374 JUMPIFNOTEQKB                    R12 FALSE ; [+7]
-      376 GETTABLEKS                       R43 R14 K36 ["isEnabled"]
-      378 JUMPIFNOT                        R43 ; [+2]
-      379 MOVE                             R42 R29
-      380 JUMPIF                           R42 ; [+1]
-      381 MOVE                             R42 R28
-      382 SETTABLEKS                       R42 R41 K83 ["Enabled"]
-      384 NEWCLOSURE                       R42 P2
-      385 CAPTURE                          VAL R0
-      386 CAPTURE                          UPVAL U18
-      387 CAPTURE                          VAL R23
-      388 SETTABLEKS                       R42 R41 K89 ["OnVipServersToggled"]
-      390 SETTABLEKS                       R24 R41 K90 ["OnVipServersPriceChanged"]
-      392 CALL                             R39 2 1
-      393 SETTABLEKS                       R39 R38 K15 ["VIPServers"]
-      395 GETUPVAL                         R39 19
-      396 JUMPIFNOT                        R39 ; [+13]
-      397 GETUPVAL                         R39 9
-      398 GETTABLEKS                       R39 R39 K43 ["createElement"]
-      400 GETUPVAL                         R40 20
-      401 DUPTABLE                         R41 K92 [{"LayoutOrder", "OnDeveloperSubscriptionCreated"}]
-      402 NAMECALL                         R42 R37 K65 ["getNextOrder"]
-      404 CALL                             R42 1 1
-      405 SETTABLEKS                       R42 R41 K62 ["LayoutOrder"]
-      407 SETTABLEKS                       R35 R41 K34 ["OnDeveloperSubscriptionCreated"]
-      409 CALL                             R39 2 1
-      410 SETTABLEKS                       R39 R38 K40 ["DevSubsList"]
-      412 GETUPVAL                         R39 9
-      413 GETTABLEKS                       R39 R39 K43 ["createElement"]
-      415 GETUPVAL                         R40 21
-      416 DUPTABLE                         R41 K98 [{"ProductList", "ShowTable", "LayoutOrder", "CreateNewDevProduct", "OnLoadMoreDevProducts", "OnEditDevProductClicked"}]
-      417 SETTABLEKS                       R19 R41 K93 ["ProductList"]
-      419 JUMPIFNOTEQKN                    R20 K99 [0] ; [+2]
-      421 LOADB                            R42 0 +1
-      422 LOADB                            R42 1
-      423 SETTABLEKS                       R42 R41 K94 ["ShowTable"]
-      425 NAMECALL                         R42 R37 K65 ["getNextOrder"]
-      427 CALL                             R42 1 1
-      428 SETTABLEKS                       R42 R41 K62 ["LayoutOrder"]
-      430 NEWCLOSURE                       R42 P3
-      431 CAPTURE                          VAL R20
-      432 CAPTURE                          UPVAL U22
-      433 CAPTURE                          VAL R3
-      434 CAPTURE                          VAL R15
-      435 CAPTURE                          VAL R25
-      436 SETTABLEKS                       R42 R41 K95 ["CreateNewDevProduct"]
-      438 SETTABLEKS                       R27 R41 K96 ["OnLoadMoreDevProducts"]
-      440 SETTABLEKS                       R26 R41 K97 ["OnEditDevProductClicked"]
-      442 CALL                             R39 2 1
-      443 SETTABLEKS                       R39 R38 K17 ["DevProducts"]
-      445 CLOSEUPVALS                      R9
-      446 RETURN                           R38 1
+      360 GETUPVAL                         R43 18
+      361 JUMPIFNOT                        R43 ; [+23]
+      362 GETTABLEKS                       R43 R0 K92 ["VIPServersPriceChangeTooSoon"]
+      364 JUMPIFNOT                        R43 ; [+13]
+      365 LOADK                            R44 K93 ["Errors"]
+      366 LOADK                            R45 K94 ["ErrorPriceChangeTooSoonWithDate"]
+      367 DUPTABLE                         R46 K96 [{"date"}]
+      368 GETTABLEKS                       R47 R0 K92 ["VIPServersPriceChangeTooSoon"]
+      370 GETTABLEKS                       R47 R47 K95 ["date"]
+      372 SETTABLEKS                       R47 R46 K95 ["date"]
+      374 NAMECALL                         R42 R3 K78 ["getText"]
+      376 CALL                             R42 4 1
+      377 JUMP                             ; [+13]
+      378 GETTABLEKS                       R43 R14 K36 ["isEnabled"]
+      380 JUMPIFNOT                        R43 ; [+2]
+      381 MOVE                             R42 R36
+      382 JUMPIF                           R42 ; [+8]
+      383 LOADNIL                          R42
+      384 JUMP                             ; [+6]
+      385 GETTABLEKS                       R43 R14 K36 ["isEnabled"]
+      387 JUMPIFNOT                        R43 ; [+2]
+      388 MOVE                             R42 R36
+      389 JUMPIF                           R42 ; [+1]
+      390 LOADNIL                          R42
+      391 SETTABLEKS                       R42 R41 K82 ["PriceError"]
+      393 NAMECALL                         R42 R37 K65 ["getNextOrder"]
+      395 CALL                             R42 1 1
+      396 SETTABLEKS                       R42 R41 K62 ["LayoutOrder"]
+      398 LOADB                            R42 0
+      399 JUMPIFNOTEQKB                    R12 FALSE ; [+7]
+      401 GETTABLEKS                       R43 R14 K36 ["isEnabled"]
+      403 JUMPIFNOT                        R43 ; [+2]
+      404 MOVE                             R42 R29
+      405 JUMPIF                           R42 ; [+1]
+      406 MOVE                             R42 R28
+      407 SETTABLEKS                       R42 R41 K83 ["Enabled"]
+      409 NEWCLOSURE                       R42 P2
+      410 CAPTURE                          VAL R0
+      411 CAPTURE                          UPVAL U19
+      412 CAPTURE                          VAL R23
+      413 SETTABLEKS                       R42 R41 K89 ["OnVipServersToggled"]
+      415 SETTABLEKS                       R24 R41 K90 ["OnVipServersPriceChanged"]
+      417 CALL                             R39 2 1
+      418 SETTABLEKS                       R39 R38 K15 ["VIPServers"]
+      420 GETUPVAL                         R39 20
+      421 JUMPIFNOT                        R39 ; [+13]
+      422 GETUPVAL                         R39 9
+      423 GETTABLEKS                       R39 R39 K43 ["createElement"]
+      425 GETUPVAL                         R40 21
+      426 DUPTABLE                         R41 K97 [{"LayoutOrder", "OnDeveloperSubscriptionCreated"}]
+      427 NAMECALL                         R42 R37 K65 ["getNextOrder"]
+      429 CALL                             R42 1 1
+      430 SETTABLEKS                       R42 R41 K62 ["LayoutOrder"]
+      432 SETTABLEKS                       R35 R41 K34 ["OnDeveloperSubscriptionCreated"]
+      434 CALL                             R39 2 1
+      435 SETTABLEKS                       R39 R38 K40 ["DevSubsList"]
+      437 GETUPVAL                         R39 9
+      438 GETTABLEKS                       R39 R39 K43 ["createElement"]
+      440 GETUPVAL                         R40 22
+      441 DUPTABLE                         R41 K103 [{"ProductList", "ShowTable", "LayoutOrder", "CreateNewDevProduct", "OnLoadMoreDevProducts", "OnEditDevProductClicked"}]
+      442 SETTABLEKS                       R19 R41 K98 ["ProductList"]
+      444 JUMPIFNOTEQKN                    R20 K104 [0] ; [+2]
+      446 LOADB                            R42 0 +1
+      447 LOADB                            R42 1
+      448 SETTABLEKS                       R42 R41 K99 ["ShowTable"]
+      450 NAMECALL                         R42 R37 K65 ["getNextOrder"]
+      452 CALL                             R42 1 1
+      453 SETTABLEKS                       R42 R41 K62 ["LayoutOrder"]
+      455 NEWCLOSURE                       R42 P3
+      456 CAPTURE                          VAL R20
+      457 CAPTURE                          UPVAL U23
+      458 CAPTURE                          VAL R3
+      459 CAPTURE                          VAL R15
+      460 CAPTURE                          VAL R25
+      461 SETTABLEKS                       R42 R41 K100 ["CreateNewDevProduct"]
+      463 SETTABLEKS                       R27 R41 K101 ["OnLoadMoreDevProducts"]
+      465 SETTABLEKS                       R26 R41 K102 ["OnEditDevProductClicked"]
+      467 CALL                             R39 2 1
+      468 SETTABLEKS                       R39 R38 K17 ["DevProducts"]
+      470 CLOSEUPVALS                      R9
+      471 RETURN                           R38 1
 
 PROTO_55:
         0 GETIMPORT                        R1 K2 [utf8.len]
@@ -2720,176 +2767,185 @@ MAIN:
       317 GETIMPORT                        R52 K15 [require]
       319 GETTABLEKS                       R53 R7 K69 ["FFlagDeveloperSubscriptionsEnabled"]
       321 CALL                             R52 1 1
-      322 GETTABLEKS                       R53 R10 K70 ["PureComponent"]
-      324 GETIMPORT                        R55 K12 [script]
-      326 GETTABLEKS                       R55 R55 K71 ["Name"]
-      328 NAMECALL                         R53 R53 K72 ["extend"]
-      330 CALL                             R53 2 1
-      331 GETIMPORT                        R54 K12 [script]
-      333 GETTABLEKS                       R54 R54 K71 ["Name"]
-      335 DUPTABLE                         R55 K76 [{"BelowMin", "AboveMax", "Invalid"}]
-      336 LOADK                            R56 K77 ["ErrorPriceBelowMin"]
-      337 SETTABLEKS                       R56 R55 K73 ["BelowMin"]
-      339 LOADK                            R56 K78 ["ErrorPriceAboveMax"]
-      340 SETTABLEKS                       R56 R55 K74 ["AboveMax"]
-      342 LOADK                            R56 K79 ["ErrorPriceInvalid"]
-      343 SETTABLEKS                       R56 R55 K75 ["Invalid"]
-      345 DUPTABLE                         R56 K81 [{"Empty"}]
-      346 LOADK                            R57 K82 ["ErrorNameEmpty"]
-      347 SETTABLEKS                       R57 R56 K80 ["Empty"]
-      349 LOADK                            R57 K83 [""]
-      350 GETIMPORT                        R58 K15 [require]
-      352 GETTABLEKS                       R59 R8 K25 ["Src"]
-      354 GETTABLEKS                       R59 R59 K22 ["Util"]
-      356 GETTABLEKS                       R59 R59 K84 ["KeyProvider"]
-      358 CALL                             R58 1 1
-      359 GETTABLEKS                       R59 R58 K85 ["getIsFriendOnlyKeyName"]
-      361 GETTABLEKS                       R60 R58 K86 ["getIsActiveKeyName"]
-      363 GETTABLEKS                       R61 R58 K87 ["getIsForSaleKeyName"]
-      365 GETTABLEKS                       R62 R58 K88 ["getIsRewardedOnDemandAdsAllowedKeyName"]
-      367 GETTABLEKS                       R63 R58 K89 ["getVipServersIsEnabledKeyName"]
-      369 DUPCLOSURE                       R64 K90 [PROTO_14]
-      370 CAPTURE                          VAL R62
-      371 CAPTURE                          VAL R61
-      372 CAPTURE                          VAL R63
-      373 CAPTURE                          VAL R52
-      374 CAPTURE                          VAL R60
-      375 CAPTURE                          VAL R59
-      376 CAPTURE                          VAL R49
-      377 DUPCLOSURE                       R65 K91 [PROTO_25]
-      378 CAPTURE                          VAL R52
-      379 DUPCLOSURE                       R66 K92 [PROTO_26]
-      380 CAPTURE                          VAL R61
-      381 CAPTURE                          VAL R63
-      382 CAPTURE                          VAL R60
-      383 CAPTURE                          VAL R59
-      384 CAPTURE                          VAL R50
-      385 DUPCLOSURE                       R67 K93 [PROTO_27]
-      386 CAPTURE                          VAL R46
-      387 CAPTURE                          VAL R6
-      388 DUPCLOSURE                       R68 K94 [PROTO_28]
-      389 CAPTURE                          VAL R46
-      390 CAPTURE                          VAL R6
-      391 DUPCLOSURE                       R69 K95 [PROTO_43]
-      392 CAPTURE                          VAL R38
+      322 GETIMPORT                        R53 K15 [require]
+      324 GETTABLEKS                       R54 R7 K70 ["Flags"]
+      326 CALL                             R53 1 1
+      327 GETTABLEKS                       R54 R53 K71 ["GetFFlagGameSettingsVIPServerPriceChangeTooSoon"]
+      329 CALL                             R54 0 1
+      330 GETTABLEKS                       R55 R10 K72 ["PureComponent"]
+      332 GETIMPORT                        R57 K12 [script]
+      334 GETTABLEKS                       R57 R57 K73 ["Name"]
+      336 NAMECALL                         R55 R55 K74 ["extend"]
+      338 CALL                             R55 2 1
+      339 GETIMPORT                        R56 K12 [script]
+      341 GETTABLEKS                       R56 R56 K73 ["Name"]
+      343 DUPTABLE                         R57 K78 [{"BelowMin", "AboveMax", "Invalid"}]
+      344 LOADK                            R58 K79 ["ErrorPriceBelowMin"]
+      345 SETTABLEKS                       R58 R57 K75 ["BelowMin"]
+      347 LOADK                            R58 K80 ["ErrorPriceAboveMax"]
+      348 SETTABLEKS                       R58 R57 K76 ["AboveMax"]
+      350 LOADK                            R58 K81 ["ErrorPriceInvalid"]
+      351 SETTABLEKS                       R58 R57 K77 ["Invalid"]
+      353 DUPTABLE                         R58 K83 [{"Empty"}]
+      354 LOADK                            R59 K84 ["ErrorNameEmpty"]
+      355 SETTABLEKS                       R59 R58 K82 ["Empty"]
+      357 LOADK                            R59 K85 [""]
+      358 GETIMPORT                        R60 K15 [require]
+      360 GETTABLEKS                       R61 R8 K25 ["Src"]
+      362 GETTABLEKS                       R61 R61 K22 ["Util"]
+      364 GETTABLEKS                       R61 R61 K86 ["KeyProvider"]
+      366 CALL                             R60 1 1
+      367 GETTABLEKS                       R61 R60 K87 ["getIsFriendOnlyKeyName"]
+      369 GETTABLEKS                       R62 R60 K88 ["getIsActiveKeyName"]
+      371 GETTABLEKS                       R63 R60 K89 ["getIsForSaleKeyName"]
+      373 GETTABLEKS                       R64 R60 K90 ["getIsRewardedOnDemandAdsAllowedKeyName"]
+      375 GETTABLEKS                       R65 R60 K91 ["getVipServersIsEnabledKeyName"]
+      377 DUPCLOSURE                       R66 K92 [PROTO_14]
+      378 CAPTURE                          VAL R64
+      379 CAPTURE                          VAL R63
+      380 CAPTURE                          VAL R65
+      381 CAPTURE                          VAL R52
+      382 CAPTURE                          VAL R62
+      383 CAPTURE                          VAL R61
+      384 CAPTURE                          VAL R49
+      385 DUPCLOSURE                       R67 K93 [PROTO_25]
+      386 CAPTURE                          VAL R54
+      387 CAPTURE                          VAL R39
+      388 CAPTURE                          VAL R52
+      389 DUPCLOSURE                       R68 K94 [PROTO_26]
+      390 CAPTURE                          VAL R63
+      391 CAPTURE                          VAL R65
+      392 CAPTURE                          VAL R54
       393 CAPTURE                          VAL R62
-      394 CAPTURE                          VAL R40
-      395 CAPTURE                          VAL R61
-      396 CAPTURE                          VAL R39
-      397 CAPTURE                          VAL R1
-      398 CAPTURE                          VAL R2
-      399 CAPTURE                          VAL R63
-      400 CAPTURE                          VAL R3
-      401 CAPTURE                          VAL R41
-      402 CAPTURE                          VAL R43
-      403 CAPTURE                          VAL R44
-      404 CAPTURE                          VAL R42
-      405 CAPTURE                          VAL R48
-      406 CAPTURE                          VAL R45
-      407 CAPTURE                          VAL R67
-      408 CAPTURE                          VAL R46
-      409 CAPTURE                          VAL R6
-      410 CAPTURE                          VAL R51
-      411 CAPTURE                          VAL R47
-      412 DUPCLOSURE                       R70 K96 [PROTO_44]
-      413 CAPTURE                          VAL R10
-      414 CAPTURE                          VAL R37
-      415 DUPCLOSURE                       R71 K97 [PROTO_45]
-      416 DUPCLOSURE                       R72 K98 [PROTO_46]
-      417 DUPCLOSURE                       R73 K99 [PROTO_47]
-      418 CAPTURE                          VAL R55
-      419 CAPTURE                          VAL R3
-      420 CAPTURE                          VAL R1
-      421 CAPTURE                          VAL R4
-      422 CAPTURE                          VAL R2
-      423 CAPTURE                          VAL R5
-      424 DUPCLOSURE                       R74 K100 [PROTO_48]
-      425 CAPTURE                          VAL R56
-      426 DUPCLOSURE                       R75 K101 [PROTO_49]
-      427 CAPTURE                          VAL R0
-      428 CAPTURE                          VAL R12
-      429 NEWCLOSURE                       R76 P12
-      430 CAPTURE                          VAL R50
-      431 CAPTURE                          VAL R12
-      432 CAPTURE                          VAL R72
-      433 CAPTURE                          VAL R71
-      434 CAPTURE                          VAL R49
-      435 CAPTURE                          VAL R70
-      436 CAPTURE                          VAL R73
-      437 CAPTURE                          VAL R34
-      438 CAPTURE                          VAL R48
-      439 CAPTURE                          VAL R10
-      440 CAPTURE                          VAL R27
-      441 CAPTURE                          VAL R30
-      442 CAPTURE                          VAL R25
-      443 CAPTURE                          VAL R31
-      444 CAPTURE                          VAL R18
-      445 CAPTURE                          VAL R19
-      446 CAPTURE                          VAL R1
-      447 CAPTURE                          VAL R20
-      448 CAPTURE                          VAL R3
-      449 CAPTURE                          VAL R52
-      450 CAPTURE                          VAL R23
-      451 CAPTURE                          VAL R21
-      452 CAPTURE                          REF R57
-      453 NEWCLOSURE                       R77 P13
-      454 CAPTURE                          VAL R34
-      455 CAPTURE                          REF R57
-      456 CAPTURE                          VAL R12
-      457 CAPTURE                          VAL R55
-      458 CAPTURE                          VAL R4
-      459 CAPTURE                          VAL R5
-      460 CAPTURE                          VAL R36
-      461 CAPTURE                          VAL R56
-      462 CAPTURE                          VAL R10
-      463 CAPTURE                          VAL R35
-      464 CAPTURE                          VAL R75
-      465 CAPTURE                          VAL R28
-      466 CAPTURE                          VAL R31
-      467 CAPTURE                          VAL R17
-      468 CAPTURE                          VAL R33
-      469 CAPTURE                          VAL R32
-      470 CAPTURE                          VAL R0
-      471 CAPTURE                          VAL R29
-      472 DUPCLOSURE                       R78 K102 [PROTO_59]
-      473 CAPTURE                          VAL R10
-      474 CAPTURE                          VAL R24
-      475 DUPCLOSURE                       R79 K103 [PROTO_63]
-      476 CAPTURE                          VAL R78
-      477 CAPTURE                          VAL R76
-      478 CAPTURE                          VAL R77
-      479 CAPTURE                          VAL R10
-      480 CAPTURE                          VAL R22
-      481 CAPTURE                          VAL R64
-      482 CAPTURE                          VAL R65
-      483 CAPTURE                          VAL R54
-      484 SETTABLEKS                       R79 R53 K104 ["render"]
-      486 MOVE                             R79 R16
-      487 DUPTABLE                         R80 K107 [{"Localization", "Stylizer"}]
-      488 GETTABLEKS                       R81 R15 K105 ["Localization"]
-      490 SETTABLEKS                       R81 R80 K105 ["Localization"]
-      492 GETTABLEKS                       R81 R15 K106 ["Stylizer"]
-      494 SETTABLEKS                       R81 R80 K106 ["Stylizer"]
-      496 CALL                             R79 1 1
-      497 MOVE                             R80 R53
-      498 CALL                             R79 1 1
-      499 MOVE                             R53 R79
-      500 GETIMPORT                        R79 K15 [require]
-      502 GETTABLEKS                       R80 R8 K25 ["Src"]
-      504 GETTABLEKS                       R80 R80 K108 ["Networking"]
-      506 GETTABLEKS                       R80 R80 K109 ["settingFromState"]
-      508 CALL                             R79 1 1
-      509 GETTABLEKS                       R80 R11 K110 ["connect"]
-      511 DUPCLOSURE                       R81 K111 [PROTO_65]
-      512 CAPTURE                          VAL R79
-      513 CAPTURE                          VAL R66
-      514 DUPCLOSURE                       R82 K112 [PROTO_68]
-      515 CAPTURE                          VAL R38
-      516 CAPTURE                          VAL R69
-      517 CALL                             R80 2 1
-      518 MOVE                             R81 R53
-      519 CALL                             R80 1 1
-      520 MOVE                             R53 R80
-      521 SETTABLEKS                       R54 R53 K113 ["LocalizationId"]
-      523 CLOSEUPVALS                      R57
-      524 RETURN                           R53 1
+      394 CAPTURE                          VAL R61
+      395 CAPTURE                          VAL R50
+      396 DUPCLOSURE                       R69 K95 [PROTO_27]
+      397 CAPTURE                          VAL R46
+      398 CAPTURE                          VAL R6
+      399 DUPCLOSURE                       R70 K96 [PROTO_28]
+      400 CAPTURE                          VAL R46
+      401 CAPTURE                          VAL R6
+      402 DUPCLOSURE                       R71 K97 [PROTO_43]
+      403 CAPTURE                          VAL R38
+      404 CAPTURE                          VAL R64
+      405 CAPTURE                          VAL R40
+      406 CAPTURE                          VAL R63
+      407 CAPTURE                          VAL R39
+      408 CAPTURE                          VAL R1
+      409 CAPTURE                          VAL R2
+      410 CAPTURE                          VAL R65
+      411 CAPTURE                          VAL R3
+      412 CAPTURE                          VAL R41
+      413 CAPTURE                          VAL R43
+      414 CAPTURE                          VAL R44
+      415 CAPTURE                          VAL R42
+      416 CAPTURE                          VAL R48
+      417 CAPTURE                          VAL R45
+      418 CAPTURE                          VAL R69
+      419 CAPTURE                          VAL R46
+      420 CAPTURE                          VAL R6
+      421 CAPTURE                          VAL R51
+      422 CAPTURE                          VAL R47
+      423 DUPCLOSURE                       R72 K98 [PROTO_44]
+      424 CAPTURE                          VAL R10
+      425 CAPTURE                          VAL R37
+      426 DUPCLOSURE                       R73 K99 [PROTO_45]
+      427 DUPCLOSURE                       R74 K100 [PROTO_46]
+      428 DUPCLOSURE                       R75 K101 [PROTO_47]
+      429 CAPTURE                          VAL R57
+      430 CAPTURE                          VAL R3
+      431 CAPTURE                          VAL R1
+      432 CAPTURE                          VAL R4
+      433 CAPTURE                          VAL R2
+      434 CAPTURE                          VAL R5
+      435 DUPCLOSURE                       R76 K102 [PROTO_48]
+      436 CAPTURE                          VAL R58
+      437 DUPCLOSURE                       R77 K103 [PROTO_49]
+      438 CAPTURE                          VAL R0
+      439 CAPTURE                          VAL R12
+      440 NEWCLOSURE                       R78 P12
+      441 CAPTURE                          VAL R50
+      442 CAPTURE                          VAL R12
+      443 CAPTURE                          VAL R74
+      444 CAPTURE                          VAL R73
+      445 CAPTURE                          VAL R49
+      446 CAPTURE                          VAL R72
+      447 CAPTURE                          VAL R75
+      448 CAPTURE                          VAL R34
+      449 CAPTURE                          VAL R48
+      450 CAPTURE                          VAL R10
+      451 CAPTURE                          VAL R27
+      452 CAPTURE                          VAL R30
+      453 CAPTURE                          VAL R25
+      454 CAPTURE                          VAL R31
+      455 CAPTURE                          VAL R18
+      456 CAPTURE                          VAL R19
+      457 CAPTURE                          VAL R1
+      458 CAPTURE                          VAL R20
+      459 CAPTURE                          VAL R54
+      460 CAPTURE                          VAL R3
+      461 CAPTURE                          VAL R52
+      462 CAPTURE                          VAL R23
+      463 CAPTURE                          VAL R21
+      464 CAPTURE                          REF R59
+      465 NEWCLOSURE                       R79 P13
+      466 CAPTURE                          VAL R34
+      467 CAPTURE                          REF R59
+      468 CAPTURE                          VAL R12
+      469 CAPTURE                          VAL R57
+      470 CAPTURE                          VAL R4
+      471 CAPTURE                          VAL R5
+      472 CAPTURE                          VAL R36
+      473 CAPTURE                          VAL R58
+      474 CAPTURE                          VAL R10
+      475 CAPTURE                          VAL R35
+      476 CAPTURE                          VAL R77
+      477 CAPTURE                          VAL R28
+      478 CAPTURE                          VAL R31
+      479 CAPTURE                          VAL R17
+      480 CAPTURE                          VAL R33
+      481 CAPTURE                          VAL R32
+      482 CAPTURE                          VAL R0
+      483 CAPTURE                          VAL R29
+      484 DUPCLOSURE                       R80 K104 [PROTO_59]
+      485 CAPTURE                          VAL R10
+      486 CAPTURE                          VAL R24
+      487 DUPCLOSURE                       R81 K105 [PROTO_63]
+      488 CAPTURE                          VAL R80
+      489 CAPTURE                          VAL R78
+      490 CAPTURE                          VAL R79
+      491 CAPTURE                          VAL R10
+      492 CAPTURE                          VAL R22
+      493 CAPTURE                          VAL R66
+      494 CAPTURE                          VAL R67
+      495 CAPTURE                          VAL R56
+      496 SETTABLEKS                       R81 R55 K106 ["render"]
+      498 MOVE                             R81 R16
+      499 DUPTABLE                         R82 K109 [{"Localization", "Stylizer"}]
+      500 GETTABLEKS                       R83 R15 K107 ["Localization"]
+      502 SETTABLEKS                       R83 R82 K107 ["Localization"]
+      504 GETTABLEKS                       R83 R15 K108 ["Stylizer"]
+      506 SETTABLEKS                       R83 R82 K108 ["Stylizer"]
+      508 CALL                             R81 1 1
+      509 MOVE                             R82 R55
+      510 CALL                             R81 1 1
+      511 MOVE                             R55 R81
+      512 GETIMPORT                        R81 K15 [require]
+      514 GETTABLEKS                       R82 R8 K25 ["Src"]
+      516 GETTABLEKS                       R82 R82 K110 ["Networking"]
+      518 GETTABLEKS                       R82 R82 K111 ["settingFromState"]
+      520 CALL                             R81 1 1
+      521 GETTABLEKS                       R82 R11 K112 ["connect"]
+      523 DUPCLOSURE                       R83 K113 [PROTO_65]
+      524 CAPTURE                          VAL R81
+      525 CAPTURE                          VAL R68
+      526 DUPCLOSURE                       R84 K114 [PROTO_68]
+      527 CAPTURE                          VAL R38
+      528 CAPTURE                          VAL R71
+      529 CALL                             R82 2 1
+      530 MOVE                             R83 R55
+      531 CALL                             R82 1 1
+      532 MOVE                             R55 R82
+      533 SETTABLEKS                       R56 R55 K115 ["LocalizationId"]
+      535 CLOSEUPVALS                      R59
+      536 RETURN                           R55 1

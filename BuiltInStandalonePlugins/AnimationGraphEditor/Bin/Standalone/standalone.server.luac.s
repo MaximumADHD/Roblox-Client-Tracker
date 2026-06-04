@@ -25,12 +25,23 @@ MAIN:
        35 CALL                             R3 1 0
        36 RETURN                           R0 0
        37 GETIMPORT                        R3 K5 [require]
-       39 GETTABLEKS                       R4 R0 K6 ["Bin"]
-       41 GETTABLEKS                       R4 R4 K7 ["Common"]
-       43 GETTABLEKS                       R4 R4 K16 ["setup"]
-       45 CALL                             R3 1 1
-       46 MOVE                             R4 R3
-       47 GETIMPORT                        R5 K18 [plugin]
-       49 LOADK                            R6 K19 ["ui"]
-       50 CALL                             R4 2 0
-       51 RETURN                           R0 0
+       39 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       41 GETTABLEKS                       R4 R4 K16 ["ReactDeveloperTools"]
+       43 CALL                             R3 1 1
+       44 GETTABLEKS                       R4 R3 K17 ["tryEnableDevtools"]
+       46 DUPTABLE                         R5 K20 [{"pluginName", "profileOnStart"}]
+       47 LOADK                            R6 K2 ["AnimationGraphEditor"]
+       48 SETTABLEKS                       R6 R5 K18 ["pluginName"]
+       50 LOADB                            R6 0
+       51 SETTABLEKS                       R6 R5 K19 ["profileOnStart"]
+       53 CALL                             R4 1 0
+       54 GETIMPORT                        R4 K5 [require]
+       56 GETTABLEKS                       R5 R0 K6 ["Bin"]
+       58 GETTABLEKS                       R5 R5 K7 ["Common"]
+       60 GETTABLEKS                       R5 R5 K21 ["setup"]
+       62 CALL                             R4 1 1
+       63 MOVE                             R5 R4
+       64 GETIMPORT                        R6 K23 [plugin]
+       66 LOADK                            R7 K24 ["ui"]
+       67 CALL                             R5 2 0
+       68 RETURN                           R0 0

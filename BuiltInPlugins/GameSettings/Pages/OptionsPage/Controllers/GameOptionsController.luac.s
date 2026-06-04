@@ -104,6 +104,23 @@ PROTO_10:
         1 CALL                             R1 0 -1
         2 RETURN                           R1 -1
 
+PROTO_11:
+        0 GETUPVAL                         R2 0
+        1 JUMPIF                           R2 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R2 1
+        4 CALL                             R2 0 1
+        5 JUMPIFNOTEQ                      R2 R1 ; [+2]
+        7 RETURN                           R0 0
+        8 GETIMPORT                        R2 K1 [game]
+       10 LOADK                            R4 K2 ["CollaboratorsService"]
+       11 NAMECALL                         R2 R2 K3 ["GetService"]
+       13 CALL                             R2 2 1
+       14 MOVE                             R5 R1
+       15 NAMECALL                         R3 R2 K4 ["ToggleTeamCreate"]
+       17 CALL                             R3 2 0
+       18 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -117,31 +134,41 @@ MAIN:
        17 GETTABLEKS                       R2 R2 K7 ["GameSettingsUtilities"]
        19 CALL                             R1 1 1
        20 GETTABLEKS                       R1 R1 K8 ["isTeamCreateEnabled"]
-       22 NEWTABLE                         R2 16 0
-       24 SETTABLEKS                       R2 R2 K9 ["__index"]
-       26 DUPCLOSURE                       R3 K10 [PROTO_0]
-       27 CAPTURE                          VAL R2
-       28 SETTABLEKS                       R3 R2 K11 ["new"]
-       30 DUPCLOSURE                       R3 K12 [PROTO_1]
-       31 SETTABLEKS                       R3 R2 K13 ["universesShutdownV2POST"]
-       33 DUPCLOSURE                       R3 K14 [PROTO_2]
-       34 SETTABLEKS                       R3 R2 K15 ["voiceUniverseSettingsPOST"]
-       36 DUPCLOSURE                       R3 K16 [PROTO_3]
-       37 SETTABLEKS                       R3 R2 K17 ["voiceUniverseSettingsGET"]
-       39 DUPCLOSURE                       R3 K18 [PROTO_4]
-       40 CAPTURE                          VAL R1
-       41 SETTABLEKS                       R3 R2 K19 ["getScriptCollaborationEnabledOnServer"]
-       43 DUPCLOSURE                       R3 K20 [PROTO_5]
-       44 SETTABLEKS                       R3 R2 K21 ["getScriptCollaborationEnabled"]
-       46 DUPCLOSURE                       R3 K22 [PROTO_6]
-       47 SETTABLEKS                       R3 R2 K23 ["setScriptCollaborationEnabled"]
-       49 DUPCLOSURE                       R3 K24 [PROTO_7]
-       50 SETTABLEKS                       R3 R2 K25 ["shutdownAllServers"]
-       52 DUPCLOSURE                       R3 K26 [PROTO_8]
-       53 SETTABLEKS                       R3 R2 K27 ["getVoiceChatEnabled"]
-       55 DUPCLOSURE                       R3 K28 [PROTO_9]
-       56 SETTABLEKS                       R3 R2 K29 ["setVoiceChatEnabled"]
-       58 DUPCLOSURE                       R3 K30 [PROTO_10]
-       59 CAPTURE                          VAL R1
-       60 SETTABLEKS                       R3 R2 K31 ["getIsTeamCreateEnabled"]
-       62 RETURN                           R2 1
+       22 GETIMPORT                        R2 K4 [require]
+       24 GETTABLEKS                       R3 R0 K5 ["Src"]
+       26 GETTABLEKS                       R3 R3 K9 ["Flags"]
+       28 GETTABLEKS                       R3 R3 K10 ["getFFlagPruneGameSettings"]
+       30 CALL                             R2 1 1
+       31 CALL                             R2 0 1
+       32 NEWTABLE                         R3 16 0
+       34 SETTABLEKS                       R3 R3 K11 ["__index"]
+       36 DUPCLOSURE                       R4 K12 [PROTO_0]
+       37 CAPTURE                          VAL R3
+       38 SETTABLEKS                       R4 R3 K13 ["new"]
+       40 DUPCLOSURE                       R4 K14 [PROTO_1]
+       41 SETTABLEKS                       R4 R3 K15 ["universesShutdownV2POST"]
+       43 DUPCLOSURE                       R4 K16 [PROTO_2]
+       44 SETTABLEKS                       R4 R3 K17 ["voiceUniverseSettingsPOST"]
+       46 DUPCLOSURE                       R4 K18 [PROTO_3]
+       47 SETTABLEKS                       R4 R3 K19 ["voiceUniverseSettingsGET"]
+       49 DUPCLOSURE                       R4 K20 [PROTO_4]
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R4 R3 K21 ["getScriptCollaborationEnabledOnServer"]
+       53 DUPCLOSURE                       R4 K22 [PROTO_5]
+       54 SETTABLEKS                       R4 R3 K23 ["getScriptCollaborationEnabled"]
+       56 DUPCLOSURE                       R4 K24 [PROTO_6]
+       57 SETTABLEKS                       R4 R3 K25 ["setScriptCollaborationEnabled"]
+       59 DUPCLOSURE                       R4 K26 [PROTO_7]
+       60 SETTABLEKS                       R4 R3 K27 ["shutdownAllServers"]
+       62 DUPCLOSURE                       R4 K28 [PROTO_8]
+       63 SETTABLEKS                       R4 R3 K29 ["getVoiceChatEnabled"]
+       65 DUPCLOSURE                       R4 K30 [PROTO_9]
+       66 SETTABLEKS                       R4 R3 K31 ["setVoiceChatEnabled"]
+       68 DUPCLOSURE                       R4 K32 [PROTO_10]
+       69 CAPTURE                          VAL R1
+       70 SETTABLEKS                       R4 R3 K33 ["getIsTeamCreateEnabled"]
+       72 DUPCLOSURE                       R4 K34 [PROTO_11]
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R1
+       75 SETTABLEKS                       R4 R3 K35 ["setIsTeamCreateEnabled"]
+       77 RETURN                           R3 1

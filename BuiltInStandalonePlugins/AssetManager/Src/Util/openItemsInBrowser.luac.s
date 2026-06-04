@@ -15,44 +15,49 @@ PROTO_1:
         4 GETTABLE                         R8 R1 R6
         5 GETUPVAL                         R9 0
         6 GETTABLEKS                       R9 R9 K0 ["AssetType"]
-        8 GETTABLEKS                       R9 R9 K1 ["Place"]
-       10 JUMPIFNOTEQ                      R8 R9 ; [+42]
-       12 LOADB                            R9 1
-       13 GETTABLEKS                       R10 R2 K2 ["Type"]
-       15 GETUPVAL                         R11 0
-       16 GETTABLEKS                       R11 R11 K3 ["ScopeType"]
-       18 GETTABLEKS                       R11 R11 K4 ["ProjectPlaces"]
-       20 JUMPIFEQ                         R10 R11 ; [+12]
-       22 GETTABLEKS                       R10 R2 K2 ["Type"]
-       24 GETUPVAL                         R11 0
-       25 GETTABLEKS                       R11 R11 K3 ["ScopeType"]
-       27 GETTABLEKS                       R11 R11 K5 ["Universe"]
-       29 JUMPIFEQ                         R10 R11 ; [+2]
-       31 LOADB                            R9 0 +1
-       32 LOADB                            R9 1
-       33 FASTCALL2K                       ASSERT R9 K6 ; [+4]
-       35 LOADK                            R10 K6 ["Not browsing universe for this place"]
-       36 GETIMPORT                        R8 K8 [assert]
-       38 CALL                             R8 2 0
-       39 GETUPVAL                         R8 1
-       40 GETTABLEKS                       R11 R2 K9 ["Id"]
-       42 LOADK                            R12 K10 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
-       43 MOVE                             R14 R11
-       44 MOVE                             R15 R7
-       45 NAMECALL                         R12 R12 K11 ["format"]
-       47 CALL                             R12 3 1
-       48 MOVE                             R10 R12
-       49 NAMECALL                         R8 R8 K12 ["openLink"]
-       51 CALL                             R8 2 0
-       52 JUMP                             ; [+7]
-       53 GETUPVAL                         R8 2
-       54 GETUPVAL                         R10 3
-       55 MOVE                             R11 R7
-       56 CALL                             R10 1 -1
-       57 NAMECALL                         R8 R8 K13 ["OpenBrowserWindow"]
-       59 CALL                             R8 -1 0
-       60 FORGLOOP                         R3 2 ; [-57]
-       62 RETURN                           R0 0
+        8 GETTABLEKS                       R9 R9 K1 ["Folder"]
+       10 JUMPIFEQ                         R8 R9 ; [+57]
+       12 GETTABLE                         R8 R1 R6
+       13 GETUPVAL                         R9 0
+       14 GETTABLEKS                       R9 R9 K0 ["AssetType"]
+       16 GETTABLEKS                       R9 R9 K2 ["Place"]
+       18 JUMPIFNOTEQ                      R8 R9 ; [+42]
+       20 LOADB                            R9 1
+       21 GETTABLEKS                       R10 R2 K3 ["Type"]
+       23 GETUPVAL                         R11 0
+       24 GETTABLEKS                       R11 R11 K4 ["ScopeType"]
+       26 GETTABLEKS                       R11 R11 K5 ["ProjectPlaces"]
+       28 JUMPIFEQ                         R10 R11 ; [+12]
+       30 GETTABLEKS                       R10 R2 K3 ["Type"]
+       32 GETUPVAL                         R11 0
+       33 GETTABLEKS                       R11 R11 K4 ["ScopeType"]
+       35 GETTABLEKS                       R11 R11 K6 ["Universe"]
+       37 JUMPIFEQ                         R10 R11 ; [+2]
+       39 LOADB                            R9 0 +1
+       40 LOADB                            R9 1
+       41 FASTCALL2K                       ASSERT R9 K7 ; [+4]
+       43 LOADK                            R10 K7 ["Not browsing universe for this place"]
+       44 GETIMPORT                        R8 K9 [assert]
+       46 CALL                             R8 2 0
+       47 GETUPVAL                         R8 1
+       48 GETTABLEKS                       R11 R2 K10 ["Id"]
+       50 LOADK                            R12 K11 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
+       51 MOVE                             R14 R11
+       52 MOVE                             R15 R7
+       53 NAMECALL                         R12 R12 K12 ["format"]
+       55 CALL                             R12 3 1
+       56 MOVE                             R10 R12
+       57 NAMECALL                         R8 R8 K13 ["openLink"]
+       59 CALL                             R8 2 0
+       60 JUMP                             ; [+7]
+       61 GETUPVAL                         R8 2
+       62 GETUPVAL                         R10 3
+       63 MOVE                             R11 R7
+       64 CALL                             R10 1 -1
+       65 NAMECALL                         R8 R8 K14 ["OpenBrowserWindow"]
+       67 CALL                             R8 -1 0
+       68 FORGLOOP                         R3 2 ; [-65]
+       70 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

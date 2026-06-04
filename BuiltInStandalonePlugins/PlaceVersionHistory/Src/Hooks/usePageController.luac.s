@@ -372,83 +372,80 @@ PROTO_9:
       139 SETLIST                          R30 R31 3 [1]
       141 CALL                             R28 2 0
       142 GETUPVAL                         R28 5
-      143 GETTABLEKS                       R28 R28 K9 ["FFlagPVHUpdatePageOnNotesEdit"]
-      145 JUMPIFNOT                        R28 ; [+14]
-      146 GETUPVAL                         R28 6
-      147 GETTABLEKS                       R29 R27 K10 ["onNotesEdited"]
-      149 NEWCLOSURE                       R30 P2
-      150 CAPTURE                          VAL R1
-      151 CAPTURE                          VAL R17
-      152 CAPTURE                          UPVAL U4
-      153 NEWTABLE                         R31 0 1
-      155 GETTABLEKS                       R32 R1 K7 ["placeId"]
-      157 SETLIST                          R31 R32 1 [1]
-      159 CALL                             R28 3 0
-      160 DUPTABLE                         R28 K33 [{"page", "pageNumber", "maxPageNumber", "setPageNumber", "pageSize", "setPageSize", "isDone", "isFailure", "isFiltered", "isEmpty", "clearFilters", "search", "setSearch", "startDate", "setStartDate", "endDate", "setEndDate", "saveType", "setSaveType", "isPublished", "setIsPublished", "hasNotes", "setHasNotes", "contributor", "setContributor"}]
-      161 SETTABLEKS                       R16 R28 K11 ["page"]
-      163 SETTABLEKS                       R14 R28 K12 ["pageNumber"]
-      165 SETTABLEKS                       R18 R28 K13 ["maxPageNumber"]
-      167 SETTABLEKS                       R15 R28 K14 ["setPageNumber"]
-      169 SETTABLEKS                       R2 R28 K15 ["pageSize"]
-      171 SETTABLEKS                       R3 R28 K16 ["setPageSize"]
-      173 SETTABLEKS                       R20 R28 K17 ["isDone"]
-      175 SETTABLEKS                       R22 R28 K18 ["isFailure"]
-      177 LOADB                            R29 1
-      178 JUMPIFNOTEQKNIL                  R4 ; [+26]
-      180 LOADB                            R29 1
-      181 JUMPIFNOTEQKNIL                  R6 ; [+23]
-      183 LOADB                            R29 1
-      184 JUMPIFNOTEQKNIL                  R8 ; [+20]
-      186 LOADB                            R29 1
-      187 JUMPIFNOTEQKNIL                  R10 ; [+17]
-      189 LOADB                            R29 1
-      190 GETTABLEKS                       R30 R1 K4 ["saveType"]
-      192 JUMPIFNOTEQKNIL                  R30 ; [+12]
-      194 LOADB                            R29 1
-      195 GETTABLEKS                       R30 R1 K5 ["isPublished"]
-      197 JUMPIFNOTEQKNIL                  R30 ; [+7]
-      199 GETTABLEKS                       R30 R1 K6 ["hasNotes"]
-      201 JUMPIFNOTEQKNIL                  R30 ; [+2]
-      203 LOADB                            R29 0 +1
-      204 LOADB                            R29 1
-      205 SETTABLEKS                       R29 R28 K19 ["isFiltered"]
-      207 LENGTH                           R30 R16
-      208 JUMPIFEQKN                       R30 K34 [0] ; [+2]
-      210 LOADB                            R29 0 +1
-      211 LOADB                            R29 1
-      212 SETTABLEKS                       R29 R28 K20 ["isEmpty"]
-      214 GETUPVAL                         R29 0
-      215 GETTABLEKS                       R29 R29 K35 ["useCallback"]
-      217 NEWCLOSURE                       R30 P3
-      218 CAPTURE                          VAL R5
-      219 CAPTURE                          VAL R7
-      220 CAPTURE                          VAL R9
-      221 CAPTURE                          VAL R11
-      222 CAPTURE                          VAL R1
-      223 NEWTABLE                         R31 0 0
-      225 CALL                             R29 2 1
-      226 SETTABLEKS                       R29 R28 K21 ["clearFilters"]
-      228 SETTABLEKS                       R4 R28 K22 ["search"]
-      230 SETTABLEKS                       R5 R28 K23 ["setSearch"]
-      232 SETTABLEKS                       R6 R28 K24 ["startDate"]
-      234 SETTABLEKS                       R7 R28 K25 ["setStartDate"]
-      236 SETTABLEKS                       R8 R28 K26 ["endDate"]
-      238 SETTABLEKS                       R9 R28 K27 ["setEndDate"]
-      240 GETTABLEKS                       R29 R1 K4 ["saveType"]
-      242 SETTABLEKS                       R29 R28 K4 ["saveType"]
-      244 GETTABLEKS                       R29 R1 K28 ["setSaveType"]
-      246 SETTABLEKS                       R29 R28 K28 ["setSaveType"]
-      248 GETTABLEKS                       R29 R1 K5 ["isPublished"]
-      250 SETTABLEKS                       R29 R28 K5 ["isPublished"]
-      252 GETTABLEKS                       R29 R1 K29 ["setIsPublished"]
-      254 SETTABLEKS                       R29 R28 K29 ["setIsPublished"]
-      256 GETTABLEKS                       R29 R1 K6 ["hasNotes"]
-      258 SETTABLEKS                       R29 R28 K6 ["hasNotes"]
-      260 GETTABLEKS                       R29 R1 K30 ["setHasNotes"]
-      262 SETTABLEKS                       R29 R28 K30 ["setHasNotes"]
-      264 SETTABLEKS                       R10 R28 K31 ["contributor"]
-      266 SETTABLEKS                       R11 R28 K32 ["setContributor"]
-      268 RETURN                           R28 1
+      143 GETTABLEKS                       R29 R27 K9 ["onNotesEdited"]
+      145 NEWCLOSURE                       R30 P2
+      146 CAPTURE                          VAL R1
+      147 CAPTURE                          VAL R17
+      148 CAPTURE                          UPVAL U4
+      149 NEWTABLE                         R31 0 1
+      151 GETTABLEKS                       R32 R1 K7 ["placeId"]
+      153 SETLIST                          R31 R32 1 [1]
+      155 CALL                             R28 3 0
+      156 DUPTABLE                         R28 K32 [{"page", "pageNumber", "maxPageNumber", "setPageNumber", "pageSize", "setPageSize", "isDone", "isFailure", "isFiltered", "isEmpty", "clearFilters", "search", "setSearch", "startDate", "setStartDate", "endDate", "setEndDate", "saveType", "setSaveType", "isPublished", "setIsPublished", "hasNotes", "setHasNotes", "contributor", "setContributor"}]
+      157 SETTABLEKS                       R16 R28 K10 ["page"]
+      159 SETTABLEKS                       R14 R28 K11 ["pageNumber"]
+      161 SETTABLEKS                       R18 R28 K12 ["maxPageNumber"]
+      163 SETTABLEKS                       R15 R28 K13 ["setPageNumber"]
+      165 SETTABLEKS                       R2 R28 K14 ["pageSize"]
+      167 SETTABLEKS                       R3 R28 K15 ["setPageSize"]
+      169 SETTABLEKS                       R20 R28 K16 ["isDone"]
+      171 SETTABLEKS                       R22 R28 K17 ["isFailure"]
+      173 LOADB                            R29 1
+      174 JUMPIFNOTEQKNIL                  R4 ; [+26]
+      176 LOADB                            R29 1
+      177 JUMPIFNOTEQKNIL                  R6 ; [+23]
+      179 LOADB                            R29 1
+      180 JUMPIFNOTEQKNIL                  R8 ; [+20]
+      182 LOADB                            R29 1
+      183 JUMPIFNOTEQKNIL                  R10 ; [+17]
+      185 LOADB                            R29 1
+      186 GETTABLEKS                       R30 R1 K4 ["saveType"]
+      188 JUMPIFNOTEQKNIL                  R30 ; [+12]
+      190 LOADB                            R29 1
+      191 GETTABLEKS                       R30 R1 K5 ["isPublished"]
+      193 JUMPIFNOTEQKNIL                  R30 ; [+7]
+      195 GETTABLEKS                       R30 R1 K6 ["hasNotes"]
+      197 JUMPIFNOTEQKNIL                  R30 ; [+2]
+      199 LOADB                            R29 0 +1
+      200 LOADB                            R29 1
+      201 SETTABLEKS                       R29 R28 K18 ["isFiltered"]
+      203 LENGTH                           R30 R16
+      204 JUMPIFEQKN                       R30 K33 [0] ; [+2]
+      206 LOADB                            R29 0 +1
+      207 LOADB                            R29 1
+      208 SETTABLEKS                       R29 R28 K19 ["isEmpty"]
+      210 GETUPVAL                         R29 0
+      211 GETTABLEKS                       R29 R29 K34 ["useCallback"]
+      213 NEWCLOSURE                       R30 P3
+      214 CAPTURE                          VAL R5
+      215 CAPTURE                          VAL R7
+      216 CAPTURE                          VAL R9
+      217 CAPTURE                          VAL R11
+      218 CAPTURE                          VAL R1
+      219 NEWTABLE                         R31 0 0
+      221 CALL                             R29 2 1
+      222 SETTABLEKS                       R29 R28 K20 ["clearFilters"]
+      224 SETTABLEKS                       R4 R28 K21 ["search"]
+      226 SETTABLEKS                       R5 R28 K22 ["setSearch"]
+      228 SETTABLEKS                       R6 R28 K23 ["startDate"]
+      230 SETTABLEKS                       R7 R28 K24 ["setStartDate"]
+      232 SETTABLEKS                       R8 R28 K25 ["endDate"]
+      234 SETTABLEKS                       R9 R28 K26 ["setEndDate"]
+      236 GETTABLEKS                       R29 R1 K4 ["saveType"]
+      238 SETTABLEKS                       R29 R28 K4 ["saveType"]
+      240 GETTABLEKS                       R29 R1 K27 ["setSaveType"]
+      242 SETTABLEKS                       R29 R28 K27 ["setSaveType"]
+      244 GETTABLEKS                       R29 R1 K5 ["isPublished"]
+      246 SETTABLEKS                       R29 R28 K5 ["isPublished"]
+      248 GETTABLEKS                       R29 R1 K28 ["setIsPublished"]
+      250 SETTABLEKS                       R29 R28 K28 ["setIsPublished"]
+      252 GETTABLEKS                       R29 R1 K6 ["hasNotes"]
+      254 SETTABLEKS                       R29 R28 K6 ["hasNotes"]
+      256 GETTABLEKS                       R29 R1 K29 ["setHasNotes"]
+      258 SETTABLEKS                       R29 R28 K29 ["setHasNotes"]
+      260 SETTABLEKS                       R10 R28 K30 ["contributor"]
+      262 SETTABLEKS                       R11 R28 K31 ["setContributor"]
+      264 RETURN                           R28 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -457,44 +454,38 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Bin"]
-       11 GETTABLEKS                       R2 R2 K7 ["Common"]
-       13 GETTABLEKS                       R2 R2 K8 ["flags"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K9 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K10 ["React"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K9 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K11 ["ReactUtils"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K5 [require]
-       32 GETTABLEKS                       R5 R0 K9 ["Packages"]
-       34 GETTABLEKS                       R5 R5 K12 ["Cryo"]
-       36 CALL                             R4 1 1
-       37 GETTABLEKS                       R5 R0 K13 ["Src"]
-       39 GETTABLEKS                       R5 R5 K14 ["Contexts"]
-       41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R7 R5 K15 ["SettingContext"]
-       45 CALL                             R6 1 1
-       46 GETIMPORT                        R7 K5 [require]
-       48 GETTABLEKS                       R8 R5 K16 ["NetworkContext"]
-       50 CALL                             R7 1 1
-       51 GETIMPORT                        R8 K5 [require]
-       53 GETTABLEKS                       R9 R5 K17 ["DialogContext"]
-       55 CALL                             R8 1 1
-       56 GETTABLEKS                       R9 R3 K18 ["useEventConnection"]
-       58 GETIMPORT                        R10 K5 [require]
-       60 GETTABLEKS                       R11 R0 K13 ["Src"]
-       62 GETTABLEKS                       R11 R11 K19 ["Types"]
-       64 CALL                             R10 1 1
-       65 DUPCLOSURE                       R11 K20 [PROTO_9]
-       66 CAPTURE                          VAL R2
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R7
-       69 CAPTURE                          VAL R8
-       70 CAPTURE                          VAL R4
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R9
-       73 RETURN                           R11 1
+        9 GETTABLEKS                       R2 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R2 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["ReactUtils"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["Cryo"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R0 K10 ["Src"]
+       30 GETTABLEKS                       R4 R4 K11 ["Contexts"]
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETTABLEKS                       R6 R4 K12 ["SettingContext"]
+       36 CALL                             R5 1 1
+       37 GETIMPORT                        R6 K5 [require]
+       39 GETTABLEKS                       R7 R4 K13 ["NetworkContext"]
+       41 CALL                             R6 1 1
+       42 GETIMPORT                        R7 K5 [require]
+       44 GETTABLEKS                       R8 R4 K14 ["DialogContext"]
+       46 CALL                             R7 1 1
+       47 GETTABLEKS                       R8 R2 K15 ["useEventConnection"]
+       49 GETIMPORT                        R9 K5 [require]
+       51 GETTABLEKS                       R10 R0 K10 ["Src"]
+       53 GETTABLEKS                       R10 R10 K16 ["Types"]
+       55 CALL                             R9 1 1
+       56 DUPCLOSURE                       R10 K17 [PROTO_9]
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R7
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R8
+       63 RETURN                           R10 1

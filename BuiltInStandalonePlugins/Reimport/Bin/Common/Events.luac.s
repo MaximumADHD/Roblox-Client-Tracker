@@ -36,7 +36,7 @@ PROTO_1:
        13 RETURN                           R0 0
 
 PROTO_2:
-        0 NEWTABLE                         R0 4 0
+        0 NEWTABLE                         R0 8 0
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K0 ["actionUri"]
         5 GETUPVAL                         R2 1
@@ -106,12 +106,29 @@ PROTO_2:
        93 CALL                             R5 2 1
        94 SETTABLEKS                       R5 R0 K13 ["clear_config"]
        96 GETUPVAL                         R4 7
-       97 GETTABLEKS                       R4 R4 K14 ["Unloading"]
-       99 NEWCLOSURE                       R6 P0
-      100 CAPTURE                          VAL R0
-      101 NAMECALL                         R4 R4 K4 ["Connect"]
-      103 CALL                             R4 2 0
-      104 RETURN                           R0 0
+       97 CALL                             R4 0 1
+       98 JUMPIFNOT                        R4 ; [+20]
+       99 GETUPVAL                         R4 0
+      100 GETTABLEKS                       R4 R4 K0 ["actionUri"]
+      102 GETUPVAL                         R5 1
+      103 GETTABLEKS                       R5 R5 K14 ["WATCH_INSTANCE_FILE"]
+      105 CALL                             R4 1 1
+      106 GETUPVAL                         R5 2
+      107 MOVE                             R7 R4
+      108 NAMECALL                         R5 R5 K2 ["BindToActivatedAsync"]
+      110 CALL                             R5 2 1
+      111 GETUPVAL                         R7 3
+      112 GETTABLEKS                       R7 R7 K15 ["watchInstanceFile"]
+      114 NAMECALL                         R5 R5 K4 ["Connect"]
+      116 CALL                             R5 2 1
+      117 SETTABLEKS                       R5 R0 K16 ["watch_instance_file"]
+      119 GETUPVAL                         R4 8
+      120 GETTABLEKS                       R4 R4 K17 ["Unloading"]
+      122 NEWCLOSURE                       R6 P0
+      123 CAPTURE                          VAL R0
+      124 NAMECALL                         R4 R4 K4 ["Connect"]
+      126 CALL                             R4 2 0
+      127 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -217,27 +234,32 @@ MAIN:
        89 GETTABLEKS                       R13 R0 K24 ["Flags"]
        91 GETTABLEKS                       R13 R13 K27 ["GetFFlagReimportClearAction"]
        93 CALL                             R12 1 1
-       94 NEWTABLE                         R13 2 0
-       96 DUPCLOSURE                       R14 K28 [PROTO_0]
-       97 CAPTURE                          VAL R4
-       98 DUPCLOSURE                       R15 K29 [PROTO_2]
-       99 CAPTURE                          VAL R5
-      100 CAPTURE                          VAL R6
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R3
-      103 CAPTURE                          VAL R11
-      104 CAPTURE                          VAL R14
-      105 CAPTURE                          VAL R12
-      106 CAPTURE                          VAL R1
-      107 SETTABLEKS                       R15 R13 K30 ["registerActions"]
-      109 DUPCLOSURE                       R15 K31 [PROTO_3]
-      110 CAPTURE                          VAL R9
-      111 CAPTURE                          VAL R2
-      112 SETGLOBAL                        R15 K32 ["_configureId"]
-      114 DUPCLOSURE                       R15 K33 [PROTO_5]
-      115 CAPTURE                          VAL R10
-      116 CAPTURE                          VAL R8
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R1
-      119 SETTABLEKS                       R15 R13 K34 ["registerCrossPluginListeners"]
-      121 RETURN                           R13 1
+       94 GETIMPORT                        R13 K7 [require]
+       96 GETTABLEKS                       R14 R0 K24 ["Flags"]
+       98 GETTABLEKS                       R14 R14 K28 ["GetFFlagReimportFileWatcher"]
+      100 CALL                             R13 1 1
+      101 NEWTABLE                         R14 2 0
+      103 DUPCLOSURE                       R15 K29 [PROTO_0]
+      104 CAPTURE                          VAL R4
+      105 DUPCLOSURE                       R16 K30 [PROTO_2]
+      106 CAPTURE                          VAL R5
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R4
+      109 CAPTURE                          VAL R3
+      110 CAPTURE                          VAL R11
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R1
+      115 SETTABLEKS                       R16 R14 K31 ["registerActions"]
+      117 DUPCLOSURE                       R16 K32 [PROTO_3]
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R2
+      120 SETGLOBAL                        R16 K33 ["_configureId"]
+      122 DUPCLOSURE                       R16 K34 [PROTO_5]
+      123 CAPTURE                          VAL R10
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R1
+      127 SETTABLEKS                       R16 R14 K35 ["registerCrossPluginListeners"]
+      129 RETURN                           R14 1

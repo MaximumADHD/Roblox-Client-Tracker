@@ -248,20 +248,21 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K8 ["Cryo"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K9 ["Framework"]
-       29 CALL                             R3 1 1
-       30 GETTABLEKS                       R4 R3 K10 ["ContextServices"]
-       32 DUPCLOSURE                       R5 K11 [PROTO_11]
-       33 CAPTURE                          VAL R4
-       34 CAPTURE                          VAL R2
-       35 CAPTURE                          VAL R1
-       36 RETURN                           R5 1
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Cryo"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["Framework"]
+       31 CALL                             R3 1 1
+       32 GETTABLEKS                       R4 R3 K11 ["ContextServices"]
+       34 DUPCLOSURE                       R5 K12 [PROTO_11]
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R2
+       37 CAPTURE                          VAL R1
+       38 RETURN                           R5 1

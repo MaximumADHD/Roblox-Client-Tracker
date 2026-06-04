@@ -133,35 +133,36 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R2 R0 K5 ["Bin"]
-       15 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
-       17 CALL                             R1 1 1
-       18 GETIMPORT                        R2 K4 [require]
-       20 GETTABLEKS                       R3 R0 K7 ["Packages"]
-       22 GETTABLEKS                       R3 R3 K8 ["Signal"]
-       24 CALL                             R2 1 1
-       25 NEWTABLE                         R3 16 0
-       27 SETTABLEKS                       R3 R3 K9 ["__index"]
-       29 DUPCLOSURE                       R4 K10 [PROTO_0]
-       30 CAPTURE                          VAL R1
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          VAL R3
-       33 SETTABLEKS                       R4 R3 K11 ["new"]
-       35 DUPCLOSURE                       R4 K12 [PROTO_1]
-       36 SETTABLEKS                       R4 R3 K13 ["setMockData"]
-       38 DUPCLOSURE                       R4 K14 [PROTO_2]
-       39 SETTABLEKS                       R4 R3 K15 ["GetPropertyChangedSignal"]
-       41 DUPCLOSURE                       R4 K16 [PROTO_3]
-       42 CAPTURE                          VAL R1
-       43 SETTABLEKS                       R4 R3 K17 ["GetUserId"]
-       45 DUPCLOSURE                       R4 K18 [PROTO_4]
-       46 SETTABLEKS                       R4 R3 K19 ["TryInstallPlugin"]
-       48 DUPCLOSURE                       R4 K20 [PROTO_5]
-       49 SETTABLEKS                       R4 R3 K21 ["UninstallPlugin"]
-       51 DUPCLOSURE                       R4 K22 [PROTO_6]
-       52 SETTABLEKS                       R4 R3 K23 ["IsPluginUpToDate"]
-       54 DUPCLOSURE                       R4 K24 [PROTO_7]
-       55 SETTABLEKS                       R4 R3 K25 ["SetPluginEnabled"]
-       57 DUPCLOSURE                       R4 K26 [PROTO_8]
-       58 SETTABLEKS                       R4 R3 K27 ["OpenInBrowser_DONOTUSE"]
-       60 RETURN                           R3 1
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       19 CALL                             R1 1 1
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       24 GETTABLEKS                       R3 R3 K9 ["Signal"]
+       26 CALL                             R2 1 1
+       27 NEWTABLE                         R3 16 0
+       29 SETTABLEKS                       R3 R3 K10 ["__index"]
+       31 DUPCLOSURE                       R4 K11 [PROTO_0]
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          VAL R2
+       34 CAPTURE                          VAL R3
+       35 SETTABLEKS                       R4 R3 K12 ["new"]
+       37 DUPCLOSURE                       R4 K13 [PROTO_1]
+       38 SETTABLEKS                       R4 R3 K14 ["setMockData"]
+       40 DUPCLOSURE                       R4 K15 [PROTO_2]
+       41 SETTABLEKS                       R4 R3 K16 ["GetPropertyChangedSignal"]
+       43 DUPCLOSURE                       R4 K17 [PROTO_3]
+       44 CAPTURE                          VAL R1
+       45 SETTABLEKS                       R4 R3 K18 ["GetUserId"]
+       47 DUPCLOSURE                       R4 K19 [PROTO_4]
+       48 SETTABLEKS                       R4 R3 K20 ["TryInstallPlugin"]
+       50 DUPCLOSURE                       R4 K21 [PROTO_5]
+       51 SETTABLEKS                       R4 R3 K22 ["UninstallPlugin"]
+       53 DUPCLOSURE                       R4 K23 [PROTO_6]
+       54 SETTABLEKS                       R4 R3 K24 ["IsPluginUpToDate"]
+       56 DUPCLOSURE                       R4 K25 [PROTO_7]
+       57 SETTABLEKS                       R4 R3 K26 ["SetPluginEnabled"]
+       59 DUPCLOSURE                       R4 K27 [PROTO_8]
+       60 SETTABLEKS                       R4 R3 K28 ["OpenInBrowser_DONOTUSE"]
+       62 RETURN                           R3 1

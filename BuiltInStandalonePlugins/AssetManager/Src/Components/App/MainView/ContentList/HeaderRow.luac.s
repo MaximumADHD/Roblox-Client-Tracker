@@ -125,53 +125,44 @@ PROTO_3:
       125 NEWTABLE                         R24 4 0
       127 LOADN                            R25 1
       128 SETTABLEKS                       R25 R24 K18 ["LayoutOrder"]
-      130 GETUPVAL                         R26 7
-      131 CALL                             R26 0 1
-      132 JUMPIFNOT                        R26 ; [+2]
-      133 MOVE                             R25 R13
-      134 JUMP                             ; [+5]
-      135 LOADK                            R27 K16 ["AssetProperty"]
-      136 MOVE                             R28 R10
-      137 NAMECALL                         R25 R4 K13 ["getText"]
-      139 CALL                             R25 3 1
-      140 SETTABLEKS                       R25 R24 K29 ["Text"]
-      142 GETIMPORT                        R25 K35 [Enum.TextTruncate.AtEnd]
-      144 SETTABLEKS                       R25 R24 K33 ["TextTruncate"]
-      146 GETUPVAL                         R25 4
-      147 GETTABLEKS                       R25 R25 K19 ["Tag"]
-      149 LOADK                            R27 K36 ["X-Fit %*"]
-      150 MOVE                             R29 R11
-      151 NAMECALL                         R27 R27 K23 ["format"]
-      153 CALL                             R27 2 1
-      154 MOVE                             R26 R27
-      155 SETTABLE                         R26 R24 R25
-      156 CALL                             R22 2 1
-      157 SETTABLEKS                       R22 R21 K29 ["Text"]
-      159 JUMPIFEQKS                       R11 K8 [""] ; [+22]
-      161 GETUPVAL                         R22 4
-      162 GETTABLEKS                       R22 R22 K17 ["createElement"]
-      164 GETUPVAL                         R23 8
-      165 NEWTABLE                         R24 2 0
-      167 LOADN                            R25 2
-      168 SETTABLEKS                       R25 R24 K18 ["LayoutOrder"]
-      170 GETUPVAL                         R25 4
-      171 GETTABLEKS                       R25 R25 K19 ["Tag"]
-      173 LOADK                            R27 K37 ["%* Icon16"]
-      174 MOVE                             R29 R12
-      175 NAMECALL                         R27 R27 K23 ["format"]
-      177 CALL                             R27 2 1
-      178 MOVE                             R26 R27
-      179 SETTABLE                         R26 R24 R25
-      180 CALL                             R22 2 1
-      181 JUMP                             ; [+1]
-      182 LOADNIL                          R22
-      183 SETTABLEKS                       R22 R21 K30 ["ArrowIcon"]
-      185 CALL                             R18 3 1
-      186 SETTABLEKS                       R18 R17 K24 ["ColumnHeader"]
-      188 CALL                             R14 3 1
-      189 SETTABLE                         R14 R2 R9
-      190 FORGLOOP                         R6 2 ; [-170]
-      192 RETURN                           R2 1
+      130 SETTABLEKS                       R13 R24 K29 ["Text"]
+      132 GETIMPORT                        R25 K35 [Enum.TextTruncate.AtEnd]
+      134 SETTABLEKS                       R25 R24 K33 ["TextTruncate"]
+      136 GETUPVAL                         R25 4
+      137 GETTABLEKS                       R25 R25 K19 ["Tag"]
+      139 LOADK                            R27 K36 ["X-Fit %*"]
+      140 MOVE                             R29 R11
+      141 NAMECALL                         R27 R27 K23 ["format"]
+      143 CALL                             R27 2 1
+      144 MOVE                             R26 R27
+      145 SETTABLE                         R26 R24 R25
+      146 CALL                             R22 2 1
+      147 SETTABLEKS                       R22 R21 K29 ["Text"]
+      149 JUMPIFEQKS                       R11 K8 [""] ; [+22]
+      151 GETUPVAL                         R22 4
+      152 GETTABLEKS                       R22 R22 K17 ["createElement"]
+      154 GETUPVAL                         R23 7
+      155 NEWTABLE                         R24 2 0
+      157 LOADN                            R25 2
+      158 SETTABLEKS                       R25 R24 K18 ["LayoutOrder"]
+      160 GETUPVAL                         R25 4
+      161 GETTABLEKS                       R25 R25 K19 ["Tag"]
+      163 LOADK                            R27 K37 ["%* Icon16"]
+      164 MOVE                             R29 R12
+      165 NAMECALL                         R27 R27 K23 ["format"]
+      167 CALL                             R27 2 1
+      168 MOVE                             R26 R27
+      169 SETTABLE                         R26 R24 R25
+      170 CALL                             R22 2 1
+      171 JUMP                             ; [+1]
+      172 LOADNIL                          R22
+      173 SETTABLEKS                       R22 R21 K30 ["ArrowIcon"]
+      175 CALL                             R18 3 1
+      176 SETTABLEKS                       R18 R17 K24 ["ColumnHeader"]
+      178 CALL                             R14 3 1
+      179 SETTABLE                         R14 R2 R9
+      180 FORGLOOP                         R6 2 ; [-160]
+      182 RETURN                           R2 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -371,32 +362,26 @@ MAIN:
       104 GETTABLEKS                       R20 R20 K29 ["Flags"]
       106 GETTABLEKS                       R20 R20 K30 ["getFFlagAmrFoundationifyBrowser"]
       108 CALL                             R19 1 1
-      109 GETIMPORT                        R20 K5 [require]
-      111 GETTABLEKS                       R21 R0 K16 ["Src"]
-      113 GETTABLEKS                       R21 R21 K29 ["Flags"]
-      115 GETTABLEKS                       R21 R21 K31 ["getFFlagAmrAssetIdAndTypeRename"]
-      117 CALL                             R20 1 1
-      118 DUPCLOSURE                       R21 K32 [PROTO_0]
-      119 DUPCLOSURE                       R22 K33 [PROTO_3]
-      120 CAPTURE                          VAL R10
-      121 CAPTURE                          VAL R4
-      122 CAPTURE                          VAL R13
-      123 CAPTURE                          VAL R17
-      124 CAPTURE                          VAL R1
-      125 CAPTURE                          VAL R7
-      126 CAPTURE                          VAL R8
-      127 CAPTURE                          VAL R20
-      128 CAPTURE                          VAL R6
-      129 DUPCLOSURE                       R23 K34 [PROTO_7]
-      130 CAPTURE                          VAL R11
-      131 CAPTURE                          VAL R16
-      132 CAPTURE                          VAL R15
-      133 CAPTURE                          VAL R14
-      134 CAPTURE                          VAL R12
-      135 CAPTURE                          VAL R22
-      136 CAPTURE                          VAL R18
-      137 CAPTURE                          VAL R1
-      138 CAPTURE                          VAL R19
-      139 CAPTURE                          VAL R9
-      140 CAPTURE                          VAL R7
-      141 RETURN                           R23 1
+      109 DUPCLOSURE                       R20 K31 [PROTO_0]
+      110 DUPCLOSURE                       R21 K32 [PROTO_3]
+      111 CAPTURE                          VAL R10
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R17
+      115 CAPTURE                          VAL R1
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R6
+      119 DUPCLOSURE                       R22 K33 [PROTO_7]
+      120 CAPTURE                          VAL R11
+      121 CAPTURE                          VAL R16
+      122 CAPTURE                          VAL R15
+      123 CAPTURE                          VAL R14
+      124 CAPTURE                          VAL R12
+      125 CAPTURE                          VAL R21
+      126 CAPTURE                          VAL R18
+      127 CAPTURE                          VAL R1
+      128 CAPTURE                          VAL R19
+      129 CAPTURE                          VAL R9
+      130 CAPTURE                          VAL R7
+      131 RETURN                           R22 1

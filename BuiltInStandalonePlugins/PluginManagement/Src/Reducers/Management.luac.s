@@ -155,37 +155,38 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Bin"]
-       27 GETTABLEKS                       R4 R4 K9 ["getFFlagStudioFixPluginManagement429"]
-       29 CALL                             R3 1 1
-       30 DUPCLOSURE                       R4 K10 [PROTO_0]
-       31 CAPTURE                          VAL R1
-       32 DUPCLOSURE                       R5 K11 [PROTO_1]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K10 ["getFFlagStudioFixPluginManagement429"]
+       31 CALL                             R3 1 1
+       32 DUPCLOSURE                       R4 K11 [PROTO_0]
        33 CAPTURE                          VAL R1
-       34 GETTABLEKS                       R6 R2 K12 ["createReducer"]
-       36 DUPTABLE                         R7 K14 [{"plugins"}]
-       37 LOADNIL                          R8
-       38 SETTABLEKS                       R8 R7 K13 ["plugins"]
-       40 DUPTABLE                         R8 K20 [{"ClearAllPluginData", "RemovePluginData", "SetLoadedPluginData", "SetPluginEnabledState", "SetPluginUpdateStatus"}]
-       41 DUPCLOSURE                       R10 K22 [PROTO_2]
-       42 CAPTURE                          VAL R1
-       43 ORK                              R9 R10 K21 []
-       44 SETTABLEKS                       R9 R8 K15 ["ClearAllPluginData"]
-       46 DUPCLOSURE                       R10 K23 [PROTO_3]
-       47 CAPTURE                          VAL R1
-       48 ORK                              R9 R10 K21 []
-       49 SETTABLEKS                       R9 R8 K16 ["RemovePluginData"]
-       51 DUPCLOSURE                       R9 K24 [PROTO_4]
-       52 CAPTURE                          VAL R3
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          VAL R5
-       55 SETTABLEKS                       R9 R8 K17 ["SetLoadedPluginData"]
-       57 DUPCLOSURE                       R9 K25 [PROTO_5]
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R9 R8 K18 ["SetPluginEnabledState"]
-       61 DUPCLOSURE                       R9 K26 [PROTO_6]
-       62 CAPTURE                          VAL R4
-       63 CAPTURE                          VAL R1
-       64 SETTABLEKS                       R9 R8 K19 ["SetPluginUpdateStatus"]
-       66 CALL                             R6 2 -1
-       67 RETURN                           R6 -1
+       34 DUPCLOSURE                       R5 K12 [PROTO_1]
+       35 CAPTURE                          VAL R1
+       36 GETTABLEKS                       R6 R2 K13 ["createReducer"]
+       38 DUPTABLE                         R7 K15 [{"plugins"}]
+       39 LOADNIL                          R8
+       40 SETTABLEKS                       R8 R7 K14 ["plugins"]
+       42 DUPTABLE                         R8 K21 [{"ClearAllPluginData", "RemovePluginData", "SetLoadedPluginData", "SetPluginEnabledState", "SetPluginUpdateStatus"}]
+       43 DUPCLOSURE                       R10 K23 [PROTO_2]
+       44 CAPTURE                          VAL R1
+       45 ORK                              R9 R10 K22 []
+       46 SETTABLEKS                       R9 R8 K16 ["ClearAllPluginData"]
+       48 DUPCLOSURE                       R10 K24 [PROTO_3]
+       49 CAPTURE                          VAL R1
+       50 ORK                              R9 R10 K22 []
+       51 SETTABLEKS                       R9 R8 K17 ["RemovePluginData"]
+       53 DUPCLOSURE                       R9 K25 [PROTO_4]
+       54 CAPTURE                          VAL R3
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R5
+       57 SETTABLEKS                       R9 R8 K18 ["SetLoadedPluginData"]
+       59 DUPCLOSURE                       R9 K26 [PROTO_5]
+       60 CAPTURE                          VAL R4
+       61 SETTABLEKS                       R9 R8 K19 ["SetPluginEnabledState"]
+       63 DUPCLOSURE                       R9 K27 [PROTO_6]
+       64 CAPTURE                          VAL R4
+       65 CAPTURE                          VAL R1
+       66 SETTABLEKS                       R9 R8 K20 ["SetPluginUpdateStatus"]
+       68 CALL                             R6 2 -1
+       69 RETURN                           R6 -1

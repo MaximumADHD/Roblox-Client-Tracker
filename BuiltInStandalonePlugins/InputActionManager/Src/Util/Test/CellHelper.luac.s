@@ -59,7 +59,29 @@ PROTO_2:
        21 RETURN                           R2 1
 
 PROTO_3:
-        0 LOADK                            R4 K0 ["binding-cell-%*-%*"]
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R4 R0
+        2 LOADK                            R6 K0 ["binding-cell-%*-%*-cell"]
+        3 MOVE                             R8 R1
+        4 MOVE                             R9 R2
+        5 NAMECALL                         R6 R6 K1 ["format"]
+        7 CALL                             R6 3 1
+        8 MOVE                             R5 R6
+        9 CALL                             R3 2 1
+       10 LOADK                            R7 K2 ["Property cell '%*' (%*) not found"]
+       11 MOVE                             R9 R1
+       12 MOVE                             R10 R2
+       13 NAMECALL                         R7 R7 K1 ["format"]
+       15 CALL                             R7 3 1
+       16 MOVE                             R6 R7
+       17 FASTCALL2                        ASSERT R3 R6 ; [+4]
+       19 MOVE                             R5 R3
+       20 GETIMPORT                        R4 K4 [assert]
+       22 CALL                             R4 2 0
+       23 RETURN                           R3 1
+
+PROTO_4:
+        0 LOADK                            R4 K0 ["binding-cell-%*-%*-dropdown"]
         1 MOVE                             R6 R1
         2 MOVE                             R7 R2
         3 NAMECALL                         R4 R4 K1 ["format"]
@@ -111,8 +133,34 @@ PROTO_3:
        65 CALL                             R8 2 0
        66 RETURN                           R7 1
 
-PROTO_4:
-        0 LOADK                            R5 K0 ["binding-cell-%*-%*"]
+PROTO_5:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 LOADK                            R3 K0 ["binding-cell-keyCode-Touch-selector"]
+        3 CALL                             R1 2 1
+        4 FASTCALL2K                       ASSERT R1 K1 ; [+5]
+        6 MOVE                             R3 R1
+        7 LOADK                            R4 K1 ["UIButton cell 'binding-cell-keyCode-Touch-selector' not found from binding root"]
+        8 GETIMPORT                        R2 K3 [assert]
+       10 CALL                             R2 2 0
+       11 LOADK                            R4 K4 ["Text"]
+       12 LOADB                            R5 1
+       13 NAMECALL                         R2 R1 K5 ["FindFirstChild"]
+       15 CALL                             R2 3 1
+       16 MOVE                             R4 R2
+       17 JUMPIFNOT                        R4 ; [+4]
+       18 LOADK                            R6 K6 ["TextLabel"]
+       19 NAMECALL                         R4 R2 K7 ["IsA"]
+       21 CALL                             R4 2 1
+       22 FASTCALL2K                       ASSERT R4 K8 ; [+4]
+       24 LOADK                            R5 K8 ["No label text found under 'binding-cell-keyCode-Touch-selector'"]
+       25 GETIMPORT                        R3 K3 [assert]
+       27 CALL                             R3 2 0
+       28 GETTABLEKS                       R3 R2 K4 ["Text"]
+       30 RETURN                           R3 1
+
+PROTO_6:
+        0 LOADK                            R5 K0 ["binding-cell-%*-%*-dropdown"]
         1 MOVE                             R7 R1
         2 MOVE                             R8 R2
         3 NAMECALL                         R5 R5 K1 ["format"]
@@ -249,62 +297,260 @@ PROTO_4:
       173 CALL                             R17 0 0
       174 RETURN                           R0 0
 
+PROTO_7:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 LOADK                            R4 K0 ["binding-cell-keyCode-Touch-selector"]
+        3 CALL                             R2 2 1
+        4 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        6 MOVE                             R4 R2
+        7 LOADK                            R5 K1 ["Binding cell 'binding-cell-keyCode-Touch-selector' not found from binding root"]
+        8 GETIMPORT                        R3 K3 [assert]
+       10 CALL                             R3 2 0
+       11 GETUPVAL                         R3 1
+       12 CALL                             R3 0 0
+       13 GETUPVAL                         R3 2
+       14 GETTABLEKS                       R3 R3 K4 ["click"]
+       16 MOVE                             R4 R2
+       17 CALL                             R3 1 0
+       18 GETUPVAL                         R3 1
+       19 CALL                             R3 0 0
+       20 GETUPVAL                         R3 3
+       21 NEWTABLE                         R5 0 1
+       23 MOVE                             R6 R1
+       24 SETLIST                          R5 R6 1 [1]
+       26 NAMECALL                         R3 R3 K5 ["Set"]
+       28 CALL                             R3 2 0
+       29 GETUPVAL                         R3 1
+       30 CALL                             R3 0 0
+       31 RETURN                           R0 0
+
+PROTO_8:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mouseEnter"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["click"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_10:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 LOADK                            R3 K0 ["binding-cell-keyCode-Touch-selector"]
+        3 CALL                             R1 2 1
+        4 FASTCALL2K                       ASSERT R1 K1 ; [+5]
+        6 MOVE                             R3 R1
+        7 LOADK                            R4 K1 ["UIButton cell 'binding-cell-keyCode-Touch-selector' not found from binding root"]
+        8 GETIMPORT                        R2 K3 [assert]
+       10 CALL                             R2 2 0
+       11 GETUPVAL                         R2 1
+       12 CALL                             R2 0 0
+       13 GETUPVAL                         R2 2
+       14 CALL                             R2 0 0
+       15 GETUPVAL                         R2 3
+       16 NEWCLOSURE                       R3 P0
+       17 CAPTURE                          UPVAL U4
+       18 CAPTURE                          VAL R1
+       19 CALL                             R2 1 0
+       20 GETUPVAL                         R2 2
+       21 CALL                             R2 0 0
+       22 GETUPVAL                         R2 5
+       23 MOVE                             R3 R0
+       24 LOADK                            R4 K4 ["remove-button"]
+       25 CALL                             R2 2 1
+       26 FASTCALL2K                       ASSERT R2 K5 ; [+5]
+       28 MOVE                             R4 R2
+       29 LOADK                            R5 K5 ["Remove button not found"]
+       30 GETIMPORT                        R3 K3 [assert]
+       32 CALL                             R3 2 0
+       33 GETUPVAL                         R3 3
+       34 NEWCLOSURE                       R4 P1
+       35 CAPTURE                          UPVAL U4
+       36 CAPTURE                          VAL R2
+       37 CALL                             R3 1 0
+       38 GETUPVAL                         R3 2
+       39 CALL                             R3 0 0
+       40 RETURN                           R0 0
+
+PROTO_11:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["mouseEnter"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_12:
+        0 FASTCALL2K                       ASSERT R1 K0 ; [+5]
+        2 MOVE                             R5 R1
+        3 LOADK                            R6 K0 ["property cell element is required"]
+        4 GETIMPORT                        R4 K2 [assert]
+        6 CALL                             R4 2 0
+        7 GETUPVAL                         R4 0
+        8 MOVE                             R5 R1
+        9 LOADK                            R6 K3 ["status"]
+       10 CALL                             R4 2 1
+       11 FASTCALL2K                       ASSERT R4 K4 ; [+5]
+       13 MOVE                             R6 R4
+       14 LOADK                            R7 K4 ["Status anchor not found in property cell"]
+       15 GETIMPORT                        R5 K2 [assert]
+       17 CALL                             R5 2 0
+       18 GETUPVAL                         R5 1
+       19 CALL                             R5 0 0
+       20 GETUPVAL                         R5 2
+       21 CALL                             R5 0 0
+       22 GETUPVAL                         R5 3
+       23 NEWCLOSURE                       R6 P0
+       24 CAPTURE                          UPVAL U4
+       25 CAPTURE                          VAL R4
+       26 CALL                             R5 1 0
+       27 GETUPVAL                         R5 2
+       28 CALL                             R5 0 0
+       29 GETUPVAL                         R5 1
+       30 CALL                             R5 0 0
+       31 GETUPVAL                         R5 2
+       32 CALL                             R5 0 0
+       33 GETUPVAL                         R5 5
+       34 MOVE                             R6 R2
+       35 MOVE                             R7 R3
+       36 CALL                             R5 2 1
+       37 GETUPVAL                         R9 6
+       38 MOVE                             R10 R0
+       39 GETTABLEKS                       R11 R5 K5 ["Title"]
+       41 CALL                             R9 2 1
+       42 LENGTH                           R8 R9
+       43 LOADN                            R9 0
+       44 JUMPIFLT                         R9 R8 ; [+2]
+       46 LOADB                            R7 0 +1
+       47 LOADB                            R7 1
+       48 LOADK                            R9 K6 ["Status title '%*' not found"]
+       49 GETTABLEKS                       R11 R5 K5 ["Title"]
+       51 NAMECALL                         R9 R9 K7 ["format"]
+       53 CALL                             R9 2 1
+       54 MOVE                             R8 R9
+       55 FASTCALL2                        ASSERT R7 R8 ; [+3]
+       57 GETIMPORT                        R6 K2 [assert]
+       59 CALL                             R6 2 0
+       60 GETUPVAL                         R9 6
+       61 MOVE                             R10 R0
+       62 GETTABLEKS                       R11 R5 K8 ["Message"]
+       64 CALL                             R9 2 1
+       65 LENGTH                           R8 R9
+       66 LOADN                            R9 0
+       67 JUMPIFLT                         R9 R8 ; [+2]
+       69 LOADB                            R7 0 +1
+       70 LOADB                            R7 1
+       71 LOADK                            R9 K9 ["Status message '%*' not found"]
+       72 GETTABLEKS                       R11 R5 K8 ["Message"]
+       74 NAMECALL                         R9 R9 K7 ["format"]
+       76 CALL                             R9 2 1
+       77 MOVE                             R8 R9
+       78 FASTCALL2                        ASSERT R7 R8 ; [+3]
+       80 GETIMPORT                        R6 K2 [assert]
+       82 CALL                             R6 2 0
+       83 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
         3 LOADK                            R2 K2 ["CoreGui"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [script]
-        9 LOADK                            R3 K6 ["InputActionManager"]
-       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+        7 GETIMPORT                        R1 K1 [game]
+        9 LOADK                            R3 K4 ["Selection"]
+       10 NAMECALL                         R1 R1 K3 ["GetService"]
        12 CALL                             R1 2 1
-       13 GETIMPORT                        R2 K9 [require]
-       15 GETTABLEKS                       R3 R1 K10 ["Packages"]
-       17 GETTABLEKS                       R3 R3 K11 ["React"]
-       19 CALL                             R2 1 1
-       20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R4 R1 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K12 ["Dev"]
-       26 GETTABLEKS                       R4 R4 K13 ["ReactTestingLibrary"]
-       28 CALL                             R3 1 1
-       29 GETIMPORT                        R4 K9 [require]
-       31 GETTABLEKS                       R5 R1 K14 ["Src"]
-       33 GETTABLEKS                       R5 R5 K15 ["Types"]
-       35 CALL                             R4 1 1
-       36 GETIMPORT                        R5 K9 [require]
-       38 GETIMPORT                        R6 K5 [script]
-       40 GETTABLEKS                       R6 R6 K16 ["Parent"]
-       42 GETTABLEKS                       R6 R6 K17 ["TestHelper"]
-       44 CALL                             R5 1 1
-       45 GETTABLEKS                       R6 R5 K18 ["awaitDeferAsync"]
-       47 GETTABLEKS                       R7 R5 K19 ["updateStyling"]
-       49 GETTABLEKS                       R8 R3 K20 ["fireEvent"]
-       51 GETTABLEKS                       R9 R3 K21 ["getByTestId"]
-       53 GETTABLEKS                       R10 R3 K22 ["getByText"]
-       55 GETTABLEKS                       R11 R3 K23 ["queryByTestId"]
-       57 GETTABLEKS                       R12 R3 K24 ["queryAllByTestId"]
-       59 NEWTABLE                         R13 8 0
-       61 DUPCLOSURE                       R14 K25 [PROTO_0]
-       62 CAPTURE                          VAL R11
-       63 SETTABLEKS                       R14 R13 K26 ["GetAction"]
-       65 DUPCLOSURE                       R14 K27 [PROTO_1]
-       66 CAPTURE                          VAL R11
-       67 SETTABLEKS                       R14 R13 K28 ["GetKeyBind"]
-       69 DUPCLOSURE                       R14 K29 [PROTO_2]
-       70 CAPTURE                          VAL R11
-       71 SETTABLEKS                       R14 R13 K30 ["GetCompoundDirection"]
-       73 DUPCLOSURE                       R14 K31 [PROTO_3]
-       74 CAPTURE                          VAL R11
-       75 SETTABLEKS                       R14 R13 K32 ["GetDisplayedKeyCode"]
-       77 DUPCLOSURE                       R14 K33 [PROTO_4]
-       78 CAPTURE                          VAL R11
-       79 CAPTURE                          VAL R9
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R7
-       83 CAPTURE                          VAL R12
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          VAL R10
-       86 SETTABLEKS                       R14 R13 K34 ["ChangeProperty"]
-       88 RETURN                           R13 1
+       13 GETIMPORT                        R2 K6 [script]
+       15 LOADK                            R4 K7 ["InputActionManager"]
+       16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R3 K10 [require]
+       21 GETTABLEKS                       R4 R2 K11 ["Packages"]
+       23 GETTABLEKS                       R4 R4 K12 ["React"]
+       25 CALL                             R3 1 1
+       26 GETIMPORT                        R4 K10 [require]
+       28 GETTABLEKS                       R5 R2 K11 ["Packages"]
+       30 GETTABLEKS                       R5 R5 K13 ["Dev"]
+       32 GETTABLEKS                       R5 R5 K14 ["ReactTestingLibrary"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K10 [require]
+       37 GETTABLEKS                       R6 R2 K15 ["Src"]
+       39 GETTABLEKS                       R6 R6 K16 ["Types"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K10 [require]
+       44 GETTABLEKS                       R7 R2 K15 ["Src"]
+       46 GETTABLEKS                       R7 R7 K17 ["Util"]
+       48 GETTABLEKS                       R7 R7 K18 ["createStatusEntry"]
+       50 CALL                             R6 1 1
+       51 GETIMPORT                        R7 K10 [require]
+       53 GETIMPORT                        R8 K6 [script]
+       55 GETTABLEKS                       R8 R8 K19 ["Parent"]
+       57 GETTABLEKS                       R8 R8 K20 ["TestHelper"]
+       59 CALL                             R7 1 1
+       60 GETTABLEKS                       R8 R7 K21 ["awaitDeferAsync"]
+       62 GETTABLEKS                       R9 R7 K22 ["updateStyling"]
+       64 GETTABLEKS                       R10 R4 K23 ["act"]
+       66 GETTABLEKS                       R11 R4 K24 ["fireEvent"]
+       68 GETTABLEKS                       R12 R4 K25 ["getByTestId"]
+       70 GETTABLEKS                       R13 R4 K26 ["getByText"]
+       72 GETTABLEKS                       R14 R4 K27 ["getAllByText"]
+       74 GETTABLEKS                       R15 R4 K28 ["queryByTestId"]
+       76 GETTABLEKS                       R16 R4 K29 ["queryAllByTestId"]
+       78 NEWTABLE                         R17 16 0
+       80 DUPCLOSURE                       R18 K30 [PROTO_0]
+       81 CAPTURE                          VAL R15
+       82 SETTABLEKS                       R18 R17 K31 ["GetAction"]
+       84 DUPCLOSURE                       R18 K32 [PROTO_1]
+       85 CAPTURE                          VAL R15
+       86 SETTABLEKS                       R18 R17 K33 ["GetKeyBind"]
+       88 DUPCLOSURE                       R18 K34 [PROTO_2]
+       89 CAPTURE                          VAL R15
+       90 SETTABLEKS                       R18 R17 K35 ["GetCompoundDirection"]
+       92 DUPCLOSURE                       R18 K36 [PROTO_3]
+       93 CAPTURE                          VAL R15
+       94 SETTABLEKS                       R18 R17 K37 ["GetPropertyCell"]
+       96 DUPCLOSURE                       R18 K38 [PROTO_4]
+       97 CAPTURE                          VAL R15
+       98 SETTABLEKS                       R18 R17 K39 ["GetDisplayedKeyCode"]
+      100 DUPCLOSURE                       R18 K40 [PROTO_5]
+      101 CAPTURE                          VAL R15
+      102 SETTABLEKS                       R18 R17 K41 ["GetDisplayedUIButton"]
+      104 DUPCLOSURE                       R18 K42 [PROTO_6]
+      105 CAPTURE                          VAL R15
+      106 CAPTURE                          VAL R12
+      107 CAPTURE                          VAL R11
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R16
+      111 CAPTURE                          VAL R0
+      112 CAPTURE                          VAL R13
+      113 SETTABLEKS                       R18 R17 K43 ["ChangeProperty"]
+      115 DUPCLOSURE                       R18 K44 [PROTO_7]
+      116 CAPTURE                          VAL R15
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R11
+      119 CAPTURE                          VAL R1
+      120 SETTABLEKS                       R18 R17 K45 ["ChangeUIButton"]
+      122 DUPCLOSURE                       R18 K46 [PROTO_10]
+      123 CAPTURE                          VAL R15
+      124 CAPTURE                          VAL R9
+      125 CAPTURE                          VAL R8
+      126 CAPTURE                          VAL R10
+      127 CAPTURE                          VAL R11
+      128 CAPTURE                          VAL R12
+      129 SETTABLEKS                       R18 R17 K47 ["DeleteUIButton"]
+      131 DUPCLOSURE                       R18 K48 [PROTO_12]
+      132 CAPTURE                          VAL R15
+      133 CAPTURE                          VAL R9
+      134 CAPTURE                          VAL R8
+      135 CAPTURE                          VAL R10
+      136 CAPTURE                          VAL R11
+      137 CAPTURE                          VAL R6
+      138 CAPTURE                          VAL R14
+      139 SETTABLEKS                       R18 R17 K49 ["checkCellHasStatus"]
+      141 RETURN                           R17 1

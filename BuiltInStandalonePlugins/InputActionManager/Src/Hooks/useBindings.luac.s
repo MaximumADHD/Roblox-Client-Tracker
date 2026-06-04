@@ -86,7 +86,7 @@ PROTO_3:
        43 GETTABLEKS                       R9 R9 K5 ["getBinding"]
        45 MOVE                             R10 R8
        46 CALL                             R9 1 1
-       47 JUMPIFNOT                        R9 ; [+114]
+       47 JUMPIFNOT                        R9 ; [+162]
        48 GETTABLEKS                       R10 R9 K6 ["keyCode"]
        50 GETIMPORT                        R11 K9 [Enum.KeyCode.Unknown]
        52 JUMPIFEQ                         R10 R11 ; [+48]
@@ -163,21 +163,50 @@ PROTO_3:
       145 GETIMPORT                        R17 K13 [table.insert]
       147 CALL                             R17 2 0
       148 FORGLOOP                         R12 2 ; [-38]
-      150 MOVE                             R12 R1
-      151 GETUPVAL                         R13 3
-      152 GETTABLEKS                       R13 R13 K14 ["subscribe"]
-      154 MOVE                             R14 R8
-      155 NEWCLOSURE                       R15 P0
-      156 CAPTURE                          UPVAL U6
-      157 CALL                             R13 2 -1
-      158 FASTCALL                         TABLE_INSERT ; [+2]
-      159 GETIMPORT                        R11 K13 [table.insert]
-      161 CALL                             R11 -1 0
-      162 FORGLOOP                         R4 2 ; [-121]
-      164 GETUPVAL                         R4 2
-      165 MOVE                             R5 R0
-      166 CALL                             R4 1 0
-      167 RETURN                           R1 1
+      150 GETTABLEKS                       R11 R9 K14 ["uiButton"]
+      152 JUMPIFNOT                        R11 ; [+45]
+      153 GETTABLEKS                       R11 R2 K15 ["Touch"]
+      155 JUMPIF                           R11 ; [+4]
+      156 LOADN                            R11 1
+      157 SETTABLEKS                       R11 R2 K15 ["Touch"]
+      159 JUMP                             ; [+5]
+      160 GETTABLEKS                       R11 R2 K15 ["Touch"]
+      162 ADDK                             R11 R11 K10 [1]
+      163 SETTABLEKS                       R11 R2 K15 ["Touch"]
+      165 GETTABLEKS                       R11 R2 K15 ["Touch"]
+      167 GETTABLEKS                       R13 R0 K2 ["KeyCode"]
+      169 LENGTH                           R12 R13
+      170 JUMPIFNOTLT                      R12 R11 ; [+10]
+      172 GETTABLEKS                       R12 R0 K2 ["KeyCode"]
+      174 NEWTABLE                         R13 0 0
+      176 FASTCALL2                        TABLE_INSERT R12 R13 ; [+3]
+      178 GETIMPORT                        R11 K13 [table.insert]
+      180 CALL                             R11 2 0
+      181 GETTABLEKS                       R12 R0 K2 ["KeyCode"]
+      183 GETTABLEKS                       R13 R2 K15 ["Touch"]
+      185 GETTABLE                         R11 R12 R13
+      186 SETTABLEKS                       R9 R11 K15 ["Touch"]
+      188 GETTABLEKS                       R13 R0 K0 ["All"]
+      190 GETTABLEKS                       R12 R13 K15 ["Touch"]
+      192 FASTCALL2                        TABLE_INSERT R12 R9 ; [+4]
+      194 MOVE                             R13 R9
+      195 GETIMPORT                        R11 K13 [table.insert]
+      197 CALL                             R11 2 0
+      198 MOVE                             R12 R1
+      199 GETUPVAL                         R13 3
+      200 GETTABLEKS                       R13 R13 K16 ["subscribe"]
+      202 MOVE                             R14 R8
+      203 NEWCLOSURE                       R15 P0
+      204 CAPTURE                          UPVAL U6
+      205 CALL                             R13 2 -1
+      206 FASTCALL                         TABLE_INSERT ; [+2]
+      207 GETIMPORT                        R11 K13 [table.insert]
+      209 CALL                             R11 -1 0
+      210 FORGLOOP                         R4 2 ; [-169]
+      212 GETUPVAL                         R4 2
+      213 MOVE                             R5 R0
+      214 CALL                             R4 1 0
+      215 RETURN                           R1 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

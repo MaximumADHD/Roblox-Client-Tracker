@@ -1,10 +1,22 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R2 R2 K0 ["UiZone"]
+        4 GETTABLEKS                       R2 R2 K1 ["Browser"]
+        6 LOADNIL                          R3
+        7 LOADNIL                          R4
+        8 GETUPVAL                         R5 2
+        9 NAMECALL                         R0 R0 K2 ["handleMouse2Click"]
+       11 CALL                             R0 5 0
+       12 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["clearFilters"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
@@ -12,124 +24,154 @@ PROTO_1:
         5 GETTABLEKS                       R2 R2 K0 ["use"]
         7 CALL                             R2 0 1
         8 GETUPVAL                         R3 2
-        9 CALL                             R3 0 2
-       10 GETTABLEKS                       R6 R0 K1 ["IsLoading"]
-       12 NOT                              R5 R6
-       13 JUMPIFNOT                        R5 ; [+3]
-       14 GETUPVAL                         R5 3
-       15 MOVE                             R6 R4
-       16 CALL                             R5 1 1
-       17 GETUPVAL                         R6 4
-       18 CALL                             R6 0 1
-       19 GETTABLEKS                       R7 R6 K2 ["ShowSearchOptions"]
-       21 MOVE                             R8 R7
-       22 JUMPIFNOT                        R8 ; [+27]
-       23 LOADB                            R8 0
-       24 GETTABLEKS                       R9 R6 K3 ["SearchOptions"]
-       26 GETTABLEKS                       R9 R9 K4 ["AssetType"]
-       28 GETUPVAL                         R10 5
-       29 GETTABLEKS                       R10 R10 K4 ["AssetType"]
-       31 GETTABLEKS                       R10 R10 K5 ["Place"]
-       33 JUMPIFNOTEQ                      R9 R10 ; [+16]
-       35 GETTABLEKS                       R9 R6 K3 ["SearchOptions"]
-       37 GETTABLEKS                       R9 R9 K6 ["ScopeInfo"]
-       39 GETTABLEKS                       R9 R9 K7 ["Type"]
-       41 GETUPVAL                         R10 5
-       42 GETTABLEKS                       R10 R10 K8 ["ScopeType"]
-       44 GETTABLEKS                       R10 R10 K9 ["Universe"]
-       46 JUMPIFNOTEQ                      R9 R10 ; [+2]
-       48 LOADB                            R8 0 +1
-       49 LOADB                            R8 1
-       50 JUMPIFNOT                        R8 ; [+6]
-       51 LOADK                            R11 K10 ["Filters"]
-       52 LOADK                            R12 K11 ["PlacesOnlyInUniverseWarning"]
-       53 NAMECALL                         R9 R1 K12 ["getText"]
-       55 CALL                             R9 3 1
-       56 JUMP                             ; [+17]
-       57 GETTABLEKS                       R10 R6 K2 ["ShowSearchOptions"]
-       59 JUMPIFNOT                        R10 ; [+9]
-       60 GETTABLEKS                       R10 R6 K13 ["IsDefaultSearchState"]
-       62 JUMPIF                           R10 ; [+4]
-       63 GETTABLEKS                       R10 R6 K14 ["SearchTerm"]
-       65 JUMPIFNOTEQKS                    R10 K15 [""] ; [+3]
-       67 LOADK                            R9 K15 [""]
-       68 JUMP                             ; [+5]
-       69 LOADK                            R11 K16 ["Plugin"]
-       70 LOADK                            R12 K17 ["NoAssets"]
-       71 NAMECALL                         R9 R1 K12 ["getText"]
-       73 CALL                             R9 3 1
-       74 GETUPVAL                         R10 6
-       75 GETTABLEKS                       R10 R10 K18 ["createElement"]
-       77 GETUPVAL                         R11 7
-       78 GETTABLEKS                       R11 R11 K19 ["View"]
-       80 DUPTABLE                         R12 K22 [{"LayoutOrder", "tag"}]
-       81 GETTABLEKS                       R13 R0 K20 ["LayoutOrder"]
-       83 SETTABLEKS                       R13 R12 K20 ["LayoutOrder"]
-       85 LOADK                            R13 K23 ["size-full col align-x-center align-y-center gap-xlarge"]
-       86 SETTABLEKS                       R13 R12 K21 ["tag"]
-       88 DUPTABLE                         R13 K26 [{"Content", "ClearFiltersButton"}]
-       89 GETTABLEKS                       R15 R0 K1 ["IsLoading"]
-       91 JUMPIFNOT                        R15 ; [+18]
-       92 GETUPVAL                         R14 6
-       93 GETTABLEKS                       R14 R14 K18 ["createElement"]
-       95 GETUPVAL                         R15 7
-       96 GETTABLEKS                       R15 R15 K27 ["Loading"]
-       98 DUPTABLE                         R16 K29 [{"size"}]
-       99 GETUPVAL                         R17 7
-      100 GETTABLEKS                       R17 R17 K30 ["Enums"]
-      102 GETTABLEKS                       R17 R17 K31 ["IconSize"]
-      104 GETTABLEKS                       R17 R17 K32 ["Medium"]
-      106 SETTABLEKS                       R17 R16 K28 ["size"]
-      108 CALL                             R14 2 1
-      109 JUMP                             ; [+21]
-      110 GETUPVAL                         R14 6
-      111 GETTABLEKS                       R14 R14 K18 ["createElement"]
-      113 GETUPVAL                         R15 7
-      114 GETTABLEKS                       R15 R15 K33 ["Text"]
-      116 DUPTABLE                         R16 K34 [{"Text", "tag"}]
-      117 SETTABLEKS                       R9 R16 K33 ["Text"]
-      119 LOADK                            R18 K35 ["text-body-medium text-align-x-center %*"]
-      120 JUMPIFNOT                        R8 ; [+2]
-      121 LOADK                            R20 K36 ["content-alert"]
-      122 JUMP                             ; [+1]
-      123 LOADK                            R20 K37 ["content-default"]
-      124 NAMECALL                         R18 R18 K38 ["format"]
-      126 CALL                             R18 2 1
-      127 MOVE                             R17 R18
-      128 SETTABLEKS                       R17 R16 K21 ["tag"]
-      130 CALL                             R14 2 1
-      131 SETTABLEKS                       R14 R13 K24 ["Content"]
-      133 MOVE                             R14 R5
-      134 JUMPIFNOT                        R14 ; [+40]
-      135 GETUPVAL                         R14 6
-      136 GETTABLEKS                       R14 R14 K18 ["createElement"]
-      138 GETUPVAL                         R15 7
-      139 GETTABLEKS                       R15 R15 K39 ["Button"]
-      141 DUPTABLE                         R16 K44 [{"text", "onActivated", "variant", "size", "testId"}]
-      142 LOADK                            R19 K10 ["Filters"]
-      143 LOADK                            R20 K45 ["ResetFilters"]
-      144 NAMECALL                         R17 R1 K12 ["getText"]
-      146 CALL                             R17 3 1
-      147 SETTABLEKS                       R17 R16 K40 ["text"]
-      149 NEWCLOSURE                       R17 P0
-      150 CAPTURE                          VAL R2
-      151 SETTABLEKS                       R17 R16 K41 ["onActivated"]
-      153 GETUPVAL                         R17 7
-      154 GETTABLEKS                       R17 R17 K30 ["Enums"]
-      156 GETTABLEKS                       R17 R17 K46 ["ButtonVariant"]
-      158 GETTABLEKS                       R17 R17 K47 ["Standard"]
-      160 SETTABLEKS                       R17 R16 K42 ["variant"]
-      162 GETUPVAL                         R17 7
-      163 GETTABLEKS                       R17 R17 K30 ["Enums"]
-      165 GETTABLEKS                       R17 R17 K48 ["InputSize"]
-      167 GETTABLEKS                       R17 R17 K49 ["XSmall"]
-      169 SETTABLEKS                       R17 R16 K28 ["size"]
-      171 LOADK                            R17 K50 ["content-placeholder-clear-filters-button"]
-      172 SETTABLEKS                       R17 R16 K43 ["testId"]
-      174 CALL                             R14 2 1
-      175 SETTABLEKS                       R14 R13 K25 ["ClearFiltersButton"]
-      177 CALL                             R10 3 -1
-      178 RETURN                           R10 -1
+        9 GETTABLEKS                       R3 R3 K0 ["use"]
+       11 CALL                             R3 0 1
+       12 GETUPVAL                         R4 3
+       13 GETUPVAL                         R5 4
+       14 GETTABLEKS                       R5 R5 K1 ["MenuContext"]
+       16 GETTABLEKS                       R5 R5 K2 ["Asset"]
+       18 CALL                             R4 1 1
+       19 GETUPVAL                         R5 5
+       20 CALL                             R5 0 2
+       21 GETTABLEKS                       R8 R0 K3 ["IsLoading"]
+       23 NOT                              R7 R8
+       24 JUMPIFNOT                        R7 ; [+3]
+       25 GETUPVAL                         R7 6
+       26 MOVE                             R8 R6
+       27 CALL                             R7 1 1
+       28 GETUPVAL                         R8 7
+       29 CALL                             R8 0 1
+       30 GETTABLEKS                       R9 R8 K4 ["ShowSearchOptions"]
+       32 MOVE                             R10 R9
+       33 JUMPIFNOT                        R10 ; [+27]
+       34 LOADB                            R10 0
+       35 GETTABLEKS                       R11 R8 K5 ["SearchOptions"]
+       37 GETTABLEKS                       R11 R11 K6 ["AssetType"]
+       39 GETUPVAL                         R12 4
+       40 GETTABLEKS                       R12 R12 K6 ["AssetType"]
+       42 GETTABLEKS                       R12 R12 K7 ["Place"]
+       44 JUMPIFNOTEQ                      R11 R12 ; [+16]
+       46 GETTABLEKS                       R11 R8 K5 ["SearchOptions"]
+       48 GETTABLEKS                       R11 R11 K8 ["ScopeInfo"]
+       50 GETTABLEKS                       R11 R11 K9 ["Type"]
+       52 GETUPVAL                         R12 4
+       53 GETTABLEKS                       R12 R12 K10 ["ScopeType"]
+       55 GETTABLEKS                       R12 R12 K11 ["Universe"]
+       57 JUMPIFNOTEQ                      R11 R12 ; [+2]
+       59 LOADB                            R10 0 +1
+       60 LOADB                            R10 1
+       61 JUMPIFNOT                        R10 ; [+6]
+       62 LOADK                            R13 K12 ["Filters"]
+       63 LOADK                            R14 K13 ["PlacesOnlyInUniverseWarning"]
+       64 NAMECALL                         R11 R1 K14 ["getText"]
+       66 CALL                             R11 3 1
+       67 JUMP                             ; [+17]
+       68 GETTABLEKS                       R12 R8 K4 ["ShowSearchOptions"]
+       70 JUMPIFNOT                        R12 ; [+9]
+       71 GETTABLEKS                       R12 R8 K15 ["IsDefaultSearchState"]
+       73 JUMPIF                           R12 ; [+4]
+       74 GETTABLEKS                       R12 R8 K16 ["SearchTerm"]
+       76 JUMPIFNOTEQKS                    R12 K17 [""] ; [+3]
+       78 LOADK                            R11 K17 [""]
+       79 JUMP                             ; [+5]
+       80 LOADK                            R13 K18 ["Plugin"]
+       81 LOADK                            R14 K19 ["NoAssets"]
+       82 NAMECALL                         R11 R1 K14 ["getText"]
+       84 CALL                             R11 3 1
+       85 GETUPVAL                         R12 8
+       86 GETTABLEKS                       R12 R12 K20 ["createElement"]
+       88 GETUPVAL                         R13 9
+       89 GETTABLEKS                       R13 R13 K21 ["View"]
+       91 DUPTABLE                         R14 K26 [{"LayoutOrder", "onSecondaryActivated", "stateLayer", "tag"}]
+       92 GETTABLEKS                       R15 R0 K22 ["LayoutOrder"]
+       94 SETTABLEKS                       R15 R14 K22 ["LayoutOrder"]
+       96 GETUPVAL                         R16 10
+       97 CALL                             R16 0 1
+       98 JUMPIFNOT                        R16 ; [+5]
+       99 NEWCLOSURE                       R15 P0
+      100 CAPTURE                          VAL R2
+      101 CAPTURE                          UPVAL U4
+      102 CAPTURE                          VAL R4
+      103 JUMP                             ; [+1]
+      104 LOADNIL                          R15
+      105 SETTABLEKS                       R15 R14 K23 ["onSecondaryActivated"]
+      107 GETUPVAL                         R16 10
+      108 CALL                             R16 0 1
+      109 JUMPIFNOT                        R16 ; [+11]
+      110 DUPTABLE                         R15 K28 [{"affordance"}]
+      111 GETUPVAL                         R16 9
+      112 GETTABLEKS                       R16 R16 K29 ["Enums"]
+      114 GETTABLEKS                       R16 R16 K30 ["StateLayerAffordance"]
+      116 GETTABLEKS                       R16 R16 K31 ["None"]
+      118 SETTABLEKS                       R16 R15 K27 ["affordance"]
+      120 JUMP                             ; [+1]
+      121 LOADNIL                          R15
+      122 SETTABLEKS                       R15 R14 K24 ["stateLayer"]
+      124 LOADK                            R15 K32 ["size-full col align-x-center align-y-center gap-xlarge"]
+      125 SETTABLEKS                       R15 R14 K25 ["tag"]
+      127 DUPTABLE                         R15 K35 [{"Content", "ClearFiltersButton"}]
+      128 GETTABLEKS                       R17 R0 K3 ["IsLoading"]
+      130 JUMPIFNOT                        R17 ; [+18]
+      131 GETUPVAL                         R16 8
+      132 GETTABLEKS                       R16 R16 K20 ["createElement"]
+      134 GETUPVAL                         R17 9
+      135 GETTABLEKS                       R17 R17 K36 ["Loading"]
+      137 DUPTABLE                         R18 K38 [{"size"}]
+      138 GETUPVAL                         R19 9
+      139 GETTABLEKS                       R19 R19 K29 ["Enums"]
+      141 GETTABLEKS                       R19 R19 K39 ["IconSize"]
+      143 GETTABLEKS                       R19 R19 K40 ["Medium"]
+      145 SETTABLEKS                       R19 R18 K37 ["size"]
+      147 CALL                             R16 2 1
+      148 JUMP                             ; [+21]
+      149 GETUPVAL                         R16 8
+      150 GETTABLEKS                       R16 R16 K20 ["createElement"]
+      152 GETUPVAL                         R17 9
+      153 GETTABLEKS                       R17 R17 K41 ["Text"]
+      155 DUPTABLE                         R18 K42 [{"Text", "tag"}]
+      156 SETTABLEKS                       R11 R18 K41 ["Text"]
+      158 LOADK                            R20 K43 ["text-body-medium text-align-x-center %*"]
+      159 JUMPIFNOT                        R10 ; [+2]
+      160 LOADK                            R22 K44 ["content-alert"]
+      161 JUMP                             ; [+1]
+      162 LOADK                            R22 K45 ["content-default"]
+      163 NAMECALL                         R20 R20 K46 ["format"]
+      165 CALL                             R20 2 1
+      166 MOVE                             R19 R20
+      167 SETTABLEKS                       R19 R18 K25 ["tag"]
+      169 CALL                             R16 2 1
+      170 SETTABLEKS                       R16 R15 K33 ["Content"]
+      172 MOVE                             R16 R7
+      173 JUMPIFNOT                        R16 ; [+40]
+      174 GETUPVAL                         R16 8
+      175 GETTABLEKS                       R16 R16 K20 ["createElement"]
+      177 GETUPVAL                         R17 9
+      178 GETTABLEKS                       R17 R17 K47 ["Button"]
+      180 DUPTABLE                         R18 K52 [{"text", "onActivated", "variant", "size", "testId"}]
+      181 LOADK                            R21 K12 ["Filters"]
+      182 LOADK                            R22 K53 ["ResetFilters"]
+      183 NAMECALL                         R19 R1 K14 ["getText"]
+      185 CALL                             R19 3 1
+      186 SETTABLEKS                       R19 R18 K48 ["text"]
+      188 NEWCLOSURE                       R19 P1
+      189 CAPTURE                          VAL R3
+      190 SETTABLEKS                       R19 R18 K49 ["onActivated"]
+      192 GETUPVAL                         R19 9
+      193 GETTABLEKS                       R19 R19 K29 ["Enums"]
+      195 GETTABLEKS                       R19 R19 K54 ["ButtonVariant"]
+      197 GETTABLEKS                       R19 R19 K55 ["Standard"]
+      199 SETTABLEKS                       R19 R18 K50 ["variant"]
+      201 GETUPVAL                         R19 9
+      202 GETTABLEKS                       R19 R19 K29 ["Enums"]
+      204 GETTABLEKS                       R19 R19 K56 ["InputSize"]
+      206 GETTABLEKS                       R19 R19 K57 ["XSmall"]
+      208 SETTABLEKS                       R19 R18 K37 ["size"]
+      210 LOADK                            R19 K58 ["content-placeholder-clear-filters-button"]
+      211 SETTABLEKS                       R19 R18 K51 ["testId"]
+      213 CALL                             R16 2 1
+      214 SETTABLEKS                       R16 R15 K34 ["ClearFiltersButton"]
+      216 CALL                             R12 3 -1
+      217 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -158,30 +200,48 @@ MAIN:
        39 GETIMPORT                        R7 K5 [require]
        41 GETTABLEKS                       R8 R0 K9 ["Src"]
        43 GETTABLEKS                       R8 R8 K14 ["Controllers"]
-       45 GETTABLEKS                       R8 R8 K15 ["ItemsController"]
+       45 GETTABLEKS                       R8 R8 K15 ["Input"]
        47 CALL                             R7 1 1
        48 GETIMPORT                        R8 K5 [require]
        50 GETTABLEKS                       R9 R0 K9 ["Src"]
-       52 GETTABLEKS                       R9 R9 K16 ["Util"]
-       54 GETTABLEKS                       R9 R9 K17 ["hasActiveFilters"]
+       52 GETTABLEKS                       R9 R9 K14 ["Controllers"]
+       54 GETTABLEKS                       R9 R9 K16 ["ItemsController"]
        56 CALL                             R8 1 1
        57 GETIMPORT                        R9 K5 [require]
        59 GETTABLEKS                       R10 R0 K9 ["Src"]
-       61 GETTABLEKS                       R10 R10 K18 ["Hooks"]
-       63 GETTABLEKS                       R10 R10 K19 ["useSortFilter"]
+       61 GETTABLEKS                       R10 R10 K17 ["Util"]
+       63 GETTABLEKS                       R10 R10 K18 ["hasActiveFilters"]
        65 CALL                             R9 1 1
        66 GETIMPORT                        R10 K5 [require]
        68 GETTABLEKS                       R11 R0 K9 ["Src"]
-       70 GETTABLEKS                       R11 R11 K18 ["Hooks"]
-       72 GETTABLEKS                       R11 R11 K20 ["useSearchInfo"]
+       70 GETTABLEKS                       R11 R11 K19 ["Hooks"]
+       72 GETTABLEKS                       R11 R11 K20 ["useContextMenu"]
        74 CALL                             R10 1 1
-       75 DUPCLOSURE                       R11 K21 [PROTO_1]
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R7
-       78 CAPTURE                          VAL R9
-       79 CAPTURE                          VAL R8
-       80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R3
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R2
-       84 RETURN                           R11 1
+       75 GETIMPORT                        R11 K5 [require]
+       77 GETTABLEKS                       R12 R0 K9 ["Src"]
+       79 GETTABLEKS                       R12 R12 K19 ["Hooks"]
+       81 GETTABLEKS                       R12 R12 K21 ["useSortFilter"]
+       83 CALL                             R11 1 1
+       84 GETIMPORT                        R12 K5 [require]
+       86 GETTABLEKS                       R13 R0 K9 ["Src"]
+       88 GETTABLEKS                       R13 R13 K19 ["Hooks"]
+       90 GETTABLEKS                       R13 R13 K22 ["useSearchInfo"]
+       92 CALL                             R12 1 1
+       93 GETIMPORT                        R13 K5 [require]
+       95 GETTABLEKS                       R14 R0 K9 ["Src"]
+       97 GETTABLEKS                       R14 R14 K23 ["Flags"]
+       99 GETTABLEKS                       R14 R14 K24 ["getFFlagAmrOrganizationFoundation"]
+      101 CALL                             R13 1 1
+      102 DUPCLOSURE                       R14 K25 [PROTO_2]
+      103 CAPTURE                          VAL R6
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R10
+      107 CAPTURE                          VAL R3
+      108 CAPTURE                          VAL R11
+      109 CAPTURE                          VAL R9
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R2
+      113 CAPTURE                          VAL R13
+      114 RETURN                           R14 1

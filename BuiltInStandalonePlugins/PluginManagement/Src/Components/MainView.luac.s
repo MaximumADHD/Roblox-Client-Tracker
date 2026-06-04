@@ -341,60 +341,61 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R2 R0 K5 ["Bin"]
-       13 GETTABLEKS                       R2 R2 K6 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K7 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K8 ["Roact"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R4 R0 K7 ["Packages"]
-       27 GETTABLEKS                       R4 R4 K9 ["RoactRodux"]
-       29 CALL                             R3 1 1
-       30 GETIMPORT                        R4 K4 [require]
-       32 GETTABLEKS                       R5 R0 K7 ["Packages"]
-       34 GETTABLEKS                       R5 R5 K10 ["Framework"]
-       36 CALL                             R4 1 1
-       37 GETTABLEKS                       R4 R4 K11 ["ContextServices"]
-       39 GETTABLEKS                       R5 R4 K12 ["withContext"]
-       41 GETIMPORT                        R6 K4 [require]
-       43 GETTABLEKS                       R7 R0 K13 ["Src"]
-       45 GETTABLEKS                       R7 R7 K14 ["Constants"]
-       47 GETTABLEKS                       R7 R7 K15 ["PluginInstalledStatus"]
-       49 CALL                             R6 1 1
-       50 GETTABLEKS                       R7 R2 K16 ["Component"]
-       52 LOADK                            R9 K17 ["MainView"]
-       53 NAMECALL                         R7 R7 K18 ["extend"]
-       55 CALL                             R7 2 1
-       56 DUPCLOSURE                       R8 K19 [PROTO_0]
-       57 CAPTURE                          VAL R2
-       58 SETTABLEKS                       R8 R7 K20 ["renderContentNotReady"]
-       60 DUPCLOSURE                       R8 K21 [PROTO_1]
-       61 CAPTURE                          VAL R2
-       62 SETTABLEKS                       R8 R7 K22 ["renderInstallSuccess"]
-       64 DUPCLOSURE                       R8 K23 [PROTO_2]
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          VAL R2
-       67 SETTABLEKS                       R8 R7 K24 ["renderInstallProgress"]
-       69 DUPCLOSURE                       R8 K25 [PROTO_3]
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R2
-       73 SETTABLEKS                       R8 R7 K26 ["render"]
-       75 MOVE                             R8 R5
-       76 DUPTABLE                         R9 K29 [{"Localization", "Stylizer"}]
-       77 GETTABLEKS                       R10 R4 K27 ["Localization"]
-       79 SETTABLEKS                       R10 R9 K27 ["Localization"]
-       81 GETTABLEKS                       R10 R4 K28 ["Stylizer"]
-       83 SETTABLEKS                       R10 R9 K28 ["Stylizer"]
-       85 CALL                             R8 1 1
-       86 MOVE                             R9 R7
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Roact"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["RoactRodux"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K4 [require]
+       34 GETTABLEKS                       R5 R0 K8 ["Packages"]
+       36 GETTABLEKS                       R5 R5 K11 ["Framework"]
+       38 CALL                             R4 1 1
+       39 GETTABLEKS                       R4 R4 K12 ["ContextServices"]
+       41 GETTABLEKS                       R5 R4 K13 ["withContext"]
+       43 GETIMPORT                        R6 K4 [require]
+       45 GETTABLEKS                       R7 R0 K5 ["Src"]
+       47 GETTABLEKS                       R7 R7 K14 ["Constants"]
+       49 GETTABLEKS                       R7 R7 K15 ["PluginInstalledStatus"]
+       51 CALL                             R6 1 1
+       52 GETTABLEKS                       R7 R2 K16 ["Component"]
+       54 LOADK                            R9 K17 ["MainView"]
+       55 NAMECALL                         R7 R7 K18 ["extend"]
+       57 CALL                             R7 2 1
+       58 DUPCLOSURE                       R8 K19 [PROTO_0]
+       59 CAPTURE                          VAL R2
+       60 SETTABLEKS                       R8 R7 K20 ["renderContentNotReady"]
+       62 DUPCLOSURE                       R8 K21 [PROTO_1]
+       63 CAPTURE                          VAL R2
+       64 SETTABLEKS                       R8 R7 K22 ["renderInstallSuccess"]
+       66 DUPCLOSURE                       R8 K23 [PROTO_2]
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R2
+       69 SETTABLEKS                       R8 R7 K24 ["renderInstallProgress"]
+       71 DUPCLOSURE                       R8 K25 [PROTO_3]
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          VAL R6
+       74 CAPTURE                          VAL R2
+       75 SETTABLEKS                       R8 R7 K26 ["render"]
+       77 MOVE                             R8 R5
+       78 DUPTABLE                         R9 K29 [{"Localization", "Stylizer"}]
+       79 GETTABLEKS                       R10 R4 K27 ["Localization"]
+       81 SETTABLEKS                       R10 R9 K27 ["Localization"]
+       83 GETTABLEKS                       R10 R4 K28 ["Stylizer"]
+       85 SETTABLEKS                       R10 R9 K28 ["Stylizer"]
        87 CALL                             R8 1 1
-       88 MOVE                             R7 R8
-       89 GETTABLEKS                       R8 R3 K30 ["connect"]
-       91 DUPCLOSURE                       R9 K31 [PROTO_4]
-       92 CALL                             R8 1 1
-       93 MOVE                             R9 R7
-       94 CALL                             R8 1 -1
-       95 RETURN                           R8 -1
+       88 MOVE                             R9 R7
+       89 CALL                             R8 1 1
+       90 MOVE                             R7 R8
+       91 GETTABLEKS                       R8 R3 K30 ["connect"]
+       93 DUPCLOSURE                       R9 K31 [PROTO_4]
+       94 CALL                             R8 1 1
+       95 MOVE                             R9 R7
+       96 CALL                             R8 1 -1
+       97 RETURN                           R8 -1
