@@ -1364,6 +1364,24 @@
                         "DynamicGeneration"
                     ],
                     "MemberType": "Function",
+                    "Name": "Clear",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
+                    "MemberType": "Function",
                     "Name": "Destroy",
                     "Parameters": [
                     ],
@@ -5315,27 +5333,6 @@
                         "AvatarAppearance"
                     ],
                     "MemberType": "Event",
-                    "Name": "ServerEquipAccoutrement",
-                    "Parameters": [
-                        {
-                            "Name": "character",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxSecurity",
-                    "Tags": [
-                        "Hidden"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "AvatarAppearance"
-                    ],
-                    "MemberType": "Event",
                     "Name": "ServerUnequipAccoutrement",
                     "Parameters": [
                         {
@@ -7405,6 +7402,33 @@
                     "Capabilities": {
                         "Read": [
                             "Animation"
+                        ],
+                        "Write": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimationContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
                         ]
                     },
                     "Category": "Data",
@@ -7880,8 +7904,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -7910,8 +7934,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -9399,6 +9423,7 @@
                         "Name": "Variant"
                     },
                     "Security": "None",
+                    "SimulationAccess": true,
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -9545,6 +9570,7 @@
                         "Name": "null"
                     },
                     "Security": "None",
+                    "SimulationAccess": true,
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -9708,6 +9734,702 @@
         },
         {
             "Members": [
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata0",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata1",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata2",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata3",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata4",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata5",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata6",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackMetadata7",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackMetadata"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState0",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState1",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState2",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState3",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState4",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState5",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState6",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackPlayState7",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackPlayState"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight0",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight1",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight2",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight3",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight4",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight5",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight6",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Animation"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "AnimTrackWeight7",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "SimulationAccess": true,
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "AnimTrackWeight"
+                    }
+                },
                 {
                     "Capabilities": {
                         "Read": [
@@ -27899,6 +28621,14 @@
                                 "Category": "Primitive",
                                 "Name": "int64"
                             }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "profileConfiguration",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -29909,8 +30639,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -29946,8 +30676,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -29978,8 +30708,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -30087,8 +30817,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -30120,8 +30850,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -34159,6 +34889,33 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ],
+                        "Write": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "TextureContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -50807,6 +51564,33 @@
                     "Capabilities": {
                         "Read": [
                             "Basic"
+                        ],
+                        "Write": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "MeshContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
                         ]
                     },
                     "Category": "Data",
@@ -50825,6 +51609,33 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ],
+                        "Write": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "TextureContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -65013,8 +65824,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -65038,8 +65849,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -72738,6 +73549,35 @@
                     "Capabilities": {
                         "Read": [
                             "Audio",
+                            "UI",
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
+                    "Category": "Video",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "InternalVideoUsage",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "InternalVideoUsage"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
                             "UI"
                         ]
                     },
@@ -73671,9 +74511,13 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -74324,6 +75168,28 @@
                     "Capabilities": [
                         "UI"
                     ],
+                    "MemberType": "Function",
+                    "Name": "OverrideStudioAction",
+                    "Parameters": [
+                        {
+                            "Name": "studioAction",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "StudioAction"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "StudioActionOverride"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "InputBegan",
                     "Parameters": [
@@ -74950,6 +75816,33 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ],
+                        "Write": [
+                            "UI"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "FallbackImageContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -76472,6 +77365,9 @@
                         "Read": [
                             "Basic",
                             "UI"
+                        ],
+                        "Write": [
+                            "Basic"
                         ]
                     },
                     "Category": "Data",
@@ -76490,6 +77386,34 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic",
+                            "UI"
+                        ],
+                        "Write": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "ImageContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -79680,8 +80604,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -79702,8 +80626,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -82575,6 +83499,28 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "RequestAccessTokenScopesAsync",
+                    "Parameters": [
+                        {
+                            "Name": "requiredScopes",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Secret"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "Capabilities": [
                         "Network"
                     ],
@@ -85082,28 +86028,6 @@
                         "Name": "null"
                     },
                     "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ApplyDescriptionClientServer",
-                    "Parameters": [
-                        {
-                            "Name": "humanoidDescription",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "HumanoidDescription"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -92969,8 +93893,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -92996,8 +93920,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -94728,8 +95652,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -94758,8 +95682,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -99915,6 +100839,38 @@
                 },
                 {
                     "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetNPCInferenceSpecAsync",
+                    "Parameters": [
+                        {
+                            "Name": "server",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "port",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
                         "Basic",
                         "InternalTest"
                     ],
@@ -99934,6 +100890,45 @@
                         "Name": "null"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "RunNPCInferenceAsync",
+                    "Parameters": [
+                        {
+                            "Name": "server",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "port",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "features",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -100592,6 +101587,65 @@
                     "Parameters": [
                         {
                             "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptNativePurchaseWithLocalPlayerWithPaymentSessionId",
+                    "Parameters": [
+                        {
+                            "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "paymentSessionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptNativePurchaseWithPaymentSessionId",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "paymentSessionId",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -102155,8 +103209,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -102902,6 +103956,70 @@
                         },
                         {
                             "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptNativePurchaseRequestedWithLocalPlayerWithPaymentSessionId",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "paymentSessionId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptNativePurchaseRequestedWithPaymentSessionId",
+                    "Parameters": [
+                        {
+                            "Name": "player",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "productId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "paymentSessionId",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -114877,28 +115995,6 @@
                         "Environment"
                     ],
                     "MemberType": "Function",
-                    "Name": "GetBaseMaterialSlotIndex",
-                    "Parameters": [
-                        {
-                            "Name": "baseMaterial",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "Material"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int?"
-                    },
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Environment"
-                    ],
-                    "MemberType": "Function",
                     "Name": "GetCell",
                     "Parameters": [
                         {
@@ -114931,21 +116027,6 @@
                     "Tags": [
                         "Deprecated"
                     ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Environment"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "GetFirstCustomMaterialSlotIndex",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -117326,16 +118407,12 @@
                     "Name": "TriangleCount",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -123581,6 +124658,68 @@
                         ]
                     },
                     "Category": "Link",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "PackageContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "AssetRead"
+                        ],
+                        "Write": [
+                            "AssetRead"
+                        ]
+                    },
+                    "Category": "Link",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "PackageContentSerialize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "AssetRead"
+                        ],
+                        "Write": [
+                            "AssetRead"
+                        ]
+                    },
+                    "Category": "Link",
                     "Default": "0",
                     "MemberType": "Property",
                     "Name": "PackageGuid",
@@ -125284,6 +126423,33 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ],
+                        "Write": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "TextureContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -129956,6 +131122,30 @@
                     "Category": "Data",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
+                    "Name": "User",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "User"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Players"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
                     "Name": "UserId",
                     "Security": {
                         "Read": "None",
@@ -131634,8 +132824,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -131661,8 +132851,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -131692,8 +132882,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -131999,8 +133189,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -134092,7 +135282,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "cframe",
                             "Type": {
                                 "Category": "DataType",
@@ -134653,8 +135843,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135176,8 +136366,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135206,8 +136396,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135232,8 +136422,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135257,8 +136447,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135283,8 +136473,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135309,8 +136499,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135392,8 +136582,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135423,8 +136613,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135448,8 +136638,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -135498,8 +136688,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -143286,8 +144476,8 @@
                     "MemberType": "Property",
                     "Name": "AutoFRMLevel",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143305,8 +144495,8 @@
                     "MemberType": "Property",
                     "Name": "EagerBulkExecution",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143324,8 +144514,8 @@
                     "MemberType": "Property",
                     "Name": "EditQualityLevel",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143343,8 +144533,8 @@
                     "MemberType": "Property",
                     "Name": "EnableFRM",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143366,8 +144556,8 @@
                     "MemberType": "Property",
                     "Name": "Enable VR Mode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143385,8 +144575,8 @@
                     "MemberType": "Property",
                     "Name": "ExportMergeByMaterial",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143404,8 +144594,8 @@
                     "MemberType": "Property",
                     "Name": "FrameRateManager",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143423,8 +144613,8 @@
                     "MemberType": "Property",
                     "Name": "GraphicsMode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143442,8 +144632,8 @@
                     "MemberType": "Property",
                     "Name": "MeshCacheSize",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143461,8 +144651,8 @@
                     "MemberType": "Property",
                     "Name": "MeshPartDetailLevel",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143480,8 +144670,8 @@
                     "MemberType": "Property",
                     "Name": "QualityLevel",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143499,8 +144689,8 @@
                     "MemberType": "Property",
                     "Name": "ReloadAssets",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143518,8 +144708,8 @@
                     "MemberType": "Property",
                     "Name": "RenderCSGTrianglesDebug",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143537,8 +144727,8 @@
                     "MemberType": "Property",
                     "Name": "ShowBoundingBoxes",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143556,8 +144746,8 @@
                     "MemberType": "Property",
                     "Name": "ViewMode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -143578,7 +144768,7 @@
                         "Category": "Primitive",
                         "Name": "int"
                     },
-                    "Security": "None",
+                    "Security": "PluginSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -146298,6 +147488,33 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ],
+                        "Write": [
+                            "UI"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "CameraButtonIconContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -153062,6 +154279,49 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "GetTintMode",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "SlimTintMode"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetTintMode",
+                    "Parameters": [
+                        {
+                            "Name": "mode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "SlimTintMode"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SlimDebugSettings",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Event",
                     "Name": "ServerUpdateEntities",
                     "Parameters": [
@@ -153837,11 +155097,11 @@
                             }
                         },
                         {
-                            "Default": "0",
+                            "Default": "U1.AQAAAAAAAAAAAAAAAAAAAAA",
                             "Name": "recipientId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -158111,6 +159371,14 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "shouldSkipSafetyChecks",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -160504,8 +161772,8 @@
                     "MemberType": "Property",
                     "Name": "ActionOnStopSync",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160523,8 +161791,8 @@
                     "MemberType": "Property",
                     "Name": "Active Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160542,8 +161810,8 @@
                     "MemberType": "Property",
                     "Name": "Active Hover Over Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160561,8 +161829,8 @@
                     "MemberType": "Property",
                     "Name": "Always Save Script Changes",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160580,8 +161848,8 @@
                     "MemberType": "Property",
                     "Name": "Animate Hover Over",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160637,8 +161905,8 @@
                     "MemberType": "Property",
                     "Name": "Auto Clean Empty Line",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160656,8 +161924,8 @@
                     "MemberType": "Property",
                     "Name": "Auto Closing Brackets",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160675,8 +161943,8 @@
                     "MemberType": "Property",
                     "Name": "Auto Closing Quotes",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160694,8 +161962,8 @@
                     "MemberType": "Property",
                     "Name": "Auto Delete Closing Brackets and Quotes",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160713,8 +161981,8 @@
                     "MemberType": "Property",
                     "Name": "Auto Indent Rule",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160732,8 +162000,8 @@
                     "MemberType": "Property",
                     "Name": "Auto-Recovery Enabled",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160751,8 +162019,8 @@
                     "MemberType": "Property",
                     "Name": "Auto-Recovery Interval (Minutes)",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160808,8 +162076,8 @@
                     "MemberType": "Property",
                     "Name": "Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -160830,8 +162098,8 @@
                     "MemberType": "Property",
                     "Name": "Basic Objects Display Mode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -160849,8 +162117,8 @@
                     "MemberType": "Property",
                     "Name": "Bool Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -160871,8 +162139,8 @@
                     "MemberType": "Property",
                     "Name": "Bracket Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -160893,8 +162161,8 @@
                     "MemberType": "Property",
                     "Name": "Built-in Function Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -161086,8 +162354,8 @@
                     "MemberType": "Property",
                     "Name": "Camera Mouse Wheel Speed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161124,8 +162392,8 @@
                     "MemberType": "Property",
                     "Name": "Camera Shift Speed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161143,8 +162411,8 @@
                     "MemberType": "Property",
                     "Name": "Camera Speed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161181,8 +162449,8 @@
                     "MemberType": "Property",
                     "Name": "Camera Zoom to Mouse Position",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161200,8 +162468,8 @@
                     "MemberType": "Property",
                     "Name": "Clear Output On Start",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161252,13 +162520,32 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "CommandBarHistoryLen",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
                     "Category": "Lua Debugger",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
                     "Name": "CommandBarLocalState",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161276,8 +162563,8 @@
                     "MemberType": "Property",
                     "Name": "Comment Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -161298,8 +162585,8 @@
                     "MemberType": "Property",
                     "Name": "Current Line Highlight Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -161320,8 +162607,8 @@
                     "MemberType": "Property",
                     "Name": "Debugger Current Line Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -161342,8 +162629,8 @@
                     "MemberType": "Property",
                     "Name": "Debugger Error Line Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -161402,8 +162689,8 @@
                     "MemberType": "Property",
                     "Name": "DeprecatedObjectsShown",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161904,8 +163191,8 @@
                     "MemberType": "Property",
                     "Name": "Enable Autocomplete",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161942,8 +163229,8 @@
                     "MemberType": "Property",
                     "Name": "Enable CoreScript Debugger",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161961,8 +163248,8 @@
                     "MemberType": "Property",
                     "Name": "Enable Http Sandboxing",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161980,8 +163267,8 @@
                     "MemberType": "Property",
                     "Name": "Enable Internal Beta Features",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -161999,8 +163286,8 @@
                     "MemberType": "Property",
                     "Name": "Enable Internal Features",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162094,8 +163381,8 @@
                     "MemberType": "Property",
                     "Name": "Enable Temporary Tabs",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162113,8 +163400,8 @@
                     "MemberType": "Property",
                     "Name": "Enable Temporary Tabs In Explorer",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162151,8 +163438,8 @@
                     "MemberType": "Property",
                     "Name": "Error Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162211,8 +163498,8 @@
                     "MemberType": "Property",
                     "Name": "Find Selection Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162233,8 +163520,8 @@
                     "MemberType": "Property",
                     "Name": "Font",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162252,8 +163539,8 @@
                     "MemberType": "Property",
                     "Name": "Format On Paste",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162271,8 +163558,8 @@
                     "MemberType": "Property",
                     "Name": "Format On Type",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162290,8 +163577,8 @@
                     "MemberType": "Property",
                     "Name": "Function Name Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162312,8 +163599,8 @@
                     "MemberType": "Property",
                     "Name": "Highlight Current Line",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162331,8 +163618,8 @@
                     "MemberType": "Property",
                     "Name": "Highlight Occurances",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162350,8 +163637,8 @@
                     "MemberType": "Property",
                     "Name": "HintColor",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162372,8 +163659,8 @@
                     "MemberType": "Property",
                     "Name": "Hover Animate Speed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162429,8 +163716,8 @@
                     "MemberType": "Property",
                     "Name": "Hover Over Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162467,8 +163754,8 @@
                     "MemberType": "Property",
                     "Name": "Indent Using Spaces",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162508,8 +163795,8 @@
                     "MemberType": "Property",
                     "Name": "InformationColor",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162530,8 +163817,8 @@
                     "MemberType": "Property",
                     "Name": "Keyword Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162590,8 +163877,8 @@
                     "MemberType": "Property",
                     "Name": "Line Thickness",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162685,8 +163972,8 @@
                     "MemberType": "Property",
                     "Name": "LuaDebuggerEnabled",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162704,8 +163991,8 @@
                     "MemberType": "Property",
                     "Name": "LuaDebuggerEnabledAtStartup",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162728,8 +164015,8 @@
                     "MemberType": "Property",
                     "Name": "Luau Keyword Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162769,8 +164056,8 @@
                     "MemberType": "Property",
                     "Name": "Matching Word Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162810,8 +164097,8 @@
                     "MemberType": "Property",
                     "Name": "Maximum Output Lines",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162829,8 +164116,8 @@
                     "MemberType": "Property",
                     "Name": "Menu Item Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162851,8 +164138,8 @@
                     "MemberType": "Property",
                     "Name": "Method Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162873,8 +164160,8 @@
                     "MemberType": "Property",
                     "Name": "Number Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162895,8 +164182,8 @@
                     "MemberType": "Property",
                     "Name": "Only Play Audio from Window in Focus",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162914,8 +164201,8 @@
                     "MemberType": "Property",
                     "Name": "Operator Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -162936,8 +164223,8 @@
                     "MemberType": "Property",
                     "Name": "Output Font",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162955,8 +164242,8 @@
                     "MemberType": "Property",
                     "Name": "Output Layout Mode",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -162974,8 +164261,8 @@
                     "MemberType": "Property",
                     "Name": "PermissionLevelShown",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163031,8 +164318,8 @@
                     "MemberType": "Property",
                     "Name": "PluginDebuggingEnabled",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163050,8 +164337,8 @@
                     "MemberType": "Property",
                     "Name": "PluginsDir",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163069,8 +164356,8 @@
                     "MemberType": "Property",
                     "Name": "PreferredTextSize",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163088,8 +164375,8 @@
                     "MemberType": "Property",
                     "Name": "Primary Text Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163110,8 +164397,8 @@
                     "MemberType": "Property",
                     "Name": "Property Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163170,8 +164457,8 @@
                     "MemberType": "Property",
                     "Name": "Respect Studio shortcuts when game has focus",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163189,8 +164476,8 @@
                     "MemberType": "Property",
                     "Name": "Ruler Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163211,8 +164498,8 @@
                     "MemberType": "Property",
                     "Name": "Rulers",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163230,8 +164517,8 @@
                     "MemberType": "Property",
                     "Name": "RuntimeUndoBehavior",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163295,8 +164582,8 @@
                     "MemberType": "Property",
                     "Name": "ScriptTimeoutLength",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163314,8 +164601,8 @@
                     "MemberType": "Property",
                     "Name": "Script Editor Color Preset",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163333,8 +164620,8 @@
                     "MemberType": "Property",
                     "Name": "Script Editor Scrollbar Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163355,8 +164642,8 @@
                     "MemberType": "Property",
                     "Name": "Script Editor Scrollbar Handle Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163377,8 +164664,8 @@
                     "MemberType": "Property",
                     "Name": "Scroll Past Last Line",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163396,8 +164683,8 @@
                     "MemberType": "Property",
                     "Name": "Secondary Text Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163418,8 +164705,8 @@
                     "MemberType": "Property",
                     "Name": "Select Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163437,8 +164724,8 @@
                     "MemberType": "Property",
                     "Name": "Select/Hover Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163456,8 +164743,8 @@
                     "MemberType": "Property",
                     "Name": "Selected Menu Item Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163478,8 +164765,8 @@
                     "MemberType": "Property",
                     "Name": "Selected Text Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163500,8 +164787,8 @@
                     "MemberType": "Property",
                     "Name": "Selection Background Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163541,8 +164828,8 @@
                     "MemberType": "Property",
                     "Name": "Selection Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163582,8 +164869,8 @@
                     "MemberType": "Property",
                     "Name": "Set Pivot of Imported Parts",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163620,8 +164907,8 @@
                     "MemberType": "Property",
                     "Name": "Show Core GUI in Explorer while Playing",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163639,8 +164926,8 @@
                     "MemberType": "Property",
                     "Name": "Show Diagnostics Bar",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163658,8 +164945,8 @@
                     "MemberType": "Property",
                     "Name": "Show FileSyncService",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163677,8 +164964,8 @@
                     "MemberType": "Property",
                     "Name": "Show Hidden Objects in Explorer",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163696,8 +164983,8 @@
                     "MemberType": "Property",
                     "Name": "Show Hover Over",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163753,8 +165040,8 @@
                     "MemberType": "Property",
                     "Name": "Show Navigation Mesh",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163791,8 +165078,8 @@
                     "MemberType": "Property",
                     "Name": "Show Plugin GUI Service in Explorer",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163829,8 +165116,8 @@
                     "MemberType": "Property",
                     "Name": "Show Whitespace",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163848,8 +165135,8 @@
                     "MemberType": "Property",
                     "Name": "Show plus button on hover in Explorer",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163867,8 +165154,8 @@
                     "MemberType": "Property",
                     "Name": "Skip Closing Brackets and Quotes",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163886,8 +165173,8 @@
                     "MemberType": "Property",
                     "Name": "String Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163908,8 +165195,8 @@
                     "MemberType": "Property",
                     "Name": "\"TODO\" Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163930,8 +165217,8 @@
                     "MemberType": "Property",
                     "Name": "Tab Width",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163949,8 +165236,8 @@
                     "MemberType": "Property",
                     "Name": "Text Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -163971,8 +165258,8 @@
                     "MemberType": "Property",
                     "Name": "Text Wrapping",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -163990,8 +165277,8 @@
                     "MemberType": "Property",
                     "Name": "Theme",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164009,8 +165296,8 @@
                     "MemberType": "Property",
                     "Name": "TypeColor",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164031,8 +165318,8 @@
                     "MemberType": "Property",
                     "Name": "UI Theme",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164113,8 +165400,8 @@
                     "MemberType": "Property",
                     "Name": "Warning Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164135,8 +165422,8 @@
                     "MemberType": "Property",
                     "Name": "Whitespace Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164214,8 +165501,8 @@
                     "MemberType": "Property",
                     "Name": "\"function\" Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164236,8 +165523,8 @@
                     "MemberType": "Property",
                     "Name": "\"local\" Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164258,8 +165545,8 @@
                     "MemberType": "Property",
                     "Name": "\"nil\" Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -164280,8 +165567,8 @@
                     "MemberType": "Property",
                     "Name": "\"self\" Color",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -167614,6 +168901,13 @@
                     "MemberType": "Event",
                     "Name": "OnImportFromRoblox",
                     "Parameters": [
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
                     ],
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -168325,7 +169619,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "",
+                    "Default": "\u0002",
                     "MemberType": "Property",
                     "Name": "PropertyTransitionsSerialize",
                     "Security": {
@@ -171122,8 +172416,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -173510,8 +174804,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -173553,6 +174847,39 @@
                         "Name": "TextChatMessage"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SendInternalAsync",
+                    "Parameters": [
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "metadata",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "TextChatMessage"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -175692,6 +177019,34 @@
                     "Category": "Data",
                     "Default": "",
                     "MemberType": "Property",
+                    "Name": "PrefixTextInternal",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
                     "Name": "PresetChatVersion",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -175870,6 +177225,34 @@
                         ]
                     },
                     "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "TextInternal",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
                     "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "TextSource",
@@ -175929,6 +177312,34 @@
                         "CanLoad": false,
                         "CanSave": false
                     },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "TranslationInternal",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -176688,6 +178099,13 @@
                                 "Category": "Primitive",
                                 "Name": "int"
                             }
+                        },
+                        {
+                            "Name": "extras",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary?"
+                            }
                         }
                     ],
                     "ReturnType": {
@@ -176832,8 +178250,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -176857,15 +178275,15 @@
                         {
                             "Name": "userIdFrom",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
                             "Name": "userIdTo",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -176889,8 +178307,8 @@
                         {
                             "Name": "requesterUserId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
@@ -176921,15 +178339,15 @@
                         {
                             "Name": "fromUserId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         },
                         {
                             "Name": "toUserId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -179856,6 +181274,33 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "ContentId"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Basic"
+                        ],
+                        "Write": [
+                            "Basic"
+                        ]
+                    },
+                    "Category": "Appearance",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "TextureContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -192020,6 +193465,35 @@
                     "Capabilities": {
                         "Read": [
                             "Audio",
+                            "UI",
+                            "InternalTest"
+                        ],
+                        "Write": [
+                            "InternalTest"
+                        ]
+                    },
+                    "Category": "Playback",
+                    "Default": "Default",
+                    "MemberType": "Property",
+                    "Name": "InternalVideoUsage",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "InternalVideoUsage"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
                             "UI"
                         ],
                         "Write": [
@@ -193481,7 +194955,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -193508,7 +194982,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -193535,7 +195009,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -193562,7 +195036,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -193601,7 +195075,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -193628,7 +195102,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -193655,7 +195129,7 @@
                             }
                         },
                         {
-                            "Default": "Identity",
+                            "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                             "Name": "camera",
                             "Type": {
                                 "Category": "DataType",
@@ -195112,8 +196586,8 @@
                         {
                             "Name": "userId",
                             "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
+                                "Category": "DataType",
+                                "Name": "User"
                             }
                         }
                     ],
@@ -197566,6 +199040,102 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "PluginConnection",
+            "Superclass": "Object",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_failed_to_create_class__",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_failed_to_create_class__",
+                    "MemberType": "Property",
+                    "Name": "Released",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_failed_to_create_class__",
+                    "MemberType": "Property",
+                    "Name": "StudioAction",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "StudioAction"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Release",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Triggered",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioActionOverride",
             "Superclass": "Object",
             "Tags": [
                 "NotCreatable",
@@ -201179,6 +202749,14 @@
                 {
                     "Name": "OutsideOwnerAgeBucket",
                     "Value": 7
+                },
+                {
+                    "Name": "NotAuthorized",
+                    "Value": 8
+                },
+                {
+                    "Name": "OutsideAgeBucketTcPc",
+                    "Value": 9
                 }
             ],
             "Name": "CanCollaborateError"
@@ -201621,6 +203199,10 @@
                 {
                     "Name": "OutOfMemory",
                     "Value": 5
+                },
+                {
+                    "Name": "Moderation",
+                    "Value": 6
                 }
             ],
             "Name": "CloseReason"
@@ -202284,6 +203866,26 @@
                     "Value": 316
                 },
                 {
+                    "Name": "DisconnectRemoteAttestationUnsupported",
+                    "Value": 317
+                },
+                {
+                    "Name": "DisconnectRemoteAttestationGeneralFailure",
+                    "Value": 318
+                },
+                {
+                    "Name": "DisconnectRemoteAttestationTimeout",
+                    "Value": 319
+                },
+                {
+                    "Name": "DisconnectRemoteAttestationOSOutOfDate",
+                    "Value": 320
+                },
+                {
+                    "Name": "DisconnectRemoteAttestationBootValidationFailure",
+                    "Value": 321
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -202354,6 +203956,10 @@
                 {
                     "Name": "PlacelaunchCoreGated",
                     "Value": 544
+                },
+                {
+                    "Name": "PlacelaunchCollaborationCoreGated",
+                    "Value": 545
                 },
                 {
                     "Name": "PlacelaunchCreatorBan",
@@ -205874,6 +207480,23 @@
                 }
             ],
             "Name": "IntermediateMeshGenerationResult"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "WatchPage",
+                    "Value": 1
+                },
+                {
+                    "Name": "HomeCarousel",
+                    "Value": 2
+                }
+            ],
+            "Name": "InternalVideoUsage"
         },
         {
             "Items": [
@@ -211860,6 +213483,35 @@
         {
             "Items": [
                 {
+                    "Name": "None",
+                    "Value": 0
+                },
+                {
+                    "Name": "LOD",
+                    "Value": 1
+                },
+                {
+                    "Name": "Meshes",
+                    "Value": 2
+                },
+                {
+                    "Name": "MeshResourcePtr",
+                    "Value": 3
+                },
+                {
+                    "Name": "ContentId",
+                    "Value": 4
+                },
+                {
+                    "Name": "Zone",
+                    "Value": 5
+                }
+            ],
+            "Name": "SlimTintMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Capsule",
                     "Value": 5
                 },
@@ -212182,6 +213834,39 @@
                 }
             ],
             "Name": "StrokeSizingMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Undo",
+                    "Value": 0
+                },
+                {
+                    "Name": "Redo",
+                    "Value": 1
+                },
+                {
+                    "Name": "SelectAll",
+                    "Value": 2
+                },
+                {
+                    "Name": "DeleteSelected",
+                    "Value": 3
+                },
+                {
+                    "Name": "Copy",
+                    "Value": 61
+                },
+                {
+                    "Name": "Cut",
+                    "Value": 62
+                },
+                {
+                    "Name": "Paste",
+                    "Value": 63
+                }
+            ],
+            "Name": "StudioAction"
         },
         {
             "Items": [

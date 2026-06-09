@@ -920,6 +920,7 @@
     "documentation": "Represents a reference to asset content stored externally or as an object within the place.",
     "keys": {
       "fromUri": "@roblox/global/Content.fromUri",
+      "fromAssetId": "@roblox/global/Content.fromAssetId",
       "fromObject": "@roblox/global/Content.fromObject",
       "none": "@roblox/global/Content.none"
     },
@@ -939,6 +940,21 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content#fromUri",
+    "code_sample": ""
+  },
+  "@roblox/global/Content.fromAssetId/param/0": {
+    "documentation": "The numeric asset ID."
+  },
+  "@roblox/global/Content.fromAssetId": {
+    "documentation": "Returns a new <code>Content</code> from a numeric asset ID.",
+    "params": [
+      {
+        "name": "assetId",
+        "documentation": "@roblox/global/Content.fromAssetId/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Content#fromAssetId",
     "code_sample": ""
   },
   "@roblox/global/Content.fromObject/param/0": {
@@ -17233,7 +17249,7 @@
     "documentation": "True if the user has the badge."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>BadgeService:UserHasBadgeAsync()</code> which should be used for new instead.<br>Checks whether a user has the badge given the <code>Player.UserId</code> and the badge ID.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>BadgeService:UserHasBadgeAsync()</code> which should be used for new work instead.<br>Checks whether a user has the badge given the <code>Player.UserId</code> and the badge ID.",
     "params": [
       {
         "name": "self",
@@ -17928,13 +17944,13 @@
     "documentation": "The abstract base class for in-world objects that physically interact."
   },
   "@roblox/globaltype/BasePart.GetClosestPointOnSurface/param/1": {
-    "documentation": ""
+    "documentation": "The world-space point to find the closest surface point to."
   },
   "@roblox/globaltype/BasePart.GetClosestPointOnSurface/return/0": {
-    "documentation": ""
+    "documentation": "The closest point on the part's surface in world space."
   },
   "@roblox/globaltype/BasePart.GetClosestPointOnSurface": {
-    "documentation": "",
+    "documentation": "Returns the closest point on the part's surface to the given point.",
     "params": [
       {
         "name": "self",
@@ -29767,7 +29783,8 @@
       "Offset": "@roblox/globaltype/UIShadow.Offset",
       "Spread": "@roblox/globaltype/UIShadow.Spread",
       "Transparency": "@roblox/globaltype/UIShadow.Transparency",
-      "ZIndex": "@roblox/globaltype/UIShadow.ZIndex"
+      "ZIndex": "@roblox/globaltype/UIShadow.ZIndex",
+      "Enabled": "@roblox/globaltype/UIShadow.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow",
     "code_sample": ""
@@ -29800,6 +29817,11 @@
   "@roblox/globaltype/UIShadow.ZIndex": {
     "documentation": "Determines the shadow's render order relative to sibling <code>UIShadow</code> instances.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Enabled": {
+    "documentation": "Determines whether the <code>UIShadow</code> is visible.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService": {
@@ -38020,7 +38042,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images.",
+    "documentation": "Object which allows for the runtime creation and manipulation of images.",
     "keys": {
       "Size": "@roblox/globaltype/EditableImage.Size",
       "Destroy": "@roblox/globaltype/EditableImage.Destroy",
@@ -38042,7 +38064,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.Destroy/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.Destroy": {
     "documentation": "",
@@ -38057,7 +38079,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.DrawCircle/param/1": {
     "documentation": "Center of the circle, relative to the top-left corner of the <code>EditableImage</code>. Positions outside the canvas bounds are allowed."
@@ -38114,7 +38136,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.DrawImage/param/1": {
     "documentation": "Position at which the top-left corner of the added image will be drawn."
@@ -38150,7 +38172,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/1": {
     "documentation": "The <code>EditableMesh</code> used to project into."
@@ -38186,7 +38208,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.DrawImageTransformed/param/1": {
     "documentation": "Position in pixels where the pivot point of the source image will be placed on this image."
@@ -38236,7 +38258,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.DrawLine/param/1": {
     "documentation": "Start point of the line."
@@ -38293,7 +38315,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.DrawRectangle/param/1": {
     "documentation": "Position of the top-left of the rectangle. Unlike other drawing methods, this cannot be outside the canvas bounds of the <code>EditableImage</code>."
@@ -38343,7 +38365,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.ReadPixelsBuffer/param/1": {
     "documentation": "Top-left corner of the rectangular region of pixels to read."
@@ -38377,7 +38399,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of images."
+    "documentation": "Object which allows for the runtime creation and manipulation of images."
   },
   "@roblox/globaltype/EditableImage.WritePixelsBuffer/param/1": {
     "documentation": "Top-left corner of the rectangular region to draw the pixels into."
@@ -47011,6 +47033,7 @@
       "userId": "@roblox/globaltype/Player.userId",
       "AddReplicationFocus": "@roblox/globaltype/Player.AddReplicationFocus",
       "ClearCharacterAppearance": "@roblox/globaltype/Player.ClearCharacterAppearance",
+      "ClearCachedAvatarAppearance": "@roblox/globaltype/Player.ClearCachedAvatarAppearance",
       "DistanceFromCharacter": "@roblox/globaltype/Player.DistanceFromCharacter",
       "GetFriendsOnline": "@roblox/globaltype/Player.GetFriendsOnline",
       "GetFriendsOnlineAsync": "@roblox/globaltype/Player.GetFriendsOnlineAsync",
@@ -47284,6 +47307,21 @@
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ClearCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"removed from character\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors removed from character\n--> ShirtGraphic removed from character\n--> Shirt removed from character\n--> Pants removed from character\n--> CharacterMesh removed from character\n--> Hat removed from character\n--> Shirt removed from character"
+  },
+  "@roblox/globaltype/Player.ClearCachedAvatarAppearance/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.ClearCachedAvatarAppearance": {
+    "documentation": "Clears the cached avatar appearance for the player, forcing a fresh fetch from the backend on the next respawn.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.ClearCachedAvatarAppearance/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ClearCachedAvatarAppearance",
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -57852,7 +57890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BasePlayerGui": {
-    "documentation": "The BasePlayerGui is an abstract class which the GUI drawing storage classes inherit from.",
+    "documentation": "<code>BasePlayerGui</code> is an abstract class which the GUI drawing storage classes inherit from.",
     "keys": {
       "GetGuiObjectsAtPosition": "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition"
     },
@@ -57860,13 +57898,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/param/0": {
-    "documentation": "The BasePlayerGui is an abstract class which the GUI drawing storage classes inherit from."
+    "documentation": "<code>BasePlayerGui</code> is an abstract class which the GUI drawing storage classes inherit from."
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/param/1": {
-    "documentation": "The x position on the screen relative to the top left corner after the <code>GuiInset</code> is applied."
+    "documentation": "The <strong>X</strong> position on the screen relative to the top-left corner after the GUI inset is applied (see <code>GuiService:GetGuiInset()</code>)."
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/param/2": {
-    "documentation": "The y position on the screen relative to the top left corner after the <code>GuiInset</code> is applied."
+    "documentation": "The <strong>Y</strong> position on the screen relative to the top-left corner after the GUI inset is applied (see <code>GuiService:GetGuiInset()</code>)."
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/return/0": {
     "documentation": "A table of the <code>GuiObject</code> instances that occupy the given screen space."
@@ -61389,7 +61427,7 @@
     "documentation": "Options table containing controls for the method: <ul> <li><code>FixedSize</code> – A <code>bool</code>. Default value is <code>true</code>, and the returned   <code>EditableMesh</code> will not allow you to add or remove vertices,   only modify their values. Set to <code>false</code> if the ability to change   the mesh topology is required, at the expense of using more memory.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync/return/0": {
-    "documentation": "The new <code>EditableMesh</code> instance."
+    "documentation": "The new <code>EditableMesh</code> object."
   },
   "@roblox/globaltype/AssetService.CreateEditableMeshAsync": {
     "documentation": "Returns a new <code>EditableMesh</code> object created from an existing mesh content ID.",
@@ -66656,7 +66694,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes.",
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes.",
     "keys": {
       "FixedSize": "@roblox/globaltype/EditableMesh.FixedSize",
       "AddBone": "@roblox/globaltype/EditableMesh.AddBone",
@@ -66753,7 +66791,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddBone/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.AddBone/param/1": {
     "documentation": "Options table containing bone parameters: <ul> <li><code>Name</code> — A string that specifies the bone name. Note that all bone   names in a mesh must be unique.</li> <li><code>ParentId</code> — Optional bone ID of the new bone's parent.</li> <li><code>CFrame</code> — Initial <code>CFrame</code> of the bone in the bind pose of   the mesh, in the mesh's local space.</li> <li><code>Virtual</code> — Boolean that specifies whether this bone is virtual.   Virtual bones can only be bound to a <code>FaceControls</code> instance.</li> </ul>"
@@ -66780,7 +66818,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.AddColor/param/1": {
     "documentation": "The new color."
@@ -66814,7 +66852,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.AddNormal/param/1": {
     "documentation": "The normal vector. If the normal value isn't specified, the normal will be automatically calculated."
@@ -66841,7 +66879,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.AddTriangle/param/1": {
     "documentation": "ID of the first vertex of the triangle."
@@ -66882,7 +66920,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.AddUV/param/1": {
     "documentation": "The new UV coordinate."
@@ -66909,7 +66947,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.AddVertex/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.AddVertex/param/1": {
     "documentation": "Position in the mesh's local object space."
@@ -66936,7 +66974,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Destroy/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.Destroy": {
     "documentation": "Destroys the mesh.",
@@ -66951,7 +66989,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.FindClosestPointOnSurface/param/1": {
     "documentation": "Point position in the mesh's local object space."
@@ -66978,7 +67016,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.FindClosestVertex/param/1": {
     "documentation": "Point position in the mesh's local object space."
@@ -67005,7 +67043,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.FindVerticesWithinSphere/param/1": {
     "documentation": "Center of the sphere in the mesh's local object space."
@@ -67039,7 +67077,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentFaces/param/1": {
     "documentation": ""
@@ -67066,7 +67104,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetAdjacentVertices/param/1": {
     "documentation": "Vertex ID around which to get adjacent vertices."
@@ -67093,7 +67131,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetBoneByName/param/1": {
     "documentation": "Bone name to search for."
@@ -67120,7 +67158,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetBoneCFrame/param/1": {
     "documentation": "Bone ID for which to get the <code>CFrame</code>."
@@ -67147,7 +67185,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetBoneIsVirtual/param/1": {
     "documentation": "Bone ID for which to get whether the bone is virtual."
@@ -67174,7 +67212,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetBoneName/param/1": {
     "documentation": "Bone ID for which to get the name."
@@ -67201,7 +67239,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetBoneParent/param/1": {
     "documentation": "Bone ID for which to get the parent."
@@ -67228,7 +67266,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetBones/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetBones/return/0": {
     "documentation": "List of stable bone IDs."
@@ -67248,7 +67286,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetCenter/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetCenter/return/0": {
     "documentation": "Center of the bounding box of the <code>EditableMesh</code>."
@@ -67268,7 +67306,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetColor/param/1": {
     "documentation": "Color ID for which to get the color."
@@ -67295,7 +67333,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetColorAlpha/param/1": {
     "documentation": "Color ID for which to get the alpha."
@@ -67322,7 +67360,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetColors/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetColors/return/0": {
     "documentation": "List of stable color IDs."
@@ -67342,7 +67380,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFaceColors/param/1": {
     "documentation": "Face ID for which to get the color IDs."
@@ -67369,7 +67407,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFaceNormals/param/1": {
     "documentation": "Face ID for which to get the normal IDs."
@@ -67396,7 +67434,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFaces/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFaces/return/0": {
     "documentation": "List of stable face IDs."
@@ -67416,7 +67454,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithAttribute/param/1": {
     "documentation": "Attribute ID for which to find faces that use it."
@@ -67443,7 +67481,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithColor/param/1": {
     "documentation": "Color ID to find faces for."
@@ -67470,7 +67508,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithNormal/param/1": {
     "documentation": "Normal ID to find faces for."
@@ -67497,7 +67535,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacesWithUV/param/1": {
     "documentation": "UV ID to find faces for."
@@ -67524,7 +67562,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFaceUVs/param/1": {
     "documentation": "Face ID for which to get the UV IDs."
@@ -67551,7 +67589,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFaceVertices/param/1": {
     "documentation": ""
@@ -67578,7 +67616,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePose/param/1": {
     "documentation": "Array or 2 or 3 <code>FacsActionUnit</code> values that specify a corrective pose."
@@ -67605,7 +67643,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacsCorrectivePoses/return/0": {
     "documentation": "Array of corrective poses. Each corrective pose is specified by a small array of 2 or 3 <code>FacsActionUnit</code> values."
@@ -67625,7 +67663,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPose/param/1": {
     "documentation": "FACS action unit for which to get the pose."
@@ -67652,7 +67690,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetFacsPoses/return/0": {
     "documentation": "Array of <code>FacsActionUnit</code>, one for each FACS action unit that has a pose defined."
@@ -67672,7 +67710,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetNormal/param/1": {
     "documentation": "Normal ID for which to get the normal vector."
@@ -67699,7 +67737,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetNormals/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetNormals/return/0": {
     "documentation": "List of stable normal IDs."
@@ -67719,7 +67757,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetPosition/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetPosition/param/1": {
     "documentation": "Stable vertex ID for which to get the position."
@@ -67746,7 +67784,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetSize/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetSize/return/0": {
     "documentation": "Size of the <code>EditableMesh</code>."
@@ -67766,7 +67804,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetUV/param/1": {
     "documentation": "UV ID for which to get the UV coordinate."
@@ -67793,7 +67831,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetUVs/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetUVs/return/0": {
     "documentation": "List of stable UV IDs."
@@ -67813,7 +67851,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBones/param/1": {
     "documentation": "Vertex ID for which to get the associated bones."
@@ -67840,7 +67878,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexBoneWeights/param/1": {
     "documentation": "Vertex ID for which to get the associated bone weights."
@@ -67867,7 +67905,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexColors/param/1": {
     "documentation": "Stable vertex ID to find color IDs."
@@ -67894,7 +67932,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceColor/param/1": {
     "documentation": "Stable vertex ID."
@@ -67928,7 +67966,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceNormal/param/1": {
     "documentation": "Stable vertex ID."
@@ -67962,7 +68000,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaces/param/1": {
     "documentation": "Stable vertex ID to find faces for."
@@ -67989,7 +68027,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexFaceUV/param/1": {
     "documentation": "Stable vertex ID."
@@ -68023,7 +68061,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexNormals/param/1": {
     "documentation": "Stable vertex ID to find normal IDs."
@@ -68050,7 +68088,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertexUVs/param/1": {
     "documentation": "Stable vertex ID to find UV IDs."
@@ -68077,7 +68115,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVertices/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVertices/return/0": {
     "documentation": "List of stable vertex IDs."
@@ -68097,7 +68135,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithAttribute/param/1": {
     "documentation": "Attribute ID for which to find vertices that use it."
@@ -68124,7 +68162,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithColor/param/1": {
     "documentation": "Color ID to find faces for."
@@ -68151,7 +68189,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithNormal/param/1": {
     "documentation": "Normal ID to find vertices for."
@@ -68178,7 +68216,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.GetVerticesWithUV/param/1": {
     "documentation": "UV ID to find vertices for."
@@ -68205,7 +68243,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.IdDebugString/param/1": {
     "documentation": "ID for which to return a debugging information string."
@@ -68232,7 +68270,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.MergeVertices/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.MergeVertices/param/1": {
     "documentation": "The distance at which the vertices are considered to touch each other."
@@ -68259,7 +68297,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.RaycastLocal/param/1": {
     "documentation": "Origin of the ray in the mesh's local object space."
@@ -68293,7 +68331,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.RemoveBone/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.RemoveBone/param/1": {
     "documentation": ""
@@ -68315,7 +68353,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.RemoveFace/param/1": {
     "documentation": ""
@@ -68337,7 +68375,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.RemoveUnused/return/0": {
     "documentation": "All of the removed stable IDs."
@@ -68357,7 +68395,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.ResetNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.ResetNormal/param/1": {
     "documentation": "Stable normal ID to reset."
@@ -68379,7 +68417,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetBoneCFrame/param/1": {
     "documentation": "Bone ID for which to set the initial <code>CFrame</code>."
@@ -68408,7 +68446,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetBoneIsVirtual/param/1": {
     "documentation": "Bone ID for which to set whether the bone is virtual."
@@ -68437,7 +68475,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetBoneName/param/1": {
     "documentation": "Bone ID for which to set the name."
@@ -68466,7 +68504,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetBoneParent/param/1": {
     "documentation": "Bone ID for which to set the parent."
@@ -68495,7 +68533,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetColor/param/1": {
     "documentation": "Stable color ID for which to set the color."
@@ -68524,7 +68562,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetColorAlpha/param/1": {
     "documentation": "Stable color ID for which to set the color alpha."
@@ -68553,7 +68591,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFaceColors/param/1": {
     "documentation": "Face ID for which to update the vertex colors."
@@ -68582,7 +68620,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFaceNormals/param/1": {
     "documentation": "Face ID for which to update the vertex normals."
@@ -68611,7 +68649,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFaceUVs/param/1": {
     "documentation": "Face ID for which to update the vertex UVs."
@@ -68640,7 +68678,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFaceVertices/param/1": {
     "documentation": "Face ID for which to update the vertices."
@@ -68669,7 +68707,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFacsBonePose/param/1": {
     "documentation": "FACS action unit for which to set the pose."
@@ -68705,7 +68743,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFacsCorrectivePose/param/1": {
     "documentation": "Array or 2 or 3 <code>FacsActionUnit</code> values to apply as a corrective pose."
@@ -68741,7 +68779,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetFacsPose/param/1": {
     "documentation": "FACS action unit to set the pose for."
@@ -68777,7 +68815,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetNormal/param/1": {
     "documentation": "Stable normal ID for which to set the normal vector."
@@ -68806,7 +68844,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetPosition/param/1": {
     "documentation": "Stable vertex ID of the vertex to position."
@@ -68835,7 +68873,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetUV/param/1": {
     "documentation": "UV ID for which to set the UV coordinates."
@@ -68864,7 +68902,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBones/param/1": {
     "documentation": "Vertex ID to set vertex skinning bones."
@@ -68893,7 +68931,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetVertexBoneWeights/param/1": {
     "documentation": "Vertex ID on which to set skinning blend weights."
@@ -68922,7 +68960,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceColor/param/1": {
     "documentation": "Stable vertex ID."
@@ -68958,7 +68996,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceNormal/param/1": {
     "documentation": "Stable vertex ID."
@@ -68994,7 +69032,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.SetVertexFaceUV/param/1": {
     "documentation": "Stable vertex ID."
@@ -69030,7 +69068,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/EditableMesh.Triangulate/param/0": {
-    "documentation": "Instance which allows for the runtime creation and manipulation of meshes."
+    "documentation": "Object which allows for the runtime creation and manipulation of meshes."
   },
   "@roblox/globaltype/EditableMesh.Triangulate": {
     "documentation": "Splits all faces on the mesh to be triangles.",
@@ -81066,7 +81104,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextBox.TextEditable": {
-    "documentation": "Determines whether the user can change the <code>Text</code>.",
+    "documentation": "Determines whether the player can change the <code>Text</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextBox#TextEditable",
     "code_sample": ""
   },
@@ -81436,7 +81474,7 @@
     "returns": []
   },
   "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard": {
-    "documentation": "",
+    "documentation": "Fires when the <code>TextBox</code> is focused and the player presses the on-screen keyboard's return/enter button.",
     "keys": {
       "Connect": "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.Connect",
       "ConnectParallel": "@roblox/globaltype/TextBox.ReturnPressedFromOnScreenKeyboard.ConnectParallel",
@@ -88145,6 +88183,12 @@
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/2": {
     "documentation": "The <code>RigType</code> that the outfit will be created for if the player confirms the prompt."
   },
+  "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/3": {
+    "documentation": "Reserved for future options. Must be empty or omitted."
+  },
+  "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/4": {
+    "documentation": "Optional <code>OutfitType</code>. Only <code>Avatar</code> and <code>Makeup</code> values are accepted. When omitted, the type is inferred from the description."
+  },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit": {
     "documentation": "Prompts the <code>Players.LocalPlayer</code> to save the given <code>HumanoidDescription</code> as an outfit.",
     "params": [
@@ -88159,6 +88203,14 @@
       {
         "name": "rigType",
         "documentation": "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/2"
+      },
+      {
+        "name": "outfitOptions",
+        "documentation": "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/3"
+      },
+      {
+        "name": "outfitType",
+        "documentation": "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/4"
       }
     ],
     "returns": [],
@@ -99542,7 +99594,7 @@
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
   "@roblox/globaltype/Players.BanAsync/param/1": {
-    "documentation": "<ul> <li> <code>UserIds</code> (required; array) — Array of <code>UserIds</code>   of players to be banned. Max size is <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (optional; boolean) — Whether ban propagates to   all places within the experience universe. Default is <code>true</code>. </li> <li> <code>Duration</code> (required; integer) — Duration of the ban, in seconds.   Permanent bans should have a value of <code>-1</code>. <code>0</code> and all other   negative values are invalid. </li> <li> <code>DisplayReason</code> (required; string) — The message that will be   displayed to users when they attempt to and fail to join an   experience. Maximum string length is <code>400</code>. </li> <li> <code>PrivateReason</code> (required; string) — Internal messaging that will be   returned when querying the user's ban history. Maximum string length   is <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (optional; boolean) — When <code>true</code>, Roblox does   not attempt to ban alt accounts. Default is <code>false</code>. </li> </ul>"
+    "documentation": "<ul> <li> <code>UserIds</code> (required; array) — Array of <code>UserIds</code>   of players to be banned. Max size is <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (optional; boolean) — Whether ban propagates to   all places within the experience universe. Default is <code>true</code>. </li> <li> <code>Duration</code> (required; integer) — Duration of the ban, in seconds.   Permanent bans should have a value of <code>-1</code>. <code>0</code> and all other   negative values are invalid. </li> <li> <code>DisplayReason</code> (required; string) — The message that will be   displayed to users when they attempt to and fail to join an   experience. Maximum string length is <code>400</code>. </li> <li> <code>PrivateReason</code> (required; string) — Internal messaging that will be   returned when querying the user's ban history. Maximum string length   is <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (optional; boolean) — When <code>true</code>, Roblox does   not attempt to ban alternate accounts. Default is <code>false</code>. </li> <li> <code>ApplyDeviceBlock</code> (optional; boolean) — When <code>true</code>, Roblox will   block banned users' devices from rejoining the experience for 24   hours after the ban is applied. Default is <code>false</code>. </li> </ul>"
   },
   "@roblox/globaltype/Players.BanAsync": {
     "documentation": "Bans users from your experience, with options to specify duration, reason, whether the ban applies to the entire universe or just the current place, and more. This method is enabled and disabled by the <code>Players.BanningEnabled</code> property, which you can toggle in Studio.",
@@ -148397,7 +148449,7 @@
     "documentation": ""
   },
   "@roblox/global/elapsedTime": {
-    "documentation": "Returns the amount of time in seconds that the current instance of Roblox has been running for.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the amount of time in seconds that the current instance of Roblox has been running for.",
     "params": [],
     "returns": [
       "@roblox/global/elapsedTime/return/0"
@@ -148531,7 +148583,7 @@
     "documentation": ""
   },
   "@roblox/global/version": {
-    "documentation": "Returns the current version of Roblox as a string, which includes the generation, version, patch and commit.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the current version of Roblox as a string, which includes the generation, version, patch and commit.",
     "params": [],
     "returns": [
       "@roblox/global/version/return/0"
