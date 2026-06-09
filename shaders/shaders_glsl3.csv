@@ -208,6 +208,7 @@ DefaultUnifiedPlasticReflectionVS_20001006,Vertex
 DefaultUnifiedPlasticReflectionVS_20100001,Vertex
 DefaultUnifiedPlasticReflectionVS_20100007,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
+DepthCaptureFS,Fragment
 DepthResolveMax2FS,Fragment
 DepthResolveMax4FS,Fragment
 DepthResolveMin2FS,Fragment

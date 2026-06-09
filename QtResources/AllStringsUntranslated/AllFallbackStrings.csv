@@ -6065,7 +6065,7 @@ Studio.BetaFeatures.MultitouchSimulationTitle,Title for the Multi-touch Simulati
 Studio.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds 8 new base materials.
 Studio.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Materials
 Studio.BetaFeatures.NewCameraControlsDescription,,Enables improved camera controls for Studio.,Enables improved camera controls for Studio.
-Studio.BetaFeatures.NewCameraControlsTitle,,New Studio Camera Controls,New Studio Camera Controls
+Studio.BetaFeatures.NewCameraControlsTitle,"Name of a camera controls beta. There are two versions of the beta, same naming but ""V1"" vs ""V2"".",Studio Camera Controls (V1),Studio Camera Controls (V1)
 Studio.BetaFeatures.NewDockingDescription,,"New docking logic that allows undocking of the 3D Viewport and addresses docking corruption glitches and issues. Please note when enabled, this will start with a new layout. Your old layout will be restored if you disable this feature.","New docking logic that allows undocking of the 3D Viewport and addresses docking corruption glitches and issues. Please note when enabled, this will start with a new layout. Your old layout will be restored if you disable this feature."
 Studio.BetaFeatures.NewDockingTitle,,Updated Docking System,Updated Docking System
 Studio.BetaFeatures.NewExperiencesEnableTeamCreate,,New experiences enable Team Create,New experiences enable Team Create
@@ -6151,6 +6151,8 @@ Studio.BetaFeatures.ScriptSyncTitle,,Script Sync [Early Preview],Script Sync [Ea
 Studio.BetaFeatures.ScriptSyncTitle2,Title for the Script Sync beta feature,Script Sync,Script Sync
 Studio.BetaFeatures.ScrollEventOverhaulDescription,Description of beta feature.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.,Allow inputObject.Position.Z for MouseWheel events to take any floating point value improving trackpad input.
 Studio.BetaFeatures.ScrollEventOverhaulTitle,Title of beta feature which improves trackpad scrolling.,Scroll Event Overhaul,Scroll Event Overhaul
+Studio.BetaFeatures.SecondAttemptCameraControlsDescription,Description of a new Studio camera controls beta.,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
+Studio.BetaFeatures.SecondAttemptCameraControlsTitle,"Name of a Studio camera controls beta. There are two versions, named the same but ""V1"" vs ""V2""",Studio Camera Controls (V2),Studio Camera Controls (V2)
 Studio.BetaFeatures.SegmentByPartsDescription,beta feature description,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
 Studio.BetaFeatures.SegmentByPartsTitle,beta feature description,Segment by Parts,Segment by Parts
 Studio.BetaFeatures.SelectFeaturesToActivate,,Select beta features to activate,Select beta features to activate
@@ -6290,6 +6292,7 @@ Studio.CommandBar.ExecuteWithEnterProperty,A setting to allow the user to execut
 Studio.CommandBar.ExecutionOption.Local,Commands will execute locally (as opposed to on the TeamCreate Server),Local Execution,Local Execution
 Studio.CommandBar.ExecutionOption.Remote,Commands will execute remotely on the TeamCreate Server.,Cloud Execution,Cloud Execution
 Studio.CommandBar.FontProperty,Font property for the Command Bar as it appears in the settings menu,Font,Font
+Studio.CommandBar.HistoryLenProperty,A setting to change the number of most recently executed commands to save.,Command History Length,Command History Length
 Studio.CommandBar.Label.CommandBarRun,Proper noun for a singular run of a command within the command bar,Command Bar Run,Command Bar Run
 Studio.CommandBar.Label.CommandHistoryTooltip,"Tooltip for button that, when clicked, pulls up the command history drawer within command bar, which includes recent and saved commands ran within the bar previously.",Command history,Command history
 Studio.CommandBar.Label.ExecuteCommandTooltip,"Tooltip label for executing (same as running) a command, where the ""%1"" is a placeholder for a keyboard shortcut explainer",Execute command %1,Execute command %1
