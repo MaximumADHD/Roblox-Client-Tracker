@@ -1,4 +1,5 @@
 #version 150
+#extension GL_ARB_shader_bit_encoding : require
 
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
@@ -37,7 +38,8 @@ void main()
         f2 = vec2(float(f5) - gl_FragCoord.y, gl_FragCoord.x);
         break;
     } while(false);
-    _entryPointOutput = vec4(clamp(f1 + ((((textureLod(Texture6Texture, vec4(fract((f2 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 2.0) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f1 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f1)))), vec3(0.0), vec3(1.0)), 1.0);
+    uint f6 = floatBitsToUint(CB1[16].w);
+    _entryPointOutput = vec4(clamp(f1 + ((((vec3(uvec3((textureLod(Texture6Texture, vec4(fract((f2 * CB1[17].xy) + CB1[16].xy), 0.0, 0.0).xy, 0.0).xyz * 255.0) + vec3(0.5)) ^ uvec3(f6 & 255u, (f6 >> 8u) & 255u, (f6 >> 16u) & 255u)) * 0.007843137718737125396728515625) - vec3(1.0)) * CB1[16].z) * (vec3(CB1[17].z) + ((f1 * ((1.0 - CB1[17].z) * 4.0)) * (vec3(1.0) - f1)))), vec3(0.0), vec3(1.0)), 1.0);
 }
 
 //$$Texture6Texture=s6
