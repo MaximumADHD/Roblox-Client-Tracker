@@ -83,6 +83,8 @@ export type BaseMenuItem = Package.BaseMenuItem
 export type BaseMenuItems<Item = BaseMenuItem> = Package.BaseMenuItems<Item > 
 export type BaseMenuItemGroup<Item = BaseMenuItem> = Package.BaseMenuItemGroup<Item > 
 export type ButtonProps = Package.ButtonProps
+export type ButtonGroupProps = Package.ButtonGroupProps
+export type ButtonGroupItem = Package.ButtonGroupItem
 export type CheckboxProps = Package.CheckboxProps
 export type CoachmarkProps = Package.CoachmarkProps
 export type EducationalTooltipProps = Package.EducationalTooltipProps

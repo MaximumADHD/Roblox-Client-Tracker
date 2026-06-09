@@ -3,8 +3,6 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local ScrollView = require(Foundation.Components.ScrollView)
 local Types = require(Foundation.Components.Types)
 local Visibility = require(Foundation.Enums.Visibility)
@@ -34,17 +32,13 @@ local function DialogContent(props: DialogContentProps)
 			scroll = {
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
-				scrollBarVisibility = if Flags.FoundationDialogContentScrollbarFix
-					then if hasOverflowY then Visibility.Auto else Visibility.None
-					else nil,
+				scrollBarVisibility = if hasOverflowY then Visibility.Auto else Visibility.None,
 			},
-			layout = if Flags.FoundationDialogContentScrollbarLayout
-				then {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalFlex = Enum.UIFlexAlignment.Fill,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}
-				else nil,
+			layout = {
+				FillDirection = Enum.FillDirection.Vertical,
+				HorizontalFlex = Enum.UIFlexAlignment.Fill,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			},
 			selection = {
 				Selectable = selectable,
 				NextSelectionUp = props.NextSelectionUp,
@@ -58,11 +52,9 @@ local function DialogContent(props: DialogContentProps)
 		}),
 		{
 			ScrollPadding = React.createElement("UIPadding", {
-				PaddingRight = if Flags.FoundationDialogContentScrollbarLayout
-					then scrollBarPadding:map(function(value: number)
-						return UDim.new(0, value)
-					end)
-					else UDim.new(0, scrollBarPadding :: never),
+				PaddingRight = scrollBarPadding:map(function(value: number)
+					return UDim.new(0, value)
+				end),
 			}),
 			ScrollContent = React.createElement(React.Fragment, nil, props.children),
 		}

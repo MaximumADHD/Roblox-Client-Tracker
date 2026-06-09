@@ -8,6 +8,8 @@ local InputField = require(Components.InputField)
 local InternalTextInput = require(Components.InternalTextInput)
 local Types = require(Foundation.Components.Types)
 
+local Flags = require(Foundation.Utility.Flags)
+local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -45,6 +47,7 @@ local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?
 		withCommonProps(props, {
 			width = if props.width then props.width else nil,
 			label = props.label,
+			size = if Flags.FoundationTextInputsBetaUpdate then getInputTextSize(props.size) else nil,
 			hint = props.hint,
 			hasError = props.hasError,
 			isDisabled = props.isDisabled,

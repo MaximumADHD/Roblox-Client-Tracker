@@ -149,7 +149,6 @@ local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatCli
 
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
-local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local FFlagEnableCrossExpVoiceDebug = game:DefineFastFlag("EnableCrossExpVoiceDebug", false)
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
@@ -678,25 +677,13 @@ local function validateSetup()
 
 	if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 		local VoiceChatService = game:FindService("VoiceChatService")
-		if FFlagAlwaysJoinWhenUsingAudioAPI then
-			if not VoiceChatService then
-				log:info("VoiceChatService not found. Assuming default values.")
-				-- We only don't want to early out when the new audio API is enabled
-			elseif not VoiceChatService.EnableDefaultVoice and not VoiceChatService.UseNewAudioApi then
-				log:debug("Default channel is disabled.")
-				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
-				return false
-			end
-		else
-			if not VoiceChatService then
-				log:info("VoiceChatService not found. Assuming default values.")
-			elseif not VoiceChatService.EnableDefaultVoice then
-				log:debug("Default channel is disabled.")
-				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
-				return false
-			end
+		if not VoiceChatService then
+			log:info("VoiceChatService not found. Assuming default values.")
+		elseif not VoiceChatService.EnableDefaultVoice and not VoiceChatService.UseNewAudioApi then
+			log:debug("Default channel is disabled.")
+			Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+			notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
+			return false
 		end
 	end
 	return true

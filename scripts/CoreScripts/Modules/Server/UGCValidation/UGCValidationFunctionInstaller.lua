@@ -4,6 +4,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local UGCValidation = require(CorePackages.Packages.UGCValidation)
 local EngineFeatureUGCValidationWithContextEntrypoint =
 	game:GetEngineFeature("UGCValidationWithContextEntrypointFeature")
+local FFlagUGCValidateMigrateSchemaProperties = game:DefineFastFlag("UGCValidateMigrateSchemaProperties", false)
 
 local function UGCValidationFunction(args)
 	local objectInstances = args["instances"]
@@ -87,6 +88,12 @@ local function UGCValidationFunction(args)
 		local valConfigs = {
 			source = (isServer and "InExpServer" or "InExpClient") :: any,
 			enforceR15FolderStructure = requireAllFolders or false,
+			iecConfigs = if FFlagUGCValidateMigrateSchemaProperties
+				then {
+					token = token,
+					universeId = universeId,
+				}
+				else nil,
 		}
 
 		local validationData

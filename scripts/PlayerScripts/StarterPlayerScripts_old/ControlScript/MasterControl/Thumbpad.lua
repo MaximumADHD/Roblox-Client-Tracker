@@ -1,4 +1,5 @@
 --!nonstrict
+--!nolint DeprecatedApi
 --[[
 	// FileName: Thumbpad
 	// Version 1.0

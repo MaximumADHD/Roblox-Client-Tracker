@@ -5,8 +5,6 @@ local ValidationRulesUtil = require(root.util.ValidationRulesUtil)
 
 local flags = root.flags
 local getEngineUGCValidateAssetTextureLimits = require(flags.getEngineUGCValidateAssetTextureLimits)
-local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
-
 local ConstantsInterface = {}
 
 function ConstantsInterface.isBodyPart(assetTypeEnum: Enum.AssetType): boolean
@@ -99,7 +97,7 @@ function ConstantsInterface.getTextureLimit(
 		end
 	end
 
-	local getDecalTextureLimits = getFFlagUGCValidationMakeupSupport() and inst:IsA("Decal")
+	local getDecalTextureLimits = inst:IsA("Decal")
 	if inst:IsA("SurfaceAppearance") or getDecalTextureLimits then
 		if propertyName == "ColorMap" then
 			return assetTextureLimits.ColorMapSize

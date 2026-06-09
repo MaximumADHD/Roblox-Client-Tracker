@@ -14,6 +14,7 @@ local ConnectionUtil = CommonUtils.get("ConnectionUtil")
 local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
+local FFlagUserPlayerScriptsRefactor1 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor1")
 
 local Players = game:GetService("Players")
 
@@ -23,6 +24,7 @@ local avatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationB
 	else nil
 
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
+local JUMP_BUTTON_ZINDEX = 10
 local JUMP_BUTTON_IMAGES = {
 	"rbxasset://textures/ui/Input/JumpButtonRegular.png",
 	"rbxasset://textures/ui/Input/JumpButtonPressed.png"}
@@ -207,6 +209,9 @@ function TouchJump:Create()
 	self.jumpButton.Name = "JumpButton"
 	self.jumpButton.Visible = false
 	self.jumpButton.BackgroundTransparency = 1
+	if FFlagUserPlayerScriptsRefactor1 then
+		self.jumpButton.ZIndex = JUMP_BUTTON_ZINDEX
+	end
 
 	local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 		avatarAbilitiesInterface:isEnabled() else

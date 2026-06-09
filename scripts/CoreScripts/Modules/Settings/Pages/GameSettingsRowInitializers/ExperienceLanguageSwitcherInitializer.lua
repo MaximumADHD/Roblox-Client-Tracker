@@ -20,6 +20,59 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 
 local FFlagUgcLocaleFromGameJoinEnabled = game:GetEngineFeature("UgcLocaleFromGameJoinEnabled")
 
+-- This is statically populated by the default locale code stored in the backend Localization Service.
+-- In the longer term, we should consider exposing a default locale for language endpoint so that this mapping can be dynamically requested; in case new languages are released on platform.
+-- The static config is vulnerable to future changes to the list of languages and their default supported locales, so usage of default locale for the switcher should be coded defensively
+-- The massive upshot of this approach is saving on network traffic per client for a relatively harmless risk
+local languageCodeToDefaultLocaleCodeMapping = {
+  ["sq"] = "sq_al", -- Albanian
+  ["ar"] = "ar_001", -- Arabic
+  ["bn"] = "bn_bd", -- Bengali
+  ["nb"] = "nb_no", -- Bokmal
+  ["bs"] = "bs_ba", -- Bosnian
+  ["bg"] = "bg_bg", -- Bulgarian
+  ["my"] = "my_mm", -- Burmese
+  ["zh-hans"] = "zh_cn", -- Chinese (Simplified)
+  ["zh-hant"] = "zh_tw", -- Chinese (Traditional)
+  ["hr"] = "hr_hr", -- Croatian
+  ["cs"] = "cs_cz", -- Czech
+  ["da"] = "da_dk", -- Danish
+  ["nl"] = "nl_nl", -- Dutch
+  ["en"] = "en_us", -- English
+  ["et"] = "et_ee", -- Estonian
+  ["fil"] = "fil_ph", -- Filipino
+  ["fi"] = "fi_fi", -- Finnish
+  ["fr"] = "fr_fr", -- French
+  ["ka"] = "ka_ge", -- Georgian
+  ["de"] = "de_de", -- German
+  ["el"] = "el_gr", -- Greek
+  ["hi"] = "hi_in", -- Hindi
+  ["hu"] = "hu_hu", -- Hungarian
+  ["id"] = "id_id", -- Indonesian
+  ["it"] = "it_it", -- Italian
+  ["ja"] = "ja_jp", -- Japanese
+  ["kk"] = "kk_kz", -- Kazakh
+  ["km"] = "km_kh", -- Khmer
+  ["ko"] = "ko_kr", -- Korean
+  ["lv"] = "lv_lv", -- Latvian
+  ["lt"] = "lt_lt", -- Lithuanian
+  ["ms"] = "ms_my", -- Malay
+  ["pl"] = "pl_pl", -- Polish
+  ["pt"] = "pt_br", -- Portuguese
+  ["ro"] = "ro_ro", -- Romanian
+  ["ru"] = "ru_ru", -- Russian
+  ["sr"] = "sr_rs", -- Serbian
+  ["si"] = "si_lk", -- Sinhala
+  ["sk"] = "sk_sk", -- Slovak
+  ["sl"] = "sl_sl", -- Slovenian
+  ["es"] = "es_es", -- Spanish
+  ["sv"] = "sv_se", -- Swedish
+  ["th"] = "th_th", -- Thai
+  ["tr"] = "tr_tr", -- Turkish
+  ["uk"] = "uk_ua", -- Ukranian
+  ["vi"] = "vi_vn", -- Vietnamese
+}
+
 return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
   ------------------------------------------------------
   ------------------
@@ -39,59 +92,6 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
   local localeCodeMetadataMappings: { [string]: LocaleCodeMetadata } = {} -- Tracks important locale data keyed by locale code
   local localeIdToLocaleCodeMapping = { } -- Maps locale IDs ex: 3 to locale codes ex: fr_fr
 
-  -- This is statically populated by the default locale code stored in the backend Localization Service.
-  -- In the longer term, we should consider exposing a default locale for language endpoint so that this mapping can be dynamically requested; in case new languages are released on platform.
-  -- The static config is vulnerable to future changes to the list of languages and their default supported locales, so usage of default locale for the switcher should be coded defensively
-  -- The massive upshot of this approach is saving on network traffic per client for a relatively harmless risk
-  local languageCodeToDefaultLocaleCodeMapping = {
-    ["sq"] = "sq_al", -- Albanian
-    ["ar"] = "ar_001", -- Arabic
-    ["bn"] = "bn_bd", -- Bengali
-    ["nb"] = "nb_no", -- Bokmal
-    ["bs"] = "bs_ba", -- Bosnian
-    ["bg"] = "bg_bg", -- Bulgarian
-    ["my"] = "my_mm", -- Burmese
-    ["zh-hans"] = "zh_cn", -- Chinese (Simplified)
-    ["zh-hant"] = "zh_tw", -- Chinese (Traditional)
-    ["hr"] = "hr_hr", -- Croatian
-    ["cs"] = "cs_cz", -- Czech
-    ["da"] = "da_dk", -- Danish
-    ["nl"] = "nl_nl", -- Dutch
-    ["en"] = "en_us", -- English
-    ["et"] = "et_ee", -- Estonian
-    ["fil"] = "fil_ph", -- Filipino
-    ["fi"] = "fi_fi", -- Finnish
-    ["fr"] = "fr_fr", -- French
-    ["ka"] = "ka_ge", -- Georgian
-    ["de"] = "de_de", -- German
-    ["el"] = "el_gr", -- Greek
-    ["hi"] = "hi_in", -- Hindi
-    ["hu"] = "hu_hu", -- Hungarian
-    ["id"] = "id_id", -- Indonesian
-    ["it"] = "it_it", -- Italian
-    ["ja"] = "ja_jp", -- Japanese
-    ["kk"] = "kk_kz", -- Kazakh
-    ["km"] = "km_kh", -- Khmer
-    ["ko"] = "ko_kr", -- Korean
-    ["lv"] = "lv_lv", -- Latvian
-    ["lt"] = "lt_lt", -- Lithuanian
-    ["ms"] = "ms_my", -- Malay
-    ["pl"] = "pl_pl", -- Polish
-    ["pt"] = "pt_br", -- Portuguese
-    ["ro"] = "ro_ro", -- Romanian
-    ["ru"] = "ru_ru", -- Russian
-    ["sr"] = "sr_rs", -- Serbian
-    ["si"] = "si_lk", -- Sinhala
-    ["sk"] = "sk_sk", -- Slovak
-    ["sl"] = "sl_sl", -- Slovenian
-    ["es"] = "es_es", -- Spanish
-    ["sv"] = "sv_se", -- Swedish
-    ["th"] = "th_th", -- Thai
-    ["tr"] = "tr_tr", -- Turkish
-    ["uk"] = "uk_ua", -- Ukranian
-    ["vi"] = "vi_vn", -- Vietnamese
-  }
-  
   local languageIdToDefaultLocaleIdMapping = {} -- Maps a language id to the locale ID of the language's default locale for migration purposes
   -- Holds the dropdown option strings for the locale selection dropdown
   local localeOptions = {}

@@ -1,11 +1,15 @@
 local CorePackages = game:GetService("CorePackages")
+local LocalizationService = game:GetService("LocalizationService")
 
 local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local Promise = require(CorePackages.Packages.Promise)
 
 local helpers = require(script.Parent.ExpChatMessageHelpers)
 local getChannelTabsStore = ExpChat.Stores.GetChannelTabsStore
+
+local locales = Localization.new(LocalizationService.RobloxLocaleId)
 
 -- Loader descriptor for the abuse-report chat-selection dialog. Reads live
 -- message state from exp-chat's Redux store and groups messages by channel tab
@@ -28,16 +32,45 @@ return {
 		local byMessageId = messagesState.byMessageId or {}
 		local translator = ExpChatShared.context.translator
 
+		-- Creator custom channel tabs are disabled, but we still need to handle global and general tabs
 		if not helpers.areChannelTabsEnabled() then
-			local items = helpers.collectItems(byMessageId, messagesState.windowMessagesInOrder or {})
-			helpers.annotateWhisperItems(items, byMessageId)
-			if #items == 0 then
-				return Promise.resolve({})
+			local allMessageIds = messagesState.windowMessagesInOrder or {}
+			local generalMessageIds = {}
+			local globalMessageIds = {}
+
+			for _, messageId in ipairs(allMessageIds) do
+				local message = byMessageId[messageId]
+				if message then
+					if message.textChannel then
+						table.insert(generalMessageIds, messageId)
+					else
+						table.insert(globalMessageIds, messageId)
+					end
+				end
 			end
-			return Promise.resolve({
-				-- label not shown, so don't need to be localized
-				{ id = "all", label = "General", items = items },
-			})
+
+			local result = {}
+
+			local generalItems = helpers.collectItems(byMessageId, generalMessageIds)
+			helpers.annotateWhisperItems(generalItems, byMessageId)
+			if #generalItems > 0 then
+				table.insert(result, {
+					id = helpers.CHANNEL_GENERAL,
+					label = locales:Format("CoreScripts.TextChat.ChannelTabs.Here"), -- TODO: ExpChatShared should probably export this
+					items = generalItems,
+				})
+			end
+
+			local globalItems = helpers.collectItems(byMessageId, globalMessageIds)
+			if #globalItems > 0 then
+				table.insert(result, {
+					id = helpers.CHANNEL_GLOBAL,
+					label = locales:Format("CoreScripts.TextChat.ChannelTabs.Global2"),
+					items = globalItems,
+				})
+			end
+
+			return Promise.resolve(result)
 		end
 
 		local tabIds = messagesState.windowMessagesInOrderByTabId or {}

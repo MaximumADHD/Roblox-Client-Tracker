@@ -9,11 +9,12 @@ local createMakeupSchema = require(root.util.createMakeupSchema)
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local createEmoteSchema = require(root.util.createEmoteSchema)
+local createAnimationSchema = require(root.util.createAnimationSchema)
 local getUploadCategory = require(root.util.getUploadCategory)
 
-local getFFlagUGCValidateMakeupAssetTypeNewPipeline = require(root.flags.getFFlagUGCValidateMakeupAssetTypeNewPipeline)
 local getFFlagUGCValidateEyebrowEyelashThumbnailSchema =
 	require(root.flags.getFFlagUGCValidateEyebrowEyelashThumbnailSchema)
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 
 local CreateExpectedSchema = {}
 -- NOTE: We are not going to enforce the R15ArtistIntent name here. These schemas are for the root folder/instance, and not for the copy
@@ -100,18 +101,38 @@ local categoryToSchemaGenerator = {
 			return createAccessorySchema(assetInfo.attachmentNames)
 		end
 	end,
-	MAKEUP = if getFFlagUGCValidateMakeupAssetTypeNewPipeline()
-		then function(_assetEnum: Enum.AssetType, _rootInstance: Instance)
-			return createMakeupSchema()
-		end
-		else nil,
+	MAKEUP = function(_assetEnum: Enum.AssetType, _rootInstance: Instance)
+		return createMakeupSchema()
+	end,
 }
+
+if getFFlagUGCValidationAnimationPackSupport() then
+	categoryToSchemaGenerator.ANIMATION = function(assetEnum: Enum.AssetType, _rootInstance: Instance)
+		return createAnimationSchema(assetEnum)
+	end
+end
+
 function CreateExpectedSchema.generateAssetSchema(
 	uploadCategory: string,
 	assetEnum: Enum.AssetType,
 	rootInstance: Instance
 ): {}
 	return categoryToSchemaGenerator[uploadCategory](assetEnum, rootInstance)
+end
+
+function CreateExpectedSchema.generateAnimationPackBundleSchema(): { [string]: any }
+	local rootModelSchema = {
+		ClassName = "Model",
+		_children = {},
+	}
+	for _, info in Constants.ANIMATION_ASSET_INFO do
+		table.insert(rootModelSchema._children, {
+			ClassName = "Model",
+			Name = info.modelName,
+			_ignoreDescendants = true,
+		})
+	end
+	return rootModelSchema
 end
 
 return CreateExpectedSchema

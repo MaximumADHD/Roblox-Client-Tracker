@@ -7,6 +7,9 @@ local CreateExpectedSchema = require(root.util.CreateExpectedSchema)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local getFFlagUGCValidationExtendSchemaToIgnoreDescendants =
 	require(root.flags.getFFlagUGCValidationExtendSchemaToIgnoreDescendants)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local ExpectedRootSchema = {}
 
 ExpectedRootSchema.categories = Constants.AllUploadCategories
@@ -73,7 +76,7 @@ local function validateInstancesFromSchema(
 				ParentPath = instance:GetFullName(),
 				ExpectedClass = childSchema.ClassName,
 				ExpectedName = getReadableName(childSchema.Name),
-			})
+			}, if getEngineFeatureEngineUGCValidationExpandReturnSchema() then instance else nil)
 		end
 	end
 end
@@ -91,9 +94,11 @@ local function validateNoInstancesOutsideSchema(
 	end
 
 	if #unauthorizedDescendantPaths > 0 then
-		reporter:fail(ErrorSourceStrings.Keys.AssetSchemaUnexpectedItems, {
-			UnexpectedDescendantPaths = table.concat(unauthorizedDescendantPaths, ", "),
-		})
+		reporter:fail(
+			ErrorSourceStrings.Keys.AssetSchemaUnexpectedItems,
+			{ UnexpectedDescendantPaths = table.concat(unauthorizedDescendantPaths, ", ") },
+			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then instance else nil
+		)
 	end
 end
 
@@ -111,9 +116,13 @@ ExpectedRootSchema.run = function(reporter: Types.ValidationReporter, data: Type
 	local schema
 
 	if uploadEnum.bundleType then
-		-- For bundle uploads, we will recheck all the asset schemas and display an early abort message upon failure
-		local fullBodyData = data.entrypointInput :: Types.FullBodyData
-		schema = CreateExpectedSchema.generateBundleSchema(fullBodyData)
+		if getFFlagUGCValidationAnimationPackSupport() and uploadEnum.bundleType == Enum.BundleType.Animations then
+			schema = CreateExpectedSchema.generateAnimationPackBundleSchema()
+		else
+			-- For bundle uploads, we will recheck all the asset schemas and display an early abort message upon failure
+			local fullBodyData = data.entrypointInput :: Types.FullBodyData
+			schema = CreateExpectedSchema.generateBundleSchema(fullBodyData)
+		end
 	else
 		schema = CreateExpectedSchema.generateAssetSchema(category, uploadEnum.assetType, instance)
 	end

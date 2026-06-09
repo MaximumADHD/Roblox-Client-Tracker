@@ -173,6 +173,7 @@ local Flags = {
 
 	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
 	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
+	FFlagFixDisabledScrollOnIos = game:DefineFastFlag("FixDisabledScrollOnIos", false),
 
 	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
 	FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet,
@@ -448,6 +449,7 @@ local function CreateSettingsHub()
 	this.reactPageAnalytics = ReactPageAnalytics.new()
 
 	local pageChangeCon = nil
+	local pageViewCanvasLock = nil
 
 	local PoppedMenuEvent = Instance.new("BindableEvent")
 	PoppedMenuEvent.Name = "PoppedMenu"
@@ -2879,6 +2881,11 @@ local function CreateSettingsHub()
 			this.Pages.CurrentPage.Active = false
 		end
 
+		if Flags.FFlagFixDisabledScrollOnIos and pageViewCanvasLock ~= nil then
+			pageViewCanvasLock:Disconnect()
+			pageViewCanvasLock = nil
+		end
+
 		-- make sure all pages are in right position
 		local newPagePos = pageToSwitchTo.TabPosition
 		for page, _ in pairs(this.Pages.PageTable) do
@@ -2927,6 +2934,14 @@ local function CreateSettingsHub()
 				this.PageView.ScrollingEnabled = false
 				this.PageView.CanvasPosition = Vector2.new(0, 0)
 				this.PageView.CanvasSize = UDim2.new(1, 0, 1, 0)
+				-- Prevents iOS UIScrollView from scrolling despite ScrollingEnabled=false
+				if Flags.FFlagFixDisabledScrollOnIos then
+					pageViewCanvasLock = this.PageView:GetPropertyChangedSignal("CanvasPosition"):Connect(function()
+						if this.PageView.CanvasPosition.Magnitude > 0 then
+							this.PageView.CanvasPosition = Vector2.new(0, 0)
+						end
+					end)
+				end
 			else
 				this.PageView.ScrollBarThickness = Theme.DefaultScrollBarThickness
 				this.PageView.ScrollingEnabled = true

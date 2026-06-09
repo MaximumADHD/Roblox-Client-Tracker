@@ -45,7 +45,6 @@ local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
 local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextChatEnableUniverseChatTabs
 local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
-local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
@@ -108,7 +107,7 @@ end, function()
 	local isVisible = ChatSelector.GetVisibility()
 	if not FFlagExpChatUnibarAvailabilityRefactor then
 		-- Is there a less imperative way to do this?
-		if FFlagHideChatButtonForChatDisabledUsers and not isVisible and not localUserCanChat() then
+		if not isVisible and not localUserCanChat() then
 			chatChromeIntegration.availability:unavailable()
 		end
 	end

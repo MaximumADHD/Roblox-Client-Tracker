@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local ValidationRulesUtilImpl = require(root.util.ValidationRulesUtil)
 
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
@@ -86,6 +88,10 @@ HrdPropertiesSensible.run = function(reporter: Types.ValidationReporter, data: T
 		local rigAttachmentName = ValidationRulesUtilImpl.rigAttachmentToParentMap[bodyMeshPart.Name]
 		if hrd == nil then
 			continue
+		end
+
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+			reporter:setReportingInstance(hrd)
 		end
 
 		-- Step 1: Check OriginOffset
@@ -178,6 +184,10 @@ HrdPropertiesSensible.run = function(reporter: Types.ValidationReporter, data: T
 		local drd: DigitsRigDescription? = bodyMeshPart:FindFirstChildWhichIsA("DigitsRigDescription")
 		if drd == nil then
 			continue
+		end
+
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+			reporter:setReportingInstance(drd)
 		end
 
 		if

@@ -11,7 +11,6 @@ local Divider = require(Foundation.Components.Divider)
 local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
@@ -67,8 +66,8 @@ end
 local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(accordionItemProps, defaultProps)
 	local tokens = useTokens()
-	local preferences = if Flags.FoundationReducedMotionAccordion then usePreferences() else nil :: never
-	local reducedMotionEnabled = if Flags.FoundationReducedMotionAccordion then preferences.reducedMotion else false
+	local preferences = usePreferences()
+	local reducedMotionEnabled = preferences.reducedMotion
 	local commonEaseConfig = React.useMemo(function()
 		return getCommonEaseConfig(tokens)
 	end, { tokens })

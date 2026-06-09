@@ -74,6 +74,7 @@ local function advanceCriticalDampedSpring(
 	return target + newDisplacement, newVelocity
 end
 
+-- selene: allow(high_cyclomatic_complexity)
 local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local props = withDefaults(sheetProps, defaultProps)
 	local overlay = useOverlay()
@@ -84,6 +85,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local reducedMotion = preferences.reducedMotion
 
 	local screenHeight = useScreenHeight()
+	local overlayAvailableHeight, setOverlayAvailableHeight
+	if Flags.FoundationBottomSheetCapToOverlayHeight then
+		overlayAvailableHeight, setOverlayAvailableHeight =
+			React.useState(if overlay then overlay.AbsoluteSize.Y else 0)
+	end
 	local sheetHeight, setSheetHeight = React.useState(0)
 	local backupSnapPoints = React.useMemo(function()
 		return { sheetHeight }
@@ -107,6 +113,10 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end
 	end
 	maxSheetHeight = math.min(maxSheetHeight, screenHeight)
+	if Flags.FoundationBottomSheetCapToOverlayHeight and overlayAvailableHeight > 0 then
+		maxSheetHeight = math.min(maxSheetHeight, overlayAvailableHeight)
+	end
+
 	local safeAreaPadding = useHardwareInsets(overlay).bottom
 
 	local currentSnapIndex = React.useRef(0)
@@ -207,9 +217,20 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		end)
 	end, { stopSpringSimulation })
 
-	local snapValueToPosition = React.useCallback(function(value: number)
-		return snapValueToPixels(value) + safeAreaPadding
-	end, { safeAreaPadding, snapValueToPixels } :: { unknown })
+	local snapValueToPosition = React.useCallback(
+		function(value: number)
+			if Flags.FoundationBottomSheetCapToOverlayHeight then
+				return math.min(snapValueToPixels(value), maxSheetHeight) + safeAreaPadding
+			else
+				return snapValueToPixels(value) + safeAreaPadding
+			end
+		end,
+		{
+			safeAreaPadding,
+			snapValueToPixels,
+			if Flags.FoundationBottomSheetCapToOverlayHeight then maxSheetHeight else nil,
+		} :: { unknown }
+	)
 
 	local springToSnapIndex = React.useCallback(function(index: number)
 		currentSnapIndex.current = index
@@ -309,7 +330,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				end
 
 				-- Enable inner scrolling if starting at max snap point
-				local isAtMaxSnapPoint = snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) == maxSheetHeight
+				local isAtMaxSnapPoint = if Flags.FoundationBottomSheetCapToOverlayHeight
+					then snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) >= maxSheetHeight
+					else snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) == maxSheetHeight
 				if isAtMaxSnapPoint then
 					setInnerScrollingEnabled(true)
 				end
@@ -476,7 +499,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					else
 						springToSnapIndex(nextIndex)
 					end
-					local isAtMaxSnapPoint = snapValueToPixels(snapPoints[nextIndex]) == maxSheetHeight
+					local isAtMaxSnapPoint = if Flags.FoundationBottomSheetCapToOverlayHeight
+						then snapValueToPixels(snapPoints[nextIndex]) >= maxSheetHeight
+						else snapValueToPixels(snapPoints[nextIndex]) == maxSheetHeight
 					if isAtMaxSnapPoint then
 						setInnerScrollingEnabled(true)
 					end
@@ -498,6 +523,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					selectionGroup = SheetTypes.isolatedSelectionGroup,
 					tag = "size-full",
 					testId = `{props.testId}--surface`,
+					onAbsoluteSizeChanged = if Flags.FoundationBottomSheetCapToOverlayHeight
+						then function(rbx: GuiObject)
+							setOverlayAvailableHeight(rbx.AbsoluteSize.Y)
+						end
+						else nil,
 				},
 				React.createElement("ScrollingFrame", {
 					Size = UDim2.fromScale(1, 1),

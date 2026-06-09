@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
 local getAllInstancesWithName = require(root.util.getAllInstancesWithName)
@@ -16,6 +18,9 @@ MoveableAttachmentsExist.fflag = R15plusUtils.checkFlagEnabledForAllowHrd
 MoveableAttachmentsExist.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local rootInstance = data.rootInstance
 	for _, meshpart in getAllInstancesIsA(rootInstance, "MeshPart") do
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+			reporter:setReportingInstance(meshpart)
+		end
 		local boneSchema = R15plusUtils.getAvatarBoneSchema(meshpart.Name)
 		local attWhiteList = R15plusUtils.getNameWhitelistOfClassInSchema(boneSchema, "Attachment")
 		for name, val in attWhiteList do

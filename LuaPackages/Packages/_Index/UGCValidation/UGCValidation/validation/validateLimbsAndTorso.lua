@@ -12,6 +12,9 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
 local Types = require(root.util.Types)
 
+local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+
 local function getInstance(instances: { Instance }, name: string): Instance?
 	for _, inst in pairs(instances) do
 		if inst.Name == name then
@@ -126,9 +129,11 @@ local function validateR6Folder(
 
 	reasonsAccumulator:updateReasons(validateTags(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
 
-	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
+		reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
+	end
 
 	return reasonsAccumulator:getFinalResults()
 end

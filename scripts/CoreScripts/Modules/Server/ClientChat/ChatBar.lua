@@ -1,4 +1,5 @@
 --!nonstrict
+--!nolint DeprecatedApi
 --	// FileName: ChatBar.lua
 --	// Written by: Xsitsu
 --	// Description: Manages text typing and typing state.
@@ -360,7 +361,9 @@ function methods:TweenToTargetYSize()
 	local pixelDistance = math.abs(endAbsoluteSizeY - curAbsoluteSizeY)
 	local tweeningTime = math.min(1, (pixelDistance * (1 / self.TweenPixelsPerSecond))) -- pixelDistance * (seconds per pixels)
 
-	local success = pcall(function() self.GuiObject:TweenSize(endSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, tweeningTime, true) end)
+	local success = pcall(function()
+		self.GuiObject:TweenSize(endSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, tweeningTime, true)
+	end)
 	if (not success) then
 		self.GuiObject.Size = endSize
 	end

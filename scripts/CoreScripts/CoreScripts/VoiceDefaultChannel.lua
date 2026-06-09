@@ -13,7 +13,6 @@ local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
-local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local GetFFlagSeamlessVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceFTUX
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
@@ -63,23 +62,12 @@ end
 
 if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 	local VoiceChatService = game:FindService("VoiceChatService")
-	if FFlagAlwaysJoinWhenUsingAudioAPI then
-		if not VoiceChatService then
-			log:info("VoiceChatService not found. Assuming default values.")
-			-- We only don't want to early out when the new audio API is enabled
-		elseif not VoiceChatService.EnableDefaultVoice and not VoiceChatService.UseNewAudioApi then
-			log:debug("Default channel is disabled.")
-			Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-			return
-		end
-	else
-		if not VoiceChatService then
-			log:info("VoiceChatService not found. Assuming default values.")
-		elseif not VoiceChatService.EnableDefaultVoice then
-			log:debug("Default channel is disabled.")
-			Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-			return
-		end
+	if not VoiceChatService then
+		log:info("VoiceChatService not found. Assuming default values.")
+	elseif not VoiceChatService.EnableDefaultVoice and not VoiceChatService.UseNewAudioApi then
+		log:debug("Default channel is disabled.")
+		Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+		return
 	end
 end
 

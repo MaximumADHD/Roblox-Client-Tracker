@@ -163,7 +163,7 @@ return function(
 	variant: InputVariant?,
 	radius: Radius?,
 	focused: boolean?,
-	hover: boolean?,
+	hover: boolean?, -- Remove with Flags.FoundationTextInputsBetaUpdate
 	hasError: boolean?
 ): TextInputVariantProps
 	local props = VariantsContext.useVariants("TextInput", variantsFactory, tokens)
@@ -177,7 +177,8 @@ return function(
 		props.sizes[size],
 		if variant ~= InputVariant.Utility then variantAttributes else {},
 		if radius then inputProps.radius[radius] else inputProps.defaultRadius[size],
-		if hover ~= nil then inputProps.hoverState[hover] else {},
+		-- Remove with Flags.FoundationTextInputsBetaUpdate
+		if Flags.FoundationTextInputsBetaUpdate then {} elseif hover ~= nil then inputProps.hoverState[hover] else {},
 		if focused ~= nil then inputProps.focusedState[focused] else {},
 		if hasError ~= nil then inputProps.errorState[hasError] else {},
 		if variant == InputVariant.Utility then variantAttributes else {}

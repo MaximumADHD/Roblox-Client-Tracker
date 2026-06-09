@@ -9,7 +9,6 @@ local React = require(Packages.React)
 local BaseTextElement = require(InlineLayoutElements.BaseTextElement)
 local getFontFace = require(Root.Utils.getFontFace)
 
-local Text = Foundation.Text
 local View = Foundation.View
 
 type BaseTextElementProps = BaseTextElement.BaseTextElementProps
@@ -27,6 +26,7 @@ end
 
 local function TextElementWrapper(props: Props)
 	local fontFace = getFontFace(props.fontStyle)
+	local textStyle = if typeof(props.textStyle) == "table" then props.textStyle else {}
 
 	local viewTags = typeof(props.viewTags) == "string" and { [props.viewTags] = true } or props.viewTags or {}
 
@@ -36,13 +36,14 @@ local function TextElementWrapper(props: Props)
 		}, viewTags),
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		Text = React.createElement(Text, Dash.join(props, { RichText = false })),
 		SelectableText = React.createElement("TextBox", {
 			Text = props.Text,
 			FontFace = fontFace,
 			TextSize = props.fontStyle and props.fontStyle.FontSize,
-			TextTransparency = 0.4,
+			TextColor3 = textStyle.Color3,
+			TextTransparency = textStyle.Transparency,
 			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
 			TextEditable = false,
 			ZIndex = 0,
 			Size = UDim2.fromScale(0, 0),
@@ -50,6 +51,7 @@ local function TextElementWrapper(props: Props)
 			TextWrapped = false,
 			ClearTextOnFocus = false,
 			RichText = false,
+			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 	})
 end

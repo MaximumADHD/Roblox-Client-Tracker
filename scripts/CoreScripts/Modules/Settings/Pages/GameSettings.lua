@@ -292,6 +292,7 @@ local FFlagFeedbackEntryPointButtonSizeAdjustment =
 local FFlagFeedbackEntryPointImprovedStrictnessCheck =
 	game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
 local GetFFlagEnableLocalesForExperienceLanguageSwitcher = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLocalesForExperienceLanguageSwitcher)
+local GetFFlagLazyInitiateExperienceLanguageSwitcher = require(RobloxGui.Modules.Settings.Flags.GetFFlagLazyInitiateExperienceLanguageSwitcher)
 local CreateExperienceLanguageSwitcher = require(
 	RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.ExperienceLanguageSwitcherInitializer
 )
@@ -446,6 +447,9 @@ local function Initialize()
 
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
+	if GetFFlagLazyInitiateExperienceLanguageSwitcher() then
+		this.LanguageSwitcherInitialized = false
+	end
 
 	local allSettingsCreated = false
 	local settingsDisabledInVR = {}
@@ -4442,6 +4446,16 @@ local function Initialize()
 			end
 		end
 
+		if
+			GetFFlagLazyInitiateExperienceLanguageSwitcher()
+			and not this.LanguageSwitcherInitialized
+			and isLangaugeSelectionDropdownEnabled()
+			and GetFFlagEnableLocalesForExperienceLanguageSwitcher()
+		then
+			this.LanguageSwitcherInitialized = true
+			CreateExperienceLanguageSwitcher(this, SETTINGS_MENU_LAYOUT_ORDER, reportSettingsChangeForAnalytics)
+		end
+
 		-- Update device info each time user opens the menu
 		-- TODO: This should be simplified by new API
 		updateAudioOptions()
@@ -4557,7 +4571,9 @@ local function Initialize()
 
 		if isLangaugeSelectionDropdownEnabled() then
 			if GetFFlagEnableLocalesForExperienceLanguageSwitcher() then
-				CreateExperienceLanguageSwitcher(this, SETTINGS_MENU_LAYOUT_ORDER, reportSettingsChangeForAnalytics)
+				if not GetFFlagLazyInitiateExperienceLanguageSwitcher() then
+					CreateExperienceLanguageSwitcher(this, SETTINGS_MENU_LAYOUT_ORDER, reportSettingsChangeForAnalytics)
+				end
 			else
 				createTranslationOptions()
 			end

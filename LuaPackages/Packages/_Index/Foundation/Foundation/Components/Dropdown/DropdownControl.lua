@@ -145,11 +145,9 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 						LayoutOrder = 2,
 						name = if props.isMenuOpen then MENU_OPEN_IMAGE else MENU_CLOSE_IMAGE,
 						size = variantProps.arrow.size,
-						style = if Flags.FoundationMutedDropdownArrow and props.isDisabled
-							then tokens.Color.Content.Muted
-							else nil,
+						style = if props.isDisabled then tokens.Color.Content.Muted else nil,
 						tag = variantProps.text.tag,
-						testId = if Flags.FoundationMutedDropdownArrow then `{props.testId}--arrow` else nil,
+						testId = `{props.testId}--arrow`,
 					}),
 				})
 			end,

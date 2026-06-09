@@ -138,9 +138,18 @@ local function validateAssetCreatorsRCC(contentIdMap: any, validationContext: Ty
 	return validateAssetCreator(contentIdMap, validationContext)
 end
 
+export type SkipFlags = {
+	-- Skip the validateExistance pass (covered by AssetCanLoad in the new system).
+	skipExistenceCheck: boolean?,
+	-- Skip the validateAssetCreatorsRCC / validateModerationRCC pass (covered by
+	-- DescendantIdsAllowed in the new system).
+	skipOwnershipCheck: boolean?,
+}
+
 local function validateDependencies(
 	instance: Instance,
-	validationContext: Types.ValidationContext
+	validationContext: Types.ValidationContext,
+	skipFlags: SkipFlags?
 ): (boolean, { string }?)
 	local startTime = tick()
 
@@ -148,6 +157,12 @@ local function validateDependencies(
 	local allowEditableInstances = validationContext.allowEditableInstances
 	local restrictedUserIds = if validationContext then validationContext.restrictedUserIds else nil
 	local universeId = if validationContext then validationContext.universeId else nil
+	local skipExistenceCheck = skipFlags and skipFlags.skipExistenceCheck or false
+	local skipOwnershipCheck = skipFlags and skipFlags.skipOwnershipCheck or false
+
+	if skipExistenceCheck and skipOwnershipCheck then
+		return true
+	end
 
 	local contentIdMap = {}
 	local contentIds = {}
@@ -165,13 +180,16 @@ local function validateDependencies(
 		return false, parseReasons
 	end
 
-	if isServer and not allowEditableInstances then
+	if isServer and not allowEditableInstances and not skipExistenceCheck then
 		validateExistance(contentIdMap, validationContext)
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	if not FFlagNoStudioOwnershipCheck or (FFlagNoStudioOwnershipCheck and not RunService:IsStudio()) then
+	if
+		not skipOwnershipCheck
+		and (not FFlagNoStudioOwnershipCheck or (FFlagNoStudioOwnershipCheck and not RunService:IsStudio()))
+	then
 		if isServer then
 			-- This block will check user and universe permissions without considering moderation
 			-- This is from in experience creation, assets may not be moderated yet

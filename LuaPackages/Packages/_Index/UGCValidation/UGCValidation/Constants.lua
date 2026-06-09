@@ -9,8 +9,7 @@ local getFFlagUGCValidationFixConstantsTypoLeg = require(root.flags.getFFlagUGCV
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
-
-local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
 
 -- switch this to Cryo.List.toSet when available
@@ -236,9 +235,7 @@ Constants.ASSET_STATUS = {
 	MODERATED = "Moderated",
 }
 
-if getFFlagUGCValidationMakeupSupport() then
-	Constants.MAKEUP_INFO = ValidationRulesUtil:getMakeupRules()
-end
+Constants.MAKEUP_INFO = ValidationRulesUtil:getMakeupRules()
 
 -- https://confluence.rbx.com/display/AVATAR/UGC+Accessory+Max+Sizes
 -- Measurements are doubled to account full size
@@ -331,14 +328,12 @@ Constants.PROPERTIES = {
 	Attachment = {
 		Visible = false,
 	},
-	Decal = if getFFlagUGCValidationMakeupSupport()
-		then {
-			Color3 = Color3.new(1, 1, 1),
-			Transparency = 0,
-			UVOffset = if FFlagUGCValidateMakeupDecalUVProperties then Vector2.new(0, 0) else nil,
-			UVScale = if FFlagUGCValidateMakeupDecalUVProperties then Vector2.new(1, 1) else nil,
-		}
-		else nil,
+	Decal = {
+		Color3 = Color3.new(1, 1, 1),
+		Transparency = 0,
+		UVOffset = if FFlagUGCValidateMakeupDecalUVProperties then Vector2.new(0, 0) else nil,
+		UVScale = if FFlagUGCValidateMakeupDecalUVProperties then Vector2.new(1, 1) else nil,
+	},
 	SpecialMesh = {
 		MeshType = Enum.MeshType.FileMesh,
 		Offset = Vector3.new(0, 0, 0),
@@ -489,9 +484,7 @@ Constants.CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId", "TextureId" },
 	MeshPart = { "MeshId", "TextureID" },
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
-	Decal = if getFFlagUGCValidationMakeupSupport()
-		then { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
-		else nil,
+	Decal = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 	WrapTarget = { "CageMeshId" },
 	Animation = { "AnimationId" },
@@ -523,9 +516,7 @@ Constants.TEXTURE_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "TextureId" },
 	MeshPart = { "TextureID" },
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
-	Decal = if getFFlagUGCValidationMakeupSupport()
-		then { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
-		else nil,
+	Decal = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
 }
 
 Constants.ASSET_RENDER_MESH_MAX_TRIANGLES = {
@@ -592,6 +583,18 @@ Constants.MESH_CONTENT_TYPE_TO_FIELD_NAME = {
 	[Constants.MESH_CONTENT_TYPE.INNER_CAGE] = "ReferenceMeshId",
 }
 
+if getFFlagUGCValidationAnimationPackSupport() then
+	Constants.ANIMATION_ASSET_INFO = {
+		[Enum.AssetType.ClimbAnimation] = { modelName = "ClimbAnimation", stringValueNames = { "climb" } },
+		[Enum.AssetType.FallAnimation] = { modelName = "FallAnimation", stringValueNames = { "fall" } },
+		[Enum.AssetType.IdleAnimation] = { modelName = "IdleAnimation", stringValueNames = { "idle" } },
+		[Enum.AssetType.JumpAnimation] = { modelName = "JumpAnimation", stringValueNames = { "jump" } },
+		[Enum.AssetType.RunAnimation] = { modelName = "RunAnimation", stringValueNames = { "run" } },
+		[Enum.AssetType.SwimAnimation] = { modelName = "SwimAnimation", stringValueNames = { "swim", "swimidle" } },
+		[Enum.AssetType.WalkAnimation] = { modelName = "WalkAnimation", stringValueNames = { "walk" } },
+	}
+end
+
 Constants.AllAssetUploadCategories = {
 	-- For tests that run on all assets
 	ValidationEnums.UploadCategory.TORSO_AND_LIMBS,
@@ -601,11 +604,30 @@ Constants.AllAssetUploadCategories = {
 	ValidationEnums.UploadCategory.EMOTE_ANIMATION,
 }
 
+if getFFlagUGCValidationAnimationPackSupport() then
+	table.insert(Constants.AllAssetUploadCategories, ValidationEnums.UploadCategory.ANIMATION)
+end
+
+-- MAKEUP is included here so DescendantIdsAllowed (and other dependency-driven
+-- modules) run against makeup assets. Legacy validateMakeupAsset.lua:14 calls
+-- validateDependencies, which under the old system covered creator + moderation
+-- for makeup. Without MAKEUP in this list, makeup uploads silently lose that
+-- coverage under the migration flag.
+Constants.AllAssetUploadCategoriesIncludingMakeup = {}
+for _, category in Constants.AllAssetUploadCategories do
+	table.insert(Constants.AllAssetUploadCategoriesIncludingMakeup, category)
+end
+table.insert(Constants.AllAssetUploadCategoriesIncludingMakeup, ValidationEnums.UploadCategory.MAKEUP)
+
 Constants.AllBundleUploadCategories = {
 	-- For tests that run on all bundles
 	ValidationEnums.UploadCategory.FULL_BODY,
 	ValidationEnums.UploadCategory.BOTH_SHOES,
 }
+
+if getFFlagUGCValidationAnimationPackSupport() then
+	table.insert(Constants.AllBundleUploadCategories, ValidationEnums.UploadCategory.ANIMATION_PACK)
+end
 
 Constants.AllUploadCategories = {} -- For tests that run every upload
 for _, category in ValidationEnums.UploadCategory do

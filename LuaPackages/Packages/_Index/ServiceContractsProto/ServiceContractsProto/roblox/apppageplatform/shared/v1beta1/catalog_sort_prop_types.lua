@@ -26,9 +26,14 @@ type _Messages =
 		ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent: _ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContentMessage,
 		ArrayOfCatalogSortContentProp_ArrayMap: _ArrayOfCatalogSortContentProp_ArrayMapMessage,
 		ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsMessage,
+		WidgetStyle: _WidgetStyleMessage,
+		WidgetStyleProp: _WidgetStylePropMessage,
+		WidgetStyleProp_ConditionalOption: _WidgetStyleProp_ConditionalOptionMessage,
+		WidgetStyleProp_ConditionalOptions: _WidgetStyleProp_ConditionalOptionsMessage,
 	}
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_background_layer = require(script.Parent.background_layer)
 local _roblox_apppageplatform_shared_v1beta1_catalog_sort_data = require(script.Parent.catalog_sort_data)
 local _roblox_apppageplatform_shared_v1beta1_hydration_data_spec = require(script.Parent.hydration_data_spec)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
@@ -254,10 +259,12 @@ type _CardStyleImpl = {
 
 type _CardStyleFields = {
 	thumbnail_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	background_layers: _roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp?,
 }
 
 type _CardStylePartialFields = {
 	thumbnail_aspect_ratio: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	background_layers: _roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp?,
 }
 
 export type CardStyle = typeof(setmetatable({} :: _CardStyleFields, {} :: _CardStyleImpl))
@@ -567,6 +574,112 @@ export type ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems = typeof(setmeta
 type _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsMessage = proto.Message<
 	ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
 	_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsPartialFields
+>
+
+type _WidgetStyleImpl = {
+	__index: _WidgetStyleImpl,
+	new: (fields: _WidgetStylePartialFields?) -> WidgetStyle,
+	encode: (self: WidgetStyle) -> buffer,
+	decode: (input: buffer) -> WidgetStyle,
+	jsonEncode: (self: WidgetStyle) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> WidgetStyle,
+	descriptor: proto.Descriptor,
+}
+
+type _WidgetStyleFields = {
+	background_layers: _roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp?,
+}
+
+type _WidgetStylePartialFields = {
+	background_layers: _roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp?,
+}
+
+export type WidgetStyle = typeof(setmetatable({} :: _WidgetStyleFields, {} :: _WidgetStyleImpl))
+type _WidgetStyleMessage = proto.Message<WidgetStyle, _WidgetStylePartialFields>
+
+type _WidgetStylePropImpl = {
+	__index: _WidgetStylePropImpl,
+	new: (fields: _WidgetStylePropPartialFields?) -> WidgetStyleProp,
+	encode: (self: WidgetStyleProp) -> buffer,
+	decode: (input: buffer) -> WidgetStyleProp,
+	jsonEncode: (self: WidgetStyleProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> WidgetStyleProp,
+	descriptor: proto.Descriptor,
+}
+
+type _WidgetStylePropFields = {
+	kind: (
+		{ type: "literal", value: WidgetStyle }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: WidgetStyleProp_ConditionalOptions }
+	)?,
+}
+
+type _WidgetStylePropPartialFields = {
+	kind: (
+		{ type: "literal", value: WidgetStyle }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: WidgetStyleProp_ConditionalOptions }
+	)?,
+}
+
+export type WidgetStyleProp = typeof(setmetatable({} :: _WidgetStylePropFields, {} :: _WidgetStylePropImpl))
+type _WidgetStylePropMessage = proto.Message<WidgetStyleProp, _WidgetStylePropPartialFields>
+
+type _WidgetStyleProp_ConditionalOptionImpl = {
+	__index: _WidgetStyleProp_ConditionalOptionImpl,
+	new: (fields: _WidgetStyleProp_ConditionalOptionPartialFields?) -> WidgetStyleProp_ConditionalOption,
+	encode: (self: WidgetStyleProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> WidgetStyleProp_ConditionalOption,
+	jsonEncode: (self: WidgetStyleProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> WidgetStyleProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _WidgetStyleProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: WidgetStyle } | { type: "binding_path", value: string })?,
+}
+
+type _WidgetStyleProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: WidgetStyle } | { type: "binding_path", value: string })?,
+}
+
+export type WidgetStyleProp_ConditionalOption = typeof(setmetatable(
+	{} :: _WidgetStyleProp_ConditionalOptionFields,
+	{} :: _WidgetStyleProp_ConditionalOptionImpl
+))
+type _WidgetStyleProp_ConditionalOptionMessage = proto.Message<
+	WidgetStyleProp_ConditionalOption,
+	_WidgetStyleProp_ConditionalOptionPartialFields
+>
+
+type _WidgetStyleProp_ConditionalOptionsImpl = {
+	__index: _WidgetStyleProp_ConditionalOptionsImpl,
+	new: (fields: _WidgetStyleProp_ConditionalOptionsPartialFields?) -> WidgetStyleProp_ConditionalOptions,
+	encode: (self: WidgetStyleProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> WidgetStyleProp_ConditionalOptions,
+	jsonEncode: (self: WidgetStyleProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> WidgetStyleProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _WidgetStyleProp_ConditionalOptionsFields = {
+	options: { WidgetStyleProp_ConditionalOption },
+}
+
+type _WidgetStyleProp_ConditionalOptionsPartialFields = {
+	options: { WidgetStyleProp_ConditionalOption }?,
+}
+
+export type WidgetStyleProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _WidgetStyleProp_ConditionalOptionsFields,
+	{} :: _WidgetStyleProp_ConditionalOptionsImpl
+))
+type _WidgetStyleProp_ConditionalOptionsMessage = proto.Message<
+	WidgetStyleProp_ConditionalOptions,
+	_WidgetStyleProp_ConditionalOptionsPartialFields
 >
 
 do
@@ -1551,6 +1664,7 @@ do
 			thumbnail_aspect_ratio = if data == nil or data.thumbnail_aspect_ratio == nil
 				then nil
 				else data.thumbnail_aspect_ratio,
+			background_layers = if data == nil or data.background_layers == nil then nil else data.background_layers,
 		}, _CardStyleImpl :: _CardStyleImpl)
 	end
 
@@ -1561,6 +1675,12 @@ do
 		if self.thumbnail_aspect_ratio ~= nil then
 			local encoded = self.thumbnail_aspect_ratio:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_layers ~= nil then
+			local encoded = self.background_layers:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -1588,6 +1708,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.thumbnail_aspect_ratio =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_layers =
+						_roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp.decode(value)
 					continue
 				end
 
@@ -1620,6 +1746,10 @@ do
 			output.thumbnailAspectRatio = self.thumbnail_aspect_ratio:jsonEncode()
 		end
 
+		if self.background_layers ~= nil then
+			output.backgroundLayers = self.background_layers:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -1634,6 +1764,20 @@ do
 		if input.thumbnailAspectRatio ~= nil then
 			self.thumbnail_aspect_ratio =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.thumbnailAspectRatio)
+		end
+
+		if input.background_layers ~= nil then
+			self.background_layers =
+				_roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp.jsonDecode(
+					input.background_layers
+				)
+		end
+
+		if input.backgroundLayers ~= nil then
+			self.background_layers =
+				_roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp.jsonDecode(
+					input.backgroundLayers
+				)
 		end
 
 		return self
@@ -3078,6 +3222,512 @@ do
 	typeRegistry.default:register(messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems)
 end
 
+do
+	local _WidgetStyleImpl = {}
+	_WidgetStyleImpl.__index = _WidgetStyleImpl
+
+	function _WidgetStyleImpl.new(data: _WidgetStylePartialFields?): WidgetStyle
+		return setmetatable({
+			background_layers = if data == nil or data.background_layers == nil then nil else data.background_layers,
+		}, _WidgetStyleImpl :: _WidgetStyleImpl)
+	end
+
+	function _WidgetStyleImpl.encode(self: WidgetStyle): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.background_layers ~= nil then
+			local encoded = self.background_layers:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _WidgetStyleImpl.decode(input: buffer): WidgetStyle
+		local self = _WidgetStyleImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_layers =
+						_roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _WidgetStyleImpl.jsonEncode(self: WidgetStyle): any
+		local output = {}
+
+		if self.background_layers ~= nil then
+			output.backgroundLayers = self.background_layers:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _WidgetStyleImpl.jsonDecode(input: { [string]: any }): WidgetStyle
+		local self = _WidgetStyleImpl.new()
+
+		if input.background_layers ~= nil then
+			self.background_layers =
+				_roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp.jsonDecode(
+					input.background_layers
+				)
+		end
+
+		if input.backgroundLayers ~= nil then
+			self.background_layers =
+				_roblox_apppageplatform_shared_v1beta1_background_layer.ArrayOfBackgroundLayerProp.jsonDecode(
+					input.backgroundLayers
+				)
+		end
+
+		return self
+	end
+
+	_WidgetStyleImpl.descriptor = {
+		name = "WidgetStyle",
+		fullName = "roblox.apppageplatform.shared.v1beta1.WidgetStyle",
+	}
+
+	messages.WidgetStyle = _WidgetStyleImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.WidgetStyle)
+end
+
+do
+	local _WidgetStylePropImpl = {}
+	_WidgetStylePropImpl.__index = _WidgetStylePropImpl
+
+	function _WidgetStylePropImpl.new(data: _WidgetStylePropPartialFields?): WidgetStyleProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _WidgetStylePropImpl :: _WidgetStylePropImpl)
+	end
+
+	function _WidgetStylePropImpl.encode(self: WidgetStyleProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _WidgetStylePropImpl.decode(input: buffer): WidgetStyleProp
+		local self = _WidgetStylePropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.WidgetStyle.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.WidgetStyleProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _WidgetStylePropImpl.jsonEncode(self: WidgetStyleProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _WidgetStylePropImpl.jsonDecode(input: { [string]: any }): WidgetStyleProp
+		local self = _WidgetStylePropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.WidgetStyle.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.WidgetStyleProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_WidgetStylePropImpl.descriptor = {
+		name = "WidgetStyleProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.WidgetStyleProp",
+	}
+
+	messages.WidgetStyleProp = _WidgetStylePropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.WidgetStyleProp)
+end
+
+do
+	local _WidgetStyleProp_ConditionalOptionImpl = {}
+	_WidgetStyleProp_ConditionalOptionImpl.__index = _WidgetStyleProp_ConditionalOptionImpl
+
+	function _WidgetStyleProp_ConditionalOptionImpl.new(
+		data: _WidgetStyleProp_ConditionalOptionPartialFields?
+	): WidgetStyleProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _WidgetStyleProp_ConditionalOptionImpl :: _WidgetStyleProp_ConditionalOptionImpl)
+	end
+
+	function _WidgetStyleProp_ConditionalOptionImpl.encode(self: WidgetStyleProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _WidgetStyleProp_ConditionalOptionImpl.decode(input: buffer): WidgetStyleProp_ConditionalOption
+		local self = _WidgetStyleProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.WidgetStyle.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _WidgetStyleProp_ConditionalOptionImpl.jsonEncode(self: WidgetStyleProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _WidgetStyleProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): WidgetStyleProp_ConditionalOption
+		local self = _WidgetStyleProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.WidgetStyle.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_WidgetStyleProp_ConditionalOptionImpl.descriptor = {
+		name = "WidgetStyleProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.WidgetStyleProp_ConditionalOption = _WidgetStyleProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.WidgetStyleProp_ConditionalOption)
+end
+
+do
+	local _WidgetStyleProp_ConditionalOptionsImpl = {}
+	_WidgetStyleProp_ConditionalOptionsImpl.__index = _WidgetStyleProp_ConditionalOptionsImpl
+
+	function _WidgetStyleProp_ConditionalOptionsImpl.new(
+		data: _WidgetStyleProp_ConditionalOptionsPartialFields?
+	): WidgetStyleProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _WidgetStyleProp_ConditionalOptionsImpl :: _WidgetStyleProp_ConditionalOptionsImpl)
+	end
+
+	function _WidgetStyleProp_ConditionalOptionsImpl.encode(self: WidgetStyleProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _WidgetStyleProp_ConditionalOptionsImpl.decode(input: buffer): WidgetStyleProp_ConditionalOptions
+		local self = _WidgetStyleProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.WidgetStyleProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _WidgetStyleProp_ConditionalOptionsImpl.jsonEncode(self: WidgetStyleProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _WidgetStyleProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): WidgetStyleProp_ConditionalOptions
+		local self = _WidgetStyleProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { WidgetStyleProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.WidgetStyleProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_WidgetStyleProp_ConditionalOptionsImpl.descriptor = {
+		name = "WidgetStyleProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.WidgetStyleProp_ConditionalOptions = _WidgetStyleProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.WidgetStyleProp_ConditionalOptions)
+end
+
 return {
 	ItemFooter = messages.ItemFooter,
 	ArrayOfItemFooterProp = messages.ArrayOfItemFooterProp,
@@ -3097,4 +3747,8 @@ return {
 	ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent = messages.ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent,
 	ArrayOfCatalogSortContentProp_ArrayMap = messages.ArrayOfCatalogSortContentProp_ArrayMap,
 	ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems = messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
+	WidgetStyle = messages.WidgetStyle,
+	WidgetStyleProp = messages.WidgetStyleProp,
+	WidgetStyleProp_ConditionalOption = messages.WidgetStyleProp_ConditionalOption,
+	WidgetStyleProp_ConditionalOptions = messages.WidgetStyleProp_ConditionalOptions,
 }

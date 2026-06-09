@@ -64,13 +64,29 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	local containerRef = React.useRef(nil :: GuiObject?)
 
 	-- Create refs for each tab (use user-provided ref if available)
-	local tabRefs = React.useMemo(function()
-		local refs = {}
-		for _, tab in props.tabs do
-			refs[tab.id] = tab.ref or React.createRef()
-		end
-		return refs
-	end, { props.tabs })
+	local tabRefs
+	if Flags.FoundationFixStaleAnimatedHighlightRefs then
+		local tabRefsCache = React.useRef({} :: { [Types.ItemId]: React.RefObject<GuiObject?> })
+		tabRefs = React.useMemo(function()
+			local cache = tabRefsCache.current
+			for _, tab in props.tabs do
+				if tab.ref then
+					cache[tab.id] = tab.ref
+				elseif not cache[tab.id] then
+					cache[tab.id] = React.createRef()
+				end
+			end
+			return cache
+		end, { props.tabs })
+	else
+		tabRefs = React.useMemo(function()
+			local refs = {}
+			for _, tab in props.tabs do
+				refs[tab.id] = tab.ref or React.createRef()
+			end
+			return refs
+		end, { props.tabs })
+	end
 
 	local animatedBorder = useAnimatedHighlight(
 		activeTabId,
@@ -86,20 +102,43 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 	return React.createElement(
 		View,
 		if Flags.FoundationFixNoCommonPropsOnComponentParents
-			then withCommonProps(props, { tag = "size-full-0 auto-y clip" })
-			else {
-				tag = "size-full-0 auto-y clip",
-			},
+			then withCommonProps(
+				props,
+				if Flags.FoundationTabsInlineSizeFull
+					then { tag = "auto-y clip", Size = UDim2.fromScale(1, 0) }
+					else { tag = "size-full-0 auto-y clip" }
+			)
+			else if Flags.FoundationTabsInlineSizeFull
+				then { tag = "auto-y clip", Size = UDim2.fromScale(1, 0) }
+				else { tag = "size-full-0 auto-y clip" },
 		{
 			Tabs = React.createElement(
 				View,
 				if Flags.FoundationFixNoCommonPropsOnComponentParents
-					then { ref = ref or containerRef, tag = "col size-full-0 auto-y" }
-					else withCommonProps(props, { ref = ref or containerRef, tag = "col size-full-0 auto-y" }),
+					then if Flags.FoundationTabsInlineSizeFull
+						then { ref = ref or containerRef, tag = "col auto-y", Size = UDim2.fromScale(1, 0) }
+						else { ref = ref or containerRef, tag = "col size-full-0 auto-y" }
+					else withCommonProps(
+						props,
+						if Flags.FoundationTabsInlineSizeFull
+							then { ref = ref or containerRef, tag = "col auto-y", Size = UDim2.fromScale(1, 0) }
+							else { ref = ref or containerRef, tag = "col size-full-0 auto-y" }
+					),
 				{
 					Wrapper = React.createElement(
 						View,
-						{ LayoutOrder = 1, tag = "size-full-0 auto-y", testId = `{props.testId}--wrapper` },
+						if Flags.FoundationTabsInlineSizeFull
+							then {
+								LayoutOrder = 1,
+								tag = "auto-y",
+								Size = UDim2.fromScale(1, 0),
+								testId = `{props.testId}--wrapper`,
+							}
+							else {
+								LayoutOrder = 1,
+								tag = "size-full-0 auto-y",
+								testId = `{props.testId}--wrapper`,
+							},
 						{
 							ScrollContainer = React.createElement(OverflowScrollContainer, {
 								LayoutOrder = 1,
@@ -109,11 +148,19 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 								TabList = React.createElement(
 									View,
 									{
-										tag = {
-											["row flex-y-fill auto-xy"] = true,
-											["gap-large"] = not isFill,
-											["size-full-0"] = isFill,
-										},
+										tag = if Flags.FoundationTabsInlineSizeFull
+											then {
+												["row flex-y-fill auto-xy"] = true,
+												["gap-large"] = not isFill,
+											}
+											else {
+												["row flex-y-fill auto-xy"] = true,
+												["gap-large"] = not isFill,
+												["size-full-0"] = isFill,
+											},
+										Size = if Flags.FoundationTabsInlineSizeFull and isFill
+											then UDim2.fromScale(1, 0)
+											else nil,
 										testId = `{props.testId}--list`,
 									},
 									Dash.map(props.tabs, function(tab, index)
@@ -145,11 +192,22 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 						}
 					),
 					Content = if activeTab and activeTab.content
-						then React.createElement(View, {
-							LayoutOrder = 2,
-							tag = "size-full-0 auto-y",
-							testId = `{props.testId}--content`,
-						}, activeTab.content)
+						then React.createElement(
+							View,
+							if Flags.FoundationTabsInlineSizeFull
+								then {
+									LayoutOrder = 2,
+									tag = "auto-y",
+									Size = UDim2.fromScale(1, 0),
+									testId = `{props.testId}--content`,
+								}
+								else {
+									LayoutOrder = 2,
+									tag = "size-full-0 auto-y",
+									testId = `{props.testId}--content`,
+								},
+							activeTab.content
+						)
 						else nil,
 				}
 			),

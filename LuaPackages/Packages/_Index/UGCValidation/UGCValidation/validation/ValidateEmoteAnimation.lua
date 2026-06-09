@@ -25,6 +25,9 @@ local ValidatePropertiesSensible = require(validation.ValidatePropertiesSensible
 
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getFFlagUGCValidateMigrateCurveAnim = require(root.flags.getFFlagUGCValidateMigrateCurveAnim)
+local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 
 local ValidateEmoteAnimation = {}
 
@@ -82,47 +85,60 @@ function ValidateEmoteAnimation.validate(validationContext: Types.ValidationCont
 	end
 
 	do
-		local success, reasons = validateDependencies(instance, validationContext)
+		local skipFlags = {
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
+				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
+				and getFFlagUGCValidationCombineEntrypointResults(),
+		}
+		local success, reasons = validateDependencies(instance, validationContext, skipFlags)
 		if not success then
 			return false, reasons
 		end
 	end
 
-	local anim = nil
-	do
-		local successfullyExecuted, animOpt = pcallDeferred(function()
-			local resultTab = game:GetObjectsAllOrNone((instance :: Animation).AnimationId)
-			return resultTab
-		end, validationContext)
-
-		if not successfullyExecuted or not animOpt then
-			return reportError(
-				"Could not download Curve animation.",
-				Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation,
-				validationContext
-			)
-		end
-
-		if #animOpt == 1 then
-			anim = animOpt[1]
-		else
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
-				nil,
-				validationContext
-			)
-			return false, { "Downloaded Curve animation did not have exactly one root. Please fix the animation." }
-		end
-	end
-
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 	reasonsAccumulator:updateReasons(validateTags(instance, validationContext))
-	reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
-	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validate(anim, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(validateAttributes(instance, validationContext))
+	end
 
-	reasonsAccumulator:updateReasons(
-		validateModeration(instance, validationContext.restrictedUserIds, validationContext)
-	)
+	if not (getFFlagUGCValidateMigrateCurveAnim() and getFFlagUGCValidationCombineEntrypointResults()) then
+		local anim = nil
+		do
+			local successfullyExecuted, animOpt = pcallDeferred(function()
+				local resultTab = game:GetObjectsAllOrNone((instance :: Animation).AnimationId)
+				return resultTab
+			end, validationContext)
+
+			if not successfullyExecuted or not animOpt then
+				return reportError(
+					"Could not download Curve animation.",
+					Analytics.ErrorType.validateEmoteAnimation_FailedToDownloadCurveAnimation,
+					validationContext
+				)
+			end
+
+			if #animOpt == 1 then
+				anim = animOpt[1]
+			else
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+					nil,
+					validationContext
+				)
+				return false, { "Downloaded Curve animation did not have exactly one root. Please fix the animation." }
+			end
+		end
+
+		reasonsAccumulator:updateReasons(ValidateCurveAnimation.validate(anim, validationContext))
+	end
+
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(
+			validateModeration(instance, validationContext.restrictedUserIds, validationContext)
+		)
+	end
 
 	return reasonsAccumulator:getFinalResults()
 end

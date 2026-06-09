@@ -159,6 +159,10 @@ export type BaseMenuItemGroup<Item = BaseMenuItem> = BaseMenu.BaseMenuItemGroup<
 local Button = require(script.Components.Button)
 export type ButtonProps = Button.ButtonProps
 
+local ButtonGroup = require(script.Components.ButtonGroup)
+export type ButtonGroupProps = ButtonGroup.ButtonGroupProps
+export type ButtonGroupItem = ButtonGroup.ButtonGroupItem
+
 local Checkbox = require(script.Components.Checkbox)
 export type CheckboxProps = Checkbox.CheckboxProps
 
@@ -324,6 +328,7 @@ local Foundation = strict({
 	AvatarGroup = AvatarGroup,
 	Badge = Badge,
 	Button = Button,
+	ButtonGroup = ButtonGroup,
 	Checkbox = Checkbox,
 	Chip = Chip,
 	Coachmark = Coachmark,

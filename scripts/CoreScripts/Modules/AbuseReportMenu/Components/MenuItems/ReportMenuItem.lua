@@ -3,6 +3,9 @@ local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local useStyle = UIBlox.Core.Style.useStyle
@@ -23,7 +26,7 @@ local function DropdownReportMenuItem(props: any)
 	local style = useStyle()
 	local verticalPadding = if props.label == "" or props.isRightComponentFullWidth
 		then 0
-		else style.Tokens.Global.Size_75
+		else (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_150 else style.Tokens.Global.Size_75)
 	local theme = style.Theme
 
 	local dimensions = getMenuItemDimensions(props.menuContainerWidth)
@@ -32,10 +35,12 @@ local function DropdownReportMenuItem(props: any)
 		dimensions.LeftWidth + dimensions.RightWidth
 	)
 
-	local labelTextHeight, setLabelTextHeight = React.useState(style.Tokens.Global.Size_500)
+	local labelTextHeight, setLabelTextHeight = React.useState(
+		(if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_1000 else style.Tokens.Global.Size_500)
+	)
 	React.useEffect(function()
 		setLabelTextHeight(math.max(
-			style.Tokens.Global.Size_500, -- 40 for desktop, 60 for console
+			(if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_1000 else style.Tokens.Global.Size_500), -- 40 for desktop, 60 for console
 			TextService:GetTextSize(
 				props.label,
 				dimensions.TextSize,

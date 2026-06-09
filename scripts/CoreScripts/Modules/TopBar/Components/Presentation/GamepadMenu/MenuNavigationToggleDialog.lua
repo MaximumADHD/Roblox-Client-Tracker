@@ -9,6 +9,8 @@ local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local useExternalEvent = ReactUtils.useEventConnection
@@ -39,14 +41,14 @@ type Props = {
 
 local function MenuNavigationToggleDialog(props: Props)
 	local tokens = useDesignTokens()
-	local font = tokens.Semantic.Typography.CaptionHeader
-	local horizontalPadding = tokens.Global.Space_200
-	local verticalPadding = tokens.Global.Space_75
-	local cornerRadius = tokens.Semantic.Radius.Medium
-	local iconSize = tokens.Global.Size_300
-	local backgroundUiColor = tokens.Semantic.Color.BackgroundUi.Contrast
-	local textColor = tokens.Semantic.Color.Text.Emphasis.Color3
-	local iconPadding = tokens.Global.Space_50
+	local font = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Typography.CaptionMedium else tokens.Semantic.Typography.CaptionHeader)
+	local horizontalPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_400 else tokens.Global.Space_200)
+	local verticalPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_150 else tokens.Global.Space_75)
+	local cornerRadius = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Radius.Medium else tokens.Semantic.Radius.Medium)
+	local iconSize = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_600 else tokens.Global.Size_300)
+	local backgroundUiColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.OverMedia.OverMedia_0 else tokens.Semantic.Color.BackgroundUi.Contrast)
+	local textColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Content.Emphasis else tokens.Semantic.Color.Text.Emphasis).Color3
+	local iconPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_100 else tokens.Global.Space_50)
 
 	local selectButtonImage = if FFlagLocalizeMenuNavigationToggleDialog
 			and game:GetEngineFeature("GetImageForKeyCode")

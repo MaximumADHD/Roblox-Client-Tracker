@@ -167,6 +167,10 @@ if GetFFlagContactListEnabled() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerContactList", script.Parent)
 end
 
+if game:DefineFastFlag("AppBuildReloadRemote", false) then
+	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerBuildExperiencePlaytestTeleport", script.Parent)
+end
+
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/PlayerViewCapability", script.Parent)
 
 local GetFFlagEnableVoiceDefaultServerScript =

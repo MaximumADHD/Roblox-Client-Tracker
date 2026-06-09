@@ -65,6 +65,9 @@ return function()
 	-- content/scripts/CoreScripts/ServerCoreScripts/ReferredByPlayerRemoteEvent.lua
 	table.insert(allowList, "ReferredPlayerJoin")
 
+	-- content/scripts/CoreScripts/ServerCoreScripts/ServerBuildExperiencePlaytestTeleport.lua
+	table.insert(allowList, "BuildExperiencePlaytestTeleport")
+
 	-- content/scripts/CoreScripts/ServerCoreScripts/VoiceDefault.lua
 	table.insert(allowList, "SetUserActive")
 

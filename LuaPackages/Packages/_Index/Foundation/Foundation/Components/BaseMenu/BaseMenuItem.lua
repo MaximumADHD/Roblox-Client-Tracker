@@ -133,7 +133,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 					callback(props.id)
 				end
 
-				if Flags.FoundationFixNestedSubMenuOnClick and depth > 1 and context.onNestedLeafActivated then
+				if depth > 1 and context.onNestedLeafActivated then
 					context.onNestedLeafActivated()
 				end
 			end

@@ -3,6 +3,8 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
@@ -23,6 +25,7 @@ type TabVariantProps = {
 	},
 	content: {
 		tag: string,
+		Size: UDim2?,
 	},
 	icon: {
 		size: IconSize,
@@ -67,7 +70,12 @@ local function variantsFactory(tokens: Tokens)
 
 	local isFill: { [boolean]: VariantProps } = {
 		[false] = { container = { tag = "auto-xy" }, content = { tag = "size-0-0 auto-xy" } },
-		[true] = { container = { tag = "grow auto-xy" }, content = { tag = "size-full-0 auto-y" } },
+		[true] = {
+			container = { tag = "grow auto-xy" },
+			content = if Flags.FoundationTabsInlineSizeFull
+				then { tag = "auto-y", Size = UDim2.fromScale(1, 0) }
+				else { tag = "size-full-0 auto-y" },
+		},
 	}
 
 	return { common = common, sizes = sizes, isFill = isFill, paddings = paddings }

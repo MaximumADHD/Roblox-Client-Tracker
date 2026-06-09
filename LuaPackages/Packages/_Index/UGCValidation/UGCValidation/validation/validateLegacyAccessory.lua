@@ -37,6 +37,8 @@ local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
+local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
 
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
@@ -75,9 +77,11 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	local schema = createAccessorySchema(assetInfo.attachmentNames)
 
-	success, reasons = validateInstanceTree(schema, instance, validationContext)
-	if not success then
-		return false, reasons
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		success, reasons = validateInstanceTree(schema, instance, validationContext)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
@@ -86,9 +90,17 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 			return false, reasons
 		end
 	end
-	success, reasons = validateDependencies(instance, validationContext)
-	if not success then
-		return false, reasons
+	do
+		local skipFlags = {
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
+				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
+				and getFFlagUGCValidationCombineEntrypointResults(),
+		}
+		success, reasons = validateDependencies(instance, validationContext, skipFlags)
+		if not success then
+			return false, reasons
+		end
 	end
 
 	local handle = instance:FindFirstChild("Handle") :: Part
@@ -154,16 +166,18 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	textureInfo.editableImage = editableImage
 
 	local failedReason: any = {}
-	success, failedReason = validateMaterials(instance, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
-	end
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		success, failedReason = validateMaterials(instance, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 
-	success, failedReason = validatePropertyRequirements(instance, nil, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
+		success, failedReason = validatePropertyRequirements(instance, nil, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 	end
 
 	success, failedReason = validateTags(instance, validationContext)
@@ -172,10 +186,12 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	success, failedReason = validateAttributes(instance, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		success, failedReason = validateAttributes(instance, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 	end
 
 	local textureSizeLimit = nil
@@ -203,15 +219,17 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	local checkModeration = not isServer
-	if allowUnreviewedAssets then
-		checkModeration = false
-	end
-	if checkModeration then
-		success, failedReason = validateModeration(instance, {}, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		local checkModeration = not isServer
+		if allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
+			success, failedReason = validateModeration(instance, {}, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 	end
 

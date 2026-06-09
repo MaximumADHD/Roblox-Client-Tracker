@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local BaseMenu = require(Foundation.Components.BaseMenu)
-local Flags = require(Foundation.Utility.Flags)
 local Popover = require(Foundation.Components.Popover)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -37,6 +36,8 @@ export type MenuProps = {
 	size: InputSize?,
 	-- Width of the component. If not specified, the menu is sized based on the content.
 	width: UDim?,
+	-- Maximum height after which the menu starts scrolling
+	maxHeight: number?,
 	-- The side the popover should be anchored to
 	side: PopoverSide?,
 	-- The alignment of the popover relative to the anchor
@@ -97,10 +98,9 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 					items = props.items,
 					size = props.size,
 					width = props.width,
+					maxHeight = props.maxHeight,
 					onActivated = props.onActivated,
-					onNestedLeafActivated = if Flags.FoundationFixNestedSubMenuOnClick
-						then props.onPressedOutside
-						else nil,
+					onNestedLeafActivated = props.onPressedOutside,
 					radius = Radius.Medium,
 				}),
 			})

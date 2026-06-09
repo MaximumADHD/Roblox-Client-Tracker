@@ -11,6 +11,7 @@ local CoreGuiService = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
+local TelemetryService = game:GetService("TelemetryService")
 
 local RobloxGui = CoreGuiService.RobloxGui
 local CoreGuiModules = RobloxGui.Modules
@@ -32,6 +33,23 @@ local FFlagGameplayPauseFlickerMitigation = game:DefineFastFlag("GameplayPauseFl
 local FIntRapidGameplayPauseIntervalMs = game:DefineFastInt("RapidGameplayPauseIntervalMs", 1000) -- If we repause within this time since the last unpause, debounce the next dismissal to prevent oscillation.
 local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("RapidGameplayPauseMinNotificationDurationMs", 500) -- Min time to keep notification visible after a rapid unpause.
 local FIntGameplayPauseShowDelayMs = game:DefineFastInt("GameplayPauseShowDelayMs", 300) -- Min time in pause state before pause UI is shown
+
+-- ANALYTICS
+local FFlagStreamingPauseUIAnalyticsEnabled = game:DefineFastFlag("StreamingPauseUIAnalyticsEnabled", false)
+local FIntStreamingPauseUIAnalyticsThrottleHundredthsPercent = game:DefineFastInt("StreamingPauseUIAnalyticsThrottleHP", 0)
+
+local StreamingPauseUISessionEvent = {
+	eventName = "StreamingPauseUISessionStats",
+	backends = { "EventIngest" },
+	throttlingPercentage = FIntStreamingPauseUIAnalyticsThrottleHundredthsPercent,
+	lastUpdated = { 2026, 6, 2 },
+	description = "Session stats for streaming pause UI visibility",
+}
+
+local sessionStartClock = os.clock()
+local pauseCount = 0
+local visibleDurationMs = 0
+local visibilityStartClock = nil -- nil while notification is hidden; set when shown.
 
 -- STATE MACHINE
 -- Transitions only flow through enterStage(). Each stage's entry function owns its timers and
@@ -64,6 +82,22 @@ local NetworkPauseGui = Create "ScreenGui" {
 	AutoLocalize = false,
 }
 
+local function reportPauseSessionAnalytics()
+	-- Add in-flight visible interval to the total before reporting
+	local totalVisibleDurationMs = visibleDurationMs
+	if visibilityStartClock ~= nil then
+		totalVisibleDurationMs += (os.clock() - visibilityStartClock) * 1000
+	end
+	TelemetryService:LogEvent(StreamingPauseUISessionEvent, {
+		customFields = {
+			sessionDurationMs = (os.clock() - sessionStartClock) * 1000,
+			pauseCount = pauseCount,
+			totalPauseDurationMs = totalVisibleDurationMs,
+			pauseEnabled = NetworkPauseGui.Enabled,
+		},
+	})
+end
+
 local function setNotificationVisible(visible)
 	if visible then
 		Notification:Show()
@@ -71,6 +105,21 @@ local function setNotificationVisible(visible)
 		Notification:Hide()
 	end
 	RunService:SetRobloxGuiFocused(visible)
+
+	-- Analytics - track pause count and visible duration
+	if FFlagStreamingPauseUIAnalyticsEnabled then
+		if visible then
+			if visibilityStartClock == nil then
+				visibilityStartClock = os.clock()
+				pauseCount += 1
+			end
+		else
+			if visibilityStartClock ~= nil then
+				visibleDurationMs += (os.clock() - visibilityStartClock) * 1000
+				visibilityStartClock = nil
+			end
+		end
+	end
 end
 
 local function cancelTimers()
@@ -186,3 +235,7 @@ end
 Notification:SetParent(NetworkPauseGui)
 
 GuiService.NetworkPausedEnabledChanged:Connect(enableNotification)
+
+if FFlagGameplayPauseFlickerMitigation and FFlagStreamingPauseUIAnalyticsEnabled then
+	game.Close:Connect(reportPauseSessionAnalytics)
+end

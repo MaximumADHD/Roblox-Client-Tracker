@@ -35,15 +35,18 @@ local useCloseAffordanceVariants = require(script.Parent.useCloseAffordanceVaria
 type CloseAffordanceProps = {
 	onActivated: () -> (),
 	isDisabled: boolean?,
-	-- There is no `Large` size for CloseAffordance
 	size: (typeof(InputSize.XSmall) | typeof(InputSize.Small) | typeof(InputSize.Medium))?,
 	variant: CloseAffordanceVariant?,
+	isCircular: boolean?,
+	hasPadding: boolean?,
 } & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	isDisabled = false,
 	size = InputSize.Medium,
 	variant = CloseAffordanceVariant.OverMedia,
+	isCircular = false,
+	hasPadding = true,
 	testId = "--foundation-close-affordance",
 }
 
@@ -51,7 +54,15 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 	local props = withDefaults(closeAffordanceProps, defaultProps)
 	local tokens = useTokens()
 	local presentationContext = usePresentationContext()
-	local variantProps = useCloseAffordanceVariants(tokens, props.size, props.variant, presentationContext.colorMode)
+
+	local variantProps = useCloseAffordanceVariants(
+		tokens,
+		props.size,
+		props.variant,
+		presentationContext.colorMode,
+		props.hasPadding,
+		props.isCircular
+	)
 	local componentRadius = UDim.new(0, variantProps.container.radius)
 
 	local cursor = React.useMemo(function()
@@ -85,7 +96,7 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 		}),
 		{
 			Icon = React.createElement(Icon, {
-				name = "x",
+				name = BuilderIcons.Icon.X,
 				variant = IconVariant.Regular,
 				size = variantProps.content.iconSize,
 				style = variantProps.content.style,

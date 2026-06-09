@@ -11,6 +11,7 @@ type _Messages = {
 	GetSearchResultsPageResponse: _GetSearchResultsPageResponseMessage,
 	GetSearchResultsPageResponse_TemplatesEntry: _GetSearchResultsPageResponse_TemplatesEntryMessage,
 	GetSearchResultsPageResponse_LocalizedLiteralsEntry: _GetSearchResultsPageResponse_LocalizedLiteralsEntryMessage,
+	SearchResultsPageVerticalType: _SearchResultsPageVerticalTypeMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -34,11 +35,15 @@ type _GetSearchResultsPageRequestImpl = {
 type _GetSearchResultsPageRequestFields = {
 	search_query: string,
 	session_id: string,
+	vertical_type: SearchResultsPageVerticalType,
+	global_session_id: string,
 }
 
 type _GetSearchResultsPageRequestPartialFields = {
 	search_query: string?,
 	session_id: string?,
+	vertical_type: SearchResultsPageVerticalType?,
+	global_session_id: string?,
 }
 
 export type GetSearchResultsPageRequest = typeof(setmetatable(
@@ -145,6 +150,14 @@ type _GetSearchResultsPageResponse_LocalizedLiteralsEntryMessage = proto.Message
 	_GetSearchResultsPageResponse_LocalizedLiteralsEntryPartialFields
 >
 
+type _SearchResultsPageVerticalTypeMessage = proto.Enum<SearchResultsPageVerticalType>
+export type SearchResultsPageVerticalType =
+	"SEARCH_RESULTS_PAGE_VERTICAL_TYPE_INVALID"
+	| "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_BLENDED"
+	| "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_GAME"
+	| "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_USER"
+	| number -- Unknown
+
 do
 	local _GetSearchResultsPageRequestImpl = {}
 	_GetSearchResultsPageRequestImpl.__index = _GetSearchResultsPageRequestImpl
@@ -155,6 +168,10 @@ do
 		return setmetatable({
 			search_query = if data == nil or data.search_query == nil then "" else data.search_query,
 			session_id = if data == nil or data.session_id == nil then "" else data.session_id,
+			vertical_type = if data == nil or data.vertical_type == nil
+				then assert(messages.SearchResultsPageVerticalType.fromNumber(0), "Enum has no 0 default")
+				else data.vertical_type,
+			global_session_id = if data == nil or data.global_session_id == nil then "" else data.global_session_id,
 		}, _GetSearchResultsPageRequestImpl :: _GetSearchResultsPageRequestImpl)
 	end
 
@@ -172,6 +189,26 @@ do
 			output, cursor = proto.writeString(output, cursor, self.session_id)
 		end
 
+		if
+			self.vertical_type ~= nil
+			and (
+				self.vertical_type ~= nil and self.vertical_type ~= 0
+				or self.vertical_type ~= messages.SearchResultsPageVerticalType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(
+				output,
+				cursor,
+				messages.SearchResultsPageVerticalType.toNumber(self.vertical_type :: any)
+			)
+		end
+
+		if self.global_session_id ~= nil and self.global_session_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.global_session_id)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -186,7 +223,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.vertical_type = (messages.SearchResultsPageVerticalType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -200,6 +242,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.session_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.global_session_id = buffer.tostring(value)
 					continue
 				end
 
@@ -236,6 +283,22 @@ do
 			output.sessionId = self.session_id
 		end
 
+		if
+			self.vertical_type ~= nil
+			and (
+				self.vertical_type ~= nil and self.vertical_type ~= 0
+				or self.vertical_type ~= messages.SearchResultsPageVerticalType.fromNumber(0)
+			)
+		then
+			output.verticalType = if typeof(self.vertical_type) == "number"
+				then self.vertical_type
+				else messages.SearchResultsPageVerticalType.toNumber(self.vertical_type :: any)
+		end
+
+		if self.global_session_id ~= nil and self.global_session_id ~= "" then
+			output.globalSessionId = self.global_session_id
+		end
+
 		return output
 	end
 
@@ -256,6 +319,26 @@ do
 
 		if input.sessionId ~= nil then
 			self.session_id = input.sessionId
+		end
+
+		if input.vertical_type ~= nil then
+			self.vertical_type = if typeof(input.vertical_type) == "number"
+				then (messages.SearchResultsPageVerticalType.fromNumber(input.vertical_type) or input.vertical_type)
+				else (messages.SearchResultsPageVerticalType.fromName(input.vertical_type) or input.vertical_type)
+		end
+
+		if input.verticalType ~= nil then
+			self.vertical_type = if typeof(input.verticalType) == "number"
+				then (messages.SearchResultsPageVerticalType.fromNumber(input.verticalType) or input.verticalType)
+				else (messages.SearchResultsPageVerticalType.fromName(input.verticalType) or input.verticalType)
+		end
+
+		if input.global_session_id ~= nil then
+			self.global_session_id = input.global_session_id
+		end
+
+		if input.globalSessionId ~= nil then
+			self.global_session_id = input.globalSessionId
 		end
 
 		return self
@@ -783,7 +866,52 @@ do
 	typeRegistry.default:register(messages.GetSearchResultsPageResponse_LocalizedLiteralsEntry)
 end
 
+messages.SearchResultsPageVerticalType = {
+	fromNumber = function(value: number): SearchResultsPageVerticalType?
+		if value == 0 then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_INVALID"
+		elseif value == 1 then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_BLENDED"
+		elseif value == 2 then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_GAME"
+		elseif value == 3 then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_USER"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: SearchResultsPageVerticalType): number
+		if self == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_INVALID" then
+			return 0
+		elseif self == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_BLENDED" then
+			return 1
+		elseif self == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_GAME" then
+			return 2
+		elseif self == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_USER" then
+			return 3
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): SearchResultsPageVerticalType?
+		if name == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_INVALID" then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_INVALID"
+		elseif name == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_BLENDED" then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_BLENDED"
+		elseif name == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_GAME" then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_GAME"
+		elseif name == "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_USER" then
+			return "SEARCH_RESULTS_PAGE_VERTICAL_TYPE_USER"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	GetSearchResultsPageRequest = messages.GetSearchResultsPageRequest,
 	GetSearchResultsPageResponse = messages.GetSearchResultsPageResponse,
+	SearchResultsPageVerticalType = messages.SearchResultsPageVerticalType,
 }

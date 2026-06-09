@@ -25,7 +25,10 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagSideSheetSwapGalleryOrder = SharedFlags.FFlagSideSheetSwapGalleryOrder
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
+
+local FFlagReverseUnibar = require(Chrome.Flags.FFlagReverseUnibar)
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -55,21 +58,40 @@ local function configureUnibar()
 		table.insert(nineDot, 1, "connect_dropdown")
 	end
 
-	local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
-	table.insert(v4Ordering, 2, "join_voice")
+	local v4Ordering = { "nine_dot", "chat", "toggle_mic_mute" }
+	if FFlagReverseUnibar then
+		table.insert(v4Ordering, 3, "join_voice")
 
-	if GetFFlagDebugEnableUnibarDummyIntegrations() then
-		table.insert(v4Ordering, 1, "dummy_window")
-		table.insert(v4Ordering, 1, "dummy_window_2")
-	end
+		if GetFFlagDebugEnableUnibarDummyIntegrations() then
+			table.insert(v4Ordering, "dummy_window")
+			table.insert(v4Ordering, "dummy_window_2")
+		end
 
-	if isConnectUnibarEnabled() then
-		table.insert(v4Ordering, 1, "connect_unibar")
-	end
+		if isConnectUnibarEnabled() then
+			table.insert(v4Ordering, "connect_unibar")
+		end
 
-	local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
-	if toggleMicIndex then
-		table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
+		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
+		if toggleMicIndex then
+			table.insert(v4Ordering, toggleMicIndex, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
+		end
+	else
+		v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
+		table.insert(v4Ordering, 2, "join_voice")
+
+		if GetFFlagDebugEnableUnibarDummyIntegrations() then
+			table.insert(v4Ordering, 1, "dummy_window")
+			table.insert(v4Ordering, 1, "dummy_window_2")
+		end
+
+		if isConnectUnibarEnabled() then
+			table.insert(v4Ordering, 1, "connect_unibar")
+		end
+
+		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
+		if toggleMicIndex then
+			table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
+		end
 	end
 
 	if isInExperienceUIVREnabled and isSpatial() then
@@ -105,10 +127,18 @@ local function configureUnibar()
 			table.insert(nineDot, "people")
 			table.insert(nineDot, "settings")
 
-			table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
-			table.insert(nineDot, "trust_and_safety")
+			if FFlagSideSheetSwapGalleryOrder then
+				table.insert(nineDot, "gallery")
 
-			table.insert(nineDot, "gallery")
+				table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
+				table.insert(nineDot, "trust_and_safety")
+			else
+				table.remove(nineDot, table.find(nineDot, "trust_and_safety"))
+				table.insert(nineDot, "trust_and_safety")
+
+				table.insert(nineDot, "gallery")
+			end
+
 			table.insert(nineDot, "help")
 		end
 		table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)

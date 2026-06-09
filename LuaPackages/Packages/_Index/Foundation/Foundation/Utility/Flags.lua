@@ -49,9 +49,6 @@ return {
 	-- Foundation@1.69.0
 	FoundationSideSheetNewWidthCalculation = SafeFlags.createGetFFlag("FoundationSideSheetNewWidthCalculation")(),
 
-	-- Foundation@1.71.0
-	FoundationSideSheetFixNewWidth = SafeFlags.createGetFFlag("FoundationSideSheetFixNewWidth")(),
-
 	-- Foundation@1.72.1
 	FoundationUseGetInsetArea = SafeFlags.createGetFFlag("FoundationUseGetInsetArea")(),
 
@@ -82,8 +79,6 @@ return {
 		and SafeFlags.createGetFFlag("FoundationUseStyleSheetRegistry")(),
 
 	-- Foundation@1.79.0
-	FoundationDialogContentScrollbarFix = SafeFlags.createGetFFlag("FoundationDialogContentScrollbarFix")(),
-	FoundationDialogContentScrollbarLayout = SafeFlags.createGetFFlag("FoundationDialogContentScrollbarLayout")(),
 	FoundationOverlayKeyboardAwarenessHardened = SafeFlags.createGetFFlag("FoundationOverlayKeyboardAwarenessHardened")(),
 	FoundationTranslatorUseScript = SafeFlags.createGetFFlag("FoundationTranslatorUseScript")(),
 	FoundationUseMainGuiUtility = SafeFlags.createGetFFlag("FoundationUseMainGuiUtility2")(),
@@ -91,13 +86,8 @@ return {
 	-- Foundation@1.80.0
 	FoundationFixUserLevelPlugins = SafeFlags.createGetFFlag("FoundationFixUserLevelPlugins")(),
 
-	-- Foundation@1.80.1
-	FoundationFixNestedSubMenuOnClick = SafeFlags.createGetFFlag("FoundationFixNestedSubMenuOnClick")(),
-
 	-- Foundation@1.82.0
-	FoundationMutedDropdownArrow = SafeFlags.createGetFFlag("FoundationMutedDropdownArrow")(),
 	FoundationPopoverPluginDepthPool = FoundationPopoverPluginDepthPool,
-	FoundationReducedMotionAccordion = SafeFlags.createGetFFlag("FoundationReducedMotionAccordion")(),
 	FoundationSheetFullBleed = SafeFlags.createGetFFlag("FoundationSheetFullBleed")(),
 	FoundationTabsNavArrowsOnlyOnHover = SafeFlags.createGetFFlag("FoundationTabsNavArrowsOnlyOnHover")(),
 
@@ -130,6 +120,24 @@ return {
 	FoundationDropdownVariant = FoundationDropdownVariant,
 	FoundationTextAreaDelayMobileFocus = SafeFlags.createGetFFlag("FoundationTextAreaDelayMobileFocus")(),
 	FoundationTextInputRemoveBackgroundStyle = SafeFlags.createGetFFlag("FoundationTextInputRemoveBackgroundStyle")(),
+
+	-- Foundation@1.88.0
+	FoundationSegmentedControlSizePaddingUpdate = SafeFlags.createGetFFlag(
+		"FoundationSegmentedControlSizePaddingUpdate"
+	)(),
+
+	-- Foundation@1.88.1
+	FoundationBottomSheetCapToOverlayHeight = SafeFlags.createGetFFlag("FoundationBottomSheetCapToOverlayHeight")(),
+
+	-- Foundation@1.89.0
+	FoundationDropdownSizeGap = SafeFlags.createGetFFlag("FoundationDropdownSizeGap")(),
+	FoundationFullBleedSheetContent = SafeFlags.createGetFFlag("FoundationFullBleedSheetContent")(),
+	FoundationTextInputsBetaUpdate = SafeFlags.createGetFFlag("FoundationTextInputsBetaUpdate")(),
+
+	-- Foundation@1.89.1
+	FoundationFixStaleAnimatedHighlightRefs = SafeFlags.createGetFFlag("FoundationFixStaleAnimatedHighlightRefs")(),
+	FoundationPopoverClipAwareVisibility = SafeFlags.createGetFFlag("FoundationPopoverClipAwareVisibility")(),
+	FoundationTabsInlineSizeFull = SafeFlags.createGetFFlag("FoundationTabsInlineSizeFull")(),
 
 	-- Unreleased flags
 }

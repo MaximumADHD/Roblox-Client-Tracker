@@ -14,6 +14,8 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_background_layer = require(script.Parent.background_layer)
+
 type _CatalogSortContentDataImpl = {
 	__index: _CatalogSortContentDataImpl,
 	new: (fields: _CatalogSortContentDataPartialFields?) -> CatalogSortContentData,
@@ -79,10 +81,12 @@ type _CatalogSortCardStyleImpl = {
 
 type _CatalogSortCardStyleFields = {
 	thumbnail_aspect_ratio: string,
+	background_layers: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer },
 }
 
 type _CatalogSortCardStylePartialFields = {
 	thumbnail_aspect_ratio: string?,
+	background_layers: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer }?,
 }
 
 export type CatalogSortCardStyle = typeof(setmetatable(
@@ -360,6 +364,7 @@ do
 			thumbnail_aspect_ratio = if data == nil or data.thumbnail_aspect_ratio == nil
 				then ""
 				else data.thumbnail_aspect_ratio,
+			background_layers = if data == nil or data.background_layers == nil then {} else data.background_layers,
 		}, _CatalogSortCardStyleImpl :: _CatalogSortCardStyleImpl)
 	end
 
@@ -370,6 +375,14 @@ do
 		if self.thumbnail_aspect_ratio ~= nil and self.thumbnail_aspect_ratio ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.thumbnail_aspect_ratio)
+		end
+
+		if self.background_layers ~= nil and #self.background_layers > 0 then
+			for _, value in self.background_layers do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -395,6 +408,14 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.thumbnail_aspect_ratio = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.background_layers,
+						_roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer.decode(value)
+					)
 					continue
 				end
 
@@ -427,6 +448,14 @@ do
 			output.thumbnailAspectRatio = self.thumbnail_aspect_ratio
 		end
 
+		if self.background_layers ~= nil and #self.background_layers > 0 then
+			local newOutput = {}
+			for _, value in self.background_layers do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.backgroundLayers = newOutput
+		end
+
 		return output
 	end
 
@@ -439,6 +468,30 @@ do
 
 		if input.thumbnailAspectRatio ~= nil then
 			self.thumbnail_aspect_ratio = input.thumbnailAspectRatio
+		end
+
+		if input.background_layers ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer } = {}
+			for _, value in input.background_layers do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer.jsonDecode(value)
+				)
+			end
+
+			self.background_layers = newOutput
+		end
+
+		if input.backgroundLayers ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer } = {}
+			for _, value in input.backgroundLayers do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer.jsonDecode(value)
+				)
+			end
+
+			self.background_layers = newOutput
 		end
 
 		return self

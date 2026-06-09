@@ -34,7 +34,10 @@ local getPlatformTarget = require(CorePackages.Workspace.Packages.Analytics).get
 local EventStreamConstants = require(CorePackages.Workspace.Packages.AuthAnalytics).EventStreamConstants
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 local getFFlagDisablePVUpsellDataConsent = SharedFlags.GetFFlagDisablePVUpsellDataConsent
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
@@ -161,7 +164,7 @@ local function Initialize()
 			}),
 			Button = React.createElement(Button, {
 				buttonType = ButtonType.Secondary,
-				size = UDim2.new(1, 0, 0, style.Tokens.Global.Size_600),
+				size = UDim2.new(1, 0, 0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_1200 else style.Tokens.Global.Size_600)),
 				layoutOrder = 3,
 				text = localizedText.button,
 				onActivated = function()
@@ -324,7 +327,7 @@ local function Initialize()
 			}, {
 				ListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
-					Padding = UDim.new(0, style.Tokens.Global.Space_300),
+					Padding = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_600 else style.Tokens.Global.Space_300)),
 					SortOrder = Enum.SortOrder.LayoutOrder,
 				}),
 				LeaveGameButtons = React.createElement(ButtonStack, {
@@ -396,7 +399,7 @@ local function Initialize()
 							},
 						},
 					},
-					buttonHeight = style.Tokens.Global.Size_600,
+					buttonHeight = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_1200 else style.Tokens.Global.Size_600),
 					disableGamepadRefs = true,
 					isRoactGamepadEnabled = false,
 				}),
@@ -404,21 +407,21 @@ local function Initialize()
 			TopSpacer = React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
-				Size = UDim2.new(1, 0, 0, style.Tokens.Global.Space_300),
+				Size = UDim2.new(1, 0, 0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_600 else style.Tokens.Global.Space_300)),
 			}),
 			UpsellComponents = if showUpsell
 				then React.createElement(React.Fragment, {}, {
 					Divider = React.createElement("Frame", {
 						LayoutOrder = 3,
-						BackgroundColor3 = style.Tokens.Semantic.Color.Common.Divider.Color3,
-						BackgroundTransparency = style.Tokens.Semantic.Color.Common.Divider.Transparency,
+						BackgroundColor3 = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Color.Stroke.Emphasis else style.Tokens.Semantic.Color.Common.Divider).Color3,
+						BackgroundTransparency = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Color.Stroke.Emphasis else style.Tokens.Semantic.Color.Common.Divider).Transparency,
 						BorderSizePixel = 0,
 						Size = UDim2.new(1, 0, 0, 1),
 					}),
 					BottomSpacer = React.createElement("Frame", {
 						BackgroundTransparency = 1,
 						LayoutOrder = 4,
-						Size = UDim2.new(1, 0, 0, style.Tokens.Global.Space_300),
+						Size = UDim2.new(1, 0, 0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_600 else style.Tokens.Global.Space_300)),
 					}),
 					Upsell = React.createElement(this.UpsellComponent, {
 						origin = origin,

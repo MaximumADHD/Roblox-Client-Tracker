@@ -39,15 +39,31 @@ local function variantsFactory(tokens: Tokens)
 
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			container = { tag = "size-600 padding-xsmall radius-small" },
-			segment = { tag = "padding-small radius-small" },
+			container = {
+				tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
+					then "size-600 radius-medium"
+					else "size-600 padding-xsmall radius-small",
+			},
+			segment = {
+				tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
+					then "padding-small radius-medium"
+					else "padding-small radius-small",
+			},
 			text = { tag = "text-caption-small" },
 			icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Small } else nil :: never,
 			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },
 		},
 		[InputSize.Small] = {
-			container = { tag = "size-800 padding-xsmall radius-medium" },
-			segment = { tag = "padding-small radius-small" },
+			container = {
+				tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
+					then "size-800 radius-medium"
+					else "size-800 padding-xsmall radius-medium",
+			},
+			segment = {
+				tag = if Flags.FoundationSegmentedControlSizePaddingUpdate
+					then "padding-small radius-medium"
+					else "padding-small radius-small",
+			},
 			text = { tag = "text-caption-small" },
 			icon = if Flags.FoundationSegmentedControlIconSupport then { size = IconSize.Medium } else nil :: never,
 			divider = { Size = UDim2.new(0, tokens.Stroke.Standard, 1, 0) },

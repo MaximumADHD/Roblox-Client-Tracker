@@ -80,7 +80,7 @@ local function Story(props)
 					onActivated = function() end,
 				}),
 			}),
-			Content = React.createElement(Sheet.Content, nil, {
+			Content = React.createElement(Sheet.Content, { isContentFullBleed = props.controls.isContentFullBleed }, {
 				Carousel = React.createElement(View, {
 					LayoutOrder = 2,
 					tag = "size-full-full auto-y aspect-16-9 radius-medium bg-shift-200",
@@ -287,27 +287,31 @@ local function StoryManual(props)
 					setOpen(false)
 				end,
 			}, {
-				Content = React.createElement(Sheet.Content, nil, {
-					Image = React.createElement(View, {
-						LayoutOrder = 1,
-						tag = "size-full-full auto-y aspect-16-9 radius-medium bg-shift-200",
-					}),
-					Description = React.createElement(Text, {
-						LayoutOrder = 2,
-						Text = "This is some example content inside of a sheet. Sheets can be used to display additional information or actions related to the current context without navigating away from the current screen.",
-						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
-					}),
-					Description2 = React.createElement(Text, {
-						LayoutOrder = 3,
-						Text = "Sheets can be dismissed by swiping down or tapping outside of the sheet area.",
-						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
-					}),
-					Description3 = React.createElement(Text, {
-						LayoutOrder = 4,
-						Text = "This sheet is fully responsive and will adapt to different screen sizes and orientations.",
-						tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
-					}),
-				}),
+				Content = React.createElement(
+					Sheet.Content,
+					{ isContentFullBleed = props.controls.isContentFullBleed },
+					{
+						Image = React.createElement(View, {
+							LayoutOrder = 1,
+							tag = "size-full-full auto-y aspect-16-9 radius-medium bg-shift-200",
+						}),
+						Description = React.createElement(Text, {
+							LayoutOrder = 2,
+							Text = "This is some example content inside of a sheet. Sheets can be used to display additional information or actions related to the current context without navigating away from the current screen.",
+							tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
+						}),
+						Description2 = React.createElement(Text, {
+							LayoutOrder = 3,
+							Text = "Sheets can be dismissed by swiping down or tapping outside of the sheet area.",
+							tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
+						}),
+						Description3 = React.createElement(Text, {
+							LayoutOrder = 4,
+							Text = "This sheet is fully responsive and will adapt to different screen sizes and orientations.",
+							tag = "size-full-0 auto-xy text-body-medium text-wrap text-align-x-left text-align-y-top content-default",
+						}),
+					}
+				),
 			})
 			else nil,
 	})
@@ -370,7 +374,11 @@ local function StoryAutoSize(props)
 						tag = "auto-xy text-heading-small text-truncate-split content-emphasis",
 					}),
 				}),
-				Content = React.createElement(Sheet.Content, nil, accountItems),
+				Content = React.createElement(
+					Sheet.Content,
+					{ isContentFullBleed = props.controls.isContentFullBleed },
+					accountItems
+				),
 				Actions = React.createElement(Sheet.Actions, nil, {
 					AddAccount = React.createElement(Button, {
 						LayoutOrder = 1,
@@ -513,7 +521,7 @@ local function StoryFocusNavigationLeft(props)
 				setOpen(false)
 			end,
 		}, {
-			Content = React.createElement(Sheet.Content, nil, {
+			Content = React.createElement(Sheet.Content, { isContentFullBleed = props.controls.isContentFullBleed }, {
 				ToolbarContent = React.createElement(ToolbarContentWithNavigation, {
 					onClose = function()
 						setOpen(false)
@@ -566,7 +574,7 @@ local function StoryFocusNavigation(props)
 					tag = "auto-xy text-heading-small text-truncate-split content-emphasis",
 				}),
 			}),
-			Content = React.createElement(Sheet.Content, nil, {
+			Content = React.createElement(Sheet.Content, { isContentFullBleed = props.controls.isContentFullBleed }, {
 				CheckboxContent = React.createElement(CheckboxContentWithNavigation, {
 					checkboxStates = checkboxStates,
 					toggleCheckbox = toggleCheckbox,
@@ -619,7 +627,7 @@ local function StoryFullBleed(props)
 				sticky = props.controls.stickyFullBleed,
 				aspectRatio = 16 / 9,
 			}),
-			Content = React.createElement(Sheet.Content, nil, {
+			Content = React.createElement(Sheet.Content, { isContentFullBleed = props.controls.isContentFullBleed }, {
 				Body = React.createElement(View, {
 					LayoutOrder = 1,
 					tag = "col gap-xlarge size-full-0 auto-y padding-top-small",
@@ -777,7 +785,7 @@ local function StoryTextInput(props)
 					tag = "text-heading-small content-emphasis auto-xy text-truncate-split",
 				}),
 			}),
-			Content = React.createElement(Sheet.Content, nil, {
+			Content = React.createElement(Sheet.Content, { isContentFullBleed = props.controls.isContentFullBleed }, {
 				TextInput = React.createElement(TextInput, {
 					LayoutOrder = 1,
 					label = "Test",
@@ -845,5 +853,6 @@ return {
 		preferCenterSheet = false,
 		size = { DialogSize.Medium, DialogSize.Large } :: { DialogSize },
 		stickyFullBleed = false,
+		isContentFullBleed = false,
 	},
 }

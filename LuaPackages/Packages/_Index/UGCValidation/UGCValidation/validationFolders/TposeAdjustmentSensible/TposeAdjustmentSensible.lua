@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
 local Vector3Utils = require(root.util.Vector3Utils)
 local valueToString = require(root.util.valueToString)
@@ -72,6 +74,10 @@ TposeAdjustmentSensible.run = function(reporter: Types.ValidationReporter, data:
 		local hrd: HumanoidRigDescription? = bodyMeshPart:FindFirstChildWhichIsA("HumanoidRigDescription")
 		if hrd == nil then
 			continue
+		end
+
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+			reporter:setReportingInstance(bodyMeshPart)
 		end
 
 		local meshData = data.renderMeshesData[bodyMeshPart.Name]

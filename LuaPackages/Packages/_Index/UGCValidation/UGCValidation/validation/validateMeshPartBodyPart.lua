@@ -45,6 +45,9 @@ local getFFlagUGCValidationEnableR15plusSkinning = require(root.flags.getFFlagUG
 local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
 
+local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+
 type BodyAssetMasksRenderer = BodyAssetMasksRenderer.BodyAssetMasksRenderer
 
 local function validateMeshPartBodyPart(
@@ -75,7 +78,13 @@ local function validateMeshPartBodyPart(
 	end
 
 	do
-		local result, failureReasons = validateDependencies(inst, validationContext)
+		local skipFlags = {
+			skipExistenceCheck = getFFlagUGCValidateMigrateSchemaProperties()
+				and getFFlagUGCValidationCombineEntrypointResults(),
+			skipOwnershipCheck = getFFlagUGCValidateMigrateSchemaProperties()
+				and getFFlagUGCValidationCombineEntrypointResults(),
+		}
+		local result, failureReasons = validateDependencies(inst, validationContext, skipFlags)
 		if not result then
 			return result, failureReasons
 		end
@@ -121,10 +130,16 @@ local function validateMeshPartBodyPart(
 		reasonsAccumulator:updateReasons(ValidateTexturePack.validate(inst, true, validationContext))
 	end
 
-	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
+	end
 	reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentOrientations.runValidation(inst, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(
+			validateBodyPartChildAttachmentOrientations.runValidation(inst, validationContext)
+		)
+	end
 
 	reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
 
@@ -146,22 +161,26 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
+	end
 
 	local startTime = tick()
 
 	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
 	Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 
-	reasonsAccumulator:updateReasons(validateMaterials(inst, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(validateMaterials(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
+		reasonsAccumulator:updateReasons(validatePropertyRequirements(inst, assetTypeEnum, validationContext))
 
-	reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst, validationContext))
+		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst, validationContext))
+
+		reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
+	end
 
 	reasonsAccumulator:updateReasons(validateTags(inst, validationContext))
-
-	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 
 	if not getFFlagUGCValidationEnableR15plusSkinning() then
 		if assetTypeEnum ~= Enum.AssetType.DynamicHead then
@@ -171,12 +190,14 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	local checkModeration = not isServer
-	if allowUnreviewedAssets then
-		checkModeration = false
-	end
-	if checkModeration then
-		reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		local checkModeration = not isServer
+		if allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
+			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds, validationContext))
+		end
 	end
 
 	return reasonsAccumulator:getFinalResults()

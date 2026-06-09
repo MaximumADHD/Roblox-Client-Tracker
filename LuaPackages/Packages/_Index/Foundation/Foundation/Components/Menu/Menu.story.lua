@@ -3,8 +3,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Button = require(Foundation.Components.Button)
 local Coachmark = require(Foundation.Components.Coachmark)
 local IconButton = require(Foundation.Components.IconButton)
@@ -28,6 +26,21 @@ local SAMPLE_MENU_ITEMS: { MenuItem } = {
 	{ id = "edit", icon = "icons/actions/edit/edit", text = "Edit" },
 	{ id = "copy", icon = "icons/actions/edit/copy", text = "Copy" },
 	{ id = "delete", icon = "icons/actions/edit/delete", text = "Delete", isDisabled = true },
+}
+
+local LONG_MENU_ITEMS: { MenuItem } = {
+	{ id = "new", icon = "icons/actions/edit/add", text = "New" },
+	{ id = "open", icon = "icons/actions/edit/edit", text = "Open" },
+	{ id = "save", icon = "icons/actions/edit/edit", text = "Save" },
+	{ id = "save-as", icon = "icons/actions/edit/edit", text = "Save As..." },
+	{ id = "rename", icon = "icons/actions/edit/edit", text = "Rename" },
+	{ id = "duplicate", icon = "icons/actions/edit/copy", text = "Duplicate" },
+	{ id = "copy", icon = "icons/actions/edit/copy", text = "Copy" },
+	{ id = "cut", icon = "icons/actions/edit/copy", text = "Cut" },
+	{ id = "paste", icon = "icons/actions/edit/copy", text = "Paste" },
+	{ id = "export", icon = "icons/actions/edit/edit", text = "Export" },
+	{ id = "import", icon = "icons/actions/edit/edit", text = "Import" },
+	{ id = "delete", icon = "icons/actions/edit/delete", text = "Delete" },
 }
 
 local SELECTION_MENU_ITEMS: { MenuItem } = {
@@ -275,6 +288,41 @@ return {
 					}, {
 						Button = React.createElement(Button, {
 							text = "Open Menu",
+							size = InputSize.Medium,
+							onActivated = function()
+								setIsOpen(not isOpen)
+							end,
+						}),
+					}),
+				})
+			end,
+		},
+		{
+			name = "Scrollable (maxHeight)",
+			story = function(props: Props)
+				local isOpen, setIsOpen = React.useState(false)
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 400),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = LONG_MENU_ITEMS,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						maxHeight = 180,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							print("Menu item activated:", id)
+							setIsOpen(false)
+						end,
+					}, {
+						Button = React.createElement(Button, {
+							text = "Open Scrollable Menu",
 							size = InputSize.Medium,
 							onActivated = function()
 								setIsOpen(not isOpen)
@@ -653,98 +701,96 @@ return {
 				})
 			end,
 		},
-		if Flags.FoundationFixNestedSubMenuOnClick
-			then {
-				name = "Nested Submenus (per-item onActivated)",
-				story = function(props: Props)
-					local isOpen, setIsOpen = React.useState(false)
+		{
+			name = "Nested Submenus (per-item onActivated)",
+			story = function(props: Props)
+				local isOpen, setIsOpen = React.useState(false)
 
-					local items: { MenuItem } = {
-						{
-							id = "file",
-							icon = "page",
-							text = "File",
-							items = {
-								{
-									id = "file-new",
-									icon = "plus-small",
-									text = "New Place",
-									onActivated = function(id)
-										print("Per-item onActivated:", id)
-									end,
-								},
-								{
-									id = "file-open-recent",
-									icon = "clock",
-									text = "Open Recent",
-									items = {
-										{
-											id = "recent-project-a",
-											text = "Project A",
-											onActivated = function(id)
-												print("Per-item onActivated:", id)
-											end,
-										},
-										{
-											id = "recent-project-b",
-											text = "Project B",
-											onActivated = function(id)
-												print("Per-item onActivated:", id)
-											end,
-										},
-									},
-								} :: any,
-							} :: any,
-						},
-						{
-							id = "edit",
-							icon = "pencil-square",
-							text = "Edit",
-							items = {
-								{
-									id = "edit-cut",
-									text = "Cut",
-									onActivated = function(id)
-										print("Per-item onActivated:", id)
-									end,
-								},
-								{
-									id = "edit-copy",
-									text = "Copy",
-									onActivated = function(id)
-										print("Per-item onActivated:", id)
-									end,
-								},
-							},
-						} :: any,
-					} :: { MenuItem }
-
-					return React.createElement(View, {
-						Size = UDim2.new(1, 0, 0, 600),
-						tag = "row align-x-center align-y-center",
-					}, {
-						Menu = React.createElement(Menu, {
-							isOpen = isOpen,
-							items = items,
-							size = props.controls.size,
-							side = props.controls.side,
-							align = props.controls.align,
-							onPressedOutside = function()
-								setIsOpen(false)
-							end,
-						}, {
-							Button = React.createElement(Button, {
-								text = "Open Menu",
-								size = InputSize.Medium,
-								onActivated = function()
-									setIsOpen(not isOpen)
+				local items: { MenuItem } = {
+					{
+						id = "file",
+						icon = "page",
+						text = "File",
+						items = {
+							{
+								id = "file-new",
+								icon = "plus-small",
+								text = "New Place",
+								onActivated = function(id)
+									print("Per-item onActivated:", id)
 								end,
-							}),
+							},
+							{
+								id = "file-open-recent",
+								icon = "clock",
+								text = "Open Recent",
+								items = {
+									{
+										id = "recent-project-a",
+										text = "Project A",
+										onActivated = function(id)
+											print("Per-item onActivated:", id)
+										end,
+									},
+									{
+										id = "recent-project-b",
+										text = "Project B",
+										onActivated = function(id)
+											print("Per-item onActivated:", id)
+										end,
+									},
+								},
+							} :: any,
+						} :: any,
+					},
+					{
+						id = "edit",
+						icon = "pencil-square",
+						text = "Edit",
+						items = {
+							{
+								id = "edit-cut",
+								text = "Cut",
+								onActivated = function(id)
+									print("Per-item onActivated:", id)
+								end,
+							},
+							{
+								id = "edit-copy",
+								text = "Copy",
+								onActivated = function(id)
+									print("Per-item onActivated:", id)
+								end,
+							},
+						},
+					} :: any,
+				} :: { MenuItem }
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 600),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = items,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+					}, {
+						Button = React.createElement(Button, {
+							text = "Open Menu",
+							size = InputSize.Medium,
+							onActivated = function()
+								setIsOpen(not isOpen)
+							end,
 						}),
-					})
-				end,
-			}
-			else {} :: any,
+					}),
+				})
+			end,
+		},
 	},
 	controls = {
 		size = Dash.values(InputSize),

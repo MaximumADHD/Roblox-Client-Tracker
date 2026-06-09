@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local RigidSkinnedToSchema = {}
 
 RigidSkinnedToSchema.fflag = require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
@@ -15,7 +17,13 @@ RigidSkinnedToSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 	end
 
 	if #handleEditableData.editable:GetBones() > 0 then
-		reporter:fail(ErrorSourceStrings.Keys.AccessorySkinning_RigidIsSkinned)
+		reporter:fail(
+			ErrorSourceStrings.Keys.AccessorySkinning_RigidIsSkinned,
+			nil,
+			if getEngineFeatureEngineUGCValidationExpandReturnSchema()
+				then data.rootInstance:FindFirstChild("Handle")
+				else nil
+		)
 	end
 end
 

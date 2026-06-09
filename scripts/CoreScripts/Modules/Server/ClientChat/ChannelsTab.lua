@@ -1,4 +1,5 @@
 --!nonstrict
+--!nolint DeprecatedApi
 --	// FileName: ChannelsTab.lua
 --	// Written by: Xsitsu
 --	// Description: Channel tab button for selecting current channel and also displaying if currently selected.

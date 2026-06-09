@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local getDiffBetweenOrientations = require(root.util.getDiffBetweenOrientations)
 local valueToString = require(root.util.valueToString)
 
@@ -42,6 +44,9 @@ JointRotationAttachmentsLimited.run = function(reporter: Types.ValidationReporte
 
 	for _, jointRotation in getAllInstancesWithName(rootInstance, R15plusUtils.JointRotationName) do
 		local parent = jointRotation.Parent :: Instance
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+			reporter:setReportingInstance(jointRotation)
+		end
 
 		if not (jointRotation.ClassName == "Attachment") or not parent:IsA("Attachment") then
 			reporter:fail(ErrorSourceStrings.Keys.JointRotAtt_WrongInstanceClass, {

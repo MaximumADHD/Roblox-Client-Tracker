@@ -1,9 +1,10 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
-local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
-
+local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
+
+local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 
 local isMeshPartAccessory = require(root.util.isMeshPartAccessory)
 local isLayeredClothing = require(root.util.isLayeredClothing)
@@ -35,14 +36,20 @@ local function validateInternal(validationContext: Types.ValidationContext): (bo
 	local assetTypeEnum = validationContext.assetTypeEnum
 	local validateMeshPartAccessories = validationContext.validateMeshPartAccessories
 
+	if
+		getFFlagUGCValidationAnimationPackSupport()
+		and Constants.ANIMATION_ASSET_INFO
+		and Constants.ANIMATION_ASSET_INFO[assetTypeEnum]
+	then
+		return true
+	end
+
 	if assetTypeEnum == Enum.AssetType.EmoteAnimation then
 		return ValidateEmoteAnimation.validate(validationContext)
 	end
 
-	if getFFlagUGCValidationMakeupSupport() then
-		if ConstantsInterface.isMakeupAsset(assetTypeEnum) then
-			return validateMakeupAsset(validationContext)
-		end
+	if ConstantsInterface.isMakeupAsset(assetTypeEnum) then
+		return validateMakeupAsset(validationContext)
 	end
 
 	if ConstantsInterface.isBodyPart(assetTypeEnum) then

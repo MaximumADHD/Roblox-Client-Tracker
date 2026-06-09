@@ -22,8 +22,6 @@ local function ConfigurableStory(props)
 end
 
 local function AnimatedProgressStory()
-	-- TODO: When cleaning up FFlagFoundationProgressBindableValue, delete progressBinding and updateProgress.
-	-- This split was done to silence type solver errors
 	local progressBinding, updateProgress = React.useBinding(0)
 	local isAnimating, setIsAnimating = React.useState(false)
 

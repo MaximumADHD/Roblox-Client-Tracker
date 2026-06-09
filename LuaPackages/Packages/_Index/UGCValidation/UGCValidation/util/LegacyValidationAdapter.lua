@@ -2,15 +2,29 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 local newValidationManager = require(root.validationSystem.ValidationManager)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local LegacyValidationAdapter = {}
 
-local function fallbackLocalizationFunction(localizationContext: Types.failureStringContext): string
-	local keyBreakdown = localizationContext.key:split(".")
-	local keyEnum = keyBreakdown[#keyBreakdown]
-	local sourceString = ErrorSourceStrings.Values[keyEnum]
-	if not sourceString then
+-- Sentinel for legacy-entrypoint reasons: failureMap bucket and failureStringKey of
+-- the entries inside it. The raw message lives in params.Message.
+LegacyValidationAdapter.LegacyValidator = "LegacyValidator"
+
+local function fallbackLocalizationFunction(
+	localizationContext: Types.failureStringContext,
+	relevantSourceStrings: { [string]: string }?
+): string
+	local sourceString = if relevantSourceStrings then relevantSourceStrings[localizationContext.key] else nil
+
+	if sourceString == nil then
+		local keyBreakdown = localizationContext.key:split(".")
+		local keyEnum = keyBreakdown[#keyBreakdown]
+		sourceString = ErrorSourceStrings.Values[keyEnum]
+	end
+
+	if sourceString == nil then
 		-- If the key doesn't map to anything, we can just show the key for some minmal info
 		return localizationContext.key
 	end
@@ -66,8 +80,13 @@ end
 
 local function fetchString(
 	localizationFunc: ((Types.failureStringContext) -> string)?,
-	failContext: Types.failureStringContext
+	failContext: Types.failureStringContext,
+	relevantSourceStrings: { [string]: string }?
 ): string
+	if failContext.key == LegacyValidationAdapter.LegacyValidator then
+		return failContext.params.Message or ""
+	end
+
 	local success: boolean, localizedString: string?
 	if localizationFunc then
 		success, localizedString = pcall(function()
@@ -78,10 +97,11 @@ local function fetchString(
 	if success and localizedString ~= failContext.key then -- plugin fallback is the key, ours is the string
 		return localizedString :: string
 	else
-		return fallbackLocalizationFunction(failContext)
+		return fallbackLocalizationFunction(failContext, relevantSourceStrings)
 	end
 end
 
+-- For modern-only conversion (no legacy pass/reasons to merge): call with `(true, nil, validationData, fn)`.
 function LegacyValidationAdapter.combineResultsIntoLegacy(
 	legacyPass: boolean,
 	legacyReasons: { string }?,
@@ -90,33 +110,89 @@ function LegacyValidationAdapter.combineResultsIntoLegacy(
 ): (boolean, { string }?)
 	local pass, reasons = legacyPass, legacyReasons
 	pass = pass and validationData.pass
-	if #validationData.errorTranslationContexts > 0 then
-		if reasons == nil then
-			reasons = {}
-		end
 
-		for _, failContext in validationData.errorTranslationContexts do
-			table.insert(reasons :: { string }, fetchString(localizationFunc, failContext))
+	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+		if next(validationData.failureMap) ~= nil then
+			if reasons == nil then
+				reasons = {}
+			end
+			for _, failures in validationData.failureMap do
+				for _, entry in failures do
+					table.insert(
+						reasons :: { string },
+						fetchString(localizationFunc, {
+							key = entry.failureStringKey,
+							params = entry.failureStringParams,
+						}, validationData.relevantSourceStrings)
+					)
+				end
+			end
+		end
+	else
+		local legacyContexts = (validationData :: any).errorTranslationContexts :: { Types.failureStringContext }?
+		if legacyContexts and #legacyContexts > 0 then
+			if reasons == nil then
+				reasons = {}
+			end
+			for _, failContext in legacyContexts do
+				table.insert(reasons :: { string }, fetchString(localizationFunc, failContext))
+			end
 		end
 	end
 
 	if not pass and (reasons == nil or #reasons == 0) then
 		-- Some consumers will break if we don't provide a reason, which in theory can happen if we dont start a test due to a data fetch failure
-		-- For now, provide a generic unkown error message, and in the future make sure this never happens
 		if reasons == nil then
 			reasons = {}
 		end
 
-		table.insert(
-			reasons :: { string },
-			fetchString(localizationFunc, {
-				key = ErrorSourceStrings.Keys.FailureWithoutReason,
-				params = {},
-			})
-		)
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+			table.insert(
+				reasons :: { string },
+				fetchString(localizationFunc, {
+					key = ErrorSourceStrings.Keys.InternalError,
+					params = { ValidationJobId = validationData.validationJobId },
+				}, validationData.relevantSourceStrings)
+			)
+		else
+			-- For now, provide a generic unkown error message, and in the future make sure this never happens
+			table.insert(
+				reasons :: { string },
+				fetchString(localizationFunc, {
+					key = ErrorSourceStrings.Keys.FailureWithoutReason,
+					params = {},
+				})
+			)
+		end
 	end
 
 	return pass, reasons
+end
+
+function LegacyValidationAdapter.mergeLegacyIntoModern(
+	legacyPass: boolean,
+	legacyReasons: { string }?,
+	validationData: Types.ValidationResultData
+)
+	assert(
+		getEngineFeatureEngineUGCValidationExpandReturnSchema(),
+		"mergeLegacyIntoModern requires EngineUGCValidationExpandReturnSchema"
+	)
+
+	validationData.pass = validationData.pass and legacyPass
+
+	if legacyReasons and #legacyReasons > 0 then
+		local legacyEntries: { Types.FailureEntry } = {}
+		for _, reason in legacyReasons do
+			table.insert(legacyEntries, {
+				failureStringKey = LegacyValidationAdapter.LegacyValidator,
+				failureStringParams = { Message = reason },
+				instancePath = "",
+			})
+		end
+		validationData.failureMap[LegacyValidationAdapter.LegacyValidator] = legacyEntries
+		validationData.numFailures += #legacyEntries
+	end
 end
 
 -- This is a hacky situation to connect the old and new entrypoints, as its currently tightly coupled to studio.
@@ -149,6 +225,16 @@ function LegacyValidationAdapter.studioRFUAssetValidation(
 			telemetryBundleId = telemetryBundleId,
 			preloadedEditableMeshes = preloadedEditableMeshes,
 			preloadedEditableImages = preloadedEditableImages,
+			-- Populate both; manager strips the non-matching env-config.
+			backendConfigs = if validationContext.restrictedUserIds
+				then { restrictedUserIds = validationContext.restrictedUserIds }
+				else nil,
+			iecConfigs = if validationContext.token
+				then {
+					token = validationContext.token,
+					universeId = validationContext.universeId,
+				}
+				else nil,
 		}
 	)
 
@@ -191,6 +277,16 @@ function LegacyValidationAdapter.studioRFUBundleValidation(
 		telemetryBundleId = telemetryBundleId,
 		preloadedEditableMeshes = preloadedEditableMeshes,
 		preloadedEditableImages = preloadedEditableImages,
+		-- Populate both; manager strips the non-matching env-config.
+		backendConfigs = if validationContext.restrictedUserIds
+			then { restrictedUserIds = validationContext.restrictedUserIds }
+			else nil,
+		iecConfigs = if validationContext.token
+			then {
+				token = validationContext.token,
+				universeId = validationContext.universeId,
+			}
+			else nil,
 	})
 
 	if getFFlagUGCValidationCombineEntrypointResults() then

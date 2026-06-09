@@ -27,8 +27,6 @@ local fflagUpdateConnectionErrorLoc = game:DefineFastFlag("UpdateConnectionError
 local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
 local fflagAddConnectionErrorLocalizationKeys = game:DefineFastFlag("AddConnectionErrorLocalizationKeys", false)
 
-local FFlagAddClientDisconnectVerboselyModeratedGame = game:DefineFastFlag("AddClientDisconnectVerboselyModeratedGame", false)
-
 local connectionEventConfig = {
 	eventName = "ConnectionEvent",
 	backends = { "RobloxTelemetryCounter" },
@@ -93,12 +91,18 @@ local FFlagAddContextualPlayabilityConnectionErrors = game:DefineFastFlag("AddCo
 local FFlagAddVipOwnerNotPresentConnectionError = game:DefineFastFlag("AddVipOwnerNotPresentConnectionError", false)
 local FFlagVipOwnerNotPresentEnableReconnect = game:DefineFastFlag("VipOwnerNotPresentEnableReconnect", false)
 
+local FFlagRAKickLogic = game:DefineFastFlag("RAKickLogic", false)
+
 local FFlagConnectionAmpUpsellOnLeave =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpUpsellOnLeave
 local FFlagConnectionAmpParentalApprovalUpsell =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpParentalApprovalUpsell
 local FFlagConnectionUpsellAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
+
+local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError", false) and FFlagConnectionAmpUpsellOnLeave 
+local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
+	game:GetEngineFeature("PlacelaunchCollaborationCoreGatedConnectionError")
 
 -- ConnectionAmpUpsellOnLeave owns AMP-specific bits (ApolloClient lookup,
 -- feature names, telemetry, wizard display order). Required only when the
@@ -149,6 +153,7 @@ local ConnectionPromptState = {
 	RECONNECT_DISABLED_CONNECT_FAILURE = 11, -- i.e. Version out of date
 	RECONNECT_AGE_CHECK_REQUIRED = 12, -- Placelaunch blocked by age verification; Leave opens the AMP age-check wizard
 	RECONNECT_PARENT_APPROVAL_REQUIRED = 13, -- Placelaunch blocked by parental approval; Leave opens the AMP CanApproveExperience wizard
+	RECONNECT_COLLABORATION_CORE_GATED = 14, -- Placelaunch blocked by collaboration core gating; Continue opens the AMP FAE wizard
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -174,6 +179,10 @@ if FFlagConnectionAmpUpsellOnLeave then
 	ErrorTitles[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = "Join Error"
 end
 
+if FFlagAddCollaborationCoreGatedConnectionError then
+	ErrorTitles[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = "Check Your Age"
+end
+
 local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
 	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
@@ -189,6 +198,11 @@ local ErrorTitleLocalizationKey = {
 if FFlagConnectionAmpUpsellOnLeave then
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = "InGame.ConnectionError.Title.JoinError"
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = "InGame.ConnectionError.Title.JoinError"
+end
+
+if FFlagAddCollaborationCoreGatedConnectionError then
+	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] =
+		"InGame.ConnectionError.Title.CheckYourAge"
 end
 
 -- DisplayOrder for the connection-error prompt. Exposed as a local so the
@@ -355,6 +369,22 @@ if FFlagAddVipOwnerNotPresentConnectionError and not FFlagVipOwnerNotPresentEnab
 	reconnectDisabledList[Enum.ConnectionError.PlacelaunchVipOwnerNotPresent] = true
 end
 
+local PlacelaunchCollaborationCoreGatedEnum = if FFlagAddCollaborationCoreGatedConnectionError
+		and EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError
+	then Enum.ConnectionError["PlacelaunchCollaborationCoreGated"]
+	else nil
+
+if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCoreGatedEnum then
+	reconnectDisabledList[PlacelaunchCollaborationCoreGatedEnum] = true
+end
+
+if FFlagRAKickLogic then
+	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationUnsupported] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationGeneralFailure] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationOSOutOfDate] = true
+	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationBootValidationFailure] = true
+end
+
 local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
 		{
@@ -509,6 +539,32 @@ if FFlagConnectionAmpParentalApprovalUpsell then
 	}
 end
 
+if FFlagAddCollaborationCoreGatedConnectionError then
+	-- Collaboration core gating is cleared via the AMP FAE (Facial Age
+	-- Estimation) flow, which is the same wizard the age-check upsell opens, so
+	-- reuse its Continue callback.
+	local openFaeWizardThenReconnect = ConnectionAmpUpsellOnLeave.createAgeCheckCallback(
+		connectionEventConfig,
+		reconnectViaPlacelaunch,
+		ROBLOX_PROMPT_DISPLAY_ORDER
+	)
+	ButtonList[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = {
+		{
+			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+		},
+		{
+			Text = ConnectionAmpUpsellOnLeave.PrimaryButtonText,
+			LocalizationKey = ConnectionAmpUpsellOnLeave.PrimaryButtonLocalizationKey,
+			LayoutOrder = 2,
+			Callback = openFaeWizardThenReconnect,
+			Primary = true,
+		},
+	}
+end
+
 local updateFullScreenEffect = {
 	[ConnectionPromptState.NONE] = function()
 		RunService:SetRobloxGuiFocused(false)
@@ -579,6 +635,13 @@ if FFlagConnectionAmpUpsellOnLeave then
 	if FFlagConnectionAmpParentalApprovalUpsell then
 		updateFullScreenEffect[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = placelaunchEffect
 	end
+end
+
+if FFlagAddCollaborationCoreGatedConnectionError then
+	-- Reuse the placelaunch full-screen effect; the AMP FAE wizard renders above
+	-- the prompt at a higher DisplayOrder, matching the age-check upsell states.
+	updateFullScreenEffect[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] =
+		updateFullScreenEffect[ConnectionPromptState.RECONNECT_PLACELAUNCH]
 end
 
 local function onEnter(newState)
@@ -678,6 +741,13 @@ local function stateTransit(errorType, errorCode, oldState)
 					end
 					return ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED
 				end
+			end
+			if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCoreGatedEnum and errorCode == PlacelaunchCollaborationCoreGatedEnum then
+				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchCollaborationCoreGated"}}, 1.0)
+				if FFlagConnectionUpsellAnalytics then
+					ConnectionAmpUpsellOnLeave.fireImpressionAgeCheck(connectionEventConfig, game.PlaceId)
+				end
+				return ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED
 			end
 			if reconnectDisabledList[errorCode] then
 				return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
@@ -877,10 +947,7 @@ local enumToLocalizationKey = {
 	[Enum.ConnectionError.TeleportFlooded] = "InGame.ConnectionError.TeleportFlooded",
 	[Enum.ConnectionError.TeleportIsTeleporting] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.TeleportIsTeleporting",
 }
-
-if FFlagAddClientDisconnectVerboselyModeratedGame then
 	enumToLocalizationKey[Enum.ConnectionError.DisconnectVerboselyModeratedGame] = "InGame.ConnectionError.DisconnectVerboselyModeratedGame"
-end
 
 
 if fflagShowScreentimeLockoutKickMessage then
@@ -922,6 +989,18 @@ end
 
 if FFlagAddVipOwnerNotPresentConnectionError then
 	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchVipOwnerNotPresent] = "InGame.ConnectionError.Description.VipOwnerNotPresent"
+end
+
+if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCoreGatedEnum then
+	enumToLocalizationKey[PlacelaunchCollaborationCoreGatedEnum] = "InGame.ConnectionError.Description.PlaytestAgeCheckRequired"
+end
+
+if FFlagRAKickLogic then
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationTimeout] = "InGame.ConnectionError.RemoteAttestationTimeout"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationUnsupported] = "InGame.ConnectionError.RemoteAttestationUnsupported"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationGeneralFailure] = "InGame.ConnectionError.RemoteAttestationGeneralFailure"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationOSOutOfDate] = "InGame.ConnectionError.RemoteAttestationOSOutOfDate"
+	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationBootValidationFailure] = "InGame.ConnectionError.RemoteAttestationBootValidationFailure"
 end
 
 -- Localize the error string, with a fallback to the original string upon failure.

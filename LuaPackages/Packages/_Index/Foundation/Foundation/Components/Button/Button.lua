@@ -15,9 +15,7 @@ type InputSize = InputSize.InputSize
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
-
-local ButtonTypes = require(script.Parent.Types)
-type SupportedButtonVariant = ButtonTypes.SupportedButtonVariant
+type SupportedButtonVariant = ButtonVariant.SupportedButtonVariant
 
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior

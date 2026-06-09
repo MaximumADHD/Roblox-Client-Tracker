@@ -3,6 +3,9 @@ local root = script:FindFirstAncestor("AbuseReportMenu")
 local CorePackages = game:GetService("CorePackages")
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 local React = require(CorePackages.Packages.React)
 local Images = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
@@ -27,7 +30,9 @@ type Props = {
 
 local ReportTypeSelector = function(props: Props)
 	local style = useStyle()
-	local verticalPadding = style.Tokens.Global.Size_100
+	local verticalPadding = (
+		if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_200 else style.Tokens.Global.Size_100
+	)
 	local dimensions = getMenuItemDimensions(props.menuWidth)
 	local sizings = getMenuItemSizings()
 

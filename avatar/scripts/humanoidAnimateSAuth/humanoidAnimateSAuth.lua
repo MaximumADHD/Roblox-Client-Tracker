@@ -75,6 +75,15 @@ local POSE_TO_ANIM_NAME = {
 	SwimIdle = "swimidle",
 }
 
+-- Animation names whose track speed is set from queuedAnimSpeed rather than
+-- the authored speed.
+local VARIABLE_SPEED_ANIMATIONS = {
+	walk = true,
+	run = true,
+	climb = true,
+	swim = true,
+}
+
 local TOOL_ANIM_MAP = {
 	None = "toolnone",
 	Slash = "toolslash",
@@ -811,8 +820,8 @@ function module.setupAnimation(character)
 		local trackLength = animTrack.Length
 
 		animState.pose = queuedPose
-		if animState.queuedAnimSpeed > 0 then
-			-- The queued pose had a specified speed, so adjust the track accordingly.
+		if VARIABLE_SPEED_ANIMATIONS[newAnimName] then
+			-- The queued animation has a variable speed, so adjust the track accordingly.
 			if not isR6 and queuedPose == "Running" then
 				-- R15: blend walk/run weights
 				if not disableRunWalkBlend then

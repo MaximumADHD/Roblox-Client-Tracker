@@ -273,7 +273,7 @@ export type InternalTextInputRef = {
 	getIsFocused: () -> boolean,
 	focus: () -> (),
 	releaseFocus: () -> (),
-	setHover: (isHovering: boolean) -> (),
+	setHover: (isHovering: boolean) -> (), -- Remove with FoundationTextInputsBetaUpdate
 	getSelectionStart: () -> number,
 	getCursorPosition: () -> number,
 	setSelectionStart: (position: number) -> (),

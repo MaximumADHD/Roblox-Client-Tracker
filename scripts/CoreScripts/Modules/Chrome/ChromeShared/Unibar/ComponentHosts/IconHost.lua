@@ -2,22 +2,19 @@ local Root = script:FindFirstAncestor("ChromeShared")
 
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local TextChatService = game:GetService("TextChatService")
 local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
-local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatShowGlobalChatTooltip = SharedFlags.FFlagExpChatShowGlobalChatTooltip
 
-local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
-local getGlobalChatTooltipStore = ExpChat.Stores.GetGlobalChatTooltipStore
-local getChatStatusStore = ExpChat.Stores.GetChatStatusStore
-local isUserChatEnabled = ExpChat.isUserChatEnabled
-
 local ExpChatShared = require(CorePackages.Workspace.Packages.ExpChatShared)
-local GetFFlagTextChatEnableUniverseChatTabs = ExpChatShared.Flags.GetFFlagTextChatEnableUniverseChatTabs
+local FFlagExpChatPresetChatEnabled = ExpChatShared.Flags.FFlagExpChatPresetChatEnabled
+local FFlagExpChatUseUnifiedTooltipStore = ExpChatShared.Flags.FFlagExpChatUseUnifiedTooltipStore
+
+local useChatNotificationBadge = FFlagExpChatShowGlobalChatTooltip
+	or (FFlagExpChatPresetChatEnabled and FFlagExpChatUseUnifiedTooltipStore)
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Parent.Flags)
 local FFlagUnibarMenuOpenHamburger = ChromeFlags.FFlagUnibarMenuOpenHamburger
@@ -55,6 +52,8 @@ local useTimeHysteresis = require(Root.Hooks.useTimeHysteresis)
 local useTokens = Foundation.Hooks.useTokens
 
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
+
+local ChatNotificationBadge = require(script.Parent.ChatNotificationBadge)
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
@@ -201,7 +200,7 @@ function NotificationBadge(props: IconHostProps): any?
 	local minBadgeCount = props.minBadgeCount or 0
 
 	local displayBadge
-	if FFlagExpChatShowGlobalChatTooltip then
+	if useChatNotificationBadge then
 		if FFlagUseBindingForUnreadChat then
 			displayBadge = shouldShowBadge or minBadgeCount > 0
 		else
@@ -212,7 +211,7 @@ function NotificationBadge(props: IconHostProps): any?
 	end
 
 	local badgeValue: any
-	if FFlagExpChatShowGlobalChatTooltip then
+	if useChatNotificationBadge then
 		badgeValue = if FFlagUseBindingForUnreadChat
 			then notificationData:map(function(count)
 				return math.min(math.max(count, minBadgeCount), MAX_BADGE_VALUE)
@@ -269,77 +268,6 @@ function NotificationBadge(props: IconHostProps): any?
 				)
 			else nil,
 	})
-end
-
-function ChatNotificationBadge(props: IconHostProps): any?
-	local tooltipStore = getGlobalChatTooltipStore(false)
-	local chatStatusStore = getChatStatusStore(false)
-
-	local isChatWindowOpen = SignalsReact.useSignalState(tooltipStore.getIsChatWindowOpen)
-	local isChatEnabled = isUserChatEnabled(SignalsReact.useSignalState(chatStatusStore.getChatStatus))
-	local isGlobalChatTooltipDismissed = SignalsReact.useSignalState(tooltipStore.getIsGlobalChatTooltipDismissed)
-	local isGlobalChatTooltipEligible = SignalsReact.useSignalState(tooltipStore.getIsGlobalChatTooltipEligible)
-	local isScreenWideEnough = SignalsReact.useSignalState(tooltipStore.getIsScreenWideEnough)
-	local isChatIntegration = props.integration.id == "chat"
-
-	-- RBXGlobal is allocated by the engine via TextChatService. Read it directly here rather than
-	-- going through the ExpChat Rodux/Signals stores, which aren't accessible from Chrome's tree.
-	local isGlobalChatAvailable, setIsGlobalChatAvailable = React.useState(false)
-	React.useEffect(function()
-		if not GetFFlagTextChatEnableUniverseChatTabs() then
-			return
-		end
-
-		if TextChatService:HasAllocatedUniverseChatContext("global") then
-			setIsGlobalChatAvailable(true)
-		end
-
-		local connection = TextChatService.UniverseChatChannelAllocated:Connect(function(chatContext: string)
-			if chatContext == "global" then
-				setIsGlobalChatAvailable(true)
-			end
-		end)
-
-		return function()
-			connection:Disconnect()
-		end
-	end, {})
-
-	-- The tooltip's positioning assumes the chat window is in its default top-left location
-	local chatWindowConfiguration = TextChatService:FindFirstChildOfClass("ChatWindowConfiguration")
-	local isChatInDefaultPosition = chatWindowConfiguration == nil
-		or (
-			chatWindowConfiguration.HorizontalAlignment == Enum.HorizontalAlignment.Left
-			and chatWindowConfiguration.VerticalAlignment == Enum.VerticalAlignment.Top
-		)
-
-	local tooltipEligible = isChatIntegration
-		and isChatEnabled
-		and isGlobalChatTooltipEligible
-		and isGlobalChatAvailable
-		and isChatInDefaultPosition
-		and isScreenWideEnough
-		and not isGlobalChatTooltipDismissed
-
-	local setShouldShowGlobalChatTooltip = tooltipStore.setShouldShowGlobalChatTooltip
-	React.useEffect(function()
-		if isChatIntegration then
-			setShouldShowGlobalChatTooltip(tooltipEligible and isChatWindowOpen)
-		end
-	end, { isChatIntegration, tooltipEligible, isChatWindowOpen, setShouldShowGlobalChatTooltip } :: { any })
-
-	local hasOpenedChat, setHasOpenedChat = React.useState(false)
-	React.useEffect(function()
-		if tooltipEligible and isChatWindowOpen then
-			setHasOpenedChat(true)
-		end
-	end, { tooltipEligible, isChatWindowOpen })
-
-	local badgeProps = table.clone(props) :: any
-	if tooltipEligible and not hasOpenedChat then
-		badgeProps.minBadgeCount = 1
-	end
-	return React.createElement(NotificationBadge, badgeProps)
 end
 
 type NotificationIndicatorProps = {
@@ -811,8 +739,11 @@ function IconHost(props: IconHostProps)
 			color = backgroundHover,
 			visible = isHovered,
 		}),
-		if FFlagExpChatShowGlobalChatTooltip and props.integration.id == "chat"
-			then React.createElement(ChatNotificationBadge, props) :: any
+		if useChatNotificationBadge and props.integration.id == "chat"
+			then React.createElement(ChatNotificationBadge, {
+				iconHostProps = props,
+				NotificationBadge = NotificationBadge,
+			}) :: any
 			else React.createElement(NotificationBadge, props :: any) :: any,
 		if props.disableButtonBehaviors
 			then nil

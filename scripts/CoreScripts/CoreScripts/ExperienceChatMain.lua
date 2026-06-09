@@ -111,14 +111,7 @@ end
 
 if game:DefineFastFlag("DebugExpChatTextChannelWindow", false) then
 	local TextChannelWindow = require(CorePackages.Workspace.Packages.TextChannelWindow)
-
-	local CollectionService = game:GetService("CollectionService")
-	local tag = "TextChannelWindow"
-	for _, instance in CollectionService:GetTagged(tag) do
-		TextChannelWindow.mountToTargetInstance(instance)
-	end
-
-	CollectionService:GetInstanceAddedSignal(tag):Connect(TextChannelWindow.mountToTargetInstance)
+	TextChannelWindow.start()
 end
 
 ExperienceChat.mountClientApp({

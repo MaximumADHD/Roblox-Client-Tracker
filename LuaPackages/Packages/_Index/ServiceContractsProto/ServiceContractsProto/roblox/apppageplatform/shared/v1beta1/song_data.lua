@@ -26,6 +26,10 @@ type _SongDataFields = {
 	media_asset_id: string,
 	title: string,
 	artist: string,
+	album: string,
+	album_art_asset_id: number,
+	is_private: boolean,
+	duration: number,
 }
 
 type _SongDataPartialFields = {
@@ -33,6 +37,10 @@ type _SongDataPartialFields = {
 	media_asset_id: string?,
 	title: string?,
 	artist: string?,
+	album: string?,
+	album_art_asset_id: number?,
+	is_private: boolean?,
+	duration: number?,
 }
 
 export type SongData = typeof(setmetatable({} :: _SongDataFields, {} :: _SongDataImpl))
@@ -48,6 +56,10 @@ do
 			media_asset_id = if data == nil or data.media_asset_id == nil then "" else data.media_asset_id,
 			title = if data == nil or data.title == nil then "" else data.title,
 			artist = if data == nil or data.artist == nil then "" else data.artist,
+			album = if data == nil or data.album == nil then "" else data.album,
+			album_art_asset_id = if data == nil or data.album_art_asset_id == nil then 0 else data.album_art_asset_id,
+			is_private = if data == nil or data.is_private == nil then false else data.is_private,
+			duration = if data == nil or data.duration == nil then 0 else data.duration,
 		}, _SongDataImpl :: _SongDataImpl)
 	end
 
@@ -75,6 +87,26 @@ do
 			output, cursor = proto.writeString(output, cursor, self.artist)
 		end
 
+		if self.album ~= nil and self.album ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.album)
+		end
+
+		if self.album_art_asset_id ~= nil and self.album_art_asset_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.album_art_asset_id)
+		end
+
+		if self.is_private then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_private then 1 else 0)
+		end
+
+		if self.duration ~= nil and self.duration ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.i64)
+			output, cursor = proto.writeDouble(output, cursor, self.duration)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -89,7 +121,17 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 6 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.album_art_asset_id = value
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_private = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -114,6 +156,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.artist = buffer.tostring(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.album = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -126,7 +173,12 @@ do
 				local _
 				_, cursor = proto.readFixed32(input, cursor)
 			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
+				if field == 8 then
+					local value
+					value, cursor = proto.readDouble(input, cursor)
+					self.duration = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readFixed64(input, cursor)
@@ -157,6 +209,22 @@ do
 			output.artist = self.artist
 		end
 
+		if self.album ~= nil and self.album ~= "" then
+			output.album = self.album
+		end
+
+		if self.album_art_asset_id ~= nil and self.album_art_asset_id ~= 0 then
+			output.albumArtAssetId = self.album_art_asset_id
+		end
+
+		if self.is_private then
+			output.isPrivate = self.is_private
+		end
+
+		if self.duration ~= nil and self.duration ~= 0 then
+			output.duration = proto.json.serializeNumber(self.duration)
+		end
+
 		return output
 	end
 
@@ -181,6 +249,30 @@ do
 
 		if input.artist ~= nil then
 			self.artist = input.artist
+		end
+
+		if input.album ~= nil then
+			self.album = input.album
+		end
+
+		if input.album_art_asset_id ~= nil then
+			self.album_art_asset_id = input.album_art_asset_id
+		end
+
+		if input.albumArtAssetId ~= nil then
+			self.album_art_asset_id = input.albumArtAssetId
+		end
+
+		if input.is_private ~= nil then
+			self.is_private = input.is_private
+		end
+
+		if input.isPrivate ~= nil then
+			self.is_private = input.isPrivate
+		end
+
+		if input.duration ~= nil then
+			self.duration = proto.json.deserializeNumber(input.duration)
 		end
 
 		return self

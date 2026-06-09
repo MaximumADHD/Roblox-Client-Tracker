@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local getAllInstancesIsA = require(root.util.getAllInstancesIsA)
 local R15plusUtils = require(root.util.R15plusUtils)
@@ -63,20 +65,30 @@ HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 		local drd = bodyMeshPart:FindFirstChildWhichIsA("DigitsRigDescription")
 
 		if hrd ~= nil and not FFlagUGCValidationRemoveHRDBlocker then
-			reporter:fail(ErrorSourceStrings.Keys.HrdCheck_TempR15BonesUploadNotAllowed)
+			reporter:fail(
+				ErrorSourceStrings.Keys.HrdCheck_TempR15BonesUploadNotAllowed,
+				nil,
+				if getEngineFeatureEngineUGCValidationExpandReturnSchema() then hrd else nil
+			)
 		end
 
 		if hrd == nil then
 			-- If HRD does not exist, we don't expect any bone maps
 			local bones = getAllInstancesIsA(bodyMeshPart, "Bone")
 			for _, bone in bones do
-				reporter:fail(ErrorSourceStrings.Keys.HrdCheck_BoneWithoutHrd, {
-					bonePath = bone:GetFullName(),
-				})
+				reporter:fail(
+					ErrorSourceStrings.Keys.HrdCheck_BoneWithoutHrd,
+					{ bonePath = bone:GetFullName() },
+					if getEngineFeatureEngineUGCValidationExpandReturnSchema() then bone else nil
+				)
 			end
 
 			if drd ~= nil then
-				reporter:fail(ErrorSourceStrings.Keys.HrdCheck_DrdWithoutHrd)
+				reporter:fail(
+					ErrorSourceStrings.Keys.HrdCheck_DrdWithoutHrd,
+					nil,
+					if getEngineFeatureEngineUGCValidationExpandReturnSchema() then drd else nil
+				)
 			end
 
 			continue
@@ -91,6 +103,9 @@ HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 		-- step 1: make sure all descendants of Bones were pre-mapped in the schema (This wont verify ACs/RigAttachments)
 		local existsInSchemaAndPart = { [bodyPartName] = true }
 		for _, inst in boneTreeFlatList do
+			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+				reporter:setReportingInstance(inst)
+			end
 			local instName = inst.Name
 			local associatedSchema = expectedHierarchyList[instName]
 			if instName == R15plusUtils.JointRotationName then
@@ -119,6 +134,9 @@ HrdBonesFollowSchema.run = function(reporter: Types.ValidationReporter, data: Ty
 
 		-- step 2: make sure everything in meshpart that is in schema has proper hierarchy
 		for _, des in bodyMeshPart:GetDescendants() do
+			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+				reporter:setReportingInstance(des)
+			end
 			local associatedSchema = expectedHierarchyList[des.Name]
 			if not associatedSchema or not des:IsA("Attachment") or des.Name == R15plusUtils.JointRotationName then
 				continue

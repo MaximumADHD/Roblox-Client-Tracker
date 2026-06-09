@@ -31,6 +31,7 @@ local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
 local FFlagUserPlayerScriptsCTMDirectPlayerData = FlagUtil.getUserFlag("UserPlayerScriptsCTMDirectPlayerData")
 local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayerScriptsTapToMoveUsesIAS2")
 local FFlagUserPSIASClickToMoveRelaxTeleport = FlagUtil.getUserFlag("UserPSIASClickToMoveRelaxTeleport")
+local FFlagUserPlayerScriptsRefactor2 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor2")
 
 --[[ Input Actions ]]--
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
@@ -969,7 +970,7 @@ function ClickToMove:OnCharacterAdded(character)
 		if not FFlagUserPlayerScriptsTapToMoveUsesIAS2 then
 			self.mouse2DownTime = tick()
 		end
-		local topLeftInset, _ = GuiService:GetGuiInset()
+		local topLeftInset, _ = GuiService:GetGuiInset() -- Remove with FFlagUserPlayerScriptsRefactor2
 		local currPos: Vector3 = clickToMovePositionAction:GetState()
 		if currPos.X == -1 and currPos.Y == -1 then
 			if FFlagUserPlayerScriptsTapToMoveUsesIAS2 then
@@ -978,7 +979,12 @@ function ClickToMove:OnCharacterAdded(character)
 				currPos = UserInputService:GetMouseLocation()
 			end
 		end
-		currPos = Vector2.new(currPos.X - topLeftInset.X, currPos.Y - topLeftInset.Y)
+		if FFlagUserPlayerScriptsRefactor2 then
+			local guiInsetMin = GuiService:GetInsetArea(Enum.ScreenInsets.None).Min
+			currPos = Vector2.new(currPos.X + guiInsetMin.X, currPos.Y + guiInsetMin.Y)
+		else
+			currPos = Vector2.new(currPos.X - topLeftInset.X, currPos.Y - topLeftInset.Y)
+		end
 		self.mouse2DownPos = currPos
 		if FFlagUserPlayerScriptsTapToMoveUsesIAS2 then
 			self.mouse2DownTime = tick()

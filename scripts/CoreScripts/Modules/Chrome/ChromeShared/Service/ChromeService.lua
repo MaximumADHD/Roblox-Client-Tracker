@@ -35,10 +35,11 @@ local isInExperienceUIVREnabled =
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
-local FFlagRequireSideSheetPackage = SharedFlags.FFlagRequireSideSheetPackage
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FIntSideSheetVariant = SharedFlags.FIntSideSheetVariant
 local FFlagEnableChromeWindowsNotInMenu = require(Root.Flags).FFlagEnableChromeWindowsNotInMenu
+
+local FFlagReverseUnibar = require(script.Parent.Parent.Parent.Flags.FFlagReverseUnibar)
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -47,12 +48,10 @@ local CHROME_WINDOW_STATE_KEY = "ChromeWindowStatus"
 local toggleSideSheet
 local getSideSheetVisibility
 local registerSideSheetIntegrations
-if FFlagRequireSideSheetPackage then
-	local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
-	toggleSideSheet = InExperienceSideSheet.toggleSideSheet
-	getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
-	registerSideSheetIntegrations = InExperienceSideSheet.registerSideSheetIntegrations
-end
+local InExperienceSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet)
+toggleSideSheet = InExperienceSideSheet.toggleSideSheet
+getSideSheetVisibility = InExperienceSideSheet.getSideSheetVisibility
+registerSideSheetIntegrations = InExperienceSideSheet.registerSideSheetIntegrations
 
 type ActivateProps = ChromePackage.ActivateProps
 type IntegrationComponentProps = ChromePackage.IntegrationComponentProps
@@ -756,9 +755,11 @@ function ChromeService:updateMenuList()
 		table.remove(root.children, #root.children)
 	end
 
-	if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
-		root.children = reverse(root.children)
-		reverseOrder(root.children)
+	if not FFlagReverseUnibar then
+		if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
+			root.children = reverse(root.children)
+			reverseOrder(root.children)
+		end
 	end
 
 	if FFlagEnableChromeWindowsNotInMenu then
@@ -823,8 +824,10 @@ if FFlagEnableSideSheet then
 			end
 		end
 
-		if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
-			unibar = reverse(unibar)
+		if not FFlagReverseUnibar then
+			if self._orderAlignment:get() == Enum.HorizontalAlignment.Left then
+				unibar = reverse(unibar)
+			end
 		end
 
 		if FIntSideSheetVariant == 0 then

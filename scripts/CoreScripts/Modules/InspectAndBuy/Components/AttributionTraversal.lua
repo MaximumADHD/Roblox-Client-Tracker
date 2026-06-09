@@ -9,6 +9,9 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 local React = require(CorePackages.Packages.React)
 
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
@@ -67,7 +70,7 @@ local function AttributionTraversal(props)
 					FillDirection = Enum.FillDirection.Vertical,
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
 					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, style.Tokens.Global.Space_150),
+					Padding = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_300 else style.Tokens.Global.Space_150)),
 				}),
 				ExperienceThumbnailFrame = React.createElement("Frame", {
 					BackgroundTransparency = 1,
@@ -91,7 +94,7 @@ local function AttributionTraversal(props)
 						BackgroundTransparency = 1,
 					}, {
 						RoundCorner = React.createElement("UICorner", {
-							CornerRadius = UDim.new(0, style.Tokens.Semantic.Radius.Medium),
+							CornerRadius = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Radius.Medium else style.Tokens.Semantic.Radius.Medium)),
 						}),
 					}),
 				}),

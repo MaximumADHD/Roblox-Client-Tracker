@@ -25,6 +25,8 @@ local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 local GetFFlagModalSelectorCloseButton = require(root.Flags.GetFFlagModalSelectorCloseButton)
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local isInExperienceUIVREnabled =
@@ -64,7 +66,9 @@ local function ModalBaseSelectorDialog(props: Props)
 	local style = useStyle()
 	local theme = style.Theme
 
-	local HEADER_HEIGHT = style.Tokens.Global.Space_500 -- 40 for desktop, 60 for console
+	local HEADER_HEIGHT = (
+		if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_1000 else style.Tokens.Global.Space_500
+	) -- 40 for desktop, 60 for console
 	local listTableHeight
 	if isInExperienceUIVREnabled then
 		local isSpatial = Responsive.useIsSpatial()

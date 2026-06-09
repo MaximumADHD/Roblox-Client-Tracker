@@ -52,6 +52,8 @@ local getFIntUGCValidateMaxTotalFaceControls = require(flags.getFIntUGCValidateM
 local getFFlagUGCValidateRestrictNumMarkersInsideMarkerCurves =
 	require(flags.getFFlagUGCValidateRestrictNumMarkersInsideMarkerCurves)
 local getFIntUGCValidateMaxTotalInternalMarkers = require(flags.getFIntUGCValidateMaxTotalInternalMarkers)
+local getFFlagUGCValidateMigrateSchemaProperties = require(flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationCombineEntrypointResults = require(flags.getFFlagUGCValidationCombineEntrypointResults)
 
 local ValidateCurveAnimation = {}
 
@@ -1319,7 +1321,9 @@ function ValidateCurveAnimation.validate(
 	local curveAnim = inst :: CurveAnimation -- this is verified in validateAnimationHierarchy()
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
-	reasonsAccumulator:updateReasons(validateAttributes(curveAnim, validationContext))
+	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
+		reasonsAccumulator:updateReasons(validateAttributes(curveAnim, validationContext))
+	end
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateAllowedTags(curveAnim, validationContext))
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateFrames(curveAnim, validationContext))
 	return reasonsAccumulator:getFinalResults()

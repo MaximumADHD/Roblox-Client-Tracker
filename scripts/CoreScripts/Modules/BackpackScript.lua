@@ -26,7 +26,10 @@ local InExperienceUIVRIXP =
 local FFlagTopBarSignalizeSetCores = InExperienceTopBar.Flags.FFlagTopBarSignalizeSetCores
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
+local Responsive = require(CorePackages.Workspace.Packages.Responsive)
+local FFlagBackpackResponsiveUnits = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBackpackResponsiveUnits
 local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
+local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
@@ -131,7 +134,13 @@ end
 
 local GamepadActionsBound = false
 
-local IS_PHONE = UserInputService.TouchEnabled and GuiService:GetScreenResolution().X < HOTBAR_SLOTS_WIDTH_CUTOFF
+local IS_PHONE
+if FFlagBackpackResponsiveUnits then
+	local preferredInput = Responsive.GetInputModeStore().getPreferredInputType()
+	IS_PHONE = preferredInput == Responsive.Input.Touch and GuiService:GetScreenResolution().X < HOTBAR_SLOTS_WIDTH_CUTOFF
+else
+	IS_PHONE = UserInputService.TouchEnabled and GuiService:GetScreenResolution().X < HOTBAR_SLOTS_WIDTH_CUTOFF
+end
 
 local Player = PlayersService.LocalPlayer
 
@@ -1256,7 +1265,11 @@ function changeSlot(slot)
 		else
 			local startSize = slot.Frame.Size
 			local startPosition = slot.Frame.Position
-			slot.Frame:TweenSizeAndPosition(startSize + UDim2.new(0, 10, 0, 10), startPosition - UDim2.new(0, 5, 0, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .1, true, function() slot.Frame:TweenSizeAndPosition(startSize, startPosition, Enum.EasingDirection.In, Enum.EasingStyle.Quad, .1, true) end)
+			if featureDeprecateOldGuiObjectProperties then
+				slot.Frame:TweenSizeAndPositionInternal(startSize + UDim2.new(0, 10, 0, 10), startPosition - UDim2.new(0, 5, 0, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .1, true, function() slot.Frame:TweenSizeAndPositionInternal(startSize, startPosition, Enum.EasingDirection.In, Enum.EasingStyle.Quad, .1, true) end)
+			else
+				slot.Frame:TweenSizeAndPosition(startSize + UDim2.new(0, 10, 0, 10), startPosition - UDim2.new(0, 5, 0, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .1, true, function() slot.Frame:TweenSizeAndPosition(startSize, startPosition, Enum.EasingDirection.In, Enum.EasingStyle.Quad, .1, true) end)
+			end
 			slot.Frame.BorderSizePixel = 3
 			VRInventorySelector.SelectionImageObject.Visible = true
 		end

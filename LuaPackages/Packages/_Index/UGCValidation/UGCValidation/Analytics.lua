@@ -24,7 +24,6 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 local getFFlagUGCValidateHSRMeshIds = require(root.flags.getFFlagUGCValidateHSRMeshIds)
 
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
-local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
 local getFFlagUGCValidateCurveAnimRotationSpeed = require(root.flags.getFFlagUGCValidateCurveAnimRotationSpeed)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 
@@ -235,18 +234,16 @@ if getFFlagUGCValidateHSRMeshIds() then
 	Analytics.ErrorType.validataHSR_HSRMeshIdsMismatch = "validataHSR_HSRMeshIdsMismatch"
 end
 
-if getFFlagUGCValidationMakeupSupport() then
-	Analytics.ErrorType.validateMakeupDecal_FailedToLoadTexture = "validateMakeupDecal_FailedToLoadTexture"
-	Analytics.ErrorType.validateMakeupDecal_NoColorMap = "validateMakeupDecal_NoColorMap"
-	Analytics.ErrorType.validateMakeupDecal_UVZoneError = "validateMakeupDecal_UVZoneError"
+Analytics.ErrorType.validateMakeupDecal_FailedToLoadTexture = "validateMakeupDecal_FailedToLoadTexture"
+Analytics.ErrorType.validateMakeupDecal_NoColorMap = "validateMakeupDecal_NoColorMap"
+Analytics.ErrorType.validateMakeupDecal_UVZoneError = "validateMakeupDecal_UVZoneError"
 
-	Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadCage = "validateWrapTextureTransfer_FailedToLoadCage"
-	Analytics.ErrorType.validateWrapTextureTransfer_NoCage = "validateWrapTextureTransfer_NoCage"
-	Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadUV = "validateWrapTextureTransfer_FailedToLoadUV"
-	Analytics.ErrorType.validateWrapTextureTransfer_InvalidUV = "validateWrapTextureTransfer_InvalidUV"
-	Analytics.ErrorType.validateWrapTextureTransfer_InvalidMinBound = "validateWrapTextureTransfer_InvalidMinBound"
-	Analytics.ErrorType.validateWrapTextureTransfer_InvalidMaxBound = "validateWrapTextureTransfer_InvalidMaxBound"
-end
+Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadCage = "validateWrapTextureTransfer_FailedToLoadCage"
+Analytics.ErrorType.validateWrapTextureTransfer_NoCage = "validateWrapTextureTransfer_NoCage"
+Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadUV = "validateWrapTextureTransfer_FailedToLoadUV"
+Analytics.ErrorType.validateWrapTextureTransfer_InvalidUV = "validateWrapTextureTransfer_InvalidUV"
+Analytics.ErrorType.validateWrapTextureTransfer_InvalidMinBound = "validateWrapTextureTransfer_InvalidMinBound"
+Analytics.ErrorType.validateWrapTextureTransfer_InvalidMaxBound = "validateWrapTextureTransfer_InvalidMaxBound"
 
 if getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds() then
 	Analytics.ErrorType.validateFACSJointTransformsWithinBounds_Error = "validateFACSJointTransformsWithinBounds_Error"

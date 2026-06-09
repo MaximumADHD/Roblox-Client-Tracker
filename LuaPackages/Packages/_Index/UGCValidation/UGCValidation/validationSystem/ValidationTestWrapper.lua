@@ -22,6 +22,9 @@ local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.Fetch
 local ValidationReporter = require(root.validationSystem.ValidationReporter)
 local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
+local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local ValidateConstants = require(root.validationSystem.ValidationConstants)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local TelemetryService = game:GetService("TelemetryService")
@@ -96,7 +99,10 @@ local function ValidationTestWrapper(
 	testStates: { string: string }
 ): Types.SingleValidationResult
 	local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
-	local reporter = ValidationReporter.new(testEnum) :: any
+	local reporter = ValidationReporter.new(
+		testEnum,
+		if getEngineFeatureEngineUGCValidationExpandReturnSchema() then sharedData else nil
+	) :: any
 
 	-- Check 1: if a prereq already failed, just dont start this one
 	for _, reqTest in validationModule.prereqTests do
@@ -114,7 +120,34 @@ local function ValidationTestWrapper(
 	end
 
 	-- Check 3: if this is AQS data, check the format for any version mismatches
-	if next(validationModule.expectedAqsData) ~= nil then
+	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+		if validationModule.isAssetQualityModule then
+			local summary = sharedData.aqsSummaryData[testEnum]
+
+			if summary and summary["Error"] then
+				local recievedAQSInternalError = false
+				for _, errorEnum: string in summary["Error"] :: any do
+					if validationModule.knownAqsUserErrors[errorEnum] ~= nil then
+						reporter:fail(validationModule.knownAqsUserErrors[errorEnum])
+					elseif
+						table.find(ValidateConstants.AQSInternalErrorEnum, errorEnum) ~= nil
+						and recievedAQSInternalError == false
+					then
+						reporter:fail(ErrorSourceStrings.Keys.AQSInternalError)
+						recievedAQSInternalError = true
+					else
+						reporter:err(`Unexpected error enum {errorEnum}`)
+						return complete(testEnum, sharedData, reporter)
+					end
+				end
+
+				return complete(testEnum, sharedData, reporter)
+			end
+		end
+	elseif
+		not getEngineFeatureEngineUGCValidationExpandReturnSchema()
+		and next(validationModule.expectedAqsData) ~= nil
+	then
 		local recievedKnownErrors = false
 		for aqCheckName, _ in validationModule.expectedAqsData do
 			local summary = sharedData.aqsSummaryData[aqCheckName]
@@ -164,6 +197,10 @@ local function ValidationTestWrapper(
 	end)
 
 	if not success then
+		-- forceError sentinel: re-raise so it escapes ValidationManager.
+		if getFFlagUGCValidateMigrateSchemaProperties() and type(issues) == "table" and issues.__forceError then
+			error(issues.message, 0)
+		end
 		if getFFlagDebugUGCValidationPrintNewStructureResults() then
 			print("Validation error:", issues)
 			print("As this is in debug mode, we will re-call the function for a full error trace: ")

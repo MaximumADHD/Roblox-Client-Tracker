@@ -2,6 +2,8 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 
 local NoFACSOverrideData = {}
 
@@ -14,7 +16,11 @@ NoFACSOverrideData.run = function(reporter: Types.ValidationReporter, data: Type
 	local faceControls = head:FindFirstChildOfClass("FaceControls")
 
 	if faceControls and (faceControls :: any):HasOverrideFACSData() :: any then
-		reporter:fail(ErrorSourceStrings.Keys.FaceControlsOverrideFACSNotEmpty)
+		reporter:fail(
+			ErrorSourceStrings.Keys.FaceControlsOverrideFACSNotEmpty,
+			nil,
+			if getEngineFeatureEngineUGCValidationExpandReturnSchema() then faceControls else nil
+		)
 	end
 end
 

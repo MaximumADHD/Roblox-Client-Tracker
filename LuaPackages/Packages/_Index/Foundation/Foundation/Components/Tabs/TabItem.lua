@@ -135,6 +135,7 @@ local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 		Content = React.createElement(View, {
 			LayoutOrder = 2,
 			tag = variantProps.content.tag,
+			Size = variantProps.content.Size,
 		}, {
 			Icon = if props.icon then _Icon else nil,
 			Text = React.createElement(Text, {

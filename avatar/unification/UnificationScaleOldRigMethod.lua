@@ -1,6 +1,14 @@
 -- UnificationScale.lua
 -- Module script implementing scaling and positioning of R15 parts to target positions.
 -- The target in this script is defined according to R6 characters
+local FFlagUserLCRigidConstraintSupport
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserLCRigidConstraintSupport")
+	end)
+	FFlagUserLCRigidConstraintSupport = success and result
+end
+
 local UnificationScale = {}
 
 local PART_NAMES = {
@@ -550,7 +558,11 @@ local function MoveAndScaleAccessories(character: Model, scalingFactors: { [stri
 
 		local accessoryAttachment = accessoryHandle:FindFirstChildOfClass("Attachment") :: Attachment
 		local accessoryWeld = accessoryHandle:FindFirstChildOfClass("Weld") :: Weld
-		if not accessoryAttachment or not accessoryWeld then
+		local accessoryRigidConstraint = nil
+		if FFlagUserLCRigidConstraintSupport and not accessoryWeld then
+			accessoryRigidConstraint = accessoryHandle:FindFirstChildWhichIsA("RigidConstraint")
+		end
+		if not accessoryAttachment or (not accessoryWeld and not accessoryRigidConstraint) then
 			continue
 		end
 
@@ -566,7 +578,14 @@ local function MoveAndScaleAccessories(character: Model, scalingFactors: { [stri
 		end
 		accessoryAttachment.CFrame = accessoryAttachment.CFrame
 			+ (accessoryAttachment.CFrame.Position * (partScaling - Vector3.one))
-		accessoryWeld.C1 = accessoryWeld.C1 + (accessoryWeld.C1.Position * (partScaling - Vector3.one))
+		if accessoryWeld then
+			accessoryWeld.C1 = accessoryWeld.C1 + (accessoryWeld.C1.Position * (partScaling - Vector3.one))
+		elseif FFlagUserLCRigidConstraintSupport and accessoryRigidConstraint then
+			local att1 = accessoryRigidConstraint.Attachment1
+			if att1 then
+				att1.CFrame = att1.CFrame + (att1.CFrame.Position * (partScaling - Vector3.one))
+			end
+		end
 	end
 end
 

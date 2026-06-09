@@ -62,24 +62,45 @@ local function variantsFactory()
 		},
 	}
 
+	-- TODO: clean up with FFlagFoundationDropdownSizeGap
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
-			container = { tag = "gap-xxsmall size-full-600 padding-small radius-small" },
+			container = {
+				tag = {
+					["gap-small size-full-600 padding-small radius-small"] = Flags.FoundationDropdownSizeGap,
+					["gap-xxsmall size-full-600 padding-small radius-small"] = not Flags.FoundationDropdownSizeGap,
+				},
+			},
 			text = { tag = "text-body-small" },
 			arrow = { size = IconSize.XSmall },
 		},
 		[InputSize.Small] = {
-			container = { tag = "gap-xxsmall size-full-800 padding-medium radius-medium" },
+			container = {
+				tag = {
+					["gap-small size-full-800 padding-medium radius-medium"] = Flags.FoundationDropdownSizeGap,
+					["gap-xxsmall size-full-800 padding-medium radius-medium"] = not Flags.FoundationDropdownSizeGap,
+				},
+			},
 			text = { tag = "text-body-small" },
 			arrow = { size = IconSize.Small },
 		},
 		[InputSize.Medium] = {
-			container = { tag = "size-full-1000 padding-medium radius-medium" },
+			container = {
+				tag = {
+					["gap-small size-full-1000 padding-medium radius-medium"] = Flags.FoundationDropdownSizeGap,
+					["size-full-1000 padding-medium radius-medium"] = not Flags.FoundationDropdownSizeGap,
+				},
+			},
 			text = { tag = "text-body-medium" },
 			arrow = { size = IconSize.Medium },
 		},
 		[InputSize.Large] = {
-			container = { tag = "size-full-1200 padding-medium radius-medium" },
+			container = {
+				tag = {
+					["gap-small size-full-1200 padding-medium radius-medium"] = Flags.FoundationDropdownSizeGap,
+					["size-full-1200 padding-medium radius-medium"] = not Flags.FoundationDropdownSizeGap,
+				},
+			},
 			text = { tag = "text-body-large" },
 			arrow = { size = IconSize.Large },
 		},

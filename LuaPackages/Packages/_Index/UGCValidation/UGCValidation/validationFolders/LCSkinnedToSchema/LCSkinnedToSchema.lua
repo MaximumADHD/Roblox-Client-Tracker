@@ -4,6 +4,8 @@ local Constants = require(root.Constants)
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local LCSkinnedToSchema = {}
 
 LCSkinnedToSchema.fflag = require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
@@ -30,6 +32,10 @@ LCSkinnedToSchema.run = function(reporter: Types.ValidationReporter, data: Types
 	local wrapLayer = handleInst:FindFirstChildOfClass("WrapLayer")
 	assert(wrapLayer, "WrapLayer not found on handle")
 	local isAutoSkinEnabled = wrapLayer.AutoSkin == Enum.WrapLayerAutoSkin.EnabledOverride
+
+	if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+		reporter:setReportingInstance(handleInst)
+	end
 
 	--  Step 1: Ensure the joints in FMD are in our whitelist (R15 joints or transfer joints)
 	for _, jointName in fmdJointNames do

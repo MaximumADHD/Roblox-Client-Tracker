@@ -55,13 +55,29 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 	containerRef = React.useRef(nil :: Types.ItemId?)
 
 	-- Create refs for each segment (use user-provided ref if available)
-	local segmentRefs = React.useMemo(function()
-		local refs = {}
-		for _, segment in props.segments do
-			refs[segment.id] = segment.ref or React.createRef()
-		end
-		return refs
-	end, { props.segments })
+	local segmentRefs
+	if Flags.FoundationFixStaleAnimatedHighlightRefs then
+		local segmentRefsCache = React.useRef({} :: { [Types.ItemId]: React.RefObject<GuiObject?> })
+		segmentRefs = React.useMemo(function()
+			local cache = segmentRefsCache.current
+			for _, segment in props.segments do
+				if segment.ref then
+					cache[segment.id] = segment.ref
+				elseif not cache[segment.id] then
+					cache[segment.id] = React.createRef()
+				end
+			end
+			return cache
+		end, { props.segments })
+	else
+		segmentRefs = React.useMemo(function()
+			local refs = {}
+			for _, segment in props.segments do
+				refs[segment.id] = segment.ref or React.createRef()
+			end
+			return refs
+		end, { props.segments })
+	end
 
 	overlayData = useAnimatedHighlight(props.value, (ref or containerRef) :: { current: GuiObject? }, segmentRefs)
 	overlayHeight, overlayPosition, overlayWidth =

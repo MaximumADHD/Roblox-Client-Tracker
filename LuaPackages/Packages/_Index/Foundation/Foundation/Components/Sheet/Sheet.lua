@@ -79,9 +79,7 @@ local function Sheet(sheetProps: SheetProps, ref: React.Ref<GuiObject>): React.R
 	childProps.isOpen = nil
 	childProps.ref = ref
 	childProps.sheetRef = sheetRef
-	if not Flags.FoundationSideSheetNewWidthCalculation or Flags.FoundationSideSheetFixNewWidth then
-		childProps.displaySize = displaySize
-	end
+	childProps.displaySize = displaySize
 	childProps.onClose = function()
 		if props.onClose then
 			props.onClose()

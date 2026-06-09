@@ -4,16 +4,11 @@
 local root = script.Parent.Parent
 local createEditableInstancesForContext = {}
 
-local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
-
 local AssetService = game:GetService("AssetService")
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local Types = require(root.util.Types)
 local destroyEditableInstances = require(root.util.destroyEditableInstances)
-
-local EngineFeatureCreateEditableImageOriginalSizeEnabled =
-	game:GetEngineFeature("EngineCreateEditableImageOriginalSizeEnabled")
 
 local function addEditableInstance(editableInstances, instance, key, instanceInfo, contentType)
 	local instanceMap = editableInstances.editableMeshes
@@ -33,11 +28,7 @@ local function createEditableInstanceFromId(content, contentIdMap, contentType)
 		if contentType == "EditableMesh" then
 			return AssetService:CreateEditableMeshAsync(content)
 		else
-			if EngineFeatureCreateEditableImageOriginalSizeEnabled then
-				return UGCValidationService:CreateEditableImageOriginalSizeAsync(content.Uri)
-			else
-				return (AssetService :: any):CreateEditableImageAsync(content) :: any
-			end
+			return UGCValidationService:CreateEditableImageOriginalSizeAsync(content.Uri)
 		end
 	end)
 
@@ -96,7 +87,7 @@ local function getTextureContentMap(instance, contentIdToContentMap)
 			Content.fromUri((instance :: SpecialMesh).TextureId),
 			"EditableImage"
 		)
-	elseif instance:IsA("SurfaceAppearance") or (getFFlagUGCValidationMakeupSupport() and instance:IsA("Decal")) then
+	elseif instance:IsA("SurfaceAppearance") or instance:IsA("Decal") then
 		addContent(
 			contentIdToContentMap,
 			"ColorMap",
@@ -139,7 +130,7 @@ local function getMeshContentMap(instance, contentIdToContentMap)
 	elseif instance:IsA("SpecialMesh") then
 		-- selene: allow(undefined_variable) | Content global will be added later
 		addContent(contentIdToContentMap, "MeshId", Content.fromUri((instance :: SpecialMesh).MeshId), "EditableMesh")
-	elseif getFFlagUGCValidationMakeupSupport() and instance:IsA("WrapTextureTransfer") then
+	elseif instance:IsA("WrapTextureTransfer") then
 		addContent(
 			contentIdToContentMap,
 			"ReferenceCageMeshContent",

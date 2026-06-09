@@ -43,6 +43,8 @@ type _GetChartsPageRequestFields = {
 	session_id: string,
 	entry_pagination_key: string,
 	entry_page_token: string,
+	max_memory: string,
+	page_type: string,
 }
 
 type _GetChartsPageRequestPartialFields = {
@@ -53,6 +55,8 @@ type _GetChartsPageRequestPartialFields = {
 	session_id: string?,
 	entry_pagination_key: string?,
 	entry_page_token: string?,
+	max_memory: string?,
+	page_type: string?,
 }
 
 export type GetChartsPageRequest = typeof(setmetatable(
@@ -167,6 +171,8 @@ type _GetChartsSortDetailRequestFields = {
 	device: string,
 	country: string,
 	session_id: string,
+	age_group: string,
+	max_memory: string,
 }
 
 type _GetChartsSortDetailRequestPartialFields = {
@@ -175,6 +181,8 @@ type _GetChartsSortDetailRequestPartialFields = {
 	device: string?,
 	country: string?,
 	session_id: string?,
+	age_group: string?,
+	max_memory: string?,
 }
 
 export type GetChartsSortDetailRequest = typeof(setmetatable(
@@ -298,6 +306,8 @@ do
 				then ""
 				else data.entry_pagination_key,
 			entry_page_token = if data == nil or data.entry_page_token == nil then "" else data.entry_page_token,
+			max_memory = if data == nil or data.max_memory == nil then "" else data.max_memory,
+			page_type = if data == nil or data.page_type == nil then "" else data.page_type,
 		}, _GetChartsPageRequestImpl :: _GetChartsPageRequestImpl)
 	end
 
@@ -338,6 +348,16 @@ do
 		if self.entry_page_token ~= nil and self.entry_page_token ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.entry_page_token)
+		end
+
+		if self.max_memory ~= nil and self.max_memory ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.max_memory)
+		end
+
+		if self.page_type ~= nil and self.page_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.page_type)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -394,6 +414,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.entry_page_token = buffer.tostring(value)
 					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.max_memory = buffer.tostring(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.page_type = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -449,6 +479,14 @@ do
 			output.entryPageToken = self.entry_page_token
 		end
 
+		if self.max_memory ~= nil and self.max_memory ~= "" then
+			output.maxMemory = self.max_memory
+		end
+
+		if self.page_type ~= nil and self.page_type ~= "" then
+			output.pageType = self.page_type
+		end
+
 		return output
 	end
 
@@ -501,6 +539,22 @@ do
 
 		if input.entryPageToken ~= nil then
 			self.entry_page_token = input.entryPageToken
+		end
+
+		if input.max_memory ~= nil then
+			self.max_memory = input.max_memory
+		end
+
+		if input.maxMemory ~= nil then
+			self.max_memory = input.maxMemory
+		end
+
+		if input.page_type ~= nil then
+			self.page_type = input.page_type
+		end
+
+		if input.pageType ~= nil then
+			self.page_type = input.pageType
 		end
 
 		return self
@@ -1028,6 +1082,8 @@ do
 			device = if data == nil or data.device == nil then "" else data.device,
 			country = if data == nil or data.country == nil then "" else data.country,
 			session_id = if data == nil or data.session_id == nil then "" else data.session_id,
+			age_group = if data == nil or data.age_group == nil then "" else data.age_group,
+			max_memory = if data == nil or data.max_memory == nil then "" else data.max_memory,
 		}, _GetChartsSortDetailRequestImpl :: _GetChartsSortDetailRequestImpl)
 	end
 
@@ -1058,6 +1114,16 @@ do
 		if self.session_id ~= nil and self.session_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.session_id)
+		end
+
+		if self.age_group ~= nil and self.age_group ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.age_group)
+		end
+
+		if self.max_memory ~= nil and self.max_memory ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.max_memory)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -1103,6 +1169,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.session_id = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.age_group = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.max_memory = buffer.tostring(value)
 					continue
 				end
 
@@ -1151,6 +1227,14 @@ do
 			output.sessionId = self.session_id
 		end
 
+		if self.age_group ~= nil and self.age_group ~= "" then
+			output.ageGroup = self.age_group
+		end
+
+		if self.max_memory ~= nil and self.max_memory ~= "" then
+			output.maxMemory = self.max_memory
+		end
+
 		return output
 	end
 
@@ -1187,6 +1271,22 @@ do
 
 		if input.sessionId ~= nil then
 			self.session_id = input.sessionId
+		end
+
+		if input.age_group ~= nil then
+			self.age_group = input.age_group
+		end
+
+		if input.ageGroup ~= nil then
+			self.age_group = input.ageGroup
+		end
+
+		if input.max_memory ~= nil then
+			self.max_memory = input.max_memory
+		end
+
+		if input.maxMemory ~= nil then
+			self.max_memory = input.maxMemory
 		end
 
 		return self

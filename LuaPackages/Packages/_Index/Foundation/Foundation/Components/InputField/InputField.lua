@@ -16,6 +16,7 @@ local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Constants = require(Foundation.Constants)
+local Flags = require(Foundation.Utility.Flags)
 
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
@@ -53,11 +54,13 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 		end
 	end, {})
 
-	local onLabelHover = React.useCallback(function(isHovered)
-		if textBoxRef.current then
-			textBoxRef.current.setHover(isHovered)
-		end
-	end, {})
+	local onLabelHover = if Flags.FoundationTextInputsBetaUpdate
+		then nil
+		else React.useCallback(function(isHovered)
+			if textBoxRef.current then
+				textBoxRef.current.setHover(isHovered)
+			end
+		end, {})
 
 	React.useImperativeHandle(props.textBoxRef, function(): TextInputRef?
 		if not textBoxRef.current then
@@ -92,7 +95,7 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 					isRequired = props.isRequired,
 					isDisabled = props.isDisabled,
 					onActivated = focusTextBox,
-					onHover = onLabelHover,
+					onHover = if Flags.FoundationTextInputsBetaUpdate then nil else onLabelHover,
 					LayoutOrder = 1,
 					testId = `{props.testId}--label`,
 				})

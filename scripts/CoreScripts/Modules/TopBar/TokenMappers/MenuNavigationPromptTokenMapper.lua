@@ -1,6 +1,8 @@
 --!strict
 local CorePackages = game:GetService("CorePackages")
 local Style = require(CorePackages.Workspace.Packages.Style)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
 
 type DesignTokens = Style.DesignTokens
 
@@ -48,33 +50,33 @@ export type MenuNavigationPromptTokens = {
 return function(_, tokens: DesignTokens): MenuNavigationPromptTokens
 	return {
 		Color = {
-			backgroundUiColor = tokens.Semantic.Color.BackgroundUi.Default,
-			separatorColor = tokens.Semantic.Color.Common.Divider,
-			textColor = tokens.Semantic.Color.Text.Emphasis,
-			buttonColor = tokens.Semantic.Color.Text.Emphasis,
-			buttonTextColor = tokens.Semantic.Color.BackgroundUi.Default,
+			backgroundUiColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Surface.Surface_300 else tokens.Semantic.Color.BackgroundUi.Default),
+			separatorColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Stroke.Emphasis else tokens.Semantic.Color.Common.Divider),
+			textColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Content.Emphasis else tokens.Semantic.Color.Text.Emphasis),
+			buttonColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Content.Emphasis else tokens.Semantic.Color.Text.Emphasis),
+			buttonTextColor = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Color.Surface.Surface_300 else tokens.Semantic.Color.BackgroundUi.Default),
 		},
 		Size = {
 			displayWidth = 1920,
 			promptWidth = 1080,
 			imageWidth = 566,
 			imageHeight = 324,
-			buttonHeight = tokens.Global.Size_600,
-			iconSize = tokens.Global.Size_200,
+			buttonHeight = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_1200 else tokens.Global.Size_600),
+			iconSize = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_400 else tokens.Global.Size_200),
 		},
 		Space = {
-			titlePadding = tokens.Global.Space_150,
-			bodyPadding = tokens.Global.Space_300,
-			iconPadding = tokens.Global.Space_50,
+			titlePadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_300 else tokens.Global.Space_150),
+			bodyPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_600 else tokens.Global.Space_300),
+			iconPadding = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Size.Size_100 else tokens.Global.Space_50),
 		},
 		Radius = {
-			cornerRadius = tokens.Semantic.Radius.Medium,
-			buttonRadius = tokens.Semantic.Radius.Small,
+			cornerRadius = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Radius.Medium else tokens.Semantic.Radius.Medium),
+			buttonRadius = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Radius.Small else tokens.Semantic.Radius.Small),
 		},
 		Typography = {
-			label = tokens.Semantic.Typography.Subheader,
-			header = tokens.Semantic.Typography.Header,
-			caption = tokens.Semantic.Typography.Body,
+			label = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Typography.TitleLarge else tokens.Semantic.Typography.Subheader),
+			header = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Typography.HeadingSmall else tokens.Semantic.Typography.Header),
+			caption = (if FFlagRenameDeprecatedUIBloxTokens then tokens.Typography.BodyLarge else tokens.Semantic.Typography.Body),
 		},
 	}
 end

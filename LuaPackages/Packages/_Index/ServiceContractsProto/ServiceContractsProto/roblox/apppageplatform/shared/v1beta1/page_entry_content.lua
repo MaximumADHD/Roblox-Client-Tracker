@@ -81,6 +81,8 @@ type _Messages =
 		SortSelectorInputData_SortOption: _SortSelectorInputData_SortOptionMessage,
 		UAMarketplaceCatalogItemGroupInputData: _UAMarketplaceCatalogItemGroupInputDataMessage,
 		UAMarketplaceCatalogItemCarouselInputData: _UAMarketplaceCatalogItemCarouselInputDataMessage,
+		WidgetStyleData: _WidgetStyleDataMessage,
+		UAMarketplaceCatalogHeroUnitInputData: _UAMarketplaceCatalogHeroUnitInputDataMessage,
 		UAMarketplaceCatalogFeedInputData: _UAMarketplaceCatalogFeedInputDataMessage,
 		UAMarketplaceCatalogFeedInputData_EntryMapEntry: _UAMarketplaceCatalogFeedInputData_EntryMapEntryMessage,
 		UAMarketplaceCatalogCategoryMenuInputData: _UAMarketplaceCatalogCategoryMenuInputDataMessage,
@@ -106,6 +108,7 @@ type _Messages =
 	}
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_background_layer = require(script.Parent.background_layer)
 local _roblox_apppageplatform_shared_v1beta1_page_entry = require(script.Parent.page_entry)
 
 type _UniversalPageEntryImpl = {
@@ -271,6 +274,7 @@ type _PageEntryInputDataFields = {
 		| { type: "marketplace_catalog_category_menu", value: UAMarketplaceCatalogCategoryMenuInputData }
 		| { type: "marketplace_catalog_item_group", value: UAMarketplaceCatalogItemGroupInputData }
 		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
+		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 	)?,
@@ -331,6 +335,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "marketplace_catalog_category_menu", value: UAMarketplaceCatalogCategoryMenuInputData }
 		| { type: "marketplace_catalog_item_group", value: UAMarketplaceCatalogItemGroupInputData }
 		| { type: "marketplace_catalog_item_carousel", value: UAMarketplaceCatalogItemCarouselInputData }
+		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
 	)?,
@@ -2189,6 +2194,7 @@ type _FilterPillsInputData_FilterGroupFields = {
 	selected_option_id: string,
 	filter_type: string,
 	inactive_option_ids: { string },
+	info_text: string,
 }
 
 type _FilterPillsInputData_FilterGroupPartialFields = {
@@ -2199,6 +2205,7 @@ type _FilterPillsInputData_FilterGroupPartialFields = {
 	selected_option_id: string?,
 	filter_type: string?,
 	inactive_option_ids: { string }?,
+	info_text: string?,
 }
 
 export type FilterPillsInputData_FilterGroup = typeof(setmetatable(
@@ -2311,11 +2318,17 @@ type _UAMarketplaceCatalogItemGroupInputDataImpl = {
 type _UAMarketplaceCatalogItemGroupInputDataFields = {
 	id: string,
 	preview_rows: number,
+	widget_style: WidgetStyleData?,
+	see_all_button: boolean,
+	information_popover_text: string,
 }
 
 type _UAMarketplaceCatalogItemGroupInputDataPartialFields = {
 	id: string?,
 	preview_rows: number?,
+	widget_style: WidgetStyleData?,
+	see_all_button: boolean?,
+	information_popover_text: string?,
 }
 
 export type UAMarketplaceCatalogItemGroupInputData = typeof(setmetatable(
@@ -2342,11 +2355,17 @@ type _UAMarketplaceCatalogItemCarouselInputDataImpl = {
 type _UAMarketplaceCatalogItemCarouselInputDataFields = {
 	id: string,
 	num_items_to_show: number,
+	widget_style: WidgetStyleData?,
+	see_all_button: boolean,
+	information_popover_text: string,
 }
 
 type _UAMarketplaceCatalogItemCarouselInputDataPartialFields = {
 	id: string?,
 	num_items_to_show: number?,
+	widget_style: WidgetStyleData?,
+	see_all_button: boolean?,
+	information_popover_text: string?,
 }
 
 export type UAMarketplaceCatalogItemCarouselInputData = typeof(setmetatable(
@@ -2356,6 +2375,58 @@ export type UAMarketplaceCatalogItemCarouselInputData = typeof(setmetatable(
 type _UAMarketplaceCatalogItemCarouselInputDataMessage = proto.Message<
 	UAMarketplaceCatalogItemCarouselInputData,
 	_UAMarketplaceCatalogItemCarouselInputDataPartialFields
+>
+
+type _WidgetStyleDataImpl = {
+	__index: _WidgetStyleDataImpl,
+	new: (fields: _WidgetStyleDataPartialFields?) -> WidgetStyleData,
+	encode: (self: WidgetStyleData) -> buffer,
+	decode: (input: buffer) -> WidgetStyleData,
+	jsonEncode: (self: WidgetStyleData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> WidgetStyleData,
+	descriptor: proto.Descriptor,
+}
+
+type _WidgetStyleDataFields = {
+	background_layers: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer },
+}
+
+type _WidgetStyleDataPartialFields = {
+	background_layers: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer }?,
+}
+
+export type WidgetStyleData = typeof(setmetatable({} :: _WidgetStyleDataFields, {} :: _WidgetStyleDataImpl))
+type _WidgetStyleDataMessage = proto.Message<WidgetStyleData, _WidgetStyleDataPartialFields>
+
+type _UAMarketplaceCatalogHeroUnitInputDataImpl = {
+	__index: _UAMarketplaceCatalogHeroUnitInputDataImpl,
+	new: (fields: _UAMarketplaceCatalogHeroUnitInputDataPartialFields?) -> UAMarketplaceCatalogHeroUnitInputData,
+	encode: (self: UAMarketplaceCatalogHeroUnitInputData) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogHeroUnitInputData,
+	jsonEncode: (self: UAMarketplaceCatalogHeroUnitInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogHeroUnitInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _UAMarketplaceCatalogHeroUnitInputDataFields = {
+	id: string,
+	available_until: string,
+	widget_style: WidgetStyleData?,
+}
+
+type _UAMarketplaceCatalogHeroUnitInputDataPartialFields = {
+	id: string?,
+	available_until: string?,
+	widget_style: WidgetStyleData?,
+}
+
+export type UAMarketplaceCatalogHeroUnitInputData = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogHeroUnitInputDataFields,
+	{} :: _UAMarketplaceCatalogHeroUnitInputDataImpl
+))
+type _UAMarketplaceCatalogHeroUnitInputDataMessage = proto.Message<
+	UAMarketplaceCatalogHeroUnitInputData,
+	_UAMarketplaceCatalogHeroUnitInputDataPartialFields
 >
 
 type _UAMarketplaceCatalogFeedInputDataImpl = {
@@ -3689,6 +3760,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 903, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "marketplace_catalog_hero_unit" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 904, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "search_results_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1000, proto.wireTypes.lengthDelimited)
@@ -4053,6 +4128,14 @@ do
 						value = messages.UAMarketplaceCatalogItemCarouselInputData.decode(value),
 					}
 					continue
+				elseif field == 904 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "marketplace_catalog_hero_unit",
+						value = messages.UAMarketplaceCatalogHeroUnitInputData.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -4201,6 +4284,8 @@ do
 				output.marketplaceCatalogItemGroup = self.kind.value:jsonEncode()
 			elseif self.kind.type == "marketplace_catalog_item_carousel" then
 				output.marketplaceCatalogItemCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "marketplace_catalog_hero_unit" then
+				output.marketplaceCatalogHeroUnit = self.kind.value:jsonEncode()
 			elseif self.kind.type == "search_results_feed" then
 				output.searchResultsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "power_search_ai_overview" then
@@ -4837,6 +4922,20 @@ do
 				value = messages.UAMarketplaceCatalogItemCarouselInputData.jsonDecode(
 					input.marketplaceCatalogItemCarousel
 				),
+			}
+		end
+
+		if input.marketplace_catalog_hero_unit ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_hero_unit",
+				value = messages.UAMarketplaceCatalogHeroUnitInputData.jsonDecode(input.marketplace_catalog_hero_unit),
+			}
+		end
+
+		if input.marketplaceCatalogHeroUnit ~= nil then
+			self.kind = {
+				type = "marketplace_catalog_hero_unit",
+				value = messages.UAMarketplaceCatalogHeroUnitInputData.jsonDecode(input.marketplaceCatalogHeroUnit),
 			}
 		end
 
@@ -14338,6 +14437,7 @@ do
 			inactive_option_ids = if data == nil or data.inactive_option_ids == nil
 				then {}
 				else data.inactive_option_ids,
+			info_text = if data == nil or data.info_text == nil then "" else data.info_text,
 		}, _FilterPillsInputData_FilterGroupImpl :: _FilterPillsInputData_FilterGroupImpl)
 	end
 
@@ -14383,6 +14483,11 @@ do
 				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, value)
 			end
+		end
+
+		if self.info_text ~= nil and self.info_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.info_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -14438,6 +14543,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.inactive_option_ids, buffer.tostring(value))
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.info_text = buffer.tostring(value)
 					continue
 				end
 
@@ -14500,6 +14610,10 @@ do
 				table.insert(newOutput, value)
 			end
 			output.inactiveOptionIds = newOutput
+		end
+
+		if self.info_text ~= nil and self.info_text ~= "" then
+			output.infoText = self.info_text
 		end
 
 		return output
@@ -14575,6 +14689,14 @@ do
 			end
 
 			self.inactive_option_ids = newOutput
+		end
+
+		if input.info_text ~= nil then
+			self.info_text = input.info_text
+		end
+
+		if input.infoText ~= nil then
+			self.info_text = input.infoText
 		end
 
 		return self
@@ -15043,6 +15165,11 @@ do
 		return setmetatable({
 			id = if data == nil or data.id == nil then "" else data.id,
 			preview_rows = if data == nil or data.preview_rows == nil then 0 else data.preview_rows,
+			widget_style = if data == nil or data.widget_style == nil then nil else data.widget_style,
+			see_all_button = if data == nil or data.see_all_button == nil then false else data.see_all_button,
+			information_popover_text = if data == nil or data.information_popover_text == nil
+				then ""
+				else data.information_popover_text,
 		}, _UAMarketplaceCatalogItemGroupInputDataImpl :: _UAMarketplaceCatalogItemGroupInputDataImpl)
 	end
 
@@ -15058,6 +15185,22 @@ do
 		if self.preview_rows ~= nil and self.preview_rows ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.preview_rows)
+		end
+
+		if self.widget_style ~= nil then
+			local encoded = self.widget_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.see_all_button then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.see_all_button then 1 else 0)
+		end
+
+		if self.information_popover_text ~= nil and self.information_popover_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.information_popover_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -15079,6 +15222,11 @@ do
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.preview_rows = value
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.see_all_button = value ~= 0
+					continue
 				end
 
 				local _
@@ -15088,6 +15236,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.widget_style = messages.WidgetStyleData.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.information_popover_text = buffer.tostring(value)
 					continue
 				end
 
@@ -15124,6 +15282,18 @@ do
 			output.previewRows = self.preview_rows
 		end
 
+		if self.widget_style ~= nil then
+			output.widgetStyle = self.widget_style:jsonEncode()
+		end
+
+		if self.see_all_button then
+			output.seeAllButton = self.see_all_button
+		end
+
+		if self.information_popover_text ~= nil and self.information_popover_text ~= "" then
+			output.informationPopoverText = self.information_popover_text
+		end
+
 		return output
 	end
 
@@ -15142,6 +15312,30 @@ do
 
 		if input.previewRows ~= nil then
 			self.preview_rows = input.previewRows
+		end
+
+		if input.widget_style ~= nil then
+			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widget_style)
+		end
+
+		if input.widgetStyle ~= nil then
+			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widgetStyle)
+		end
+
+		if input.see_all_button ~= nil then
+			self.see_all_button = input.see_all_button
+		end
+
+		if input.seeAllButton ~= nil then
+			self.see_all_button = input.seeAllButton
+		end
+
+		if input.information_popover_text ~= nil then
+			self.information_popover_text = input.information_popover_text
+		end
+
+		if input.informationPopoverText ~= nil then
+			self.information_popover_text = input.informationPopoverText
 		end
 
 		return self
@@ -15167,6 +15361,11 @@ do
 		return setmetatable({
 			id = if data == nil or data.id == nil then "" else data.id,
 			num_items_to_show = if data == nil or data.num_items_to_show == nil then 0 else data.num_items_to_show,
+			widget_style = if data == nil or data.widget_style == nil then nil else data.widget_style,
+			see_all_button = if data == nil or data.see_all_button == nil then false else data.see_all_button,
+			information_popover_text = if data == nil or data.information_popover_text == nil
+				then ""
+				else data.information_popover_text,
 		}, _UAMarketplaceCatalogItemCarouselInputDataImpl :: _UAMarketplaceCatalogItemCarouselInputDataImpl)
 	end
 
@@ -15184,6 +15383,22 @@ do
 		if self.num_items_to_show ~= nil and self.num_items_to_show ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.num_items_to_show)
+		end
+
+		if self.widget_style ~= nil then
+			local encoded = self.widget_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.see_all_button then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.see_all_button then 1 else 0)
+		end
+
+		if self.information_popover_text ~= nil and self.information_popover_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.information_popover_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -15207,6 +15422,11 @@ do
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.num_items_to_show = value
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.see_all_button = value ~= 0
+					continue
 				end
 
 				local _
@@ -15216,6 +15436,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.widget_style = messages.WidgetStyleData.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.information_popover_text = buffer.tostring(value)
 					continue
 				end
 
@@ -15254,6 +15484,18 @@ do
 			output.numItemsToShow = self.num_items_to_show
 		end
 
+		if self.widget_style ~= nil then
+			output.widgetStyle = self.widget_style:jsonEncode()
+		end
+
+		if self.see_all_button then
+			output.seeAllButton = self.see_all_button
+		end
+
+		if self.information_popover_text ~= nil and self.information_popover_text ~= "" then
+			output.informationPopoverText = self.information_popover_text
+		end
+
 		return output
 	end
 
@@ -15274,6 +15516,30 @@ do
 			self.num_items_to_show = input.numItemsToShow
 		end
 
+		if input.widget_style ~= nil then
+			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widget_style)
+		end
+
+		if input.widgetStyle ~= nil then
+			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widgetStyle)
+		end
+
+		if input.see_all_button ~= nil then
+			self.see_all_button = input.see_all_button
+		end
+
+		if input.seeAllButton ~= nil then
+			self.see_all_button = input.seeAllButton
+		end
+
+		if input.information_popover_text ~= nil then
+			self.information_popover_text = input.information_popover_text
+		end
+
+		if input.informationPopoverText ~= nil then
+			self.information_popover_text = input.informationPopoverText
+		end
+
 		return self
 	end
 
@@ -15285,6 +15551,281 @@ do
 	messages.UAMarketplaceCatalogItemCarouselInputData = _UAMarketplaceCatalogItemCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.UAMarketplaceCatalogItemCarouselInputData)
+end
+
+do
+	local _WidgetStyleDataImpl = {}
+	_WidgetStyleDataImpl.__index = _WidgetStyleDataImpl
+
+	function _WidgetStyleDataImpl.new(data: _WidgetStyleDataPartialFields?): WidgetStyleData
+		return setmetatable({
+			background_layers = if data == nil or data.background_layers == nil then {} else data.background_layers,
+		}, _WidgetStyleDataImpl :: _WidgetStyleDataImpl)
+	end
+
+	function _WidgetStyleDataImpl.encode(self: WidgetStyleData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.background_layers ~= nil and #self.background_layers > 0 then
+			for _, value in self.background_layers do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _WidgetStyleDataImpl.decode(input: buffer): WidgetStyleData
+		local self = _WidgetStyleDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.background_layers,
+						_roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _WidgetStyleDataImpl.jsonEncode(self: WidgetStyleData): any
+		local output = {}
+
+		if self.background_layers ~= nil and #self.background_layers > 0 then
+			local newOutput = {}
+			for _, value in self.background_layers do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.backgroundLayers = newOutput
+		end
+
+		return output
+	end
+
+	function _WidgetStyleDataImpl.jsonDecode(input: { [string]: any }): WidgetStyleData
+		local self = _WidgetStyleDataImpl.new()
+
+		if input.background_layers ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer } = {}
+			for _, value in input.background_layers do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer.jsonDecode(value)
+				)
+			end
+
+			self.background_layers = newOutput
+		end
+
+		if input.backgroundLayers ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer } = {}
+			for _, value in input.backgroundLayers do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_background_layer.BackgroundLayer.jsonDecode(value)
+				)
+			end
+
+			self.background_layers = newOutput
+		end
+
+		return self
+	end
+
+	_WidgetStyleDataImpl.descriptor = {
+		name = "WidgetStyleData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.WidgetStyleData",
+	}
+
+	messages.WidgetStyleData = _WidgetStyleDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.WidgetStyleData)
+end
+
+do
+	local _UAMarketplaceCatalogHeroUnitInputDataImpl = {}
+	_UAMarketplaceCatalogHeroUnitInputDataImpl.__index = _UAMarketplaceCatalogHeroUnitInputDataImpl
+
+	function _UAMarketplaceCatalogHeroUnitInputDataImpl.new(
+		data: _UAMarketplaceCatalogHeroUnitInputDataPartialFields?
+	): UAMarketplaceCatalogHeroUnitInputData
+		return setmetatable({
+			id = if data == nil or data.id == nil then "" else data.id,
+			available_until = if data == nil or data.available_until == nil then "" else data.available_until,
+			widget_style = if data == nil or data.widget_style == nil then nil else data.widget_style,
+		}, _UAMarketplaceCatalogHeroUnitInputDataImpl :: _UAMarketplaceCatalogHeroUnitInputDataImpl)
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputDataImpl.encode(self: UAMarketplaceCatalogHeroUnitInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.available_until ~= nil and self.available_until ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.available_until)
+		end
+
+		if self.widget_style ~= nil then
+			local encoded = self.widget_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputDataImpl.decode(input: buffer): UAMarketplaceCatalogHeroUnitInputData
+		local self = _UAMarketplaceCatalogHeroUnitInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.available_until = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.widget_style = messages.WidgetStyleData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputDataImpl.jsonEncode(self: UAMarketplaceCatalogHeroUnitInputData): any
+		local output = {}
+
+		if self.id ~= nil and self.id ~= "" then
+			output.id = self.id
+		end
+
+		if self.available_until ~= nil and self.available_until ~= "" then
+			output.availableUntil = self.available_until
+		end
+
+		if self.widget_style ~= nil then
+			output.widgetStyle = self.widget_style:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _UAMarketplaceCatalogHeroUnitInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): UAMarketplaceCatalogHeroUnitInputData
+		local self = _UAMarketplaceCatalogHeroUnitInputDataImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.available_until ~= nil then
+			self.available_until = input.available_until
+		end
+
+		if input.availableUntil ~= nil then
+			self.available_until = input.availableUntil
+		end
+
+		if input.widget_style ~= nil then
+			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widget_style)
+		end
+
+		if input.widgetStyle ~= nil then
+			self.widget_style = messages.WidgetStyleData.jsonDecode(input.widgetStyle)
+		end
+
+		return self
+	end
+
+	_UAMarketplaceCatalogHeroUnitInputDataImpl.descriptor = {
+		name = "UAMarketplaceCatalogHeroUnitInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UAMarketplaceCatalogHeroUnitInputData",
+	}
+
+	messages.UAMarketplaceCatalogHeroUnitInputData = _UAMarketplaceCatalogHeroUnitInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UAMarketplaceCatalogHeroUnitInputData)
 end
 
 do
@@ -18423,6 +18964,8 @@ return {
 	SortSelectorInputData_SortOption = messages.SortSelectorInputData_SortOption,
 	UAMarketplaceCatalogItemGroupInputData = messages.UAMarketplaceCatalogItemGroupInputData,
 	UAMarketplaceCatalogItemCarouselInputData = messages.UAMarketplaceCatalogItemCarouselInputData,
+	WidgetStyleData = messages.WidgetStyleData,
+	UAMarketplaceCatalogHeroUnitInputData = messages.UAMarketplaceCatalogHeroUnitInputData,
 	UAMarketplaceCatalogFeedInputData = messages.UAMarketplaceCatalogFeedInputData,
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,

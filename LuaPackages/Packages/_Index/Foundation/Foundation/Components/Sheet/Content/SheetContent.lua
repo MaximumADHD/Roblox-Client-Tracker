@@ -16,6 +16,7 @@ local View = require(Foundation.Components.View)
 local isScrollingFrameOverflowingY = require(Foundation.Utility.isScrollingFrameOverflowingY)
 
 export type SheetContentProps = {
+	isContentFullBleed: boolean?,
 	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 	children: React.ReactNode,
 } & Types.SelectionProps
@@ -64,6 +65,10 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 
+	local horizontalPadding = if Flags.FoundationFullBleedSheetContent and props.isContentFullBleed
+		then nil
+		else UDim.new(0, tokens.Padding.Small)
+
 	local isSelectableEnabled = if props.Selectable == nil then true else props.Selectable
 	local selectable = if hasOverflowY
 		then hasOverflowY:map(function(overflow: boolean)
@@ -105,8 +110,8 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 						return UDim.new(0, value + bottomPadding + tokens.Margin.Small)
 					end)
 					else UDim.new(0, tokens.Padding.Small),
-				left = UDim.new(0, tokens.Padding.Small),
-				right = UDim.new(0, tokens.Padding.Small),
+				left = horizontalPadding,
+				right = horizontalPadding,
 			},
 			ClipsDescendants = if isBottomSheet then hasHeader else true,
 			onCanvasPositionChanged = function(rbx: ScrollingFrame)
@@ -122,7 +127,12 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 			View,
 			{
 				onAbsoluteSizeChanged = updateScrollViewCanvasSize,
-				tag = "col align-x-center gap-medium size-full-0 auto-y padding-x-medium",
+				tag = if Flags.FoundationFullBleedSheetContent
+					then {
+						["col align-x-center gap-medium size-full-0 auto-y"] = true,
+						["padding-x-medium"] = not props.isContentFullBleed,
+					}
+					else "col align-x-center gap-medium size-full-0 auto-y padding-x-medium",
 			},
 			if Flags.FoundationSheetFullBleed
 				then {

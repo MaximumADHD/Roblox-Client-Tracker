@@ -8,7 +8,10 @@ local VRService = game:GetService("VRService")
 local TextChatService = game:GetService("TextChatService")
 local TweenService = game:GetService("TweenService")
 
+
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRenameDeprecatedUIBloxTokens = SharedFlags.FFlagRenameDeprecatedUIBloxTokens
+
 
 local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
@@ -643,7 +646,7 @@ function TopBarApp:renderWithStyle(style)
 				uiLessTooltipDescription = Constants.LocalizedKeys.UILessTooltipDescription,
 			})(function(localized) 
 				return Roact.createElement("Frame", {
-					BackgroundColor3 = style.Tokens.Global.Color.White.Color3,
+					BackgroundColor3 = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Color.Extended.White.White_100 else style.Tokens.Global.Color.White).Color3,
 					BorderSizePixel = 0,
 					Position = UDim2.new(
 						0,
@@ -658,22 +661,22 @@ function TopBarApp:renderWithStyle(style)
 					[Roact.Ref] = self.uiLessTooltip
 				}, {
 					Padding = Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, style.Tokens.Global.Space_100),
-						PaddingBottom = UDim.new(0, style.Tokens.Global.Space_100),
-						PaddingLeft = UDim.new(0, style.Tokens.Global.Space_150),
-						PaddingRight = UDim.new(0, style.Tokens.Global.Space_150),
+						PaddingTop = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_200 else style.Tokens.Global.Space_100)),
+						PaddingBottom = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_200 else style.Tokens.Global.Space_100)),
+						PaddingLeft = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_300 else style.Tokens.Global.Space_150)),
+						PaddingRight = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_300 else style.Tokens.Global.Space_150)),
 					}),
 					Corner = Roact.createElement("UICorner", {
-						CornerRadius = UDim.new(0, style.Tokens.Semantic.Radius.Small),
+						CornerRadius = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Radius.Small else style.Tokens.Semantic.Radius.Small)),
 					}),
 					VerticalLayout = Roact.createElement("UIListLayout", {
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Vertical,
-						Padding = UDim.new(0, style.Tokens.Global.Space_50),
+						Padding = UDim.new(0, (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.Size.Size_100 else style.Tokens.Global.Space_50)),
 					}),
 					Title = Roact.createElement("TextLabel", {
 						Text = localized.uiLessTooltipTitle,
-						TextSize = style.Tokens.Global.FontSize_50,
+						TextSize = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.FontSize.FontSize_300 else style.Tokens.Global.FontSize_50),
 						TextTransparency = self.uiLessTooltipTransparency,
 						Font = Enum.Font.BuilderSansBold,
 						AutomaticSize = Enum.AutomaticSize.XY,
@@ -683,7 +686,7 @@ function TopBarApp:renderWithStyle(style)
 					}),
 					Description = Roact.createElement("TextLabel", {
 						Text = localized.uiLessTooltipDescription,
-						TextSize = style.Tokens.Global.FontSize_50,
+						TextSize = (if FFlagRenameDeprecatedUIBloxTokens then style.Tokens.FontSize.FontSize_300 else style.Tokens.Global.FontSize_50),
 						TextTransparency = self.uiLessTooltipTransparency,
 						Font = Enum.Font.BuilderSans,
 						AutomaticSize = Enum.AutomaticSize.XY,

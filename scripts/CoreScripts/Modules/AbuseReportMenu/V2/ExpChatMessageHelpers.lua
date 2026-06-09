@@ -22,6 +22,7 @@ local FFlagEnableGlobalChatAbuseReporting = SharedFlags.FFlagEnableGlobalChatAbu
 local ExpChatMessageHelpers = {}
 
 ExpChatMessageHelpers.CHANNEL_GENERAL = CHANNEL_GENERAL
+ExpChatMessageHelpers.CHANNEL_GLOBAL = CHANNEL_GLOBAL
 
 -- Mirrors what exp-chat checks in mountClientApp to decide whether the channel
 -- bar is visible. Developer opt-in: add ChannelTabsConfiguration under

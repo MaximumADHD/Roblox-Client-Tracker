@@ -18,6 +18,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL"
 	| "UI_COMPONENT_TYPE_COLLECTION_GRID"
 	| "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION"
+	| "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
 	| "UI_COMPONENT_TYPE_TILE"
 	| "UI_COMPONENT_TYPE_GAME_TILE"
 	| "UI_COMPONENT_TYPE_SEE_ALL_TILE"
@@ -69,6 +70,11 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_AGE_CHECK_UPSELL_ROW"
 	| "UI_COMPONENT_TYPE_PAGE_HEADER"
 	| "UI_COMPONENT_TYPE_AVATAR_GROUP"
+	| "UI_COMPONENT_TYPE_TOOLTIP"
+	| "UI_COMPONENT_TYPE_AI_OVERVIEW"
+	| "UI_COMPONENT_TYPE_SKELETON"
+	| "UI_COMPONENT_TYPE_PLACEHOLDER"
+	| "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -76,7 +82,10 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_GROUP"
 	| "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
 	| "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
+	| "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT"
 	| "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
+	| "UI_COMPONENT_TYPE_USER_LIST"
+	| "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 	| "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 	| number -- Unknown
 
@@ -92,6 +101,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_COLLECTION_GRID"
 		elseif value == 12 then
 			return "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION"
+		elseif value == 13 then
+			return "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
 		elseif value == 100 then
 			return "UI_COMPONENT_TYPE_TILE"
 		elseif value == 101 then
@@ -194,6 +205,16 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PAGE_HEADER"
 		elseif value == 244 then
 			return "UI_COMPONENT_TYPE_AVATAR_GROUP"
+		elseif value == 245 then
+			return "UI_COMPONENT_TYPE_TOOLTIP"
+		elseif value == 246 then
+			return "UI_COMPONENT_TYPE_AI_OVERVIEW"
+		elseif value == 247 then
+			return "UI_COMPONENT_TYPE_SKELETON"
+		elseif value == 248 then
+			return "UI_COMPONENT_TYPE_PLACEHOLDER"
+		elseif value == 249 then
+			return "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -208,8 +229,14 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
 		elseif value == 603 then
 			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
+		elseif value == 604 then
+			return "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT"
 		elseif value == 700 then
 			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
+		elseif value == 800 then
+			return "UI_COMPONENT_TYPE_USER_LIST"
+		elseif value == 801 then
+			return "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 		elseif value == 9999 then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else
@@ -228,6 +255,8 @@ messages.UiComponentType = {
 			return 11
 		elseif self == "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION" then
 			return 12
+		elseif self == "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER" then
+			return 13
 		elseif self == "UI_COMPONENT_TYPE_TILE" then
 			return 100
 		elseif self == "UI_COMPONENT_TYPE_GAME_TILE" then
@@ -330,6 +359,16 @@ messages.UiComponentType = {
 			return 243
 		elseif self == "UI_COMPONENT_TYPE_AVATAR_GROUP" then
 			return 244
+		elseif self == "UI_COMPONENT_TYPE_TOOLTIP" then
+			return 245
+		elseif self == "UI_COMPONENT_TYPE_AI_OVERVIEW" then
+			return 246
+		elseif self == "UI_COMPONENT_TYPE_SKELETON" then
+			return 247
+		elseif self == "UI_COMPONENT_TYPE_PLACEHOLDER" then
+			return 248
+		elseif self == "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER" then
+			return 249
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -344,8 +383,14 @@ messages.UiComponentType = {
 			return 602
 		elseif self == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
 			return 603
+		elseif self == "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT" then
+			return 604
 		elseif self == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return 700
+		elseif self == "UI_COMPONENT_TYPE_USER_LIST" then
+			return 800
+		elseif self == "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON" then
+			return 801
 		elseif self == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return 9999
 		else
@@ -364,6 +409,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_COLLECTION_GRID"
 		elseif name == "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION" then
 			return "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION"
+		elseif name == "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER" then
+			return "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
 		elseif name == "UI_COMPONENT_TYPE_TILE" then
 			return "UI_COMPONENT_TYPE_TILE"
 		elseif name == "UI_COMPONENT_TYPE_GAME_TILE" then
@@ -466,6 +513,16 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PAGE_HEADER"
 		elseif name == "UI_COMPONENT_TYPE_AVATAR_GROUP" then
 			return "UI_COMPONENT_TYPE_AVATAR_GROUP"
+		elseif name == "UI_COMPONENT_TYPE_TOOLTIP" then
+			return "UI_COMPONENT_TYPE_TOOLTIP"
+		elseif name == "UI_COMPONENT_TYPE_AI_OVERVIEW" then
+			return "UI_COMPONENT_TYPE_AI_OVERVIEW"
+		elseif name == "UI_COMPONENT_TYPE_SKELETON" then
+			return "UI_COMPONENT_TYPE_SKELETON"
+		elseif name == "UI_COMPONENT_TYPE_PLACEHOLDER" then
+			return "UI_COMPONENT_TYPE_PLACEHOLDER"
+		elseif name == "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER" then
+			return "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -480,8 +537,14 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_CATALOG_ITEM_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU" then
 			return "UI_COMPONENT_TYPE_CATALOG_CATEGORY_MENU"
+		elseif name == "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT" then
+			return "UI_COMPONENT_TYPE_CATALOG_HERO_UNIT"
 		elseif name == "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL" then
 			return "UI_COMPONENT_TYPE_FILTER_PILLS_CAROUSEL"
+		elseif name == "UI_COMPONENT_TYPE_USER_LIST" then
+			return "UI_COMPONENT_TYPE_USER_LIST"
+		elseif name == "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON" then
+			return "UI_COMPONENT_TYPE_FRIEND_REQUEST_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_MOCK_COMPONENT" then
 			return "UI_COMPONENT_TYPE_MOCK_COMPONENT"
 		else

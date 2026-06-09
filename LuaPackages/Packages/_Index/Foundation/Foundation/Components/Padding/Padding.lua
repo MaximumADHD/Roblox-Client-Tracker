@@ -4,6 +4,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
+local getTestIdTag = require(Foundation.Utility.getTestIdTag)
+
 local Types = require(Foundation.Components.Types)
 type Bindable<T> = Types.Bindable<T>
 type Padding = Types.Padding
@@ -65,12 +67,19 @@ end
 
 export type PaddingProps = {
 	value: Padding,
+	testId: string?,
 }
 
 local function Padding(props: PaddingProps)
 	local padding = getPadding(props.value)
 
-	return React.createElement("UIPadding", padding)
+	return React.createElement("UIPadding", {
+		PaddingTop = padding.PaddingTop,
+		PaddingBottom = padding.PaddingBottom,
+		PaddingLeft = padding.PaddingLeft,
+		PaddingRight = padding.PaddingRight,
+		[React.Tag] = getTestIdTag(props.testId),
+	})
 end
 
 return React.memo(Padding)

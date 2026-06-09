@@ -3,6 +3,10 @@
 	The point is that indexing these tables with a typo will give you an error instead of nil, so they can be treated as enums.
 	We use ValidationEnums as a source of truth to run validations, log telemetry, etc.
 ]]
+local root = script.Parent.Parent
+local getEngineFeatureEngineUGCValidationExpandReturnSchema =
+	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
+
 local ValidationEnums = {}
 
 local function createEnumMetatable(name: string)
@@ -52,15 +56,21 @@ ValidationEnums.ValidationModule = {
 	SingleInstanceSelected = "SingleInstanceSelected",
 	NoExtraTags = "NoExtraTags",
 
-	-- Asset Quality checks
-	HeadIsDynamic = "HeadIsDynamic",
-	MeasureCageMeshDistanceAvatar = "MeasureCageMeshDistanceAvatar",
-	MeasureCageMeshDistance = "MeasureCageMeshDistance",
-	MeasureCageUVAvatar = "MeasureCageUVAvatar",
-	MeasureCageUV = "MeasureCageUV",
-	MeasureMeshOutsideOuterCage = "MeasureMeshOutsideOuterCage",
-	MeasureCageRelevancy = "MeasureCageRelevancy",
-	MeasureCageMeshDistanceHead = "MeasureCageMeshDistanceHead",
+	-- Schema, Properties & Structural checks
+	AttributesAllowed = "AttributesAllowed",
+	MaterialsAllowed = "MaterialsAllowed",
+	PropertyRequirementsValid = "PropertyRequirementsValid",
+	PropertiesSensible = "PropertiesSensible",
+	InstanceTreeMatchesSchema = "InstanceTreeMatchesSchema",
+	DescendantIdsAllowed = "DescendantIdsAllowed",
+	ScaleTypeValid = "ScaleTypeValid",
+	CollisionFidelityCorrect = "CollisionFidelityCorrect",
+	AttachmentBoundsValid = "AttachmentBoundsValid",
+	AttachmentOrientationsValid = "AttachmentOrientationsValid",
+	HSRAssetStructureValid = "HSRAssetStructureValid",
+	HSRMeshIdsMatch = "HSRMeshIdsMatch",
+	ThumbnailConfigValid = "ThumbnailConfigValid",
+	AssetCanLoad = "AssetCanLoad",
 
 	-- Facs exploits
 	NoFACSOverrideData = "NoFACSOverrideData",
@@ -85,8 +95,27 @@ ValidationEnums.ValidationModule = {
 
 	-- Eyelash Tests
 	LeaderSkinnedVertsNearCageIslands = "LeaderSkinnedVertsNearCageIslands",
+
+	-- Curve Animation checks
+	CurveAnimDataAvailable = "CurveAnimDataAvailable",
+	CurveAnimHierarchyCorrect = "CurveAnimHierarchyCorrect",
+	CurveAnimRigDataPresent = "CurveAnimRigDataPresent",
+	CurveAnimMarkerCurvesLimited = "CurveAnimMarkerCurvesLimited",
+	CurveAnimNoScripts = "CurveAnimNoScripts",
+	CurveAnimAllowedTypes = "CurveAnimAllowedTypes",
+	CurveAnimNumericalDataValid = "CurveAnimNumericalDataValid",
+	CurveAnimTagsValid = "CurveAnimTagsValid",
+	CurveAnimJointsManipulated = "CurveAnimJointsManipulated",
+	CurveAnimFrameDataSensible = "CurveAnimFrameDataSensible",
+	CurveAnimJointsAnimated = "CurveAnimJointsAnimated",
+	CurveAnimPositionBounded = "CurveAnimPositionBounded",
+	CurveAnimLengthBounded = "CurveAnimLengthBounded",
+	CurveAnimBoundsValid = "CurveAnimBoundsValid",
+	CurveAnimSpeedBounded = "CurveAnimSpeedBounded",
+	CurveAnimRotationBounded = "CurveAnimRotationBounded",
+	CurveAnimJointRotationLimited = "CurveAnimJointRotationLimited",
+	AnimationWeightPositive = "AnimationWeightPositive",
 }
-finalizeEnumTable("ValidationModule")
 
 ---- Camel case enums (module members) ----
 ValidationEnums.SharedDataMember = {
@@ -115,6 +144,10 @@ ValidationEnums.SharedDataMember = {
 	innerCagesData = "innerCagesData",
 	outerCagesData = "outerCagesData",
 	meshTextures = "meshTextures",
+	curveAnimations = "curveAnimations",
+	curveAnimComputedFrames = "curveAnimComputedFrames",
+	contentIds = "contentIds",
+	hsrAssets = "hsrAssets",
 }
 finalizeEnumTable("SharedDataMember")
 
@@ -129,8 +162,8 @@ ValidationEnums.ValidationConfig = {
 	requiredData = "requiredData", -- List of SharedData enums fetched before running the test. If the data doesn't exist, this is an ERROR.
 	conditionalData = "conditionalData", -- List of SharedData enums fetched before running the test. If the data doesn't exist, the test will PASS.
 
-	-- AQS-only configs (aqsSummaryData should be listed in requiredData)
-	expectedAqsData = "expectedAqsData", -- Schema layout for the AQS summary. If something listed is not found in the summary, the test CANNOT_START.
+	-- AQS-only configs
+	expectedAqsData = "expectedAqsData", -- Legacy system of demanding a schema. AQ is now 1-to-1 with wrappers.
 	knownAqsUserErrors = "knownAqsUserErrors", -- Mapping of AQS error enum to Validation failure key that has no params. If provided, the error results in FAIL. Otherwise ERROR.
 
 	-- Extra configs you should include
@@ -138,6 +171,24 @@ ValidationEnums.ValidationConfig = {
 	run = "run", -- The main validation function
 }
 finalizeEnumTable("ValidationConfig")
+
+-- Camel-case sentinels for sharedData.aqsFetchMetrics.fetchStatus. NA means the upload had no AQS
+-- tests in scope; InProgress is a transient state while fetchQualityResults is running.
+ValidationEnums.AssetQualityFetchStatus = {
+	assetQualityFetchNA = "assetQualityFetchNA",
+	assetQualityFetchInProgress = "assetQualityFetchInProgress",
+	assetQualityFetchSuccess = "assetQualityFetchSuccess",
+	assetQualityFetchFailure = "assetQualityFetchFailure",
+}
+finalizeEnumTable("AssetQualityFetchStatus")
+
+-- Resolved environment that env-aware validation modules switch on.
+ValidationEnums.ConsumerEnv = {
+	Studio = "Studio",
+	Backend = "Backend",
+	IEC = "IEC",
+}
+finalizeEnumTable("ConsumerEnv")
 
 ---- Upper case enums (constants) ----
 ValidationEnums.Status = {
@@ -147,8 +198,28 @@ ValidationEnums.Status = {
 	ERROR = "ERROR",
 	FAIL = "FAIL",
 	PASS = "PASS",
+	IN_PROGRESS = "IN_PROGRESS",
 }
 finalizeEnumTable("Status")
+
+if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
+	ValidationEnums.AssetQualityCheck = {
+		Measure_Dynamic_Head = "Measure_Dynamic_Head",
+		Measure_Cage_Distance_Head = "Measure_Cage_Distance_Head",
+		Measure_Cage_Mesh_Distance = "Measure_Cage_Mesh_Distance",
+		Measure_Cage_Mesh_Distance_Avatar = "Measure_Cage_Mesh_Distance_Avatar",
+		Measure_Cage_UV = "Measure_Cage_UV",
+		Measure_Cage_UV_Avatar = "Measure_Cage_UV_Avatar",
+		Measure_Cage_Relevancy = "Measure_Cage_Relevancy",
+		Measure_Mesh_Outside_OuterCage = "Measure_Mesh_Outside_OuterCage",
+	}
+	finalizeEnumTable("AssetQualityCheck")
+else
+	ValidationEnums.ValidationModule.HeadIsDynamic = "HeadIsDynamic"
+	ValidationEnums.ValidationModule.MeasureCageMeshDistanceHead = "MeasureCageMeshDistanceHead"
+end
+
+finalizeEnumTable("ValidationModule")
 
 ValidationEnums.UploadCategory = {
 	-- Every upload will be strictly ONE group.
@@ -161,6 +232,8 @@ ValidationEnums.UploadCategory = {
 	MAKEUP = "MAKEUP",
 	FULL_BODY = "FULL_BODY",
 	BOTH_SHOES = "BOTH_SHOES",
+	ANIMATION_PACK = "ANIMATION_PACK",
+	ANIMATION = "ANIMATION",
 }
 finalizeEnumTable("UploadCategory")
 

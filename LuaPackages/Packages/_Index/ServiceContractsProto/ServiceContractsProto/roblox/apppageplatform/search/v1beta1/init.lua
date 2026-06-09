@@ -9,6 +9,7 @@ export type TypeRegistry = proto.TypeRegistry
 local search_results_page = require(script.search_results_page)
 
 -- Exported types
+export type SearchResultsPageVerticalType = search_results_page.SearchResultsPageVerticalType
 export type GetSearchResultsPageRequest = search_results_page.GetSearchResultsPageRequest
 export type GetSearchResultsPageResponse = search_results_page.GetSearchResultsPageResponse
 

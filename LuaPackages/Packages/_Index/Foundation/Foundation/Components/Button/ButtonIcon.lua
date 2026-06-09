@@ -6,11 +6,11 @@ local migrationLookup = BuilderIcons.Migration["uiblox"]
 
 local React = require(Packages.React)
 
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+type SupportedButtonVariant = ButtonVariant.SupportedButtonVariant
+
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
-
-local ButtonTypes = require(script.Parent.Types)
-type SupportedButtonVariant = ButtonTypes.SupportedButtonVariant
 
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)

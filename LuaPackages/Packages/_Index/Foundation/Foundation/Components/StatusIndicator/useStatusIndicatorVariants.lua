@@ -15,6 +15,7 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+local isDevMode = _G.__DEV__ == true
 
 type StatusIndicatorVariantProps = {
 	container: { tag: string },
@@ -108,7 +109,7 @@ function variantsFactory(tokens: Tokens)
 end
 
 return function(tokens: Tokens, variant: StatusIndicatorVariant, hasValue: boolean): StatusIndicatorVariantProps
-	if not Flags.FoundationStatusIndicatorVariantExperiment then
+	if not Flags.FoundationStatusIndicatorVariantExperiment and isDevMode then
 		if variant == StatusIndicatorVariant.Contrast_Experiment then
 			error("Contrast is not a supported StatusIndicator variant.")
 		end
