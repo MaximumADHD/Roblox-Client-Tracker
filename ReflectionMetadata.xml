@@ -1506,6 +1506,14 @@
         <string name="Name">EditableMesh</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Clear</string>
+            <string name="FFlag">SimEditableMeshClearMethod</string>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
