@@ -1092,8 +1092,6 @@
 [C++] DFFlagEnableNativeAdReactiveModeration
 [C++] DFFlagEnableNativeAdsShowAdImplUseWeakDm
 [C++] DFFlagEnableNetStackEphemeralEarlyPubKeyPlayerClientLoading
-[C++] DFFlagEnableNetworkDataAssert_Staged
-[C++] DFFlagEnableNetworkDataAssertLog_Staged
 [C++] DFFlagEnableNewGMAAdTypes
 [C++] DFFlagEnableNewJoinCounter
 [C++] DFFlagEnableNewPartnerBillingPath
@@ -1380,7 +1378,7 @@
 [C++] DFFlagFixCustomModelsRootPartNames
 [C++] DFFlagFixDataPingTraceInV2Path
 [C++] DFFlagFixDebounceReset
-[C++] DFFlagFixDefaultClothingSelectionLogic_Staged
+[C++] DFFlagFixDefaultClothingSelectionLogic
 [C++] DFFlagFixDevInfoInitialization
 [C++] DFFlagFixDisconnectWithUnknownReason
 [C++] DFFlagFixDiscoReportingOnTwoServerCases
@@ -2754,7 +2752,6 @@
 [C++] DFFlagReportRbxTransportEphemeralEarlyKeyGeneration
 [C++] DFFlagReportReconnectTeleportFailedEvents
 [C++] DFFlagReportReplicateDestroySetting
-[C++] DFFlagReportReplicateDestroySetting_Staged
 [C++] DFFlagReportReplicatorStatsToTelemetryV22
 [C++] DFFlagReportRetargetingStats
 [C++] DFFlagReportRuppDeserializationErrorsV2
@@ -3553,6 +3550,7 @@
 [C++] DFFlagTextChatTelemetryVolumeMigrationServer
 [C++] DFFlagTextChatTelemetryWithMessageIntent
 [C++] DFFlagTextChatTelemetryWithMessageIntent_PlaceFilter
+[C++] DFFlagTextChatUniverseChatMessageReceivedSampleSend_Staged
 [C++] DFFlagTextChatUserMessageIntentRaisedLimitEnabled_IXP
 [C++] DFFlagTextChatUserMessageIntentSent2
 [C++] DFFlagTextGenerationAdvancedProperties
@@ -5546,6 +5544,8 @@
 [C++] DFIntTextChatServiceMessageRateLimitExpiryTime
 [C++] DFIntTextChatSignalFiredThrottlePermyriad
 [C++] DFIntTextChatTelemetrySendAsyncFailureThrottlePermyriad
+[C++] DFIntTextChatUniverseChatMessageReceivedSamplePermyriad
+[C++] DFIntTextChatUniverseChatUserMessageReceivedSamplePermyriad
 [C++] DFIntTextChatUserMessageIntentRaisedLimitCapacity
 [C++] DFIntTextChatUserMessageIntentRaisedLimitDuration
 [C++] DFIntTextChatUserMessageReceivedSamplePermyriad
@@ -10757,6 +10757,7 @@
 [C++] FFlagEnablePerformSubscriptionPurchaseV32
 [C++] FFlagEnablePerformSubscriptionPurchaseWithRobuxAsync
 [C++] FFlagEnablePerfStreamingCollection2
+[C++] FFlagEnablePersonaLivenessQR
 [C++] FFlagEnablePhoneLogoutUpsellExperimentRelease1
 [C++] FFlagEnablePhoto2Avatar7
 [C++] FFlagEnablePhoto2Avatar8
@@ -11590,7 +11591,7 @@
 [C++] FFlagFasterPreciseTime5
 [C++] FFlagFastGPULightCulling3
 [C++] FFlagFastVideoFrameSamplerSeek
-[C++] FFlagFbxSdkThreadSafe_Staged
+[C++] FFlagFbxSdkThreadSafe
 [C++] FFlagFCBatchingExtraction
 [C++] FFlagFCBatchingExtraction_IXP
 [C++] FFlagFCColorParametrization
@@ -13511,7 +13512,6 @@
 [C++] FFlagLargeReplicatorSerializeRead3
 [C++] FFlagLargeReplicatorSerializeWrite4
 [C++] FFlagLargeReplicatorServerPatch
-[C++] FFlagLargeReplicatorShared_Staged
 [C++] FFlagLargeReplicatorStats3
 [C++] FFlagLargeReplicatorUseDynamicBandwidthTarget_PlaceFilter
 [C++] FFlagLargeReplicatorWrite5
@@ -14119,6 +14119,7 @@
 [C++] FFlagLuaAppHttpNativeRetry
 [C++] FFlagLuaAppHttpSupportNoContent
 [C++] FFlagLuaAppIaHomeSubTab
+[C++] FFlagLuaAppIaHomeSubTab_IXP
 [C++] FFlagLuaAppIECVREnabled8_IXP
 [C++] FFlagLuaAppIedpFixPlayButton
 [C++] FFlagLuaAppIedpOverlayAndNavigationFix
@@ -15544,6 +15545,7 @@
 [C++] FFlagOpenXrRemoveDeviceTypeControllerCheck
 [C++] FFlagOpenXrWinLegacyControllerSupport
 [C++] FFlagOptimizeBoneUpdate
+[C++] FFlagOptimizeBoneUpdate2
 [C++] FFlagOptimizeCFrameUpdates4
 [C++] FFlagOptimizeCFrameUpdatesIC4
 [C++] FFlagOptimizeCFrameUpdatesIC5
@@ -16462,7 +16464,7 @@
 [C++] FFlagRemoveAccessoryTags
 [C++] FFlagRemoveAcountInfoFetchFromPurchase
 [C++] FFlagRemoveActionManagerFromDraggerModeController
-[C++] FFlagRemoveActionManagerFromLPPRM_Staged
+[C++] FFlagRemoveActionManagerFromLPPRM
 [C++] FFlagRemoveActionsFromPlaceManager
 [C++] FFlagRemoveActionsFromRobloxMainWindowA
 [C++] FFlagRemoveActionsFromRobloxMainWindowA2
@@ -16527,7 +16529,6 @@
 [C++] FFlagRemoveGamerCardFromSideBar
 [C++] FFlagRemoveGameSettingsAvatarPage
 [C++] FFlagRemoveGameSettingsMonetizationPage
-[C++] FFlagRemoveGameSettingsMonetizationPage_Staged
 [C++] FFlagRemoveGameSettingsPermissionsBanner
 [C++] FFlagRemoveGameSettingsPermissionsPage2
 [C++] FFlagRemoveGcInterval
@@ -17767,6 +17768,7 @@
 [C++] FFlagSlimControllerTelemetry2
 [C++] FFlagSlimControllerTelemetryReportACRRequestStatus2
 [C++] FFlagSlimControllerTelemetryReportACRRequestStatus3
+[C++] FFlagSlimControllerTelemetryReportACRRequestStatus3_Staged
 [C++] FFlagSlimControllerUseNewChunkAPI
 [C++] FFlagSlimConvertLegacyContentIds
 [C++] FFlagSlimDataUsePropertySet
