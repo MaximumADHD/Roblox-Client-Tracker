@@ -121,7 +121,7 @@ dependencies = [
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 1.10.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
-    "LuauUIEcosystemLints LuauUIEcosystemLints 0.5.0 registry",
+    "LuauUIEcosystemLints LuauUIEcosystemLints 0.6.0 registry",
     "Lumberyak lumberyak 0.1.1 registry",
     "Markdown Markdown 1.0.0-alpha-2 registry",
     "Merge Merge 0.3.1 registry",
@@ -170,7 +170,7 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.8 registry",
-    "ServiceContractsProto ServiceContractsProto 1.0.1542+20260604 registry",
+    "ServiceContractsProto ServiceContractsProto 1.0.1607+20260612 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
@@ -179,10 +179,10 @@ dependencies = [
     "StringUtilities string-utilities 1.0.0 registry",
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.6.0 registry",
-    "UGCValidation UGCValidation 1.17.40 registry",
-    "UIBlox UIBlox 0.2.257 registry",
+    "UGCValidation UGCValidation 1.18.3 registry",
+    "UIBlox UIBlox 0.2.260 registry",
     "UltimateList ultimate-list 0.3.1 registry",
-    "UrlBuilder UrlBuilder 1.2.19 registry",
+    "UrlBuilder UrlBuilder 1.2.20 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.5.1 registry",
     "enumerate enumerate 1.1.0 registry",
@@ -437,7 +437,7 @@ dependencies = [
     "Roact RoactCompat 17.3.8 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.257 registry",
+    "UIBlox UIBlox 0.2.260 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -1071,7 +1071,7 @@ dependencies = [
 
 [[package]]
 name = "LuauUIEcosystemLints"
-version = "0.5.0"
+version = "0.6.0"
 source = "registry"
 
 [[package]]
@@ -1881,7 +1881,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "1.0.1542+20260604"
+version = "1.0.1607+20260612"
 source = "registry"
 
 [[package]]
@@ -1961,7 +1961,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.257 registry",
+    "UIBlox UIBlox 0.2.260 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -2049,7 +2049,7 @@ dependencies = ["Collections Collections 1.2.3 registry"]
 
 [[package]]
 name = "UGCValidation"
-version = "1.17.40"
+version = "1.18.3"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",
@@ -2058,7 +2058,7 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.257"
+version = "0.2.260"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.36 registry",
@@ -2088,7 +2088,7 @@ dependencies = [
 
 [[package]]
 name = "UrlBuilder"
-version = "1.2.19"
+version = "1.2.20"
 source = "registry"
 dependencies = [
     "Cryo Cryo 1.1.0 registry",

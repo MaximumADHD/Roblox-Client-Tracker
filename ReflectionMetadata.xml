@@ -4898,6 +4898,17 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">TextChannelWindow</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">16</string>
+        <string name="ExplorerImageIndex">147</string>
+        <string name="PreferredParent">ScreenGui</string>
+        <string name="FFlag">TextChatServiceProtectedChatEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">VoiceChatInternal</string>
         <string name="Insertable">false</string>
         <string name="Browsable">false</string>
@@ -8942,7 +8953,6 @@
         <string name="Name">MakeupDescription</string>
         <string name="ExplorerOrder">22</string>
         <string name="ExplorerImageIndex">104</string>
-        <string name="FFlag">MakeupInHumanoidDescription</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

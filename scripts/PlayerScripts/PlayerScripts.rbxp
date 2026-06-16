@@ -474,8 +474,8 @@
                                 "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "Down": "ButtonR2",
-                                        "Up": "ButtonL2"
+                                        "Down": "ButtonL2",
+                                        "Up": "ButtonR2"
                                     }
                                 }
                             },
