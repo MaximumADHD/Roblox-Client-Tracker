@@ -78,7 +78,7 @@ PROTO_6:
        31 SETTABLEKS                       R6 R5 K3 ["getText"]
        33 DUPCLOSURE                       R6 K21 [PROTO_1]
        34 SETTABLEKS                       R6 R5 K4 ["getTooltip"]
-       36 LOADK                            R6 K22 ["rbxlocaltheme://GameSettings"]
+       36 LOADK                            R6 K22 [""]
        37 SETTABLEKS                       R6 R5 K5 ["icon"]
        39 LOADB                            R6 1
        40 SETTABLEKS                       R6 R5 K6 ["enabled"]
@@ -96,7 +96,7 @@ PROTO_6:
        57 SETTABLEKS                       R5 R4 K23 ["getName"]
        59 DUPCLOSURE                       R5 K27 [PROTO_3]
        60 SETTABLEKS                       R5 R4 K24 ["getDescription"]
-       62 LOADK                            R5 K22 ["rbxlocaltheme://GameSettings"]
+       62 LOADK                            R5 K22 [""]
        63 SETTABLEKS                       R5 R4 K5 ["icon"]
        65 LOADB                            R5 0
        66 SETTABLEKS                       R5 R4 K6 ["enabled"]

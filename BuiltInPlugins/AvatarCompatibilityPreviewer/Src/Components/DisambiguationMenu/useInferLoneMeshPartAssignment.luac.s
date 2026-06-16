@@ -29,41 +29,35 @@ PROTO_2:
        18 RETURN                           R0 0
 
 PROTO_3:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["useInferLoneMeshPartAssignment should only be used when FFlagFixLayeredClothingAssignment is enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R1 R1 K3 ["useMemo"]
-       11 DUPCLOSURE                       R2 K4 [PROTO_0]
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useMemo"]
+        3 DUPCLOSURE                       R2 K1 [PROTO_0]
+        4 CAPTURE                          UPVAL U1
+        5 NEWTABLE                         R3 0 0
+        7 CALL                             R1 2 2
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K2 ["useCallback"]
+       11 NEWCLOSURE                       R4 P1
        12 CAPTURE                          UPVAL U2
-       13 NEWTABLE                         R3 0 0
-       15 CALL                             R1 2 2
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R3 R3 K5 ["useCallback"]
-       19 NEWCLOSURE                       R4 P1
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          VAL R1
-       22 CAPTURE                          VAL R2
-       23 NEWTABLE                         R5 0 2
-       25 MOVE                             R6 R1
-       26 MOVE                             R7 R2
-       27 SETLIST                          R5 R6 2 [1]
-       29 CALL                             R3 2 1
-       30 GETUPVAL                         R4 1
-       31 GETTABLEKS                       R4 R4 K6 ["useEffect"]
-       33 NEWCLOSURE                       R5 P2
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          VAL R3
-       36 NEWTABLE                         R6 0 3
-       38 GETTABLEKS                       R7 R0 K7 ["loneMeshParts"]
-       40 GETTABLEKS                       R8 R0 K8 ["addLoneMeshPartAssignment"]
-       42 MOVE                             R9 R3
-       43 SETLIST                          R6 R7 3 [1]
-       45 CALL                             R4 2 0
-       46 RETURN                           R0 0
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          VAL R2
+       15 NEWTABLE                         R5 0 2
+       17 MOVE                             R6 R1
+       18 MOVE                             R7 R2
+       19 SETLIST                          R5 R6 2 [1]
+       21 CALL                             R3 2 1
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K3 ["useEffect"]
+       25 NEWCLOSURE                       R5 P2
+       26 CAPTURE                          VAL R0
+       27 CAPTURE                          VAL R3
+       28 NEWTABLE                         R6 0 3
+       30 GETTABLEKS                       R7 R0 K4 ["loneMeshParts"]
+       32 GETTABLEKS                       R8 R0 K5 ["addLoneMeshPartAssignment"]
+       34 MOVE                             R9 R3
+       35 SETLIST                          R6 R7 3 [1]
+       37 CALL                             R4 2 0
+       38 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -87,18 +81,12 @@ MAIN:
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
        34 GETTABLEKS                       R5 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R5 K13 ["Flags"]
-       38 GETTABLEKS                       R5 R5 K14 ["getFFlagFixLayeredClothingAssignment"]
-       40 CALL                             R4 1 1
-       41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R6 R0 K8 ["Src"]
-       45 GETTABLEKS                       R6 R6 K10 ["Components"]
-       47 GETTABLEKS                       R6 R6 K15 ["DisambiguationMenuContext"]
-       49 GETTABLEKS                       R6 R6 K16 ["inferLoneMeshPartAssignment"]
-       51 CALL                             R5 1 1
-       52 DUPCLOSURE                       R6 K17 [PROTO_3]
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R1
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R5
-       57 RETURN                           R6 1
+       36 GETTABLEKS                       R5 R5 K10 ["Components"]
+       38 GETTABLEKS                       R5 R5 K13 ["DisambiguationMenuContext"]
+       40 GETTABLEKS                       R5 R5 K14 ["inferLoneMeshPartAssignment"]
+       42 CALL                             R4 1 1
+       43 DUPCLOSURE                       R5 K15 [PROTO_3]
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R4
+       47 RETURN                           R5 1

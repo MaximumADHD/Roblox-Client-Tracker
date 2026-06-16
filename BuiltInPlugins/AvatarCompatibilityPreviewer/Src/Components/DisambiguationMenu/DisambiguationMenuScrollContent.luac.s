@@ -175,13 +175,18 @@ PROTO_3:
       100 GETTABLEKS                       R6 R6 K11 ["createElement"]
       102 GETUPVAL                         R7 8
       103 DUPTABLE                         R8 K48 [{"tag"}]
-      104 LOADK                            R9 K49 ["col size-full-0 auto-y"]
-      105 SETTABLEKS                       R9 R8 K12 ["tag"]
-      107 MOVE                             R9 R1
-      108 CALL                             R6 3 1
-      109 SETTABLEKS                       R6 R5 K46 ["Content"]
-      111 CALL                             R2 3 -1
-      112 RETURN                           R2 -1
+      104 GETUPVAL                         R10 9
+      105 CALL                             R10 0 1
+      106 JUMPIFNOT                        R10 ; [+2]
+      107 LOADK                            R9 K49 ["col size-full-0 auto-y padding-right-large"]
+      108 JUMP                             ; [+1]
+      109 LOADK                            R9 K50 ["col size-full-0 auto-y"]
+      110 SETTABLEKS                       R9 R8 K12 ["tag"]
+      112 MOVE                             R9 R1
+      113 CALL                             R6 3 1
+      114 SETTABLEKS                       R6 R5 K46 ["Content"]
+      116 CALL                             R2 3 -1
+      117 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -228,14 +233,20 @@ MAIN:
        73 GETTABLEKS                       R13 R13 K23 ["Flags"]
        75 GETTABLEKS                       R13 R13 K24 ["getFFlagAvatarPreviewerUpdateDialogUI"]
        77 CALL                             R12 1 1
-       78 DUPCLOSURE                       R13 K25 [PROTO_3]
-       79 CAPTURE                          VAL R12
-       80 CAPTURE                          VAL R4
-       81 CAPTURE                          VAL R6
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R3
-       85 CAPTURE                          VAL R11
-       86 CAPTURE                          VAL R9
-       87 CAPTURE                          VAL R10
-       88 RETURN                           R13 1
+       78 GETIMPORT                        R13 K5 [require]
+       80 GETTABLEKS                       R14 R0 K12 ["Src"]
+       82 GETTABLEKS                       R14 R14 K23 ["Flags"]
+       84 GETTABLEKS                       R14 R14 K25 ["getFFlagAvatarPreviewerFixDisambiguationDropdownClipping"]
+       86 CALL                             R13 1 1
+       87 DUPCLOSURE                       R14 K26 [PROTO_3]
+       88 CAPTURE                          VAL R12
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          VAL R6
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R7
+       93 CAPTURE                          VAL R3
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R9
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R13
+       98 RETURN                           R14 1

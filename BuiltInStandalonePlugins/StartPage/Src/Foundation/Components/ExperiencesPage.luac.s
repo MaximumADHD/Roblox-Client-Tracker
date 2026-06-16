@@ -151,19 +151,21 @@ PROTO_4:
        44 CALL                             R4 2 -1
        45 CALL                             R2 -1 1
        46 GETUPVAL                         R4 6
-       47 JUMPIFNOT                        R4 ; [+14]
-       48 GETUPVAL                         R3 2
-       49 GETTABLEKS                       R3 R3 K1 ["createElement"]
-       51 GETUPVAL                         R4 7
-       52 GETTABLEKS                       R4 R4 K10 ["Provider"]
-       54 DUPTABLE                         R5 K12 [{"value"}]
-       55 GETTABLEKS                       R6 R0 K13 ["KebabMenu"]
-       57 SETTABLEKS                       R6 R5 K11 ["value"]
-       59 MOVE                             R6 R2
-       60 CALL                             R3 3 1
-       61 RETURN                           R3 1
-       62 MOVE                             R3 R2
+       47 JUMPIF                           R4 ; [+2]
+       48 GETUPVAL                         R4 7
+       49 JUMPIFNOT                        R4 ; [+14]
+       50 GETUPVAL                         R3 2
+       51 GETTABLEKS                       R3 R3 K1 ["createElement"]
+       53 GETUPVAL                         R4 8
+       54 GETTABLEKS                       R4 R4 K10 ["Provider"]
+       56 DUPTABLE                         R5 K12 [{"value"}]
+       57 GETTABLEKS                       R6 R0 K13 ["KebabMenu"]
+       59 SETTABLEKS                       R6 R5 K11 ["value"]
+       61 MOVE                             R6 R2
+       62 CALL                             R3 3 1
        63 RETURN                           R3 1
+       64 MOVE                             R3 R2
+       65 RETURN                           R3 1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["IsPlaceholder"]
@@ -878,163 +880,170 @@ MAIN:
       161 CALL                             R21 0 1
       162 GETIMPORT                        R22 K5 [require]
       164 GETTABLEKS                       R23 R0 K11 ["Src"]
-      166 GETTABLEKS                       R23 R23 K34 ["Contexts"]
-      168 GETTABLEKS                       R23 R23 K35 ["ContextMenuActions"]
+      166 GETTABLEKS                       R23 R23 K12 ["SharedFlags"]
+      168 GETTABLEKS                       R23 R23 K34 ["getFFlagLuaStartPageAddKebabMenuToListView"]
       170 CALL                             R22 1 1
-      171 GETIMPORT                        R23 K5 [require]
-      173 GETTABLEKS                       R24 R0 K11 ["Src"]
-      175 GETTABLEKS                       R24 R24 K36 ["Util"]
-      177 GETTABLEKS                       R24 R24 K37 ["Dialogs"]
-      179 CALL                             R23 1 1
-      180 GETIMPORT                        R24 K5 [require]
-      182 GETTABLEKS                       R25 R0 K11 ["Src"]
-      184 GETTABLEKS                       R25 R25 K36 ["Util"]
-      186 GETTABLEKS                       R25 R25 K38 ["SortingOptions"]
-      188 CALL                             R24 1 1
-      189 GETIMPORT                        R25 K5 [require]
-      191 GETTABLEKS                       R26 R0 K11 ["Src"]
-      193 GETTABLEKS                       R26 R26 K36 ["Util"]
-      195 GETTABLEKS                       R26 R26 K39 ["Services"]
-      197 CALL                             R25 1 1
-      198 GETTABLEKS                       R26 R25 K40 ["StartPageManager"]
-      200 GETTABLEKS                       R27 R25 K41 ["StudioService"]
-      202 GETIMPORT                        R28 K5 [require]
-      204 GETTABLEKS                       R29 R0 K11 ["Src"]
-      206 GETTABLEKS                       R29 R29 K36 ["Util"]
-      208 GETTABLEKS                       R29 R29 K42 ["Telemetry"]
-      210 GETTABLEKS                       R29 R29 K43 ["TelemetryContext"]
-      212 CALL                             R28 1 1
-      213 GETIMPORT                        R29 K5 [require]
-      215 GETTABLEKS                       R30 R0 K11 ["Src"]
-      217 GETTABLEKS                       R30 R30 K36 ["Util"]
-      219 GETTABLEKS                       R30 R30 K42 ["Telemetry"]
-      221 GETTABLEKS                       R30 R30 K44 ["StartPageTelemetryEvent"]
-      223 CALL                             R29 1 1
-      224 GETIMPORT                        R30 K5 [require]
-      226 GETTABLEKS                       R31 R0 K11 ["Src"]
-      228 GETTABLEKS                       R31 R31 K12 ["SharedFlags"]
-      230 GETTABLEKS                       R31 R31 K45 ["getFFlagLuaStartPageTCAgeGatingCheck"]
-      232 CALL                             R30 1 1
-      233 CALL                             R30 0 1
+      171 CALL                             R22 0 1
+      172 GETIMPORT                        R23 K5 [require]
+      174 GETTABLEKS                       R24 R0 K11 ["Src"]
+      176 GETTABLEKS                       R24 R24 K35 ["Contexts"]
+      178 GETTABLEKS                       R24 R24 K36 ["ContextMenuActions"]
+      180 CALL                             R23 1 1
+      181 GETIMPORT                        R24 K5 [require]
+      183 GETTABLEKS                       R25 R0 K11 ["Src"]
+      185 GETTABLEKS                       R25 R25 K37 ["Util"]
+      187 GETTABLEKS                       R25 R25 K38 ["Dialogs"]
+      189 CALL                             R24 1 1
+      190 GETIMPORT                        R25 K5 [require]
+      192 GETTABLEKS                       R26 R0 K11 ["Src"]
+      194 GETTABLEKS                       R26 R26 K37 ["Util"]
+      196 GETTABLEKS                       R26 R26 K39 ["SortingOptions"]
+      198 CALL                             R25 1 1
+      199 GETIMPORT                        R26 K5 [require]
+      201 GETTABLEKS                       R27 R0 K11 ["Src"]
+      203 GETTABLEKS                       R27 R27 K37 ["Util"]
+      205 GETTABLEKS                       R27 R27 K40 ["Services"]
+      207 CALL                             R26 1 1
+      208 GETTABLEKS                       R27 R26 K41 ["StartPageManager"]
+      210 GETTABLEKS                       R28 R26 K42 ["StudioService"]
+      212 GETIMPORT                        R29 K5 [require]
+      214 GETTABLEKS                       R30 R0 K11 ["Src"]
+      216 GETTABLEKS                       R30 R30 K37 ["Util"]
+      218 GETTABLEKS                       R30 R30 K43 ["Telemetry"]
+      220 GETTABLEKS                       R30 R30 K44 ["TelemetryContext"]
+      222 CALL                             R29 1 1
+      223 GETIMPORT                        R30 K5 [require]
+      225 GETTABLEKS                       R31 R0 K11 ["Src"]
+      227 GETTABLEKS                       R31 R31 K37 ["Util"]
+      229 GETTABLEKS                       R31 R31 K43 ["Telemetry"]
+      231 GETTABLEKS                       R31 R31 K45 ["StartPageTelemetryEvent"]
+      233 CALL                             R30 1 1
       234 GETIMPORT                        R31 K5 [require]
       236 GETTABLEKS                       R32 R0 K11 ["Src"]
       238 GETTABLEKS                       R32 R32 K12 ["SharedFlags"]
-      240 GETTABLEKS                       R32 R32 K46 ["getFFlagLuaStartPagePlaceSequestrationCheck"]
+      240 GETTABLEKS                       R32 R32 K46 ["getFFlagLuaStartPageTCAgeGatingCheck"]
       242 CALL                             R31 1 1
       243 CALL                             R31 0 1
-      244 GETIMPORT                        R32 K49 [UDim2.new]
-      246 LOADN                            R33 0
-      247 LOADN                            R34 200
-      248 LOADN                            R35 0
-      249 LOADN                            R36 200
-      250 CALL                             R32 4 1
-      251 GETIMPORT                        R33 K49 [UDim2.new]
-      253 LOADN                            R34 0
-      254 LOADN                            R35 225
-      255 LOADN                            R36 0
-      256 LOADN                            R37 69
-      257 CALL                             R33 4 1
-      258 GETIMPORT                        R34 K49 [UDim2.new]
-      260 LOADN                            R35 0
-      261 LOADN                            R36 225
-      262 LOADN                            R37 0
-      263 LOADN                            R38 92
-      264 CALL                             R34 4 1
-      265 DUPCLOSURE                       R35 K50 [PROTO_0]
-      266 CAPTURE                          VAL R8
-      267 CAPTURE                          VAL R24
-      268 DUPTABLE                         R36 K55 [{"searchKey", "isArchived", "isTemplates", "pageSize"}]
-      269 LOADK                            R37 K56 ["Experiences"]
-      270 SETTABLEKS                       R37 R36 K51 ["searchKey"]
-      272 LOADB                            R37 0
-      273 SETTABLEKS                       R37 R36 K52 ["isArchived"]
-      275 LOADB                            R37 0
-      276 SETTABLEKS                       R37 R36 K53 ["isTemplates"]
-      278 LOADN                            R37 30
-      279 SETTABLEKS                       R37 R36 K54 ["pageSize"]
-      281 DUPCLOSURE                       R37 K57 [PROTO_4]
-      282 CAPTURE                          VAL R10
-      283 CAPTURE                          VAL R36
-      284 CAPTURE                          VAL R1
-      285 CAPTURE                          VAL R13
-      286 CAPTURE                          VAL R12
-      287 CAPTURE                          VAL R32
-      288 CAPTURE                          VAL R21
-      289 CAPTURE                          VAL R22
-      290 DUPCLOSURE                       R38 K58 [PROTO_6]
-      291 CAPTURE                          VAL R28
-      292 CAPTURE                          VAL R4
-      293 CAPTURE                          VAL R23
-      294 CAPTURE                          VAL R31
-      295 CAPTURE                          VAL R30
-      296 CAPTURE                          VAL R25
-      297 CAPTURE                          VAL R8
-      298 CAPTURE                          VAL R1
-      299 CAPTURE                          VAL R37
-      300 CAPTURE                          VAL R6
-      301 CAPTURE                          VAL R33
-      302 CAPTURE                          VAL R17
-      303 CAPTURE                          VAL R27
-      304 CAPTURE                          VAL R20
-      305 CAPTURE                          VAL R19
-      306 CAPTURE                          VAL R5
-      307 CAPTURE                          VAL R29
-      308 DUPCLOSURE                       R39 K59 [PROTO_8]
-      309 CAPTURE                          VAL R28
-      310 CAPTURE                          VAL R8
-      311 CAPTURE                          VAL R4
-      312 CAPTURE                          VAL R23
-      313 CAPTURE                          VAL R31
-      314 CAPTURE                          VAL R30
-      315 CAPTURE                          VAL R25
-      316 CAPTURE                          VAL R1
-      317 CAPTURE                          VAL R37
-      318 CAPTURE                          VAL R6
-      319 CAPTURE                          VAL R33
-      320 CAPTURE                          VAL R17
-      321 CAPTURE                          VAL R20
-      322 CAPTURE                          VAL R27
-      323 CAPTURE                          VAL R19
-      324 CAPTURE                          VAL R5
-      325 CAPTURE                          VAL R29
-      326 CAPTURE                          VAL R15
-      327 CAPTURE                          VAL R10
-      328 DUPCLOSURE                       R40 K60 [PROTO_10]
-      329 CAPTURE                          VAL R28
-      330 CAPTURE                          VAL R4
-      331 CAPTURE                          VAL R23
-      332 CAPTURE                          VAL R31
-      333 CAPTURE                          VAL R30
-      334 CAPTURE                          VAL R25
-      335 CAPTURE                          VAL R8
-      336 CAPTURE                          VAL R1
-      337 CAPTURE                          VAL R37
-      338 CAPTURE                          VAL R34
-      339 CAPTURE                          VAL R17
-      340 CAPTURE                          VAL R27
-      341 CAPTURE                          VAL R20
-      342 CAPTURE                          VAL R19
-      343 CAPTURE                          VAL R5
-      344 CAPTURE                          VAL R29
-      345 DUPCLOSURE                       R41 K61 [PROTO_12]
-      346 CAPTURE                          VAL R28
+      244 GETIMPORT                        R32 K5 [require]
+      246 GETTABLEKS                       R33 R0 K11 ["Src"]
+      248 GETTABLEKS                       R33 R33 K12 ["SharedFlags"]
+      250 GETTABLEKS                       R33 R33 K47 ["getFFlagLuaStartPagePlaceSequestrationCheck"]
+      252 CALL                             R32 1 1
+      253 CALL                             R32 0 1
+      254 GETIMPORT                        R33 K50 [UDim2.new]
+      256 LOADN                            R34 0
+      257 LOADN                            R35 200
+      258 LOADN                            R36 0
+      259 LOADN                            R37 200
+      260 CALL                             R33 4 1
+      261 GETIMPORT                        R34 K50 [UDim2.new]
+      263 LOADN                            R35 0
+      264 LOADN                            R36 225
+      265 LOADN                            R37 0
+      266 LOADN                            R38 69
+      267 CALL                             R34 4 1
+      268 GETIMPORT                        R35 K50 [UDim2.new]
+      270 LOADN                            R36 0
+      271 LOADN                            R37 225
+      272 LOADN                            R38 0
+      273 LOADN                            R39 92
+      274 CALL                             R35 4 1
+      275 DUPCLOSURE                       R36 K51 [PROTO_0]
+      276 CAPTURE                          VAL R8
+      277 CAPTURE                          VAL R25
+      278 DUPTABLE                         R37 K56 [{"searchKey", "isArchived", "isTemplates", "pageSize"}]
+      279 LOADK                            R38 K57 ["Experiences"]
+      280 SETTABLEKS                       R38 R37 K52 ["searchKey"]
+      282 LOADB                            R38 0
+      283 SETTABLEKS                       R38 R37 K53 ["isArchived"]
+      285 LOADB                            R38 0
+      286 SETTABLEKS                       R38 R37 K54 ["isTemplates"]
+      288 LOADN                            R38 30
+      289 SETTABLEKS                       R38 R37 K55 ["pageSize"]
+      291 DUPCLOSURE                       R38 K58 [PROTO_4]
+      292 CAPTURE                          VAL R10
+      293 CAPTURE                          VAL R37
+      294 CAPTURE                          VAL R1
+      295 CAPTURE                          VAL R13
+      296 CAPTURE                          VAL R12
+      297 CAPTURE                          VAL R33
+      298 CAPTURE                          VAL R21
+      299 CAPTURE                          VAL R22
+      300 CAPTURE                          VAL R23
+      301 DUPCLOSURE                       R39 K59 [PROTO_6]
+      302 CAPTURE                          VAL R29
+      303 CAPTURE                          VAL R4
+      304 CAPTURE                          VAL R24
+      305 CAPTURE                          VAL R32
+      306 CAPTURE                          VAL R31
+      307 CAPTURE                          VAL R26
+      308 CAPTURE                          VAL R8
+      309 CAPTURE                          VAL R1
+      310 CAPTURE                          VAL R38
+      311 CAPTURE                          VAL R6
+      312 CAPTURE                          VAL R34
+      313 CAPTURE                          VAL R17
+      314 CAPTURE                          VAL R28
+      315 CAPTURE                          VAL R20
+      316 CAPTURE                          VAL R19
+      317 CAPTURE                          VAL R5
+      318 CAPTURE                          VAL R30
+      319 DUPCLOSURE                       R40 K60 [PROTO_8]
+      320 CAPTURE                          VAL R29
+      321 CAPTURE                          VAL R8
+      322 CAPTURE                          VAL R4
+      323 CAPTURE                          VAL R24
+      324 CAPTURE                          VAL R32
+      325 CAPTURE                          VAL R31
+      326 CAPTURE                          VAL R26
+      327 CAPTURE                          VAL R1
+      328 CAPTURE                          VAL R38
+      329 CAPTURE                          VAL R6
+      330 CAPTURE                          VAL R34
+      331 CAPTURE                          VAL R17
+      332 CAPTURE                          VAL R20
+      333 CAPTURE                          VAL R28
+      334 CAPTURE                          VAL R19
+      335 CAPTURE                          VAL R5
+      336 CAPTURE                          VAL R30
+      337 CAPTURE                          VAL R15
+      338 CAPTURE                          VAL R10
+      339 DUPCLOSURE                       R41 K61 [PROTO_10]
+      340 CAPTURE                          VAL R29
+      341 CAPTURE                          VAL R4
+      342 CAPTURE                          VAL R24
+      343 CAPTURE                          VAL R32
+      344 CAPTURE                          VAL R31
+      345 CAPTURE                          VAL R26
+      346 CAPTURE                          VAL R8
       347 CAPTURE                          VAL R1
-      348 CAPTURE                          VAL R37
-      349 CAPTURE                          VAL R33
-      350 CAPTURE                          VAL R18
-      351 CAPTURE                          VAL R26
-      352 CAPTURE                          VAL R5
-      353 CAPTURE                          VAL R29
-      354 DUPCLOSURE                       R42 K62 [PROTO_14]
-      355 CAPTURE                          VAL R8
-      356 CAPTURE                          VAL R2
-      357 CAPTURE                          VAL R35
-      358 CAPTURE                          VAL R3
-      359 CAPTURE                          VAL R16
-      360 CAPTURE                          VAL R1
-      361 CAPTURE                          VAL R14
-      362 CAPTURE                          VAL R38
-      363 CAPTURE                          VAL R39
-      364 CAPTURE                          VAL R40
-      365 CAPTURE                          VAL R41
-      366 RETURN                           R42 1
+      348 CAPTURE                          VAL R38
+      349 CAPTURE                          VAL R35
+      350 CAPTURE                          VAL R17
+      351 CAPTURE                          VAL R28
+      352 CAPTURE                          VAL R20
+      353 CAPTURE                          VAL R19
+      354 CAPTURE                          VAL R5
+      355 CAPTURE                          VAL R30
+      356 DUPCLOSURE                       R42 K62 [PROTO_12]
+      357 CAPTURE                          VAL R29
+      358 CAPTURE                          VAL R1
+      359 CAPTURE                          VAL R38
+      360 CAPTURE                          VAL R34
+      361 CAPTURE                          VAL R18
+      362 CAPTURE                          VAL R27
+      363 CAPTURE                          VAL R5
+      364 CAPTURE                          VAL R30
+      365 DUPCLOSURE                       R43 K63 [PROTO_14]
+      366 CAPTURE                          VAL R8
+      367 CAPTURE                          VAL R2
+      368 CAPTURE                          VAL R36
+      369 CAPTURE                          VAL R3
+      370 CAPTURE                          VAL R16
+      371 CAPTURE                          VAL R1
+      372 CAPTURE                          VAL R14
+      373 CAPTURE                          VAL R39
+      374 CAPTURE                          VAL R40
+      375 CAPTURE                          VAL R41
+      376 CAPTURE                          VAL R42
+      377 RETURN                           R43 1

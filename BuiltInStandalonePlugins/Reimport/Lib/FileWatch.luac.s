@@ -386,6 +386,43 @@ PROTO_9:
        14 RETURN                           R0 0
 
 PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CurrentDataModelType"]
+        3 GETIMPORT                        R1 K4 [Enum.StudioDataModelType.PlayClient]
+        5 JUMPIFEQ                         R0 R1 ; [+5]
+        7 GETIMPORT                        R1 K6 [Enum.StudioDataModelType.PlayServer]
+        9 JUMPIFNOTEQ                      R0 R1 ; [+20]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R1 R1 K7 ["updateAction"]
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R2 R2 K8 ["REIMPORT"]
+       17 GETTABLEKS                       R2 R2 K9 ["ACTION_EVENTS"]
+       19 GETTABLEKS                       R2 R2 K10 ["WATCH_INSTANCE_FILE"]
+       21 DUPTABLE                         R3 K13 [{"Checked", "Enabled"}]
+       22 LOADB                            R4 0
+       23 SETTABLEKS                       R4 R3 K11 ["Checked"]
+       25 LOADB                            R4 0
+       26 SETTABLEKS                       R4 R3 K12 ["Enabled"]
+       28 CALL                             R1 2 0
+       29 RETURN                           R0 0
+       30 GETUPVAL                         R1 3
+       31 CALL                             R1 0 0
+       32 RETURN                           R0 0
+
+PROTO_11:
+        0 GETTABLEKS                       R1 R0 K0 ["MultipleDocumentInterfaceInstance"]
+        2 GETTABLEKS                       R1 R1 K1 ["FocusedDataModelSession"]
+        4 GETTABLEKS                       R2 R1 K2 ["CurrentDataModelTypeChanged"]
+        6 NEWCLOSURE                       R4 P0
+        7 CAPTURE                          VAL R1
+        8 CAPTURE                          UPVAL U0
+        9 CAPTURE                          UPVAL U1
+       10 CAPTURE                          UPVAL U2
+       11 NAMECALL                         R2 R2 K3 ["Connect"]
+       13 CALL                             R2 2 0
+       14 RETURN                           R0 0
+
+PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["SingleFileChanged"]
         3 GETUPVAL                         R3 1
@@ -404,20 +441,30 @@ PROTO_10:
        21 CALL                             R1 1 0
        22 GETUPVAL                         R1 4
        23 CALL                             R1 0 0
-       24 GETTABLEKS                       R1 R0 K4 ["Unloading"]
-       26 GETUPVAL                         R3 7
-       27 NAMECALL                         R1 R1 K1 ["Connect"]
-       29 CALL                             R1 2 0
-       30 RETURN                           R0 0
+       24 GETTABLEKS                       R1 R0 K4 ["MultipleDocumentInterfaceInstance"]
+       26 GETTABLEKS                       R1 R1 K5 ["FocusedDataModelSession"]
+       28 GETTABLEKS                       R2 R1 K6 ["CurrentDataModelTypeChanged"]
+       30 NEWCLOSURE                       R4 P0
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          UPVAL U7
+       33 CAPTURE                          UPVAL U8
+       34 CAPTURE                          UPVAL U4
+       35 NAMECALL                         R2 R2 K1 ["Connect"]
+       37 CALL                             R2 2 0
+       38 GETTABLEKS                       R1 R0 K7 ["Unloading"]
+       40 GETUPVAL                         R3 9
+       41 NAMECALL                         R1 R1 K1 ["Connect"]
+       43 CALL                             R1 2 0
+       44 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R1 R1 K0 ["IsWatched"]
         5 RETURN                           R1 1
 
-PROTO_12:
+PROTO_14:
         0 DUPTABLE                         R1 K1 [{"isWatched"}]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K2 ["isWatching"]
@@ -426,13 +473,13 @@ PROTO_12:
         6 SETTABLEKS                       R2 R1 K0 ["isWatched"]
         8 RETURN                           R1 1
 
-PROTO_13:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
         3 RETURN                           R0 0
 
-PROTO_14:
+PROTO_16:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
@@ -562,32 +609,38 @@ MAIN:
       167 NEWCLOSURE                       R25 P9
       168 CAPTURE                          REF R14
       169 CAPTURE                          VAL R2
-      170 NEWCLOSURE                       R26 P10
-      171 CAPTURE                          VAL R2
-      172 CAPTURE                          VAL R16
-      173 CAPTURE                          REF R14
-      174 CAPTURE                          VAL R3
-      175 CAPTURE                          VAL R19
-      176 CAPTURE                          VAL R8
-      177 CAPTURE                          VAL R24
-      178 CAPTURE                          VAL R25
-      179 SETTABLEKS                       R26 R15 K30 ["init"]
-      181 DUPCLOSURE                       R26 K31 [PROTO_11]
-      182 CAPTURE                          VAL R17
-      183 SETTABLEKS                       R26 R15 K32 ["isWatching"]
-      185 GETTABLEKS                       R28 R6 K22 ["REIMPORT"]
-      187 GETTABLEKS                       R28 R28 K33 ["CPC_CALLBACKS"]
-      189 GETTABLEKS                       R28 R28 K34 ["GET_WATCH_STATUS"]
-      191 DUPCLOSURE                       R29 K35 [PROTO_12]
-      192 CAPTURE                          VAL R15
-      193 NAMECALL                         R26 R11 K36 ["OnInvoke"]
-      195 CALL                             R26 3 0
-      196 DUPCLOSURE                       R26 K37 [PROTO_13]
-      197 CAPTURE                          VAL R21
-      198 SETTABLEKS                       R26 R15 K38 ["start"]
-      200 DUPCLOSURE                       R26 K39 [PROTO_14]
-      201 CAPTURE                          VAL R17
-      202 CAPTURE                          VAL R23
-      203 SETTABLEKS                       R26 R15 K40 ["stop"]
-      205 CLOSEUPVALS                      R14
-      206 RETURN                           R15 1
+      170 DUPCLOSURE                       R26 K30 [PROTO_11]
+      171 CAPTURE                          VAL R7
+      172 CAPTURE                          VAL R6
+      173 CAPTURE                          VAL R19
+      174 NEWCLOSURE                       R27 P11
+      175 CAPTURE                          VAL R2
+      176 CAPTURE                          VAL R16
+      177 CAPTURE                          REF R14
+      178 CAPTURE                          VAL R3
+      179 CAPTURE                          VAL R19
+      180 CAPTURE                          VAL R8
+      181 CAPTURE                          VAL R24
+      182 CAPTURE                          VAL R7
+      183 CAPTURE                          VAL R6
+      184 CAPTURE                          VAL R25
+      185 SETTABLEKS                       R27 R15 K31 ["init"]
+      187 DUPCLOSURE                       R27 K32 [PROTO_13]
+      188 CAPTURE                          VAL R17
+      189 SETTABLEKS                       R27 R15 K33 ["isWatching"]
+      191 GETTABLEKS                       R29 R6 K22 ["REIMPORT"]
+      193 GETTABLEKS                       R29 R29 K34 ["CPC_CALLBACKS"]
+      195 GETTABLEKS                       R29 R29 K35 ["GET_WATCH_STATUS"]
+      197 DUPCLOSURE                       R30 K36 [PROTO_14]
+      198 CAPTURE                          VAL R15
+      199 NAMECALL                         R27 R11 K37 ["OnInvoke"]
+      201 CALL                             R27 3 0
+      202 DUPCLOSURE                       R27 K38 [PROTO_15]
+      203 CAPTURE                          VAL R21
+      204 SETTABLEKS                       R27 R15 K39 ["start"]
+      206 DUPCLOSURE                       R27 K40 [PROTO_16]
+      207 CAPTURE                          VAL R17
+      208 CAPTURE                          VAL R23
+      209 SETTABLEKS                       R27 R15 K41 ["stop"]
+      211 CLOSEUPVALS                      R14
+      212 RETURN                           R15 1

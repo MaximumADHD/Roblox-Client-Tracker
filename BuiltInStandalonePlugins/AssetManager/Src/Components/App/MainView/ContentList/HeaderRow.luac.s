@@ -240,65 +240,47 @@ PROTO_7:
        60 SETTABLEKS                       R2 R10 K15 ["ref"]
        62 GETUPVAL                         R11 7
        63 GETTABLEKS                       R11 R11 K16 ["Tag"]
-       65 LOADK                            R13 K17 ["%*"]
-       66 GETUPVAL                         R16 8
-       67 CALL                             R16 0 1
-       68 JUMPIFNOT                        R16 ; [+2]
-       69 LOADK                            R15 K18 ["am-size-full-headerrow row gui-object-defaults"]
-       70 JUMP                             ; [+1]
-       71 LOADK                            R15 K19 ["HeaderRow am-size-full-headerrow"]
-       72 NAMECALL                         R13 R13 K20 ["format"]
-       74 CALL                             R13 2 1
-       75 MOVE                             R12 R13
-       76 SETTABLE                         R12 R10 R11
-       77 DUPTABLE                         R11 K23 [{"Contents", "Filler"}]
-       78 GETUPVAL                         R12 7
-       79 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       81 GETUPVAL                         R13 9
-       82 NEWTABLE                         R14 8 0
-       84 LOADN                            R15 1
-       85 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
-       87 LOADB                            R15 0
-       88 SETTABLEKS                       R15 R14 K24 ["UseScale"]
-       90 LOADB                            R15 0
-       91 SETTABLEKS                       R15 R14 K25 ["ClampSize"]
-       93 LOADB                            R15 1
-       94 SETTABLEKS                       R15 R14 K26 ["HideBars"]
-       96 SETTABLEKS                       R7 R14 K27 ["MinSizes"]
-       98 SETTABLEKS                       R5 R14 K28 ["Sizes"]
-      100 NEWCLOSURE                       R15 P1
-      101 CAPTURE                          VAL R1
-      102 SETTABLEKS                       R15 R14 K29 ["OnSizesChange"]
-      104 GETUPVAL                         R15 7
-      105 GETTABLEKS                       R15 R15 K16 ["Tag"]
-      107 LOADK                            R17 K17 ["%*"]
-      108 GETUPVAL                         R20 8
-      109 CALL                             R20 0 1
-      110 JUMPIFNOT                        R20 ; [+2]
-      111 LOADK                            R19 K30 ["am-size-fit-headerrow auto-x"]
-      112 JUMP                             ; [+1]
-      113 LOADK                            R19 K31 ["am-size-fit-headerrow Contrast"]
-      114 NAMECALL                         R17 R17 K20 ["format"]
-      116 CALL                             R17 2 1
-      117 MOVE                             R16 R17
-      118 SETTABLE                         R16 R14 R15
-      119 MOVE                             R15 R6
-      120 CALL                             R12 3 1
-      121 SETTABLEKS                       R12 R11 K21 ["Contents"]
-      123 GETUPVAL                         R12 7
-      124 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      126 GETUPVAL                         R13 10
-      127 NEWTABLE                         R14 2 0
-      129 LOADN                            R15 2
-      130 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
-      132 GETUPVAL                         R15 7
-      133 GETTABLEKS                       R15 R15 K16 ["Tag"]
-      135 LOADK                            R16 K32 ["am-size-scrollbar-full"]
-      136 SETTABLE                         R16 R14 R15
-      137 CALL                             R12 2 1
-      138 SETTABLEKS                       R12 R11 K22 ["Filler"]
-      140 CALL                             R8 3 -1
-      141 RETURN                           R8 -1
+       65 LOADK                            R12 K17 ["am-size-full-headerrow row gui-object-defaults"]
+       66 SETTABLE                         R12 R10 R11
+       67 DUPTABLE                         R11 K20 [{"Contents", "Filler"}]
+       68 GETUPVAL                         R12 7
+       69 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       71 GETUPVAL                         R13 8
+       72 NEWTABLE                         R14 8 0
+       74 LOADN                            R15 1
+       75 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
+       77 LOADB                            R15 0
+       78 SETTABLEKS                       R15 R14 K21 ["UseScale"]
+       80 LOADB                            R15 0
+       81 SETTABLEKS                       R15 R14 K22 ["ClampSize"]
+       83 LOADB                            R15 1
+       84 SETTABLEKS                       R15 R14 K23 ["HideBars"]
+       86 SETTABLEKS                       R7 R14 K24 ["MinSizes"]
+       88 SETTABLEKS                       R5 R14 K25 ["Sizes"]
+       90 NEWCLOSURE                       R15 P1
+       91 CAPTURE                          VAL R1
+       92 SETTABLEKS                       R15 R14 K26 ["OnSizesChange"]
+       94 GETUPVAL                         R15 7
+       95 GETTABLEKS                       R15 R15 K16 ["Tag"]
+       97 LOADK                            R16 K27 ["am-size-fit-headerrow auto-x"]
+       98 SETTABLE                         R16 R14 R15
+       99 MOVE                             R15 R6
+      100 CALL                             R12 3 1
+      101 SETTABLEKS                       R12 R11 K18 ["Contents"]
+      103 GETUPVAL                         R12 7
+      104 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      106 GETUPVAL                         R13 9
+      107 NEWTABLE                         R14 2 0
+      109 LOADN                            R15 2
+      110 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
+      112 GETUPVAL                         R15 7
+      113 GETTABLEKS                       R15 R15 K16 ["Tag"]
+      115 LOADK                            R16 K28 ["am-size-scrollbar-full"]
+      116 SETTABLE                         R16 R14 R15
+      117 CALL                             R12 2 1
+      118 SETTABLEKS                       R12 R11 K19 ["Filler"]
+      120 CALL                             R8 3 -1
+      121 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -357,31 +339,25 @@ MAIN:
        95 GETTABLEKS                       R19 R19 K27 ["Resources"]
        97 GETTABLEKS                       R19 R19 K28 ["PluginStyles"]
        99 CALL                             R18 1 1
-      100 GETIMPORT                        R19 K5 [require]
-      102 GETTABLEKS                       R20 R0 K16 ["Src"]
-      104 GETTABLEKS                       R20 R20 K29 ["Flags"]
-      106 GETTABLEKS                       R20 R20 K30 ["getFFlagAmrFoundationifyBrowser"]
-      108 CALL                             R19 1 1
-      109 DUPCLOSURE                       R20 K31 [PROTO_0]
-      110 DUPCLOSURE                       R21 K32 [PROTO_3]
-      111 CAPTURE                          VAL R10
-      112 CAPTURE                          VAL R4
-      113 CAPTURE                          VAL R13
-      114 CAPTURE                          VAL R17
-      115 CAPTURE                          VAL R1
-      116 CAPTURE                          VAL R7
-      117 CAPTURE                          VAL R8
-      118 CAPTURE                          VAL R6
-      119 DUPCLOSURE                       R22 K33 [PROTO_7]
-      120 CAPTURE                          VAL R11
-      121 CAPTURE                          VAL R16
-      122 CAPTURE                          VAL R15
-      123 CAPTURE                          VAL R14
-      124 CAPTURE                          VAL R12
-      125 CAPTURE                          VAL R21
-      126 CAPTURE                          VAL R18
-      127 CAPTURE                          VAL R1
-      128 CAPTURE                          VAL R19
-      129 CAPTURE                          VAL R9
-      130 CAPTURE                          VAL R7
-      131 RETURN                           R22 1
+      100 DUPCLOSURE                       R19 K29 [PROTO_0]
+      101 DUPCLOSURE                       R20 K30 [PROTO_3]
+      102 CAPTURE                          VAL R10
+      103 CAPTURE                          VAL R4
+      104 CAPTURE                          VAL R13
+      105 CAPTURE                          VAL R17
+      106 CAPTURE                          VAL R1
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R6
+      110 DUPCLOSURE                       R21 K31 [PROTO_7]
+      111 CAPTURE                          VAL R11
+      112 CAPTURE                          VAL R16
+      113 CAPTURE                          VAL R15
+      114 CAPTURE                          VAL R14
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R20
+      117 CAPTURE                          VAL R18
+      118 CAPTURE                          VAL R1
+      119 CAPTURE                          VAL R9
+      120 CAPTURE                          VAL R7
+      121 RETURN                           R21 1

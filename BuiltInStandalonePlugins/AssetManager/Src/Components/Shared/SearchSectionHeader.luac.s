@@ -194,28 +194,32 @@ MAIN:
       132 LOADK                            R14 K38 ["Models"]
       133 SETTABLE                         R14 R12 R13
       134 GETTABLEKS                       R13 R6 K22 ["AssetType"]
-      136 GETTABLEKS                       R13 R13 K39 ["Plugin"]
-      138 LOADK                            R14 K40 ["Plugins"]
+      136 GETTABLEKS                       R13 R13 K39 ["Place"]
+      138 LOADK                            R14 K40 ["Places"]
       139 SETTABLE                         R14 R12 R13
       140 GETTABLEKS                       R13 R6 K22 ["AssetType"]
-      142 GETTABLEKS                       R13 R13 K41 ["Video"]
-      144 LOADK                            R14 K42 ["Videos"]
+      142 GETTABLEKS                       R13 R13 K41 ["Plugin"]
+      144 LOADK                            R14 K42 ["Plugins"]
       145 SETTABLE                         R14 R12 R13
-      146 MOVE                             R13 R11
-      147 CALL                             R13 0 1
-      148 JUMPIFNOT                        R13 ; [+6]
-      149 GETTABLEKS                       R13 R6 K22 ["AssetType"]
-      151 GETTABLEKS                       R13 R13 K43 ["Folder"]
-      153 LOADK                            R14 K44 ["Folders"]
-      154 SETTABLE                         R14 R12 R13
-      155 DUPCLOSURE                       R13 K45 [PROTO_1]
-      156 CAPTURE                          VAL R5
-      157 CAPTURE                          VAL R10
-      158 CAPTURE                          VAL R9
-      159 CAPTURE                          VAL R8
-      160 CAPTURE                          VAL R6
-      161 CAPTURE                          VAL R12
-      162 CAPTURE                          VAL R7
-      163 CAPTURE                          VAL R1
-      164 CAPTURE                          VAL R2
-      165 RETURN                           R13 1
+      146 GETTABLEKS                       R13 R6 K22 ["AssetType"]
+      148 GETTABLEKS                       R13 R13 K43 ["Video"]
+      150 LOADK                            R14 K44 ["Videos"]
+      151 SETTABLE                         R14 R12 R13
+      152 MOVE                             R13 R11
+      153 CALL                             R13 0 1
+      154 JUMPIFNOT                        R13 ; [+6]
+      155 GETTABLEKS                       R13 R6 K22 ["AssetType"]
+      157 GETTABLEKS                       R13 R13 K45 ["Folder"]
+      159 LOADK                            R14 K46 ["Folders"]
+      160 SETTABLE                         R14 R12 R13
+      161 DUPCLOSURE                       R13 K47 [PROTO_1]
+      162 CAPTURE                          VAL R5
+      163 CAPTURE                          VAL R10
+      164 CAPTURE                          VAL R9
+      165 CAPTURE                          VAL R8
+      166 CAPTURE                          VAL R6
+      167 CAPTURE                          VAL R12
+      168 CAPTURE                          VAL R7
+      169 CAPTURE                          VAL R1
+      170 CAPTURE                          VAL R2
+      171 RETURN                           R13 1

@@ -20,19 +20,10 @@ PROTO_1:
         9 JUMPIF                           R1 ; [+1]
        10 RETURN                           R0 0
        11 GETUPVAL                         R1 1
-       12 CALL                             R1 0 1
-       13 JUMPIFNOT                        R1 ; [+5]
-       14 GETUPVAL                         R1 2
-       15 NEWCLOSURE                       R2 P0
-       16 CAPTURE                          VAL R0
-       17 CALL                             R1 1 0
-       18 RETURN                           R0 0
-       19 GETUPVAL                         R1 3
-       20 NEWTABLE                         R2 0 1
-       22 MOVE                             R3 R0
-       23 SETLIST                          R2 R3 1 [1]
-       25 CALL                             R1 1 0
-       26 RETURN                           R0 0
+       12 NEWCLOSURE                       R2 P0
+       13 CAPTURE                          VAL R0
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -62,29 +53,24 @@ PROTO_3:
        14 GETTABLEKS                       R6 R0 K2 ["ChildAdded"]
        16 NEWCLOSURE                       R7 P0
        17 CAPTURE                          VAL R2
-       18 CAPTURE                          UPVAL U4
-       19 CAPTURE                          VAL R4
-       20 CAPTURE                          VAL R1
-       21 NEWTABLE                         R8 0 3
-       23 MOVE                             R9 R1
-       24 MOVE                             R10 R0
-       25 GETTABLEKS                       R11 R2 K3 ["isIgnoringChildren"]
-       27 SETLIST                          R8 R9 3 [1]
-       29 CALL                             R5 3 0
-       30 GETUPVAL                         R5 4
-       31 CALL                             R5 0 1
-       32 JUMPIFNOT                        R5 ; [+13]
-       33 GETUPVAL                         R5 1
-       34 GETTABLEKS                       R5 R5 K4 ["useEffect"]
-       36 NEWCLOSURE                       R6 P1
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R4
-       40 NEWTABLE                         R7 0 1
-       42 LENGTH                           R8 R3
-       43 SETLIST                          R7 R8 1 [1]
-       45 CALL                             R5 2 0
-       46 RETURN                           R0 0
+       18 CAPTURE                          VAL R4
+       19 NEWTABLE                         R8 0 3
+       21 MOVE                             R9 R1
+       22 MOVE                             R10 R0
+       23 GETTABLEKS                       R11 R2 K3 ["isIgnoringChildren"]
+       25 SETLIST                          R8 R9 3 [1]
+       27 CALL                             R5 3 0
+       28 GETUPVAL                         R5 1
+       29 GETTABLEKS                       R5 R5 K4 ["useEffect"]
+       31 NEWCLOSURE                       R6 P1
+       32 CAPTURE                          VAL R3
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          VAL R4
+       35 NEWTABLE                         R7 0 1
+       37 LENGTH                           R8 R3
+       38 SETLIST                          R7 R8 1 [1]
+       40 CALL                             R5 2 0
+       41 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -115,15 +101,9 @@ MAIN:
        43 GETTABLEKS                       R6 R6 K12 ["Hooks"]
        45 GETTABLEKS                       R6 R6 K14 ["useEventConnection"]
        47 CALL                             R5 1 1
-       48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R7 R0 K8 ["Src"]
-       52 GETTABLEKS                       R7 R7 K15 ["Flags"]
-       54 GETTABLEKS                       R7 R7 K16 ["getFFlagAvatarPreviewerSortClothingUI"]
-       56 CALL                             R6 1 1
-       57 DUPCLOSURE                       R7 K17 [PROTO_3]
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R5
-       62 CAPTURE                          VAL R6
-       63 RETURN                           R7 1
+       48 DUPCLOSURE                       R6 K15 [PROTO_3]
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R5
+       53 RETURN                           R6 1

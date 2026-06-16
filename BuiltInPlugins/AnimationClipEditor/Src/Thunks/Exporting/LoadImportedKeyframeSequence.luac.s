@@ -22,66 +22,118 @@ PROTO_0:
        25 RETURN                           R0 0
        26 GETUPVAL                         R5 2
        27 CALL                             R5 0 1
-       28 JUMPIFNOT                        R5 ; [+12]
-       29 GETTABLEKS                       R5 R3 K6 ["Metadata"]
-       31 GETUPVAL                         R6 0
-       32 GETTABLEKS                       R6 R6 K7 ["Name"]
-       34 JUMPIF                           R6 ; [+3]
-       35 GETUPVAL                         R6 3
-       36 GETTABLEKS                       R6 R6 K8 ["DEFAULT_IMPORTED_NAME"]
-       38 SETTABLEKS                       R6 R5 K7 ["Name"]
-       40 JUMP                             ; [+7]
-       41 GETTABLEKS                       R5 R3 K6 ["Metadata"]
-       43 GETUPVAL                         R6 3
-       44 GETTABLEKS                       R6 R6 K8 ["DEFAULT_IMPORTED_NAME"]
-       46 SETTABLEKS                       R6 R5 K7 ["Name"]
-       48 GETUPVAL                         R7 4
-       49 MOVE                             R8 R3
-       50 GETUPVAL                         R9 5
-       51 CALL                             R7 2 -1
-       52 NAMECALL                         R5 R0 K9 ["dispatch"]
-       54 CALL                             R5 -1 0
-       55 GETUPVAL                         R7 6
-       56 LOADB                            R8 0
-       57 CALL                             R7 1 -1
-       58 NAMECALL                         R5 R0 K9 ["dispatch"]
-       60 CALL                             R5 -1 0
-       61 GETUPVAL                         R7 7
-       62 LOADB                            R8 0
-       63 CALL                             R7 1 -1
-       64 NAMECALL                         R5 R0 K9 ["dispatch"]
-       66 CALL                             R5 -1 0
-       67 GETUPVAL                         R7 8
-       68 MOVE                             R8 R4
-       69 CALL                             R7 1 -1
-       70 NAMECALL                         R5 R0 K9 ["dispatch"]
-       72 CALL                             R5 -1 0
-       73 GETUPVAL                         R5 5
-       74 JUMPIFNOT                        R5 ; [+14]
-       75 GETUPVAL                         R5 5
-       76 LOADK                            R7 K10 ["onImportAnimationFromFile"]
-       77 GETTABLEKS                       R9 R3 K6 ["Metadata"]
-       79 JUMPIFNOT                        R9 ; [+5]
-       80 GETTABLEKS                       R8 R3 K6 ["Metadata"]
-       82 GETTABLEKS                       R8 R8 K11 ["Guid"]
-       84 JUMP                             ; [+1]
-       85 LOADNIL                          R8
-       86 NAMECALL                         R5 R5 K12 ["report"]
-       88 CALL                             R5 3 0
-       89 RETURN                           R0 0
+       28 JUMPIFNOT                        R5 ; [+66]
+       29 GETUPVAL                         R5 3
+       30 JUMPIFNOT                        R5 ; [+64]
+       31 GETUPVAL                         R5 3
+       32 JUMPIFEQKN                       R5 K6 [1] ; [+62]
+       34 GETIMPORT                        R5 K8 [pairs]
+       36 GETTABLEKS                       R6 R3 K9 ["Instances"]
+       38 GETTABLEKS                       R6 R6 K10 ["Root"]
+       40 GETTABLEKS                       R6 R6 K11 ["Tracks"]
+       42 CALL                             R5 1 3
+       43 FORGPREP_NEXT                    R5
+       44 GETTABLEKS                       R10 R9 K12 ["Type"]
+       46 GETUPVAL                         R11 4
+       47 GETTABLEKS                       R11 R11 K13 ["TRACK_TYPES"]
+       49 GETTABLEKS                       R11 R11 K14 ["CFrame"]
+       51 JUMPIFNOTEQ                      R10 R11 ; [+41]
+       53 GETIMPORT                        R10 K16 [ipairs]
+       55 GETTABLEKS                       R11 R9 K17 ["Keyframes"]
+       57 CALL                             R10 1 3
+       58 FORGPREP_INEXT                   R10
+       59 GETTABLEKS                       R16 R9 K18 ["Data"]
+       61 GETTABLE                         R15 R16 R14
+       62 JUMPIFNOT                        R15 ; [+28]
+       63 GETTABLEKS                       R16 R15 K19 ["Value"]
+       65 JUMPIFNOT                        R16 ; [+25]
+       66 GETTABLEKS                       R16 R15 K19 ["Value"]
+       68 NAMECALL                         R17 R16 K20 ["GetComponents"]
+       70 CALL                             R17 1 12
+       71 GETIMPORT                        R29 K22 [CFrame.new]
+       73 GETUPVAL                         R31 3
+       74 MUL                              R30 R17 R31
+       75 GETUPVAL                         R32 3
+       76 MUL                              R31 R18 R32
+       77 GETUPVAL                         R33 3
+       78 MUL                              R32 R19 R33
+       79 MOVE                             R33 R20
+       80 MOVE                             R34 R21
+       81 MOVE                             R35 R22
+       82 MOVE                             R36 R23
+       83 MOVE                             R37 R24
+       84 MOVE                             R38 R25
+       85 MOVE                             R39 R26
+       86 MOVE                             R40 R27
+       87 MOVE                             R41 R28
+       88 CALL                             R29 12 1
+       89 SETTABLEKS                       R29 R15 K19 ["Value"]
+       91 FORGLOOP                         R10 2 [inext] ; [-33]
+       93 FORGLOOP                         R5 2 ; [-50]
+       95 GETUPVAL                         R5 5
+       96 CALL                             R5 0 1
+       97 JUMPIFNOT                        R5 ; [+12]
+       98 GETTABLEKS                       R5 R3 K23 ["Metadata"]
+      100 GETUPVAL                         R6 0
+      101 GETTABLEKS                       R6 R6 K24 ["Name"]
+      103 JUMPIF                           R6 ; [+3]
+      104 GETUPVAL                         R6 4
+      105 GETTABLEKS                       R6 R6 K25 ["DEFAULT_IMPORTED_NAME"]
+      107 SETTABLEKS                       R6 R5 K24 ["Name"]
+      109 JUMP                             ; [+7]
+      110 GETTABLEKS                       R5 R3 K23 ["Metadata"]
+      112 GETUPVAL                         R6 4
+      113 GETTABLEKS                       R6 R6 K25 ["DEFAULT_IMPORTED_NAME"]
+      115 SETTABLEKS                       R6 R5 K24 ["Name"]
+      117 GETUPVAL                         R7 6
+      118 MOVE                             R8 R3
+      119 GETUPVAL                         R9 7
+      120 CALL                             R7 2 -1
+      121 NAMECALL                         R5 R0 K26 ["dispatch"]
+      123 CALL                             R5 -1 0
+      124 GETUPVAL                         R7 8
+      125 LOADB                            R8 0
+      126 CALL                             R7 1 -1
+      127 NAMECALL                         R5 R0 K26 ["dispatch"]
+      129 CALL                             R5 -1 0
+      130 GETUPVAL                         R7 9
+      131 LOADB                            R8 0
+      132 CALL                             R7 1 -1
+      133 NAMECALL                         R5 R0 K26 ["dispatch"]
+      135 CALL                             R5 -1 0
+      136 GETUPVAL                         R7 10
+      137 MOVE                             R8 R4
+      138 CALL                             R7 1 -1
+      139 NAMECALL                         R5 R0 K26 ["dispatch"]
+      141 CALL                             R5 -1 0
+      142 GETUPVAL                         R5 7
+      143 JUMPIFNOT                        R5 ; [+14]
+      144 GETUPVAL                         R5 7
+      145 LOADK                            R7 K27 ["onImportAnimationFromFile"]
+      146 GETTABLEKS                       R9 R3 K23 ["Metadata"]
+      148 JUMPIFNOT                        R9 ; [+5]
+      149 GETTABLEKS                       R8 R3 K23 ["Metadata"]
+      151 GETTABLEKS                       R8 R8 K28 ["Guid"]
+      153 JUMP                             ; [+1]
+      154 LOADNIL                          R8
+      155 NAMECALL                         R5 R5 K29 ["report"]
+      157 CALL                             R5 3 0
+      158 RETURN                           R0 0
 
 PROTO_1:
-        0 NEWCLOSURE                       R3 P0
+        0 NEWCLOSURE                       R4 P0
         1 CAPTURE                          VAL R2
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          UPVAL U1
-        4 CAPTURE                          UPVAL U2
-        5 CAPTURE                          UPVAL U3
-        6 CAPTURE                          VAL R1
+        4 CAPTURE                          VAL R3
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          UPVAL U3
         7 CAPTURE                          UPVAL U4
-        8 CAPTURE                          UPVAL U5
-        9 CAPTURE                          UPVAL U6
-       10 RETURN                           R3 1
+        8 CAPTURE                          VAL R1
+        9 CAPTURE                          UPVAL U5
+       10 CAPTURE                          UPVAL U6
+       11 CAPTURE                          UPVAL U7
+       12 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -117,12 +169,17 @@ MAIN:
        51 GETTABLEKS                       R11 R0 K16 ["LuaFlags"]
        53 GETTABLEKS                       R11 R11 K17 ["GetFFlagUseFileNameForImportedAnimation"]
        55 CALL                             R10 1 1
-       56 DUPCLOSURE                       R11 K18 [PROTO_1]
-       57 CAPTURE                          VAL R9
-       58 CAPTURE                          VAL R10
-       59 CAPTURE                          VAL R8
-       60 CAPTURE                          VAL R6
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R3
-       63 CAPTURE                          VAL R4
-       64 RETURN                           R11 1
+       56 GETIMPORT                        R11 K7 [require]
+       58 GETTABLEKS                       R12 R0 K16 ["LuaFlags"]
+       60 GETTABLEKS                       R12 R12 K18 ["GetFFlagACEImportScale"]
+       62 CALL                             R11 1 1
+       63 DUPCLOSURE                       R12 K19 [PROTO_1]
+       64 CAPTURE                          VAL R9
+       65 CAPTURE                          VAL R11
+       66 CAPTURE                          VAL R8
+       67 CAPTURE                          VAL R10
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R3
+       71 CAPTURE                          VAL R4
+       72 RETURN                           R12 1

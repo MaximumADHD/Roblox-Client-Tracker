@@ -161,6 +161,27 @@ PROTO_7:
        14 CALL                             R0 1 0
        15 RETURN                           R0 0
 
+PROTO_8:
+        0 GETUPVAL                         R2 0
+        1 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        3 LOADK                            R3 K0 ["FFlagLuaStartPageRefreshRecentsOnRegistryUpdate is not enabled"]
+        4 GETIMPORT                        R1 K2 [assert]
+        6 CALL                             R1 2 0
+        7 GETTABLEKS                       R1 R0 K3 ["lists"]
+        9 LOADNIL                          R2
+       10 LOADNIL                          R3
+       11 FORGPREP                         R1
+       12 GETIMPORT                        R6 K6 [string.find]
+       14 MOVE                             R7 R4
+       15 LOADK                            R8 K7 ["^Recents"]
+       16 CALL                             R6 2 1
+       17 JUMPIFNOT                        R6 ; [+4]
+       18 MOVE                             R8 R4
+       19 NAMECALL                         R6 R0 K8 ["invalidateList"]
+       21 CALL                             R6 2 0
+       22 FORGLOOP                         R1 1 ; [-11]
+       24 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -179,36 +200,45 @@ MAIN:
        24 CALL                             R2 1 1
        25 GETTABLEKS                       R3 R2 K11 ["StartPageManager"]
        27 GETIMPORT                        R4 K5 [require]
-       29 GETTABLEKS                       R5 R0 K12 ["Packages"]
-       31 GETTABLEKS                       R5 R5 K13 ["Dash"]
-       33 CALL                             R4 1 1
-       34 GETTABLEKS                       R5 R4 K14 ["collectArray"]
-       36 GETTABLEKS                       R6 R4 K15 ["includes"]
-       38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R8 R0 K6 ["Src"]
-       42 GETTABLEKS                       R8 R8 K16 ["Types"]
-       44 CALL                             R7 1 1
-       45 DUPCLOSURE                       R8 K17 [PROTO_0]
-       46 DUPCLOSURE                       R9 K18 [PROTO_2]
-       47 GETTABLEKS                       R10 R1 K19 ["new"]
-       49 MOVE                             R11 R8
-       50 MOVE                             R12 R9
-       51 CALL                             R10 2 1
-       52 NEWTABLE                         R11 0 0
-       54 LOADNIL                          R12
-       55 SETTABLEKS                       R11 R10 K20 ["tempUrls"]
-       57 NEWCLOSURE                       R13 P2
-       58 CAPTURE                          REF R12
-       59 CAPTURE                          VAL R3
-       60 CAPTURE                          REF R11
-       61 CAPTURE                          VAL R10
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R5
-       64 SETTABLEKS                       R13 R10 K21 ["load"]
-       66 NEWCLOSURE                       R13 P3
-       67 CAPTURE                          VAL R10
-       68 CAPTURE                          REF R11
-       69 CAPTURE                          REF R12
-       70 SETTABLEKS                       R13 R10 K22 ["unload"]
-       72 CLOSEUPVALS                      R11
-       73 RETURN                           R10 1
+       29 GETTABLEKS                       R5 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R5 K12 ["SharedFlags"]
+       33 GETTABLEKS                       R5 R5 K13 ["getFFlagLuaStartPageRefreshRecentsOnRegistryUpdate"]
+       35 CALL                             R4 1 1
+       36 CALL                             R4 0 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R6 R0 K14 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K15 ["Dash"]
+       43 CALL                             R5 1 1
+       44 GETTABLEKS                       R6 R5 K16 ["collectArray"]
+       46 GETTABLEKS                       R7 R5 K17 ["includes"]
+       48 GETIMPORT                        R8 K5 [require]
+       50 GETTABLEKS                       R9 R0 K6 ["Src"]
+       52 GETTABLEKS                       R9 R9 K18 ["Types"]
+       54 CALL                             R8 1 1
+       55 DUPCLOSURE                       R9 K19 [PROTO_0]
+       56 DUPCLOSURE                       R10 K20 [PROTO_2]
+       57 GETTABLEKS                       R11 R1 K21 ["new"]
+       59 MOVE                             R12 R9
+       60 MOVE                             R13 R10
+       61 CALL                             R11 2 1
+       62 NEWTABLE                         R12 0 0
+       64 LOADNIL                          R13
+       65 SETTABLEKS                       R12 R11 K22 ["tempUrls"]
+       67 NEWCLOSURE                       R14 P2
+       68 CAPTURE                          REF R13
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          REF R12
+       71 CAPTURE                          VAL R11
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R6
+       74 SETTABLEKS                       R14 R11 K23 ["load"]
+       76 NEWCLOSURE                       R14 P3
+       77 CAPTURE                          VAL R11
+       78 CAPTURE                          REF R12
+       79 CAPTURE                          REF R13
+       80 SETTABLEKS                       R14 R11 K24 ["unload"]
+       82 DUPCLOSURE                       R14 K25 [PROTO_8]
+       83 CAPTURE                          VAL R4
+       84 SETTABLEKS                       R14 R11 K26 ["invalidateRecentsLists"]
+       86 CLOSEUPVALS                      R12
+       87 RETURN                           R11 1

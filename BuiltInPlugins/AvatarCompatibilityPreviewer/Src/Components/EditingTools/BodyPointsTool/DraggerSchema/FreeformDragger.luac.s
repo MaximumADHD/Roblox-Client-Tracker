@@ -61,105 +61,91 @@ PROTO_3:
        47 NAMECALL                         R3 R3 K19 ["Raycast"]
        49 CALL                             R3 4 1
        50 LOADNIL                          R4
-       51 GETUPVAL                         R5 2
-       52 JUMPIFNOT                        R5 ; [+29]
-       53 JUMPIFNOTEQKNIL                  R3 ; [+25]
-       55 GETTABLEKS                       R5 R0 K14 ["_selectedPoint"]
-       57 GETTABLEKS                       R5 R5 K15 ["limb"]
-       59 GETTABLEKS                       R9 R1 K17 ["Origin"]
-       61 GETTABLEKS                       R11 R1 K18 ["Direction"]
-       63 GETTABLEKS                       R11 R11 K20 ["Unit"]
-       65 GETTABLEKS                       R13 R5 K21 ["Position"]
-       67 GETTABLEKS                       R14 R1 K17 ["Origin"]
-       69 SUB                              R12 R13 R14
-       70 GETTABLEKS                       R12 R12 K22 ["Magnitude"]
-       72 MUL                              R10 R11 R12
-       73 ADD                              R8 R9 R10
-       74 NAMECALL                         R6 R5 K23 ["GetClosestPointOnSurface"]
-       76 CALL                             R6 2 1
-       77 MOVE                             R4 R6
-       78 JUMP                             ; [+20]
-       79 GETTABLEKS                       R4 R3 K21 ["Position"]
-       81 JUMP                             ; [+17]
-       82 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       84 RETURN                           R0 0
-       85 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       87 LOADB                            R6 0 +1
-       88 LOADB                            R6 1
-       89 GETUPVAL                         R7 0
-       90 GETTABLEKS                       R7 R7 K1 ["LUAU_ANALYZE_ERROR"]
-       92 FASTCALL2                        ASSERT R6 R7 ; [+3]
-       94 GETIMPORT                        R5 K3 [assert]
-       96 CALL                             R5 2 0
-       97 GETTABLEKS                       R4 R3 K21 ["Position"]
-       99 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
-      101 GETTABLEKS                       R5 R5 K24 ["projectionEnabled"]
-      103 JUMPIFNOT                        R5 ; [+70]
-      104 LOADNIL                          R5
-      105 LOADN                            R6 10
-      106 LOADN                            R7 0
-      107 JUMPIFNOTLT                      R7 R6 ; [+34]
-      109 SUBK                             R6 R6 K25 [1]
-      110 GETUPVAL                         R7 1
-      111 GETTABLEKS                       R10 R1 K17 ["Origin"]
-      113 GETTABLEKS                       R12 R1 K18 ["Direction"]
-      115 MULK                             R11 R12 K26 [0.05]
-      116 ADD                              R9 R10 R11
-      117 GETTABLEKS                       R11 R1 K18 ["Direction"]
-      119 MINUS                            R10 R11
-      120 MOVE                             R11 R2
-      121 NAMECALL                         R7 R7 K19 ["Raycast"]
-      123 CALL                             R7 4 1
-      124 JUMPIFEQKNIL                     R7 ; [+16]
-      126 JUMPIFNOTEQKNIL                  R7 ; [+2]
-      128 LOADB                            R9 0 +1
-      129 LOADB                            R9 1
-      130 GETUPVAL                         R10 0
-      131 GETTABLEKS                       R10 R10 K1 ["LUAU_ANALYZE_ERROR"]
-      133 FASTCALL2                        ASSERT R9 R10 ; [+3]
-      135 GETIMPORT                        R8 K3 [assert]
-      137 CALL                             R8 2 0
-      138 GETTABLEKS                       R5 R7 K21 ["Position"]
-      140 JUMP                             ; [+1]
-      141 JUMPBACK                         ; [-36]
-      142 MOVE                             R9 R5
-      143 LOADK                            R10 K27 [0.5]
-      144 NAMECALL                         R7 R4 K28 ["Lerp"]
-      146 CALL                             R7 3 1
-      147 GETTABLEKS                       R8 R0 K0 ["_updatePointPositionCallback"]
-      149 GETIMPORT                        R10 K30 [CFrame.new]
-      151 GETTABLEKS                       R11 R0 K4 ["_draggerContext"]
-      153 GETTABLEKS                       R11 R11 K31 ["worldModel"]
-      155 GETTABLEKS                       R11 R11 K32 ["PrimaryPart"]
-      157 GETTABLEKS                       R11 R11 K29 ["CFrame"]
-      159 MOVE                             R13 R7
-      160 NAMECALL                         R11 R11 K33 ["PointToObjectSpace"]
-      162 CALL                             R11 2 -1
-      163 CALL                             R10 -1 1
-      164 GETTABLEKS                       R11 R0 K14 ["_selectedPoint"]
-      166 GETTABLEKS                       R11 R11 K34 ["getCFrame"]
-      168 CALL                             R11 0 1
-      169 GETTABLEKS                       R11 R11 K35 ["Rotation"]
-      171 MUL                              R9 R10 R11
-      172 CALL                             R8 1 0
-      173 RETURN                           R0 0
-      174 GETTABLEKS                       R5 R0 K0 ["_updatePointPositionCallback"]
-      176 GETIMPORT                        R7 K30 [CFrame.new]
-      178 GETTABLEKS                       R8 R0 K4 ["_draggerContext"]
-      180 GETTABLEKS                       R8 R8 K31 ["worldModel"]
-      182 GETTABLEKS                       R8 R8 K32 ["PrimaryPart"]
-      184 GETTABLEKS                       R8 R8 K29 ["CFrame"]
-      186 MOVE                             R10 R4
-      187 NAMECALL                         R8 R8 K33 ["PointToObjectSpace"]
-      189 CALL                             R8 2 -1
-      190 CALL                             R7 -1 1
-      191 GETTABLEKS                       R8 R0 K14 ["_selectedPoint"]
-      193 GETTABLEKS                       R8 R8 K34 ["getCFrame"]
-      195 CALL                             R8 0 1
-      196 GETTABLEKS                       R8 R8 K35 ["Rotation"]
-      198 MUL                              R6 R7 R8
-      199 CALL                             R5 1 0
-      200 RETURN                           R0 0
+       51 JUMPIFNOTEQKNIL                  R3 ; [+25]
+       53 GETTABLEKS                       R5 R0 K14 ["_selectedPoint"]
+       55 GETTABLEKS                       R5 R5 K15 ["limb"]
+       57 GETTABLEKS                       R9 R1 K17 ["Origin"]
+       59 GETTABLEKS                       R11 R1 K18 ["Direction"]
+       61 GETTABLEKS                       R11 R11 K20 ["Unit"]
+       63 GETTABLEKS                       R13 R5 K21 ["Position"]
+       65 GETTABLEKS                       R14 R1 K17 ["Origin"]
+       67 SUB                              R12 R13 R14
+       68 GETTABLEKS                       R12 R12 K22 ["Magnitude"]
+       70 MUL                              R10 R11 R12
+       71 ADD                              R8 R9 R10
+       72 NAMECALL                         R6 R5 K23 ["GetClosestPointOnSurface"]
+       74 CALL                             R6 2 1
+       75 MOVE                             R4 R6
+       76 JUMP                             ; [+2]
+       77 GETTABLEKS                       R4 R3 K21 ["Position"]
+       79 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
+       81 GETTABLEKS                       R5 R5 K24 ["projectionEnabled"]
+       83 JUMPIFNOT                        R5 ; [+70]
+       84 LOADNIL                          R5
+       85 LOADN                            R6 10
+       86 LOADN                            R7 0
+       87 JUMPIFNOTLT                      R7 R6 ; [+34]
+       89 SUBK                             R6 R6 K25 [1]
+       90 GETUPVAL                         R7 1
+       91 GETTABLEKS                       R10 R1 K17 ["Origin"]
+       93 GETTABLEKS                       R12 R1 K18 ["Direction"]
+       95 MULK                             R11 R12 K26 [0.05]
+       96 ADD                              R9 R10 R11
+       97 GETTABLEKS                       R11 R1 K18 ["Direction"]
+       99 MINUS                            R10 R11
+      100 MOVE                             R11 R2
+      101 NAMECALL                         R7 R7 K19 ["Raycast"]
+      103 CALL                             R7 4 1
+      104 JUMPIFEQKNIL                     R7 ; [+16]
+      106 JUMPIFNOTEQKNIL                  R7 ; [+2]
+      108 LOADB                            R9 0 +1
+      109 LOADB                            R9 1
+      110 GETUPVAL                         R10 0
+      111 GETTABLEKS                       R10 R10 K1 ["LUAU_ANALYZE_ERROR"]
+      113 FASTCALL2                        ASSERT R9 R10 ; [+3]
+      115 GETIMPORT                        R8 K3 [assert]
+      117 CALL                             R8 2 0
+      118 GETTABLEKS                       R5 R7 K21 ["Position"]
+      120 JUMP                             ; [+1]
+      121 JUMPBACK                         ; [-36]
+      122 MOVE                             R9 R5
+      123 LOADK                            R10 K27 [0.5]
+      124 NAMECALL                         R7 R4 K28 ["Lerp"]
+      126 CALL                             R7 3 1
+      127 GETTABLEKS                       R8 R0 K0 ["_updatePointPositionCallback"]
+      129 GETIMPORT                        R10 K30 [CFrame.new]
+      131 GETTABLEKS                       R11 R0 K4 ["_draggerContext"]
+      133 GETTABLEKS                       R11 R11 K31 ["worldModel"]
+      135 GETTABLEKS                       R11 R11 K32 ["PrimaryPart"]
+      137 GETTABLEKS                       R11 R11 K29 ["CFrame"]
+      139 MOVE                             R13 R7
+      140 NAMECALL                         R11 R11 K33 ["PointToObjectSpace"]
+      142 CALL                             R11 2 -1
+      143 CALL                             R10 -1 1
+      144 GETTABLEKS                       R11 R0 K14 ["_selectedPoint"]
+      146 GETTABLEKS                       R11 R11 K34 ["getCFrame"]
+      148 CALL                             R11 0 1
+      149 GETTABLEKS                       R11 R11 K35 ["Rotation"]
+      151 MUL                              R9 R10 R11
+      152 CALL                             R8 1 0
+      153 RETURN                           R0 0
+      154 GETTABLEKS                       R5 R0 K0 ["_updatePointPositionCallback"]
+      156 GETIMPORT                        R7 K30 [CFrame.new]
+      158 GETTABLEKS                       R8 R0 K4 ["_draggerContext"]
+      160 GETTABLEKS                       R8 R8 K31 ["worldModel"]
+      162 GETTABLEKS                       R8 R8 K32 ["PrimaryPart"]
+      164 GETTABLEKS                       R8 R8 K29 ["CFrame"]
+      166 MOVE                             R10 R4
+      167 NAMECALL                         R8 R8 K33 ["PointToObjectSpace"]
+      169 CALL                             R8 2 -1
+      170 CALL                             R7 -1 1
+      171 GETTABLEKS                       R8 R0 K14 ["_selectedPoint"]
+      173 GETTABLEKS                       R8 R8 K34 ["getCFrame"]
+      175 CALL                             R8 0 1
+      176 GETTABLEKS                       R8 R8 K35 ["Rotation"]
+      178 MUL                              R6 R7 R8
+      179 CALL                             R5 1 0
+      180 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]
@@ -189,25 +175,19 @@ MAIN:
        30 GETTABLEKS                       R4 R4 K15 ["Util"]
        32 GETTABLEKS                       R4 R4 K16 ["Constants"]
        34 CALL                             R3 1 1
-       35 GETIMPORT                        R4 K1 [game]
-       37 LOADK                            R6 K17 ["AvatarPreviewerEditingToolsDraggerClosestPoint"]
-       38 LOADB                            R7 0
-       39 NAMECALL                         R4 R4 K18 ["DefineFastFlag"]
-       41 CALL                             R4 3 1
-       42 NEWTABLE                         R5 8 0
-       44 SETTABLEKS                       R5 R5 K19 ["__index"]
-       46 DUPCLOSURE                       R6 K20 [PROTO_0]
-       47 CAPTURE                          VAL R5
-       48 SETTABLEKS                       R6 R5 K21 ["new"]
-       50 DUPCLOSURE                       R6 K22 [PROTO_1]
-       51 SETTABLEKS                       R6 R5 K23 ["render"]
-       53 DUPCLOSURE                       R6 K24 [PROTO_2]
-       54 SETTABLEKS                       R6 R5 K25 ["rotate"]
-       56 DUPCLOSURE                       R6 K26 [PROTO_3]
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          VAL R4
-       60 SETTABLEKS                       R6 R5 K27 ["update"]
-       62 DUPCLOSURE                       R6 K28 [PROTO_4]
-       63 SETTABLEKS                       R6 R5 K29 ["destroy"]
-       65 RETURN                           R5 1
+       35 NEWTABLE                         R4 8 0
+       37 SETTABLEKS                       R4 R4 K17 ["__index"]
+       39 DUPCLOSURE                       R5 K18 [PROTO_0]
+       40 CAPTURE                          VAL R4
+       41 SETTABLEKS                       R5 R4 K19 ["new"]
+       43 DUPCLOSURE                       R5 K20 [PROTO_1]
+       44 SETTABLEKS                       R5 R4 K21 ["render"]
+       46 DUPCLOSURE                       R5 K22 [PROTO_2]
+       47 SETTABLEKS                       R5 R4 K23 ["rotate"]
+       49 DUPCLOSURE                       R5 K24 [PROTO_3]
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R5 R4 K25 ["update"]
+       54 DUPCLOSURE                       R5 K26 [PROTO_4]
+       55 SETTABLEKS                       R5 R4 K27 ["destroy"]
+       57 RETURN                           R4 1

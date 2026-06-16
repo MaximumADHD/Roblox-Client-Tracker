@@ -800,44 +800,57 @@ PROTO_28:
       539 GETTABLEKS                       R30 R30 K97 ["GraphDirtyStateContext"]
       541 GETTABLEKS                       R30 R30 K73 ["UIDataModelProvider"]
       543 CALL                             R29 1 1
-      544 GETUPVAL                         R30 2
-      545 GETTABLEKS                       R30 R30 K15 ["createElement"]
-      547 GETUPVAL                         R31 0
-      548 GETTABLEKS                       R31 R31 K98 ["MenuItemsContext"]
-      550 GETTABLEKS                       R31 R31 K60 ["Provider"]
-      552 CALL                             R30 1 1
-      553 GETUPVAL                         R31 2
-      554 GETTABLEKS                       R31 R31 K15 ["createElement"]
-      556 GETUPVAL                         R32 9
-      557 GETTABLEKS                       R32 R32 K99 ["AssetPickerProvider"]
-      559 GETTABLEKS                       R32 R32 K87 ["StudioProvider"]
-      561 DUPTABLE                         R33 K101 [{"plugin", "theme", "studioService"}]
-      562 GETTABLEKS                       R34 R0 K4 ["Plugin"]
-      564 SETTABLEKS                       R34 R33 K65 ["plugin"]
-      566 SETTABLEKS                       R1 R33 K70 ["theme"]
-      568 GETUPVAL                         R34 11
-      569 SETTABLEKS                       R34 R33 K100 ["studioService"]
-      571 CALL                             R31 2 1
-      572 GETUPVAL                         R32 2
-      573 GETTABLEKS                       R32 R32 K15 ["createElement"]
-      575 GETUPVAL                         R33 0
-      576 GETTABLEKS                       R33 R33 K102 ["InputSelectionContext"]
-      578 GETTABLEKS                       R33 R33 K60 ["Provider"]
-      580 CALL                             R32 1 -1
-      581 SETLIST                          R20 R21 -1 [17]
-      583 SETTABLEKS                       R20 R19 K52 ["providers"]
-      585 DUPTABLE                         R20 K104 [{"MainView"}]
-      586 GETUPVAL                         R21 2
-      587 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      589 GETUPVAL                         R22 12
-      590 CALL                             R21 1 1
-      591 SETTABLEKS                       R21 R20 K103 ["MainView"]
-      593 CALL                             R17 3 1
-      594 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
-      596 CALL                             R13 3 1
-      597 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
-      599 CALL                             R10 2 -1
-      600 RETURN                           R10 -1
+      544 GETUPVAL                         R31 10
+      545 CALL                             R31 0 1
+      546 JUMPIFNOT                        R31 ; [+8]
+      547 GETUPVAL                         R30 2
+      548 GETTABLEKS                       R30 R30 K15 ["createElement"]
+      550 GETUPVAL                         R31 2
+      551 GETTABLEKS                       R31 R31 K84 ["Fragment"]
+      553 CALL                             R30 1 1
+      554 JUMP                             ; [+9]
+      555 GETUPVAL                         R30 2
+      556 GETTABLEKS                       R30 R30 K15 ["createElement"]
+      558 GETUPVAL                         R31 0
+      559 GETTABLEKS                       R31 R31 K98 ["MenuItemsContext"]
+      561 GETTABLEKS                       R31 R31 K60 ["Provider"]
+      563 CALL                             R30 1 1
+      564 GETUPVAL                         R31 2
+      565 GETTABLEKS                       R31 R31 K15 ["createElement"]
+      567 GETUPVAL                         R32 9
+      568 GETTABLEKS                       R32 R32 K99 ["AssetPickerProvider"]
+      570 GETTABLEKS                       R32 R32 K87 ["StudioProvider"]
+      572 DUPTABLE                         R33 K101 [{"plugin", "theme", "studioService"}]
+      573 GETTABLEKS                       R34 R0 K4 ["Plugin"]
+      575 SETTABLEKS                       R34 R33 K65 ["plugin"]
+      577 SETTABLEKS                       R1 R33 K70 ["theme"]
+      579 GETUPVAL                         R34 11
+      580 SETTABLEKS                       R34 R33 K100 ["studioService"]
+      582 CALL                             R31 2 1
+      583 GETUPVAL                         R32 2
+      584 GETTABLEKS                       R32 R32 K15 ["createElement"]
+      586 GETUPVAL                         R33 0
+      587 GETTABLEKS                       R33 R33 K102 ["InputSelectionContext"]
+      589 GETTABLEKS                       R33 R33 K60 ["Provider"]
+      591 CALL                             R32 1 -1
+      592 SETLIST                          R20 R21 -1 [17]
+      594 SETTABLEKS                       R20 R19 K52 ["providers"]
+      596 DUPTABLE                         R20 K104 [{"MainView"}]
+      597 GETUPVAL                         R21 2
+      598 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      600 GETUPVAL                         R22 12
+      601 DUPTABLE                         R23 K105 [{"pluginGui"}]
+      602 GETTABLEKS                       R24 R0 K42 ["PluginLoaderContext"]
+      604 GETTABLEKS                       R24 R24 K43 ["mainDockWidget"]
+      606 SETTABLEKS                       R24 R23 K66 ["pluginGui"]
+      608 CALL                             R21 2 1
+      609 SETTABLEKS                       R21 R20 K103 ["MainView"]
+      611 CALL                             R17 3 1
+      612 SETTABLEKS                       R17 R16 K50 ["ContextStack"]
+      614 CALL                             R13 3 1
+      615 SETTABLEKS                       R13 R12 K13 ["MainWidget"]
+      617 CALL                             R10 2 -1
+      618 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

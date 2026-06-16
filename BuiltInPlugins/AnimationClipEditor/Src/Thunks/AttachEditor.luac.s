@@ -71,21 +71,33 @@ PROTO_0:
        93 NAMECALL                         R6 R0 K1 ["dispatch"]
        95 CALL                             R6 -1 0
        96 GETUPVAL                         R6 12
-       97 GETTABLEKS                       R6 R6 K14 ["clearMicrobones"]
-       99 CALL                             R6 0 0
-      100 JUMPIFNOT                        R2 ; [+7]
-      101 JUMPIF                           R3 ; [+6]
-      102 GETUPVAL                         R6 12
-      103 GETTABLEKS                       R6 R6 K15 ["updateMicrobones"]
-      105 MOVE                             R7 R2
-      106 MOVE                             R8 R5
-      107 CALL                             R6 2 0
-      108 GETUPVAL                         R8 13
-      109 MOVE                             R9 R4
-      110 CALL                             R8 1 -1
-      111 NAMECALL                         R6 R0 K1 ["dispatch"]
-      113 CALL                             R6 -1 0
-      114 RETURN                           R0 0
+       97 CALL                             R6 0 1
+       98 JUMPIFNOT                        R6 ; [+13]
+       99 JUMPIFNOT                        R2 ; [+12]
+      100 GETTABLEKS                       R6 R2 K14 ["PrimaryPart"]
+      102 JUMPIFNOT                        R6 ; [+9]
+      103 GETUPVAL                         R8 13
+      104 GETTABLEKS                       R9 R2 K14 ["PrimaryPart"]
+      106 GETTABLEKS                       R9 R9 K15 ["CFrame"]
+      108 CALL                             R8 1 -1
+      109 NAMECALL                         R6 R0 K1 ["dispatch"]
+      111 CALL                             R6 -1 0
+      112 GETUPVAL                         R6 14
+      113 GETTABLEKS                       R6 R6 K16 ["clearMicrobones"]
+      115 CALL                             R6 0 0
+      116 JUMPIFNOT                        R2 ; [+7]
+      117 JUMPIF                           R3 ; [+6]
+      118 GETUPVAL                         R6 14
+      119 GETTABLEKS                       R6 R6 K17 ["updateMicrobones"]
+      121 MOVE                             R7 R2
+      122 MOVE                             R8 R5
+      123 CALL                             R6 2 0
+      124 GETUPVAL                         R8 15
+      125 MOVE                             R9 R4
+      126 CALL                             R8 1 -1
+      127 NAMECALL                         R6 R0 K1 ["dispatch"]
+      129 CALL                             R6 -1 0
+      130 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0
@@ -103,7 +115,9 @@ PROTO_1:
        12 CAPTURE                          UPVAL U10
        13 CAPTURE                          UPVAL U11
        14 CAPTURE                          UPVAL U12
-       15 RETURN                           R1 1
+       15 CAPTURE                          UPVAL U13
+       16 CAPTURE                          UPVAL U14
+       17 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -131,47 +145,56 @@ MAIN:
        36 GETTABLEKS                       R7 R3 K16 ["SetIsDirty"]
        38 CALL                             R6 1 1
        39 GETIMPORT                        R7 K9 [require]
-       41 GETTABLEKS                       R8 R3 K17 ["SetRootInstance"]
+       41 GETTABLEKS                       R8 R3 K17 ["SetRootCFrame"]
        43 CALL                             R7 1 1
        44 GETIMPORT                        R8 K9 [require]
-       46 GETTABLEKS                       R9 R3 K18 ["SetSelectedKeyframes"]
+       46 GETTABLEKS                       R9 R3 K18 ["SetRootInstance"]
        48 CALL                             R8 1 1
-       49 GETTABLEKS                       R9 R1 K12 ["Src"]
-       51 GETTABLEKS                       R9 R9 K19 ["Thunks"]
-       53 GETIMPORT                        R10 K9 [require]
-       55 GETTABLEKS                       R11 R9 K20 ["LoadAnimationData"]
-       57 CALL                             R10 1 1
+       49 GETIMPORT                        R9 K9 [require]
+       51 GETTABLEKS                       R10 R3 K19 ["SetSelectedKeyframes"]
+       53 CALL                             R9 1 1
+       54 GETTABLEKS                       R10 R1 K12 ["Src"]
+       56 GETTABLEKS                       R10 R10 K20 ["Thunks"]
        58 GETIMPORT                        R11 K9 [require]
-       60 GETTABLEKS                       R12 R9 K21 ["SortAndSetTracks"]
+       60 GETTABLEKS                       R12 R10 K21 ["LoadAnimationData"]
        62 CALL                             R11 1 1
        63 GETIMPORT                        R12 K9 [require]
-       65 GETTABLEKS                       R13 R9 K22 ["Playback"]
-       67 GETTABLEKS                       R13 R13 K23 ["StepAnimation"]
-       69 CALL                             R12 1 1
-       70 GETTABLEKS                       R13 R1 K12 ["Src"]
-       72 GETTABLEKS                       R13 R13 K24 ["Util"]
-       74 GETIMPORT                        R14 K9 [require]
-       76 GETTABLEKS                       R15 R13 K25 ["RigValidation"]
-       78 CALL                             R14 1 1
+       65 GETTABLEKS                       R13 R10 K22 ["SortAndSetTracks"]
+       67 CALL                             R12 1 1
+       68 GETIMPORT                        R13 K9 [require]
+       70 GETTABLEKS                       R14 R10 K23 ["Playback"]
+       72 GETTABLEKS                       R14 R14 K24 ["StepAnimation"]
+       74 CALL                             R13 1 1
+       75 GETTABLEKS                       R14 R1 K12 ["Src"]
+       77 GETTABLEKS                       R14 R14 K25 ["Util"]
        79 GETIMPORT                        R15 K9 [require]
-       81 GETTABLEKS                       R16 R13 K26 ["RigVisualization"]
+       81 GETTABLEKS                       R16 R14 K26 ["RigValidation"]
        83 CALL                             R15 1 1
        84 GETIMPORT                        R16 K9 [require]
-       86 GETTABLEKS                       R17 R1 K27 ["LuaFlags"]
-       88 GETTABLEKS                       R17 R17 K28 ["GetFFlagKeepHistoryService"]
-       90 CALL                             R16 1 1
-       91 DUPCLOSURE                       R17 K29 [PROTO_1]
-       92 CAPTURE                          VAL R4
-       93 CAPTURE                          VAL R16
-       94 CAPTURE                          VAL R0
-       95 CAPTURE                          VAL R14
-       96 CAPTURE                          VAL R7
-       97 CAPTURE                          VAL R2
-       98 CAPTURE                          VAL R11
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R5
-      101 CAPTURE                          VAL R10
-      102 CAPTURE                          VAL R6
-      103 CAPTURE                          VAL R15
-      104 CAPTURE                          VAL R12
-      105 RETURN                           R17 1
+       86 GETTABLEKS                       R17 R14 K27 ["RigVisualization"]
+       88 CALL                             R16 1 1
+       89 GETIMPORT                        R17 K9 [require]
+       91 GETTABLEKS                       R18 R1 K28 ["LuaFlags"]
+       93 GETTABLEKS                       R18 R18 K29 ["GetFFlagKeepHistoryService"]
+       95 CALL                             R17 1 1
+       96 GETIMPORT                        R18 K9 [require]
+       98 GETTABLEKS                       R19 R1 K28 ["LuaFlags"]
+      100 GETTABLEKS                       R19 R19 K30 ["GetFFlagRootMotion"]
+      102 CALL                             R18 1 1
+      103 DUPCLOSURE                       R19 K31 [PROTO_1]
+      104 CAPTURE                          VAL R4
+      105 CAPTURE                          VAL R17
+      106 CAPTURE                          VAL R0
+      107 CAPTURE                          VAL R15
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R2
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R9
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R6
+      115 CAPTURE                          VAL R18
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R16
+      118 CAPTURE                          VAL R13
+      119 RETURN                           R19 1

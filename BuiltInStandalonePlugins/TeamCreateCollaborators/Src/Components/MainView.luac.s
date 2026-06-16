@@ -34,23 +34,33 @@ PROTO_2:
        10 NAMECALL                         R3 R1 K5 ["getText"]
        12 CALL                             R3 3 1
        13 MOVE                             R2 R3
-       14 JUMP                             ; [+6]
-       15 LOADK                            R5 K3 ["MainView"]
-       16 LOADK                            R6 K6 ["Title"]
-       17 NAMECALL                         R3 R1 K5 ["getText"]
-       19 CALL                             R3 3 1
-       20 MOVE                             R2 R3
-       21 GETUPVAL                         R3 1
-       22 GETTABLEKS                       R3 R3 K7 ["createElement"]
-       24 GETUPVAL                         R4 2
-       25 DUPTABLE                         R5 K11 [{"Text", "LayoutOrder", "tag"}]
-       26 SETTABLEKS                       R2 R5 K8 ["Text"]
-       28 GETTABLEKS                       R6 R0 K9 ["LayoutOrder"]
-       30 SETTABLEKS                       R6 R5 K9 ["LayoutOrder"]
-       32 LOADK                            R6 K12 ["auto-xy size-0-0 text-align-y-center text-align-x-left text-title-medium text-wrap"]
-       33 SETTABLEKS                       R6 R5 K10 ["tag"]
-       35 CALL                             R3 2 -1
-       36 RETURN                           R3 -1
+       14 JUMP                             ; [+19]
+       15 GETTABLEKS                       R3 R0 K6 ["canCollabAllPcApproved"]
+       17 JUMPIFNOT                        R3 ; [+10]
+       18 GETTABLEKS                       R3 R0 K7 ["hasRequiresTrustedConnection"]
+       20 JUMPIFNOT                        R3 ; [+7]
+       21 LOADK                            R5 K3 ["MainView"]
+       22 LOADK                            R6 K8 ["RequiresTrustedConnectionTitle"]
+       23 NAMECALL                         R3 R1 K5 ["getText"]
+       25 CALL                             R3 3 1
+       26 MOVE                             R2 R3
+       27 JUMP                             ; [+6]
+       28 LOADK                            R5 K3 ["MainView"]
+       29 LOADK                            R6 K9 ["Title"]
+       30 NAMECALL                         R3 R1 K5 ["getText"]
+       32 CALL                             R3 3 1
+       33 MOVE                             R2 R3
+       34 GETUPVAL                         R3 1
+       35 GETTABLEKS                       R3 R3 K10 ["createElement"]
+       37 GETUPVAL                         R4 2
+       38 DUPTABLE                         R5 K14 [{"Text", "LayoutOrder", "tag"}]
+       39 SETTABLEKS                       R2 R5 K11 ["Text"]
+       41 GETTABLEKS                       R6 R0 K12 ["LayoutOrder"]
+       43 SETTABLEKS                       R6 R5 K12 ["LayoutOrder"]
+       45 LOADK                            R6 K15 ["auto-xy size-0-0 text-align-y-center text-align-x-left text-title-medium text-wrap"]
+       46 SETTABLEKS                       R6 R5 K13 ["tag"]
+       48 CALL                             R3 2 -1
+       49 RETURN                           R3 -1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -97,28 +107,28 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["hasLinkedParentIsGranted"]
-        3 JUMPIFNOTEQKB                    R0 FALSE ; [+10]
-        5 GETUPVAL                         R0 0
-        6 GETTABLEKS                       R0 R0 K1 ["onOpenTrustedConnectionDialog"]
-        8 JUMPIFNOT                        R0 ; [+21]
-        9 GETUPVAL                         R0 0
-       10 GETTABLEKS                       R0 R0 K1 ["onOpenTrustedConnectionDialog"]
-       12 CALL                             R0 0 0
-       13 RETURN                           R0 0
-       14 GETUPVAL                         R0 1
-       15 GETTABLEKS                       R0 R0 K2 ["sendButtonClicked"]
-       17 LOADK                            R1 K3 ["existingParentSendClicked"]
-       18 CALL                             R0 1 0
-       19 GETUPVAL                         R0 2
-       20 GETUPVAL                         R1 0
-       21 GETTABLEKS                       R1 R1 K4 ["userIds"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K5 ["universeId"]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R3 R3 K6 ["onRequestComplete"]
-       29 CALL                             R0 3 0
-       30 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["canUseLinkedParent"]
+        3 JUMPIF                           R0 ; [+9]
+        4 GETUPVAL                         R0 0
+        5 GETTABLEKS                       R0 R0 K1 ["onOpenTrustedConnectionDialog"]
+        7 JUMPIFNOT                        R0 ; [+21]
+        8 GETUPVAL                         R0 0
+        9 GETTABLEKS                       R0 R0 K1 ["onOpenTrustedConnectionDialog"]
+       11 CALL                             R0 0 0
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R0 1
+       14 GETTABLEKS                       R0 R0 K2 ["sendButtonClicked"]
+       16 LOADK                            R1 K3 ["existingParentSendClicked"]
+       17 CALL                             R0 1 0
+       18 GETUPVAL                         R0 2
+       19 GETUPVAL                         R1 0
+       20 GETTABLEKS                       R1 R1 K4 ["userIds"]
+       22 GETUPVAL                         R2 0
+       23 GETTABLEKS                       R2 R2 K5 ["universeId"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K6 ["onRequestComplete"]
+       28 CALL                             R0 3 0
+       29 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -595,154 +605,161 @@ PROTO_16:
         9 GETUPVAL                         R4 3
        10 CALL                             R3 1 1
        11 GETTABLEKS                       R4 R3 K2 ["trustedFriendLinkController"]
-       13 GETTABLEKS                       R5 R3 K3 ["trustedConnectionParentalConsentController"]
-       15 GETTABLEKS                       R6 R3 K4 ["hasLinkedParentController"]
-       17 GETTABLEKS                       R7 R3 K5 ["collaborators"]
-       19 GETUPVAL                         R8 2
-       20 GETTABLEKS                       R8 R8 K6 ["useMemo"]
-       22 NEWCLOSURE                       R9 P0
-       23 CAPTURE                          VAL R7
-       24 NEWTABLE                         R10 0 1
-       26 MOVE                             R11 R7
-       27 SETLIST                          R10 R11 1 [1]
-       29 CALL                             R8 2 1
-       30 GETUPVAL                         R9 2
-       31 GETTABLEKS                       R9 R9 K7 ["useState"]
-       33 LOADB                            R10 0
-       34 CALL                             R9 1 2
-       35 GETUPVAL                         R11 2
-       36 GETTABLEKS                       R11 R11 K7 ["useState"]
-       38 LOADB                            R12 0
-       39 CALL                             R11 1 2
-       40 GETTABLEKS                       R13 R5 K8 ["isGranted"]
-       42 GETTABLEKS                       R14 R0 K9 ["universeId"]
-       44 GETTABLEKS                       R15 R0 K10 ["placeId"]
-       46 GETTABLEKS                       R16 R0 K11 ["onClose"]
-       48 GETUPVAL                         R17 2
-       49 GETTABLEKS                       R17 R17 K12 ["useEffect"]
-       51 NEWCLOSURE                       R18 P1
-       52 CAPTURE                          VAL R13
-       53 CAPTURE                          UPVAL U4
-       54 CAPTURE                          UPVAL U5
-       55 NEWTABLE                         R19 0 1
-       57 MOVE                             R20 R13
-       58 SETLIST                          R19 R20 1 [1]
-       60 CALL                             R17 2 0
-       61 GETUPVAL                         R17 2
-       62 GETTABLEKS                       R17 R17 K13 ["useCallback"]
-       64 NEWCLOSURE                       R18 P2
-       65 CAPTURE                          UPVAL U4
-       66 CAPTURE                          VAL R15
-       67 CAPTURE                          UPVAL U6
-       68 CAPTURE                          VAL R14
-       69 CAPTURE                          VAL R16
-       70 NEWTABLE                         R19 0 3
-       72 MOVE                             R20 R15
-       73 MOVE                             R21 R14
-       74 MOVE                             R22 R16
-       75 SETLIST                          R19 R20 3 [1]
-       77 CALL                             R17 2 1
-       78 MOVE                             R18 R11
-       79 JUMPIFNOT                        R18 ; [+7]
-       80 LOADB                            R18 0
-       81 JUMPIFEQKNIL                     R15 ; [+5]
-       83 JUMPIFNOTEQKN                    R15 K14 [0] ; [+2]
-       85 LOADB                            R18 0 +1
-       86 LOADB                            R18 1
-       87 GETUPVAL                         R19 2
-       88 GETTABLEKS                       R19 R19 K15 ["createElement"]
-       90 GETUPVAL                         R20 7
-       91 GETTABLEKS                       R20 R20 K16 ["View"]
-       93 DUPTABLE                         R21 K18 [{"tag"}]
-       94 LOADK                            R22 K19 ["size-full-full col gap-small padding-large bg-surface-200 radius-none"]
-       95 SETTABLEKS                       R22 R21 K17 ["tag"]
-       97 DUPTABLE                         R22 K25 [{"Title", "Subtitle", "TrustedConnectionsScrollView", "SnoozeCheckbox", "ButtonBar"}]
-       98 GETUPVAL                         R23 2
-       99 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      101 GETUPVAL                         R24 8
-      102 DUPTABLE                         R25 K28 [{"showParentalConsent", "LayoutOrder"}]
-      103 SETTABLEKS                       R13 R25 K26 ["showParentalConsent"]
-      105 MOVE                             R26 R1
-      106 CALL                             R26 0 1
-      107 SETTABLEKS                       R26 R25 K27 ["LayoutOrder"]
-      109 CALL                             R23 2 1
-      110 SETTABLEKS                       R23 R22 K20 ["Title"]
-      112 GETUPVAL                         R23 2
-      113 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      115 GETUPVAL                         R24 9
-      116 DUPTABLE                         R25 K28 [{"showParentalConsent", "LayoutOrder"}]
-      117 SETTABLEKS                       R13 R25 K26 ["showParentalConsent"]
-      119 MOVE                             R26 R1
-      120 CALL                             R26 0 1
-      121 SETTABLEKS                       R26 R25 K27 ["LayoutOrder"]
-      123 CALL                             R23 2 1
-      124 SETTABLEKS                       R23 R22 K21 ["Subtitle"]
-      126 GETUPVAL                         R23 2
-      127 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      129 GETUPVAL                         R24 10
-      130 DUPTABLE                         R25 K29 [{"LayoutOrder"}]
-      131 MOVE                             R26 R1
-      132 CALL                             R26 0 1
-      133 SETTABLEKS                       R26 R25 K27 ["LayoutOrder"]
-      135 CALL                             R23 2 1
-      136 SETTABLEKS                       R23 R22 K22 ["TrustedConnectionsScrollView"]
-      138 GETUPVAL                         R24 4
-      139 JUMPIFNOT                        R24 ; [+37]
-      140 GETUPVAL                         R23 2
-      141 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      143 GETUPVAL                         R24 7
-      144 GETTABLEKS                       R24 R24 K30 ["Checkbox"]
-      146 DUPTABLE                         R25 K35 [{"LayoutOrder", "label", "isChecked", "onActivated", "size"}]
-      147 MOVE                             R26 R1
-      148 CALL                             R26 0 1
-      149 SETTABLEKS                       R26 R25 K27 ["LayoutOrder"]
-      151 LOADK                            R28 K36 ["MainView"]
-      152 LOADK                            R29 K37 ["SnoozeAcknowledgement"]
-      153 NAMECALL                         R26 R2 K38 ["getText"]
-      155 CALL                             R26 3 1
-      156 SETTABLEKS                       R26 R25 K31 ["label"]
-      158 SETTABLEKS                       R11 R25 K32 ["isChecked"]
-      160 NEWCLOSURE                       R26 P3
-      161 CAPTURE                          UPVAL U5
-      162 CAPTURE                          VAL R12
-      163 CAPTURE                          VAL R11
-      164 SETTABLEKS                       R26 R25 K33 ["onActivated"]
-      166 GETUPVAL                         R26 7
-      167 GETTABLEKS                       R26 R26 K39 ["Enums"]
-      169 GETTABLEKS                       R26 R26 K40 ["InputSize"]
-      171 GETTABLEKS                       R26 R26 K41 ["Small"]
-      173 SETTABLEKS                       R26 R25 K34 ["size"]
-      175 CALL                             R23 2 1
-      176 JUMP                             ; [+1]
-      177 LOADNIL                          R23
-      178 SETTABLEKS                       R23 R22 K23 ["SnoozeCheckbox"]
-      180 GETUPVAL                         R23 2
-      181 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      183 GETUPVAL                         R24 11
-      184 DUPTABLE                         R25 K51 [{"LayoutOrder", "showParentalConsent", "onOpenTrustedConnectionDialog", "hasLinkedParentIsGranted", "copied", "setCopied", "trustedFriendLink", "userIds", "universeId", "onRequestComplete", "snoozeAccepted", "onSnooze"}]
-      185 MOVE                             R26 R1
-      186 CALL                             R26 0 1
-      187 SETTABLEKS                       R26 R25 K27 ["LayoutOrder"]
-      189 SETTABLEKS                       R13 R25 K26 ["showParentalConsent"]
-      191 GETTABLEKS                       R26 R0 K42 ["onOpenTrustedConnectionDialog"]
-      193 SETTABLEKS                       R26 R25 K42 ["onOpenTrustedConnectionDialog"]
-      195 GETTABLEKS                       R26 R6 K8 ["isGranted"]
-      197 SETTABLEKS                       R26 R25 K43 ["hasLinkedParentIsGranted"]
-      199 SETTABLEKS                       R9 R25 K44 ["copied"]
-      201 SETTABLEKS                       R10 R25 K45 ["setCopied"]
-      203 GETTABLEKS                       R26 R4 K46 ["trustedFriendLink"]
-      205 SETTABLEKS                       R26 R25 K46 ["trustedFriendLink"]
-      207 SETTABLEKS                       R8 R25 K47 ["userIds"]
-      209 GETTABLEKS                       R26 R0 K9 ["universeId"]
-      211 SETTABLEKS                       R26 R25 K9 ["universeId"]
-      213 GETTABLEKS                       R26 R0 K48 ["onRequestComplete"]
-      215 SETTABLEKS                       R26 R25 K48 ["onRequestComplete"]
-      217 SETTABLEKS                       R18 R25 K49 ["snoozeAccepted"]
-      219 SETTABLEKS                       R17 R25 K50 ["onSnooze"]
-      221 CALL                             R23 2 1
-      222 SETTABLEKS                       R23 R22 K24 ["ButtonBar"]
-      224 CALL                             R19 3 -1
-      225 RETURN                           R19 -1
+       13 GETTABLEKS                       R5 R3 K3 ["collaborators"]
+       15 GETUPVAL                         R6 2
+       16 GETTABLEKS                       R6 R6 K4 ["useMemo"]
+       18 NEWCLOSURE                       R7 P0
+       19 CAPTURE                          VAL R5
+       20 NEWTABLE                         R8 0 1
+       22 MOVE                             R9 R5
+       23 SETLIST                          R8 R9 1 [1]
+       25 CALL                             R6 2 1
+       26 GETUPVAL                         R7 2
+       27 GETTABLEKS                       R7 R7 K5 ["useState"]
+       29 LOADB                            R8 0
+       30 CALL                             R7 1 2
+       31 GETUPVAL                         R9 2
+       32 GETTABLEKS                       R9 R9 K5 ["useState"]
+       34 LOADB                            R10 0
+       35 CALL                             R9 1 2
+       36 GETTABLEKS                       R12 R0 K6 ["canUseAddTfLinks"]
+       38 NOT                              R11 R12
+       39 LENGTH                           R13 R5
+       40 LOADN                            R14 0
+       41 JUMPIFLT                         R14 R13 ; [+2]
+       43 LOADB                            R12 0 +1
+       44 LOADB                            R12 1
+       45 GETTABLEKS                       R13 R0 K7 ["universeId"]
+       47 GETTABLEKS                       R14 R0 K8 ["placeId"]
+       49 GETTABLEKS                       R15 R0 K9 ["onClose"]
+       51 GETUPVAL                         R16 2
+       52 GETTABLEKS                       R16 R16 K10 ["useEffect"]
+       54 NEWCLOSURE                       R17 P1
+       55 CAPTURE                          VAL R11
+       56 CAPTURE                          UPVAL U4
+       57 CAPTURE                          UPVAL U5
+       58 NEWTABLE                         R18 0 1
+       60 MOVE                             R19 R11
+       61 SETLIST                          R18 R19 1 [1]
+       63 CALL                             R16 2 0
+       64 GETUPVAL                         R16 2
+       65 GETTABLEKS                       R16 R16 K11 ["useCallback"]
+       67 NEWCLOSURE                       R17 P2
+       68 CAPTURE                          UPVAL U4
+       69 CAPTURE                          VAL R14
+       70 CAPTURE                          UPVAL U6
+       71 CAPTURE                          VAL R13
+       72 CAPTURE                          VAL R15
+       73 NEWTABLE                         R18 0 3
+       75 MOVE                             R19 R14
+       76 MOVE                             R20 R13
+       77 MOVE                             R21 R15
+       78 SETLIST                          R18 R19 3 [1]
+       80 CALL                             R16 2 1
+       81 MOVE                             R17 R9
+       82 JUMPIFNOT                        R17 ; [+7]
+       83 LOADB                            R17 0
+       84 JUMPIFEQKNIL                     R14 ; [+5]
+       86 JUMPIFNOTEQKN                    R14 K12 [0] ; [+2]
+       88 LOADB                            R17 0 +1
+       89 LOADB                            R17 1
+       90 GETUPVAL                         R18 2
+       91 GETTABLEKS                       R18 R18 K13 ["createElement"]
+       93 GETUPVAL                         R19 7
+       94 GETTABLEKS                       R19 R19 K14 ["View"]
+       96 DUPTABLE                         R20 K16 [{"tag"}]
+       97 LOADK                            R21 K17 ["size-full-full col gap-small padding-large bg-surface-200 radius-none"]
+       98 SETTABLEKS                       R21 R20 K15 ["tag"]
+      100 DUPTABLE                         R21 K23 [{"Title", "Subtitle", "TrustedConnectionsScrollView", "SnoozeCheckbox", "ButtonBar"}]
+      101 GETUPVAL                         R22 2
+      102 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      104 GETUPVAL                         R23 8
+      105 DUPTABLE                         R24 K28 [{"showParentalConsent", "canCollabAllPcApproved", "hasRequiresTrustedConnection", "LayoutOrder"}]
+      106 SETTABLEKS                       R11 R24 K24 ["showParentalConsent"]
+      108 GETTABLEKS                       R25 R0 K25 ["canCollabAllPcApproved"]
+      110 SETTABLEKS                       R25 R24 K25 ["canCollabAllPcApproved"]
+      112 SETTABLEKS                       R12 R24 K26 ["hasRequiresTrustedConnection"]
+      114 MOVE                             R25 R1
+      115 CALL                             R25 0 1
+      116 SETTABLEKS                       R25 R24 K27 ["LayoutOrder"]
+      118 CALL                             R22 2 1
+      119 SETTABLEKS                       R22 R21 K18 ["Title"]
+      121 GETUPVAL                         R22 2
+      122 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      124 GETUPVAL                         R23 9
+      125 DUPTABLE                         R24 K29 [{"showParentalConsent", "LayoutOrder"}]
+      126 SETTABLEKS                       R11 R24 K24 ["showParentalConsent"]
+      128 MOVE                             R25 R1
+      129 CALL                             R25 0 1
+      130 SETTABLEKS                       R25 R24 K27 ["LayoutOrder"]
+      132 CALL                             R22 2 1
+      133 SETTABLEKS                       R22 R21 K19 ["Subtitle"]
+      135 GETUPVAL                         R22 2
+      136 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      138 GETUPVAL                         R23 10
+      139 DUPTABLE                         R24 K30 [{"LayoutOrder"}]
+      140 MOVE                             R25 R1
+      141 CALL                             R25 0 1
+      142 SETTABLEKS                       R25 R24 K27 ["LayoutOrder"]
+      144 CALL                             R22 2 1
+      145 SETTABLEKS                       R22 R21 K20 ["TrustedConnectionsScrollView"]
+      147 GETUPVAL                         R23 4
+      148 JUMPIFNOT                        R23 ; [+37]
+      149 GETUPVAL                         R22 2
+      150 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      152 GETUPVAL                         R23 7
+      153 GETTABLEKS                       R23 R23 K31 ["Checkbox"]
+      155 DUPTABLE                         R24 K36 [{"LayoutOrder", "label", "isChecked", "onActivated", "size"}]
+      156 MOVE                             R25 R1
+      157 CALL                             R25 0 1
+      158 SETTABLEKS                       R25 R24 K27 ["LayoutOrder"]
+      160 LOADK                            R27 K37 ["MainView"]
+      161 LOADK                            R28 K38 ["SnoozeAcknowledgement"]
+      162 NAMECALL                         R25 R2 K39 ["getText"]
+      164 CALL                             R25 3 1
+      165 SETTABLEKS                       R25 R24 K32 ["label"]
+      167 SETTABLEKS                       R9 R24 K33 ["isChecked"]
+      169 NEWCLOSURE                       R25 P3
+      170 CAPTURE                          UPVAL U5
+      171 CAPTURE                          VAL R10
+      172 CAPTURE                          VAL R9
+      173 SETTABLEKS                       R25 R24 K34 ["onActivated"]
+      175 GETUPVAL                         R25 7
+      176 GETTABLEKS                       R25 R25 K40 ["Enums"]
+      178 GETTABLEKS                       R25 R25 K41 ["InputSize"]
+      180 GETTABLEKS                       R25 R25 K42 ["Small"]
+      182 SETTABLEKS                       R25 R24 K35 ["size"]
+      184 CALL                             R22 2 1
+      185 JUMP                             ; [+1]
+      186 LOADNIL                          R22
+      187 SETTABLEKS                       R22 R21 K21 ["SnoozeCheckbox"]
+      189 GETUPVAL                         R22 2
+      190 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      192 GETUPVAL                         R23 11
+      193 DUPTABLE                         R24 K52 [{"LayoutOrder", "showParentalConsent", "onOpenTrustedConnectionDialog", "canUseLinkedParent", "copied", "setCopied", "trustedFriendLink", "userIds", "universeId", "onRequestComplete", "snoozeAccepted", "onSnooze"}]
+      194 MOVE                             R25 R1
+      195 CALL                             R25 0 1
+      196 SETTABLEKS                       R25 R24 K27 ["LayoutOrder"]
+      198 SETTABLEKS                       R11 R24 K24 ["showParentalConsent"]
+      200 GETTABLEKS                       R25 R0 K43 ["onOpenTrustedConnectionDialog"]
+      202 SETTABLEKS                       R25 R24 K43 ["onOpenTrustedConnectionDialog"]
+      204 GETTABLEKS                       R25 R0 K44 ["canUseLinkedParent"]
+      206 SETTABLEKS                       R25 R24 K44 ["canUseLinkedParent"]
+      208 SETTABLEKS                       R7 R24 K45 ["copied"]
+      210 SETTABLEKS                       R8 R24 K46 ["setCopied"]
+      212 GETTABLEKS                       R25 R4 K47 ["trustedFriendLink"]
+      214 SETTABLEKS                       R25 R24 K47 ["trustedFriendLink"]
+      216 SETTABLEKS                       R6 R24 K48 ["userIds"]
+      218 GETTABLEKS                       R25 R0 K7 ["universeId"]
+      220 SETTABLEKS                       R25 R24 K7 ["universeId"]
+      222 GETTABLEKS                       R25 R0 K49 ["onRequestComplete"]
+      224 SETTABLEKS                       R25 R24 K49 ["onRequestComplete"]
+      226 SETTABLEKS                       R17 R24 K50 ["snoozeAccepted"]
+      228 SETTABLEKS                       R16 R24 K51 ["onSnooze"]
+      230 CALL                             R22 2 1
+      231 SETTABLEKS                       R22 R21 K22 ["ButtonBar"]
+      233 CALL                             R18 3 -1
+      234 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0

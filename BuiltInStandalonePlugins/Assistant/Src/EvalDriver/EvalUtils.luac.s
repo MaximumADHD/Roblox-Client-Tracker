@@ -1,23 +1,31 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 LOADK                            R3 K0 ["Actions"]
-        2 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
-        4 CALL                             R1 2 1
-        5 NEWTABLE                         R5 0 1
-        7 MOVE                             R6 R0
-        8 SETLIST                          R5 R6 1 [1]
-       10 NAMECALL                         R3 R1 K2 ["GetAsync"]
-       12 CALL                             R3 2 1
-       13 GETTABLEN                        R2 R3 1
-       14 GETTABLEKS                       R3 R2 K3 ["Enabled"]
-       16 JUMPIF                           R3 ; [+5]
-       17 GETIMPORT                        R3 K6 [task.wait]
-       19 LOADK                            R4 K7 [0.1]
-       20 CALL                             R3 1 0
-       21 JUMPBACK                         ; [-17]
-       22 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 NEWTABLE                         R4 0 1
+        3 MOVE                             R5 R0
+        4 SETLIST                          R4 R5 1 [1]
+        6 NAMECALL                         R2 R2 K0 ["GetAsync"]
+        8 CALL                             R2 2 1
+        9 GETTABLEN                        R1 R2 1
+       10 GETTABLEKS                       R2 R1 K1 ["Enabled"]
+       12 RETURN                           R2 1
 
 PROTO_1:
+        0 GETUPVAL                         R3 0
+        1 NEWTABLE                         R5 0 1
+        3 MOVE                             R6 R0
+        4 SETLIST                          R5 R6 1 [1]
+        6 NAMECALL                         R3 R3 K0 ["GetAsync"]
+        8 CALL                             R3 2 1
+        9 GETTABLEN                        R2 R3 1
+       10 GETTABLEKS                       R1 R2 K1 ["Enabled"]
+       12 JUMPIF                           R1 ; [+5]
+       13 GETIMPORT                        R1 K4 [task.wait]
+       15 LOADK                            R2 K5 [0.1]
+       16 CALL                             R1 1 0
+       17 JUMPBACK                         ; [-18]
+       18 RETURN                           R0 0
+
+PROTO_2:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["AssistantApplication"]
         2 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
@@ -27,7 +35,7 @@ PROTO_1:
         8 CALL                             R1 2 -1
         9 RETURN                           R1 -1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 LOADK                            R4 K0 ["AssistantApplication"]
         2 NAMECALL                         R2 R2 K1 ["GetPluginComponent"]
@@ -38,14 +46,14 @@ PROTO_2:
         9 CALL                             R2 3 0
        10 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 NAMECALL                         R0 R0 K0 ["RunBoundCodeAsync"]
         4 CALL                             R0 2 -1
         5 RETURN                           R0 -1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["AssistantBridge"]
         2 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
@@ -58,11 +66,16 @@ PROTO_4:
        11 CAPTURE                          VAL R2
        12 RETURN                           R2 2
 
-PROTO_5:
-        0 SETUPVAL                         R0 0
-        1 RETURN                           R0 0
-
 PROTO_6:
+        0 SETUPVAL                         R0 0
+        1 GETUPVAL                         R1 0
+        2 LOADK                            R3 K0 ["Actions"]
+        3 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
+        5 CALL                             R1 2 1
+        6 SETUPVAL                         R1 1
+        7 RETURN                           R0 0
+
+PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["fromSetting"]
         3 LOADK                            R2 K1 ["RunTools"]
@@ -78,7 +91,7 @@ PROTO_6:
        15 CALL                             R3 3 0
        16 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["fromSetting"]
         3 LOADK                            R2 K1 ["RunTools"]
@@ -94,61 +107,43 @@ PROTO_7:
        15 CALL                             R3 3 0
        16 RETURN                           R0 0
 
-PROTO_8:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fromAction"]
-        3 LOADK                            R1 K1 ["RunTools"]
-        4 LOADK                            R2 K2 ["LaunchTestMode"]
-        5 CALL                             R0 2 1
-        6 GETUPVAL                         R1 1
-        7 LOADK                            R3 K3 ["Actions"]
-        8 NAMECALL                         R1 R1 K4 ["GetPluginComponent"]
-       10 CALL                             R1 2 1
-       11 GETUPVAL                         R2 2
-       12 MOVE                             R3 R0
-       13 CALL                             R2 1 0
-       14 MOVE                             R4 R0
-       15 NAMECALL                         R2 R1 K5 ["ActivateAsync"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
-
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fromAction"]
-        3 LOADK                            R1 K1 ["RunTools"]
-        4 LOADK                            R2 K2 ["Stop"]
-        5 CALL                             R0 2 1
-        6 GETUPVAL                         R1 1
-        7 LOADK                            R3 K3 ["Actions"]
-        8 NAMECALL                         R1 R1 K4 ["GetPluginComponent"]
-       10 CALL                             R1 2 1
-       11 GETUPVAL                         R2 2
-       12 MOVE                             R3 R0
-       13 CALL                             R2 1 0
-       14 MOVE                             R4 R0
-       15 NAMECALL                         R2 R1 K5 ["ActivateAsync"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["LaunchTestMode"]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 CALL                             R1 1 0
+        6 GETUPVAL                         R1 2
+        7 MOVE                             R3 R0
+        8 NAMECALL                         R1 R1 K1 ["ActivateAsync"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fromAction"]
-        3 LOADK                            R1 K1 ["RunTools"]
-        4 LOADK                            R2 K2 ["CleanupServerAndClients"]
-        5 CALL                             R0 2 1
-        6 GETUPVAL                         R1 1
-        7 LOADK                            R3 K3 ["Actions"]
-        8 NAMECALL                         R1 R1 K4 ["GetPluginComponent"]
-       10 CALL                             R1 2 1
-       11 GETUPVAL                         R2 2
-       12 MOVE                             R3 R0
-       13 CALL                             R2 1 0
-       14 MOVE                             R4 R0
-       15 NAMECALL                         R2 R1 K5 ["ActivateAsync"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Stop"]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 CALL                             R1 1 0
+        6 GETUPVAL                         R1 2
+        7 MOVE                             R3 R0
+        8 NAMECALL                         R1 R1 K1 ["ActivateAsync"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
 PROTO_11:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CleanupServerAndClients"]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 CALL                             R1 1 0
+        6 GETUPVAL                         R1 2
+        7 MOVE                             R3 R0
+        8 NAMECALL                         R1 R1 K1 ["ActivateAsync"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
+
+PROTO_12:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R0
         2 GETUPVAL                         R3 1
@@ -191,24 +186,40 @@ PROTO_11:
        50 GETIMPORT                        R3 K8 [task.wait]
        52 LOADK                            R4 K9 [0.1]
        53 CALL                             R3 1 0
-       54 GETUPVAL                         R3 1
-       55 GETTABLEKS                       R3 R3 K15 ["fromAction"]
-       57 LOADK                            R4 K1 ["RunTools"]
-       58 LOADK                            R5 K16 ["LaunchTestMode"]
-       59 CALL                             R3 2 1
-       60 GETUPVAL                         R4 2
-       61 LOADK                            R6 K17 ["Actions"]
-       62 NAMECALL                         R4 R4 K4 ["GetPluginComponent"]
-       64 CALL                             R4 2 1
-       65 GETUPVAL                         R5 3
-       66 MOVE                             R6 R3
-       67 CALL                             R5 1 0
-       68 MOVE                             R7 R3
-       69 NAMECALL                         R5 R4 K18 ["ActivateAsync"]
-       71 CALL                             R5 2 0
-       72 RETURN                           R0 0
+       54 GETUPVAL                         R3 3
+       55 GETTABLEKS                       R3 R3 K15 ["LaunchTestMode"]
+       57 GETUPVAL                         R4 4
+       58 MOVE                             R5 R3
+       59 CALL                             R4 1 0
+       60 GETUPVAL                         R4 5
+       61 MOVE                             R6 R3
+       62 NAMECALL                         R4 R4 K16 ["ActivateAsync"]
+       64 CALL                             R4 2 0
+       65 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CleanupServerAndClients"]
+        3 GETUPVAL                         R3 1
+        4 NEWTABLE                         R5 0 1
+        6 MOVE                             R6 R0
+        7 SETLIST                          R5 R6 1 [1]
+        9 NAMECALL                         R3 R3 K1 ["GetAsync"]
+       11 CALL                             R3 2 1
+       12 GETTABLEN                        R2 R3 1
+       13 GETTABLEKS                       R1 R2 K2 ["Enabled"]
+       15 RETURN                           R1 1
+
+PROTO_14:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["CleanupServerAndClients"]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R3 R0
+        5 NAMECALL                         R1 R1 K1 ["BindToChangedAsync"]
+        7 CALL                             R1 2 -1
+        8 RETURN                           R1 -1
+
+PROTO_15:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["Players"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
@@ -227,25 +238,19 @@ PROTO_12:
        23 CALL                             R2 2 0
        24 RETURN                           R1 1
 
-PROTO_13:
+PROTO_16:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["fromAction"]
-        3 LOADK                            R1 K1 ["PlaceManagement"]
-        4 LOADK                            R2 K2 ["SaveToFile"]
-        5 CALL                             R0 2 1
-        6 GETUPVAL                         R1 1
-        7 LOADK                            R3 K3 ["Actions"]
-        8 NAMECALL                         R1 R1 K4 ["GetPluginComponent"]
-       10 CALL                             R1 2 1
-       11 GETUPVAL                         R2 2
-       12 MOVE                             R3 R0
-       13 CALL                             R2 1 0
-       14 MOVE                             R4 R0
-       15 NAMECALL                         R2 R1 K5 ["ActivateAsync"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["PlaceManagementSaveToFile"]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 CALL                             R1 1 0
+        6 GETUPVAL                         R1 2
+        7 MOVE                             R3 R0
+        8 NAMECALL                         R1 R1 K1 ["ActivateAsync"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
-PROTO_14:
+PROTO_17:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["LoadedCode"]
         3 NAMECALL                         R0 R0 K3 ["FindFirstChild"]
@@ -265,7 +270,7 @@ PROTO_14:
        25 SETTABLEKS                       R2 R1 K9 ["Parent"]
        27 RETURN                           R0 0
 
-PROTO_15:
+PROTO_18:
         0 GETIMPORT                        R2 K2 [string.split]
         2 MOVE                             R3 R0
         3 LOADK                            R4 K3 ["."]
@@ -299,7 +304,7 @@ PROTO_15:
        36 FORGLOOP                         R4 2 ; [-9]
        38 RETURN                           R3 1
 
-PROTO_16:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["PlaceOpener"]
         2 NAMECALL                         R1 R1 K1 ["GetPluginComponent"]
@@ -312,7 +317,7 @@ PROTO_16:
        12 CALL                             R2 1 0
        13 RETURN                           R0 0
 
-PROTO_17:
+PROTO_20:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["ReplicatedStorage"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
@@ -336,11 +341,11 @@ PROTO_17:
        29 SETTABLEKS                       R1 R0 K12 ["Parent"]
        31 RETURN                           R0 1
 
-PROTO_18:
+PROTO_21:
         0 SETUPVAL                         R0 0
         1 RETURN                           R0 0
 
-PROTO_19:
+PROTO_22:
         0 GETUPVAL                         R0 0
         1 RETURN                           R0 1
 
@@ -362,78 +367,113 @@ MAIN:
        23 GETTABLEKS                       R3 R3 K10 ["StudioUri"]
        25 LOADNIL                          R4
        26 LOADNIL                          R5
-       27 DUPTABLE                         R6 K15 [{"Test", "TestHere", "Run", "ServerAndClients"}]
-       28 LOADN                            R7 0
-       29 SETTABLEKS                       R7 R6 K11 ["Test"]
-       31 LOADN                            R7 1
-       32 SETTABLEKS                       R7 R6 K12 ["TestHere"]
-       34 LOADN                            R7 2
-       35 SETTABLEKS                       R7 R6 K13 ["Run"]
-       37 LOADN                            R7 4
-       38 SETTABLEKS                       R7 R6 K14 ["ServerAndClients"]
-       40 NEWCLOSURE                       R7 P0
-       41 CAPTURE                          REF R4
-       42 NEWCLOSURE                       R8 P1
-       43 CAPTURE                          REF R4
-       44 NEWCLOSURE                       R9 P2
-       45 CAPTURE                          REF R4
-       46 NEWCLOSURE                       R10 P3
-       47 CAPTURE                          REF R4
-       48 NEWCLOSURE                       R11 P4
-       49 CAPTURE                          REF R4
-       50 NEWCLOSURE                       R12 P5
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          REF R4
-       53 NEWCLOSURE                       R13 P6
-       54 CAPTURE                          VAL R3
-       55 CAPTURE                          REF R4
-       56 NEWCLOSURE                       R14 P7
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          REF R4
-       59 CAPTURE                          VAL R7
-       60 NEWCLOSURE                       R15 P8
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          REF R4
-       63 CAPTURE                          VAL R7
-       64 NEWCLOSURE                       R16 P9
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          REF R4
-       67 CAPTURE                          VAL R7
-       68 NEWCLOSURE                       R17 P10
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          REF R4
-       72 CAPTURE                          VAL R7
-       73 DUPCLOSURE                       R18 K16 [PROTO_12]
-       74 NEWCLOSURE                       R19 P12
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          REF R4
-       77 CAPTURE                          VAL R7
-       78 DUPCLOSURE                       R20 K17 [PROTO_14]
-       79 DUPCLOSURE                       R21 K18 [PROTO_15]
-       80 NEWCLOSURE                       R22 P15
+       27 LOADNIL                          R6
+       28 DUPTABLE                         R7 K15 [{"Test", "TestHere", "Run", "ServerAndClients"}]
+       29 LOADN                            R8 0
+       30 SETTABLEKS                       R8 R7 K11 ["Test"]
+       32 LOADN                            R8 1
+       33 SETTABLEKS                       R8 R7 K12 ["TestHere"]
+       35 LOADN                            R8 2
+       36 SETTABLEKS                       R8 R7 K13 ["Run"]
+       38 LOADN                            R8 4
+       39 SETTABLEKS                       R8 R7 K14 ["ServerAndClients"]
+       41 DUPTABLE                         R8 K20 [{"CleanupServerAndClients", "Stop", "LaunchTestMode", "PlaceManagementSaveToFile"}]
+       42 GETTABLEKS                       R9 R3 K21 ["fromAction"]
+       44 LOADK                            R10 K22 ["RunTools"]
+       45 LOADK                            R11 K16 ["CleanupServerAndClients"]
+       46 CALL                             R9 2 1
+       47 SETTABLEKS                       R9 R8 K16 ["CleanupServerAndClients"]
+       49 GETTABLEKS                       R9 R3 K21 ["fromAction"]
+       51 LOADK                            R10 K22 ["RunTools"]
+       52 LOADK                            R11 K17 ["Stop"]
+       53 CALL                             R9 2 1
+       54 SETTABLEKS                       R9 R8 K17 ["Stop"]
+       56 GETTABLEKS                       R9 R3 K21 ["fromAction"]
+       58 LOADK                            R10 K22 ["RunTools"]
+       59 LOADK                            R11 K18 ["LaunchTestMode"]
+       60 CALL                             R9 2 1
+       61 SETTABLEKS                       R9 R8 K18 ["LaunchTestMode"]
+       63 GETTABLEKS                       R9 R3 K21 ["fromAction"]
+       65 LOADK                            R10 K23 ["PlaceManagement"]
+       66 LOADK                            R11 K24 ["SaveToFile"]
+       67 CALL                             R9 2 1
+       68 SETTABLEKS                       R9 R8 K19 ["PlaceManagementSaveToFile"]
+       70 NEWCLOSURE                       R9 P0
+       71 CAPTURE                          REF R5
+       72 NEWCLOSURE                       R10 P1
+       73 CAPTURE                          REF R5
+       74 NEWCLOSURE                       R11 P2
+       75 CAPTURE                          REF R4
+       76 NEWCLOSURE                       R12 P3
+       77 CAPTURE                          REF R4
+       78 NEWCLOSURE                       R13 P4
+       79 CAPTURE                          REF R4
+       80 NEWCLOSURE                       R14 P5
        81 CAPTURE                          REF R4
-       82 DUPCLOSURE                       R23 K19 [PROTO_17]
-       83 NEWCLOSURE                       R24 P17
-       84 CAPTURE                          REF R5
-       85 NEWCLOSURE                       R25 P18
-       86 CAPTURE                          REF R5
-       87 DUPTABLE                         R26 K36 [{"RunModeEnum", "init", "getUserSettingsAsync", "setUserSettingsAsync", "loadCode", "runWithMode", "stopPlay", "cleanupServerAndClients", "waitForLocalPlayerReady", "installLoadedCode", "openPlaceFile", "savePlace", "getInstanceByPath", "getAssistantEvalBridge", "setMcpClient", "getMcpClient"}]
-       88 SETTABLEKS                       R6 R26 K20 ["RunModeEnum"]
-       90 SETTABLEKS                       R11 R26 K21 ["init"]
-       92 SETTABLEKS                       R8 R26 K22 ["getUserSettingsAsync"]
-       94 SETTABLEKS                       R9 R26 K23 ["setUserSettingsAsync"]
-       96 SETTABLEKS                       R10 R26 K24 ["loadCode"]
-       98 SETTABLEKS                       R17 R26 K25 ["runWithMode"]
-      100 SETTABLEKS                       R15 R26 K26 ["stopPlay"]
-      102 SETTABLEKS                       R16 R26 K27 ["cleanupServerAndClients"]
-      104 SETTABLEKS                       R18 R26 K28 ["waitForLocalPlayerReady"]
-      106 SETTABLEKS                       R20 R26 K29 ["installLoadedCode"]
-      108 SETTABLEKS                       R22 R26 K30 ["openPlaceFile"]
-      110 SETTABLEKS                       R19 R26 K31 ["savePlace"]
-      112 SETTABLEKS                       R21 R26 K32 ["getInstanceByPath"]
-      114 SETTABLEKS                       R23 R26 K33 ["getAssistantEvalBridge"]
-      116 SETTABLEKS                       R24 R26 K34 ["setMcpClient"]
-      118 SETTABLEKS                       R25 R26 K35 ["getMcpClient"]
-      120 CLOSEUPVALS                      R4
-      121 RETURN                           R26 1
+       82 CAPTURE                          REF R5
+       83 NEWCLOSURE                       R15 P6
+       84 CAPTURE                          VAL R3
+       85 CAPTURE                          REF R4
+       86 NEWCLOSURE                       R16 P7
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          REF R4
+       89 NEWCLOSURE                       R17 P8
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          VAL R10
+       92 CAPTURE                          REF R5
+       93 NEWCLOSURE                       R18 P9
+       94 CAPTURE                          VAL R8
+       95 CAPTURE                          VAL R10
+       96 CAPTURE                          REF R5
+       97 NEWCLOSURE                       R19 P10
+       98 CAPTURE                          VAL R8
+       99 CAPTURE                          VAL R10
+      100 CAPTURE                          REF R5
+      101 NEWCLOSURE                       R20 P11
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R3
+      104 CAPTURE                          REF R4
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R10
+      107 CAPTURE                          REF R5
+      108 NEWCLOSURE                       R21 P12
+      109 CAPTURE                          VAL R8
+      110 CAPTURE                          REF R5
+      111 NEWCLOSURE                       R22 P13
+      112 CAPTURE                          VAL R8
+      113 CAPTURE                          REF R5
+      114 DUPCLOSURE                       R23 K25 [PROTO_15]
+      115 NEWCLOSURE                       R24 P15
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R10
+      118 CAPTURE                          REF R5
+      119 DUPCLOSURE                       R25 K26 [PROTO_17]
+      120 DUPCLOSURE                       R26 K27 [PROTO_18]
+      121 NEWCLOSURE                       R27 P18
+      122 CAPTURE                          REF R4
+      123 DUPCLOSURE                       R28 K28 [PROTO_20]
+      124 NEWCLOSURE                       R29 P20
+      125 CAPTURE                          REF R6
+      126 NEWCLOSURE                       R30 P21
+      127 CAPTURE                          REF R6
+      128 DUPTABLE                         R31 K47 [{"RunModeEnum", "init", "getUserSettingsAsync", "setUserSettingsAsync", "loadCode", "runWithMode", "stopPlay", "cleanupServerAndClients", "waitForLocalPlayerReady", "installLoadedCode", "openPlaceFile", "savePlace", "getInstanceByPath", "getAssistantEvalBridge", "setMcpClient", "getMcpClient", "isCleanupServerAndClientsAvailable", "getStopMultiPlayerTestStateChangedSignal"}]
+      129 SETTABLEKS                       R7 R31 K29 ["RunModeEnum"]
+      131 SETTABLEKS                       R14 R31 K30 ["init"]
+      133 SETTABLEKS                       R11 R31 K31 ["getUserSettingsAsync"]
+      135 SETTABLEKS                       R12 R31 K32 ["setUserSettingsAsync"]
+      137 SETTABLEKS                       R13 R31 K33 ["loadCode"]
+      139 SETTABLEKS                       R20 R31 K34 ["runWithMode"]
+      141 SETTABLEKS                       R18 R31 K35 ["stopPlay"]
+      143 SETTABLEKS                       R19 R31 K36 ["cleanupServerAndClients"]
+      145 SETTABLEKS                       R23 R31 K37 ["waitForLocalPlayerReady"]
+      147 SETTABLEKS                       R25 R31 K38 ["installLoadedCode"]
+      149 SETTABLEKS                       R27 R31 K39 ["openPlaceFile"]
+      151 SETTABLEKS                       R24 R31 K40 ["savePlace"]
+      153 SETTABLEKS                       R26 R31 K41 ["getInstanceByPath"]
+      155 SETTABLEKS                       R28 R31 K42 ["getAssistantEvalBridge"]
+      157 SETTABLEKS                       R29 R31 K43 ["setMcpClient"]
+      159 SETTABLEKS                       R30 R31 K44 ["getMcpClient"]
+      161 SETTABLEKS                       R21 R31 K45 ["isCleanupServerAndClientsAvailable"]
+      163 SETTABLEKS                       R22 R31 K46 ["getStopMultiPlayerTestStateChangedSignal"]
+      165 CLOSEUPVALS                      R4
+      166 RETURN                           R31 1

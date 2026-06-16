@@ -15,71 +15,76 @@ PROTO_0:
        17 GETTABLEKS                       R3 R3 K5 ["createElement"]
        19 GETUPVAL                         R4 4
        20 DUPTABLE                         R5 K10 [{"tag", "Size", "LayoutOrder", "ZIndex"}]
-       21 LOADK                            R6 K11 ["row gap-small align-x-right size-full-0 auto-y padding-right-small"]
-       22 SETTABLEKS                       R6 R5 K6 ["tag"]
-       24 GETIMPORT                        R6 K13 [UDim2.new]
-       26 LOADN                            R7 1
-       27 LOADN                            R8 0
-       28 LOADN                            R9 0
-       29 LOADN                            R10 60
-       30 CALL                             R6 4 1
-       31 SETTABLEKS                       R6 R5 K7 ["Size"]
-       33 GETTABLEKS                       R6 R0 K14 ["layoutOrder"]
-       35 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       37 LOADN                            R6 50
-       38 SETTABLEKS                       R6 R5 K9 ["ZIndex"]
-       40 DUPTABLE                         R6 K17 [{"SaveButton", "CancelButton"}]
-       41 GETUPVAL                         R7 3
-       42 GETTABLEKS                       R7 R7 K5 ["createElement"]
-       44 GETUPVAL                         R8 5
-       45 DUPTABLE                         R9 K23 [{"text", "variant", "onActivated", "isDisabled", "size", "LayoutOrder"}]
-       46 LOADK                            R12 K24 ["DisambiguationMenu"]
-       47 LOADK                            R13 K25 ["Save"]
-       48 NAMECALL                         R10 R1 K26 ["getText"]
-       50 CALL                             R10 3 1
-       51 SETTABLEKS                       R10 R9 K18 ["text"]
-       53 GETUPVAL                         R10 6
-       54 GETTABLEKS                       R10 R10 K27 ["Emphasis"]
-       56 SETTABLEKS                       R10 R9 K19 ["variant"]
-       58 GETTABLEKS                       R10 R0 K28 ["onSave"]
-       60 SETTABLEKS                       R10 R9 K20 ["onActivated"]
-       62 GETTABLEKS                       R11 R0 K29 ["allSelectionsMade"]
-       64 NOT                              R10 R11
-       65 SETTABLEKS                       R10 R9 K21 ["isDisabled"]
-       67 GETUPVAL                         R10 7
-       68 GETTABLEKS                       R10 R10 K30 ["Small"]
-       70 SETTABLEKS                       R10 R9 K22 ["size"]
-       72 NAMECALL                         R10 R2 K31 ["getNextOrder"]
-       74 CALL                             R10 1 1
-       75 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-       77 CALL                             R7 2 1
-       78 SETTABLEKS                       R7 R6 K15 ["SaveButton"]
-       80 GETUPVAL                         R7 3
-       81 GETTABLEKS                       R7 R7 K5 ["createElement"]
-       83 GETUPVAL                         R8 5
-       84 DUPTABLE                         R9 K23 [{"text", "variant", "onActivated", "isDisabled", "size", "LayoutOrder"}]
-       85 LOADK                            R12 K24 ["DisambiguationMenu"]
-       86 LOADK                            R13 K32 ["Cancel"]
-       87 NAMECALL                         R10 R1 K26 ["getText"]
-       89 CALL                             R10 3 1
-       90 SETTABLEKS                       R10 R9 K18 ["text"]
-       92 GETUPVAL                         R10 6
-       93 GETTABLEKS                       R10 R10 K33 ["Standard"]
-       95 SETTABLEKS                       R10 R9 K19 ["variant"]
-       97 GETTABLEKS                       R10 R0 K34 ["onCancel"]
-       99 SETTABLEKS                       R10 R9 K20 ["onActivated"]
-      101 LOADB                            R10 0
-      102 SETTABLEKS                       R10 R9 K21 ["isDisabled"]
-      104 GETUPVAL                         R10 7
-      105 GETTABLEKS                       R10 R10 K30 ["Small"]
-      107 SETTABLEKS                       R10 R9 K22 ["size"]
-      109 NAMECALL                         R10 R2 K31 ["getNextOrder"]
-      111 CALL                             R10 1 1
-      112 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-      114 CALL                             R7 2 1
-      115 SETTABLEKS                       R7 R6 K16 ["CancelButton"]
-      117 CALL                             R3 3 -1
-      118 RETURN                           R3 -1
+       21 GETUPVAL                         R7 5
+       22 CALL                             R7 0 1
+       23 JUMPIFNOT                        R7 ; [+2]
+       24 LOADK                            R6 K11 ["row gap-small align-x-right size-full-0 auto-y padding-right-large"]
+       25 JUMP                             ; [+1]
+       26 LOADK                            R6 K12 ["row gap-small align-x-right size-full-0 auto-y padding-right-small"]
+       27 SETTABLEKS                       R6 R5 K6 ["tag"]
+       29 GETIMPORT                        R6 K14 [UDim2.new]
+       31 LOADN                            R7 1
+       32 LOADN                            R8 0
+       33 LOADN                            R9 0
+       34 LOADN                            R10 60
+       35 CALL                             R6 4 1
+       36 SETTABLEKS                       R6 R5 K7 ["Size"]
+       38 GETTABLEKS                       R6 R0 K15 ["layoutOrder"]
+       40 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       42 LOADN                            R6 50
+       43 SETTABLEKS                       R6 R5 K9 ["ZIndex"]
+       45 DUPTABLE                         R6 K18 [{"SaveButton", "CancelButton"}]
+       46 GETUPVAL                         R7 3
+       47 GETTABLEKS                       R7 R7 K5 ["createElement"]
+       49 GETUPVAL                         R8 6
+       50 DUPTABLE                         R9 K24 [{"text", "variant", "onActivated", "isDisabled", "size", "LayoutOrder"}]
+       51 LOADK                            R12 K25 ["DisambiguationMenu"]
+       52 LOADK                            R13 K26 ["Save"]
+       53 NAMECALL                         R10 R1 K27 ["getText"]
+       55 CALL                             R10 3 1
+       56 SETTABLEKS                       R10 R9 K19 ["text"]
+       58 GETUPVAL                         R10 7
+       59 GETTABLEKS                       R10 R10 K28 ["Emphasis"]
+       61 SETTABLEKS                       R10 R9 K20 ["variant"]
+       63 GETTABLEKS                       R10 R0 K29 ["onSave"]
+       65 SETTABLEKS                       R10 R9 K21 ["onActivated"]
+       67 GETTABLEKS                       R11 R0 K30 ["allSelectionsMade"]
+       69 NOT                              R10 R11
+       70 SETTABLEKS                       R10 R9 K22 ["isDisabled"]
+       72 GETUPVAL                         R10 8
+       73 GETTABLEKS                       R10 R10 K31 ["Small"]
+       75 SETTABLEKS                       R10 R9 K23 ["size"]
+       77 NAMECALL                         R10 R2 K32 ["getNextOrder"]
+       79 CALL                             R10 1 1
+       80 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
+       82 CALL                             R7 2 1
+       83 SETTABLEKS                       R7 R6 K16 ["SaveButton"]
+       85 GETUPVAL                         R7 3
+       86 GETTABLEKS                       R7 R7 K5 ["createElement"]
+       88 GETUPVAL                         R8 6
+       89 DUPTABLE                         R9 K24 [{"text", "variant", "onActivated", "isDisabled", "size", "LayoutOrder"}]
+       90 LOADK                            R12 K25 ["DisambiguationMenu"]
+       91 LOADK                            R13 K33 ["Cancel"]
+       92 NAMECALL                         R10 R1 K27 ["getText"]
+       94 CALL                             R10 3 1
+       95 SETTABLEKS                       R10 R9 K19 ["text"]
+       97 GETUPVAL                         R10 7
+       98 GETTABLEKS                       R10 R10 K34 ["Standard"]
+      100 SETTABLEKS                       R10 R9 K20 ["variant"]
+      102 GETTABLEKS                       R10 R0 K35 ["onCancel"]
+      104 SETTABLEKS                       R10 R9 K21 ["onActivated"]
+      106 LOADB                            R10 0
+      107 SETTABLEKS                       R10 R9 K22 ["isDisabled"]
+      109 GETUPVAL                         R10 8
+      110 GETTABLEKS                       R10 R10 K31 ["Small"]
+      112 SETTABLEKS                       R10 R9 K23 ["size"]
+      114 NAMECALL                         R10 R2 K32 ["getNextOrder"]
+      116 CALL                             R10 1 1
+      117 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
+      119 CALL                             R7 2 1
+      120 SETTABLEKS                       R7 R6 K17 ["CancelButton"]
+      122 CALL                             R3 3 -1
+      123 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -114,13 +119,19 @@ MAIN:
        52 GETTABLEKS                       R11 R11 K20 ["Flags"]
        54 GETTABLEKS                       R11 R11 K21 ["getFFlagAvatarPreviewerUpdateDialogUI"]
        56 CALL                             R10 1 1
-       57 DUPCLOSURE                       R11 K22 [PROTO_0]
-       58 CAPTURE                          VAL R10
-       59 CAPTURE                          VAL R4
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R9
-       63 CAPTURE                          VAL R6
-       64 CAPTURE                          VAL R7
-       65 CAPTURE                          VAL R8
-       66 RETURN                           R11 1
+       57 GETIMPORT                        R11 K5 [require]
+       59 GETTABLEKS                       R12 R0 K19 ["Src"]
+       61 GETTABLEKS                       R12 R12 K20 ["Flags"]
+       63 GETTABLEKS                       R12 R12 K22 ["getFFlagAvatarPreviewerFixDisambiguationDropdownClipping"]
+       65 CALL                             R11 1 1
+       66 DUPCLOSURE                       R12 K23 [PROTO_0]
+       67 CAPTURE                          VAL R10
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R2
+       71 CAPTURE                          VAL R9
+       72 CAPTURE                          VAL R11
+       73 CAPTURE                          VAL R6
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          VAL R8
+       76 RETURN                           R12 1

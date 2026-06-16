@@ -1,9 +1,55 @@
 PROTO_0:
-        0 LOADB                            R1 0
-        1 SETTABLEKS                       R1 R0 K0 ["hasInternalPermission"]
-        3 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Plugin"]
+        5 NAMECALL                         R0 R0 K2 ["get"]
+        7 CALL                             R0 1 1
+        8 LOADK                            R3 K3 ["AssetExportController"]
+        9 NAMECALL                         R1 R0 K4 ["GetPluginComponent"]
+       11 CALL                             R1 2 1
+       12 JUMPIF                           R1 ; [+1]
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R2 R2 K0 ["props"]
+       17 GETTABLEKS                       R2 R2 K5 ["AnimationData"]
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K0 ["props"]
+       22 GETTABLEKS                       R3 R3 K6 ["RootInstance"]
+       24 JUMPIFNOT                        R2 ; [+1]
+       25 JUMPIF                           R3 ; [+1]
+       26 RETURN                           R0 0
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R4 R4 K0 ["props"]
+       30 GETTABLEKS                       R4 R4 K7 ["StepAnimation"]
+       32 LOADN                            R5 0
+       33 CALL                             R4 1 0
+       34 GETUPVAL                         R4 1
+       35 GETTABLEKS                       R4 R4 K8 ["toKeyframeSequence"]
+       37 MOVE                             R5 R2
+       38 MOVE                             R6 R3
+       39 CALL                             R4 2 1
+       40 MOVE                             R7 R3
+       41 MOVE                             R8 R4
+       42 NAMECALL                         R5 R1 K9 ["RequestAnimationExportAsync"]
+       44 CALL                             R5 3 0
+       45 RETURN                           R0 0
 
 PROTO_1:
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["hasInternalPermission"]
+        3 GETUPVAL                         R1 0
+        4 CALL                             R1 0 1
+        5 JUMPIFNOT                        R1 ; [+8]
+        6 GETUPVAL                         R1 1
+        7 CALL                             R1 0 1
+        8 JUMPIFNOT                        R1 ; [+5]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          UPVAL U2
+       12 SETTABLEKS                       R1 R0 K1 ["exportGltf"]
+       14 RETURN                           R0 0
+
+PROTO_2:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["StudioService"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
@@ -12,15 +58,15 @@ PROTO_1:
         8 CALL                             R0 1 -1
         9 RETURN                           R0 -1
 
-PROTO_2:
+PROTO_3:
         0 GETIMPORT                        R1 K1 [pcall]
-        2 DUPCLOSURE                       R2 K2 [PROTO_1]
+        2 DUPCLOSURE                       R2 K2 [PROTO_2]
         3 CALL                             R1 1 2
         4 AND                              R3 R1 R2
         5 SETTABLEKS                       R3 R0 K3 ["hasInternalPermission"]
         7 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["Data"]
         3 GETTABLEKS                       R2 R2 K1 ["Animation"]
@@ -30,7 +76,7 @@ PROTO_3:
        11 CALL                             R1 2 0
        12 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["OnLoadRequested"]
@@ -83,7 +129,7 @@ PROTO_4:
        73 SETTABLEKS                       R6 R5 K24 ["Enabled"]
        75 RETURN                           R5 1
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["OnOverwriteRequested"]
         3 MOVE                             R3 R0
@@ -91,7 +137,7 @@ PROTO_5:
         5 CALL                             R2 2 0
         6 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["Data"]
         2 GETTABLEKS                       R1 R1 K1 ["Animation"]
         4 GETTABLEKS                       R1 R1 K2 ["Name"]
@@ -104,7 +150,7 @@ PROTO_6:
        15 CALL                             R3 2 0
        16 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETUPVAL                         R3 0
@@ -166,7 +212,7 @@ PROTO_7:
        87 FORGLOOP                         R6 2 [inext] ; [-35]
        89 RETURN                           R5 1
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 NEWTABLE                         R3 1 1
@@ -213,7 +259,7 @@ PROTO_8:
        64 GETIMPORT                        R4 K14 [table.insert]
        66 CALL                             R4 2 0
        67 GETUPVAL                         R4 1
-       68 JUMPIFNOT                        R4 ; [+26]
+       68 JUMPIFNOT                        R4 ; [+31]
        69 DUPTABLE                         R6 K18 [{"Text", "OnItemClicked", "Enabled"}]
        70 LOADK                            R9 K2 ["Menu"]
        71 LOADK                            R10 K19 ["CreateFromVideo"]
@@ -222,24 +268,27 @@ PROTO_8:
        75 SETTABLEKS                       R7 R6 K5 ["Text"]
        77 GETTABLEKS                       R7 R1 K20 ["OnCreateFromVideoRequested"]
        79 SETTABLEKS                       R7 R6 K6 ["OnItemClicked"]
-       81 GETUPVAL                         R7 2
-       82 GETTABLEKS                       R7 R7 K21 ["isR15Humanoid"]
-       84 GETTABLEKS                       R8 R1 K22 ["RootInstance"]
-       86 CALL                             R7 1 1
-       87 SETTABLEKS                       R7 R6 K17 ["Enabled"]
-       89 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
-       91 MOVE                             R5 R3
-       92 GETIMPORT                        R4 K14 [table.insert]
-       94 CALL                             R4 2 0
-       95 RETURN                           R3 1
+       81 LOADB                            R7 0
+       82 GETTABLEKS                       R8 R1 K21 ["RootInstance"]
+       84 JUMPIFEQKNIL                     R8 ; [+7]
+       86 GETUPVAL                         R7 2
+       87 GETTABLEKS                       R7 R7 K22 ["isR15Humanoid"]
+       89 GETTABLEKS                       R8 R1 K21 ["RootInstance"]
+       91 CALL                             R7 1 1
+       92 SETTABLEKS                       R7 R6 K17 ["Enabled"]
+       94 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
+       96 MOVE                             R5 R3
+       97 GETIMPORT                        R4 K14 [table.insert]
+       99 CALL                             R4 2 0
+      100 RETURN                           R3 1
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["Data"]
         3 CALL                             R1 1 0
         4 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
         4 GETTABLEKS                       R3 R1 K2 ["SetPriority"]
@@ -290,7 +339,7 @@ PROTO_10:
        74 FORGLOOP                         R9 2 ; [-26]
        76 RETURN                           R7 1
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R4 R0 K0 ["props"]
         2 GETTABLEKS                       R4 R4 K1 ["Localization"]
         4 DUPTABLE                         R5 K5 [{"Text", "Enabled", "OnItemClicked"}]
@@ -306,7 +355,7 @@ PROTO_11:
        18 SETTABLEKS                       R2 R5 K4 ["OnItemClicked"]
        20 RETURN                           R5 1
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOTEQKS                    R0 K0 [""] ; [+6]
         3 GETUPVAL                         R0 1
@@ -323,7 +372,7 @@ PROTO_12:
        18 CALL                             R0 3 0
        19 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["ExportAnimation"]
         3 GETUPVAL                         R1 1
@@ -334,7 +383,7 @@ PROTO_13:
        10 CALL                             R0 3 0
        11 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["OnCreateNewRequested"]
         4 GETTABLEKS                       R3 R1 K2 ["OnReduceKeyframesRequested"]
@@ -410,29 +459,43 @@ PROTO_14:
       105 SETLIST                          R13 R14 -1 [1]
       107 GETUPVAL                         R14 2
       108 CALL                             R14 0 1
-      109 JUMPIFNOT                        R14 ; [+11]
-      110 MOVE                             R15 R13
-      111 LOADK                            R18 K25 ["GenerateControlRigData"]
-      112 MOVE                             R19 R5
-      113 MOVE                             R20 R12
-      114 NAMECALL                         R16 R0 K17 ["makeAction"]
-      116 CALL                             R16 4 -1
-      117 FASTCALL                         TABLE_INSERT ; [+2]
-      118 GETIMPORT                        R14 K28 [table.insert]
-      120 CALL                             R14 -1 0
-      121 GETTABLEKS                       R14 R0 K29 ["hasInternalPermission"]
-      123 JUMPIFNOT                        R14 ; [+12]
-      124 DUPTABLE                         R16 K32 [{"Text", "OnItemClicked"}]
-      125 LOADK                            R17 K33 ["[INTERNAL] Sanitize animation"]
-      126 SETTABLEKS                       R17 R16 K30 ["Text"]
-      128 SETTABLEKS                       R4 R16 K31 ["OnItemClicked"]
-      130 FASTCALL2                        TABLE_INSERT R13 R16 ; [+4]
-      132 MOVE                             R15 R13
-      133 GETIMPORT                        R14 K28 [table.insert]
-      135 CALL                             R14 2 0
-      136 RETURN                           R13 1
+      109 JUMPIFNOT                        R14 ; [+14]
+      110 GETUPVAL                         R14 3
+      111 CALL                             R14 0 1
+      112 JUMPIFNOT                        R14 ; [+11]
+      113 MOVE                             R15 R13
+      114 LOADK                            R18 K25 ["Export"]
+      115 GETTABLEKS                       R19 R0 K26 ["exportGltf"]
+      117 NAMECALL                         R16 R0 K17 ["makeAction"]
+      119 CALL                             R16 3 -1
+      120 FASTCALL                         TABLE_INSERT ; [+2]
+      121 GETIMPORT                        R14 K29 [table.insert]
+      123 CALL                             R14 -1 0
+      124 GETUPVAL                         R14 4
+      125 CALL                             R14 0 1
+      126 JUMPIFNOT                        R14 ; [+11]
+      127 MOVE                             R15 R13
+      128 LOADK                            R18 K30 ["GenerateControlRigData"]
+      129 MOVE                             R19 R5
+      130 MOVE                             R20 R12
+      131 NAMECALL                         R16 R0 K17 ["makeAction"]
+      133 CALL                             R16 4 -1
+      134 FASTCALL                         TABLE_INSERT ; [+2]
+      135 GETIMPORT                        R14 K29 [table.insert]
+      137 CALL                             R14 -1 0
+      138 GETTABLEKS                       R14 R0 K31 ["hasInternalPermission"]
+      140 JUMPIFNOT                        R14 ; [+12]
+      141 DUPTABLE                         R16 K34 [{"Text", "OnItemClicked"}]
+      142 LOADK                            R17 K35 ["[INTERNAL] Sanitize animation"]
+      143 SETTABLEKS                       R17 R16 K32 ["Text"]
+      145 SETTABLEKS                       R4 R16 K33 ["OnItemClicked"]
+      147 FASTCALL2                        TABLE_INSERT R13 R16 ; [+4]
+      149 MOVE                             R15 R13
+      150 GETIMPORT                        R14 K29 [table.insert]
+      152 CALL                             R14 2 0
+      153 RETURN                           R13 1
 
-PROTO_15:
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["ShowMenu"]
         4 JUMPIFNOT                        R2 ; [+16]
@@ -450,7 +513,7 @@ PROTO_15:
        21 LOADNIL                          R3
        22 RETURN                           R3 1
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R2 R0 K0 ["Status"]
         2 DUPTABLE                         R3 K5 [{"AnimationData", "EditorMode", "PlayState", "RootInstance"}]
         3 GETTABLEKS                       R4 R0 K1 ["AnimationData"]
@@ -463,16 +526,6 @@ PROTO_16:
        17 SETTABLEKS                       R4 R3 K4 ["RootInstance"]
        19 RETURN                           R3 1
 
-PROTO_17:
-        0 GETUPVAL                         R3 0
-        1 GETUPVAL                         R4 1
-        2 MOVE                             R5 R0
-        3 MOVE                             R6 R1
-        4 MOVE                             R7 R2
-        5 CALL                             R4 3 -1
-        6 CALL                             R3 -1 0
-        7 RETURN                           R0 0
-
 PROTO_18:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R4 1
@@ -484,6 +537,16 @@ PROTO_18:
         7 RETURN                           R0 0
 
 PROTO_19:
+        0 GETUPVAL                         R3 0
+        1 GETUPVAL                         R4 1
+        2 MOVE                             R5 R0
+        3 MOVE                             R6 R1
+        4 MOVE                             R7 R2
+        5 CALL                             R4 3 -1
+        6 CALL                             R3 -1 0
+        7 RETURN                           R0 0
+
+PROTO_20:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 MOVE                             R3 R0
@@ -491,7 +554,7 @@ PROTO_19:
         4 CALL                             R1 -1 0
         5 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 CALL                             R2 0 -1
@@ -504,8 +567,16 @@ PROTO_20:
        10 CALL                             R1 -1 0
        11 RETURN                           R0 0
 
-PROTO_21:
-        0 DUPTABLE                         R1 K4 [{"ExportAnimation", "SaveAnimation", "SetEditorMode", "SetPriority"}]
+PROTO_22:
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
+
+PROTO_23:
+        0 DUPTABLE                         R1 K5 [{"ExportAnimation", "SaveAnimation", "SetEditorMode", "SetPriority", "StepAnimation"}]
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U0
@@ -523,7 +594,11 @@ PROTO_21:
        18 CAPTURE                          UPVAL U3
        19 CAPTURE                          UPVAL U4
        20 SETTABLEKS                       R2 R1 K3 ["SetPriority"]
-       22 RETURN                           R1 1
+       22 NEWCLOSURE                       R2 P4
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U5
+       25 SETTABLEKS                       R2 R1 K4 ["StepAnimation"]
+       27 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -556,117 +631,142 @@ MAIN:
        46 GETIMPORT                        R6 K5 [require]
        48 GETTABLEKS                       R7 R0 K10 ["Src"]
        50 GETTABLEKS                       R7 R7 K11 ["Util"]
-       52 GETTABLEKS                       R7 R7 K14 ["Constants"]
+       52 GETTABLEKS                       R7 R7 K14 ["RigSerialization"]
        54 CALL                             R6 1 1
-       55 GETTABLEKS                       R7 R3 K15 ["ContextServices"]
-       57 GETTABLEKS                       R8 R7 K16 ["withContext"]
-       59 GETIMPORT                        R9 K5 [require]
-       61 GETTABLEKS                       R10 R0 K10 ["Src"]
-       63 GETTABLEKS                       R10 R10 K17 ["Components"]
-       65 GETTABLEKS                       R10 R10 K18 ["ContextMenu"]
-       67 CALL                             R9 1 1
+       55 GETIMPORT                        R7 K5 [require]
+       57 GETTABLEKS                       R8 R0 K10 ["Src"]
+       59 GETTABLEKS                       R8 R8 K11 ["Util"]
+       61 GETTABLEKS                       R8 R8 K15 ["Constants"]
+       63 CALL                             R7 1 1
+       64 GETTABLEKS                       R8 R3 K16 ["ContextServices"]
+       66 GETTABLEKS                       R9 R8 K17 ["withContext"]
        68 GETIMPORT                        R10 K5 [require]
        70 GETTABLEKS                       R11 R0 K10 ["Src"]
-       72 GETTABLEKS                       R11 R11 K19 ["Thunks"]
-       74 GETTABLEKS                       R11 R11 K20 ["Exporting"]
-       76 GETTABLEKS                       R11 R11 K21 ["SaveAnimation"]
-       78 CALL                             R10 1 1
-       79 GETIMPORT                        R11 K5 [require]
-       81 GETTABLEKS                       R12 R0 K10 ["Src"]
-       83 GETTABLEKS                       R12 R12 K19 ["Thunks"]
-       85 GETTABLEKS                       R12 R12 K20 ["Exporting"]
-       87 GETTABLEKS                       R12 R12 K22 ["ExportAnimation"]
-       89 CALL                             R11 1 1
-       90 GETIMPORT                        R12 K5 [require]
-       92 GETTABLEKS                       R13 R0 K10 ["Src"]
-       94 GETTABLEKS                       R13 R13 K19 ["Thunks"]
-       96 GETTABLEKS                       R13 R13 K23 ["History"]
-       98 GETTABLEKS                       R13 R13 K24 ["AddWaypoint"]
-      100 CALL                             R12 1 1
-      101 GETIMPORT                        R13 K5 [require]
-      103 GETTABLEKS                       R14 R0 K10 ["Src"]
-      105 GETTABLEKS                       R14 R14 K19 ["Thunks"]
-      107 GETTABLEKS                       R14 R14 K25 ["UpdateMetadata"]
+       72 GETTABLEKS                       R11 R11 K18 ["Components"]
+       74 GETTABLEKS                       R11 R11 K19 ["ContextMenu"]
+       76 CALL                             R10 1 1
+       77 GETIMPORT                        R11 K5 [require]
+       79 GETTABLEKS                       R12 R0 K10 ["Src"]
+       81 GETTABLEKS                       R12 R12 K20 ["Thunks"]
+       83 GETTABLEKS                       R12 R12 K21 ["Exporting"]
+       85 GETTABLEKS                       R12 R12 K22 ["SaveAnimation"]
+       87 CALL                             R11 1 1
+       88 GETIMPORT                        R12 K5 [require]
+       90 GETTABLEKS                       R13 R0 K10 ["Src"]
+       92 GETTABLEKS                       R13 R13 K20 ["Thunks"]
+       94 GETTABLEKS                       R13 R13 K21 ["Exporting"]
+       96 GETTABLEKS                       R13 R13 K23 ["ExportAnimation"]
+       98 CALL                             R12 1 1
+       99 GETIMPORT                        R13 K5 [require]
+      101 GETTABLEKS                       R14 R0 K10 ["Src"]
+      103 GETTABLEKS                       R14 R14 K20 ["Thunks"]
+      105 GETTABLEKS                       R14 R14 K24 ["Playback"]
+      107 GETTABLEKS                       R14 R14 K25 ["StepAnimation"]
       109 CALL                             R13 1 1
       110 GETIMPORT                        R14 K5 [require]
       112 GETTABLEKS                       R15 R0 K10 ["Src"]
-      114 GETTABLEKS                       R15 R15 K26 ["Actions"]
-      116 GETTABLEKS                       R15 R15 K27 ["SetEditorMode"]
-      118 CALL                             R14 1 1
-      119 GETIMPORT                        R15 K5 [require]
-      121 GETTABLEKS                       R16 R0 K10 ["Src"]
-      123 GETTABLEKS                       R16 R16 K11 ["Util"]
-      125 GETTABLEKS                       R16 R16 K28 ["AnimationData"]
-      127 CALL                             R15 1 1
-      128 GETIMPORT                        R16 K30 [game]
-      130 LOADK                            R18 K31 ["AnimationFromVideoCreatorServiceInAnimationEditor"]
-      131 LOADB                            R19 0
-      132 NAMECALL                         R16 R16 K32 ["DefineFastFlag"]
-      134 CALL                             R16 3 1
-      135 GETIMPORT                        R17 K5 [require]
-      137 GETTABLEKS                       R18 R0 K33 ["LuaFlags"]
-      139 GETTABLEKS                       R18 R18 K34 ["GetFFlagImportFromFileWithRestPoseInAnimationEditor"]
-      141 CALL                             R17 1 1
-      142 GETIMPORT                        R18 K5 [require]
-      144 GETTABLEKS                       R19 R0 K33 ["LuaFlags"]
-      146 GETTABLEKS                       R19 R19 K35 ["GetFFlagControlRig"]
-      148 CALL                             R18 1 1
-      149 GETTABLEKS                       R19 R1 K36 ["PureComponent"]
-      151 LOADK                            R21 K37 ["AnimationClipMenu"]
-      152 NAMECALL                         R19 R19 K38 ["extend"]
-      154 CALL                             R19 2 1
-      155 DUPCLOSURE                       R20 K39 [PROTO_0]
-      156 SETTABLEKS                       R20 R19 K40 ["init"]
-      158 DUPCLOSURE                       R20 K41 [PROTO_2]
-      159 SETTABLEKS                       R20 R19 K42 ["didMount"]
-      161 DUPCLOSURE                       R20 K43 [PROTO_4]
-      162 CAPTURE                          VAL R5
-      163 SETTABLEKS                       R20 R19 K44 ["makeLoadMenu"]
-      165 DUPCLOSURE                       R20 K45 [PROTO_7]
-      166 CAPTURE                          VAL R5
-      167 CAPTURE                          VAL R6
-      168 SETTABLEKS                       R20 R19 K46 ["makeSaveAsMenu"]
-      170 DUPCLOSURE                       R20 K47 [PROTO_8]
-      171 CAPTURE                          VAL R17
-      172 CAPTURE                          VAL R16
-      173 CAPTURE                          VAL R4
-      174 SETTABLEKS                       R20 R19 K48 ["makeImportMenu"]
-      176 DUPCLOSURE                       R20 K49 [PROTO_10]
-      177 SETTABLEKS                       R20 R19 K50 ["makePriorityMenu"]
-      179 DUPCLOSURE                       R20 K51 [PROTO_11]
-      180 SETTABLEKS                       R20 R19 K52 ["makeAction"]
-      182 DUPCLOSURE                       R20 K53 [PROTO_14]
-      183 CAPTURE                          VAL R6
-      184 CAPTURE                          VAL R15
-      185 CAPTURE                          VAL R18
-      186 SETTABLEKS                       R20 R19 K54 ["makeMenuActions"]
-      188 DUPCLOSURE                       R20 K55 [PROTO_15]
-      189 CAPTURE                          VAL R1
-      190 CAPTURE                          VAL R9
-      191 SETTABLEKS                       R20 R19 K56 ["render"]
-      193 MOVE                             R20 R8
-      194 DUPTABLE                         R21 K60 [{"Localization", "Plugin", "Analytics"}]
-      195 GETTABLEKS                       R22 R7 K57 ["Localization"]
-      197 SETTABLEKS                       R22 R21 K57 ["Localization"]
-      199 GETTABLEKS                       R22 R7 K58 ["Plugin"]
-      201 SETTABLEKS                       R22 R21 K58 ["Plugin"]
-      203 GETTABLEKS                       R22 R7 K59 ["Analytics"]
-      205 SETTABLEKS                       R22 R21 K59 ["Analytics"]
-      207 CALL                             R20 1 1
-      208 MOVE                             R21 R19
-      209 CALL                             R20 1 1
-      210 MOVE                             R19 R20
-      211 DUPCLOSURE                       R20 K61 [PROTO_16]
-      212 DUPCLOSURE                       R21 K62 [PROTO_21]
-      213 CAPTURE                          VAL R11
-      214 CAPTURE                          VAL R10
-      215 CAPTURE                          VAL R14
-      216 CAPTURE                          VAL R12
-      217 CAPTURE                          VAL R13
-      218 GETTABLEKS                       R22 R2 K63 ["connect"]
-      220 MOVE                             R23 R20
-      221 MOVE                             R24 R21
-      222 CALL                             R22 2 1
-      223 MOVE                             R23 R19
-      224 CALL                             R22 1 -1
-      225 RETURN                           R22 -1
+      114 GETTABLEKS                       R15 R15 K20 ["Thunks"]
+      116 GETTABLEKS                       R15 R15 K26 ["History"]
+      118 GETTABLEKS                       R15 R15 K27 ["AddWaypoint"]
+      120 CALL                             R14 1 1
+      121 GETIMPORT                        R15 K5 [require]
+      123 GETTABLEKS                       R16 R0 K10 ["Src"]
+      125 GETTABLEKS                       R16 R16 K20 ["Thunks"]
+      127 GETTABLEKS                       R16 R16 K28 ["UpdateMetadata"]
+      129 CALL                             R15 1 1
+      130 GETIMPORT                        R16 K5 [require]
+      132 GETTABLEKS                       R17 R0 K10 ["Src"]
+      134 GETTABLEKS                       R17 R17 K29 ["Actions"]
+      136 GETTABLEKS                       R17 R17 K30 ["SetEditorMode"]
+      138 CALL                             R16 1 1
+      139 GETIMPORT                        R17 K5 [require]
+      141 GETTABLEKS                       R18 R0 K10 ["Src"]
+      143 GETTABLEKS                       R18 R18 K11 ["Util"]
+      145 GETTABLEKS                       R18 R18 K31 ["AnimationData"]
+      147 CALL                             R17 1 1
+      148 GETIMPORT                        R18 K33 [game]
+      150 LOADK                            R20 K34 ["AnimationFromVideoCreatorServiceInAnimationEditor"]
+      151 LOADB                            R21 0
+      152 NAMECALL                         R18 R18 K35 ["DefineFastFlag"]
+      154 CALL                             R18 3 1
+      155 GETIMPORT                        R19 K5 [require]
+      157 GETTABLEKS                       R20 R0 K36 ["LuaFlags"]
+      159 GETTABLEKS                       R20 R20 K37 ["GetFFlagImportFromFileWithRestPoseInAnimationEditor"]
+      161 CALL                             R19 1 1
+      162 GETIMPORT                        R20 K5 [require]
+      164 GETTABLEKS                       R21 R0 K36 ["LuaFlags"]
+      166 GETTABLEKS                       R21 R21 K38 ["GetFFlagControlRig"]
+      168 CALL                             R20 1 1
+      169 GETIMPORT                        R21 K5 [require]
+      171 GETTABLEKS                       R22 R0 K36 ["LuaFlags"]
+      173 GETTABLEKS                       R22 R22 K39 ["GetFFlagAnimationExportSupport"]
+      175 CALL                             R21 1 1
+      176 GETIMPORT                        R22 K5 [require]
+      178 GETTABLEKS                       R23 R0 K36 ["LuaFlags"]
+      180 GETTABLEKS                       R23 R23 K40 ["GetFFlagAnimationExportUI"]
+      182 CALL                             R22 1 1
+      183 GETTABLEKS                       R23 R1 K41 ["PureComponent"]
+      185 LOADK                            R25 K42 ["AnimationClipMenu"]
+      186 NAMECALL                         R23 R23 K43 ["extend"]
+      188 CALL                             R23 2 1
+      189 DUPCLOSURE                       R24 K44 [PROTO_1]
+      190 CAPTURE                          VAL R21
+      191 CAPTURE                          VAL R22
+      192 CAPTURE                          VAL R6
+      193 SETTABLEKS                       R24 R23 K45 ["init"]
+      195 DUPCLOSURE                       R24 K46 [PROTO_3]
+      196 SETTABLEKS                       R24 R23 K47 ["didMount"]
+      198 DUPCLOSURE                       R24 K48 [PROTO_5]
+      199 CAPTURE                          VAL R5
+      200 SETTABLEKS                       R24 R23 K49 ["makeLoadMenu"]
+      202 DUPCLOSURE                       R24 K50 [PROTO_8]
+      203 CAPTURE                          VAL R5
+      204 CAPTURE                          VAL R7
+      205 SETTABLEKS                       R24 R23 K51 ["makeSaveAsMenu"]
+      207 DUPCLOSURE                       R24 K52 [PROTO_9]
+      208 CAPTURE                          VAL R19
+      209 CAPTURE                          VAL R18
+      210 CAPTURE                          VAL R4
+      211 SETTABLEKS                       R24 R23 K53 ["makeImportMenu"]
+      213 DUPCLOSURE                       R24 K54 [PROTO_11]
+      214 SETTABLEKS                       R24 R23 K55 ["makePriorityMenu"]
+      216 DUPCLOSURE                       R24 K56 [PROTO_12]
+      217 SETTABLEKS                       R24 R23 K57 ["makeAction"]
+      219 DUPCLOSURE                       R24 K58 [PROTO_15]
+      220 CAPTURE                          VAL R7
+      221 CAPTURE                          VAL R17
+      222 CAPTURE                          VAL R21
+      223 CAPTURE                          VAL R22
+      224 CAPTURE                          VAL R20
+      225 SETTABLEKS                       R24 R23 K59 ["makeMenuActions"]
+      227 DUPCLOSURE                       R24 K60 [PROTO_16]
+      228 CAPTURE                          VAL R1
+      229 CAPTURE                          VAL R10
+      230 SETTABLEKS                       R24 R23 K61 ["render"]
+      232 MOVE                             R24 R9
+      233 DUPTABLE                         R25 K65 [{"Localization", "Plugin", "Analytics"}]
+      234 GETTABLEKS                       R26 R8 K62 ["Localization"]
+      236 SETTABLEKS                       R26 R25 K62 ["Localization"]
+      238 GETTABLEKS                       R26 R8 K63 ["Plugin"]
+      240 SETTABLEKS                       R26 R25 K63 ["Plugin"]
+      242 GETTABLEKS                       R26 R8 K64 ["Analytics"]
+      244 SETTABLEKS                       R26 R25 K64 ["Analytics"]
+      246 CALL                             R24 1 1
+      247 MOVE                             R25 R23
+      248 CALL                             R24 1 1
+      249 MOVE                             R23 R24
+      250 DUPCLOSURE                       R24 K66 [PROTO_17]
+      251 DUPCLOSURE                       R25 K67 [PROTO_23]
+      252 CAPTURE                          VAL R12
+      253 CAPTURE                          VAL R11
+      254 CAPTURE                          VAL R16
+      255 CAPTURE                          VAL R14
+      256 CAPTURE                          VAL R15
+      257 CAPTURE                          VAL R13
+      258 GETTABLEKS                       R26 R2 K68 ["connect"]
+      260 MOVE                             R27 R24
+      261 MOVE                             R28 R25
+      262 CALL                             R26 2 1
+      263 MOVE                             R27 R23
+      264 CALL                             R26 1 -1
+      265 RETURN                           R26 -1

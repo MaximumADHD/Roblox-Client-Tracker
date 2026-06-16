@@ -205,29 +205,77 @@ PROTO_7:
        38 RETURN                           R1 -1
 
 PROTO_8:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETTABLEKS                       R1 R1 K0 ["uri"]
+        4 CALL                             R0 1 0
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K1 ["onClose"]
+        8 JUMPIFNOT                        R0 ; [+4]
+        9 GETUPVAL                         R0 1
+       10 GETTABLEKS                       R0 R0 K1 ["onClose"]
+       12 CALL                             R0 0 0
+       13 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R2 0
+        1 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        3 LOADK                            R3 K0 ["Can't call wrapEscapeButton when flag is off"]
+        4 GETIMPORT                        R1 K2 [assert]
+        6 CALL                             R1 2 0
+        7 JUMPIF                           R0 ; [+2]
+        8 LOADNIL                          R1
+        9 RETURN                           R1 1
+       10 GETIMPORT                        R1 K5 [table.freeze]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K6 ["join"]
+       15 MOVE                             R3 R0
+       16 DUPTABLE                         R4 K8 [{"onClose"}]
+       17 NEWCLOSURE                       R5 P0
+       18 CAPTURE                          UPVAL U2
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R5 R4 K7 ["onClose"]
+       22 CALL                             R2 2 -1
+       23 CALL                             R1 -1 -1
+       24 RETURN                           R1 -1
+
+PROTO_10:
         0 NEWCLOSURE                       R0 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
-        4 DUPTABLE                         R1 K3 [{"primaryAction", "secondaryAction", "tertiaryAction"}]
-        5 MOVE                             R2 R0
-        6 GETUPVAL                         R3 3
-        7 GETTABLEKS                       R3 R3 K0 ["primaryAction"]
-        9 CALL                             R2 1 1
-       10 SETTABLEKS                       R2 R1 K0 ["primaryAction"]
-       12 MOVE                             R2 R0
-       13 GETUPVAL                         R3 3
-       14 GETTABLEKS                       R3 R3 K1 ["secondaryAction"]
-       16 CALL                             R2 1 1
-       17 SETTABLEKS                       R2 R1 K1 ["secondaryAction"]
-       19 MOVE                             R2 R0
-       20 GETUPVAL                         R3 3
-       21 GETTABLEKS                       R3 R3 K2 ["tertiaryAction"]
-       23 CALL                             R2 1 1
-       24 SETTABLEKS                       R2 R1 K2 ["tertiaryAction"]
-       26 RETURN                           R1 1
+        4 NEWCLOSURE                       R1 P1
+        5 CAPTURE                          UPVAL U3
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 DUPTABLE                         R2 K4 [{"primaryAction", "secondaryAction", "tertiaryAction", "escapeAction"}]
+        9 MOVE                             R3 R0
+       10 GETUPVAL                         R4 4
+       11 GETTABLEKS                       R4 R4 K0 ["primaryAction"]
+       13 CALL                             R3 1 1
+       14 SETTABLEKS                       R3 R2 K0 ["primaryAction"]
+       16 MOVE                             R3 R0
+       17 GETUPVAL                         R4 4
+       18 GETTABLEKS                       R4 R4 K1 ["secondaryAction"]
+       20 CALL                             R3 1 1
+       21 SETTABLEKS                       R3 R2 K1 ["secondaryAction"]
+       23 MOVE                             R3 R0
+       24 GETUPVAL                         R4 4
+       25 GETTABLEKS                       R4 R4 K2 ["tertiaryAction"]
+       27 CALL                             R3 1 1
+       28 SETTABLEKS                       R3 R2 K2 ["tertiaryAction"]
+       30 GETUPVAL                         R4 3
+       31 JUMPIFNOT                        R4 ; [+6]
+       32 MOVE                             R3 R1
+       33 GETUPVAL                         R4 4
+       34 GETTABLEKS                       R4 R4 K3 ["escapeAction"]
+       36 CALL                             R3 1 1
+       37 JUMP                             ; [+1]
+       38 LOADNIL                          R3
+       39 SETTABLEKS                       R3 R2 K3 ["escapeAction"]
+       41 RETURN                           R2 1
 
-PROTO_9:
+PROTO_11:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
@@ -308,15 +356,21 @@ PROTO_9:
       101 CAPTURE                          UPVAL U7
       102 CAPTURE                          UPVAL U6
       103 CAPTURE                          VAL R5
-      104 CAPTURE                          VAL R0
-      105 NEWTABLE                         R8 0 4
-      107 MOVE                             R9 R5
-      108 GETTABLEKS                       R10 R0 K13 ["primaryAction"]
-      110 GETTABLEKS                       R11 R0 K14 ["secondaryAction"]
-      112 GETTABLEKS                       R12 R0 K15 ["tertiaryAction"]
-      114 SETLIST                          R8 R9 4 [1]
-      116 CALL                             R6 2 1
-      117 RETURN                           R6 1
+      104 CAPTURE                          UPVAL U8
+      105 CAPTURE                          VAL R0
+      106 NEWTABLE                         R8 0 5
+      108 MOVE                             R9 R5
+      109 GETTABLEKS                       R10 R0 K13 ["primaryAction"]
+      111 GETTABLEKS                       R11 R0 K14 ["secondaryAction"]
+      113 GETTABLEKS                       R12 R0 K15 ["tertiaryAction"]
+      115 GETUPVAL                         R14 8
+      116 JUMPIFNOT                        R14 ; [+3]
+      117 GETTABLEKS                       R13 R0 K17 ["escapeAction"]
+      119 JUMP                             ; [+1]
+      120 LOADNIL                          R13
+      121 SETLIST                          R8 R9 5 [1]
+      123 CALL                             R6 2 1
+      124 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -333,46 +387,53 @@ MAIN:
        17 GETTABLEKS                       R3 R3 K11 ["Dash"]
        19 CALL                             R2 1 1
        20 GETIMPORT                        R3 K9 [require]
-       22 GETTABLEKS                       R4 R0 K10 ["Packages"]
-       24 GETTABLEKS                       R4 R4 K12 ["React"]
-       26 CALL                             R3 1 1
-       27 GETIMPORT                        R4 K9 [require]
-       29 GETTABLEKS                       R5 R0 K10 ["Packages"]
-       31 GETTABLEKS                       R5 R5 K13 ["StudioFoundation"]
-       33 CALL                             R4 1 1
-       34 GETIMPORT                        R5 K9 [require]
-       36 GETTABLEKS                       R6 R0 K14 ["Src"]
-       38 GETTABLEKS                       R6 R6 K15 ["Resources"]
-       40 GETTABLEKS                       R6 R6 K16 ["TelemetryConfigs"]
-       42 CALL                             R5 1 1
-       43 GETIMPORT                        R6 K9 [require]
-       45 GETTABLEKS                       R7 R0 K14 ["Src"]
-       47 GETTABLEKS                       R7 R7 K17 ["Contexts"]
-       49 GETTABLEKS                       R7 R7 K18 ["TelemetryServiceContext"]
-       51 CALL                             R6 1 1
-       52 GETIMPORT                        R7 K9 [require]
-       54 GETTABLEKS                       R8 R0 K14 ["Src"]
-       56 GETTABLEKS                       R8 R8 K19 ["Types"]
-       58 CALL                             R7 1 1
-       59 GETIMPORT                        R8 K9 [require]
-       61 GETTABLEKS                       R9 R0 K14 ["Src"]
-       63 GETTABLEKS                       R9 R9 K20 ["Flags"]
-       65 GETTABLEKS                       R9 R9 K21 ["getFFlagCSGO1926StudioDialogActionsTelemetryFix"]
-       67 CALL                             R8 1 1
-       68 GETIMPORT                        R9 K9 [require]
-       70 GETTABLEKS                       R10 R0 K14 ["Src"]
-       72 GETTABLEKS                       R10 R10 K20 ["Flags"]
-       74 GETTABLEKS                       R10 R10 K22 ["getFFlagStudioDialogTelemetry"]
-       76 CALL                             R9 1 1
-       77 GETTABLEKS                       R10 R4 K23 ["Util"]
-       79 GETTABLEKS                       R10 R10 K24 ["StudioUri"]
-       81 DUPCLOSURE                       R11 K25 [PROTO_9]
-       82 CAPTURE                          VAL R9
-       83 CAPTURE                          VAL R3
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R10
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R2
-       89 CAPTURE                          VAL R8
-       90 RETURN                           R11 1
+       22 GETTABLEKS                       R4 R0 K12 ["Src"]
+       24 GETTABLEKS                       R4 R4 K13 ["Flags"]
+       26 GETTABLEKS                       R4 R4 K14 ["getFFlagDialogManagerAddEscapeTitleButton"]
+       28 CALL                             R3 1 1
+       29 CALL                             R3 0 1
+       30 GETIMPORT                        R4 K9 [require]
+       32 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       34 GETTABLEKS                       R5 R5 K15 ["React"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K9 [require]
+       39 GETTABLEKS                       R6 R0 K10 ["Packages"]
+       41 GETTABLEKS                       R6 R6 K16 ["StudioFoundation"]
+       43 CALL                             R5 1 1
+       44 GETIMPORT                        R6 K9 [require]
+       46 GETTABLEKS                       R7 R0 K12 ["Src"]
+       48 GETTABLEKS                       R7 R7 K17 ["Resources"]
+       50 GETTABLEKS                       R7 R7 K18 ["TelemetryConfigs"]
+       52 CALL                             R6 1 1
+       53 GETIMPORT                        R7 K9 [require]
+       55 GETTABLEKS                       R8 R0 K12 ["Src"]
+       57 GETTABLEKS                       R8 R8 K19 ["Contexts"]
+       59 GETTABLEKS                       R8 R8 K20 ["TelemetryServiceContext"]
+       61 CALL                             R7 1 1
+       62 GETIMPORT                        R8 K9 [require]
+       64 GETTABLEKS                       R9 R0 K12 ["Src"]
+       66 GETTABLEKS                       R9 R9 K21 ["Types"]
+       68 CALL                             R8 1 1
+       69 GETIMPORT                        R9 K9 [require]
+       71 GETTABLEKS                       R10 R0 K12 ["Src"]
+       73 GETTABLEKS                       R10 R10 K13 ["Flags"]
+       75 GETTABLEKS                       R10 R10 K22 ["getFFlagCSGO1926StudioDialogActionsTelemetryFix"]
+       77 CALL                             R9 1 1
+       78 GETIMPORT                        R10 K9 [require]
+       80 GETTABLEKS                       R11 R0 K12 ["Src"]
+       82 GETTABLEKS                       R11 R11 K13 ["Flags"]
+       84 GETTABLEKS                       R11 R11 K23 ["getFFlagStudioDialogTelemetry"]
+       86 CALL                             R10 1 1
+       87 GETTABLEKS                       R11 R5 K24 ["Util"]
+       89 GETTABLEKS                       R11 R11 K25 ["StudioUri"]
+       91 DUPCLOSURE                       R12 K26 [PROTO_11]
+       92 CAPTURE                          VAL R10
+       93 CAPTURE                          VAL R4
+       94 CAPTURE                          VAL R7
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R11
+       97 CAPTURE                          VAL R6
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R9
+      100 CAPTURE                          VAL R3
+      101 RETURN                           R12 1

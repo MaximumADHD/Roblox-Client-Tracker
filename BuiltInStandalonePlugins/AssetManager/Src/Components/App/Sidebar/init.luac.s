@@ -49,34 +49,18 @@ PROTO_0:
        65 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
        67 CALL                             R5 2 1
        68 SETTABLEKS                       R5 R4 K10 ["SidebarContent"]
-       70 GETUPVAL                         R5 8
-       71 CALL                             R5 0 1
-       72 JUMPIFNOT                        R5 ; [+17]
-       73 GETUPVAL                         R5 3
-       74 GETTABLEKS                       R5 R5 K1 ["createElement"]
-       76 GETUPVAL                         R6 9
-       77 GETTABLEKS                       R6 R6 K11 ["View"]
-       79 DUPTABLE                         R7 K13 [{"LayoutOrder", "tag"}]
-       80 GETTABLEKS                       R8 R0 K2 ["LayoutOrder"]
-       82 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       84 LOADK                            R8 K14 ["size-full col align-y-top data-testid=sidebar"]
-       85 SETTABLEKS                       R8 R7 K12 ["tag"]
-       87 MOVE                             R8 R4
-       88 CALL                             R5 3 -1
-       89 RETURN                           R5 -1
-       90 GETUPVAL                         R5 3
-       91 GETTABLEKS                       R5 R5 K1 ["createElement"]
-       93 GETUPVAL                         R6 10
-       94 NEWTABLE                         R7 2 0
-       96 GETTABLEKS                       R8 R0 K2 ["LayoutOrder"]
-       98 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-      100 GETUPVAL                         R8 3
-      101 GETTABLEKS                       R8 R8 K15 ["Tag"]
-      103 LOADK                            R9 K16 ["X-Top X-Column data-testid=sidebar"]
-      104 SETTABLE                         R9 R7 R8
-      105 MOVE                             R8 R4
-      106 CALL                             R5 3 -1
-      107 RETURN                           R5 -1
+       70 GETUPVAL                         R5 3
+       71 GETTABLEKS                       R5 R5 K1 ["createElement"]
+       73 GETUPVAL                         R6 8
+       74 GETTABLEKS                       R6 R6 K11 ["View"]
+       76 DUPTABLE                         R7 K13 [{"LayoutOrder", "tag"}]
+       77 GETTABLEKS                       R8 R0 K2 ["LayoutOrder"]
+       79 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
+       81 LOADK                            R8 K14 ["size-full col align-y-top data-testid=sidebar"]
+       82 SETTABLEKS                       R8 R7 K12 ["tag"]
+       84 MOVE                             R8 R4
+       85 CALL                             R5 3 -1
+       86 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -98,49 +82,40 @@ MAIN:
        27 CALL                             R3 1 1
        28 GETTABLEKS                       R4 R2 K10 ["Util"]
        30 GETTABLEKS                       R4 R4 K11 ["LayoutOrderIterator"]
-       32 GETTABLEKS                       R5 R2 K12 ["UI"]
-       34 GETTABLEKS                       R6 R5 K13 ["Pane"]
-       36 GETIMPORT                        R7 K5 [require]
-       38 GETIMPORT                        R8 K1 [script]
-       40 GETTABLEKS                       R8 R8 K14 ["ScopeExplorer"]
-       42 CALL                             R7 1 1
-       43 GETIMPORT                        R8 K5 [require]
-       45 GETIMPORT                        R9 K1 [script]
-       47 GETTABLEKS                       R9 R9 K15 ["SearchOptions"]
-       49 CALL                             R8 1 1
-       50 GETIMPORT                        R9 K5 [require]
-       52 GETIMPORT                        R10 K1 [script]
-       54 GETTABLEKS                       R10 R10 K16 ["SearchPanel"]
-       56 CALL                             R9 1 1
-       57 GETIMPORT                        R10 K5 [require]
-       59 GETIMPORT                        R11 K1 [script]
-       61 GETTABLEKS                       R11 R11 K17 ["ScopeOptions"]
-       63 CALL                             R10 1 1
-       64 GETIMPORT                        R11 K5 [require]
-       66 GETTABLEKS                       R12 R0 K18 ["Src"]
-       68 GETTABLEKS                       R12 R12 K19 ["Hooks"]
-       70 GETTABLEKS                       R12 R12 K20 ["useSearchInfo"]
-       72 CALL                             R11 1 1
-       73 GETIMPORT                        R12 K5 [require]
-       75 GETTABLEKS                       R13 R0 K18 ["Src"]
-       77 GETTABLEKS                       R13 R13 K19 ["Hooks"]
-       79 GETTABLEKS                       R13 R13 K21 ["useShowScopeOptions"]
-       81 CALL                             R12 1 1
-       82 GETIMPORT                        R13 K5 [require]
-       84 GETTABLEKS                       R14 R0 K18 ["Src"]
-       86 GETTABLEKS                       R14 R14 K22 ["Flags"]
-       88 GETTABLEKS                       R14 R14 K23 ["getFFlagAmrFoundationifyBrowser"]
-       90 CALL                             R13 1 1
-       91 DUPCLOSURE                       R14 K24 [PROTO_0]
-       92 CAPTURE                          VAL R4
-       93 CAPTURE                          VAL R12
-       94 CAPTURE                          VAL R11
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R9
-       98 CAPTURE                          VAL R8
-       99 CAPTURE                          VAL R7
-      100 CAPTURE                          VAL R13
-      101 CAPTURE                          VAL R3
-      102 CAPTURE                          VAL R6
-      103 RETURN                           R14 1
+       32 GETIMPORT                        R5 K5 [require]
+       34 GETIMPORT                        R6 K1 [script]
+       36 GETTABLEKS                       R6 R6 K12 ["ScopeExplorer"]
+       38 CALL                             R5 1 1
+       39 GETIMPORT                        R6 K5 [require]
+       41 GETIMPORT                        R7 K1 [script]
+       43 GETTABLEKS                       R7 R7 K13 ["SearchOptions"]
+       45 CALL                             R6 1 1
+       46 GETIMPORT                        R7 K5 [require]
+       48 GETIMPORT                        R8 K1 [script]
+       50 GETTABLEKS                       R8 R8 K14 ["SearchPanel"]
+       52 CALL                             R7 1 1
+       53 GETIMPORT                        R8 K5 [require]
+       55 GETIMPORT                        R9 K1 [script]
+       57 GETTABLEKS                       R9 R9 K15 ["ScopeOptions"]
+       59 CALL                             R8 1 1
+       60 GETIMPORT                        R9 K5 [require]
+       62 GETTABLEKS                       R10 R0 K16 ["Src"]
+       64 GETTABLEKS                       R10 R10 K17 ["Hooks"]
+       66 GETTABLEKS                       R10 R10 K18 ["useSearchInfo"]
+       68 CALL                             R9 1 1
+       69 GETIMPORT                        R10 K5 [require]
+       71 GETTABLEKS                       R11 R0 K16 ["Src"]
+       73 GETTABLEKS                       R11 R11 K17 ["Hooks"]
+       75 GETTABLEKS                       R11 R11 K19 ["useShowScopeOptions"]
+       77 CALL                             R10 1 1
+       78 DUPCLOSURE                       R11 K20 [PROTO_0]
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R10
+       81 CAPTURE                          VAL R9
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R5
+       87 CAPTURE                          VAL R3
+       88 RETURN                           R11 1

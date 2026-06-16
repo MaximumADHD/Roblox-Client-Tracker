@@ -18,20 +18,25 @@ PROTO_0:
        27 GETTABLEKS                       R3 R0 K11 ["TertiaryButton"]
        29 CALL                             R2 1 0
        30 GETUPVAL                         R2 0
-       31 JUMPIFNOT                        R2 ; [+18]
-       32 GETTABLEKS                       R2 R1 K12 ["setImageUri"]
-       34 GETTABLEKS                       R4 R0 K13 ["Image"]
-       36 JUMPIFNOT                        R4 ; [+5]
-       37 GETTABLEKS                       R3 R0 K13 ["Image"]
-       39 GETTABLEKS                       R3 R3 K14 ["Uri"]
-       41 JUMP                             ; [+1]
-       42 LOADNIL                          R3
-       43 CALL                             R2 1 0
-       44 GETTABLEKS                       R2 R1 K15 ["setShowIndeterminateProgressIndicator"]
-       46 GETTABLEKS                       R4 R0 K17 ["ShowIndeterminateProgressIndicator"]
-       48 ORK                              R3 R4 K16 [False]
-       49 CALL                             R2 1 0
-       50 RETURN                           R0 0
+       31 JUMPIFNOT                        R2 ; [+5]
+       32 GETTABLEKS                       R2 R1 K12 ["setEscapeButtonUri"]
+       34 GETTABLEKS                       R3 R0 K13 ["EscapeButtonUri"]
+       36 CALL                             R2 1 0
+       37 GETUPVAL                         R2 1
+       38 JUMPIFNOT                        R2 ; [+18]
+       39 GETTABLEKS                       R2 R1 K14 ["setImageUri"]
+       41 GETTABLEKS                       R4 R0 K15 ["Image"]
+       43 JUMPIFNOT                        R4 ; [+5]
+       44 GETTABLEKS                       R3 R0 K15 ["Image"]
+       46 GETTABLEKS                       R3 R3 K16 ["Uri"]
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R3
+       50 CALL                             R2 1 0
+       51 GETTABLEKS                       R2 R1 K17 ["setShowIndeterminateProgressIndicator"]
+       53 GETTABLEKS                       R4 R0 K19 ["ShowIndeterminateProgressIndicator"]
+       55 ORK                              R3 R4 K18 [False]
+       56 CALL                             R2 1 0
+       57 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -508,27 +513,34 @@ MAIN:
        75 GETTABLEKS                       R10 R10 K17 ["Flags"]
        77 GETTABLEKS                       R10 R10 K19 ["getFeatureStudioDialogManagerCustomDialogs"]
        79 CALL                             R9 1 1
-       80 MOVE                             R10 R8
-       81 CALL                             R10 0 1
-       82 GETTABLEKS                       R11 R3 K20 ["ContextServices"]
-       84 GETTABLEKS                       R11 R11 K21 ["Plugin"]
-       86 GETTABLEKS                       R12 R5 K15 ["Util"]
-       88 GETTABLEKS                       R12 R12 K22 ["StudioUri"]
-       90 GETTABLEKS                       R13 R4 K23 ["createElement"]
-       92 DUPCLOSURE                       R14 K24 [PROTO_0]
-       93 CAPTURE                          VAL R10
-       94 DUPCLOSURE                       R15 K25 [PROTO_18]
-       95 CAPTURE                          VAL R11
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R9
-       98 CAPTURE                          VAL R12
-       99 CAPTURE                          VAL R7
-      100 CAPTURE                          VAL R14
-      101 CAPTURE                          VAL R1
-      102 CAPTURE                          VAL R10
-      103 CAPTURE                          VAL R13
-      104 CAPTURE                          VAL R2
-      105 GETTABLEKS                       R16 R4 K26 ["memo"]
-      107 MOVE                             R17 R15
-      108 CALL                             R16 1 -1
-      109 RETURN                           R16 -1
+       80 GETIMPORT                        R10 K5 [require]
+       82 GETTABLEKS                       R11 R0 K6 ["Src"]
+       84 GETTABLEKS                       R11 R11 K17 ["Flags"]
+       86 GETTABLEKS                       R11 R11 K20 ["getFFlagDialogManagerAddEscapeTitleButton"]
+       88 CALL                             R10 1 1
+       89 CALL                             R10 0 1
+       90 MOVE                             R11 R8
+       91 CALL                             R11 0 1
+       92 GETTABLEKS                       R12 R3 K21 ["ContextServices"]
+       94 GETTABLEKS                       R12 R12 K22 ["Plugin"]
+       96 GETTABLEKS                       R13 R5 K15 ["Util"]
+       98 GETTABLEKS                       R13 R13 K23 ["StudioUri"]
+      100 GETTABLEKS                       R14 R4 K24 ["createElement"]
+      102 DUPCLOSURE                       R15 K25 [PROTO_0]
+      103 CAPTURE                          VAL R10
+      104 CAPTURE                          VAL R11
+      105 DUPCLOSURE                       R16 K26 [PROTO_18]
+      106 CAPTURE                          VAL R12
+      107 CAPTURE                          VAL R4
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          VAL R13
+      110 CAPTURE                          VAL R7
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R14
+      115 CAPTURE                          VAL R2
+      116 GETTABLEKS                       R17 R4 K27 ["memo"]
+      118 MOVE                             R18 R16
+      119 CALL                             R17 1 -1
+      120 RETURN                           R17 -1

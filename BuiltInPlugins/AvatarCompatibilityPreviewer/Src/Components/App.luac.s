@@ -20,232 +20,240 @@ PROTO_2:
         4 CALL                             R0 1 1
         5 GETUPVAL                         R1 2
         6 CALL                             R1 0 1
-        7 GETUPVAL                         R2 3
-        8 MOVE                             R3 R1
-        9 JUMPIFNOT                        R3 ; [+2]
-       10 GETTABLEKS                       R3 R1 K1 ["autoSetupTarget"]
-       12 CALL                             R2 1 1
-       13 GETUPVAL                         R3 4
-       14 NAMECALL                         R3 R3 K2 ["use"]
-       16 CALL                             R3 1 1
-       17 GETUPVAL                         R4 0
-       18 GETTABLEKS                       R4 R4 K3 ["useEffect"]
-       20 NEWCLOSURE                       R5 P0
-       21 CAPTURE                          VAL R3
-       22 NEWTABLE                         R6 0 0
-       24 CALL                             R4 2 0
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R4 R4 K3 ["useEffect"]
-       28 NEWCLOSURE                       R5 P1
-       29 CAPTURE                          VAL R3
-       30 CAPTURE                          VAL R1
-       31 NEWTABLE                         R6 0 2
-       33 MOVE                             R7 R1
-       34 JUMPIFNOT                        R7 ; [+2]
-       35 GETTABLEKS                       R7 R1 K1 ["autoSetupTarget"]
-       37 MOVE                             R8 R1
-       38 JUMPIFNOT                        R8 ; [+2]
-       39 GETTABLEKS                       R8 R1 K4 ["avatar"]
-       41 SETLIST                          R6 R7 2 [1]
-       43 CALL                             R4 2 0
-       44 LOADNIL                          R4
-       45 GETTABLEKS                       R5 R0 K5 ["isRunning"]
-       47 CALL                             R5 0 1
-       48 JUMPIFNOT                        R5 ; [+7]
-       49 GETUPVAL                         R5 0
-       50 GETTABLEKS                       R5 R5 K6 ["createElement"]
-       52 GETUPVAL                         R6 5
-       53 CALL                             R5 1 1
-       54 MOVE                             R4 R5
-       55 RETURN                           R4 1
-       56 GETTABLEKS                       R5 R2 K7 ["state"]
-       58 GETTABLEKS                       R5 R5 K8 ["type"]
-       60 JUMPIFEQKS                       R5 K9 ["none"] ; [+71]
-       62 GETUPVAL                         R5 6
-       63 CALL                             R5 0 1
-       64 JUMPIFNOT                        R5 ; [+43]
-       65 GETUPVAL                         R5 0
-       66 GETTABLEKS                       R5 R5 K6 ["createElement"]
-       68 GETUPVAL                         R6 7
-       69 DUPTABLE                         R7 K11 [{"providers"}]
-       70 NEWTABLE                         R8 0 1
-       72 GETUPVAL                         R9 0
-       73 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       75 GETUPVAL                         R10 8
-       76 GETTABLEKS                       R10 R10 K12 ["Provider"]
-       78 CALL                             R9 1 -1
-       79 SETLIST                          R8 R9 -1 [1]
-       81 SETTABLEKS                       R8 R7 K10 ["providers"]
-       83 GETUPVAL                         R8 0
-       84 GETTABLEKS                       R8 R8 K6 ["createElement"]
-       86 GETUPVAL                         R9 9
-       87 DUPTABLE                         R10 K17 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
-       88 GETTABLEKS                       R11 R2 K7 ["state"]
-       90 SETTABLEKS                       R11 R10 K13 ["autoSetupState"]
-       92 GETTABLEKS                       R11 R2 K14 ["cancelAutoSetup"]
-       94 SETTABLEKS                       R11 R10 K14 ["cancelAutoSetup"]
-       96 GETTABLEKS                       R11 R2 K15 ["startAutoSetup"]
-       98 SETTABLEKS                       R11 R10 K15 ["startAutoSetup"]
-      100 GETTABLEKS                       R11 R2 K16 ["clearError"]
-      102 SETTABLEKS                       R11 R10 K16 ["clearError"]
-      104 CALL                             R8 2 -1
-      105 CALL                             R5 -1 1
-      106 MOVE                             R4 R5
-      107 RETURN                           R4 1
-      108 GETUPVAL                         R5 0
-      109 GETTABLEKS                       R5 R5 K6 ["createElement"]
-      111 GETUPVAL                         R6 9
-      112 DUPTABLE                         R7 K17 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
-      113 GETTABLEKS                       R8 R2 K7 ["state"]
-      115 SETTABLEKS                       R8 R7 K13 ["autoSetupState"]
-      117 GETTABLEKS                       R8 R2 K14 ["cancelAutoSetup"]
-      119 SETTABLEKS                       R8 R7 K14 ["cancelAutoSetup"]
-      121 GETTABLEKS                       R8 R2 K15 ["startAutoSetup"]
-      123 SETTABLEKS                       R8 R7 K15 ["startAutoSetup"]
-      125 GETTABLEKS                       R8 R2 K16 ["clearError"]
-      127 SETTABLEKS                       R8 R7 K16 ["clearError"]
-      129 CALL                             R5 2 1
-      130 MOVE                             R4 R5
-      131 RETURN                           R4 1
-      132 JUMPIFNOTEQKNIL                  R1 ; [+8]
-      134 GETUPVAL                         R5 0
-      135 GETTABLEKS                       R5 R5 K6 ["createElement"]
-      137 GETUPVAL                         R6 10
-      138 CALL                             R5 1 1
-      139 MOVE                             R4 R5
-      140 RETURN                           R4 1
-      141 GETTABLEKS                       R5 R1 K4 ["avatar"]
-      143 JUMPIFNOT                        R5 ; [+168]
-      144 NEWTABLE                         R5 0 0
-      146 MOVE                             R7 R5
-      147 GETUPVAL                         R8 0
-      148 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      150 GETUPVAL                         R9 11
-      151 GETTABLEKS                       R9 R9 K12 ["Provider"]
-      153 CALL                             R8 1 -1
-      154 FASTCALL                         TABLE_INSERT ; [+2]
-      155 GETIMPORT                        R6 K20 [table.insert]
-      157 CALL                             R6 -1 0
-      158 GETUPVAL                         R6 12
-      159 CALL                             R6 0 1
-      160 JUMPIFNOT                        R6 ; [+12]
-      161 MOVE                             R7 R5
-      162 GETUPVAL                         R8 0
-      163 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      165 GETUPVAL                         R9 13
-      166 GETTABLEKS                       R9 R9 K12 ["Provider"]
-      168 CALL                             R8 1 -1
-      169 FASTCALL                         TABLE_INSERT ; [+2]
-      170 GETIMPORT                        R6 K20 [table.insert]
-      172 CALL                             R6 -1 0
-      173 MOVE                             R7 R5
-      174 GETUPVAL                         R8 0
-      175 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      177 GETUPVAL                         R9 14
-      178 DUPTABLE                         R10 K22 [{"root"}]
-      179 GETTABLEKS                       R11 R1 K4 ["avatar"]
-      181 GETTABLEKS                       R11 R11 K23 ["WorldModel"]
-      183 SETTABLEKS                       R11 R10 K21 ["root"]
-      185 CALL                             R8 2 -1
-      186 FASTCALL                         TABLE_INSERT ; [+2]
-      187 GETIMPORT                        R6 K20 [table.insert]
-      189 CALL                             R6 -1 0
-      190 MOVE                             R7 R5
-      191 GETUPVAL                         R8 0
-      192 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      194 GETUPVAL                         R9 15
-      195 DUPTABLE                         R10 K22 [{"root"}]
-      196 GETTABLEKS                       R11 R1 K4 ["avatar"]
-      198 GETTABLEKS                       R11 R11 K23 ["WorldModel"]
-      200 SETTABLEKS                       R11 R10 K21 ["root"]
-      202 CALL                             R8 2 -1
-      203 FASTCALL                         TABLE_INSERT ; [+2]
-      204 GETIMPORT                        R6 K20 [table.insert]
-      206 CALL                             R6 -1 0
-      207 MOVE                             R7 R5
-      208 GETUPVAL                         R8 0
-      209 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      211 GETUPVAL                         R9 16
-      212 CALL                             R8 1 -1
-      213 FASTCALL                         TABLE_INSERT ; [+2]
-      214 GETIMPORT                        R6 K20 [table.insert]
-      216 CALL                             R6 -1 0
-      217 MOVE                             R7 R5
-      218 GETUPVAL                         R8 0
-      219 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      221 GETUPVAL                         R9 17
-      222 CALL                             R8 1 -1
-      223 FASTCALL                         TABLE_INSERT ; [+2]
-      224 GETIMPORT                        R6 K20 [table.insert]
-      226 CALL                             R6 -1 0
-      227 GETUPVAL                         R6 12
-      228 CALL                             R6 0 1
-      229 JUMPIFNOT                        R6 ; [+10]
-      230 MOVE                             R7 R5
-      231 GETUPVAL                         R8 0
-      232 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      234 GETUPVAL                         R9 18
-      235 CALL                             R8 1 -1
-      236 FASTCALL                         TABLE_INSERT ; [+2]
-      237 GETIMPORT                        R6 K20 [table.insert]
-      239 CALL                             R6 -1 0
-      240 GETUPVAL                         R6 12
-      241 CALL                             R6 0 1
-      242 JUMPIFNOT                        R6 ; [+15]
-      243 GETUPVAL                         R6 19
-      244 CALL                             R6 0 1
-      245 JUMPIF                           R6 ; [+12]
-      246 MOVE                             R7 R5
-      247 GETUPVAL                         R8 0
-      248 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      250 GETUPVAL                         R9 20
-      251 GETTABLEKS                       R9 R9 K12 ["Provider"]
-      253 CALL                             R8 1 -1
-      254 FASTCALL                         TABLE_INSERT ; [+2]
-      255 GETIMPORT                        R6 K20 [table.insert]
-      257 CALL                             R6 -1 0
-      258 GETUPVAL                         R6 12
-      259 CALL                             R6 0 1
-      260 JUMPIFNOT                        R6 ; [+28]
-      261 GETUPVAL                         R6 21
-      262 CALL                             R6 0 1
-      263 JUMPIFNOT                        R6 ; [+13]
-      264 MOVE                             R7 R5
-      265 GETUPVAL                         R8 0
-      266 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      268 GETUPVAL                         R9 22
-      269 GETTABLEKS                       R9 R9 K12 ["Provider"]
-      271 CALL                             R8 1 -1
-      272 FASTCALL                         TABLE_INSERT ; [+2]
-      273 GETIMPORT                        R6 K20 [table.insert]
-      275 CALL                             R6 -1 0
-      276 JUMP                             ; [+12]
-      277 MOVE                             R7 R5
-      278 GETUPVAL                         R8 0
-      279 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      281 GETUPVAL                         R9 23
-      282 GETTABLEKS                       R9 R9 K12 ["Provider"]
-      284 CALL                             R8 1 -1
-      285 FASTCALL                         TABLE_INSERT ; [+2]
-      286 GETIMPORT                        R6 K20 [table.insert]
-      288 CALL                             R6 -1 0
-      289 GETUPVAL                         R6 0
-      290 GETTABLEKS                       R6 R6 K6 ["createElement"]
-      292 GETUPVAL                         R7 7
-      293 DUPTABLE                         R8 K11 [{"providers"}]
-      294 SETTABLEKS                       R5 R8 K10 ["providers"]
-      296 GETUPVAL                         R9 0
-      297 GETTABLEKS                       R9 R9 K6 ["createElement"]
-      299 GETUPVAL                         R10 24
-      300 DUPTABLE                         R11 K26 [{"Avatar", "IsSelected"}]
-      301 GETTABLEKS                       R12 R1 K4 ["avatar"]
-      303 SETTABLEKS                       R12 R11 K24 ["Avatar"]
-      305 GETTABLEKS                       R12 R1 K27 ["isSelected"]
-      307 SETTABLEKS                       R12 R11 K25 ["IsSelected"]
-      309 CALL                             R9 2 -1
-      310 CALL                             R6 -1 1
-      311 MOVE                             R4 R6
-      312 RETURN                           R4 1
+        7 GETTABLEKS                       R2 R1 K1 ["selection"]
+        9 GETUPVAL                         R3 3
+       10 MOVE                             R4 R2
+       11 JUMPIFNOT                        R4 ; [+2]
+       12 GETTABLEKS                       R4 R2 K2 ["autoSetupTarget"]
+       14 CALL                             R3 1 1
+       15 GETUPVAL                         R4 4
+       16 NAMECALL                         R4 R4 K3 ["use"]
+       18 CALL                             R4 1 1
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R5 R5 K4 ["useEffect"]
+       22 NEWCLOSURE                       R6 P0
+       23 CAPTURE                          VAL R4
+       24 NEWTABLE                         R7 0 0
+       26 CALL                             R5 2 0
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K4 ["useEffect"]
+       30 NEWCLOSURE                       R6 P1
+       31 CAPTURE                          VAL R4
+       32 CAPTURE                          VAL R2
+       33 NEWTABLE                         R7 0 2
+       35 MOVE                             R8 R2
+       36 JUMPIFNOT                        R8 ; [+2]
+       37 GETTABLEKS                       R8 R2 K2 ["autoSetupTarget"]
+       39 MOVE                             R9 R2
+       40 JUMPIFNOT                        R9 ; [+2]
+       41 GETTABLEKS                       R9 R2 K5 ["avatar"]
+       43 SETLIST                          R7 R8 2 [1]
+       45 CALL                             R5 2 0
+       46 LOADNIL                          R5
+       47 GETTABLEKS                       R6 R0 K6 ["isRunning"]
+       49 CALL                             R6 0 1
+       50 JUMPIFNOT                        R6 ; [+7]
+       51 GETUPVAL                         R6 0
+       52 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       54 GETUPVAL                         R7 5
+       55 CALL                             R6 1 1
+       56 MOVE                             R5 R6
+       57 RETURN                           R5 1
+       58 GETTABLEKS                       R6 R3 K8 ["state"]
+       60 GETTABLEKS                       R6 R6 K9 ["type"]
+       62 JUMPIFEQKS                       R6 K10 ["none"] ; [+71]
+       64 GETUPVAL                         R6 6
+       65 CALL                             R6 0 1
+       66 JUMPIFNOT                        R6 ; [+43]
+       67 GETUPVAL                         R6 0
+       68 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       70 GETUPVAL                         R7 7
+       71 DUPTABLE                         R8 K12 [{"providers"}]
+       72 NEWTABLE                         R9 0 1
+       74 GETUPVAL                         R10 0
+       75 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       77 GETUPVAL                         R11 8
+       78 GETTABLEKS                       R11 R11 K13 ["Provider"]
+       80 CALL                             R10 1 -1
+       81 SETLIST                          R9 R10 -1 [1]
+       83 SETTABLEKS                       R9 R8 K11 ["providers"]
+       85 GETUPVAL                         R9 0
+       86 GETTABLEKS                       R9 R9 K7 ["createElement"]
+       88 GETUPVAL                         R10 9
+       89 DUPTABLE                         R11 K18 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
+       90 GETTABLEKS                       R12 R3 K8 ["state"]
+       92 SETTABLEKS                       R12 R11 K14 ["autoSetupState"]
+       94 GETTABLEKS                       R12 R3 K15 ["cancelAutoSetup"]
+       96 SETTABLEKS                       R12 R11 K15 ["cancelAutoSetup"]
+       98 GETTABLEKS                       R12 R3 K16 ["startAutoSetup"]
+      100 SETTABLEKS                       R12 R11 K16 ["startAutoSetup"]
+      102 GETTABLEKS                       R12 R3 K17 ["clearError"]
+      104 SETTABLEKS                       R12 R11 K17 ["clearError"]
+      106 CALL                             R9 2 -1
+      107 CALL                             R6 -1 1
+      108 MOVE                             R5 R6
+      109 RETURN                           R5 1
+      110 GETUPVAL                         R6 0
+      111 GETTABLEKS                       R6 R6 K7 ["createElement"]
+      113 GETUPVAL                         R7 9
+      114 DUPTABLE                         R8 K18 [{"autoSetupState", "cancelAutoSetup", "startAutoSetup", "clearError"}]
+      115 GETTABLEKS                       R9 R3 K8 ["state"]
+      117 SETTABLEKS                       R9 R8 K14 ["autoSetupState"]
+      119 GETTABLEKS                       R9 R3 K15 ["cancelAutoSetup"]
+      121 SETTABLEKS                       R9 R8 K15 ["cancelAutoSetup"]
+      123 GETTABLEKS                       R9 R3 K16 ["startAutoSetup"]
+      125 SETTABLEKS                       R9 R8 K16 ["startAutoSetup"]
+      127 GETTABLEKS                       R9 R3 K17 ["clearError"]
+      129 SETTABLEKS                       R9 R8 K17 ["clearError"]
+      131 CALL                             R6 2 1
+      132 MOVE                             R5 R6
+      133 RETURN                           R5 1
+      134 JUMPIFNOTEQKNIL                  R2 ; [+8]
+      136 GETUPVAL                         R6 0
+      137 GETTABLEKS                       R6 R6 K7 ["createElement"]
+      139 GETUPVAL                         R7 10
+      140 CALL                             R6 1 1
+      141 MOVE                             R5 R6
+      142 RETURN                           R5 1
+      143 GETTABLEKS                       R6 R2 K5 ["avatar"]
+      145 JUMPIFNOT                        R6 ; [+177]
+      146 NEWTABLE                         R6 0 0
+      148 MOVE                             R8 R6
+      149 GETUPVAL                         R9 0
+      150 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      152 GETUPVAL                         R10 11
+      153 GETTABLEKS                       R10 R10 K13 ["Provider"]
+      155 CALL                             R9 1 -1
+      156 FASTCALL                         TABLE_INSERT ; [+2]
+      157 GETIMPORT                        R7 K21 [table.insert]
+      159 CALL                             R7 -1 0
+      160 GETUPVAL                         R7 12
+      161 CALL                             R7 0 1
+      162 JUMPIFNOT                        R7 ; [+12]
+      163 MOVE                             R8 R6
+      164 GETUPVAL                         R9 0
+      165 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      167 GETUPVAL                         R10 13
+      168 GETTABLEKS                       R10 R10 K13 ["Provider"]
+      170 CALL                             R9 1 -1
+      171 FASTCALL                         TABLE_INSERT ; [+2]
+      172 GETIMPORT                        R7 K21 [table.insert]
+      174 CALL                             R7 -1 0
+      175 MOVE                             R8 R6
+      176 GETUPVAL                         R9 0
+      177 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      179 GETUPVAL                         R10 14
+      180 DUPTABLE                         R11 K23 [{"root"}]
+      181 GETTABLEKS                       R12 R2 K5 ["avatar"]
+      183 GETTABLEKS                       R12 R12 K24 ["WorldModel"]
+      185 SETTABLEKS                       R12 R11 K22 ["root"]
+      187 CALL                             R9 2 -1
+      188 FASTCALL                         TABLE_INSERT ; [+2]
+      189 GETIMPORT                        R7 K21 [table.insert]
+      191 CALL                             R7 -1 0
+      192 MOVE                             R8 R6
+      193 GETUPVAL                         R9 0
+      194 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      196 GETUPVAL                         R10 15
+      197 DUPTABLE                         R11 K23 [{"root"}]
+      198 GETTABLEKS                       R12 R2 K5 ["avatar"]
+      200 GETTABLEKS                       R12 R12 K24 ["WorldModel"]
+      202 SETTABLEKS                       R12 R11 K22 ["root"]
+      204 CALL                             R9 2 -1
+      205 FASTCALL                         TABLE_INSERT ; [+2]
+      206 GETIMPORT                        R7 K21 [table.insert]
+      208 CALL                             R7 -1 0
+      209 MOVE                             R8 R6
+      210 GETUPVAL                         R9 0
+      211 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      213 GETUPVAL                         R10 16
+      214 CALL                             R9 1 -1
+      215 FASTCALL                         TABLE_INSERT ; [+2]
+      216 GETIMPORT                        R7 K21 [table.insert]
+      218 CALL                             R7 -1 0
+      219 MOVE                             R8 R6
+      220 GETUPVAL                         R9 0
+      221 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      223 GETUPVAL                         R10 17
+      224 CALL                             R9 1 -1
+      225 FASTCALL                         TABLE_INSERT ; [+2]
+      226 GETIMPORT                        R7 K21 [table.insert]
+      228 CALL                             R7 -1 0
+      229 GETUPVAL                         R7 12
+      230 CALL                             R7 0 1
+      231 JUMPIFNOT                        R7 ; [+10]
+      232 MOVE                             R8 R6
+      233 GETUPVAL                         R9 0
+      234 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      236 GETUPVAL                         R10 18
+      237 CALL                             R9 1 -1
+      238 FASTCALL                         TABLE_INSERT ; [+2]
+      239 GETIMPORT                        R7 K21 [table.insert]
+      241 CALL                             R7 -1 0
+      242 GETUPVAL                         R7 12
+      243 CALL                             R7 0 1
+      244 JUMPIFNOT                        R7 ; [+15]
+      245 GETUPVAL                         R7 19
+      246 CALL                             R7 0 1
+      247 JUMPIF                           R7 ; [+12]
+      248 MOVE                             R8 R6
+      249 GETUPVAL                         R9 0
+      250 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      252 GETUPVAL                         R10 20
+      253 GETTABLEKS                       R10 R10 K13 ["Provider"]
+      255 CALL                             R9 1 -1
+      256 FASTCALL                         TABLE_INSERT ; [+2]
+      257 GETIMPORT                        R7 K21 [table.insert]
+      259 CALL                             R7 -1 0
+      260 GETUPVAL                         R7 12
+      261 CALL                             R7 0 1
+      262 JUMPIFNOT                        R7 ; [+28]
+      263 GETUPVAL                         R7 21
+      264 CALL                             R7 0 1
+      265 JUMPIFNOT                        R7 ; [+13]
+      266 MOVE                             R8 R6
+      267 GETUPVAL                         R9 0
+      268 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      270 GETUPVAL                         R10 22
+      271 GETTABLEKS                       R10 R10 K13 ["Provider"]
+      273 CALL                             R9 1 -1
+      274 FASTCALL                         TABLE_INSERT ; [+2]
+      275 GETIMPORT                        R7 K21 [table.insert]
+      277 CALL                             R7 -1 0
+      278 JUMP                             ; [+12]
+      279 MOVE                             R8 R6
+      280 GETUPVAL                         R9 0
+      281 GETTABLEKS                       R9 R9 K7 ["createElement"]
+      283 GETUPVAL                         R10 23
+      284 GETTABLEKS                       R10 R10 K13 ["Provider"]
+      286 CALL                             R9 1 -1
+      287 FASTCALL                         TABLE_INSERT ; [+2]
+      288 GETIMPORT                        R7 K21 [table.insert]
+      290 CALL                             R7 -1 0
+      291 GETUPVAL                         R7 0
+      292 GETTABLEKS                       R7 R7 K7 ["createElement"]
+      294 GETUPVAL                         R8 7
+      295 DUPTABLE                         R9 K12 [{"providers"}]
+      296 SETTABLEKS                       R6 R9 K11 ["providers"]
+      298 GETUPVAL                         R10 0
+      299 GETTABLEKS                       R10 R10 K7 ["createElement"]
+      301 GETUPVAL                         R11 24
+      302 DUPTABLE                         R12 K28 [{"Avatar", "IsSelected", "onBack"}]
+      303 GETTABLEKS                       R13 R2 K5 ["avatar"]
+      305 SETTABLEKS                       R13 R12 K25 ["Avatar"]
+      307 GETTABLEKS                       R13 R2 K29 ["isSelected"]
+      309 SETTABLEKS                       R13 R12 K26 ["IsSelected"]
+      311 GETUPVAL                         R14 25
+      312 CALL                             R14 0 1
+      313 JUMPIFNOT                        R14 ; [+3]
+      314 GETTABLEKS                       R13 R1 K30 ["clearAvatar"]
+      316 JUMP                             ; [+1]
+      317 LOADNIL                          R13
+      318 SETTABLEKS                       R13 R12 K27 ["onBack"]
+      320 CALL                             R10 2 -1
+      321 CALL                             R7 -1 1
+      322 MOVE                             R5 R7
+      323 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -358,54 +366,60 @@ MAIN:
       191 GETIMPORT                        R21 K5 [require]
       193 GETTABLEKS                       R22 R0 K9 ["Src"]
       195 GETTABLEKS                       R22 R22 K29 ["Flags"]
-      197 GETTABLEKS                       R22 R22 K31 ["getFFlagAvatarPreviewerLookComposer"]
+      197 GETTABLEKS                       R22 R22 K31 ["getFFlagAvatarPreviewerAvatarScreenBack"]
       199 CALL                             R21 1 1
       200 GETIMPORT                        R22 K5 [require]
       202 GETTABLEKS                       R23 R0 K9 ["Src"]
       204 GETTABLEKS                       R23 R23 K29 ["Flags"]
-      206 GETTABLEKS                       R23 R23 K32 ["getFFlagAvatarPreviewerStartFromAssetId"]
+      206 GETTABLEKS                       R23 R23 K32 ["getFFlagAvatarPreviewerLookComposer"]
       208 CALL                             R22 1 1
       209 GETIMPORT                        R23 K5 [require]
       211 GETTABLEKS                       R24 R0 K9 ["Src"]
       213 GETTABLEKS                       R24 R24 K29 ["Flags"]
-      215 GETTABLEKS                       R24 R24 K33 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
+      215 GETTABLEKS                       R24 R24 K33 ["getFFlagAvatarPreviewerStartFromAssetId"]
       217 CALL                             R23 1 1
       218 GETIMPORT                        R24 K5 [require]
       220 GETTABLEKS                       R25 R0 K9 ["Src"]
-      222 GETTABLEKS                       R25 R25 K34 ["Hooks"]
-      224 GETTABLEKS                       R25 R25 K35 ["useAutoSetupState"]
+      222 GETTABLEKS                       R25 R25 K29 ["Flags"]
+      224 GETTABLEKS                       R25 R25 K34 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
       226 CALL                             R24 1 1
       227 GETIMPORT                        R25 K5 [require]
       229 GETTABLEKS                       R26 R0 K9 ["Src"]
-      231 GETTABLEKS                       R26 R26 K34 ["Hooks"]
-      233 GETTABLEKS                       R26 R26 K36 ["useMostRecentSelected"]
+      231 GETTABLEKS                       R26 R26 K35 ["Hooks"]
+      233 GETTABLEKS                       R26 R26 K36 ["useAutoSetupState"]
       235 CALL                             R25 1 1
-      236 GETTABLEKS                       R26 R1 K37 ["ContextServices"]
-      238 GETTABLEKS                       R26 R26 K38 ["Analytics"]
-      240 DUPCLOSURE                       R27 K39 [PROTO_2]
-      241 CAPTURE                          VAL R2
-      242 CAPTURE                          VAL R10
-      243 CAPTURE                          VAL R25
-      244 CAPTURE                          VAL R24
-      245 CAPTURE                          VAL R26
-      246 CAPTURE                          VAL R6
-      247 CAPTURE                          VAL R20
-      248 CAPTURE                          VAL R19
-      249 CAPTURE                          VAL R7
-      250 CAPTURE                          VAL R4
-      251 CAPTURE                          VAL R5
-      252 CAPTURE                          VAL R12
-      253 CAPTURE                          VAL R21
-      254 CAPTURE                          VAL R13
-      255 CAPTURE                          VAL R11
-      256 CAPTURE                          VAL R8
-      257 CAPTURE                          VAL R14
-      258 CAPTURE                          VAL R9
-      259 CAPTURE                          VAL R15
-      260 CAPTURE                          VAL R22
-      261 CAPTURE                          VAL R16
-      262 CAPTURE                          VAL R23
-      263 CAPTURE                          VAL R17
-      264 CAPTURE                          VAL R18
-      265 CAPTURE                          VAL R3
-      266 RETURN                           R27 1
+      236 GETIMPORT                        R26 K5 [require]
+      238 GETTABLEKS                       R27 R0 K9 ["Src"]
+      240 GETTABLEKS                       R27 R27 K35 ["Hooks"]
+      242 GETTABLEKS                       R27 R27 K37 ["useMostRecentSelected"]
+      244 CALL                             R26 1 1
+      245 GETTABLEKS                       R27 R1 K38 ["ContextServices"]
+      247 GETTABLEKS                       R27 R27 K39 ["Analytics"]
+      249 DUPCLOSURE                       R28 K40 [PROTO_2]
+      250 CAPTURE                          VAL R2
+      251 CAPTURE                          VAL R10
+      252 CAPTURE                          VAL R26
+      253 CAPTURE                          VAL R25
+      254 CAPTURE                          VAL R27
+      255 CAPTURE                          VAL R6
+      256 CAPTURE                          VAL R20
+      257 CAPTURE                          VAL R19
+      258 CAPTURE                          VAL R7
+      259 CAPTURE                          VAL R4
+      260 CAPTURE                          VAL R5
+      261 CAPTURE                          VAL R12
+      262 CAPTURE                          VAL R22
+      263 CAPTURE                          VAL R13
+      264 CAPTURE                          VAL R11
+      265 CAPTURE                          VAL R8
+      266 CAPTURE                          VAL R14
+      267 CAPTURE                          VAL R9
+      268 CAPTURE                          VAL R15
+      269 CAPTURE                          VAL R23
+      270 CAPTURE                          VAL R16
+      271 CAPTURE                          VAL R24
+      272 CAPTURE                          VAL R17
+      273 CAPTURE                          VAL R18
+      274 CAPTURE                          VAL R3
+      275 CAPTURE                          VAL R21
+      276 RETURN                           R28 1

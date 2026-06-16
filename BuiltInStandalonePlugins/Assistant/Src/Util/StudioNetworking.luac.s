@@ -1,17 +1,4 @@
 PROTO_0:
-        0 LOADK                            R3 K0 ["%*_%*"]
-        1 GETUPVAL                         R5 0
-        2 GETTABLEKS                       R5 R5 K1 ["Version"]
-        4 GETUPVAL                         R6 1
-        5 MOVE                             R7 R0
-        6 MOVE                             R8 R1
-        7 CALL                             R6 2 1
-        8 NAMECALL                         R3 R3 K2 ["format"]
-       10 CALL                             R3 3 1
-       11 MOVE                             R2 R3
-       12 RETURN                           R2 1
-
-PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["plugin"]
         3 SETTABLEKS                       R2 R1 K0 ["plugin"]
@@ -24,22 +11,17 @@ PROTO_1:
        13 CALL                             R4 0 -1
        14 NAMECALL                         R2 R2 K3 ["setEnabled"]
        16 CALL                             R2 -1 0
-       17 GETTABLEKS                       R2 R1 K4 ["_makeKey"]
-       19 NEWCLOSURE                       R3 P0
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          VAL R2
-       22 SETTABLEKS                       R3 R1 K4 ["_makeKey"]
-       24 GETUPVAL                         R3 5
-       25 GETTABLEKS                       R3 R3 K1 ["new"]
-       27 MOVE                             R4 R1
-       28 CALL                             R3 1 1
-       29 SETUPVAL                         R3 4
-       30 GETUPVAL                         R3 0
-       31 GETTABLEKS                       R3 R3 K5 ["get"]
-       33 CALL                             R3 0 -1
-       34 RETURN                           R3 -1
+       17 GETUPVAL                         R2 4
+       18 GETTABLEKS                       R2 R2 K1 ["new"]
+       20 MOVE                             R3 R1
+       21 CALL                             R2 1 1
+       22 SETUPVAL                         R2 3
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K4 ["get"]
+       26 CALL                             R2 0 -1
+       27 RETURN                           R2 -1
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 FASTCALL2K                       ASSERT R1 K0 ; [+4]
         3 LOADK                            R2 K0 ["Networking is not initialized. Call Networking.create first."]
@@ -48,7 +30,7 @@ PROTO_2:
         7 GETUPVAL                         R0 0
         8 RETURN                           R0 1
 
-PROTO_3:
+PROTO_2:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+6]
         2 GETUPVAL                         R0 0
@@ -85,15 +67,14 @@ MAIN:
        37 CAPTURE                          VAL R5
        38 CAPTURE                          VAL R4
        39 CAPTURE                          VAL R3
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          REF R6
-       42 CAPTURE                          VAL R2
-       43 SETTABLEKS                       R7 R5 K16 ["create"]
-       45 NEWCLOSURE                       R7 P1
-       46 CAPTURE                          REF R6
-       47 SETTABLEKS                       R7 R5 K17 ["get"]
-       49 NEWCLOSURE                       R7 P2
-       50 CAPTURE                          REF R6
-       51 SETTABLEKS                       R7 R5 K18 ["Destroy"]
-       53 CLOSEUPVALS                      R6
-       54 RETURN                           R5 1
+       40 CAPTURE                          REF R6
+       41 CAPTURE                          VAL R2
+       42 SETTABLEKS                       R7 R5 K16 ["create"]
+       44 NEWCLOSURE                       R7 P1
+       45 CAPTURE                          REF R6
+       46 SETTABLEKS                       R7 R5 K17 ["get"]
+       48 NEWCLOSURE                       R7 P2
+       49 CAPTURE                          REF R6
+       50 SETTABLEKS                       R7 R5 K18 ["Destroy"]
+       52 CLOSEUPVALS                      R6
+       53 RETURN                           R5 1

@@ -25,7 +25,7 @@ PROTO_1:
        18 SETTABLEKS                       R4 R3 K2 ["getIconAsync"]
        20 GETTABLEKS                       R4 R2 K3 ["Request"]
        22 SETTABLEKS                       R4 R3 K3 ["Request"]
-       24 GETTABLEKS                       R4 R2 K4 ["ResetSelection"]
+       24 GETTABLEKS                       R4 R1 K4 ["ResetSelection"]
        26 SETTABLEKS                       R4 R3 K4 ["ResetSelection"]
        28 GETTABLEKS                       R4 R2 K5 ["UpdateContext"]
        30 SETTABLEKS                       R4 R3 K5 ["UpdateContext"]
@@ -49,7 +49,7 @@ MAIN:
        16 GETIMPORT                        R2 K5 [require]
        18 GETTABLEKS                       R3 R0 K6 ["Src"]
        20 GETTABLEKS                       R3 R3 K7 ["Guest"]
-       22 GETTABLEKS                       R3 R3 K9 ["createInputActionSystem"]
+       22 GETTABLEKS                       R3 R3 K9 ["createInputInterface"]
        24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K5 [require]
        27 GETTABLEKS                       R4 R0 K6 ["Src"]

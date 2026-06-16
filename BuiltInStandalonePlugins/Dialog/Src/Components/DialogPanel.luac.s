@@ -51,26 +51,49 @@ PROTO_3:
        23 CALL                             R6 2 -1
        24 CALL                             R4 -1 1
        25 SETTABLEKS                       R4 R3 K3 ["Size"]
-       27 LOADB                            R4 1
-       28 SETTABLEKS                       R4 R3 K4 ["DisableTitleBar"]
-       30 GETUPVAL                         R5 4
-       31 JUMPIFNOT                        R5 ; [+2]
-       32 GETUPVAL                         R4 5
-       33 JUMP                             ; [+1]
-       34 LOADNIL                          R4
-       35 SETTABLEKS                       R4 R3 K5 ["TitleBarColor"]
-       37 NAMECALL                         R0 R0 K13 ["CreateQWidgetPluginGui"]
-       39 CALL                             R0 3 1
-       40 SETUPVAL                         R0 0
-       41 GETUPVAL                         R0 6
-       42 JUMPIFNOT                        R0 ; [+5]
-       43 GETUPVAL                         R0 0
-       44 GETIMPORT                        R1 K17 [Enum.ZIndexBehavior.Sibling]
-       46 SETTABLEKS                       R1 R0 K15 ["ZIndexBehavior"]
-       48 GETUPVAL                         R0 7
-       49 GETUPVAL                         R1 0
-       50 CALL                             R0 1 0
-       51 RETURN                           R0 0
+       27 GETUPVAL                         R5 4
+       28 JUMPIFNOT                        R5 ; [+8]
+       29 GETUPVAL                         R5 3
+       30 GETTABLEKS                       R5 R5 K13 ["onClose"]
+       32 JUMPIFEQKNIL                     R5 ; [+2]
+       34 LOADB                            R4 0 +1
+       35 LOADB                            R4 1
+       36 JUMP                             ; [+1]
+       37 LOADB                            R4 1
+       38 SETTABLEKS                       R4 R3 K4 ["DisableTitleBar"]
+       40 GETUPVAL                         R5 5
+       41 JUMPIFNOT                        R5 ; [+2]
+       42 GETUPVAL                         R4 6
+       43 JUMP                             ; [+1]
+       44 LOADNIL                          R4
+       45 SETTABLEKS                       R4 R3 K5 ["TitleBarColor"]
+       47 NAMECALL                         R0 R0 K14 ["CreateQWidgetPluginGui"]
+       49 CALL                             R0 3 1
+       50 SETUPVAL                         R0 0
+       51 GETUPVAL                         R0 4
+       52 JUMPIFNOT                        R0 ; [+17]
+       53 GETUPVAL                         R0 0
+       54 LOADK                            R2 K15 ["PluginGui"]
+       55 NAMECALL                         R0 R0 K16 ["IsA"]
+       57 CALL                             R0 2 1
+       58 JUMPIFNOT                        R0 ; [+11]
+       59 GETUPVAL                         R0 3
+       60 GETTABLEKS                       R0 R0 K13 ["onClose"]
+       62 JUMPIFNOT                        R0 ; [+7]
+       63 GETUPVAL                         R0 0
+       64 GETUPVAL                         R2 3
+       65 GETTABLEKS                       R2 R2 K13 ["onClose"]
+       67 NAMECALL                         R0 R0 K17 ["BindToClose"]
+       69 CALL                             R0 2 0
+       70 GETUPVAL                         R0 7
+       71 JUMPIFNOT                        R0 ; [+5]
+       72 GETUPVAL                         R0 0
+       73 GETIMPORT                        R1 K21 [Enum.ZIndexBehavior.Sibling]
+       75 SETTABLEKS                       R1 R0 K19 ["ZIndexBehavior"]
+       77 GETUPVAL                         R0 8
+       78 GETUPVAL                         R1 0
+       79 CALL                             R0 1 0
+       80 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R0 K2 [task.cancel]
@@ -98,13 +121,14 @@ PROTO_5:
         9 CAPTURE                          UPVAL U4
        10 CAPTURE                          UPVAL U5
        11 CAPTURE                          UPVAL U6
-       12 CALL                             R1 1 1
-       13 NEWCLOSURE                       R2 P1
-       14 CAPTURE                          VAL R1
-       15 CAPTURE                          REF R0
-       16 CAPTURE                          UPVAL U6
-       17 CLOSEUPVALS                      R0
-       18 RETURN                           R2 1
+       12 CAPTURE                          UPVAL U7
+       13 CALL                             R1 1 1
+       14 NEWCLOSURE                       R2 P1
+       15 CAPTURE                          VAL R1
+       16 CAPTURE                          REF R0
+       17 CAPTURE                          UPVAL U7
+       18 CLOSEUPVALS                      R0
+       19 RETURN                           R2 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -200,53 +224,54 @@ PROTO_9:
        67 CAPTURE                          VAL R1
        68 CAPTURE                          VAL R3
        69 CAPTURE                          VAL R0
-       70 CAPTURE                          UPVAL U1
-       71 CAPTURE                          REF R2
-       72 CAPTURE                          UPVAL U6
-       73 CAPTURE                          VAL R7
-       74 NEWTABLE                         R10 0 5
-       76 MOVE                             R11 R1
-       77 MOVE                             R12 R3
-       78 GETTABLEKS                       R13 R0 K10 ["getSize"]
-       80 MOVE                             R14 R7
-       81 GETUPVAL                         R16 1
-       82 JUMPIFNOT                        R16 ; [+2]
-       83 MOVE                             R15 R2
-       84 JUMP                             ; [+1]
-       85 LOADNIL                          R15
-       86 SETLIST                          R10 R11 5 [1]
-       88 CALL                             R8 2 0
-       89 GETUPVAL                         R8 3
-       90 GETTABLEKS                       R8 R8 K9 ["useEffect"]
-       92 NEWCLOSURE                       R9 P4
-       93 CAPTURE                          VAL R6
-       94 CAPTURE                          UPVAL U7
-       95 CAPTURE                          VAL R0
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R5
-       98 NEWTABLE                         R10 0 4
-      100 MOVE                             R11 R6
-      101 GETTABLEKS                       R12 R0 K10 ["getSize"]
-      103 MOVE                             R13 R4
-      104 MOVE                             R14 R5
-      105 SETLIST                          R10 R11 4 [1]
-      107 CALL                             R8 2 0
-      108 JUMPIF                           R6 ; [+3]
-      109 LOADNIL                          R8
-      110 CLOSEUPVALS                      R2
-      111 RETURN                           R8 1
-      112 GETUPVAL                         R8 8
-      113 GETTABLEKS                       R8 R8 K11 ["createPortal"]
-      115 GETUPVAL                         R9 9
-      116 GETUPVAL                         R10 10
-      117 DUPTABLE                         R11 K13 [{"overlayGui"}]
-      118 SETTABLEKS                       R6 R11 K12 ["overlayGui"]
-      120 GETTABLEKS                       R12 R0 K14 ["children"]
-      122 CALL                             R9 3 1
-      123 MOVE                             R10 R6
-      124 CALL                             R8 2 -1
-      125 CLOSEUPVALS                      R2
-      126 RETURN                           R8 -1
+       70 CAPTURE                          UPVAL U6
+       71 CAPTURE                          UPVAL U1
+       72 CAPTURE                          REF R2
+       73 CAPTURE                          UPVAL U7
+       74 CAPTURE                          VAL R7
+       75 NEWTABLE                         R10 0 5
+       77 MOVE                             R11 R1
+       78 MOVE                             R12 R3
+       79 GETTABLEKS                       R13 R0 K10 ["getSize"]
+       81 MOVE                             R14 R7
+       82 GETUPVAL                         R16 1
+       83 JUMPIFNOT                        R16 ; [+2]
+       84 MOVE                             R15 R2
+       85 JUMP                             ; [+1]
+       86 LOADNIL                          R15
+       87 SETLIST                          R10 R11 5 [1]
+       89 CALL                             R8 2 0
+       90 GETUPVAL                         R8 3
+       91 GETTABLEKS                       R8 R8 K9 ["useEffect"]
+       93 NEWCLOSURE                       R9 P4
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          UPVAL U8
+       96 CAPTURE                          VAL R0
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R5
+       99 NEWTABLE                         R10 0 4
+      101 MOVE                             R11 R6
+      102 GETTABLEKS                       R12 R0 K10 ["getSize"]
+      104 MOVE                             R13 R4
+      105 MOVE                             R14 R5
+      106 SETLIST                          R10 R11 4 [1]
+      108 CALL                             R8 2 0
+      109 JUMPIF                           R6 ; [+3]
+      110 LOADNIL                          R8
+      111 CLOSEUPVALS                      R2
+      112 RETURN                           R8 1
+      113 GETUPVAL                         R8 9
+      114 GETTABLEKS                       R8 R8 K11 ["createPortal"]
+      116 GETUPVAL                         R9 10
+      117 GETUPVAL                         R10 11
+      118 DUPTABLE                         R11 K13 [{"overlayGui"}]
+      119 SETTABLEKS                       R6 R11 K12 ["overlayGui"]
+      121 GETTABLEKS                       R12 R0 K14 ["children"]
+      123 CALL                             R9 3 1
+      124 MOVE                             R10 R6
+      125 CALL                             R8 2 -1
+      126 CLOSEUPVALS                      R2
+      127 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -290,32 +315,39 @@ MAIN:
        66 CALL                             R8 1 1
        67 MOVE                             R9 R7
        68 CALL                             R9 0 1
-       69 MOVE                             R10 R8
-       70 CALL                             R10 0 1
-       71 GETTABLEKS                       R11 R6 K17 ["Components"]
-       73 GETTABLEKS                       R11 R11 K18 ["FoundationProviderAdapter"]
-       75 GETTABLEKS                       R12 R2 K19 ["ContextServices"]
-       77 GETTABLEKS                       R12 R12 K20 ["Plugin"]
-       79 GETTABLEKS                       R13 R6 K21 ["Util"]
-       81 GETTABLEKS                       R13 R13 K22 ["StudioUri"]
-       83 GETTABLEKS                       R14 R3 K23 ["createElement"]
-       85 GETTABLEKS                       R15 R1 K24 ["Hooks"]
-       87 GETTABLEKS                       R15 R15 K25 ["useTokens"]
-       89 GETTABLEKS                       R16 R6 K21 ["Util"]
-       91 GETTABLEKS                       R16 R16 K26 ["uriToTestId"]
-       93 DUPCLOSURE                       R17 K27 [PROTO_9]
-       94 CAPTURE                          VAL R12
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          VAL R15
-       97 CAPTURE                          VAL R3
-       98 CAPTURE                          VAL R16
-       99 CAPTURE                          VAL R13
-      100 CAPTURE                          VAL R9
-      101 CAPTURE                          VAL R5
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R14
-      104 CAPTURE                          VAL R11
-      105 GETTABLEKS                       R18 R3 K28 ["memo"]
-      107 MOVE                             R19 R17
-      108 CALL                             R18 1 -1
-      109 RETURN                           R18 -1
+       69 GETIMPORT                        R10 K5 [require]
+       71 GETTABLEKS                       R11 R0 K13 ["Src"]
+       73 GETTABLEKS                       R11 R11 K14 ["Flags"]
+       75 GETTABLEKS                       R11 R11 K17 ["getFFlagDialogManagerAddEscapeTitleButton"]
+       77 CALL                             R10 1 1
+       78 CALL                             R10 0 1
+       79 MOVE                             R11 R8
+       80 CALL                             R11 0 1
+       81 GETTABLEKS                       R12 R6 K18 ["Components"]
+       83 GETTABLEKS                       R12 R12 K19 ["FoundationProviderAdapter"]
+       85 GETTABLEKS                       R13 R2 K20 ["ContextServices"]
+       87 GETTABLEKS                       R13 R13 K21 ["Plugin"]
+       89 GETTABLEKS                       R14 R6 K22 ["Util"]
+       91 GETTABLEKS                       R14 R14 K23 ["StudioUri"]
+       93 GETTABLEKS                       R15 R3 K24 ["createElement"]
+       95 GETTABLEKS                       R16 R1 K25 ["Hooks"]
+       97 GETTABLEKS                       R16 R16 K26 ["useTokens"]
+       99 GETTABLEKS                       R17 R6 K22 ["Util"]
+      101 GETTABLEKS                       R17 R17 K27 ["uriToTestId"]
+      103 DUPCLOSURE                       R18 K28 [PROTO_9]
+      104 CAPTURE                          VAL R13
+      105 CAPTURE                          VAL R11
+      106 CAPTURE                          VAL R16
+      107 CAPTURE                          VAL R3
+      108 CAPTURE                          VAL R17
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R10
+      111 CAPTURE                          VAL R9
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          VAL R4
+      114 CAPTURE                          VAL R15
+      115 CAPTURE                          VAL R12
+      116 GETTABLEKS                       R19 R3 K29 ["memo"]
+      118 MOVE                             R20 R18
+      119 CALL                             R19 1 -1
+      120 RETURN                           R19 -1

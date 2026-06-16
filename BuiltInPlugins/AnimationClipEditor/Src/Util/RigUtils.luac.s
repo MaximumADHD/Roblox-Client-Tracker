@@ -502,7 +502,7 @@ PROTO_12:
         1 LOADK                            R3 K0 ["Camera"]
         2 NAMECALL                         R1 R1 K1 ["FindFirstChildOfClass"]
         4 CALL                             R1 2 1
-        5 JUMPIFNOT                        R1 ; [+36]
+        5 JUMPIFNOT                        R1 ; [+45]
         6 NAMECALL                         R2 R0 K2 ["GetExtentsSize"]
         8 CALL                             R2 1 1
         9 GETTABLEKS                       R4 R2 K3 ["X"]
@@ -510,23 +510,31 @@ PROTO_12:
        13 FASTCALL2                        MATH_MAX R4 R5 ; [+3]
        15 GETIMPORT                        R3 K7 [math.max]
        17 CALL                             R3 2 1
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R4 R4 K8 ["findRootPart"]
-       21 MOVE                             R5 R0
-       22 CALL                             R4 1 1
-       23 GETTABLEKS                       R5 R4 K9 ["CFrame"]
-       25 GETTABLEKS                       R7 R5 K10 ["Position"]
-       27 GETTABLEKS                       R9 R5 K11 ["LookVector"]
-       29 MULK                             R10 R3 K12 [2]
-       30 MUL                              R8 R9 R10
-       31 ADD                              R6 R7 R8
-       32 GETIMPORT                        R7 K14 [CFrame.new]
-       34 MOVE                             R8 R6
-       35 GETTABLEKS                       R9 R5 K10 ["Position"]
-       37 CALL                             R7 2 1
-       38 SETTABLEKS                       R7 R1 K9 ["CFrame"]
-       40 SETTABLEKS                       R5 R1 K15 ["Focus"]
-       42 RETURN                           R0 0
+       18 GETUPVAL                         R5 1
+       19 CALL                             R5 0 1
+       20 JUMPIFNOT                        R5 ; [+6]
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R4 R4 K8 ["getRootPart"]
+       24 MOVE                             R5 R0
+       25 CALL                             R4 1 1
+       26 JUMP                             ; [+5]
+       27 GETUPVAL                         R4 2
+       28 GETTABLEKS                       R4 R4 K9 ["findRootPart"]
+       30 MOVE                             R5 R0
+       31 CALL                             R4 1 1
+       32 GETTABLEKS                       R5 R4 K10 ["CFrame"]
+       34 GETTABLEKS                       R7 R5 K11 ["Position"]
+       36 GETTABLEKS                       R9 R5 K12 ["LookVector"]
+       38 MULK                             R10 R3 K13 [2]
+       39 MUL                              R8 R9 R10
+       40 ADD                              R6 R7 R8
+       41 GETIMPORT                        R7 K15 [CFrame.new]
+       43 MOVE                             R8 R6
+       44 GETTABLEKS                       R9 R5 K11 ["Position"]
+       46 CALL                             R7 2 1
+       47 SETTABLEKS                       R7 R1 K10 ["CFrame"]
+       49 SETTABLEKS                       R5 R1 K16 ["Focus"]
+       51 RETURN                           R0 0
 
 PROTO_13:
         0 JUMPIF                           R0 ; [+1]
@@ -811,66 +819,71 @@ MAIN:
       115 GETTABLEKS                       R15 R15 K22 ["Util"]
       117 GETTABLEKS                       R15 R15 K27 ["Constants"]
       119 CALL                             R14 1 1
-      120 NEWTABLE                         R15 16 0
-      122 DUPCLOSURE                       R16 K28 [PROTO_0]
-      123 CAPTURE                          VAL R13
-      124 SETTABLEKS                       R16 R15 K29 ["canUseFaceControlsEditor"]
-      126 DUPCLOSURE                       R16 K30 [PROTO_1]
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R14
-      129 SETTABLEKS                       R16 R15 K31 ["getJoints"]
-      131 DUPCLOSURE                       R16 K32 [PROTO_2]
-      132 CAPTURE                          VAL R15
-      133 CAPTURE                          VAL R13
-      134 CAPTURE                          VAL R14
-      135 SETTABLEKS                       R16 R15 K33 ["resetAllFacsValuesInFaceControls"]
-      137 MOVE                             R16 R5
-      138 CALL                             R16 0 1
-      139 JUMPIF                           R16 ; [+7]
-      140 DUPCLOSURE                       R16 K34 [PROTO_3]
-      141 CAPTURE                          VAL R13
-      142 CAPTURE                          VAL R12
-      143 CAPTURE                          VAL R14
-      144 CAPTURE                          VAL R0
-      145 SETTABLEKS                       R16 R15 K35 ["stepRigAnimation"]
-      147 DUPCLOSURE                       R16 K36 [PROTO_4]
-      148 CAPTURE                          VAL R5
-      149 CAPTURE                          VAL R15
-      150 CAPTURE                          VAL R13
+      120 GETIMPORT                        R15 K13 [require]
+      122 GETTABLEKS                       R16 R3 K14 ["LuaFlags"]
+      124 GETTABLEKS                       R16 R16 K28 ["GetFFlagRootMotion"]
+      126 CALL                             R15 1 1
+      127 NEWTABLE                         R16 16 0
+      129 DUPCLOSURE                       R17 K29 [PROTO_0]
+      130 CAPTURE                          VAL R13
+      131 SETTABLEKS                       R17 R16 K30 ["canUseFaceControlsEditor"]
+      133 DUPCLOSURE                       R17 K31 [PROTO_1]
+      134 CAPTURE                          VAL R13
+      135 CAPTURE                          VAL R14
+      136 SETTABLEKS                       R17 R16 K32 ["getJoints"]
+      138 DUPCLOSURE                       R17 K33 [PROTO_2]
+      139 CAPTURE                          VAL R16
+      140 CAPTURE                          VAL R13
+      141 CAPTURE                          VAL R14
+      142 SETTABLEKS                       R17 R16 K34 ["resetAllFacsValuesInFaceControls"]
+      144 MOVE                             R17 R5
+      145 CALL                             R17 0 1
+      146 JUMPIF                           R17 ; [+7]
+      147 DUPCLOSURE                       R17 K35 [PROTO_3]
+      148 CAPTURE                          VAL R13
+      149 CAPTURE                          VAL R12
+      150 CAPTURE                          VAL R14
       151 CAPTURE                          VAL R0
-      152 SETTABLEKS                       R16 R15 K37 ["clearPose"]
-      154 DUPCLOSURE                       R16 K38 [PROTO_5]
-      155 CAPTURE                          VAL R13
-      156 DUPCLOSURE                       R17 K39 [PROTO_7]
-      157 CAPTURE                          VAL R7
-      158 CAPTURE                          VAL R13
-      159 SETTABLEKS                       R17 R15 K40 ["updateSimulatedAnimConstraintParts"]
-      161 DUPCLOSURE                       R17 K41 [PROTO_8]
-      162 CAPTURE                          VAL R2
-      163 CAPTURE                          VAL R14
-      164 SETTABLEKS                       R17 R15 K42 ["findOrCreateServerAnimSaves"]
-      166 DUPCLOSURE                       R17 K43 [PROTO_9]
-      167 CAPTURE                          VAL R15
-      168 SETTABLEKS                       R17 R15 K44 ["getAnimSavesFolder"]
-      170 DUPCLOSURE                       R17 K45 [PROTO_11]
-      171 CAPTURE                          VAL R15
-      172 SETTABLEKS                       R17 R15 K46 ["getAnimSaves"]
-      174 DUPCLOSURE                       R17 K47 [PROTO_12]
-      175 CAPTURE                          VAL R1
-      176 CAPTURE                          VAL R13
-      177 SETTABLEKS                       R17 R15 K48 ["focusCamera"]
-      179 DUPCLOSURE                       R17 K49 [PROTO_13]
-      180 CAPTURE                          VAL R13
-      181 CAPTURE                          VAL R1
-      182 CAPTURE                          VAL R11
-      183 CAPTURE                          VAL R10
-      184 SETTABLEKS                       R17 R15 K50 ["focusCameraOnFace"]
-      186 DUPCLOSURE                       R17 K51 [PROTO_14]
-      187 CAPTURE                          VAL R13
-      188 CAPTURE                          VAL R8
-      189 SETTABLEKS                       R17 R15 K52 ["resetAnimator"]
-      191 DUPCLOSURE                       R17 K53 [PROTO_15]
-      192 CAPTURE                          VAL R6
-      193 CAPTURE                          VAL R13
-      194 SETTABLEKS                       R17 R15 K54 ["addAnimationRigToAnimationClip"]
-      196 RETURN                           R15 1
+      152 SETTABLEKS                       R17 R16 K36 ["stepRigAnimation"]
+      154 DUPCLOSURE                       R17 K37 [PROTO_4]
+      155 CAPTURE                          VAL R5
+      156 CAPTURE                          VAL R16
+      157 CAPTURE                          VAL R13
+      158 CAPTURE                          VAL R0
+      159 SETTABLEKS                       R17 R16 K38 ["clearPose"]
+      161 DUPCLOSURE                       R17 K39 [PROTO_5]
+      162 CAPTURE                          VAL R13
+      163 DUPCLOSURE                       R18 K40 [PROTO_7]
+      164 CAPTURE                          VAL R7
+      165 CAPTURE                          VAL R13
+      166 SETTABLEKS                       R18 R16 K41 ["updateSimulatedAnimConstraintParts"]
+      168 DUPCLOSURE                       R18 K42 [PROTO_8]
+      169 CAPTURE                          VAL R2
+      170 CAPTURE                          VAL R14
+      171 SETTABLEKS                       R18 R16 K43 ["findOrCreateServerAnimSaves"]
+      173 DUPCLOSURE                       R18 K44 [PROTO_9]
+      174 CAPTURE                          VAL R16
+      175 SETTABLEKS                       R18 R16 K45 ["getAnimSavesFolder"]
+      177 DUPCLOSURE                       R18 K46 [PROTO_11]
+      178 CAPTURE                          VAL R16
+      179 SETTABLEKS                       R18 R16 K47 ["getAnimSaves"]
+      181 DUPCLOSURE                       R18 K48 [PROTO_12]
+      182 CAPTURE                          VAL R1
+      183 CAPTURE                          VAL R15
+      184 CAPTURE                          VAL R13
+      185 SETTABLEKS                       R18 R16 K49 ["focusCamera"]
+      187 DUPCLOSURE                       R18 K50 [PROTO_13]
+      188 CAPTURE                          VAL R13
+      189 CAPTURE                          VAL R1
+      190 CAPTURE                          VAL R11
+      191 CAPTURE                          VAL R10
+      192 SETTABLEKS                       R18 R16 K51 ["focusCameraOnFace"]
+      194 DUPCLOSURE                       R18 K52 [PROTO_14]
+      195 CAPTURE                          VAL R13
+      196 CAPTURE                          VAL R8
+      197 SETTABLEKS                       R18 R16 K53 ["resetAnimator"]
+      199 DUPCLOSURE                       R18 K54 [PROTO_15]
+      200 CAPTURE                          VAL R6
+      201 CAPTURE                          VAL R13
+      202 SETTABLEKS                       R18 R16 K55 ["addAnimationRigToAnimationClip"]
+      204 RETURN                           R16 1

@@ -8,9 +8,5 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["DMNetworking"]
        13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
-       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
-       20 CALL                             R2 1 1
-       21 NEWTABLE                         R3 0 0
-       23 RETURN                           R3 1
+       14 NEWTABLE                         R2 0 0
+       16 RETURN                           R2 1

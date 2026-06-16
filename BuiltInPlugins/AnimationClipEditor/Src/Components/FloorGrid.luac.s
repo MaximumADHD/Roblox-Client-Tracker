@@ -117,36 +117,44 @@ PROTO_2:
         8 JUMPIF                           R4 ; [+1]
         9 GETUPVAL                         R4 0
        10 GETTABLEKS                       R5 R1 K4 ["RootInstance"]
-       12 MOVE                             R6 R5
-       13 JUMPIFNOT                        R6 ; [+5]
-       14 GETUPVAL                         R6 1
-       15 GETTABLEKS                       R6 R6 K5 ["findRootPart"]
-       17 MOVE                             R7 R5
-       18 CALL                             R6 1 1
-       19 JUMPIF                           R6 ; [+2]
-       20 LOADNIL                          R7
-       21 RETURN                           R7 1
-       22 MOVE                             R9 R3
-       23 MOVE                             R10 R5
-       24 MOVE                             R11 R6
-       25 NAMECALL                         R7 R0 K6 ["renderLines"]
-       27 CALL                             R7 4 1
-       28 GETUPVAL                         R8 2
-       29 GETTABLEKS                       R8 R8 K7 ["createElement"]
-       31 GETUPVAL                         R9 2
-       32 GETTABLEKS                       R9 R9 K8 ["Portal"]
-       34 DUPTABLE                         R10 K10 [{"target"}]
-       35 SETTABLEKS                       R4 R10 K9 ["target"]
-       37 DUPTABLE                         R11 K12 [{"GridLines"}]
-       38 GETUPVAL                         R12 2
-       39 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       41 LOADK                            R13 K13 ["Folder"]
-       42 NEWTABLE                         R14 0 0
-       44 MOVE                             R15 R7
-       45 CALL                             R12 3 1
-       46 SETTABLEKS                       R12 R11 K11 ["GridLines"]
-       48 CALL                             R8 3 -1
-       49 RETURN                           R8 -1
+       12 GETUPVAL                         R7 1
+       13 CALL                             R7 0 1
+       14 JUMPIFNOT                        R7 ; [+6]
+       15 GETUPVAL                         R6 2
+       16 GETTABLEKS                       R6 R6 K5 ["getRootPart"]
+       18 MOVE                             R7 R5
+       19 CALL                             R6 1 1
+       20 JUMP                             ; [+7]
+       21 MOVE                             R6 R5
+       22 JUMPIFNOT                        R6 ; [+5]
+       23 GETUPVAL                         R6 2
+       24 GETTABLEKS                       R6 R6 K6 ["findRootPart"]
+       26 MOVE                             R7 R5
+       27 CALL                             R6 1 1
+       28 JUMPIF                           R6 ; [+2]
+       29 LOADNIL                          R7
+       30 RETURN                           R7 1
+       31 MOVE                             R9 R3
+       32 MOVE                             R10 R5
+       33 MOVE                             R11 R6
+       34 NAMECALL                         R7 R0 K7 ["renderLines"]
+       36 CALL                             R7 4 1
+       37 GETUPVAL                         R8 3
+       38 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       40 GETUPVAL                         R9 3
+       41 GETTABLEKS                       R9 R9 K9 ["Portal"]
+       43 DUPTABLE                         R10 K11 [{"target"}]
+       44 SETTABLEKS                       R4 R10 K10 ["target"]
+       46 DUPTABLE                         R11 K13 [{"GridLines"}]
+       47 GETUPVAL                         R12 3
+       48 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       50 LOADK                            R13 K14 ["Folder"]
+       51 NEWTABLE                         R14 0 0
+       53 MOVE                             R15 R7
+       54 CALL                             R12 3 1
+       55 SETTABLEKS                       R12 R11 K12 ["GridLines"]
+       57 CALL                             R8 3 -1
+       58 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -176,27 +184,32 @@ MAIN:
        40 GETIMPORT                        R8 K9 [require]
        42 GETTABLEKS                       R9 R6 K18 ["RigInfo"]
        44 CALL                             R8 1 1
-       45 GETTABLEKS                       R9 R2 K19 ["PureComponent"]
-       47 LOADK                            R11 K20 ["FloorGrid"]
-       48 NAMECALL                         R9 R9 K21 ["extend"]
-       50 CALL                             R9 2 1
-       51 DUPCLOSURE                       R10 K22 [PROTO_0]
-       52 CAPTURE                          VAL R2
-       53 SETTABLEKS                       R10 R9 K23 ["renderLine"]
-       55 DUPCLOSURE                       R10 K24 [PROTO_1]
-       56 CAPTURE                          VAL R7
-       57 SETTABLEKS                       R10 R9 K25 ["renderLines"]
-       59 DUPCLOSURE                       R10 K26 [PROTO_2]
-       60 CAPTURE                          VAL R0
-       61 CAPTURE                          VAL R8
-       62 CAPTURE                          VAL R2
-       63 SETTABLEKS                       R10 R9 K27 ["render"]
-       65 MOVE                             R10 R5
-       66 DUPTABLE                         R11 K29 [{"Stylizer"}]
-       67 GETTABLEKS                       R12 R4 K28 ["Stylizer"]
-       69 SETTABLEKS                       R12 R11 K28 ["Stylizer"]
-       71 CALL                             R10 1 1
-       72 MOVE                             R11 R9
-       73 CALL                             R10 1 1
-       74 MOVE                             R9 R10
-       75 RETURN                           R9 1
+       45 GETIMPORT                        R9 K9 [require]
+       47 GETTABLEKS                       R10 R1 K19 ["LuaFlags"]
+       49 GETTABLEKS                       R10 R10 K20 ["GetFFlagRootMotion"]
+       51 CALL                             R9 1 1
+       52 GETTABLEKS                       R10 R2 K21 ["PureComponent"]
+       54 LOADK                            R12 K22 ["FloorGrid"]
+       55 NAMECALL                         R10 R10 K23 ["extend"]
+       57 CALL                             R10 2 1
+       58 DUPCLOSURE                       R11 K24 [PROTO_0]
+       59 CAPTURE                          VAL R2
+       60 SETTABLEKS                       R11 R10 K25 ["renderLine"]
+       62 DUPCLOSURE                       R11 K26 [PROTO_1]
+       63 CAPTURE                          VAL R7
+       64 SETTABLEKS                       R11 R10 K27 ["renderLines"]
+       66 DUPCLOSURE                       R11 K28 [PROTO_2]
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R9
+       69 CAPTURE                          VAL R8
+       70 CAPTURE                          VAL R2
+       71 SETTABLEKS                       R11 R10 K29 ["render"]
+       73 MOVE                             R11 R5
+       74 DUPTABLE                         R12 K31 [{"Stylizer"}]
+       75 GETTABLEKS                       R13 R4 K30 ["Stylizer"]
+       77 SETTABLEKS                       R13 R12 K30 ["Stylizer"]
+       79 CALL                             R11 1 1
+       80 MOVE                             R12 R10
+       81 CALL                             R11 1 1
+       82 MOVE                             R10 R11
+       83 RETURN                           R10 1

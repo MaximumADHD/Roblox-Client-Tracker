@@ -99,30 +99,20 @@ PROTO_0:
       129 NAMECALL                         R14 R4 K34 ["ShowDialogAsync"]
       131 CALL                             R14 3 1
       132 MOVE                             R13 R14
-      133 JUMPIFNOT                        R13 ; [+33]
+      133 JUMPIFNOT                        R13 ; [+19]
       134 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
-      136 JUMPIFNOT                        R14 ; [+30]
+      136 JUMPIFNOT                        R14 ; [+16]
       137 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
       139 GETTABLEKS                       R14 R14 K20 ["ItemId"]
-      141 JUMPIFNOT                        R14 ; [+25]
+      141 JUMPIFNOT                        R14 ; [+11]
       142 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
       144 GETTABLEKS                       R14 R14 K20 ["ItemId"]
-      146 JUMPIFNOTEQKS                    R14 K8 ["SafetyDialog/Verify"] ; [+7]
+      146 JUMPIFNOTEQKS                    R14 K8 ["SafetyDialog/Verify"] ; [+6]
       148 GETUPVAL                         R14 2
       149 GETUPVAL                         R16 3
       150 NAMECALL                         R14 R14 K36 ["openLink"]
       152 CALL                             R14 2 0
       153 RETURN                           R0 0
-      154 GETUPVAL                         R14 4
-      155 CALL                             R14 0 1
-      156 JUMPIFNOT                        R14 ; [+10]
-      157 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
-      159 GETTABLEKS                       R14 R14 K20 ["ItemId"]
-      161 JUMPIFNOTEQKS                    R14 K16 ["SafetyDialog/AddTrustedConnections"] ; [+5]
-      163 GETUPVAL                         R16 5
-      164 NAMECALL                         R14 R3 K37 ["ActivateAsync"]
-      166 CALL                             R14 2 0
-      167 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -156,28 +146,12 @@ MAIN:
        47 GETIMPORT                        R7 K5 [require]
        49 GETTABLEKS                       R8 R0 K6 ["Src"]
        51 GETTABLEKS                       R8 R8 K10 ["SharedFlags"]
-       53 GETTABLEKS                       R8 R8 K15 ["getFFlagEnableTeamCreateCollaborators"]
+       53 GETTABLEKS                       R8 R8 K15 ["getFFlagLuaStartPageTCAgeGatingCheck"]
        55 CALL                             R7 1 1
-       56 GETIMPORT                        R8 K5 [require]
-       58 GETTABLEKS                       R9 R0 K6 ["Src"]
-       60 GETTABLEKS                       R9 R9 K10 ["SharedFlags"]
-       62 GETTABLEKS                       R9 R9 K16 ["getFFlagLuaStartPageTCAgeGatingCheck"]
-       64 CALL                             R8 1 1
-       65 CALL                             R8 0 1
-       66 DUPTABLE                         R9 K21 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       67 LOADK                            R10 K22 ["Standalone"]
-       68 SETTABLEKS                       R10 R9 K17 ["DataModel"]
-       70 LOADK                            R10 K23 ["TeamCreateCollaborators"]
-       71 SETTABLEKS                       R10 R9 K18 ["PluginId"]
-       73 LOADK                            R10 K24 ["Actions"]
-       74 SETTABLEKS                       R10 R9 K19 ["Category"]
-       76 LOADK                            R10 K25 ["Toggle"]
-       77 SETTABLEKS                       R10 R9 K20 ["ItemId"]
-       79 DUPCLOSURE                       R10 K26 [PROTO_0]
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R6
-       84 CAPTURE                          VAL R7
-       85 CAPTURE                          VAL R9
-       86 RETURN                           R10 1
+       56 CALL                             R7 0 1
+       57 DUPCLOSURE                       R8 K16 [PROTO_0]
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R2
+       61 CAPTURE                          VAL R6
+       62 RETURN                           R8 1

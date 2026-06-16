@@ -197,22 +197,16 @@ PROTO_8:
        24 JUMP                             ; [+1]
        25 LOADNIL                          R1
        26 SETTABLEKS                       R1 R0 K4 ["Replace"]
-       28 GETUPVAL                         R2 6
-       29 CALL                             R2 0 1
-       30 JUMPIFNOT                        R2 ; [+3]
-       31 GETUPVAL                         R1 7
-       32 CALL                             R1 0 1
-       33 JUMP                             ; [+3]
+       28 GETUPVAL                         R1 6
+       29 CALL                             R1 0 1
+       30 SETTABLEKS                       R1 R0 K5 ["MaxResults"]
+       32 GETUPVAL                         R2 7
+       33 JUMPIFNOT                        R2 ; [+2]
        34 GETUPVAL                         R1 8
-       35 GETTABLEKS                       R1 R1 K10 ["MAX_RESULTS"]
-       37 SETTABLEKS                       R1 R0 K5 ["MaxResults"]
-       39 GETUPVAL                         R2 9
-       40 JUMPIFNOT                        R2 ; [+2]
-       41 GETUPVAL                         R1 10
-       42 JUMP                             ; [+1]
-       43 LOADNIL                          R1
-       44 SETTABLEKS                       R1 R0 K6 ["IncludeFilter"]
-       46 RETURN                           R0 1
+       35 JUMP                             ; [+1]
+       36 LOADNIL                          R1
+       37 SETTABLEKS                       R1 R0 K6 ["IncludeFilter"]
+       39 RETURN                           R0 1
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -319,264 +313,257 @@ PROTO_15:
         3 CALL                             R1 1 1
         4 GETUPVAL                         R2 1
         5 CALL                             R2 0 1
-        6 GETUPVAL                         R4 2
-        7 CALL                             R4 0 1
-        8 JUMPIFNOT                        R4 ; [+3]
-        9 GETUPVAL                         R3 3
-       10 CALL                             R3 0 1
-       11 JUMP                             ; [+1]
-       12 LOADNIL                          R3
-       13 GETUPVAL                         R4 4
-       14 CALL                             R4 0 1
-       15 GETUPVAL                         R5 5
-       16 GETTABLEKS                       R5 R5 K1 ["useState"]
-       18 LOADK                            R6 K2 [""]
-       19 CALL                             R5 1 2
-       20 GETUPVAL                         R7 5
-       21 GETTABLEKS                       R7 R7 K1 ["useState"]
-       23 LOADK                            R8 K2 [""]
-       24 CALL                             R7 1 2
-       25 GETUPVAL                         R9 5
-       26 GETTABLEKS                       R9 R9 K1 ["useState"]
-       28 LOADK                            R10 K2 [""]
-       29 CALL                             R9 1 2
-       30 GETUPVAL                         R11 6
-       31 GETTABLEKS                       R11 R11 K3 ["useToggleState"]
-       33 LOADB                            R12 0
-       34 CALL                             R11 1 1
-       35 GETUPVAL                         R12 6
-       36 GETTABLEKS                       R12 R12 K3 ["useToggleState"]
-       38 LOADB                            R13 0
-       39 CALL                             R12 1 1
-       40 GETUPVAL                         R13 6
-       41 GETTABLEKS                       R13 R13 K3 ["useToggleState"]
-       43 LOADB                            R14 0
-       44 CALL                             R13 1 1
-       45 GETUPVAL                         R14 5
-       46 GETTABLEKS                       R14 R14 K1 ["useState"]
-       48 LOADB                            R15 0
-       49 CALL                             R14 1 2
-       50 GETUPVAL                         R16 5
-       51 GETTABLEKS                       R16 R16 K1 ["useState"]
-       53 LOADB                            R17 0
-       54 CALL                             R16 1 2
-       55 GETUPVAL                         R18 5
-       56 GETTABLEKS                       R18 R18 K4 ["useEffect"]
-       58 NEWCLOSURE                       R19 P0
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R6
-       62 CAPTURE                          VAL R17
-       63 NEWTABLE                         R20 0 1
-       65 GETTABLEKS                       R21 R0 K5 ["findActivationData"]
-       67 SETLIST                          R20 R21 1 [1]
-       69 CALL                             R18 2 0
-       70 GETUPVAL                         R18 5
-       71 GETTABLEKS                       R18 R18 K4 ["useEffect"]
-       73 NEWCLOSURE                       R19 P1
-       74 CAPTURE                          VAL R13
-       75 CAPTURE                          VAL R17
-       76 NEWTABLE                         R20 0 1
-       78 GETTABLEKS                       R21 R13 K6 ["enabled"]
-       80 SETLIST                          R20 R21 1 [1]
-       82 CALL                             R18 2 0
-       83 GETUPVAL                         R18 5
-       84 GETTABLEKS                       R18 R18 K7 ["useMemo"]
-       86 DUPCLOSURE                       R19 K8 [PROTO_2]
-       87 NEWTABLE                         R20 0 0
-       89 CALL                             R18 2 1
-       90 GETUPVAL                         R19 5
-       91 GETTABLEKS                       R19 R19 K7 ["useMemo"]
-       93 NEWCLOSURE                       R20 P3
-       94 CAPTURE                          VAL R11
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          VAL R12
-       97 CAPTURE                          VAL R13
-       98 NEWTABLE                         R21 0 3
-      100 GETTABLEKS                       R22 R11 K6 ["enabled"]
-      102 GETTABLEKS                       R23 R12 K6 ["enabled"]
-      104 GETTABLEKS                       R24 R13 K6 ["enabled"]
-      106 SETLIST                          R21 R22 3 [1]
-      108 CALL                             R19 2 1
-      109 GETUPVAL                         R20 5
-      110 GETTABLEKS                       R20 R20 K7 ["useMemo"]
-      112 NEWCLOSURE                       R21 P4
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R14
-      115 CAPTURE                          VAL R0
-      116 NEWTABLE                         R22 0 2
-      118 MOVE                             R23 R14
-      119 GETTABLEKS                       R24 R0 K9 ["showReplace"]
-      121 SETLIST                          R22 R23 2 [1]
-      123 CALL                             R20 2 1
-      124 GETUPVAL                         R21 5
-      125 GETTABLEKS                       R21 R21 K10 ["useCallback"]
-      127 NEWCLOSURE                       R22 P5
-      128 CAPTURE                          VAL R15
-      129 CAPTURE                          VAL R0
-      130 NEWTABLE                         R23 0 0
-      132 CALL                             R21 2 1
-      133 NEWCLOSURE                       R22 P6
-      134 CAPTURE                          VAL R5
-      135 CAPTURE                          VAL R11
-      136 CAPTURE                          VAL R12
-      137 CAPTURE                          VAL R13
-      138 CAPTURE                          VAL R0
-      139 CAPTURE                          VAL R7
-      140 CAPTURE                          UPVAL U2
-      141 CAPTURE                          VAL R3
-      142 CAPTURE                          UPVAL U7
-      143 CAPTURE                          VAL R14
-      144 CAPTURE                          VAL R9
-      145 GETUPVAL                         R23 8
-      146 GETUPVAL                         R24 7
-      147 GETTABLEKS                       R24 R24 K11 ["SEARCH_QUERY_DELAY_SECONDS"]
-      149 LOADNIL                          R25
-      150 NEWCLOSURE                       R26 P7
-      151 CAPTURE                          UPVAL U9
-      152 CAPTURE                          VAL R22
-      153 CAPTURE                          VAL R13
-      154 CAPTURE                          VAL R17
-      155 CAPTURE                          VAL R0
-      156 CALL                             R23 3 1
-      157 GETUPVAL                         R24 5
-      158 GETTABLEKS                       R24 R24 K4 ["useEffect"]
-      160 NEWCLOSURE                       R25 P8
-      161 CAPTURE                          VAL R0
-      162 CAPTURE                          VAL R23
-      163 NEWTABLE                         R26 0 5
-      165 MOVE                             R27 R9
-      166 GETTABLEKS                       R28 R11 K6 ["enabled"]
-      168 GETTABLEKS                       R29 R12 K6 ["enabled"]
-      170 GETTABLEKS                       R30 R13 K6 ["enabled"]
-      172 MOVE                             R31 R14
-      173 SETLIST                          R26 R27 5 [1]
-      175 CALL                             R24 2 0
-      176 GETUPVAL                         R24 5
-      177 GETTABLEKS                       R24 R24 K4 ["useEffect"]
-      179 NEWCLOSURE                       R25 P9
-      180 CAPTURE                          VAL R4
-      181 CAPTURE                          VAL R0
-      182 CAPTURE                          VAL R23
-      183 NEWTABLE                         R26 0 1
-      185 MOVE                             R27 R5
-      186 SETLIST                          R26 R27 1 [1]
-      188 CALL                             R24 2 0
-      189 GETUPVAL                         R24 5
-      190 GETTABLEKS                       R24 R24 K4 ["useEffect"]
-      192 NEWCLOSURE                       R25 P10
-      193 CAPTURE                          VAL R23
-      194 CAPTURE                          VAL R0
-      195 NEWTABLE                         R26 0 2
-      197 MOVE                             R27 R7
-      198 GETTABLEKS                       R28 R0 K9 ["showReplace"]
-      200 SETLIST                          R26 R27 2 [1]
-      202 CALL                             R24 2 0
-      203 GETUPVAL                         R24 5
-      204 GETTABLEKS                       R24 R24 K10 ["useCallback"]
-      206 NEWCLOSURE                       R25 P11
-      207 CAPTURE                          VAL R0
-      208 CAPTURE                          VAL R23
-      209 NEWTABLE                         R26 0 1
-      211 MOVE                             R27 R23
-      212 SETLIST                          R26 R27 1 [1]
-      214 CALL                             R24 2 1
-      215 GETUPVAL                         R25 5
-      216 GETTABLEKS                       R25 R25 K4 ["useEffect"]
-      218 NEWCLOSURE                       R26 P12
-      219 CAPTURE                          VAL R0
-      220 CAPTURE                          VAL R23
-      221 NEWTABLE                         R27 0 1
-      223 GETTABLEKS                       R28 R0 K6 ["enabled"]
-      225 SETLIST                          R27 R28 1 [1]
-      227 CALL                             R25 2 0
-      228 GETUPVAL                         R25 10
-      229 LOADK                            R26 K12 ["Frame"]
-      230 NEWTABLE                         R27 4 0
-      232 GETTABLEKS                       R28 R0 K13 ["ZIndex"]
-      234 SETTABLEKS                       R28 R27 K13 ["ZIndex"]
-      236 LOADN                            R28 1
-      237 SETTABLEKS                       R28 R27 K14 ["BackgroundTransparency"]
-      239 GETUPVAL                         R28 5
-      240 GETTABLEKS                       R28 R28 K15 ["Change"]
-      242 GETTABLEKS                       R28 R28 K16 ["AbsoluteSize"]
-      244 GETTABLEKS                       R29 R0 K17 ["onSearchHeaderSizeChange"]
-      246 SETTABLE                         R29 R27 R28
-      247 GETUPVAL                         R28 5
-      248 GETTABLEKS                       R28 R28 K18 ["Tag"]
-      250 LOADK                            R29 K19 ["FindReplaceAll-SidePadM X-FitY X-Column X-Top data-testid=WidgetHeaderFrame"]
-      251 SETTABLE                         R29 R27 R28
-      252 DUPTABLE                         R28 K23 [{"SearchHeader", "IncludeFilterHeader", "ReplaceHeader"}]
-      253 GETUPVAL                         R29 10
-      254 GETUPVAL                         R30 11
-      255 DUPTABLE                         R31 K37 [{"LayoutOrder", "searchBarLeftIcon", "onSearchbarTextChanged", "searchBarPlaceholderText", "searchBarToggleOptions", "settingsDropdownItemData", "onSettingsDropdownItemClicked", "Visible", "dropdownOverlay", "hasError", "searchText", "textBoxRef", "onSearchRequested"}]
-      256 MOVE                             R32 R2
-      257 CALL                             R32 0 1
-      258 SETTABLEKS                       R32 R31 K24 ["LayoutOrder"]
-      260 SETTABLEKS                       R18 R31 K25 ["searchBarLeftIcon"]
-      262 SETTABLEKS                       R6 R31 K26 ["onSearchbarTextChanged"]
-      264 LOADK                            R34 K38 ["SearchSection"]
-      265 LOADK                            R35 K39 ["PlaceholderText"]
-      266 NAMECALL                         R32 R1 K40 ["getText"]
-      268 CALL                             R32 3 1
-      269 SETTABLEKS                       R32 R31 K27 ["searchBarPlaceholderText"]
-      271 SETTABLEKS                       R19 R31 K28 ["searchBarToggleOptions"]
-      273 SETTABLEKS                       R20 R31 K29 ["settingsDropdownItemData"]
-      275 SETTABLEKS                       R21 R31 K30 ["onSettingsDropdownItemClicked"]
-      277 LOADB                            R32 1
-      278 SETTABLEKS                       R32 R31 K31 ["Visible"]
-      280 GETTABLEKS                       R32 R0 K32 ["dropdownOverlay"]
-      282 SETTABLEKS                       R32 R31 K32 ["dropdownOverlay"]
-      284 SETTABLEKS                       R16 R31 K33 ["hasError"]
-      286 GETTABLEKS                       R33 R0 K5 ["findActivationData"]
-      288 JUMPIFNOT                        R33 ; [+5]
-      289 GETTABLEKS                       R32 R0 K5 ["findActivationData"]
-      291 GETTABLEKS                       R32 R32 K34 ["searchText"]
-      293 JUMPIF                           R32 ; [+1]
-      294 LOADNIL                          R32
-      295 SETTABLEKS                       R32 R31 K34 ["searchText"]
-      297 GETTABLEKS                       R32 R0 K35 ["textBoxRef"]
-      299 SETTABLEKS                       R32 R31 K35 ["textBoxRef"]
-      301 SETTABLEKS                       R24 R31 K36 ["onSearchRequested"]
-      303 CALL                             R29 2 1
-      304 SETTABLEKS                       R29 R28 K20 ["SearchHeader"]
-      306 GETUPVAL                         R29 10
-      307 GETUPVAL                         R30 11
-      308 DUPTABLE                         R31 K41 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
-      309 MOVE                             R32 R2
-      310 CALL                             R32 0 1
-      311 SETTABLEKS                       R32 R31 K24 ["LayoutOrder"]
-      313 SETTABLEKS                       R10 R31 K26 ["onSearchbarTextChanged"]
-      315 LOADK                            R34 K42 ["FilterSection"]
-      316 LOADK                            R35 K39 ["PlaceholderText"]
-      317 NAMECALL                         R32 R1 K40 ["getText"]
-      319 CALL                             R32 3 1
-      320 SETTABLEKS                       R32 R31 K27 ["searchBarPlaceholderText"]
-      322 SETTABLEKS                       R14 R31 K31 ["Visible"]
-      324 GETTABLEKS                       R32 R0 K32 ["dropdownOverlay"]
-      326 SETTABLEKS                       R32 R31 K32 ["dropdownOverlay"]
-      328 CALL                             R29 2 1
-      329 SETTABLEKS                       R29 R28 K21 ["IncludeFilterHeader"]
-      331 GETUPVAL                         R29 10
-      332 GETUPVAL                         R30 11
-      333 DUPTABLE                         R31 K41 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
-      334 MOVE                             R32 R2
-      335 CALL                             R32 0 1
-      336 SETTABLEKS                       R32 R31 K24 ["LayoutOrder"]
-      338 SETTABLEKS                       R8 R31 K26 ["onSearchbarTextChanged"]
-      340 LOADK                            R34 K43 ["SearchSettingsDropdown"]
-      341 LOADK                            R35 K44 ["Replace"]
-      342 NAMECALL                         R32 R1 K40 ["getText"]
-      344 CALL                             R32 3 1
-      345 SETTABLEKS                       R32 R31 K27 ["searchBarPlaceholderText"]
-      347 GETTABLEKS                       R32 R0 K9 ["showReplace"]
-      349 SETTABLEKS                       R32 R31 K31 ["Visible"]
-      351 GETTABLEKS                       R32 R0 K32 ["dropdownOverlay"]
-      353 SETTABLEKS                       R32 R31 K32 ["dropdownOverlay"]
-      355 CALL                             R29 2 1
-      356 SETTABLEKS                       R29 R28 K22 ["ReplaceHeader"]
-      358 CALL                             R25 3 -1
-      359 RETURN                           R25 -1
+        6 GETUPVAL                         R3 2
+        7 CALL                             R3 0 1
+        8 GETUPVAL                         R4 3
+        9 CALL                             R4 0 1
+       10 GETUPVAL                         R5 4
+       11 GETTABLEKS                       R5 R5 K1 ["useState"]
+       13 LOADK                            R6 K2 [""]
+       14 CALL                             R5 1 2
+       15 GETUPVAL                         R7 4
+       16 GETTABLEKS                       R7 R7 K1 ["useState"]
+       18 LOADK                            R8 K2 [""]
+       19 CALL                             R7 1 2
+       20 GETUPVAL                         R9 4
+       21 GETTABLEKS                       R9 R9 K1 ["useState"]
+       23 LOADK                            R10 K2 [""]
+       24 CALL                             R9 1 2
+       25 GETUPVAL                         R11 5
+       26 GETTABLEKS                       R11 R11 K3 ["useToggleState"]
+       28 LOADB                            R12 0
+       29 CALL                             R11 1 1
+       30 GETUPVAL                         R12 5
+       31 GETTABLEKS                       R12 R12 K3 ["useToggleState"]
+       33 LOADB                            R13 0
+       34 CALL                             R12 1 1
+       35 GETUPVAL                         R13 5
+       36 GETTABLEKS                       R13 R13 K3 ["useToggleState"]
+       38 LOADB                            R14 0
+       39 CALL                             R13 1 1
+       40 GETUPVAL                         R14 4
+       41 GETTABLEKS                       R14 R14 K1 ["useState"]
+       43 LOADB                            R15 0
+       44 CALL                             R14 1 2
+       45 GETUPVAL                         R16 4
+       46 GETTABLEKS                       R16 R16 K1 ["useState"]
+       48 LOADB                            R17 0
+       49 CALL                             R16 1 2
+       50 GETUPVAL                         R18 4
+       51 GETTABLEKS                       R18 R18 K4 ["useEffect"]
+       53 NEWCLOSURE                       R19 P0
+       54 CAPTURE                          VAL R0
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R17
+       58 NEWTABLE                         R20 0 1
+       60 GETTABLEKS                       R21 R0 K5 ["findActivationData"]
+       62 SETLIST                          R20 R21 1 [1]
+       64 CALL                             R18 2 0
+       65 GETUPVAL                         R18 4
+       66 GETTABLEKS                       R18 R18 K4 ["useEffect"]
+       68 NEWCLOSURE                       R19 P1
+       69 CAPTURE                          VAL R13
+       70 CAPTURE                          VAL R17
+       71 NEWTABLE                         R20 0 1
+       73 GETTABLEKS                       R21 R13 K6 ["enabled"]
+       75 SETLIST                          R20 R21 1 [1]
+       77 CALL                             R18 2 0
+       78 GETUPVAL                         R18 4
+       79 GETTABLEKS                       R18 R18 K7 ["useMemo"]
+       81 DUPCLOSURE                       R19 K8 [PROTO_2]
+       82 NEWTABLE                         R20 0 0
+       84 CALL                             R18 2 1
+       85 GETUPVAL                         R19 4
+       86 GETTABLEKS                       R19 R19 K7 ["useMemo"]
+       88 NEWCLOSURE                       R20 P3
+       89 CAPTURE                          VAL R11
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R13
+       93 NEWTABLE                         R21 0 3
+       95 GETTABLEKS                       R22 R11 K6 ["enabled"]
+       97 GETTABLEKS                       R23 R12 K6 ["enabled"]
+       99 GETTABLEKS                       R24 R13 K6 ["enabled"]
+      101 SETLIST                          R21 R22 3 [1]
+      103 CALL                             R19 2 1
+      104 GETUPVAL                         R20 4
+      105 GETTABLEKS                       R20 R20 K7 ["useMemo"]
+      107 NEWCLOSURE                       R21 P4
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R0
+      111 NEWTABLE                         R22 0 2
+      113 MOVE                             R23 R14
+      114 GETTABLEKS                       R24 R0 K9 ["showReplace"]
+      116 SETLIST                          R22 R23 2 [1]
+      118 CALL                             R20 2 1
+      119 GETUPVAL                         R21 4
+      120 GETTABLEKS                       R21 R21 K10 ["useCallback"]
+      122 NEWCLOSURE                       R22 P5
+      123 CAPTURE                          VAL R15
+      124 CAPTURE                          VAL R0
+      125 NEWTABLE                         R23 0 0
+      127 CALL                             R21 2 1
+      128 NEWCLOSURE                       R22 P6
+      129 CAPTURE                          VAL R5
+      130 CAPTURE                          VAL R11
+      131 CAPTURE                          VAL R12
+      132 CAPTURE                          VAL R13
+      133 CAPTURE                          VAL R0
+      134 CAPTURE                          VAL R7
+      135 CAPTURE                          VAL R3
+      136 CAPTURE                          VAL R14
+      137 CAPTURE                          VAL R9
+      138 GETUPVAL                         R23 6
+      139 GETUPVAL                         R24 7
+      140 GETTABLEKS                       R24 R24 K11 ["SEARCH_QUERY_DELAY_SECONDS"]
+      142 LOADNIL                          R25
+      143 NEWCLOSURE                       R26 P7
+      144 CAPTURE                          UPVAL U8
+      145 CAPTURE                          VAL R22
+      146 CAPTURE                          VAL R13
+      147 CAPTURE                          VAL R17
+      148 CAPTURE                          VAL R0
+      149 CALL                             R23 3 1
+      150 GETUPVAL                         R24 4
+      151 GETTABLEKS                       R24 R24 K4 ["useEffect"]
+      153 NEWCLOSURE                       R25 P8
+      154 CAPTURE                          VAL R0
+      155 CAPTURE                          VAL R23
+      156 NEWTABLE                         R26 0 5
+      158 MOVE                             R27 R9
+      159 GETTABLEKS                       R28 R11 K6 ["enabled"]
+      161 GETTABLEKS                       R29 R12 K6 ["enabled"]
+      163 GETTABLEKS                       R30 R13 K6 ["enabled"]
+      165 MOVE                             R31 R14
+      166 SETLIST                          R26 R27 5 [1]
+      168 CALL                             R24 2 0
+      169 GETUPVAL                         R24 4
+      170 GETTABLEKS                       R24 R24 K4 ["useEffect"]
+      172 NEWCLOSURE                       R25 P9
+      173 CAPTURE                          VAL R4
+      174 CAPTURE                          VAL R0
+      175 CAPTURE                          VAL R23
+      176 NEWTABLE                         R26 0 1
+      178 MOVE                             R27 R5
+      179 SETLIST                          R26 R27 1 [1]
+      181 CALL                             R24 2 0
+      182 GETUPVAL                         R24 4
+      183 GETTABLEKS                       R24 R24 K4 ["useEffect"]
+      185 NEWCLOSURE                       R25 P10
+      186 CAPTURE                          VAL R23
+      187 CAPTURE                          VAL R0
+      188 NEWTABLE                         R26 0 2
+      190 MOVE                             R27 R7
+      191 GETTABLEKS                       R28 R0 K9 ["showReplace"]
+      193 SETLIST                          R26 R27 2 [1]
+      195 CALL                             R24 2 0
+      196 GETUPVAL                         R24 4
+      197 GETTABLEKS                       R24 R24 K10 ["useCallback"]
+      199 NEWCLOSURE                       R25 P11
+      200 CAPTURE                          VAL R0
+      201 CAPTURE                          VAL R23
+      202 NEWTABLE                         R26 0 1
+      204 MOVE                             R27 R23
+      205 SETLIST                          R26 R27 1 [1]
+      207 CALL                             R24 2 1
+      208 GETUPVAL                         R25 4
+      209 GETTABLEKS                       R25 R25 K4 ["useEffect"]
+      211 NEWCLOSURE                       R26 P12
+      212 CAPTURE                          VAL R0
+      213 CAPTURE                          VAL R23
+      214 NEWTABLE                         R27 0 1
+      216 GETTABLEKS                       R28 R0 K6 ["enabled"]
+      218 SETLIST                          R27 R28 1 [1]
+      220 CALL                             R25 2 0
+      221 GETUPVAL                         R25 9
+      222 LOADK                            R26 K12 ["Frame"]
+      223 NEWTABLE                         R27 4 0
+      225 GETTABLEKS                       R28 R0 K13 ["ZIndex"]
+      227 SETTABLEKS                       R28 R27 K13 ["ZIndex"]
+      229 LOADN                            R28 1
+      230 SETTABLEKS                       R28 R27 K14 ["BackgroundTransparency"]
+      232 GETUPVAL                         R28 4
+      233 GETTABLEKS                       R28 R28 K15 ["Change"]
+      235 GETTABLEKS                       R28 R28 K16 ["AbsoluteSize"]
+      237 GETTABLEKS                       R29 R0 K17 ["onSearchHeaderSizeChange"]
+      239 SETTABLE                         R29 R27 R28
+      240 GETUPVAL                         R28 4
+      241 GETTABLEKS                       R28 R28 K18 ["Tag"]
+      243 LOADK                            R29 K19 ["FindReplaceAll-SidePadM X-FitY X-Column X-Top data-testid=WidgetHeaderFrame"]
+      244 SETTABLE                         R29 R27 R28
+      245 DUPTABLE                         R28 K23 [{"SearchHeader", "IncludeFilterHeader", "ReplaceHeader"}]
+      246 GETUPVAL                         R29 9
+      247 GETUPVAL                         R30 10
+      248 DUPTABLE                         R31 K37 [{"LayoutOrder", "searchBarLeftIcon", "onSearchbarTextChanged", "searchBarPlaceholderText", "searchBarToggleOptions", "settingsDropdownItemData", "onSettingsDropdownItemClicked", "Visible", "dropdownOverlay", "hasError", "searchText", "textBoxRef", "onSearchRequested"}]
+      249 MOVE                             R32 R2
+      250 CALL                             R32 0 1
+      251 SETTABLEKS                       R32 R31 K24 ["LayoutOrder"]
+      253 SETTABLEKS                       R18 R31 K25 ["searchBarLeftIcon"]
+      255 SETTABLEKS                       R6 R31 K26 ["onSearchbarTextChanged"]
+      257 LOADK                            R34 K38 ["SearchSection"]
+      258 LOADK                            R35 K39 ["PlaceholderText"]
+      259 NAMECALL                         R32 R1 K40 ["getText"]
+      261 CALL                             R32 3 1
+      262 SETTABLEKS                       R32 R31 K27 ["searchBarPlaceholderText"]
+      264 SETTABLEKS                       R19 R31 K28 ["searchBarToggleOptions"]
+      266 SETTABLEKS                       R20 R31 K29 ["settingsDropdownItemData"]
+      268 SETTABLEKS                       R21 R31 K30 ["onSettingsDropdownItemClicked"]
+      270 LOADB                            R32 1
+      271 SETTABLEKS                       R32 R31 K31 ["Visible"]
+      273 GETTABLEKS                       R32 R0 K32 ["dropdownOverlay"]
+      275 SETTABLEKS                       R32 R31 K32 ["dropdownOverlay"]
+      277 SETTABLEKS                       R16 R31 K33 ["hasError"]
+      279 GETTABLEKS                       R33 R0 K5 ["findActivationData"]
+      281 JUMPIFNOT                        R33 ; [+5]
+      282 GETTABLEKS                       R32 R0 K5 ["findActivationData"]
+      284 GETTABLEKS                       R32 R32 K34 ["searchText"]
+      286 JUMPIF                           R32 ; [+1]
+      287 LOADNIL                          R32
+      288 SETTABLEKS                       R32 R31 K34 ["searchText"]
+      290 GETTABLEKS                       R32 R0 K35 ["textBoxRef"]
+      292 SETTABLEKS                       R32 R31 K35 ["textBoxRef"]
+      294 SETTABLEKS                       R24 R31 K36 ["onSearchRequested"]
+      296 CALL                             R29 2 1
+      297 SETTABLEKS                       R29 R28 K20 ["SearchHeader"]
+      299 GETUPVAL                         R29 9
+      300 GETUPVAL                         R30 10
+      301 DUPTABLE                         R31 K41 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
+      302 MOVE                             R32 R2
+      303 CALL                             R32 0 1
+      304 SETTABLEKS                       R32 R31 K24 ["LayoutOrder"]
+      306 SETTABLEKS                       R10 R31 K26 ["onSearchbarTextChanged"]
+      308 LOADK                            R34 K42 ["FilterSection"]
+      309 LOADK                            R35 K39 ["PlaceholderText"]
+      310 NAMECALL                         R32 R1 K40 ["getText"]
+      312 CALL                             R32 3 1
+      313 SETTABLEKS                       R32 R31 K27 ["searchBarPlaceholderText"]
+      315 SETTABLEKS                       R14 R31 K31 ["Visible"]
+      317 GETTABLEKS                       R32 R0 K32 ["dropdownOverlay"]
+      319 SETTABLEKS                       R32 R31 K32 ["dropdownOverlay"]
+      321 CALL                             R29 2 1
+      322 SETTABLEKS                       R29 R28 K21 ["IncludeFilterHeader"]
+      324 GETUPVAL                         R29 9
+      325 GETUPVAL                         R30 10
+      326 DUPTABLE                         R31 K41 [{"LayoutOrder", "onSearchbarTextChanged", "searchBarPlaceholderText", "Visible", "dropdownOverlay"}]
+      327 MOVE                             R32 R2
+      328 CALL                             R32 0 1
+      329 SETTABLEKS                       R32 R31 K24 ["LayoutOrder"]
+      331 SETTABLEKS                       R8 R31 K26 ["onSearchbarTextChanged"]
+      333 LOADK                            R34 K43 ["SearchSettingsDropdown"]
+      334 LOADK                            R35 K44 ["Replace"]
+      335 NAMECALL                         R32 R1 K40 ["getText"]
+      337 CALL                             R32 3 1
+      338 SETTABLEKS                       R32 R31 K27 ["searchBarPlaceholderText"]
+      340 GETTABLEKS                       R32 R0 K9 ["showReplace"]
+      342 SETTABLEKS                       R32 R31 K31 ["Visible"]
+      344 GETTABLEKS                       R32 R0 K32 ["dropdownOverlay"]
+      346 SETTABLEKS                       R32 R31 K32 ["dropdownOverlay"]
+      348 CALL                             R29 2 1
+      349 SETTABLEKS                       R29 R28 K22 ["ReplaceHeader"]
+      351 CALL                             R25 3 -1
+      352 RETURN                           R25 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -634,27 +621,20 @@ MAIN:
        92 GETTABLEKS                       R12 R12 K23 ["useLiveSearchingSetting"]
        94 CALL                             R11 1 1
        95 GETIMPORT                        R12 K5 [require]
-       97 GETTABLEKS                       R13 R0 K24 ["Bin"]
-       99 GETTABLEKS                       R13 R13 K25 ["Common"]
-      101 GETTABLEKS                       R13 R13 K26 ["defineLuaFlags"]
-      103 CALL                             R12 1 1
-      104 GETTABLEKS                       R13 R12 K27 ["getFFlagEnableFindReplaceAllMaxResultsSetting"]
-      106 GETIMPORT                        R14 K5 [require]
-      108 GETTABLEKS                       R15 R0 K6 ["Src"]
-      110 GETTABLEKS                       R15 R15 K28 ["Types"]
-      112 CALL                             R14 1 1
-      113 GETTABLEKS                       R15 R2 K29 ["createElement"]
-      115 DUPCLOSURE                       R16 K30 [PROTO_15]
-      116 CAPTURE                          VAL R5
-      117 CAPTURE                          VAL R6
-      118 CAPTURE                          VAL R13
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R11
-      121 CAPTURE                          VAL R2
-      122 CAPTURE                          VAL R3
-      123 CAPTURE                          VAL R9
-      124 CAPTURE                          VAL R7
-      125 CAPTURE                          VAL R1
-      126 CAPTURE                          VAL R15
-      127 CAPTURE                          VAL R8
-      128 RETURN                           R16 1
+       97 GETTABLEKS                       R13 R0 K6 ["Src"]
+       99 GETTABLEKS                       R13 R13 K24 ["Types"]
+      101 CALL                             R12 1 1
+      102 GETTABLEKS                       R13 R2 K25 ["createElement"]
+      104 DUPCLOSURE                       R14 K26 [PROTO_15]
+      105 CAPTURE                          VAL R5
+      106 CAPTURE                          VAL R6
+      107 CAPTURE                          VAL R10
+      108 CAPTURE                          VAL R11
+      109 CAPTURE                          VAL R2
+      110 CAPTURE                          VAL R3
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R9
+      113 CAPTURE                          VAL R1
+      114 CAPTURE                          VAL R13
+      115 CAPTURE                          VAL R8
+      116 RETURN                           R14 1

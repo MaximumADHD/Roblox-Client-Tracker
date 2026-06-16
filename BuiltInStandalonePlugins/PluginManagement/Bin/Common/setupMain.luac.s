@@ -153,21 +153,21 @@ PROTO_6:
        37 GETUPVAL                         R7 5
        38 CALL                             R7 0 1
        39 GETIMPORT                        R8 K4 [require]
-       41 GETIMPORT                        R9 K11 [script]
-       43 GETTABLEKS                       R9 R9 K12 ["Parent"]
-       45 GETTABLEKS                       R9 R9 K13 ["runPluginManagementPlugin"]
-       47 CALL                             R8 1 1
-       48 MOVE                             R9 R8
-       49 MOVE                             R10 R0
-       50 MOVE                             R11 R2
-       51 MOVE                             R12 R3
-       52 MOVE                             R13 R4
-       53 MOVE                             R14 R5
-       54 MOVE                             R15 R6
-       55 MOVE                             R16 R7
-       56 MOVE                             R17 R1
-       57 CALL                             R9 8 0
-       58 RETURN                           R0 0
+       41 GETUPVAL                         R9 2
+       42 GETTABLEKS                       R9 R9 K5 ["Src"]
+       44 GETTABLEKS                       R9 R9 K10 ["runPluginManagementPlugin"]
+       46 CALL                             R8 1 1
+       47 MOVE                             R9 R8
+       48 MOVE                             R10 R0
+       49 MOVE                             R11 R2
+       50 MOVE                             R12 R3
+       51 MOVE                             R13 R4
+       52 MOVE                             R14 R5
+       53 MOVE                             R15 R6
+       54 MOVE                             R16 R7
+       55 MOVE                             R17 R1
+       56 CALL                             R9 8 0
+       57 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

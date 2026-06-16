@@ -85,78 +85,44 @@ PROTO_4:
         6 MOVE                             R9 R6
         7 NAMECALL                         R7 R0 K1 ["FindFirstChild"]
         9 CALL                             R7 2 1
-       10 JUMPIFEQKNIL                     R7 ; [+56]
-       12 GETUPVAL                         R8 1
-       13 CALL                             R8 0 1
-       14 JUMPIFNOT                        R8 ; [+12]
-       15 LOADK                            R10 K2 ["BasePart"]
-       16 NAMECALL                         R8 R7 K3 ["IsA"]
-       18 CALL                             R8 2 1
-       19 JUMPIFNOT                        R8 ; [+47]
-       20 GETUPVAL                         R8 2
-       21 GETTABLEKS                       R8 R8 K4 ["setAvatarPartScaleType"]
-       23 MOVE                             R9 R7
-       24 MOVE                             R10 R1
-       25 CALL                             R8 2 0
-       26 JUMP                             ; [+40]
-       27 LOADK                            R10 K5 ["AvatarPartScaleType"]
-       28 NAMECALL                         R8 R7 K1 ["FindFirstChild"]
-       30 CALL                             R8 2 1
-       31 JUMPIFNOTEQKNIL                  R8 ; [+13]
-       33 GETIMPORT                        R9 K8 [Instance.new]
-       35 LOADK                            R10 K9 ["StringValue"]
-       36 CALL                             R9 1 1
-       37 LOADK                            R10 K5 ["AvatarPartScaleType"]
-       38 SETTABLEKS                       R10 R9 K10 ["Name"]
-       40 SETTABLEKS                       R1 R9 K11 ["Value"]
-       42 SETTABLEKS                       R7 R9 K12 ["Parent"]
-       44 JUMP                             ; [+22]
-       45 LOADK                            R11 K9 ["StringValue"]
-       46 NAMECALL                         R9 R8 K3 ["IsA"]
-       48 CALL                             R9 2 1
-       49 JUMPIFNOT                        R9 ; [+17]
-       50 LOADB                            R10 0
-       51 JUMPIFEQKNIL                     R8 ; [+5]
-       53 LOADK                            R12 K9 ["StringValue"]
-       54 NAMECALL                         R10 R8 K3 ["IsA"]
-       56 CALL                             R10 2 1
-       57 GETUPVAL                         R11 0
-       58 GETTABLEKS                       R11 R11 K13 ["LUAU_ANALYZE_ERROR"]
-       60 FASTCALL2                        ASSERT R10 R11 ; [+3]
-       62 GETIMPORT                        R9 K15 [assert]
-       64 CALL                             R9 2 0
-       65 SETTABLEKS                       R1 R8 K11 ["Value"]
-       67 FORGLOOP                         R2 2 ; [-62]
-       69 GETUPVAL                         R2 1
-       70 CALL                             R2 0 1
-       71 JUMPIFNOT                        R2 ; [+35]
-       72 NAMECALL                         R2 R0 K16 ["GetChildren"]
-       74 CALL                             R2 1 3
-       75 FORGPREP                         R2
-       76 LOADK                            R9 K17 ["Accessory"]
-       77 NAMECALL                         R7 R6 K3 ["IsA"]
-       79 CALL                             R7 2 1
-       80 JUMPIFNOT                        R7 ; [+24]
-       81 LOADK                            R9 K18 ["Handle"]
-       82 NAMECALL                         R7 R6 K1 ["FindFirstChild"]
-       84 CALL                             R7 2 1
-       85 JUMPIFEQKNIL                     R7 ; [+19]
-       87 LOADK                            R10 K2 ["BasePart"]
-       88 NAMECALL                         R8 R7 K3 ["IsA"]
-       90 CALL                             R8 2 1
-       91 JUMPIFNOT                        R8 ; [+13]
-       92 GETUPVAL                         R10 0
-       93 GETTABLEKS                       R10 R10 K19 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
-       95 NAMECALL                         R8 R7 K20 ["GetAttribute"]
-       97 CALL                             R8 2 1
-       98 JUMPIFNOT                        R8 ; [+6]
-       99 GETUPVAL                         R8 2
-      100 GETTABLEKS                       R8 R8 K4 ["setAvatarPartScaleType"]
-      102 MOVE                             R9 R7
-      103 MOVE                             R10 R1
-      104 CALL                             R8 2 0
-      105 FORGLOOP                         R2 2 ; [-30]
-      107 RETURN                           R0 0
+       10 JUMPIFEQKNIL                     R7 ; [+12]
+       12 LOADK                            R10 K2 ["BasePart"]
+       13 NAMECALL                         R8 R7 K3 ["IsA"]
+       15 CALL                             R8 2 1
+       16 JUMPIFNOT                        R8 ; [+6]
+       17 GETUPVAL                         R8 1
+       18 GETTABLEKS                       R8 R8 K4 ["setAvatarPartScaleType"]
+       20 MOVE                             R9 R7
+       21 MOVE                             R10 R1
+       22 CALL                             R8 2 0
+       23 FORGLOOP                         R2 2 ; [-18]
+       25 NAMECALL                         R2 R0 K5 ["GetChildren"]
+       27 CALL                             R2 1 3
+       28 FORGPREP                         R2
+       29 LOADK                            R9 K6 ["Accessory"]
+       30 NAMECALL                         R7 R6 K3 ["IsA"]
+       32 CALL                             R7 2 1
+       33 JUMPIFNOT                        R7 ; [+24]
+       34 LOADK                            R9 K7 ["Handle"]
+       35 NAMECALL                         R7 R6 K1 ["FindFirstChild"]
+       37 CALL                             R7 2 1
+       38 JUMPIFEQKNIL                     R7 ; [+19]
+       40 LOADK                            R10 K2 ["BasePart"]
+       41 NAMECALL                         R8 R7 K3 ["IsA"]
+       43 CALL                             R8 2 1
+       44 JUMPIFNOT                        R8 ; [+13]
+       45 GETUPVAL                         R10 0
+       46 GETTABLEKS                       R10 R10 K8 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+       48 NAMECALL                         R8 R7 K9 ["GetAttribute"]
+       50 CALL                             R8 2 1
+       51 JUMPIFNOT                        R8 ; [+6]
+       52 GETUPVAL                         R8 1
+       53 GETTABLEKS                       R8 R8 K4 ["setAvatarPartScaleType"]
+       55 MOVE                             R9 R7
+       56 MOVE                             R10 R1
+       57 CALL                             R8 2 0
+       58 FORGLOOP                         R2 2 ; [-30]
+       60 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -178,52 +144,46 @@ MAIN:
        27 GETTABLEKS                       R4 R0 K6 ["Src"]
        29 GETTABLEKS                       R4 R4 K10 ["Types"]
        31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K6 ["Src"]
-       36 GETTABLEKS                       R5 R5 K11 ["Flags"]
-       38 GETTABLEKS                       R5 R5 K12 ["getFFlagFixLayeredClothingAssignment"]
-       40 CALL                             R4 1 1
-       41 NEWTABLE                         R5 8 0
-       43 DUPCLOSURE                       R6 K13 [PROTO_0]
-       44 DUPTABLE                         R7 K17 [{"Classic", "ProportionsSlender", "ProportionsNormal"}]
-       45 DUPTABLE                         R9 K21 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-       46 LOADN                            R10 0
-       47 SETTABLEKS                       R10 R9 K18 ["BodyTypeScale"]
-       49 LOADN                            R10 0
-       50 SETTABLEKS                       R10 R9 K19 ["BodyProportionScale"]
-       52 LOADK                            R10 K22 [5.25]
-       53 SETTABLEKS                       R10 R9 K20 ["GuessMaxHeight"]
-       55 MOVE                             R8 R9
-       56 SETTABLEKS                       R8 R7 K14 ["Classic"]
-       58 DUPTABLE                         R9 K21 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-       59 LOADN                            R10 1
-       60 SETTABLEKS                       R10 R9 K18 ["BodyTypeScale"]
-       62 LOADN                            R10 1
-       63 SETTABLEKS                       R10 R9 K19 ["BodyProportionScale"]
-       65 LOADK                            R10 K23 [5.625]
-       66 SETTABLEKS                       R10 R9 K20 ["GuessMaxHeight"]
-       68 MOVE                             R8 R9
-       69 SETTABLEKS                       R8 R7 K15 ["ProportionsSlender"]
-       71 DUPTABLE                         R9 K21 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-       72 LOADN                            R10 1
-       73 SETTABLEKS                       R10 R9 K18 ["BodyTypeScale"]
-       75 LOADN                            R10 0
-       76 SETTABLEKS                       R10 R9 K19 ["BodyProportionScale"]
-       78 LOADK                            R10 K24 [∞]
-       79 SETTABLEKS                       R10 R9 K20 ["GuessMaxHeight"]
-       81 MOVE                             R8 R9
-       82 SETTABLEKS                       R8 R7 K16 ["ProportionsNormal"]
-       84 SETTABLEKS                       R7 R5 K25 ["types"]
-       86 DUPCLOSURE                       R7 K26 [PROTO_1]
-       87 CAPTURE                          VAL R1
-       88 SETTABLEKS                       R7 R5 K27 ["allAvatarPartScaleTypeValueObjects"]
-       90 DUPCLOSURE                       R7 K28 [PROTO_2]
-       91 SETTABLEKS                       R7 R5 K29 ["computeAvatarPartScaleType"]
-       93 DUPCLOSURE                       R7 K30 [PROTO_3]
-       94 SETTABLEKS                       R7 R5 K31 ["getAvatarPartScaleType"]
-       96 DUPCLOSURE                       R7 K32 [PROTO_4]
-       97 CAPTURE                          VAL R1
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R2
-      100 SETTABLEKS                       R7 R5 K33 ["setAvatarPartScaleTypeValueObjects"]
-      102 RETURN                           R5 1
+       32 NEWTABLE                         R4 8 0
+       34 DUPCLOSURE                       R5 K11 [PROTO_0]
+       35 DUPTABLE                         R6 K15 [{"Classic", "ProportionsSlender", "ProportionsNormal"}]
+       36 DUPTABLE                         R8 K19 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
+       37 LOADN                            R9 0
+       38 SETTABLEKS                       R9 R8 K16 ["BodyTypeScale"]
+       40 LOADN                            R9 0
+       41 SETTABLEKS                       R9 R8 K17 ["BodyProportionScale"]
+       43 LOADK                            R9 K20 [5.25]
+       44 SETTABLEKS                       R9 R8 K18 ["GuessMaxHeight"]
+       46 MOVE                             R7 R8
+       47 SETTABLEKS                       R7 R6 K12 ["Classic"]
+       49 DUPTABLE                         R8 K19 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
+       50 LOADN                            R9 1
+       51 SETTABLEKS                       R9 R8 K16 ["BodyTypeScale"]
+       53 LOADN                            R9 1
+       54 SETTABLEKS                       R9 R8 K17 ["BodyProportionScale"]
+       56 LOADK                            R9 K21 [5.625]
+       57 SETTABLEKS                       R9 R8 K18 ["GuessMaxHeight"]
+       59 MOVE                             R7 R8
+       60 SETTABLEKS                       R7 R6 K13 ["ProportionsSlender"]
+       62 DUPTABLE                         R8 K19 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
+       63 LOADN                            R9 1
+       64 SETTABLEKS                       R9 R8 K16 ["BodyTypeScale"]
+       66 LOADN                            R9 0
+       67 SETTABLEKS                       R9 R8 K17 ["BodyProportionScale"]
+       69 LOADK                            R9 K22 [∞]
+       70 SETTABLEKS                       R9 R8 K18 ["GuessMaxHeight"]
+       72 MOVE                             R7 R8
+       73 SETTABLEKS                       R7 R6 K14 ["ProportionsNormal"]
+       75 SETTABLEKS                       R6 R4 K23 ["types"]
+       77 DUPCLOSURE                       R6 K24 [PROTO_1]
+       78 CAPTURE                          VAL R1
+       79 SETTABLEKS                       R6 R4 K25 ["allAvatarPartScaleTypeValueObjects"]
+       81 DUPCLOSURE                       R6 K26 [PROTO_2]
+       82 SETTABLEKS                       R6 R4 K27 ["computeAvatarPartScaleType"]
+       84 DUPCLOSURE                       R6 K28 [PROTO_3]
+       85 SETTABLEKS                       R6 R4 K29 ["getAvatarPartScaleType"]
+       87 DUPCLOSURE                       R6 K30 [PROTO_4]
+       88 CAPTURE                          VAL R1
+       89 CAPTURE                          VAL R2
+       90 SETTABLEKS                       R6 R4 K31 ["setAvatarPartScaleTypeValueObjects"]
+       92 RETURN                           R4 1

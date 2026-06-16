@@ -56,9 +56,26 @@ PROTO_0:
        74 NAMECALL                         R5 R0 K1 ["dispatch"]
        76 CALL                             R5 -1 0
        77 GETUPVAL                         R5 9
-       78 GETTABLEKS                       R5 R5 K16 ["clearMicrobones"]
-       80 CALL                             R5 0 0
-       81 RETURN                           R0 0
+       78 CALL                             R5 0 1
+       79 JUMPIFNOT                        R5 ; [+25]
+       80 GETTABLEKS                       R5 R1 K5 ["Status"]
+       82 GETTABLEKS                       R5 R5 K16 ["RootCFrame"]
+       84 JUMPIFNOT                        R5 ; [+8]
+       85 GETTABLEKS                       R5 R3 K17 ["PrimaryPart"]
+       87 GETTABLEKS                       R6 R1 K5 ["Status"]
+       89 GETTABLEKS                       R6 R6 K16 ["RootCFrame"]
+       91 SETTABLEKS                       R6 R5 K18 ["CFrame"]
+       93 GETTABLEKS                       R5 R1 K5 ["Status"]
+       95 GETTABLEKS                       R5 R5 K19 ["RootCFrameSignal"]
+       97 JUMPIFNOT                        R5 ; [+7]
+       98 GETTABLEKS                       R5 R1 K5 ["Status"]
+      100 GETTABLEKS                       R5 R5 K19 ["RootCFrameSignal"]
+      102 NAMECALL                         R5 R5 K20 ["Disconnect"]
+      104 CALL                             R5 1 0
+      105 GETUPVAL                         R5 10
+      106 GETTABLEKS                       R5 R5 K21 ["clearMicrobones"]
+      108 CALL                             R5 0 0
+      109 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R2 P0
@@ -72,7 +89,8 @@ PROTO_1:
         8 CAPTURE                          VAL R0
         9 CAPTURE                          VAL R1
        10 CAPTURE                          UPVAL U7
-       11 RETURN                           R2 1
+       11 CAPTURE                          UPVAL U8
+       12 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -119,13 +137,18 @@ MAIN:
        71 GETTABLEKS                       R9 R1 K21 ["LuaFlags"]
        73 GETTABLEKS                       R9 R9 K22 ["GetFFlagKeepHistoryService"]
        75 CALL                             R8 1 1
-       76 DUPCLOSURE                       R9 K23 [PROTO_1]
-       77 CAPTURE                          VAL R5
-       78 CAPTURE                          VAL R6
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          VAL R8
-       81 CAPTURE                          VAL R0
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R4
-       85 RETURN                           R9 1
+       76 GETIMPORT                        R9 K9 [require]
+       78 GETTABLEKS                       R10 R1 K21 ["LuaFlags"]
+       80 GETTABLEKS                       R10 R10 K23 ["GetFFlagRootMotion"]
+       82 CALL                             R9 1 1
+       83 DUPCLOSURE                       R10 K24 [PROTO_1]
+       84 CAPTURE                          VAL R5
+       85 CAPTURE                          VAL R6
+       86 CAPTURE                          VAL R2
+       87 CAPTURE                          VAL R8
+       88 CAPTURE                          VAL R0
+       89 CAPTURE                          VAL R3
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          VAL R4
+       93 RETURN                           R10 1

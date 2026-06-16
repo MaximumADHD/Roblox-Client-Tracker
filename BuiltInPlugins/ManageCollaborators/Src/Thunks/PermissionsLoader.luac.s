@@ -112,7 +112,7 @@ PROTO_4:
        12 NAMECALL                         R2 R2 K2 ["getCreatorType"]
        14 CALL                             R2 2 1
        15 GETUPVAL                         R4 2
-       16 GETTABLEKS                       R4 R4 K3 ["fflagOwnerRolesetDeprecation"]
+       16 GETTABLEKS                       R4 R4 K3 ["fflagOwnerRolesetDeprecation2"]
        18 JUMPIFNOT                        R4 ; [+10]
        19 GETIMPORT                        R4 K7 [Enum.CreatorType.Group]
        21 JUMPIFNOTEQ                      R2 R4 ; [+7]
@@ -123,7 +123,7 @@ PROTO_4:
        28 JUMP                             ; [+1]
        29 LOADNIL                          R3
        30 GETUPVAL                         R5 2
-       31 GETTABLEKS                       R5 R5 K3 ["fflagOwnerRolesetDeprecation"]
+       31 GETTABLEKS                       R5 R5 K3 ["fflagOwnerRolesetDeprecation2"]
        33 JUMPIFNOT                        R5 ; [+10]
        34 GETIMPORT                        R5 K7 [Enum.CreatorType.Group]
        36 JUMPIFNOTEQ                      R2 R5 ; [+7]
@@ -136,7 +136,7 @@ PROTO_4:
        45 LOADNIL                          R5
        46 LOADNIL                          R6
        47 GETUPVAL                         R7 2
-       48 GETTABLEKS                       R7 R7 K3 ["fflagOwnerRolesetDeprecation"]
+       48 GETTABLEKS                       R7 R7 K3 ["fflagOwnerRolesetDeprecation2"]
        50 JUMPIFNOT                        R7 ; [+13]
        51 GETUPVAL                         R7 4
        52 GETUPVAL                         R9 1

@@ -16,14 +16,14 @@ MAIN:
        24 CALL                             R2 1 1
        25 NEWTABLE                         R3 0 2
        27 DUPTABLE                         R4 K14 [{"id", "text"}]
-       28 GETTABLEKS                       R5 R2 K15 ["CREATE_BINDING_KEY_CODE"]
+       28 GETTABLEKS                       R5 R2 K15 ["CREATE_BINDING_KEYCODE"]
        30 SETTABLEKS                       R5 R4 K12 ["id"]
        32 LOADK                            R5 K16 ["Keycode"]
        33 SETTABLEKS                       R5 R4 K13 ["text"]
        35 DUPTABLE                         R5 K14 [{"id", "text"}]
-       36 GETTABLEKS                       R6 R2 K17 ["CREATE_BINDING_COMPOUND_DIRECTION"]
+       36 GETTABLEKS                       R6 R2 K17 ["CREATE_BINDING_COMPOSITE"]
        38 SETTABLEKS                       R6 R5 K12 ["id"]
-       40 LOADK                            R6 K18 ["Compound Direction"]
+       40 LOADK                            R6 K18 ["Composite"]
        41 SETTABLEKS                       R6 R5 K13 ["text"]
        43 SETLIST                          R3 R4 2 [1]
        45 RETURN                           R3 1

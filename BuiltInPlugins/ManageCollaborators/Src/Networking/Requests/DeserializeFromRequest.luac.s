@@ -325,9 +325,34 @@ PROTO_6:
         2 RETURN                           R0 0
 
 PROTO_7:
-        0 MOVE                             R1 R0
-        1 CALL                             R1 0 0
-        2 RETURN                           R0 0
+        0 GETIMPORT                        R1 K1 [pairs]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 3
+        4 FORGPREP_NEXT                    R1
+        5 GETUPVAL                         R7 0
+        6 GETUPVAL                         R8 1
+        7 GETTABLEKS                       R8 R8 K2 ["Dictionary"]
+        9 GETTABLEKS                       R8 R8 K3 ["join"]
+       11 MOVE                             R9 R5
+       12 NEWTABLE                         R10 4 0
+       14 GETUPVAL                         R11 2
+       15 GETTABLEKS                       R11 R11 K4 ["GroupId"]
+       17 GETUPVAL                         R12 3
+       18 SETTABLE                         R12 R10 R11
+       19 GETUPVAL                         R11 2
+       20 GETTABLEKS                       R11 R11 K5 ["GroupName"]
+       22 GETUPVAL                         R12 4
+       23 SETTABLE                         R12 R10 R11
+       24 GETUPVAL                         R11 2
+       25 GETTABLEKS                       R11 R11 K6 ["Action"]
+       27 LOADNIL                          R12
+       28 SETTABLE                         R12 R10 R11
+       29 CALL                             R8 2 -1
+       30 FASTCALL                         TABLE_INSERT ; [+2]
+       31 GETIMPORT                        R6 K9 [table.insert]
+       33 CALL                             R6 -1 0
+       34 FORGLOOP                         R1 2 ; [-30]
+       36 RETURN                           R0 0
 
 PROTO_8:
         0 GETIMPORT                        R1 K1 [pairs]
@@ -450,8 +475,8 @@ PROTO_9:
        82 GETIMPORT                        R8 K15 [table.insert]
        84 CALL                             R8 2 0
        85 GETUPVAL                         R8 2
-       86 GETTABLEKS                       R8 R8 K18 ["fflagOwnerRolesetDeprecation"]
-       88 JUMPIFNOT                        R8 ; [+32]
+       86 GETTABLEKS                       R8 R8 K18 ["fflagOwnerRolesetDeprecation2"]
+       88 JUMPIFNOT                        R8 ; [+41]
        89 JUMPIFNOT                        R4 ; [+25]
        90 JUMPIFEQKN                       R4 K19 [0] ; [+24]
        92 NEWTABLE                         R10 4 0
@@ -470,44 +495,67 @@ PROTO_9:
       111 MOVE                             R9 R0
       112 GETIMPORT                        R8 K15 [table.insert]
       114 CALL                             R8 2 0
-      115 GETUPVAL                         R8 1
-      116 GETTABLEKS                       R8 R8 K8 ["new"]
-      118 DUPCLOSURE                       R9 K20 [PROTO_7]
-      119 CALL                             R8 1 -1
-      120 RETURN                           R8 -1
-      121 GETUPVAL                         R8 3
-      122 GETTABLEKS                       R8 R8 K21 ["Get"]
-      124 MOVE                             R9 R2
-      125 CALL                             R8 1 1
-      126 NEWCLOSURE                       R10 P3
-      127 CAPTURE                          UPVAL U0
-      128 CAPTURE                          VAL R0
-      129 CAPTURE                          UPVAL U4
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R1
-      132 NAMECALL                         R8 R8 K22 ["andThen"]
-      134 CALL                             R8 2 -1
-      135 RETURN                           R8 -1
+      115 GETUPVAL                         R8 3
+      116 GETTABLEKS                       R8 R8 K20 ["Get"]
+      118 MOVE                             R9 R2
+      119 CALL                             R8 1 1
+      120 NEWCLOSURE                       R10 P2
+      121 CAPTURE                          VAL R0
+      122 CAPTURE                          UPVAL U4
+      123 CAPTURE                          UPVAL U0
+      124 CAPTURE                          VAL R2
+      125 CAPTURE                          VAL R1
+      126 NAMECALL                         R8 R8 K21 ["andThen"]
+      128 CALL                             R8 2 -1
+      129 RETURN                           R8 -1
+      130 GETUPVAL                         R8 3
+      131 GETTABLEKS                       R8 R8 K20 ["Get"]
+      133 MOVE                             R9 R2
+      134 CALL                             R8 1 1
+      135 NEWCLOSURE                       R10 P3
+      136 CAPTURE                          UPVAL U0
+      137 CAPTURE                          VAL R0
+      138 CAPTURE                          UPVAL U4
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          VAL R1
+      141 NAMECALL                         R8 R8 K21 ["andThen"]
+      143 CALL                             R8 2 -1
+      144 RETURN                           R8 -1
 
 PROTO_10:
         0 GETUPVAL                         R6 0
         1 GETTABLEKS                       R6 R6 K0 ["_DEPRECATEDFixEndpointKeyTypes"]
         3 MOVE                             R7 R0
         4 CALL                             R6 1 0
-        5 GETUPVAL                         R6 0
-        6 GETTABLEKS                       R6 R6 K1 ["_addOwnerIfMissing"]
-        8 MOVE                             R7 R0
-        9 MOVE                             R8 R1
-       10 MOVE                             R9 R2
-       11 MOVE                             R10 R3
-       12 MOVE                             R11 R4
-       13 MOVE                             R12 R5
-       14 CALL                             R6 6 0
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R6 R6 K2 ["_deserializeAll"]
-       18 MOVE                             R7 R0
-       19 CALL                             R6 1 2
-       20 RETURN                           R6 2
+        5 GETUPVAL                         R6 1
+        6 GETTABLEKS                       R6 R6 K1 ["fflagOwnerRolesetDeprecation2"]
+        8 JUMPIFNOT                        R6 ; [+14]
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R6 R6 K2 ["_addOwnerIfMissing"]
+       12 MOVE                             R7 R0
+       13 MOVE                             R8 R1
+       14 MOVE                             R9 R2
+       15 MOVE                             R10 R3
+       16 MOVE                             R11 R4
+       17 MOVE                             R12 R5
+       18 CALL                             R6 6 1
+       19 NAMECALL                         R6 R6 K3 ["await"]
+       21 CALL                             R6 1 0
+       22 JUMP                             ; [+11]
+       23 GETUPVAL                         R6 0
+       24 GETTABLEKS                       R6 R6 K2 ["_addOwnerIfMissing"]
+       26 MOVE                             R7 R0
+       27 MOVE                             R8 R1
+       28 MOVE                             R9 R2
+       29 MOVE                             R10 R3
+       30 CALL                             R6 4 1
+       31 NAMECALL                         R6 R6 K3 ["await"]
+       33 CALL                             R6 1 0
+       34 GETUPVAL                         R6 0
+       35 GETTABLEKS                       R6 R6 K4 ["_deserializeAll"]
+       37 MOVE                             R7 R0
+       38 CALL                             R6 1 2
+       39 RETURN                           R6 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -574,5 +622,6 @@ MAIN:
        94 SETTABLEKS                       R11 R10 K27 ["_addOwnerIfMissing"]
        96 DUPCLOSURE                       R11 K28 [PROTO_10]
        97 CAPTURE                          VAL R10
-       98 SETTABLEKS                       R11 R10 K29 ["DeserializePermissions"]
-      100 RETURN                           R10 1
+       98 CAPTURE                          VAL R4
+       99 SETTABLEKS                       R11 R10 K29 ["DeserializePermissions"]
+      101 RETURN                           R10 1

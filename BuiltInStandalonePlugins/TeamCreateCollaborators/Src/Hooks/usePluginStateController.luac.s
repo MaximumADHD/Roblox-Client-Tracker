@@ -9,7 +9,7 @@ PROTO_0:
        10 CALL                             R0 2 1
        11 NAMECALL                         R1 R0 K3 ["GetCollaborationJoinInfoAsync"]
        13 CALL                             R1 1 1
-       14 JUMPIFNOT                        R1 ; [+110]
+       14 JUMPIFNOT                        R1 ; [+115]
        15 GETTABLEKS                       R3 R1 K4 ["universeId"]
        17 FASTCALL1                        TYPEOF R3 ; [+2]
        18 GETIMPORT                        R2 K6 [typeof]
@@ -31,61 +31,65 @@ PROTO_0:
        44 GETTABLEKS                       R3 R1 K9 ["placeId"]
        46 CALL                             R2 1 0
        47 GETTABLEKS                       R2 R1 K10 ["collaborationJoinResult"]
-       49 JUMPIFNOT                        R2 ; [+75]
-       50 GETTABLEKS                       R3 R2 K11 ["success"]
-       52 JUMPIFNOTEQKB                    R3 FALSE ; [+72]
-       54 NEWTABLE                         R3 0 0
-       56 GETTABLEKS                       R4 R2 K12 ["requiresTrustedConnection"]
-       58 JUMPIFNOT                        R4 ; [+41]
-       59 GETTABLEKS                       R4 R2 K12 ["requiresTrustedConnection"]
-       61 LOADNIL                          R5
-       62 LOADNIL                          R6
-       63 FORGPREP                         R4
-       64 JUMPIFNOT                        R8 ; [+33]
-       65 GETTABLEKS                       R10 R8 K13 ["userId"]
-       67 FASTCALL1                        TYPEOF R10 ; [+2]
-       68 GETIMPORT                        R9 K6 [typeof]
-       70 CALL                             R9 1 1
-       71 JUMPIFNOTEQKS                    R9 K7 ["number"] ; [+26]
-       73 DUPTABLE                         R11 K15 [{"userId", "errorReason"}]
-       74 GETTABLEKS                       R12 R8 K13 ["userId"]
-       76 SETTABLEKS                       R12 R11 K13 ["userId"]
-       78 GETTABLEKS                       R14 R8 K14 ["errorReason"]
-       80 FASTCALL1                        TYPEOF R14 ; [+2]
-       81 GETIMPORT                        R13 K6 [typeof]
-       83 CALL                             R13 1 1
-       84 JUMPIFNOTEQKS                    R13 K16 ["string"] ; [+4]
-       86 GETTABLEKS                       R12 R8 K14 ["errorReason"]
-       88 JUMP                             ; [+1]
-       89 LOADNIL                          R12
-       90 SETTABLEKS                       R12 R11 K14 ["errorReason"]
-       92 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
-       94 MOVE                             R10 R3
-       95 GETIMPORT                        R9 K19 [table.insert]
-       97 CALL                             R9 2 0
-       98 FORGLOOP                         R4 2 ; [-35]
-      100 LENGTH                           R4 R3
-      101 JUMPIFNOTEQKN                    R4 K8 [0] ; [+20]
-      103 GETTABLEKS                       R5 R2 K20 ["failedAgainstUserId"]
-      105 FASTCALL1                        TYPEOF R5 ; [+2]
-      106 GETIMPORT                        R4 K6 [typeof]
-      108 CALL                             R4 1 1
-      109 JUMPIFNOTEQKS                    R4 K7 ["number"] ; [+12]
-      111 DUPTABLE                         R6 K21 [{"userId"}]
-      112 GETTABLEKS                       R7 R2 K20 ["failedAgainstUserId"]
-      114 SETTABLEKS                       R7 R6 K13 ["userId"]
-      116 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
-      118 MOVE                             R5 R3
-      119 GETIMPORT                        R4 K19 [table.insert]
-      121 CALL                             R4 2 0
-      122 GETUPVAL                         R4 0
+       49 JUMPIFNOT                        R2 ; [+4]
+       50 GETUPVAL                         R3 4
+       51 GETTABLEKS                       R4 R2 K11 ["userCapabilities"]
+       53 CALL                             R3 1 0
+       54 JUMPIFNOT                        R2 ; [+75]
+       55 GETTABLEKS                       R3 R2 K12 ["success"]
+       57 JUMPIFNOTEQKB                    R3 FALSE ; [+72]
+       59 NEWTABLE                         R3 0 0
+       61 GETTABLEKS                       R4 R2 K13 ["requiresTrustedConnection"]
+       63 JUMPIFNOT                        R4 ; [+41]
+       64 GETTABLEKS                       R4 R2 K13 ["requiresTrustedConnection"]
+       66 LOADNIL                          R5
+       67 LOADNIL                          R6
+       68 FORGPREP                         R4
+       69 JUMPIFNOT                        R8 ; [+33]
+       70 GETTABLEKS                       R10 R8 K14 ["userId"]
+       72 FASTCALL1                        TYPEOF R10 ; [+2]
+       73 GETIMPORT                        R9 K6 [typeof]
+       75 CALL                             R9 1 1
+       76 JUMPIFNOTEQKS                    R9 K7 ["number"] ; [+26]
+       78 DUPTABLE                         R11 K16 [{"userId", "errorReason"}]
+       79 GETTABLEKS                       R12 R8 K14 ["userId"]
+       81 SETTABLEKS                       R12 R11 K14 ["userId"]
+       83 GETTABLEKS                       R14 R8 K15 ["errorReason"]
+       85 FASTCALL1                        TYPEOF R14 ; [+2]
+       86 GETIMPORT                        R13 K6 [typeof]
+       88 CALL                             R13 1 1
+       89 JUMPIFNOTEQKS                    R13 K17 ["string"] ; [+4]
+       91 GETTABLEKS                       R12 R8 K15 ["errorReason"]
+       93 JUMP                             ; [+1]
+       94 LOADNIL                          R12
+       95 SETTABLEKS                       R12 R11 K15 ["errorReason"]
+       97 FASTCALL2                        TABLE_INSERT R3 R11 ; [+4]
+       99 MOVE                             R10 R3
+      100 GETIMPORT                        R9 K20 [table.insert]
+      102 CALL                             R9 2 0
+      103 FORGLOOP                         R4 2 ; [-35]
+      105 LENGTH                           R4 R3
+      106 JUMPIFNOTEQKN                    R4 K8 [0] ; [+20]
+      108 GETTABLEKS                       R5 R2 K21 ["failedAgainstUserId"]
+      110 FASTCALL1                        TYPEOF R5 ; [+2]
+      111 GETIMPORT                        R4 K6 [typeof]
+      113 CALL                             R4 1 1
+      114 JUMPIFNOTEQKS                    R4 K7 ["number"] ; [+12]
+      116 DUPTABLE                         R6 K22 [{"userId"}]
+      117 GETTABLEKS                       R7 R2 K21 ["failedAgainstUserId"]
+      119 SETTABLEKS                       R7 R6 K14 ["userId"]
+      121 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
       123 MOVE                             R5 R3
-      124 CALL                             R4 1 0
-      125 GETUPVAL                         R2 4
-      126 GETUPVAL                         R3 5
-      127 GETTABLEKS                       R3 R3 K22 ["Main"]
-      129 CALL                             R2 1 0
-      130 RETURN                           R0 0
+      124 GETIMPORT                        R4 K20 [table.insert]
+      126 CALL                             R4 2 0
+      127 GETUPVAL                         R4 0
+      128 MOVE                             R5 R3
+      129 CALL                             R4 1 0
+      130 GETUPVAL                         R2 5
+      131 GETUPVAL                         R3 6
+      132 GETTABLEKS                       R3 R3 K23 ["Main"]
+      134 CALL                             R2 1 0
+      135 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -186,111 +190,117 @@ PROTO_7:
        23 GETTABLEKS                       R9 R9 K0 ["useState"]
        25 LOADN                            R10 0
        26 CALL                             R9 1 2
-       27 GETTABLEKS                       R11 R0 K2 ["plugin"]
-       29 LOADK                            R13 K3 ["Actions"]
-       30 NAMECALL                         R11 R11 K4 ["GetPluginComponent"]
-       32 CALL                             R11 2 1
-       33 GETUPVAL                         R12 2
-       34 GETUPVAL                         R16 3
-       35 LOADB                            R17 1
-       36 NAMECALL                         R14 R11 K5 ["CreateAsync"]
-       38 CALL                             R14 3 1
-       39 GETTABLEN                        R13 R14 1
-       40 NEWCLOSURE                       R14 P0
-       41 CAPTURE                          VAL R6
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          VAL R8
-       44 CAPTURE                          VAL R10
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          UPVAL U1
-       47 NEWTABLE                         R15 0 0
-       49 CALL                             R12 3 0
-       50 GETUPVAL                         R12 0
-       51 GETTABLEKS                       R12 R12 K6 ["useCallback"]
-       53 NEWCLOSURE                       R13 P1
-       54 CAPTURE                          VAL R2
-       55 CAPTURE                          UPVAL U1
-       56 CAPTURE                          VAL R4
-       57 NEWTABLE                         R14 0 0
-       59 CALL                             R12 2 1
-       60 GETUPVAL                         R13 0
-       61 GETTABLEKS                       R13 R13 K6 ["useCallback"]
-       63 NEWCLOSURE                       R14 P2
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          UPVAL U1
-       66 NEWTABLE                         R15 0 0
-       68 CALL                             R13 2 1
-       69 GETUPVAL                         R14 0
-       70 GETTABLEKS                       R14 R14 K6 ["useCallback"]
-       72 NEWCLOSURE                       R15 P3
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          UPVAL U1
-       75 NEWTABLE                         R16 0 0
-       77 CALL                             R14 2 1
-       78 DUPCLOSURE                       R15 K7 [PROTO_5]
-       79 CAPTURE                          UPVAL U0
-       80 CAPTURE                          UPVAL U4
-       81 GETUPVAL                         R16 0
-       82 GETTABLEKS                       R16 R16 K6 ["useCallback"]
-       84 LOADK                            R18 K8 ["mainDialogClosed"]
-       85 NEWCLOSURE                       R17 P5
+       27 GETUPVAL                         R11 0
+       28 GETTABLEKS                       R11 R11 K0 ["useState"]
+       30 LOADNIL                          R12
+       31 CALL                             R11 1 2
+       32 GETTABLEKS                       R13 R0 K2 ["plugin"]
+       34 LOADK                            R15 K3 ["Actions"]
+       35 NAMECALL                         R13 R13 K4 ["GetPluginComponent"]
+       37 CALL                             R13 2 1
+       38 GETUPVAL                         R14 2
+       39 GETUPVAL                         R18 3
+       40 LOADB                            R19 1
+       41 NAMECALL                         R16 R13 K5 ["CreateAsync"]
+       43 CALL                             R16 3 1
+       44 GETTABLEN                        R15 R16 1
+       45 NEWCLOSURE                       R16 P0
+       46 CAPTURE                          VAL R6
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R8
+       49 CAPTURE                          VAL R10
+       50 CAPTURE                          VAL R12
+       51 CAPTURE                          VAL R2
+       52 CAPTURE                          UPVAL U1
+       53 NEWTABLE                         R17 0 0
+       55 CALL                             R14 3 0
+       56 GETUPVAL                         R14 0
+       57 GETTABLEKS                       R14 R14 K6 ["useCallback"]
+       59 NEWCLOSURE                       R15 P1
+       60 CAPTURE                          VAL R2
+       61 CAPTURE                          UPVAL U1
+       62 CAPTURE                          VAL R4
+       63 NEWTABLE                         R16 0 0
+       65 CALL                             R14 2 1
+       66 GETUPVAL                         R15 0
+       67 GETTABLEKS                       R15 R15 K6 ["useCallback"]
+       69 NEWCLOSURE                       R16 P2
+       70 CAPTURE                          VAL R2
+       71 CAPTURE                          UPVAL U1
+       72 NEWTABLE                         R17 0 0
+       74 CALL                             R15 2 1
+       75 GETUPVAL                         R16 0
+       76 GETTABLEKS                       R16 R16 K6 ["useCallback"]
+       78 NEWCLOSURE                       R17 P3
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          UPVAL U1
+       81 NEWTABLE                         R18 0 0
+       83 CALL                             R16 2 1
+       84 DUPCLOSURE                       R17 K7 [PROTO_5]
+       85 CAPTURE                          UPVAL U0
        86 CAPTURE                          UPVAL U4
-       87 CAPTURE                          VAL R18
-       88 CAPTURE                          VAL R12
-       89 NEWTABLE                         R18 0 2
-       91 LOADK                            R19 K8 ["mainDialogClosed"]
-       92 MOVE                             R20 R12
-       93 SETLIST                          R18 R19 2 [1]
-       95 CALL                             R16 2 1
-       96 GETUPVAL                         R17 0
-       97 GETTABLEKS                       R17 R17 K6 ["useCallback"]
-       99 LOADK                            R19 K9 ["newParentDialogClosed"]
-      100 NEWCLOSURE                       R18 P5
-      101 CAPTURE                          UPVAL U4
-      102 CAPTURE                          VAL R19
-      103 CAPTURE                          VAL R14
-      104 NEWTABLE                         R19 0 2
-      106 LOADK                            R20 K9 ["newParentDialogClosed"]
-      107 MOVE                             R21 R14
-      108 SETLIST                          R19 R20 2 [1]
-      110 CALL                             R17 2 1
-      111 GETUPVAL                         R18 0
-      112 GETTABLEKS                       R18 R18 K6 ["useCallback"]
-      114 LOADK                            R20 K10 ["requestFailedDialogClosed"]
-      115 NEWCLOSURE                       R19 P5
-      116 CAPTURE                          UPVAL U4
-      117 CAPTURE                          VAL R20
-      118 CAPTURE                          VAL R12
-      119 NEWTABLE                         R20 0 2
-      121 LOADK                            R21 K10 ["requestFailedDialogClosed"]
-      122 MOVE                             R22 R12
-      123 SETLIST                          R20 R21 2 [1]
-      125 CALL                             R18 2 1
-      126 GETUPVAL                         R19 0
-      127 GETTABLEKS                       R19 R19 K6 ["useCallback"]
-      129 NEWCLOSURE                       R20 P6
-      130 CAPTURE                          UPVAL U4
-      131 CAPTURE                          UPVAL U5
-      132 CAPTURE                          UPVAL U6
-      133 CAPTURE                          VAL R2
-      134 CAPTURE                          UPVAL U1
-      135 CAPTURE                          VAL R4
-      136 NEWTABLE                         R21 0 0
-      138 CALL                             R19 2 1
-      139 DUPTABLE                         R20 K23 [{"activeDialog", "requestResult", "collaborators", "universeId", "placeId", "onCloseAll", "onOpenTrustedConnectionDialog", "onCloseTrustedConnectionDialog", "onMainDialogX", "onNewParentDialogX", "onRequestFailedDialogX", "onRequestComplete"}]
-      140 SETTABLEKS                       R1 R20 K11 ["activeDialog"]
-      142 SETTABLEKS                       R3 R20 K12 ["requestResult"]
-      144 SETTABLEKS                       R5 R20 K13 ["collaborators"]
-      146 SETTABLEKS                       R7 R20 K14 ["universeId"]
-      148 SETTABLEKS                       R9 R20 K15 ["placeId"]
-      150 SETTABLEKS                       R12 R20 K16 ["onCloseAll"]
-      152 SETTABLEKS                       R13 R20 K17 ["onOpenTrustedConnectionDialog"]
-      154 SETTABLEKS                       R14 R20 K18 ["onCloseTrustedConnectionDialog"]
-      156 SETTABLEKS                       R16 R20 K19 ["onMainDialogX"]
-      158 SETTABLEKS                       R17 R20 K20 ["onNewParentDialogX"]
-      160 SETTABLEKS                       R18 R20 K21 ["onRequestFailedDialogX"]
-      162 SETTABLEKS                       R19 R20 K22 ["onRequestComplete"]
-      164 RETURN                           R20 1
+       87 GETUPVAL                         R18 0
+       88 GETTABLEKS                       R18 R18 K6 ["useCallback"]
+       90 LOADK                            R20 K8 ["mainDialogClosed"]
+       91 NEWCLOSURE                       R19 P5
+       92 CAPTURE                          UPVAL U4
+       93 CAPTURE                          VAL R20
+       94 CAPTURE                          VAL R14
+       95 NEWTABLE                         R20 0 2
+       97 LOADK                            R21 K8 ["mainDialogClosed"]
+       98 MOVE                             R22 R14
+       99 SETLIST                          R20 R21 2 [1]
+      101 CALL                             R18 2 1
+      102 GETUPVAL                         R19 0
+      103 GETTABLEKS                       R19 R19 K6 ["useCallback"]
+      105 LOADK                            R21 K9 ["newParentDialogClosed"]
+      106 NEWCLOSURE                       R20 P5
+      107 CAPTURE                          UPVAL U4
+      108 CAPTURE                          VAL R21
+      109 CAPTURE                          VAL R16
+      110 NEWTABLE                         R21 0 2
+      112 LOADK                            R22 K9 ["newParentDialogClosed"]
+      113 MOVE                             R23 R16
+      114 SETLIST                          R21 R22 2 [1]
+      116 CALL                             R19 2 1
+      117 GETUPVAL                         R20 0
+      118 GETTABLEKS                       R20 R20 K6 ["useCallback"]
+      120 LOADK                            R22 K10 ["requestFailedDialogClosed"]
+      121 NEWCLOSURE                       R21 P5
+      122 CAPTURE                          UPVAL U4
+      123 CAPTURE                          VAL R22
+      124 CAPTURE                          VAL R14
+      125 NEWTABLE                         R22 0 2
+      127 LOADK                            R23 K10 ["requestFailedDialogClosed"]
+      128 MOVE                             R24 R14
+      129 SETLIST                          R22 R23 2 [1]
+      131 CALL                             R20 2 1
+      132 GETUPVAL                         R21 0
+      133 GETTABLEKS                       R21 R21 K6 ["useCallback"]
+      135 NEWCLOSURE                       R22 P6
+      136 CAPTURE                          UPVAL U4
+      137 CAPTURE                          UPVAL U5
+      138 CAPTURE                          UPVAL U6
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          UPVAL U1
+      141 CAPTURE                          VAL R4
+      142 NEWTABLE                         R23 0 0
+      144 CALL                             R21 2 1
+      145 DUPTABLE                         R22 K24 [{"activeDialog", "requestResult", "collaborators", "universeId", "placeId", "userCapabilities", "onCloseAll", "onOpenTrustedConnectionDialog", "onCloseTrustedConnectionDialog", "onMainDialogX", "onNewParentDialogX", "onRequestFailedDialogX", "onRequestComplete"}]
+      146 SETTABLEKS                       R1 R22 K11 ["activeDialog"]
+      148 SETTABLEKS                       R3 R22 K12 ["requestResult"]
+      150 SETTABLEKS                       R5 R22 K13 ["collaborators"]
+      152 SETTABLEKS                       R7 R22 K14 ["universeId"]
+      154 SETTABLEKS                       R9 R22 K15 ["placeId"]
+      156 SETTABLEKS                       R11 R22 K16 ["userCapabilities"]
+      158 SETTABLEKS                       R14 R22 K17 ["onCloseAll"]
+      160 SETTABLEKS                       R15 R22 K18 ["onOpenTrustedConnectionDialog"]
+      162 SETTABLEKS                       R16 R22 K19 ["onCloseTrustedConnectionDialog"]
+      164 SETTABLEKS                       R18 R22 K20 ["onMainDialogX"]
+      166 SETTABLEKS                       R19 R22 K21 ["onNewParentDialogX"]
+      168 SETTABLEKS                       R20 R22 K22 ["onRequestFailedDialogX"]
+      170 SETTABLEKS                       R21 R22 K23 ["onRequestComplete"]
+      172 RETURN                           R22 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -342,7 +352,7 @@ MAIN:
        77 SETTABLEKS                       R13 R12 K25 ["Category"]
        79 LOADK                            R13 K30 ["Toggle"]
        80 SETTABLEKS                       R13 R12 K26 ["ItemId"]
-       82 DUPTABLE                         R13 K37 [{"Uri", "Enabled", "Visible", "Checked", "Checkable", "Shortcuts"}]
+       82 DUPTABLE                         R13 K36 [{"Uri", "Enabled", "Visible", "Checked", "Checkable"}]
        83 SETTABLEKS                       R12 R13 K31 ["Uri"]
        85 LOADB                            R14 1
        86 SETTABLEKS                       R14 R13 K32 ["Enabled"]
@@ -352,28 +362,24 @@ MAIN:
        92 SETTABLEKS                       R14 R13 K34 ["Checked"]
        94 LOADB                            R14 0
        95 SETTABLEKS                       R14 R13 K35 ["Checkable"]
-       97 NEWTABLE                         R14 0 1
-       99 LOADK                            R15 K38 ["Ctrl+Shift+C"]
-      100 SETLIST                          R14 R15 1 [1]
-      102 SETTABLEKS                       R14 R13 K36 ["Shortcuts"]
-      104 DUPTABLE                         R14 K43 [{"None", "Main", "VPCTrustedConnection", "VPCRequestSent"}]
-      105 LOADK                            R15 K44 ["none"]
-      106 SETTABLEKS                       R15 R14 K39 ["None"]
-      108 LOADK                            R15 K45 ["main"]
-      109 SETTABLEKS                       R15 R14 K40 ["Main"]
-      111 LOADK                            R15 K46 ["vpcTrustedConnection"]
-      112 SETTABLEKS                       R15 R14 K41 ["VPCTrustedConnection"]
-      114 LOADK                            R15 K47 ["vpcRequestSent"]
-      115 SETTABLEKS                       R15 R14 K42 ["VPCRequestSent"]
-      117 DUPCLOSURE                       R15 K48 [PROTO_7]
-      118 CAPTURE                          VAL R1
-      119 CAPTURE                          VAL R14
-      120 CAPTURE                          VAL R4
-      121 CAPTURE                          VAL R13
-      122 CAPTURE                          VAL R11
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R8
-      125 DUPTABLE                         R16 K51 [{"ActiveDialog", "use"}]
-      126 SETTABLEKS                       R14 R16 K49 ["ActiveDialog"]
-      128 SETTABLEKS                       R15 R16 K50 ["use"]
-      130 RETURN                           R16 1
+       97 DUPTABLE                         R14 K41 [{"None", "Main", "VPCTrustedConnection", "VPCRequestSent"}]
+       98 LOADK                            R15 K42 ["none"]
+       99 SETTABLEKS                       R15 R14 K37 ["None"]
+      101 LOADK                            R15 K43 ["main"]
+      102 SETTABLEKS                       R15 R14 K38 ["Main"]
+      104 LOADK                            R15 K44 ["vpcTrustedConnection"]
+      105 SETTABLEKS                       R15 R14 K39 ["VPCTrustedConnection"]
+      107 LOADK                            R15 K45 ["vpcRequestSent"]
+      108 SETTABLEKS                       R15 R14 K40 ["VPCRequestSent"]
+      110 DUPCLOSURE                       R15 K46 [PROTO_7]
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R14
+      113 CAPTURE                          VAL R4
+      114 CAPTURE                          VAL R13
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          VAL R8
+      118 DUPTABLE                         R16 K49 [{"ActiveDialog", "use"}]
+      119 SETTABLEKS                       R14 R16 K47 ["ActiveDialog"]
+      121 SETTABLEKS                       R15 R16 K48 ["use"]
+      123 RETURN                           R16 1

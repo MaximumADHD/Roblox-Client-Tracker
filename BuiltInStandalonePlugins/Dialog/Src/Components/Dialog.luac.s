@@ -50,38 +50,47 @@ PROTO_2:
        39 CALL                             R4 2 1
        40 GETUPVAL                         R5 5
        41 GETUPVAL                         R6 6
-       42 DUPTABLE                         R7 K8 [{"uri", "getSize"}]
+       42 DUPTABLE                         R7 K9 [{"uri", "getSize", "onClose"}]
        43 GETTABLEKS                       R8 R0 K6 ["uri"]
        45 SETTABLEKS                       R8 R7 K6 ["uri"]
        47 SETTABLEKS                       R2 R7 K7 ["getSize"]
-       49 DUPTABLE                         R8 K10 [{"DialogView"}]
-       50 GETUPVAL                         R9 5
-       51 GETUPVAL                         R10 7
-       52 DUPTABLE                         R11 K20 [{"type", "title", "description", "image", "showIndeterminateProgressIndicator", "primaryAction", "secondaryAction", "tertiaryAction", "width", "onAbsoluteSizeChanged"}]
-       53 GETTABLEKS                       R12 R0 K11 ["type"]
-       55 SETTABLEKS                       R12 R11 K11 ["type"]
-       57 GETTABLEKS                       R12 R0 K12 ["title"]
-       59 SETTABLEKS                       R12 R11 K12 ["title"]
-       61 GETTABLEKS                       R12 R0 K13 ["description"]
-       63 SETTABLEKS                       R12 R11 K13 ["description"]
-       65 GETTABLEKS                       R12 R0 K14 ["image"]
-       67 SETTABLEKS                       R12 R11 K14 ["image"]
-       69 GETTABLEKS                       R12 R0 K15 ["showIndeterminateProgressIndicator"]
-       71 SETTABLEKS                       R12 R11 K15 ["showIndeterminateProgressIndicator"]
-       73 GETTABLEKS                       R12 R1 K16 ["primaryAction"]
-       75 SETTABLEKS                       R12 R11 K16 ["primaryAction"]
-       77 GETTABLEKS                       R12 R1 K17 ["secondaryAction"]
-       79 SETTABLEKS                       R12 R11 K17 ["secondaryAction"]
-       81 GETTABLEKS                       R12 R1 K18 ["tertiaryAction"]
-       83 SETTABLEKS                       R12 R11 K18 ["tertiaryAction"]
-       85 GETTABLEKS                       R12 R0 K4 ["width"]
-       87 SETTABLEKS                       R12 R11 K4 ["width"]
-       89 SETTABLEKS                       R4 R11 K19 ["onAbsoluteSizeChanged"]
-       91 GETTABLEKS                       R12 R0 K21 ["children"]
-       93 CALL                             R9 3 1
-       94 SETTABLEKS                       R9 R8 K9 ["DialogView"]
-       96 CALL                             R5 3 -1
-       97 RETURN                           R5 -1
+       49 GETUPVAL                         R9 7
+       50 JUMPIFNOT                        R9 ; [+8]
+       51 GETTABLEKS                       R9 R1 K10 ["escapeAction"]
+       53 JUMPIFNOT                        R9 ; [+5]
+       54 GETTABLEKS                       R8 R1 K10 ["escapeAction"]
+       56 GETTABLEKS                       R8 R8 K8 ["onClose"]
+       58 JUMP                             ; [+1]
+       59 LOADNIL                          R8
+       60 SETTABLEKS                       R8 R7 K8 ["onClose"]
+       62 DUPTABLE                         R8 K12 [{"DialogView"}]
+       63 GETUPVAL                         R9 5
+       64 GETUPVAL                         R10 8
+       65 DUPTABLE                         R11 K22 [{"type", "title", "description", "image", "showIndeterminateProgressIndicator", "primaryAction", "secondaryAction", "tertiaryAction", "width", "onAbsoluteSizeChanged"}]
+       66 GETTABLEKS                       R12 R0 K13 ["type"]
+       68 SETTABLEKS                       R12 R11 K13 ["type"]
+       70 GETTABLEKS                       R12 R0 K14 ["title"]
+       72 SETTABLEKS                       R12 R11 K14 ["title"]
+       74 GETTABLEKS                       R12 R0 K15 ["description"]
+       76 SETTABLEKS                       R12 R11 K15 ["description"]
+       78 GETTABLEKS                       R12 R0 K16 ["image"]
+       80 SETTABLEKS                       R12 R11 K16 ["image"]
+       82 GETTABLEKS                       R12 R0 K17 ["showIndeterminateProgressIndicator"]
+       84 SETTABLEKS                       R12 R11 K17 ["showIndeterminateProgressIndicator"]
+       86 GETTABLEKS                       R12 R1 K18 ["primaryAction"]
+       88 SETTABLEKS                       R12 R11 K18 ["primaryAction"]
+       90 GETTABLEKS                       R12 R1 K19 ["secondaryAction"]
+       92 SETTABLEKS                       R12 R11 K19 ["secondaryAction"]
+       94 GETTABLEKS                       R12 R1 K20 ["tertiaryAction"]
+       96 SETTABLEKS                       R12 R11 K20 ["tertiaryAction"]
+       98 GETTABLEKS                       R12 R0 K4 ["width"]
+      100 SETTABLEKS                       R12 R11 K4 ["width"]
+      102 SETTABLEKS                       R4 R11 K21 ["onAbsoluteSizeChanged"]
+      104 GETTABLEKS                       R12 R0 K23 ["children"]
+      106 CALL                             R9 3 1
+      107 SETTABLEKS                       R9 R8 K11 ["DialogView"]
+      109 CALL                             R5 3 -1
+      110 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -130,17 +139,24 @@ MAIN:
        75 GETTABLEKS                       R10 R10 K18 ["Hooks"]
        77 GETTABLEKS                       R10 R10 K19 ["useDialogTelemetry"]
        79 CALL                             R9 1 1
-       80 GETTABLEKS                       R10 R4 K20 ["createElement"]
-       82 DUPCLOSURE                       R11 K21 [PROTO_2]
-       83 CAPTURE                          VAL R8
-       84 CAPTURE                          VAL R7
-       85 CAPTURE                          VAL R9
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R10
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R2
-       91 GETTABLEKS                       R12 R4 K22 ["memo"]
-       93 MOVE                             R13 R11
-       94 CALL                             R12 1 -1
-       95 RETURN                           R12 -1
+       80 GETIMPORT                        R10 K5 [require]
+       82 GETTABLEKS                       R11 R0 K6 ["Src"]
+       84 GETTABLEKS                       R11 R11 K15 ["Flags"]
+       86 GETTABLEKS                       R11 R11 K20 ["getFFlagDialogManagerAddEscapeTitleButton"]
+       88 CALL                             R10 1 1
+       89 CALL                             R10 0 1
+       90 GETTABLEKS                       R11 R4 K21 ["createElement"]
+       92 DUPCLOSURE                       R12 K22 [PROTO_2]
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R7
+       95 CAPTURE                          VAL R9
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R5
+       98 CAPTURE                          VAL R11
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          VAL R10
+      101 CAPTURE                          VAL R2
+      102 GETTABLEKS                       R13 R4 K23 ["memo"]
+      104 MOVE                             R14 R12
+      105 CALL                             R13 1 -1
+      106 RETURN                           R13 -1

@@ -236,139 +236,147 @@ PROTO_6:
         6 GETTABLEKS                       R3 R1 K3 ["Instances"]
         8 GETTABLEKS                       R3 R3 K4 ["Root"]
        10 GETTABLEKS                       R3 R3 K5 ["Tracks"]
-       12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R4 R4 K6 ["findRootPart"]
-       15 MOVE                             R5 R2
-       16 CALL                             R4 1 1
-       17 GETTABLEKS                       R5 R4 K7 ["Name"]
-       19 GETTABLE                         R6 R3 R5
-       20 GETUPVAL                         R7 1
-       21 GETTABLEKS                       R7 R7 K8 ["getSummaryKeyframes"]
-       23 MOVE                             R8 R3
-       24 GETTABLEKS                       R9 R1 K9 ["Metadata"]
-       26 GETTABLEKS                       R9 R9 K10 ["StartTick"]
-       28 GETTABLEKS                       R10 R1 K9 ["Metadata"]
-       30 GETTABLEKS                       R10 R10 K11 ["EndTick"]
-       32 CALL                             R7 3 1
-       33 GETIMPORT                        R8 K14 [table.sort]
-       35 MOVE                             R9 R7
-       36 CALL                             R8 1 0
-       37 GETUPVAL                         R8 2
-       38 MOVE                             R9 R2
-       39 CALL                             R8 1 1
-       40 GETUPVAL                         R9 3
-       41 GETTABLEKS                       R9 R9 K15 ["Dictionary"]
-       43 GETTABLEKS                       R9 R9 K16 ["keys"]
-       45 MOVE                             R10 R3
-       46 CALL                             R9 1 1
-       47 GETIMPORT                        R10 K18 [table.create]
-       49 LENGTH                           R11 R7
-       50 CALL                             R10 1 1
-       51 GETIMPORT                        R11 K20 [ipairs]
-       53 MOVE                             R12 R7
-       54 CALL                             R11 1 3
-       55 FORGPREP_INEXT                   R11
-       56 GETIMPORT                        R16 K18 [table.create]
-       58 LENGTH                           R18 R9
-       59 ADDK                             R17 R18 K21 [4]
-       60 CALL                             R16 1 1
-       61 FASTCALL2                        TABLE_INSERT R16 R15 ; [+5]
-       63 MOVE                             R18 R16
-       64 MOVE                             R19 R15
-       65 GETIMPORT                        R17 K23 [table.insert]
-       67 CALL                             R17 2 0
-       68 JUMPIFNOT                        R6 ; [+32]
-       69 GETUPVAL                         R17 4
-       70 GETTABLEKS                       R17 R17 K24 ["getValue"]
-       72 MOVE                             R18 R6
+       12 GETUPVAL                         R5 0
+       13 CALL                             R5 0 1
+       14 JUMPIFNOT                        R5 ; [+6]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K6 ["getRootPart"]
+       18 MOVE                             R5 R2
+       19 CALL                             R4 1 1
+       20 JUMP                             ; [+5]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K7 ["findRootPart"]
+       24 MOVE                             R5 R2
+       25 CALL                             R4 1 1
+       26 GETTABLEKS                       R5 R4 K8 ["Name"]
+       28 GETTABLE                         R6 R3 R5
+       29 GETUPVAL                         R7 2
+       30 GETTABLEKS                       R7 R7 K9 ["getSummaryKeyframes"]
+       32 MOVE                             R8 R3
+       33 GETTABLEKS                       R9 R1 K10 ["Metadata"]
+       35 GETTABLEKS                       R9 R9 K11 ["StartTick"]
+       37 GETTABLEKS                       R10 R1 K10 ["Metadata"]
+       39 GETTABLEKS                       R10 R10 K12 ["EndTick"]
+       41 CALL                             R7 3 1
+       42 GETIMPORT                        R8 K15 [table.sort]
+       44 MOVE                             R9 R7
+       45 CALL                             R8 1 0
+       46 GETUPVAL                         R8 3
+       47 MOVE                             R9 R2
+       48 CALL                             R8 1 1
+       49 GETUPVAL                         R9 4
+       50 GETTABLEKS                       R9 R9 K16 ["Dictionary"]
+       52 GETTABLEKS                       R9 R9 K17 ["keys"]
+       54 MOVE                             R10 R3
+       55 CALL                             R9 1 1
+       56 GETIMPORT                        R10 K19 [table.create]
+       58 LENGTH                           R11 R7
+       59 CALL                             R10 1 1
+       60 GETIMPORT                        R11 K21 [ipairs]
+       62 MOVE                             R12 R7
+       63 CALL                             R11 1 3
+       64 FORGPREP_INEXT                   R11
+       65 GETIMPORT                        R16 K19 [table.create]
+       67 LENGTH                           R18 R9
+       68 ADDK                             R17 R18 K22 [4]
+       69 CALL                             R16 1 1
+       70 FASTCALL2                        TABLE_INSERT R16 R15 ; [+5]
+       72 MOVE                             R18 R16
        73 MOVE                             R19 R15
-       74 CALL                             R17 2 1
-       75 GETTABLEKS                       R17 R17 K25 ["Position"]
-       77 GETTABLEKS                       R20 R17 K26 ["X"]
-       79 FASTCALL2                        TABLE_INSERT R16 R20 ; [+4]
-       81 MOVE                             R19 R16
-       82 GETIMPORT                        R18 K23 [table.insert]
-       84 CALL                             R18 2 0
-       85 GETTABLEKS                       R20 R17 K27 ["Y"]
-       87 FASTCALL2                        TABLE_INSERT R16 R20 ; [+4]
-       89 MOVE                             R19 R16
-       90 GETIMPORT                        R18 K23 [table.insert]
-       92 CALL                             R18 2 0
-       93 GETTABLEKS                       R20 R17 K28 ["Z"]
-       95 FASTCALL2                        TABLE_INSERT R16 R20 ; [+4]
-       97 MOVE                             R19 R16
-       98 GETIMPORT                        R18 K23 [table.insert]
-      100 CALL                             R18 2 0
-      101 NEWTABLE                         R17 0 0
-      103 GETIMPORT                        R18 K20 [ipairs]
-      105 MOVE                             R19 R9
-      106 CALL                             R18 1 3
-      107 FORGPREP_INEXT                   R18
-      108 GETTABLE                         R23 R3 R22
-      109 GETTABLEKS                       R24 R23 K29 ["Type"]
-      111 GETUPVAL                         R25 5
-      112 GETTABLEKS                       R25 R25 K30 ["TRACK_TYPES"]
-      114 GETTABLEKS                       R25 R25 K31 ["CFrame"]
-      116 JUMPIFNOTEQ                      R24 R25 ; [+46]
-      118 GETUPVAL                         R24 6
-      119 MOVE                             R25 R3
-      120 MOVE                             R26 R17
-      121 MOVE                             R27 R8
-      122 MOVE                             R28 R22
-      123 MOVE                             R29 R15
-      124 CALL                             R24 5 0
-      125 GETTABLE                         R27 R17 R22
-      126 GETTABLE                         R28 R17 R5
-      127 JUMPIFNOT                        R28 ; [+5]
-      128 NAMECALL                         R30 R28 K32 ["Inverse"]
-      130 CALL                             R30 1 1
-      131 MUL                              R29 R27 R30
-      132 JUMP                             ; [+1]
-      133 MOVE                             R29 R27
-      134 NAMECALL                         R30 R29 K33 ["GetComponents"]
-      136 CALL                             R30 1 12
-      137 ADD                              R43 R33 R37
-      138 ADD                              R42 R43 R41
-      139 LOADN                            R43 3
-      140 JUMPIFNOTLE                      R43 R42 ; [+3]
-      142 LOADK                            R26 K34 [1.5707963267949]
-      143 JUMP                             ; [+12]
-      144 LOADN                            R43 255
-      145 JUMPIFNOTLE                      R42 R43 ; [+3]
-      147 LOADK                            R26 K35 [-1.5707963267949]
-      148 JUMP                             ; [+7]
-      149 SUBK                             R45 R42 K37 [1]
-      150 DIVK                             R44 R45 K36 [2]
-      151 FASTCALL1                        MATH_ACOS R44 ; [+2]
-      152 GETIMPORT                        R43 K40 [math.acos]
-      154 CALL                             R43 1 1
-      155 MOVE                             R26 R43
-      156 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
-      158 MOVE                             R25 R16
-      159 GETIMPORT                        R24 K23 [table.insert]
-      161 CALL                             R24 2 0
-      162 JUMP                             ; [+21]
-      163 GETTABLEKS                       R24 R23 K29 ["Type"]
-      165 GETUPVAL                         R25 5
-      166 GETTABLEKS                       R25 R25 K30 ["TRACK_TYPES"]
-      168 GETTABLEKS                       R25 R25 K41 ["Facs"]
-      170 JUMPIFNOTEQ                      R24 R25 ; [+13]
-      172 GETUPVAL                         R26 4
-      173 GETTABLEKS                       R26 R26 K24 ["getValue"]
-      175 MOVE                             R27 R23
-      176 MOVE                             R28 R15
-      177 CALL                             R26 2 1
-      178 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
-      180 MOVE                             R25 R16
-      181 GETIMPORT                        R24 K23 [table.insert]
-      183 CALL                             R24 2 0
-      184 FORGLOOP                         R18 2 [inext] ; [-77]
-      186 SETTABLE                         R16 R10 R14
-      187 FORGLOOP                         R11 2 [inext] ; [-132]
-      189 GETUPVAL                         R11 7
-      190 MOVE                             R12 R10
-      191 CALL                             R11 1 -1
-      192 RETURN                           R11 -1
+       74 GETIMPORT                        R17 K24 [table.insert]
+       76 CALL                             R17 2 0
+       77 JUMPIFNOT                        R6 ; [+32]
+       78 GETUPVAL                         R17 5
+       79 GETTABLEKS                       R17 R17 K25 ["getValue"]
+       81 MOVE                             R18 R6
+       82 MOVE                             R19 R15
+       83 CALL                             R17 2 1
+       84 GETTABLEKS                       R17 R17 K26 ["Position"]
+       86 GETTABLEKS                       R20 R17 K27 ["X"]
+       88 FASTCALL2                        TABLE_INSERT R16 R20 ; [+4]
+       90 MOVE                             R19 R16
+       91 GETIMPORT                        R18 K24 [table.insert]
+       93 CALL                             R18 2 0
+       94 GETTABLEKS                       R20 R17 K28 ["Y"]
+       96 FASTCALL2                        TABLE_INSERT R16 R20 ; [+4]
+       98 MOVE                             R19 R16
+       99 GETIMPORT                        R18 K24 [table.insert]
+      101 CALL                             R18 2 0
+      102 GETTABLEKS                       R20 R17 K29 ["Z"]
+      104 FASTCALL2                        TABLE_INSERT R16 R20 ; [+4]
+      106 MOVE                             R19 R16
+      107 GETIMPORT                        R18 K24 [table.insert]
+      109 CALL                             R18 2 0
+      110 NEWTABLE                         R17 0 0
+      112 GETIMPORT                        R18 K21 [ipairs]
+      114 MOVE                             R19 R9
+      115 CALL                             R18 1 3
+      116 FORGPREP_INEXT                   R18
+      117 GETTABLE                         R23 R3 R22
+      118 GETTABLEKS                       R24 R23 K30 ["Type"]
+      120 GETUPVAL                         R25 6
+      121 GETTABLEKS                       R25 R25 K31 ["TRACK_TYPES"]
+      123 GETTABLEKS                       R25 R25 K32 ["CFrame"]
+      125 JUMPIFNOTEQ                      R24 R25 ; [+46]
+      127 GETUPVAL                         R24 7
+      128 MOVE                             R25 R3
+      129 MOVE                             R26 R17
+      130 MOVE                             R27 R8
+      131 MOVE                             R28 R22
+      132 MOVE                             R29 R15
+      133 CALL                             R24 5 0
+      134 GETTABLE                         R27 R17 R22
+      135 GETTABLE                         R28 R17 R5
+      136 JUMPIFNOT                        R28 ; [+5]
+      137 NAMECALL                         R30 R28 K33 ["Inverse"]
+      139 CALL                             R30 1 1
+      140 MUL                              R29 R27 R30
+      141 JUMP                             ; [+1]
+      142 MOVE                             R29 R27
+      143 NAMECALL                         R30 R29 K34 ["GetComponents"]
+      145 CALL                             R30 1 12
+      146 ADD                              R43 R33 R37
+      147 ADD                              R42 R43 R41
+      148 LOADN                            R43 3
+      149 JUMPIFNOTLE                      R43 R42 ; [+3]
+      151 LOADK                            R26 K35 [1.5707963267949]
+      152 JUMP                             ; [+12]
+      153 LOADN                            R43 255
+      154 JUMPIFNOTLE                      R42 R43 ; [+3]
+      156 LOADK                            R26 K36 [-1.5707963267949]
+      157 JUMP                             ; [+7]
+      158 SUBK                             R45 R42 K38 [1]
+      159 DIVK                             R44 R45 K37 [2]
+      160 FASTCALL1                        MATH_ACOS R44 ; [+2]
+      161 GETIMPORT                        R43 K41 [math.acos]
+      163 CALL                             R43 1 1
+      164 MOVE                             R26 R43
+      165 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
+      167 MOVE                             R25 R16
+      168 GETIMPORT                        R24 K24 [table.insert]
+      170 CALL                             R24 2 0
+      171 JUMP                             ; [+21]
+      172 GETTABLEKS                       R24 R23 K30 ["Type"]
+      174 GETUPVAL                         R25 6
+      175 GETTABLEKS                       R25 R25 K31 ["TRACK_TYPES"]
+      177 GETTABLEKS                       R25 R25 K42 ["Facs"]
+      179 JUMPIFNOTEQ                      R24 R25 ; [+13]
+      181 GETUPVAL                         R26 5
+      182 GETTABLEKS                       R26 R26 K25 ["getValue"]
+      184 MOVE                             R27 R23
+      185 MOVE                             R28 R15
+      186 CALL                             R26 2 1
+      187 FASTCALL2                        TABLE_INSERT R16 R26 ; [+4]
+      189 MOVE                             R25 R16
+      190 GETIMPORT                        R24 K24 [table.insert]
+      192 CALL                             R24 2 0
+      193 FORGLOOP                         R18 2 [inext] ; [-77]
+      195 SETTABLE                         R16 R10 R14
+      196 FORGLOOP                         R11 2 [inext] ; [-132]
+      198 GETUPVAL                         R11 8
+      199 MOVE                             R12 R10
+      200 CALL                             R11 1 -1
+      201 RETURN                           R11 -1
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -937,75 +945,80 @@ MAIN:
       192 GETTABLEKS                       R28 R0 K11 ["Src"]
       194 GETTABLEKS                       R28 R28 K40 ["Types"]
       196 CALL                             R27 1 1
-      197 GETTABLEKS                       R28 R3 K41 ["PureComponent"]
-      199 LOADK                            R30 K42 ["ReduceKeyframesDialog"]
-      200 NAMECALL                         R28 R28 K43 ["extend"]
-      202 CALL                             R28 2 1
-      203 DUPCLOSURE                       R29 K44 [PROTO_2]
-      204 CAPTURE                          VAL R11
-      205 SETTABLEKS                       R29 R28 K45 ["init"]
-      207 DUPCLOSURE                       R29 K46 [PROTO_3]
-      208 CAPTURE                          VAL R17
-      209 DUPCLOSURE                       R30 K47 [PROTO_4]
-      210 CAPTURE                          VAL R15
-      211 CAPTURE                          VAL R30
-      212 DUPCLOSURE                       R31 K48 [PROTO_5]
-      213 DUPCLOSURE                       R32 K49 [PROTO_6]
-      214 CAPTURE                          VAL R17
-      215 CAPTURE                          VAL R18
-      216 CAPTURE                          VAL R29
-      217 CAPTURE                          VAL R1
-      218 CAPTURE                          VAL R15
-      219 CAPTURE                          VAL R12
-      220 CAPTURE                          VAL R30
-      221 CAPTURE                          VAL R19
-      222 SETTABLEKS                       R32 R28 K50 ["calculateVisvalingamWhyatt"]
-      224 DUPCLOSURE                       R32 K51 [PROTO_8]
+      197 GETIMPORT                        R28 K5 [require]
+      199 GETTABLEKS                       R29 R0 K41 ["LuaFlags"]
+      201 GETTABLEKS                       R29 R29 K42 ["GetFFlagRootMotion"]
+      203 CALL                             R28 1 1
+      204 GETTABLEKS                       R29 R3 K43 ["PureComponent"]
+      206 LOADK                            R31 K44 ["ReduceKeyframesDialog"]
+      207 NAMECALL                         R29 R29 K45 ["extend"]
+      209 CALL                             R29 2 1
+      210 DUPCLOSURE                       R30 K46 [PROTO_2]
+      211 CAPTURE                          VAL R11
+      212 SETTABLEKS                       R30 R29 K47 ["init"]
+      214 DUPCLOSURE                       R30 K48 [PROTO_3]
+      215 CAPTURE                          VAL R17
+      216 DUPCLOSURE                       R31 K49 [PROTO_4]
+      217 CAPTURE                          VAL R15
+      218 CAPTURE                          VAL R31
+      219 DUPCLOSURE                       R32 K50 [PROTO_5]
+      220 DUPCLOSURE                       R33 K51 [PROTO_6]
+      221 CAPTURE                          VAL R28
+      222 CAPTURE                          VAL R17
+      223 CAPTURE                          VAL R18
+      224 CAPTURE                          VAL R30
       225 CAPTURE                          VAL R1
-      226 CAPTURE                          VAL R18
-      227 CAPTURE                          VAL R11
-      228 SETTABLEKS                       R32 R28 K52 ["previewVisvalingamWhyatt"]
-      230 DUPCLOSURE                       R32 K53 [PROTO_10]
-      231 CAPTURE                          VAL R14
-      232 CAPTURE                          VAL R13
-      233 CAPTURE                          VAL R11
+      226 CAPTURE                          VAL R15
+      227 CAPTURE                          VAL R12
+      228 CAPTURE                          VAL R31
+      229 CAPTURE                          VAL R19
+      230 SETTABLEKS                       R33 R29 K52 ["calculateVisvalingamWhyatt"]
+      232 DUPCLOSURE                       R33 K53 [PROTO_8]
+      233 CAPTURE                          VAL R1
       234 CAPTURE                          VAL R18
-      235 SETTABLEKS                       R32 R28 K54 ["didMount"]
-      237 DUPCLOSURE                       R32 K55 [PROTO_11]
-      238 SETTABLEKS                       R32 R28 K56 ["willUnmount"]
-      240 DUPCLOSURE                       R32 K57 [PROTO_12]
-      241 CAPTURE                          VAL R3
-      242 CAPTURE                          VAL R26
-      243 CAPTURE                          VAL R23
-      244 CAPTURE                          VAL R25
-      245 CAPTURE                          VAL R24
-      246 SETTABLEKS                       R32 R28 K58 ["render"]
-      248 DUPCLOSURE                       R32 K59 [PROTO_13]
-      249 DUPCLOSURE                       R33 K60 [PROTO_20]
-      250 CAPTURE                          VAL R8
-      251 CAPTURE                          VAL R5
-      252 CAPTURE                          VAL R6
-      253 CAPTURE                          VAL R7
-      254 CAPTURE                          VAL R9
-      255 CAPTURE                          VAL R10
-      256 MOVE                             R34 R21
-      257 DUPTABLE                         R35 K65 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
-      258 GETTABLEKS                       R36 R20 K61 ["Analytics"]
-      260 SETTABLEKS                       R36 R35 K61 ["Analytics"]
-      262 GETTABLEKS                       R36 R20 K62 ["Localization"]
-      264 SETTABLEKS                       R36 R35 K62 ["Localization"]
-      266 GETTABLEKS                       R36 R20 K63 ["Plugin"]
-      268 SETTABLEKS                       R36 R35 K63 ["Plugin"]
-      270 GETTABLEKS                       R36 R20 K64 ["Stylizer"]
-      272 SETTABLEKS                       R36 R35 K64 ["Stylizer"]
-      274 CALL                             R34 1 1
-      275 MOVE                             R35 R28
-      276 CALL                             R34 1 1
-      277 MOVE                             R28 R34
-      278 GETTABLEKS                       R34 R4 K66 ["connect"]
-      280 MOVE                             R35 R32
-      281 MOVE                             R36 R33
-      282 CALL                             R34 2 1
-      283 MOVE                             R35 R28
-      284 CALL                             R34 1 -1
-      285 RETURN                           R34 -1
+      235 CAPTURE                          VAL R11
+      236 SETTABLEKS                       R33 R29 K54 ["previewVisvalingamWhyatt"]
+      238 DUPCLOSURE                       R33 K55 [PROTO_10]
+      239 CAPTURE                          VAL R14
+      240 CAPTURE                          VAL R13
+      241 CAPTURE                          VAL R11
+      242 CAPTURE                          VAL R18
+      243 SETTABLEKS                       R33 R29 K56 ["didMount"]
+      245 DUPCLOSURE                       R33 K57 [PROTO_11]
+      246 SETTABLEKS                       R33 R29 K58 ["willUnmount"]
+      248 DUPCLOSURE                       R33 K59 [PROTO_12]
+      249 CAPTURE                          VAL R3
+      250 CAPTURE                          VAL R26
+      251 CAPTURE                          VAL R23
+      252 CAPTURE                          VAL R25
+      253 CAPTURE                          VAL R24
+      254 SETTABLEKS                       R33 R29 K60 ["render"]
+      256 DUPCLOSURE                       R33 K61 [PROTO_13]
+      257 DUPCLOSURE                       R34 K62 [PROTO_20]
+      258 CAPTURE                          VAL R8
+      259 CAPTURE                          VAL R5
+      260 CAPTURE                          VAL R6
+      261 CAPTURE                          VAL R7
+      262 CAPTURE                          VAL R9
+      263 CAPTURE                          VAL R10
+      264 MOVE                             R35 R21
+      265 DUPTABLE                         R36 K67 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
+      266 GETTABLEKS                       R37 R20 K63 ["Analytics"]
+      268 SETTABLEKS                       R37 R36 K63 ["Analytics"]
+      270 GETTABLEKS                       R37 R20 K64 ["Localization"]
+      272 SETTABLEKS                       R37 R36 K64 ["Localization"]
+      274 GETTABLEKS                       R37 R20 K65 ["Plugin"]
+      276 SETTABLEKS                       R37 R36 K65 ["Plugin"]
+      278 GETTABLEKS                       R37 R20 K66 ["Stylizer"]
+      280 SETTABLEKS                       R37 R36 K66 ["Stylizer"]
+      282 CALL                             R35 1 1
+      283 MOVE                             R36 R29
+      284 CALL                             R35 1 1
+      285 MOVE                             R29 R35
+      286 GETTABLEKS                       R35 R4 K68 ["connect"]
+      288 MOVE                             R36 R33
+      289 MOVE                             R37 R34
+      290 CALL                             R35 2 1
+      291 MOVE                             R36 R29
+      292 CALL                             R35 1 -1
+      293 RETURN                           R35 -1

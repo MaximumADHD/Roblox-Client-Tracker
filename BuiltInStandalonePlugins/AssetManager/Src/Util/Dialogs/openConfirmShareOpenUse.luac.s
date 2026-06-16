@@ -28,48 +28,12 @@ PROTO_0:
        36 RETURN                           R0 0
 
 PROTO_1:
-        0 LOADK                            R6 K0 ["ContextMenu"]
-        1 LOADK                            R7 K1 ["OpenUse"]
-        2 NAMECALL                         R4 R1 K2 ["getText"]
-        4 CALL                             R4 3 1
-        5 JUMPIFNOT                        R2 ; [+23]
-        6 LOADK                            R7 K1 ["OpenUse"]
-        7 JUMPIFNOTEQKN                    R3 K3 [1] ; [+3]
-        9 LOADK                            R8 K4 ["OneAsset"]
-       10 JUMP                             ; [+1]
-       11 LOADK                            R8 K5 ["MultipleAssets"]
-       12 DUPTABLE                         R9 K7 [{"count"}]
-       13 FASTCALL1                        TOSTRING R3 ; [+3]
-       14 MOVE                             R11 R3
-       15 GETIMPORT                        R10 K9 [tostring]
-       17 CALL                             R10 1 1
-       18 SETTABLEKS                       R10 R9 K6 ["count"]
-       20 NAMECALL                         R5 R1 K2 ["getText"]
-       22 CALL                             R5 4 1
-       23 GETUPVAL                         R6 0
-       24 MOVE                             R7 R0
-       25 MOVE                             R8 R4
-       26 MOVE                             R9 R5
-       27 CALL                             R6 3 0
-       28 RETURN                           R0 0
-       29 GETUPVAL                         R5 0
-       30 MOVE                             R6 R0
-       31 MOVE                             R7 R4
-       32 LOADK                            R10 K10 ["QuickShare"]
-       33 LOADK                            R11 K11 ["FailedToGrant"]
-       34 NAMECALL                         R8 R1 K2 ["getText"]
-       36 CALL                             R8 3 1
-       37 LOADB                            R9 1
-       38 CALL                             R5 4 0
-       39 RETURN                           R0 0
-
-PROTO_2:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["closeDialog"]
         3 CALL                             R0 1 0
         4 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 NEWTABLE                         R4 0 0
         2 MOVE                             R5 R2
         3 LOADNIL                          R6
@@ -121,7 +85,7 @@ PROTO_3:
        69 CALL                             R7 3 0
        70 RETURN                           R0 0
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 NAMECALL                         R2 R2 K0 ["closeDialog"]
         3 CALL                             R2 1 0
@@ -147,7 +111,7 @@ PROTO_4:
        25 CALL                             R2 4 0
        26 RETURN                           R0 0
 
-PROTO_5:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETUPVAL                         R3 2
@@ -164,7 +128,7 @@ PROTO_5:
        18 LOADB                            R0 1
        19 RETURN                           R0 1
 
-PROTO_6:
+PROTO_5:
         0 NEWTABLE                         R5 0 0
         2 NAMECALL                         R6 R0 K0 ["getItemsCache"]
         4 CALL                             R6 1 1
@@ -253,36 +217,19 @@ MAIN:
        29 CALL                             R3 1 1
        30 GETIMPORT                        R4 K5 [require]
        32 GETTABLEKS                       R5 R0 K6 ["Src"]
-       34 GETTABLEKS                       R5 R5 K12 ["Util"]
-       36 GETTABLEKS                       R5 R5 K13 ["Dialogs"]
-       38 GETTABLEKS                       R5 R5 K14 ["openNotification"]
-       40 CALL                             R4 1 1
-       41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R6 R0 K6 ["Src"]
-       45 GETTABLEKS                       R6 R6 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R6 K16 ["getFStringAmrOpenUsePage"]
-       49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K6 ["Src"]
-       54 GETTABLEKS                       R7 R7 K15 ["Flags"]
-       56 GETTABLEKS                       R7 R7 K17 ["getFFlagAmrCustomToastNotifications"]
-       58 CALL                             R6 1 1
-       59 MOVE                             R8 R6
-       60 CALL                             R8 0 1
-       61 JUMPIFNOT                        R8 ; [+2]
-       62 DUPCLOSURE                       R7 K18 [PROTO_0]
-       63 JUMP                             ; [+2]
-       64 DUPCLOSURE                       R7 K19 [PROTO_1]
-       65 CAPTURE                          VAL R4
-       66 DUPCLOSURE                       R8 K20 [PROTO_3]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R1
-       69 CAPTURE                          VAL R5
-       70 DUPCLOSURE                       R9 K21 [PROTO_6]
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R2
-       73 CAPTURE                          VAL R8
-       74 CAPTURE                          VAL R7
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          VAL R5
-       77 RETURN                           R9 1
+       34 GETTABLEKS                       R5 R5 K12 ["Flags"]
+       36 GETTABLEKS                       R5 R5 K13 ["getFStringAmrOpenUsePage"]
+       38 CALL                             R4 1 1
+       39 DUPCLOSURE                       R5 K14 [PROTO_0]
+       40 DUPCLOSURE                       R6 K15 [PROTO_2]
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R4
+       44 DUPCLOSURE                       R7 K16 [PROTO_5]
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R4
+       51 RETURN                           R7 1

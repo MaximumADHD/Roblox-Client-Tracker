@@ -153,11 +153,11 @@ MAIN:
        34 GETTABLEKS                       R5 R5 K11 ["FilterTypeButton"]
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
-       39 GETIMPORT                        R6 K1 [script]
-       41 GETTABLEKS                       R6 R6 K10 ["Parent"]
-       43 GETTABLEKS                       R6 R6 K12 ["useFilterTypeTable"]
+       39 GETTABLEKS                       R6 R0 K12 ["Src"]
+       41 GETTABLEKS                       R6 R6 K13 ["Hooks"]
+       43 GETTABLEKS                       R6 R6 K14 ["useFilterTypeTable"]
        45 CALL                             R5 1 1
-       46 DUPCLOSURE                       R6 K13 [PROTO_2]
+       46 DUPCLOSURE                       R6 K15 [PROTO_2]
        47 CAPTURE                          VAL R2
        48 CAPTURE                          VAL R3
        49 CAPTURE                          VAL R1

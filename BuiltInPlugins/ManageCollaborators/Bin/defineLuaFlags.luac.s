@@ -196,11 +196,11 @@ MAIN:
       271 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       273 CALL                             R0 3 0
       274 GETIMPORT                        R0 K1 [game]
-      276 LOADK                            R2 K45 ["GRPS3112_OwnerRolesetDeprecation"]
+      276 LOADK                            R2 K45 ["GRPS3112_OwnerRolesetDeprecation2"]
       277 LOADB                            R3 0
       278 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       280 CALL                             R0 3 0
-      281 DUPTABLE                         R0 K57 [{"fflagManageCollaboratorsVerifyAgeDialog", "fflagUpsellMCCollabReverification", "fflagRemoveHeaderWithUpsellBanner2", "fflagManageCollaboratorsActionNeededLabel", "fflagManageCollaboratorsOutsideAgeBucketAlert", "fflagManageCollaboratorsEditorBlockingBanner", "fstringCreatorHubOwnersViewLinkFormatStr", "fstringCreatorHubImpactedExperiencesLink", "fflagUpsellCollabTrustedConnectionShowUpsellDialog", "fflagOwnerRolesetDeprecation", "fflagManageCollaboratorsOwnerAgeVerificationBanner"}]
+      281 DUPTABLE                         R0 K57 [{"fflagManageCollaboratorsVerifyAgeDialog", "fflagUpsellMCCollabReverification", "fflagRemoveHeaderWithUpsellBanner2", "fflagManageCollaboratorsActionNeededLabel", "fflagManageCollaboratorsOutsideAgeBucketAlert", "fflagManageCollaboratorsEditorBlockingBanner", "fstringCreatorHubOwnersViewLinkFormatStr", "fstringCreatorHubImpactedExperiencesLink", "fflagUpsellCollabTrustedConnectionShowUpsellDialog", "fflagOwnerRolesetDeprecation2", "fflagManageCollaboratorsOwnerAgeVerificationBanner"}]
       282 GETIMPORT                        R1 K1 [game]
       284 LOADK                            R3 K32 ["ManageCollaboratorsVerifyAgeDialog"]
       285 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
@@ -272,10 +272,10 @@ MAIN:
       386 CALL                             R1 2 1
       387 SETTABLEKS                       R1 R0 K54 ["fflagUpsellCollabTrustedConnectionShowUpsellDialog"]
       389 GETIMPORT                        R1 K1 [game]
-      391 LOADK                            R3 K45 ["GRPS3112_OwnerRolesetDeprecation"]
+      391 LOADK                            R3 K45 ["GRPS3112_OwnerRolesetDeprecation2"]
       392 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
       394 CALL                             R1 2 1
-      395 SETTABLEKS                       R1 R0 K55 ["fflagOwnerRolesetDeprecation"]
+      395 SETTABLEKS                       R1 R0 K55 ["fflagOwnerRolesetDeprecation2"]
       397 GETIMPORT                        R1 K1 [game]
       399 LOADK                            R3 K38 ["ManageCollaboratorsOwnerAgeVerificationBanner"]
       400 NAMECALL                         R1 R1 K58 ["GetFastFlag"]

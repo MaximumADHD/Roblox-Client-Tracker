@@ -1,17 +1,13 @@
 PROTO_0:
         0 GETUPVAL                         R3 0
-        1 GETTABLEKS                       R3 R3 K0 ["FFlagTeamCreateCollaboratorsTelemetry"]
-        3 JUMPIF                           R3 ; [+1]
-        4 RETURN                           R0 0
-        5 GETUPVAL                         R3 1
-        6 GETUPVAL                         R5 2
-        7 DUPTABLE                         R6 K4 [{"source", "details", "statusCode"}]
-        8 SETTABLEKS                       R0 R6 K1 ["source"]
-       10 SETTABLEKS                       R1 R6 K2 ["details"]
-       12 SETTABLEKS                       R2 R6 K3 ["statusCode"]
-       14 NAMECALL                         R3 R3 K5 ["logRobloxTelemetryEvent"]
-       16 CALL                             R3 3 0
-       17 RETURN                           R0 0
+        1 GETUPVAL                         R5 1
+        2 DUPTABLE                         R6 K3 [{"source", "details", "statusCode"}]
+        3 SETTABLEKS                       R0 R6 K0 ["source"]
+        5 SETTABLEKS                       R1 R6 K1 ["details"]
+        7 SETTABLEKS                       R2 R6 K2 ["statusCode"]
+        9 NAMECALL                         R3 R3 K4 ["logRobloxTelemetryEvent"]
+       11 CALL                             R3 3 0
+       12 RETURN                           R0 0
 
 PROTO_1:
         0 FASTCALL1                        TYPE R1 ; [+3]
@@ -43,33 +39,25 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["FFlagTeamCreateCollaboratorsTelemetry"]
-        3 JUMPIF                           R1 ; [+1]
-        4 RETURN                           R0 0
-        5 GETUPVAL                         R1 1
-        6 GETUPVAL                         R3 2
-        7 DUPTABLE                         R4 K3 [{"telemetryType", "action"}]
-        8 LOADK                            R5 K4 ["featureShown"]
-        9 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-       11 SETTABLEKS                       R0 R4 K2 ["action"]
-       13 NAMECALL                         R1 R1 K5 ["logRobloxTelemetryEvent"]
-       15 CALL                             R1 3 0
-       16 RETURN                           R0 0
+        1 GETUPVAL                         R3 1
+        2 DUPTABLE                         R4 K2 [{"telemetryType", "action"}]
+        3 LOADK                            R5 K3 ["featureShown"]
+        4 SETTABLEKS                       R5 R4 K0 ["telemetryType"]
+        6 SETTABLEKS                       R0 R4 K1 ["action"]
+        8 NAMECALL                         R1 R1 K4 ["logRobloxTelemetryEvent"]
+       10 CALL                             R1 3 0
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["FFlagTeamCreateCollaboratorsTelemetry"]
-        3 JUMPIF                           R1 ; [+1]
-        4 RETURN                           R0 0
-        5 GETUPVAL                         R1 1
-        6 GETUPVAL                         R3 2
-        7 DUPTABLE                         R4 K3 [{"telemetryType", "action"}]
-        8 LOADK                            R5 K4 ["buttonClicked"]
-        9 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-       11 SETTABLEKS                       R0 R4 K2 ["action"]
-       13 NAMECALL                         R1 R1 K5 ["logRobloxTelemetryEvent"]
-       15 CALL                             R1 3 0
-       16 RETURN                           R0 0
+        1 GETUPVAL                         R3 1
+        2 DUPTABLE                         R4 K2 [{"telemetryType", "action"}]
+        3 LOADK                            R5 K3 ["buttonClicked"]
+        4 SETTABLEKS                       R5 R4 K0 ["telemetryType"]
+        6 SETTABLEKS                       R0 R4 K1 ["action"]
+        8 NAMECALL                         R1 R1 K4 ["logRobloxTelemetryEvent"]
+       10 CALL                             R1 3 0
+       11 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -82,39 +70,31 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["TelemetryProtocol"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Bin"]
-       18 GETTABLEKS                       R3 R3 K9 ["Common"]
-       20 GETTABLEKS                       R3 R3 K10 ["flags"]
+       16 GETIMPORT                        R3 K1 [script]
+       18 GETTABLEKS                       R3 R3 K8 ["Parent"]
+       20 GETTABLEKS                       R3 R3 K9 ["TeamCreateCollaboratorsErrorEvent"]
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
        25 GETIMPORT                        R4 K1 [script]
-       27 GETTABLEKS                       R4 R4 K11 ["Parent"]
-       29 GETTABLEKS                       R4 R4 K12 ["TeamCreateCollaboratorsErrorEvent"]
+       27 GETTABLEKS                       R4 R4 K8 ["Parent"]
+       29 GETTABLEKS                       R4 R4 K10 ["TeamCreateCollaboratorsTelemetryEvent"]
        31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETIMPORT                        R5 K1 [script]
-       36 GETTABLEKS                       R5 R5 K11 ["Parent"]
-       38 GETTABLEKS                       R5 R5 K13 ["TeamCreateCollaboratorsTelemetryEvent"]
-       40 CALL                             R4 1 1
-       41 GETTABLEKS                       R5 R1 K14 ["new"]
-       43 CALL                             R5 0 1
-       44 NEWTABLE                         R6 4 0
-       46 DUPCLOSURE                       R7 K15 [PROTO_0]
-       47 CAPTURE                          VAL R2
-       48 CAPTURE                          VAL R5
-       49 CAPTURE                          VAL R3
-       50 SETTABLEKS                       R7 R6 K16 ["sendError"]
-       52 DUPCLOSURE                       R7 K17 [PROTO_1]
-       53 CAPTURE                          VAL R6
-       54 SETTABLEKS                       R7 R6 K18 ["sendErrorFromCatch"]
-       56 DUPCLOSURE                       R7 K19 [PROTO_2]
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          VAL R5
-       59 CAPTURE                          VAL R4
-       60 SETTABLEKS                       R7 R6 K20 ["sendFeatureShown"]
-       62 DUPCLOSURE                       R7 K21 [PROTO_3]
-       63 CAPTURE                          VAL R2
-       64 CAPTURE                          VAL R5
-       65 CAPTURE                          VAL R4
-       66 SETTABLEKS                       R7 R6 K22 ["sendButtonClicked"]
-       68 RETURN                           R6 1
+       32 GETTABLEKS                       R4 R1 K11 ["new"]
+       34 CALL                             R4 0 1
+       35 NEWTABLE                         R5 4 0
+       37 DUPCLOSURE                       R6 K12 [PROTO_0]
+       38 CAPTURE                          VAL R4
+       39 CAPTURE                          VAL R2
+       40 SETTABLEKS                       R6 R5 K13 ["sendError"]
+       42 DUPCLOSURE                       R6 K14 [PROTO_1]
+       43 CAPTURE                          VAL R5
+       44 SETTABLEKS                       R6 R5 K15 ["sendErrorFromCatch"]
+       46 DUPCLOSURE                       R6 K16 [PROTO_2]
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R3
+       49 SETTABLEKS                       R6 R5 K17 ["sendFeatureShown"]
+       51 DUPCLOSURE                       R6 K18 [PROTO_3]
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          VAL R3
+       54 SETTABLEKS                       R6 R5 K19 ["sendButtonClicked"]
+       56 RETURN                           R5 1

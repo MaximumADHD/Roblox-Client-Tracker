@@ -680,7 +680,7 @@ MAIN:
        58 GETIMPORT                        R15 K5 [require]
        60 GETTABLEKS                       R16 R0 K22 ["Src"]
        62 GETTABLEKS                       R16 R16 K23 ["Contexts"]
-       64 GETTABLEKS                       R16 R16 K24 ["DatamodelReference"]
+       64 GETTABLEKS                       R16 R16 K24 ["InputConfiguration"]
        66 CALL                             R15 1 1
        67 GETIMPORT                        R16 K5 [require]
        69 GETTABLEKS                       R17 R0 K22 ["Src"]

@@ -28,210 +28,246 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
+        1 GETIMPORT                        R2 K2 [Vector2.new]
+        3 LOADN                            R3 8
+        4 GETTABLEKS                       R4 R0 K3 ["Y"]
+        6 CALL                             R2 2 -1
+        7 CALL                             R1 -1 0
+        8 RETURN                           R0 0
+
+PROTO_2:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 DUPTABLE                         R2 K2 [{"plugin"}]
         4 GETTABLEKS                       R3 R0 K1 ["plugin"]
         6 SETTABLEKS                       R3 R2 K1 ["plugin"]
         8 CALL                             R1 1 1
         9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R2 R2 K3 ["useMemo"]
-       12 NEWCLOSURE                       R3 P0
-       13 CAPTURE                          UPVAL U2
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U4
-       17 CAPTURE                          UPVAL U5
-       18 CAPTURE                          UPVAL U6
-       19 NEWTABLE                         R4 0 0
-       21 CALL                             R2 2 1
-       22 GETUPVAL                         R3 7
-       23 GETTABLEKS                       R3 R3 K4 ["provide"]
-       25 MOVE                             R4 R2
-       26 DUPTABLE                         R5 K6 [{"ContextStack"}]
-       27 GETUPVAL                         R6 1
-       28 GETTABLEKS                       R6 R6 K7 ["createElement"]
-       30 GETUPVAL                         R7 8
-       31 GETTABLEKS                       R7 R7 K5 ["ContextStack"]
-       33 DUPTABLE                         R8 K9 [{"providers"}]
-       34 NEWTABLE                         R9 0 2
-       36 GETUPVAL                         R10 1
-       37 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       39 GETUPVAL                         R11 9
-       40 CALL                             R10 1 1
-       41 GETUPVAL                         R11 1
-       42 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       44 GETUPVAL                         R12 10
-       45 DUPTABLE                         R13 K12 [{"universeId", "collaborators"}]
-       46 GETTABLEKS                       R14 R1 K10 ["universeId"]
-       48 SETTABLEKS                       R14 R13 K10 ["universeId"]
-       50 GETTABLEKS                       R14 R1 K11 ["collaborators"]
-       52 SETTABLEKS                       R14 R13 K11 ["collaborators"]
-       54 CALL                             R11 2 -1
-       55 SETLIST                          R9 R10 -1 [1]
-       57 SETTABLEKS                       R9 R8 K8 ["providers"]
-       59 DUPTABLE                         R9 K16 [{"MainDialog", "VPCTrustedConnectionDialog", "VPCRequestSentDialog"}]
-       60 LOADB                            R10 0
-       61 GETTABLEKS                       R11 R1 K17 ["activeDialog"]
-       63 GETUPVAL                         R12 11
-       64 GETTABLEKS                       R12 R12 K18 ["Main"]
-       66 JUMPIFNOTEQ                      R11 R12 ; [+73]
-       68 GETUPVAL                         R10 1
-       69 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       71 GETUPVAL                         R11 12
-       72 GETTABLEKS                       R11 R11 K19 ["UI"]
-       74 GETTABLEKS                       R11 R11 K20 ["Dialog"]
-       76 DUPTABLE                         R12 K27 [{"Title", "Enabled", "Modal", "Resizable", "Size", "OnClose"}]
-       77 LOADK                            R13 K28 [""]
-       78 SETTABLEKS                       R13 R12 K21 ["Title"]
-       80 LOADB                            R13 1
-       81 SETTABLEKS                       R13 R12 K22 ["Enabled"]
-       83 GETUPVAL                         R14 13
-       84 NOT                              R13 R14
-       85 SETTABLEKS                       R13 R12 K23 ["Modal"]
-       87 LOADB                            R13 1
-       88 SETTABLEKS                       R13 R12 K24 ["Resizable"]
-       90 GETIMPORT                        R13 K31 [Vector2.new]
-       92 LOADN                            R14 244
-       93 LOADN                            R15 244
-       94 CALL                             R13 2 1
-       95 SETTABLEKS                       R13 R12 K25 ["Size"]
-       97 GETTABLEKS                       R13 R1 K32 ["onMainDialogX"]
-       99 SETTABLEKS                       R13 R12 K26 ["OnClose"]
-      101 DUPTABLE                         R13 K34 [{"Foundation"}]
-      102 GETUPVAL                         R14 1
-      103 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      105 GETUPVAL                         R15 14
-      106 LOADNIL                          R16
-      107 DUPTABLE                         R17 K36 [{"MainView"}]
-      108 GETUPVAL                         R18 1
-      109 GETTABLEKS                       R18 R18 K7 ["createElement"]
-      111 GETUPVAL                         R19 15
-      112 DUPTABLE                         R20 K41 [{"universeId", "placeId", "onOpenTrustedConnectionDialog", "onRequestComplete", "onClose"}]
-      113 GETTABLEKS                       R21 R1 K10 ["universeId"]
-      115 SETTABLEKS                       R21 R20 K10 ["universeId"]
-      117 GETTABLEKS                       R21 R1 K37 ["placeId"]
-      119 SETTABLEKS                       R21 R20 K37 ["placeId"]
-      121 GETTABLEKS                       R21 R1 K38 ["onOpenTrustedConnectionDialog"]
-      123 SETTABLEKS                       R21 R20 K38 ["onOpenTrustedConnectionDialog"]
-      125 GETTABLEKS                       R21 R1 K39 ["onRequestComplete"]
-      127 SETTABLEKS                       R21 R20 K39 ["onRequestComplete"]
-      129 GETTABLEKS                       R21 R1 K42 ["onCloseAll"]
-      131 SETTABLEKS                       R21 R20 K40 ["onClose"]
-      133 CALL                             R18 2 1
-      134 SETTABLEKS                       R18 R17 K35 ["MainView"]
-      136 CALL                             R14 3 1
-      137 SETTABLEKS                       R14 R13 K33 ["Foundation"]
-      139 CALL                             R10 3 1
-      140 SETTABLEKS                       R10 R9 K13 ["MainDialog"]
-      142 LOADB                            R10 0
-      143 GETTABLEKS                       R11 R1 K17 ["activeDialog"]
-      145 GETUPVAL                         R12 11
-      146 GETTABLEKS                       R12 R12 K43 ["VPCTrustedConnection"]
-      148 JUMPIFNOTEQ                      R11 R12 ; [+65]
-      150 GETUPVAL                         R10 1
-      151 GETTABLEKS                       R10 R10 K7 ["createElement"]
-      153 GETUPVAL                         R11 12
-      154 GETTABLEKS                       R11 R11 K19 ["UI"]
-      156 GETTABLEKS                       R11 R11 K20 ["Dialog"]
-      158 DUPTABLE                         R12 K27 [{"Title", "Enabled", "Modal", "Resizable", "Size", "OnClose"}]
-      159 LOADK                            R13 K28 [""]
-      160 SETTABLEKS                       R13 R12 K21 ["Title"]
-      162 LOADB                            R13 1
-      163 SETTABLEKS                       R13 R12 K22 ["Enabled"]
-      165 GETUPVAL                         R14 13
-      166 NOT                              R13 R14
-      167 SETTABLEKS                       R13 R12 K23 ["Modal"]
-      169 LOADB                            R13 0
-      170 SETTABLEKS                       R13 R12 K24 ["Resizable"]
-      172 GETIMPORT                        R13 K31 [Vector2.new]
-      174 LOADN                            R14 8
-      175 LOADN                            R15 11
-      176 CALL                             R13 2 1
-      177 SETTABLEKS                       R13 R12 K25 ["Size"]
-      179 GETTABLEKS                       R13 R1 K44 ["onNewParentDialogX"]
-      181 SETTABLEKS                       R13 R12 K26 ["OnClose"]
-      183 DUPTABLE                         R13 K34 [{"Foundation"}]
-      184 GETUPVAL                         R14 1
-      185 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      187 GETUPVAL                         R15 14
-      188 LOADNIL                          R16
-      189 DUPTABLE                         R17 K45 [{"Dialog"}]
-      190 GETUPVAL                         R18 1
-      191 GETTABLEKS                       R18 R18 K7 ["createElement"]
-      193 GETUPVAL                         R19 16
-      194 DUPTABLE                         R20 K46 [{"onClose", "onRequestComplete", "universeId"}]
-      195 GETTABLEKS                       R21 R1 K47 ["onCloseTrustedConnectionDialog"]
-      197 SETTABLEKS                       R21 R20 K40 ["onClose"]
-      199 GETTABLEKS                       R21 R1 K39 ["onRequestComplete"]
-      201 SETTABLEKS                       R21 R20 K39 ["onRequestComplete"]
-      203 GETTABLEKS                       R21 R1 K10 ["universeId"]
-      205 SETTABLEKS                       R21 R20 K10 ["universeId"]
-      207 CALL                             R18 2 1
-      208 SETTABLEKS                       R18 R17 K20 ["Dialog"]
-      210 CALL                             R14 3 1
-      211 SETTABLEKS                       R14 R13 K33 ["Foundation"]
-      213 CALL                             R10 3 1
-      214 SETTABLEKS                       R10 R9 K14 ["VPCTrustedConnectionDialog"]
-      216 LOADB                            R10 0
-      217 GETTABLEKS                       R11 R1 K17 ["activeDialog"]
-      219 GETUPVAL                         R12 11
-      220 GETTABLEKS                       R12 R12 K48 ["VPCRequestSent"]
-      222 JUMPIFNOTEQ                      R11 R12 ; [+78]
-      224 GETTABLEKS                       R10 R1 K49 ["requestResult"]
-      226 JUMPIFNOT                        R10 ; [+74]
-      227 GETUPVAL                         R10 1
-      228 GETTABLEKS                       R10 R10 K7 ["createElement"]
-      230 GETUPVAL                         R11 12
-      231 GETTABLEKS                       R11 R11 K19 ["UI"]
-      233 GETTABLEKS                       R11 R11 K20 ["Dialog"]
-      235 DUPTABLE                         R12 K27 [{"Title", "Enabled", "Modal", "Resizable", "Size", "OnClose"}]
-      236 LOADK                            R13 K28 [""]
-      237 SETTABLEKS                       R13 R12 K21 ["Title"]
-      239 LOADB                            R13 1
-      240 SETTABLEKS                       R13 R12 K22 ["Enabled"]
-      242 GETUPVAL                         R14 13
-      243 NOT                              R13 R14
-      244 SETTABLEKS                       R13 R12 K23 ["Modal"]
-      246 LOADB                            R13 0
-      247 SETTABLEKS                       R13 R12 K24 ["Resizable"]
-      249 GETIMPORT                        R13 K31 [Vector2.new]
-      251 LOADN                            R14 8
-      252 LOADN                            R15 158
-      253 CALL                             R13 2 1
-      254 SETTABLEKS                       R13 R12 K25 ["Size"]
-      256 GETTABLEKS                       R13 R1 K50 ["onRequestFailedDialogX"]
-      258 SETTABLEKS                       R13 R12 K26 ["OnClose"]
-      260 DUPTABLE                         R13 K34 [{"Foundation"}]
-      261 GETUPVAL                         R14 1
-      262 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      264 GETUPVAL                         R15 14
-      265 LOADNIL                          R16
-      266 DUPTABLE                         R17 K45 [{"Dialog"}]
-      267 GETUPVAL                         R18 1
-      268 GETTABLEKS                       R18 R18 K7 ["createElement"]
-      270 GETUPVAL                         R19 17
-      271 DUPTABLE                         R20 K54 [{"statusCode", "errorMessage", "responseBody", "onClose"}]
-      272 GETTABLEKS                       R21 R1 K49 ["requestResult"]
-      274 GETTABLEKS                       R21 R21 K51 ["statusCode"]
-      276 SETTABLEKS                       R21 R20 K51 ["statusCode"]
-      278 GETTABLEKS                       R21 R1 K49 ["requestResult"]
-      280 GETTABLEKS                       R21 R21 K52 ["errorMessage"]
-      282 SETTABLEKS                       R21 R20 K52 ["errorMessage"]
-      284 GETTABLEKS                       R21 R1 K49 ["requestResult"]
-      286 GETTABLEKS                       R21 R21 K53 ["responseBody"]
-      288 SETTABLEKS                       R21 R20 K53 ["responseBody"]
-      290 GETTABLEKS                       R21 R1 K42 ["onCloseAll"]
-      292 SETTABLEKS                       R21 R20 K40 ["onClose"]
-      294 CALL                             R18 2 1
-      295 SETTABLEKS                       R18 R17 K20 ["Dialog"]
-      297 CALL                             R14 3 1
-      298 SETTABLEKS                       R14 R13 K33 ["Foundation"]
-      300 CALL                             R10 3 1
-      301 SETTABLEKS                       R10 R9 K15 ["VPCRequestSentDialog"]
-      303 CALL                             R6 3 1
-      304 SETTABLEKS                       R6 R5 K5 ["ContextStack"]
-      306 CALL                             R3 2 -1
-      307 RETURN                           R3 -1
+       10 GETTABLEKS                       R2 R2 K3 ["useState"]
+       12 GETIMPORT                        R3 K6 [Vector2.new]
+       14 LOADN                            R4 8
+       15 LOADN                            R5 158
+       16 CALL                             R3 2 -1
+       17 CALL                             R2 -1 2
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K7 ["useMemo"]
+       21 NEWCLOSURE                       R5 P0
+       22 CAPTURE                          UPVAL U2
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U3
+       25 CAPTURE                          UPVAL U4
+       26 CAPTURE                          UPVAL U5
+       27 CAPTURE                          UPVAL U6
+       28 NEWTABLE                         R6 0 0
+       30 CALL                             R4 2 1
+       31 GETUPVAL                         R5 7
+       32 GETTABLEKS                       R5 R5 K8 ["provide"]
+       34 MOVE                             R6 R4
+       35 DUPTABLE                         R7 K10 [{"ContextStack"}]
+       36 GETUPVAL                         R8 1
+       37 GETTABLEKS                       R8 R8 K11 ["createElement"]
+       39 GETUPVAL                         R9 8
+       40 GETTABLEKS                       R9 R9 K9 ["ContextStack"]
+       42 DUPTABLE                         R10 K13 [{"providers"}]
+       43 NEWTABLE                         R11 0 2
+       45 GETUPVAL                         R12 1
+       46 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       48 GETUPVAL                         R13 9
+       49 CALL                             R12 1 1
+       50 GETUPVAL                         R13 1
+       51 GETTABLEKS                       R13 R13 K11 ["createElement"]
+       53 GETUPVAL                         R14 10
+       54 DUPTABLE                         R15 K16 [{"universeId", "collaborators"}]
+       55 GETTABLEKS                       R16 R1 K14 ["universeId"]
+       57 SETTABLEKS                       R16 R15 K14 ["universeId"]
+       59 GETTABLEKS                       R16 R1 K15 ["collaborators"]
+       61 SETTABLEKS                       R16 R15 K15 ["collaborators"]
+       63 CALL                             R13 2 -1
+       64 SETLIST                          R11 R12 -1 [1]
+       66 SETTABLEKS                       R11 R10 K12 ["providers"]
+       68 DUPTABLE                         R11 K20 [{"MainDialog", "VPCTrustedConnectionDialog", "VPCRequestSentDialog"}]
+       69 LOADB                            R12 0
+       70 GETTABLEKS                       R13 R1 K21 ["activeDialog"]
+       72 GETUPVAL                         R14 11
+       73 GETTABLEKS                       R14 R14 K22 ["Main"]
+       75 JUMPIFNOTEQ                      R13 R14 ; [+109]
+       77 GETUPVAL                         R12 1
+       78 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       80 GETUPVAL                         R13 12
+       81 GETTABLEKS                       R13 R13 K23 ["UI"]
+       83 GETTABLEKS                       R13 R13 K24 ["Dialog"]
+       85 DUPTABLE                         R14 K31 [{"Title", "Enabled", "Modal", "Resizable", "Size", "OnClose"}]
+       86 LOADK                            R15 K32 [""]
+       87 SETTABLEKS                       R15 R14 K25 ["Title"]
+       89 LOADB                            R15 1
+       90 SETTABLEKS                       R15 R14 K26 ["Enabled"]
+       92 GETUPVAL                         R16 13
+       93 NOT                              R15 R16
+       94 SETTABLEKS                       R15 R14 K27 ["Modal"]
+       96 LOADB                            R15 1
+       97 SETTABLEKS                       R15 R14 K28 ["Resizable"]
+       99 GETIMPORT                        R15 K6 [Vector2.new]
+      101 LOADN                            R16 244
+      102 LOADN                            R17 244
+      103 CALL                             R15 2 1
+      104 SETTABLEKS                       R15 R14 K29 ["Size"]
+      106 GETTABLEKS                       R15 R1 K33 ["onMainDialogX"]
+      108 SETTABLEKS                       R15 R14 K30 ["OnClose"]
+      110 DUPTABLE                         R15 K35 [{"Foundation"}]
+      111 GETUPVAL                         R16 1
+      112 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      114 GETUPVAL                         R17 14
+      115 LOADNIL                          R18
+      116 DUPTABLE                         R19 K37 [{"MainView"}]
+      117 GETUPVAL                         R20 1
+      118 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      120 GETUPVAL                         R21 15
+      121 DUPTABLE                         R22 K45 [{"universeId", "placeId", "onOpenTrustedConnectionDialog", "onRequestComplete", "onClose", "canUseLinkedParent", "canUseAddTfLinks", "canCollabAllPcApproved"}]
+      122 GETTABLEKS                       R23 R1 K14 ["universeId"]
+      124 SETTABLEKS                       R23 R22 K14 ["universeId"]
+      126 GETTABLEKS                       R23 R1 K38 ["placeId"]
+      128 SETTABLEKS                       R23 R22 K38 ["placeId"]
+      130 GETTABLEKS                       R23 R1 K39 ["onOpenTrustedConnectionDialog"]
+      132 SETTABLEKS                       R23 R22 K39 ["onOpenTrustedConnectionDialog"]
+      134 GETTABLEKS                       R23 R1 K40 ["onRequestComplete"]
+      136 SETTABLEKS                       R23 R22 K40 ["onRequestComplete"]
+      138 GETTABLEKS                       R23 R1 K46 ["onCloseAll"]
+      140 SETTABLEKS                       R23 R22 K41 ["onClose"]
+      142 GETTABLEKS                       R24 R1 K47 ["userCapabilities"]
+      144 JUMPIFEQKNIL                     R24 ; [+6]
+      146 GETTABLEKS                       R23 R1 K47 ["userCapabilities"]
+      148 GETTABLEKS                       R23 R23 K42 ["canUseLinkedParent"]
+      150 JUMPIF                           R23 ; [+1]
+      151 LOADB                            R23 0
+      152 SETTABLEKS                       R23 R22 K42 ["canUseLinkedParent"]
+      154 GETTABLEKS                       R24 R1 K47 ["userCapabilities"]
+      156 JUMPIFEQKNIL                     R24 ; [+6]
+      158 GETTABLEKS                       R23 R1 K47 ["userCapabilities"]
+      160 GETTABLEKS                       R23 R23 K43 ["canUseAddTfLinks"]
+      162 JUMPIF                           R23 ; [+1]
+      163 LOADB                            R23 0
+      164 SETTABLEKS                       R23 R22 K43 ["canUseAddTfLinks"]
+      166 GETTABLEKS                       R24 R1 K47 ["userCapabilities"]
+      168 JUMPIFEQKNIL                     R24 ; [+6]
+      170 GETTABLEKS                       R23 R1 K47 ["userCapabilities"]
+      172 GETTABLEKS                       R23 R23 K44 ["canCollabAllPcApproved"]
+      174 JUMPIF                           R23 ; [+1]
+      175 LOADB                            R23 0
+      176 SETTABLEKS                       R23 R22 K44 ["canCollabAllPcApproved"]
+      178 CALL                             R20 2 1
+      179 SETTABLEKS                       R20 R19 K36 ["MainView"]
+      181 CALL                             R16 3 1
+      182 SETTABLEKS                       R16 R15 K34 ["Foundation"]
+      184 CALL                             R12 3 1
+      185 SETTABLEKS                       R12 R11 K17 ["MainDialog"]
+      187 LOADB                            R12 0
+      188 GETTABLEKS                       R13 R1 K21 ["activeDialog"]
+      190 GETUPVAL                         R14 11
+      191 GETTABLEKS                       R14 R14 K48 ["VPCTrustedConnection"]
+      193 JUMPIFNOTEQ                      R13 R14 ; [+65]
+      195 GETUPVAL                         R12 1
+      196 GETTABLEKS                       R12 R12 K11 ["createElement"]
+      198 GETUPVAL                         R13 12
+      199 GETTABLEKS                       R13 R13 K23 ["UI"]
+      201 GETTABLEKS                       R13 R13 K24 ["Dialog"]
+      203 DUPTABLE                         R14 K31 [{"Title", "Enabled", "Modal", "Resizable", "Size", "OnClose"}]
+      204 LOADK                            R15 K32 [""]
+      205 SETTABLEKS                       R15 R14 K25 ["Title"]
+      207 LOADB                            R15 1
+      208 SETTABLEKS                       R15 R14 K26 ["Enabled"]
+      210 GETUPVAL                         R16 13
+      211 NOT                              R15 R16
+      212 SETTABLEKS                       R15 R14 K27 ["Modal"]
+      214 LOADB                            R15 0
+      215 SETTABLEKS                       R15 R14 K28 ["Resizable"]
+      217 GETIMPORT                        R15 K6 [Vector2.new]
+      219 LOADN                            R16 8
+      220 LOADN                            R17 11
+      221 CALL                             R15 2 1
+      222 SETTABLEKS                       R15 R14 K29 ["Size"]
+      224 GETTABLEKS                       R15 R1 K49 ["onNewParentDialogX"]
+      226 SETTABLEKS                       R15 R14 K30 ["OnClose"]
+      228 DUPTABLE                         R15 K35 [{"Foundation"}]
+      229 GETUPVAL                         R16 1
+      230 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      232 GETUPVAL                         R17 14
+      233 LOADNIL                          R18
+      234 DUPTABLE                         R19 K50 [{"Dialog"}]
+      235 GETUPVAL                         R20 1
+      236 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      238 GETUPVAL                         R21 16
+      239 DUPTABLE                         R22 K51 [{"onClose", "onRequestComplete", "universeId"}]
+      240 GETTABLEKS                       R23 R1 K52 ["onCloseTrustedConnectionDialog"]
+      242 SETTABLEKS                       R23 R22 K41 ["onClose"]
+      244 GETTABLEKS                       R23 R1 K40 ["onRequestComplete"]
+      246 SETTABLEKS                       R23 R22 K40 ["onRequestComplete"]
+      248 GETTABLEKS                       R23 R1 K14 ["universeId"]
+      250 SETTABLEKS                       R23 R22 K14 ["universeId"]
+      252 CALL                             R20 2 1
+      253 SETTABLEKS                       R20 R19 K24 ["Dialog"]
+      255 CALL                             R16 3 1
+      256 SETTABLEKS                       R16 R15 K34 ["Foundation"]
+      258 CALL                             R12 3 1
+      259 SETTABLEKS                       R12 R11 K18 ["VPCTrustedConnectionDialog"]
+      261 LOADB                            R12 0
+      262 GETTABLEKS                       R13 R1 K21 ["activeDialog"]
+      264 GETUPVAL                         R14 11
+      265 GETTABLEKS                       R14 R14 K53 ["VPCRequestSent"]
+      267 JUMPIFNOTEQ                      R13 R14 ; [+77]
+      269 GETTABLEKS                       R12 R1 K54 ["requestResult"]
+      271 JUMPIFNOT                        R12 ; [+73]
+      272 GETUPVAL                         R12 1
+      273 GETTABLEKS                       R12 R12 K11 ["createElement"]
+      275 GETUPVAL                         R13 12
+      276 GETTABLEKS                       R13 R13 K23 ["UI"]
+      278 GETTABLEKS                       R13 R13 K24 ["Dialog"]
+      280 DUPTABLE                         R14 K31 [{"Title", "Enabled", "Modal", "Resizable", "Size", "OnClose"}]
+      281 LOADK                            R15 K32 [""]
+      282 SETTABLEKS                       R15 R14 K25 ["Title"]
+      284 LOADB                            R15 1
+      285 SETTABLEKS                       R15 R14 K26 ["Enabled"]
+      287 GETUPVAL                         R16 13
+      288 NOT                              R15 R16
+      289 SETTABLEKS                       R15 R14 K27 ["Modal"]
+      291 LOADB                            R15 0
+      292 SETTABLEKS                       R15 R14 K28 ["Resizable"]
+      294 SETTABLEKS                       R2 R14 K29 ["Size"]
+      296 GETTABLEKS                       R15 R1 K55 ["onRequestFailedDialogX"]
+      298 SETTABLEKS                       R15 R14 K30 ["OnClose"]
+      300 DUPTABLE                         R15 K35 [{"Foundation"}]
+      301 GETUPVAL                         R16 1
+      302 GETTABLEKS                       R16 R16 K11 ["createElement"]
+      304 GETUPVAL                         R17 14
+      305 LOADNIL                          R18
+      306 DUPTABLE                         R19 K50 [{"Dialog"}]
+      307 GETUPVAL                         R20 1
+      308 GETTABLEKS                       R20 R20 K11 ["createElement"]
+      310 GETUPVAL                         R21 17
+      311 DUPTABLE                         R22 K60 [{"statusCode", "errorMessage", "responseBody", "onClose", "onSizeChanged"}]
+      312 GETTABLEKS                       R23 R1 K54 ["requestResult"]
+      314 GETTABLEKS                       R23 R23 K56 ["statusCode"]
+      316 SETTABLEKS                       R23 R22 K56 ["statusCode"]
+      318 GETTABLEKS                       R23 R1 K54 ["requestResult"]
+      320 GETTABLEKS                       R23 R23 K57 ["errorMessage"]
+      322 SETTABLEKS                       R23 R22 K57 ["errorMessage"]
+      324 GETTABLEKS                       R23 R1 K54 ["requestResult"]
+      326 GETTABLEKS                       R23 R23 K58 ["responseBody"]
+      328 SETTABLEKS                       R23 R22 K58 ["responseBody"]
+      330 GETTABLEKS                       R23 R1 K46 ["onCloseAll"]
+      332 SETTABLEKS                       R23 R22 K41 ["onClose"]
+      334 NEWCLOSURE                       R23 P1
+      335 CAPTURE                          VAL R3
+      336 SETTABLEKS                       R23 R22 K59 ["onSizeChanged"]
+      338 CALL                             R20 2 1
+      339 SETTABLEKS                       R20 R19 K24 ["Dialog"]
+      341 CALL                             R16 3 1
+      342 SETTABLEKS                       R16 R15 K34 ["Foundation"]
+      344 CALL                             R12 3 1
+      345 SETTABLEKS                       R12 R11 K19 ["VPCRequestSentDialog"]
+      347 CALL                             R8 3 1
+      348 SETTABLEKS                       R8 R7 K9 ["ContextStack"]
+      350 CALL                             R5 2 -1
+      351 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -298,7 +334,7 @@ MAIN:
       109 LOADK                            R24 K32 ["DebugBuiltInPluginModalsNotBlocking"]
       110 NAMECALL                         R22 R22 K33 ["GetFastFlag"]
       112 CALL                             R22 2 1
-      113 DUPCLOSURE                       R23 K34 [PROTO_1]
+      113 DUPCLOSURE                       R23 K34 [PROTO_2]
       114 CAPTURE                          VAL R20
       115 CAPTURE                          VAL R1
       116 CAPTURE                          VAL R6

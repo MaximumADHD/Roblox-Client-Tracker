@@ -17,32 +17,29 @@ PROTO_0:
        18 CALL                             R9 -1 0
        19 FORGLOOP                         R4 2 ; [-9]
        21 LENGTH                           R4 R2
-       22 JUMPIFNOTEQKN                    R4 K2 [0] ; [+16]
-       24 GETUPVAL                         R4 3
-       25 CALL                             R4 0 1
-       26 JUMPIFNOT                        R4 ; [+11]
-       27 LOADK                            R6 K3 ["ShowToast"]
-       28 DUPTABLE                         R7 K6 [{"Key", "SubKey"}]
-       29 LOADK                            R8 K7 ["Toast"]
-       30 SETTABLEKS                       R8 R7 K4 ["Key"]
-       32 LOADK                            R8 K8 ["FindInExplorerNotFound"]
-       33 SETTABLEKS                       R8 R7 K5 ["SubKey"]
-       35 NAMECALL                         R4 R0 K9 ["Invoke"]
-       37 CALL                             R4 3 0
-       38 RETURN                           R0 0
-       39 GETUPVAL                         R4 4
-       40 MOVE                             R6 R2
-       41 NAMECALL                         R4 R4 K10 ["Set"]
-       43 CALL                             R4 2 0
-       44 GETIMPORT                        R4 K12 [game]
-       46 GETTABLEKS                       R4 R4 K13 ["Workspace"]
-       48 GETTABLEKS                       R4 R4 K14 ["CurrentCamera"]
-       50 JUMPIFNOT                        R4 ; [+4]
-       51 GETUPVAL                         R5 5
-       52 MOVE                             R6 R4
-       53 MOVE                             R7 R2
-       54 CALL                             R5 2 0
-       55 RETURN                           R0 0
+       22 JUMPIFNOTEQKN                    R4 K2 [0] ; [+13]
+       24 LOADK                            R6 K3 ["ShowToast"]
+       25 DUPTABLE                         R7 K6 [{"Key", "SubKey"}]
+       26 LOADK                            R8 K7 ["Toast"]
+       27 SETTABLEKS                       R8 R7 K4 ["Key"]
+       29 LOADK                            R8 K8 ["FindInExplorerNotFound"]
+       30 SETTABLEKS                       R8 R7 K5 ["SubKey"]
+       32 NAMECALL                         R4 R0 K9 ["Invoke"]
+       34 CALL                             R4 3 0
+       35 RETURN                           R0 0
+       36 GETUPVAL                         R4 3
+       37 MOVE                             R6 R2
+       38 NAMECALL                         R4 R4 K10 ["Set"]
+       40 CALL                             R4 2 0
+       41 GETIMPORT                        R4 K12 [game]
+       43 GETTABLEKS                       R4 R4 K13 ["Workspace"]
+       45 GETTABLEKS                       R4 R4 K14 ["CurrentCamera"]
+       47 JUMPIFNOT                        R4 ; [+4]
+       48 GETUPVAL                         R5 4
+       49 MOVE                             R6 R4
+       50 MOVE                             R7 R2
+       51 CALL                             R5 2 0
+       52 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -78,16 +75,10 @@ MAIN:
        50 GETTABLEKS                       R7 R7 K16 ["Util"]
        52 GETTABLEKS                       R7 R7 K18 ["cameraZoomToExtents"]
        54 CALL                             R6 1 1
-       55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R8 R0 K8 ["Src"]
-       59 GETTABLEKS                       R8 R8 K19 ["Flags"]
-       61 GETTABLEKS                       R8 R8 K20 ["getFFlagAmrCustomToastNotifications"]
-       63 CALL                             R7 1 1
-       64 DUPCLOSURE                       R8 K21 [PROTO_0]
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R1
-       67 CAPTURE                          VAL R5
-       68 CAPTURE                          VAL R7
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R6
-       71 RETURN                           R8 1
+       55 DUPCLOSURE                       R7 K19 [PROTO_0]
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R5
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R6
+       61 RETURN                           R7 1

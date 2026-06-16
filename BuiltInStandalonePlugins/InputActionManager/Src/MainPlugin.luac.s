@@ -521,12 +521,12 @@ MAIN:
       133 GETIMPORT                        R25 K5 [require]
       135 GETTABLEKS                       R26 R0 K30 ["Src"]
       137 GETTABLEKS                       R26 R26 K15 ["Contexts"]
-      139 GETTABLEKS                       R26 R26 K42 ["DatamodelReference"]
+      139 GETTABLEKS                       R26 R26 K42 ["InputConfiguration"]
       141 CALL                             R25 1 1
       142 GETIMPORT                        R26 K5 [require]
       144 GETTABLEKS                       R27 R0 K30 ["Src"]
       146 GETTABLEKS                       R27 R27 K15 ["Contexts"]
-      148 GETTABLEKS                       R27 R27 K43 ["BindingStatus"]
+      148 GETTABLEKS                       R27 R27 K43 ["Status"]
       150 CALL                             R26 1 1
       151 GETIMPORT                        R27 K5 [require]
       153 GETTABLEKS                       R28 R0 K30 ["Src"]
@@ -546,7 +546,7 @@ MAIN:
       178 GETIMPORT                        R30 K5 [require]
       180 GETTABLEKS                       R31 R0 K30 ["Src"]
       182 GETTABLEKS                       R31 R31 K15 ["Contexts"]
-      184 GETTABLEKS                       R31 R31 K46 ["SchemaKeyCodes"]
+      184 GETTABLEKS                       R31 R31 K46 ["SchemaConfiguration"]
       186 CALL                             R30 1 1
       187 GETTABLEKS                       R31 R1 K47 ["PureComponent"]
       189 LOADK                            R33 K48 ["MainPlugin"]

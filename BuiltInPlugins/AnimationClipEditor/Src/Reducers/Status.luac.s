@@ -370,6 +370,27 @@ PROTO_38:
 PROTO_39:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"RootCFrame"}]
+        3 GETTABLEKS                       R5 R1 K2 ["rootCFrame"]
+        5 SETTABLEKS                       R5 R4 K0 ["RootCFrame"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
+
+PROTO_40:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"RootCFrameSignal"}]
+        3 GETTABLEKS                       R5 R1 K2 ["rootCFrameSignal"]
+        5 JUMPIF                           R5 ; [+3]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R5 R5 K3 ["None"]
+        9 SETTABLEKS                       R5 R4 K0 ["RootCFrameSignal"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
+
+PROTO_41:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"RootInstance"}]
         3 GETTABLEKS                       R5 R1 K2 ["rootInstance"]
         5 JUMPIF                           R5 ; [+3]
@@ -379,7 +400,7 @@ PROTO_39:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_40:
+PROTO_42:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"SelectedEvents"}]
@@ -388,7 +409,7 @@ PROTO_40:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_41:
+PROTO_43:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"SelectedKeyframes"}]
@@ -397,7 +418,7 @@ PROTO_41:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_42:
+PROTO_44:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"SelectedTrackInstances"}]
@@ -409,7 +430,7 @@ PROTO_42:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_43:
+PROTO_45:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"SelectedTracks"}]
@@ -421,7 +442,7 @@ PROTO_43:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_44:
+PROTO_46:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"ShowEvents"}]
@@ -430,7 +451,7 @@ PROTO_44:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_45:
+PROTO_47:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"ShowFaceControlsEditorPanel"}]
@@ -439,7 +460,7 @@ PROTO_45:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_46:
+PROTO_48:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"ShowTree"}]
@@ -448,7 +469,7 @@ PROTO_46:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_47:
+PROTO_49:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"SnapMode"}]
@@ -457,7 +478,7 @@ PROTO_47:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_48:
+PROTO_50:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"StartingPose"}]
@@ -469,7 +490,7 @@ PROTO_48:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_49:
+PROTO_51:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"SymmetryEnabled"}]
@@ -478,7 +499,7 @@ PROTO_49:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_50:
+PROTO_52:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"TimelineUnit"}]
@@ -487,7 +508,7 @@ PROTO_50:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_51:
+PROTO_53:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"Tool"}]
@@ -496,7 +517,7 @@ PROTO_51:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_52:
+PROTO_54:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"TopTrackIndex"}]
@@ -505,7 +526,7 @@ PROTO_52:
         7 CALL                             R2 2 -1
         8 RETURN                           R2 -1
 
-PROTO_53:
+PROTO_55:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K3 [{"Tracks", "UnusedTracks", "UnusedFacs"}]
@@ -518,7 +539,7 @@ PROTO_53:
        15 CALL                             R2 2 -1
        16 RETURN                           R2 -1
 
-PROTO_54:
+PROTO_56:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K2 [{"VerticalScroll", "VerticalZoom"}]
@@ -529,7 +550,7 @@ PROTO_54:
        11 CALL                             R2 2 -1
        12 RETURN                           R2 -1
 
-PROTO_55:
+PROTO_57:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K1 [{"WorldSpace"}]
@@ -539,7 +560,7 @@ PROTO_55:
         8 CALL                             R2 2 -1
         9 RETURN                           R2 -1
 
-PROTO_56:
+PROTO_58:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 DUPTABLE                         R4 K2 [{"TestCurveEditorScrollMin", "TestCurveEditorScrollMax"}]
@@ -620,268 +641,281 @@ MAIN:
       111 LOADN                            R7 0
       112 SETTABLEKS                       R7 R6 K46 ["HorizontalZoom"]
       114 LOADB                            R7 0
-      115 SETTABLEKS                       R7 R6 K47 ["IKEnabled"]
-      117 GETTABLEKS                       R7 R4 K48 ["IK_MODE"]
-      119 GETTABLEKS                       R7 R7 K49 ["FullBody"]
-      121 SETTABLEKS                       R7 R6 K50 ["IKMode"]
-      123 LOADNIL                          R7
-      124 SETTABLEKS                       R7 R6 K51 ["IKOpenedTimestamp"]
-      126 LOADB                            R7 0
-      127 SETTABLEKS                       R7 R6 K52 ["inReviewState"]
+      115 SETTABLEKS                       R7 R6 K47 ["IgnoreRootCFrameSignal"]
+      117 LOADB                            R7 0
+      118 SETTABLEKS                       R7 R6 K48 ["IKEnabled"]
+      120 GETTABLEKS                       R7 R4 K49 ["IK_MODE"]
+      122 GETTABLEKS                       R7 R7 K50 ["FullBody"]
+      124 SETTABLEKS                       R7 R6 K51 ["IKMode"]
+      126 LOADNIL                          R7
+      127 SETTABLEKS                       R7 R6 K52 ["IKOpenedTimestamp"]
       129 LOADB                            R7 0
-      130 SETTABLEKS                       R7 R6 K53 ["IsDirty"]
+      130 SETTABLEKS                       R7 R6 K53 ["inReviewState"]
       132 LOADB                            R7 0
-      133 SETTABLEKS                       R7 R6 K54 ["IsLegacyAnimSaves"]
+      133 SETTABLEKS                       R7 R6 K54 ["IsDirty"]
       135 LOADB                            R7 0
-      136 SETTABLEKS                       R7 R6 K55 ["IsSelectingTarget"]
-      138 LOADNIL                          R7
-      139 SETTABLEKS                       R7 R6 K56 ["LastSelectedPath"]
-      141 NEWTABLE                         R7 0 0
-      143 SETTABLEKS                       R7 R6 K57 ["LegacyAnimationInstances"]
-      145 NEWTABLE                         R7 0 0
-      147 SETTABLEKS                       R7 R6 K58 ["PinnedParts"]
-      149 LOADN                            R7 1
-      150 SETTABLEKS                       R7 R6 K59 ["PlaybackSpeed"]
-      152 NEWTABLE                         R7 0 0
-      154 SETTABLEKS                       R7 R6 K60 ["PlaybackStartInfo"]
-      156 LOADN                            R7 0
-      157 SETTABLEKS                       R7 R6 K61 ["Playhead"]
-      159 GETTABLEKS                       R7 R4 K62 ["PLAY_STATE"]
-      161 GETTABLEKS                       R7 R7 K63 ["Pause"]
-      163 SETTABLEKS                       R7 R6 K64 ["PlayState"]
-      165 LOADB                            R7 0
-      166 SETTABLEKS                       R7 R6 K65 ["ReadOnly"]
-      168 GETTABLEKS                       R7 R4 K66 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
-      170 GETTABLEKS                       R7 R7 K67 ["Hidden"]
-      172 SETTABLEKS                       R7 R6 K68 ["ReduceKeyframesDialogMode"]
-      174 NEWTABLE                         R7 0 0
-      176 SETTABLEKS                       R7 R6 K69 ["RightClickContextInfo"]
-      178 LOADNIL                          R7
-      179 SETTABLEKS                       R7 R6 K70 ["RootInstance"]
-      181 NEWTABLE                         R7 0 0
-      183 SETTABLEKS                       R7 R6 K71 ["SelectedEvents"]
-      185 NEWTABLE                         R7 0 0
-      187 SETTABLEKS                       R7 R6 K72 ["SelectedKeyframes"]
-      189 LOADNIL                          R7
-      190 SETTABLEKS                       R7 R6 K73 ["SelectedTracks"]
-      192 LOADB                            R7 1
-      193 SETTABLEKS                       R7 R6 K74 ["ShowEvents"]
-      195 LOADB                            R7 0
-      196 SETTABLEKS                       R7 R6 K75 ["ShowFaceControlsEditorPanel"]
-      198 LOADB                            R7 0
-      199 SETTABLEKS                       R7 R6 K76 ["ShowTree"]
-      201 GETTABLEKS                       R7 R4 K77 ["SNAP_MODES"]
-      203 GETTABLEKS                       R7 R7 K78 ["Frames"]
-      205 SETTABLEKS                       R7 R6 K79 ["SnapMode"]
+      136 SETTABLEKS                       R7 R6 K55 ["IsLegacyAnimSaves"]
+      138 LOADB                            R7 0
+      139 SETTABLEKS                       R7 R6 K56 ["IsSelectingTarget"]
+      141 LOADNIL                          R7
+      142 SETTABLEKS                       R7 R6 K57 ["LastSelectedPath"]
+      144 NEWTABLE                         R7 0 0
+      146 SETTABLEKS                       R7 R6 K58 ["LegacyAnimationInstances"]
+      148 NEWTABLE                         R7 0 0
+      150 SETTABLEKS                       R7 R6 K59 ["PinnedParts"]
+      152 LOADN                            R7 1
+      153 SETTABLEKS                       R7 R6 K60 ["PlaybackSpeed"]
+      155 NEWTABLE                         R7 0 0
+      157 SETTABLEKS                       R7 R6 K61 ["PlaybackStartInfo"]
+      159 LOADN                            R7 0
+      160 SETTABLEKS                       R7 R6 K62 ["Playhead"]
+      162 GETTABLEKS                       R7 R4 K63 ["PLAY_STATE"]
+      164 GETTABLEKS                       R7 R7 K64 ["Pause"]
+      166 SETTABLEKS                       R7 R6 K65 ["PlayState"]
+      168 LOADB                            R7 0
+      169 SETTABLEKS                       R7 R6 K66 ["ReadOnly"]
+      171 GETTABLEKS                       R7 R4 K67 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
+      173 GETTABLEKS                       R7 R7 K68 ["Hidden"]
+      175 SETTABLEKS                       R7 R6 K69 ["ReduceKeyframesDialogMode"]
+      177 NEWTABLE                         R7 0 0
+      179 SETTABLEKS                       R7 R6 K70 ["RightClickContextInfo"]
+      181 LOADNIL                          R7
+      182 SETTABLEKS                       R7 R6 K71 ["RootCFrame"]
+      184 LOADNIL                          R7
+      185 SETTABLEKS                       R7 R6 K72 ["RootCFrameSignal"]
+      187 LOADNIL                          R7
+      188 SETTABLEKS                       R7 R6 K73 ["RootInstance"]
+      190 NEWTABLE                         R7 0 0
+      192 SETTABLEKS                       R7 R6 K74 ["SelectedEvents"]
+      194 NEWTABLE                         R7 0 0
+      196 SETTABLEKS                       R7 R6 K75 ["SelectedKeyframes"]
+      198 LOADNIL                          R7
+      199 SETTABLEKS                       R7 R6 K76 ["SelectedTracks"]
+      201 LOADB                            R7 1
+      202 SETTABLEKS                       R7 R6 K77 ["ShowEvents"]
+      204 LOADB                            R7 0
+      205 SETTABLEKS                       R7 R6 K78 ["ShowFaceControlsEditorPanel"]
       207 LOADB                            R7 0
-      208 SETTABLEKS                       R7 R6 K80 ["SymmetryEnabled"]
-      210 GETTABLEKS                       R7 R4 K81 ["TIMELINE_UNITS"]
-      212 GETTABLEKS                       R7 R7 K82 ["SecondsDecimal"]
-      214 SETTABLEKS                       R7 R6 K83 ["TimelineUnit"]
-      216 GETIMPORT                        R7 K86 [Enum.RibbonTool.Rotate]
-      218 SETTABLEKS                       R7 R6 K87 ["Tool"]
-      220 LOADN                            R7 1
-      221 SETTABLEKS                       R7 R6 K88 ["TopTrackIndex"]
-      223 NEWTABLE                         R7 0 0
-      225 SETTABLEKS                       R7 R6 K89 ["Tracks"]
-      227 NEWTABLE                         R7 0 0
-      229 SETTABLEKS                       R7 R6 K90 ["UnusedFacs"]
-      231 NEWTABLE                         R7 0 0
-      233 SETTABLEKS                       R7 R6 K91 ["UnusedTracks"]
-      235 LOADN                            R7 0
-      236 SETTABLEKS                       R7 R6 K92 ["VerticalScroll"]
-      238 LOADN                            R7 0
-      239 SETTABLEKS                       R7 R6 K93 ["VerticalZoom"]
-      241 LOADB                            R7 1
-      242 SETTABLEKS                       R7 R6 K94 ["VisualizeBones"]
-      244 LOADB                            R7 1
-      245 SETTABLEKS                       R7 R6 K95 ["VisualizeGrid"]
-      247 LOADB                            R7 0
-      248 SETTABLEKS                       R7 R6 K96 ["WorldSpace"]
-      250 LOADN                            R7 0
-      251 SETTABLEKS                       R7 R6 K97 ["TestCurveEditorScrollMin"]
-      253 LOADN                            R7 0
-      254 SETTABLEKS                       R7 R6 K98 ["TestCurveEditorScrollMax"]
-      256 NEWTABLE                         R7 64 0
-      258 DUPCLOSURE                       R8 K99 [PROTO_0]
-      259 CAPTURE                          VAL R3
-      260 SETTABLEKS                       R8 R7 K100 ["SetActive"]
-      262 DUPCLOSURE                       R8 K101 [PROTO_1]
-      263 CAPTURE                          VAL R3
-      264 SETTABLEKS                       R8 R7 K102 ["SetAnimationFromVideoErroredOut"]
-      266 DUPCLOSURE                       R8 K103 [PROTO_2]
-      267 CAPTURE                          VAL R3
-      268 SETTABLEKS                       R8 R7 K104 ["SetAnimationFromVideoUploadStartTime"]
-      270 DUPCLOSURE                       R8 K105 [PROTO_3]
-      271 CAPTURE                          VAL R3
-      272 SETTABLEKS                       R8 R7 K106 ["SetAnimationImportProgress"]
-      274 DUPCLOSURE                       R8 K107 [PROTO_4]
-      275 CAPTURE                          VAL R3
-      276 SETTABLEKS                       R8 R7 K108 ["SetAnimationImportStatus"]
-      278 DUPCLOSURE                       R8 K109 [PROTO_5]
-      279 CAPTURE                          VAL R3
-      280 CAPTURE                          VAL R2
-      281 SETTABLEKS                       R8 R7 K110 ["SetAnimationTrack"]
-      283 DUPCLOSURE                       R8 K111 [PROTO_6]
+      208 SETTABLEKS                       R7 R6 K79 ["ShowTree"]
+      210 GETTABLEKS                       R7 R4 K80 ["SNAP_MODES"]
+      212 GETTABLEKS                       R7 R7 K81 ["Frames"]
+      214 SETTABLEKS                       R7 R6 K82 ["SnapMode"]
+      216 LOADB                            R7 0
+      217 SETTABLEKS                       R7 R6 K83 ["SymmetryEnabled"]
+      219 GETTABLEKS                       R7 R4 K84 ["TIMELINE_UNITS"]
+      221 GETTABLEKS                       R7 R7 K85 ["SecondsDecimal"]
+      223 SETTABLEKS                       R7 R6 K86 ["TimelineUnit"]
+      225 GETIMPORT                        R7 K89 [Enum.RibbonTool.Rotate]
+      227 SETTABLEKS                       R7 R6 K90 ["Tool"]
+      229 LOADN                            R7 1
+      230 SETTABLEKS                       R7 R6 K91 ["TopTrackIndex"]
+      232 NEWTABLE                         R7 0 0
+      234 SETTABLEKS                       R7 R6 K92 ["Tracks"]
+      236 NEWTABLE                         R7 0 0
+      238 SETTABLEKS                       R7 R6 K93 ["UnusedFacs"]
+      240 NEWTABLE                         R7 0 0
+      242 SETTABLEKS                       R7 R6 K94 ["UnusedTracks"]
+      244 LOADN                            R7 0
+      245 SETTABLEKS                       R7 R6 K95 ["VerticalScroll"]
+      247 LOADN                            R7 0
+      248 SETTABLEKS                       R7 R6 K96 ["VerticalZoom"]
+      250 LOADB                            R7 1
+      251 SETTABLEKS                       R7 R6 K97 ["VisualizeBones"]
+      253 LOADB                            R7 1
+      254 SETTABLEKS                       R7 R6 K98 ["VisualizeGrid"]
+      256 LOADB                            R7 0
+      257 SETTABLEKS                       R7 R6 K99 ["WorldSpace"]
+      259 LOADN                            R7 0
+      260 SETTABLEKS                       R7 R6 K100 ["TestCurveEditorScrollMin"]
+      262 LOADN                            R7 0
+      263 SETTABLEKS                       R7 R6 K101 ["TestCurveEditorScrollMax"]
+      265 NEWTABLE                         R7 64 0
+      267 DUPCLOSURE                       R8 K102 [PROTO_0]
+      268 CAPTURE                          VAL R3
+      269 SETTABLEKS                       R8 R7 K103 ["SetActive"]
+      271 DUPCLOSURE                       R8 K104 [PROTO_1]
+      272 CAPTURE                          VAL R3
+      273 SETTABLEKS                       R8 R7 K105 ["SetAnimationFromVideoErroredOut"]
+      275 DUPCLOSURE                       R8 K106 [PROTO_2]
+      276 CAPTURE                          VAL R3
+      277 SETTABLEKS                       R8 R7 K107 ["SetAnimationFromVideoUploadStartTime"]
+      279 DUPCLOSURE                       R8 K108 [PROTO_3]
+      280 CAPTURE                          VAL R3
+      281 SETTABLEKS                       R8 R7 K109 ["SetAnimationImportProgress"]
+      283 DUPCLOSURE                       R8 K110 [PROTO_4]
       284 CAPTURE                          VAL R3
-      285 CAPTURE                          VAL R2
-      286 SETTABLEKS                       R8 R7 K112 ["SetPrevAnimationClip"]
-      288 DUPCLOSURE                       R8 K113 [PROTO_7]
-      289 CAPTURE                          VAL R3
-      290 SETTABLEKS                       R8 R7 K114 ["SetAutoFocusFaceEnabled"]
-      292 DUPCLOSURE                       R8 K115 [PROTO_8]
+      285 SETTABLEKS                       R8 R7 K111 ["SetAnimationImportStatus"]
+      287 DUPCLOSURE                       R8 K112 [PROTO_5]
+      288 CAPTURE                          VAL R3
+      289 CAPTURE                          VAL R2
+      290 SETTABLEKS                       R8 R7 K113 ["SetAnimationTrack"]
+      292 DUPCLOSURE                       R8 K114 [PROTO_6]
       293 CAPTURE                          VAL R3
-      294 SETTABLEKS                       R8 R7 K116 ["SetBoneVisualization"]
-      296 DUPCLOSURE                       R8 K117 [PROTO_9]
-      297 CAPTURE                          VAL R3
-      298 SETTABLEKS                       R8 R7 K118 ["SetClipboard"]
-      300 DUPCLOSURE                       R8 K119 [PROTO_10]
-      301 CAPTURE                          VAL R3
-      302 SETTABLEKS                       R8 R7 K120 ["SetCreatingAnimationFromVideo"]
-      304 DUPCLOSURE                       R8 K121 [PROTO_11]
-      305 CAPTURE                          VAL R3
-      306 SETTABLEKS                       R8 R7 K122 ["SetDefaultEulerAnglesOrder"]
-      308 DUPCLOSURE                       R8 K123 [PROTO_12]
-      309 CAPTURE                          VAL R3
-      310 SETTABLEKS                       R8 R7 K124 ["SetDefaultRotationType"]
-      312 DUPCLOSURE                       R8 K125 [PROTO_13]
-      313 CAPTURE                          VAL R3
-      314 SETTABLEKS                       R8 R7 K126 ["SetEditingLength"]
-      316 DUPCLOSURE                       R8 K127 [PROTO_14]
-      317 CAPTURE                          VAL R3
-      318 SETTABLEKS                       R8 R7 K128 ["SetEditorMode"]
-      320 DUPCLOSURE                       R9 K130 [PROTO_15]
-      321 CAPTURE                          VAL R3
-      322 CAPTURE                          VAL R2
-      323 ORK                              R8 R9 K129 []
-      324 SETTABLEKS                       R8 R7 K131 ["SetEventEditingTick"]
-      326 DUPCLOSURE                       R8 K132 [PROTO_16]
-      327 CAPTURE                          VAL R3
-      328 SETTABLEKS                       R8 R7 K133 ["SetFaceControlsEditorOpenedTimestamp"]
-      330 DUPCLOSURE                       R8 K134 [PROTO_17]
-      331 CAPTURE                          VAL R3
-      332 SETTABLEKS                       R8 R7 K135 ["SetFrameRate"]
-      334 DUPCLOSURE                       R8 K136 [PROTO_18]
-      335 CAPTURE                          VAL R3
-      336 SETTABLEKS                       R8 R7 K137 ["SetGridSpeed"]
-      338 DUPCLOSURE                       R8 K138 [PROTO_19]
-      339 CAPTURE                          VAL R3
-      340 SETTABLEKS                       R8 R7 K139 ["SetGridVisualization"]
-      342 DUPCLOSURE                       R8 K140 [PROTO_20]
-      343 CAPTURE                          VAL R3
-      344 SETTABLEKS                       R8 R7 K141 ["SetHaveToSetBackToNotLooping"]
-      346 DUPCLOSURE                       R8 K142 [PROTO_21]
-      347 CAPTURE                          VAL R3
-      348 SETTABLEKS                       R8 R7 K143 ["SetHorizontalScrollZoom"]
-      350 DUPCLOSURE                       R8 K144 [PROTO_22]
-      351 CAPTURE                          VAL R3
-      352 SETTABLEKS                       R8 R7 K145 ["SetIKEnabled"]
-      354 DUPCLOSURE                       R8 K146 [PROTO_23]
-      355 CAPTURE                          VAL R3
-      356 SETTABLEKS                       R8 R7 K147 ["SetIKMode"]
-      358 DUPCLOSURE                       R8 K148 [PROTO_24]
-      359 CAPTURE                          VAL R3
-      360 SETTABLEKS                       R8 R7 K149 ["SetIKOpenedTimestamp"]
-      362 DUPCLOSURE                       R8 K150 [PROTO_25]
-      363 CAPTURE                          VAL R3
-      364 SETTABLEKS                       R8 R7 K151 ["SetInReviewState"]
-      366 DUPCLOSURE                       R8 K152 [PROTO_26]
-      367 CAPTURE                          VAL R3
-      368 SETTABLEKS                       R8 R7 K153 ["SetIsDirty"]
-      370 DUPCLOSURE                       R8 K154 [PROTO_27]
-      371 CAPTURE                          VAL R3
-      372 SETTABLEKS                       R8 R7 K155 ["SetIsLegacyAnimSaves"]
-      374 DUPCLOSURE                       R8 K156 [PROTO_28]
-      375 CAPTURE                          VAL R3
-      376 SETTABLEKS                       R8 R7 K157 ["SetIsSelectingTarget"]
-      378 DUPCLOSURE                       R8 K158 [PROTO_29]
-      379 CAPTURE                          VAL R3
-      380 CAPTURE                          VAL R2
-      381 SETTABLEKS                       R8 R7 K159 ["SetLastSelectedPath"]
-      383 DUPCLOSURE                       R8 K160 [PROTO_30]
+      294 CAPTURE                          VAL R2
+      295 SETTABLEKS                       R8 R7 K115 ["SetPrevAnimationClip"]
+      297 DUPCLOSURE                       R8 K116 [PROTO_7]
+      298 CAPTURE                          VAL R3
+      299 SETTABLEKS                       R8 R7 K117 ["SetAutoFocusFaceEnabled"]
+      301 DUPCLOSURE                       R8 K118 [PROTO_8]
+      302 CAPTURE                          VAL R3
+      303 SETTABLEKS                       R8 R7 K119 ["SetBoneVisualization"]
+      305 DUPCLOSURE                       R8 K120 [PROTO_9]
+      306 CAPTURE                          VAL R3
+      307 SETTABLEKS                       R8 R7 K121 ["SetClipboard"]
+      309 DUPCLOSURE                       R8 K122 [PROTO_10]
+      310 CAPTURE                          VAL R3
+      311 SETTABLEKS                       R8 R7 K123 ["SetCreatingAnimationFromVideo"]
+      313 DUPCLOSURE                       R8 K124 [PROTO_11]
+      314 CAPTURE                          VAL R3
+      315 SETTABLEKS                       R8 R7 K125 ["SetDefaultEulerAnglesOrder"]
+      317 DUPCLOSURE                       R8 K126 [PROTO_12]
+      318 CAPTURE                          VAL R3
+      319 SETTABLEKS                       R8 R7 K127 ["SetDefaultRotationType"]
+      321 DUPCLOSURE                       R8 K128 [PROTO_13]
+      322 CAPTURE                          VAL R3
+      323 SETTABLEKS                       R8 R7 K129 ["SetEditingLength"]
+      325 DUPCLOSURE                       R8 K130 [PROTO_14]
+      326 CAPTURE                          VAL R3
+      327 SETTABLEKS                       R8 R7 K131 ["SetEditorMode"]
+      329 DUPCLOSURE                       R9 K133 [PROTO_15]
+      330 CAPTURE                          VAL R3
+      331 CAPTURE                          VAL R2
+      332 ORK                              R8 R9 K132 []
+      333 SETTABLEKS                       R8 R7 K134 ["SetEventEditingTick"]
+      335 DUPCLOSURE                       R8 K135 [PROTO_16]
+      336 CAPTURE                          VAL R3
+      337 SETTABLEKS                       R8 R7 K136 ["SetFaceControlsEditorOpenedTimestamp"]
+      339 DUPCLOSURE                       R8 K137 [PROTO_17]
+      340 CAPTURE                          VAL R3
+      341 SETTABLEKS                       R8 R7 K138 ["SetFrameRate"]
+      343 DUPCLOSURE                       R8 K139 [PROTO_18]
+      344 CAPTURE                          VAL R3
+      345 SETTABLEKS                       R8 R7 K140 ["SetGridSpeed"]
+      347 DUPCLOSURE                       R8 K141 [PROTO_19]
+      348 CAPTURE                          VAL R3
+      349 SETTABLEKS                       R8 R7 K142 ["SetGridVisualization"]
+      351 DUPCLOSURE                       R8 K143 [PROTO_20]
+      352 CAPTURE                          VAL R3
+      353 SETTABLEKS                       R8 R7 K144 ["SetHaveToSetBackToNotLooping"]
+      355 DUPCLOSURE                       R8 K145 [PROTO_21]
+      356 CAPTURE                          VAL R3
+      357 SETTABLEKS                       R8 R7 K146 ["SetHorizontalScrollZoom"]
+      359 DUPCLOSURE                       R8 K147 [PROTO_22]
+      360 CAPTURE                          VAL R3
+      361 SETTABLEKS                       R8 R7 K148 ["SetIKEnabled"]
+      363 DUPCLOSURE                       R8 K149 [PROTO_23]
+      364 CAPTURE                          VAL R3
+      365 SETTABLEKS                       R8 R7 K150 ["SetIKMode"]
+      367 DUPCLOSURE                       R8 K151 [PROTO_24]
+      368 CAPTURE                          VAL R3
+      369 SETTABLEKS                       R8 R7 K152 ["SetIKOpenedTimestamp"]
+      371 DUPCLOSURE                       R8 K153 [PROTO_25]
+      372 CAPTURE                          VAL R3
+      373 SETTABLEKS                       R8 R7 K154 ["SetInReviewState"]
+      375 DUPCLOSURE                       R8 K155 [PROTO_26]
+      376 CAPTURE                          VAL R3
+      377 SETTABLEKS                       R8 R7 K156 ["SetIsDirty"]
+      379 DUPCLOSURE                       R8 K157 [PROTO_27]
+      380 CAPTURE                          VAL R3
+      381 SETTABLEKS                       R8 R7 K158 ["SetIsLegacyAnimSaves"]
+      383 DUPCLOSURE                       R8 K159 [PROTO_28]
       384 CAPTURE                          VAL R3
-      385 SETTABLEKS                       R8 R7 K161 ["SetLegacyAnimationInstances"]
-      387 DUPCLOSURE                       R8 K162 [PROTO_31]
+      385 SETTABLEKS                       R8 R7 K160 ["SetIsSelectingTarget"]
+      387 DUPCLOSURE                       R8 K161 [PROTO_29]
       388 CAPTURE                          VAL R3
-      389 SETTABLEKS                       R8 R7 K163 ["SetPinnedParts"]
-      391 DUPCLOSURE                       R8 K164 [PROTO_32]
-      392 CAPTURE                          VAL R3
-      393 SETTABLEKS                       R8 R7 K165 ["SetPlaybackSpeed"]
-      395 DUPCLOSURE                       R8 K166 [PROTO_33]
-      396 CAPTURE                          VAL R3
-      397 SETTABLEKS                       R8 R7 K167 ["SetPlaybackStartInfo"]
-      399 DUPCLOSURE                       R8 K168 [PROTO_34]
-      400 CAPTURE                          VAL R3
-      401 SETTABLEKS                       R8 R7 K169 ["SetPlayhead"]
-      403 DUPCLOSURE                       R8 K170 [PROTO_35]
-      404 CAPTURE                          VAL R3
-      405 SETTABLEKS                       R8 R7 K171 ["SetPlayState"]
-      407 DUPCLOSURE                       R8 K172 [PROTO_36]
-      408 CAPTURE                          VAL R3
-      409 SETTABLEKS                       R8 R7 K173 ["SetReadOnly"]
-      411 DUPCLOSURE                       R8 K174 [PROTO_37]
-      412 CAPTURE                          VAL R3
-      413 SETTABLEKS                       R8 R7 K175 ["SetReduceKeyframesDialogMode"]
-      415 DUPCLOSURE                       R8 K176 [PROTO_38]
-      416 CAPTURE                          VAL R3
-      417 SETTABLEKS                       R8 R7 K177 ["SetRightClickContextInfo"]
-      419 DUPCLOSURE                       R8 K178 [PROTO_39]
-      420 CAPTURE                          VAL R3
-      421 CAPTURE                          VAL R2
-      422 SETTABLEKS                       R8 R7 K179 ["SetRootInstance"]
-      424 DUPCLOSURE                       R8 K180 [PROTO_40]
+      389 CAPTURE                          VAL R2
+      390 SETTABLEKS                       R8 R7 K162 ["SetLastSelectedPath"]
+      392 DUPCLOSURE                       R8 K163 [PROTO_30]
+      393 CAPTURE                          VAL R3
+      394 SETTABLEKS                       R8 R7 K164 ["SetLegacyAnimationInstances"]
+      396 DUPCLOSURE                       R8 K165 [PROTO_31]
+      397 CAPTURE                          VAL R3
+      398 SETTABLEKS                       R8 R7 K166 ["SetPinnedParts"]
+      400 DUPCLOSURE                       R8 K167 [PROTO_32]
+      401 CAPTURE                          VAL R3
+      402 SETTABLEKS                       R8 R7 K168 ["SetPlaybackSpeed"]
+      404 DUPCLOSURE                       R8 K169 [PROTO_33]
+      405 CAPTURE                          VAL R3
+      406 SETTABLEKS                       R8 R7 K170 ["SetPlaybackStartInfo"]
+      408 DUPCLOSURE                       R8 K171 [PROTO_34]
+      409 CAPTURE                          VAL R3
+      410 SETTABLEKS                       R8 R7 K172 ["SetPlayhead"]
+      412 DUPCLOSURE                       R8 K173 [PROTO_35]
+      413 CAPTURE                          VAL R3
+      414 SETTABLEKS                       R8 R7 K174 ["SetPlayState"]
+      416 DUPCLOSURE                       R8 K175 [PROTO_36]
+      417 CAPTURE                          VAL R3
+      418 SETTABLEKS                       R8 R7 K176 ["SetReadOnly"]
+      420 DUPCLOSURE                       R8 K177 [PROTO_37]
+      421 CAPTURE                          VAL R3
+      422 SETTABLEKS                       R8 R7 K178 ["SetReduceKeyframesDialogMode"]
+      424 DUPCLOSURE                       R8 K179 [PROTO_38]
       425 CAPTURE                          VAL R3
-      426 SETTABLEKS                       R8 R7 K181 ["SetSelectedEvents"]
-      428 DUPCLOSURE                       R8 K182 [PROTO_41]
+      426 SETTABLEKS                       R8 R7 K180 ["SetRightClickContextInfo"]
+      428 DUPCLOSURE                       R8 K181 [PROTO_39]
       429 CAPTURE                          VAL R3
-      430 SETTABLEKS                       R8 R7 K183 ["SetSelectedKeyframes"]
-      432 DUPCLOSURE                       R8 K184 [PROTO_42]
+      430 SETTABLEKS                       R8 R7 K182 ["SetRootCFrame"]
+      432 DUPCLOSURE                       R8 K183 [PROTO_40]
       433 CAPTURE                          VAL R3
       434 CAPTURE                          VAL R2
-      435 SETTABLEKS                       R8 R7 K185 ["SetSelectedTrackInstances"]
-      437 DUPCLOSURE                       R8 K186 [PROTO_43]
+      435 SETTABLEKS                       R8 R7 K184 ["SetRootCFrameSignal"]
+      437 DUPCLOSURE                       R8 K185 [PROTO_41]
       438 CAPTURE                          VAL R3
       439 CAPTURE                          VAL R2
-      440 SETTABLEKS                       R8 R7 K187 ["SetSelectedTracks"]
-      442 DUPCLOSURE                       R8 K188 [PROTO_44]
+      440 SETTABLEKS                       R8 R7 K186 ["SetRootInstance"]
+      442 DUPCLOSURE                       R8 K187 [PROTO_42]
       443 CAPTURE                          VAL R3
-      444 SETTABLEKS                       R8 R7 K189 ["SetShowEvents"]
-      446 DUPCLOSURE                       R8 K190 [PROTO_45]
+      444 SETTABLEKS                       R8 R7 K188 ["SetSelectedEvents"]
+      446 DUPCLOSURE                       R8 K189 [PROTO_43]
       447 CAPTURE                          VAL R3
-      448 SETTABLEKS                       R8 R7 K191 ["SetShowFaceControlsEditorPanel"]
-      450 DUPCLOSURE                       R8 K192 [PROTO_46]
+      448 SETTABLEKS                       R8 R7 K190 ["SetSelectedKeyframes"]
+      450 DUPCLOSURE                       R8 K191 [PROTO_44]
       451 CAPTURE                          VAL R3
-      452 SETTABLEKS                       R8 R7 K193 ["SetShowTree"]
-      454 DUPCLOSURE                       R8 K194 [PROTO_47]
-      455 CAPTURE                          VAL R3
-      456 SETTABLEKS                       R8 R7 K195 ["SetSnapMode"]
-      458 DUPCLOSURE                       R8 K196 [PROTO_48]
-      459 CAPTURE                          VAL R3
-      460 CAPTURE                          VAL R2
-      461 SETTABLEKS                       R8 R7 K197 ["SetStartingPose"]
-      463 DUPCLOSURE                       R8 K198 [PROTO_49]
-      464 CAPTURE                          VAL R3
-      465 SETTABLEKS                       R8 R7 K199 ["SetSymmetryEnabled"]
-      467 DUPCLOSURE                       R8 K200 [PROTO_50]
-      468 CAPTURE                          VAL R3
-      469 SETTABLEKS                       R8 R7 K201 ["SetTimelineUnit"]
-      471 DUPCLOSURE                       R8 K202 [PROTO_51]
-      472 CAPTURE                          VAL R3
-      473 SETTABLEKS                       R8 R7 K203 ["SetTool"]
-      475 DUPCLOSURE                       R8 K204 [PROTO_52]
-      476 CAPTURE                          VAL R3
-      477 SETTABLEKS                       R8 R7 K205 ["SetTopTrackIndex"]
-      479 DUPCLOSURE                       R8 K206 [PROTO_53]
-      480 CAPTURE                          VAL R3
-      481 SETTABLEKS                       R8 R7 K207 ["SetTracks"]
-      483 DUPCLOSURE                       R8 K208 [PROTO_54]
-      484 CAPTURE                          VAL R3
-      485 SETTABLEKS                       R8 R7 K209 ["SetVerticalScrollZoom"]
-      487 DUPCLOSURE                       R8 K210 [PROTO_55]
-      488 CAPTURE                          VAL R3
-      489 SETTABLEKS                       R8 R7 K211 ["ToggleWorldSpace"]
-      491 DUPCLOSURE                       R8 K212 [PROTO_56]
-      492 CAPTURE                          VAL R3
-      493 SETTABLEKS                       R8 R7 K213 ["TestSetCurveEditorScroll"]
-      495 CALL                             R5 2 -1
-      496 RETURN                           R5 -1
+      452 CAPTURE                          VAL R2
+      453 SETTABLEKS                       R8 R7 K192 ["SetSelectedTrackInstances"]
+      455 DUPCLOSURE                       R8 K193 [PROTO_45]
+      456 CAPTURE                          VAL R3
+      457 CAPTURE                          VAL R2
+      458 SETTABLEKS                       R8 R7 K194 ["SetSelectedTracks"]
+      460 DUPCLOSURE                       R8 K195 [PROTO_46]
+      461 CAPTURE                          VAL R3
+      462 SETTABLEKS                       R8 R7 K196 ["SetShowEvents"]
+      464 DUPCLOSURE                       R8 K197 [PROTO_47]
+      465 CAPTURE                          VAL R3
+      466 SETTABLEKS                       R8 R7 K198 ["SetShowFaceControlsEditorPanel"]
+      468 DUPCLOSURE                       R8 K199 [PROTO_48]
+      469 CAPTURE                          VAL R3
+      470 SETTABLEKS                       R8 R7 K200 ["SetShowTree"]
+      472 DUPCLOSURE                       R8 K201 [PROTO_49]
+      473 CAPTURE                          VAL R3
+      474 SETTABLEKS                       R8 R7 K202 ["SetSnapMode"]
+      476 DUPCLOSURE                       R8 K203 [PROTO_50]
+      477 CAPTURE                          VAL R3
+      478 CAPTURE                          VAL R2
+      479 SETTABLEKS                       R8 R7 K204 ["SetStartingPose"]
+      481 DUPCLOSURE                       R8 K205 [PROTO_51]
+      482 CAPTURE                          VAL R3
+      483 SETTABLEKS                       R8 R7 K206 ["SetSymmetryEnabled"]
+      485 DUPCLOSURE                       R8 K207 [PROTO_52]
+      486 CAPTURE                          VAL R3
+      487 SETTABLEKS                       R8 R7 K208 ["SetTimelineUnit"]
+      489 DUPCLOSURE                       R8 K209 [PROTO_53]
+      490 CAPTURE                          VAL R3
+      491 SETTABLEKS                       R8 R7 K210 ["SetTool"]
+      493 DUPCLOSURE                       R8 K211 [PROTO_54]
+      494 CAPTURE                          VAL R3
+      495 SETTABLEKS                       R8 R7 K212 ["SetTopTrackIndex"]
+      497 DUPCLOSURE                       R8 K213 [PROTO_55]
+      498 CAPTURE                          VAL R3
+      499 SETTABLEKS                       R8 R7 K214 ["SetTracks"]
+      501 DUPCLOSURE                       R8 K215 [PROTO_56]
+      502 CAPTURE                          VAL R3
+      503 SETTABLEKS                       R8 R7 K216 ["SetVerticalScrollZoom"]
+      505 DUPCLOSURE                       R8 K217 [PROTO_57]
+      506 CAPTURE                          VAL R3
+      507 SETTABLEKS                       R8 R7 K218 ["ToggleWorldSpace"]
+      509 DUPCLOSURE                       R8 K219 [PROTO_58]
+      510 CAPTURE                          VAL R3
+      511 SETTABLEKS                       R8 R7 K220 ["TestSetCurveEditorScroll"]
+      513 CALL                             R5 2 -1
+      514 RETURN                           R5 -1

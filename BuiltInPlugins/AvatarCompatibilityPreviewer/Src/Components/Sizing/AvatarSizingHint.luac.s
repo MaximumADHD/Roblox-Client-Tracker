@@ -25,52 +25,44 @@ PROTO_1:
        18 SETTABLE                         R6 R1 R7
        19 FORGLOOP                         R2 2 ; [-9]
        21 GETUPVAL                         R2 1
-       22 CALL                             R2 0 1
-       23 JUMPIF                           R2 ; [+6]
-       24 GETUPVAL                         R2 2
-       25 GETTABLEKS                       R2 R2 K6 ["calculateScaleToValidateBoundsAsync"]
-       27 MOVE                             R3 R1
-       28 CALL                             R2 1 -1
-       29 RETURN                           R2 -1
-       30 GETUPVAL                         R2 3
-       31 GETTABLEKS                       R2 R2 K7 ["current"]
-       33 JUMPIFEQKNIL                     R2 ; [+10]
+       22 GETTABLEKS                       R2 R2 K6 ["current"]
+       24 JUMPIFEQKNIL                     R2 ; [+10]
+       26 GETUPVAL                         R2 2
+       27 GETTABLEKS                       R2 R2 K7 ["isPreprocessDataCached"]
+       29 MOVE                             R3 R1
+       30 GETUPVAL                         R4 1
+       31 GETTABLEKS                       R4 R4 K6 ["current"]
+       33 CALL                             R2 2 1
+       34 JUMPIF                           R2 ; [+25]
        35 GETUPVAL                         R2 2
-       36 GETTABLEKS                       R2 R2 K8 ["isPreprocessDataCached"]
+       36 GETTABLEKS                       R2 R2 K8 ["preprocessDataAsync"]
        38 MOVE                             R3 R1
-       39 GETUPVAL                         R4 3
-       40 GETTABLEKS                       R4 R4 K7 ["current"]
-       42 CALL                             R2 2 1
-       43 JUMPIF                           R2 ; [+25]
-       44 GETUPVAL                         R2 2
-       45 GETTABLEKS                       R2 R2 K9 ["preprocessDataAsync"]
-       47 MOVE                             R3 R1
-       48 CALL                             R2 1 1
-       49 GETUPVAL                         R3 4
-       50 GETTABLEKS                       R3 R3 K7 ["current"]
-       52 JUMPIFEQ                         R3 R0 ; [+3]
-       54 LOADNIL                          R3
-       55 RETURN                           R3 1
-       56 GETTABLEKS                       R3 R2 K10 ["ok"]
-       58 JUMPIFNOT                        R3 ; [+6]
-       59 GETUPVAL                         R3 3
-       60 GETTABLEKS                       R4 R2 K11 ["cache"]
-       62 SETTABLEKS                       R4 R3 K7 ["current"]
-       64 JUMP                             ; [+4]
-       65 GETUPVAL                         R3 3
-       66 LOADNIL                          R4
-       67 SETTABLEKS                       R4 R3 K7 ["current"]
-       69 GETUPVAL                         R2 2
-       70 GETTABLEKS                       R2 R2 K6 ["calculateScaleToValidateBoundsAsync"]
-       72 MOVE                             R3 R1
-       73 LOADNIL                          R4
-       74 LOADNIL                          R5
-       75 LOADNIL                          R6
-       76 LOADNIL                          R7
-       77 GETUPVAL                         R8 3
-       78 GETTABLEKS                       R8 R8 K7 ["current"]
-       80 CALL                             R2 6 1
-       81 RETURN                           R2 1
+       39 CALL                             R2 1 1
+       40 GETUPVAL                         R3 3
+       41 GETTABLEKS                       R3 R3 K6 ["current"]
+       43 JUMPIFEQ                         R3 R0 ; [+3]
+       45 LOADNIL                          R3
+       46 RETURN                           R3 1
+       47 GETTABLEKS                       R3 R2 K9 ["ok"]
+       49 JUMPIFNOT                        R3 ; [+6]
+       50 GETUPVAL                         R3 1
+       51 GETTABLEKS                       R4 R2 K10 ["cache"]
+       53 SETTABLEKS                       R4 R3 K6 ["current"]
+       55 JUMP                             ; [+4]
+       56 GETUPVAL                         R3 1
+       57 LOADNIL                          R4
+       58 SETTABLEKS                       R4 R3 K6 ["current"]
+       60 GETUPVAL                         R2 2
+       61 GETTABLEKS                       R2 R2 K11 ["calculateScaleToValidateBoundsAsync"]
+       63 MOVE                             R3 R1
+       64 LOADNIL                          R4
+       65 LOADNIL                          R5
+       66 LOADNIL                          R6
+       67 LOADNIL                          R7
+       68 GETUPVAL                         R8 1
+       69 GETTABLEKS                       R8 R8 K6 ["current"]
+       71 CALL                             R2 6 1
+       72 RETURN                           R2 1
 
 PROTO_2:
         0 LOADK                            R4 K0 ["BasePart"]
@@ -111,41 +103,29 @@ PROTO_4:
 PROTO_5:
         0 LOADB                            R0 0
         1 SETUPVAL                         R0 0
-        2 GETUPVAL                         R0 1
-        3 CALL                             R0 0 1
-        4 JUMPIF                           R0 ; [+4]
-        5 GETIMPORT                        R0 K2 [task.cancel]
-        7 GETUPVAL                         R1 2
-        8 CALL                             R0 1 0
-        9 RETURN                           R0 0
+        2 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 CALL                             R0 1 0
-        3 LOADNIL                          R0
-        4 GETUPVAL                         R1 1
-        5 CALL                             R1 0 1
-        6 JUMPIFNOT                        R1 ; [+7]
-        7 GETUPVAL                         R1 2
-        8 GETTABLEKS                       R1 R1 K1 ["current"]
-       10 ADDK                             R0 R1 K0 [1]
-       11 GETUPVAL                         R1 2
-       12 SETTABLEKS                       R0 R1 K1 ["current"]
-       14 LOADB                            R1 1
-       15 GETIMPORT                        R2 K4 [task.spawn]
-       17 NEWCLOSURE                       R3 P0
-       18 CAPTURE                          UPVAL U3
-       19 CAPTURE                          REF R0
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["current"]
+        6 ADDK                             R0 R1 K0 [1]
+        7 GETUPVAL                         R1 1
+        8 SETTABLEKS                       R0 R1 K1 ["current"]
+       10 LOADB                            R1 1
+       11 GETIMPORT                        R2 K4 [task.spawn]
+       13 NEWCLOSURE                       R3 P0
+       14 CAPTURE                          UPVAL U2
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          REF R1
+       17 CAPTURE                          UPVAL U0
+       18 CALL                             R2 1 0
+       19 NEWCLOSURE                       R2 P1
        20 CAPTURE                          REF R1
-       21 CAPTURE                          UPVAL U0
-       22 CALL                             R2 1 1
-       23 NEWCLOSURE                       R3 P1
-       24 CAPTURE                          REF R1
-       25 CAPTURE                          UPVAL U1
-       26 CAPTURE                          VAL R2
-       27 CLOSEUPVALS                      R0
-       28 RETURN                           R3 1
+       21 CLOSEUPVALS                      R1
+       22 RETURN                           R2 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -205,191 +185,189 @@ PROTO_9:
        48 GETTABLEKS                       R6 R6 K5 ["useCallback"]
        50 NEWCLOSURE                       R7 P1
        51 CAPTURE                          VAL R0
-       52 CAPTURE                          UPVAL U3
+       52 CAPTURE                          VAL R4
        53 CAPTURE                          VAL R2
-       54 CAPTURE                          VAL R4
-       55 CAPTURE                          VAL R5
-       56 NEWTABLE                         R8 0 3
-       58 GETTABLEKS                       R9 R0 K6 ["Avatar"]
-       60 GETTABLEKS                       R9 R9 K7 ["WorldModel"]
-       62 GETTABLEKS                       R10 R0 K6 ["Avatar"]
-       64 GETTABLEKS                       R10 R10 K8 ["WorldModelScale"]
-       66 GETTABLEKS                       R11 R0 K6 ["Avatar"]
-       68 GETTABLEKS                       R11 R11 K9 ["LatestWorldModelHash"]
-       70 SETLIST                          R8 R9 3 [1]
-       72 CALL                             R6 2 1
-       73 GETUPVAL                         R7 1
-       74 GETTABLEKS                       R7 R7 K11 ["useState"]
-       76 LOADNIL                          R8
-       77 CALL                             R7 1 2
-       78 GETUPVAL                         R9 1
-       79 GETTABLEKS                       R9 R9 K11 ["useState"]
-       81 MOVE                             R10 R3
-       82 CALL                             R9 1 2
-       83 GETUPVAL                         R11 4
-       84 DUPTABLE                         R12 K13 [{"Avatar", "ValidationResults"}]
-       85 GETTABLEKS                       R13 R0 K6 ["Avatar"]
-       87 SETTABLEKS                       R13 R12 K6 ["Avatar"]
-       89 SETTABLEKS                       R7 R12 K12 ["ValidationResults"]
-       91 CALL                             R11 1 1
-       92 GETUPVAL                         R12 1
-       93 GETTABLEKS                       R12 R12 K14 ["useEffect"]
-       95 NEWCLOSURE                       R13 P2
-       96 CAPTURE                          UPVAL U5
-       97 CAPTURE                          VAL R0
-       98 CAPTURE                          VAL R10
-       99 CAPTURE                          VAL R3
-      100 NEWTABLE                         R14 0 2
-      102 GETTABLEKS                       R15 R0 K6 ["Avatar"]
-      104 GETTABLEKS                       R15 R15 K7 ["WorldModel"]
-      106 MOVE                             R16 R3
-      107 SETLIST                          R14 R15 2 [1]
-      109 CALL                             R12 2 0
-      110 GETUPVAL                         R12 1
-      111 GETTABLEKS                       R12 R12 K14 ["useEffect"]
-      113 NEWCLOSURE                       R13 P3
-      114 CAPTURE                          VAL R8
-      115 CAPTURE                          UPVAL U3
-      116 CAPTURE                          VAL R5
-      117 CAPTURE                          VAL R6
-      118 NEWTABLE                         R14 0 1
-      120 MOVE                             R15 R6
-      121 SETLIST                          R14 R15 1 [1]
-      123 CALL                             R12 2 0
-      124 GETUPVAL                         R12 1
-      125 GETTABLEKS                       R12 R12 K15 ["useMemo"]
-      127 NEWCLOSURE                       R13 P4
-      128 CAPTURE                          UPVAL U6
-      129 CAPTURE                          VAL R9
-      130 CAPTURE                          VAL R11
-      131 NEWTABLE                         R14 0 2
-      133 GETTABLEKS                       R15 R11 K16 ["sizeBounds"]
-      135 GETTABLEKS                       R15 R15 K17 ["minSize"]
-      137 GETTABLEKS                       R16 R9 K18 ["Size"]
-      139 SETLIST                          R14 R15 2 [1]
-      141 CALL                             R12 2 1
-      142 GETUPVAL                         R13 1
-      143 GETTABLEKS                       R13 R13 K15 ["useMemo"]
-      145 NEWCLOSURE                       R14 P5
-      146 CAPTURE                          UPVAL U6
-      147 CAPTURE                          VAL R9
-      148 CAPTURE                          VAL R11
-      149 NEWTABLE                         R15 0 2
-      151 GETTABLEKS                       R16 R11 K16 ["sizeBounds"]
-      153 GETTABLEKS                       R16 R16 K19 ["maxSize"]
-      155 GETTABLEKS                       R17 R9 K18 ["Size"]
-      157 SETLIST                          R15 R16 2 [1]
-      159 CALL                             R13 2 1
-      160 AND                              R14 R12 R13
-      161 GETUPVAL                         R15 7
-      162 DUPTABLE                         R16 K21 [{"Avatar", "Enabled"}]
-      163 GETTABLEKS                       R17 R0 K6 ["Avatar"]
-      165 SETTABLEKS                       R17 R16 K6 ["Avatar"]
-      167 SETTABLEKS                       R14 R16 K20 ["Enabled"]
-      169 CALL                             R15 1 0
-      170 GETUPVAL                         R15 8
-      171 CALL                             R15 0 1
-      172 GETIMPORT                        R16 K25 [Enum.RibbonTool.Scale]
-      174 JUMPIFEQ                         R15 R16 ; [+3]
-      176 LOADNIL                          R16
-      177 RETURN                           R16 1
-      178 JUMPIFNOTEQKNIL                  R7 ; [+2]
-      180 LOADB                            R16 0 +1
-      181 LOADB                            R16 1
-      182 GETUPVAL                         R17 9
-      183 GETTABLEKS                       R17 R17 K26 ["createPortal"]
-      185 GETUPVAL                         R18 1
-      186 GETTABLEKS                       R18 R18 K27 ["createElement"]
-      188 GETUPVAL                         R19 1
-      189 GETTABLEKS                       R19 R19 K28 ["Fragment"]
-      191 NEWTABLE                         R20 0 0
-      193 DUPTABLE                         R21 K33 [{"MinBoundingBox", "MaxBoundingBox", "Ruler", "InvalidPartsHint"}]
-      194 JUMPIFNOT                        R16 ; [+29]
-      195 JUMPIF                           R14 ; [+28]
-      196 GETUPVAL                         R22 1
-      197 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      199 GETUPVAL                         R23 10
-      200 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
-      201 GETTABLEKS                       R25 R9 K40 ["CFrame"]
-      203 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
-      205 GETTABLEKS                       R25 R9 K18 ["Size"]
-      207 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
-      209 SETTABLEKS                       R12 R24 K36 ["IsValid"]
-      211 LOADB                            R25 1
-      212 SETTABLEKS                       R25 R24 K37 ["Inside"]
-      214 SETTABLEKS                       R14 R24 K38 ["AllValid"]
-      216 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
-      218 GETTABLEKS                       R25 R25 K17 ["minSize"]
-      220 SETTABLEKS                       R25 R24 K18 ["Size"]
-      222 CALL                             R22 2 1
-      223 JUMP                             ; [+1]
-      224 LOADNIL                          R22
-      225 SETTABLEKS                       R22 R21 K29 ["MinBoundingBox"]
-      227 JUMPIFNOT                        R16 ; [+29]
-      228 JUMPIF                           R14 ; [+28]
-      229 GETUPVAL                         R22 1
-      230 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      232 GETUPVAL                         R23 10
-      233 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
-      234 GETTABLEKS                       R25 R9 K40 ["CFrame"]
-      236 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
-      238 GETTABLEKS                       R25 R9 K18 ["Size"]
-      240 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
-      242 SETTABLEKS                       R13 R24 K36 ["IsValid"]
-      244 LOADB                            R25 0
-      245 SETTABLEKS                       R25 R24 K37 ["Inside"]
-      247 SETTABLEKS                       R14 R24 K38 ["AllValid"]
-      249 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
-      251 GETTABLEKS                       R25 R25 K19 ["maxSize"]
-      253 SETTABLEKS                       R25 R24 K18 ["Size"]
-      255 CALL                             R22 2 1
-      256 JUMP                             ; [+1]
-      257 LOADNIL                          R22
-      258 SETTABLEKS                       R22 R21 K30 ["MaxBoundingBox"]
-      260 JUMPIFNOT                        R16 ; [+27]
-      261 JUMPIF                           R14 ; [+26]
-      262 GETUPVAL                         R22 1
-      263 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      265 GETUPVAL                         R23 11
-      266 DUPTABLE                         R24 K43 [{"ItemName", "Size", "CFrame", "SizeBounds"}]
-      267 LOADK                            R27 K44 ["AvatarSizeRuler"]
-      268 LOADK                            R28 K45 ["AvatarLabel"]
-      269 NAMECALL                         R25 R1 K46 ["getText"]
-      271 CALL                             R25 3 1
-      272 SETTABLEKS                       R25 R24 K41 ["ItemName"]
-      274 GETTABLEKS                       R25 R9 K18 ["Size"]
-      276 SETTABLEKS                       R25 R24 K18 ["Size"]
-      278 GETTABLEKS                       R25 R9 K40 ["CFrame"]
-      280 SETTABLEKS                       R25 R24 K40 ["CFrame"]
-      282 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
-      284 SETTABLEKS                       R25 R24 K42 ["SizeBounds"]
-      286 CALL                             R22 2 1
-      287 JUMP                             ; [+1]
-      288 LOADNIL                          R22
-      289 SETTABLEKS                       R22 R21 K31 ["Ruler"]
-      291 JUMPIFNOT                        R16 ; [+18]
-      292 JUMPIFNOT                        R14 ; [+17]
-      293 GETIMPORT                        R23 K48 [next]
-      295 GETTABLEKS                       R24 R11 K49 ["invalidBodyParts"]
-      297 CALL                             R23 1 1
-      298 JUMPIFNOT                        R23 ; [+11]
-      299 GETUPVAL                         R22 1
-      300 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      302 GETUPVAL                         R23 12
-      303 DUPTABLE                         R24 K50 [{"invalidBodyParts"}]
-      304 GETTABLEKS                       R25 R11 K49 ["invalidBodyParts"]
-      306 SETTABLEKS                       R25 R24 K49 ["invalidBodyParts"]
-      308 CALL                             R22 2 1
-      309 JUMP                             ; [+1]
-      310 LOADNIL                          R22
-      311 SETTABLEKS                       R22 R21 K32 ["InvalidPartsHint"]
-      313 CALL                             R18 3 1
-      314 GETTABLEKS                       R19 R0 K51 ["Container"]
-      316 JUMPIF                           R19 ; [+1]
-      317 GETUPVAL                         R19 13
-      318 LOADK                            R20 K52 ["AvatarSizingHint"]
-      319 CALL                             R17 3 -1
-      320 RETURN                           R17 -1
+       54 CAPTURE                          VAL R5
+       55 NEWTABLE                         R8 0 3
+       57 GETTABLEKS                       R9 R0 K6 ["Avatar"]
+       59 GETTABLEKS                       R9 R9 K7 ["WorldModel"]
+       61 GETTABLEKS                       R10 R0 K6 ["Avatar"]
+       63 GETTABLEKS                       R10 R10 K8 ["WorldModelScale"]
+       65 GETTABLEKS                       R11 R0 K6 ["Avatar"]
+       67 GETTABLEKS                       R11 R11 K9 ["LatestWorldModelHash"]
+       69 SETLIST                          R8 R9 3 [1]
+       71 CALL                             R6 2 1
+       72 GETUPVAL                         R7 1
+       73 GETTABLEKS                       R7 R7 K11 ["useState"]
+       75 LOADNIL                          R8
+       76 CALL                             R7 1 2
+       77 GETUPVAL                         R9 1
+       78 GETTABLEKS                       R9 R9 K11 ["useState"]
+       80 MOVE                             R10 R3
+       81 CALL                             R9 1 2
+       82 GETUPVAL                         R11 3
+       83 DUPTABLE                         R12 K13 [{"Avatar", "ValidationResults"}]
+       84 GETTABLEKS                       R13 R0 K6 ["Avatar"]
+       86 SETTABLEKS                       R13 R12 K6 ["Avatar"]
+       88 SETTABLEKS                       R7 R12 K12 ["ValidationResults"]
+       90 CALL                             R11 1 1
+       91 GETUPVAL                         R12 1
+       92 GETTABLEKS                       R12 R12 K14 ["useEffect"]
+       94 NEWCLOSURE                       R13 P2
+       95 CAPTURE                          UPVAL U4
+       96 CAPTURE                          VAL R0
+       97 CAPTURE                          VAL R10
+       98 CAPTURE                          VAL R3
+       99 NEWTABLE                         R14 0 2
+      101 GETTABLEKS                       R15 R0 K6 ["Avatar"]
+      103 GETTABLEKS                       R15 R15 K7 ["WorldModel"]
+      105 MOVE                             R16 R3
+      106 SETLIST                          R14 R15 2 [1]
+      108 CALL                             R12 2 0
+      109 GETUPVAL                         R12 1
+      110 GETTABLEKS                       R12 R12 K14 ["useEffect"]
+      112 NEWCLOSURE                       R13 P3
+      113 CAPTURE                          VAL R8
+      114 CAPTURE                          VAL R5
+      115 CAPTURE                          VAL R6
+      116 NEWTABLE                         R14 0 1
+      118 MOVE                             R15 R6
+      119 SETLIST                          R14 R15 1 [1]
+      121 CALL                             R12 2 0
+      122 GETUPVAL                         R12 1
+      123 GETTABLEKS                       R12 R12 K15 ["useMemo"]
+      125 NEWCLOSURE                       R13 P4
+      126 CAPTURE                          UPVAL U5
+      127 CAPTURE                          VAL R9
+      128 CAPTURE                          VAL R11
+      129 NEWTABLE                         R14 0 2
+      131 GETTABLEKS                       R15 R11 K16 ["sizeBounds"]
+      133 GETTABLEKS                       R15 R15 K17 ["minSize"]
+      135 GETTABLEKS                       R16 R9 K18 ["Size"]
+      137 SETLIST                          R14 R15 2 [1]
+      139 CALL                             R12 2 1
+      140 GETUPVAL                         R13 1
+      141 GETTABLEKS                       R13 R13 K15 ["useMemo"]
+      143 NEWCLOSURE                       R14 P5
+      144 CAPTURE                          UPVAL U5
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R11
+      147 NEWTABLE                         R15 0 2
+      149 GETTABLEKS                       R16 R11 K16 ["sizeBounds"]
+      151 GETTABLEKS                       R16 R16 K19 ["maxSize"]
+      153 GETTABLEKS                       R17 R9 K18 ["Size"]
+      155 SETLIST                          R15 R16 2 [1]
+      157 CALL                             R13 2 1
+      158 AND                              R14 R12 R13
+      159 GETUPVAL                         R15 6
+      160 DUPTABLE                         R16 K21 [{"Avatar", "Enabled"}]
+      161 GETTABLEKS                       R17 R0 K6 ["Avatar"]
+      163 SETTABLEKS                       R17 R16 K6 ["Avatar"]
+      165 SETTABLEKS                       R14 R16 K20 ["Enabled"]
+      167 CALL                             R15 1 0
+      168 GETUPVAL                         R15 7
+      169 CALL                             R15 0 1
+      170 GETIMPORT                        R16 K25 [Enum.RibbonTool.Scale]
+      172 JUMPIFEQ                         R15 R16 ; [+3]
+      174 LOADNIL                          R16
+      175 RETURN                           R16 1
+      176 JUMPIFNOTEQKNIL                  R7 ; [+2]
+      178 LOADB                            R16 0 +1
+      179 LOADB                            R16 1
+      180 GETUPVAL                         R17 8
+      181 GETTABLEKS                       R17 R17 K26 ["createPortal"]
+      183 GETUPVAL                         R18 1
+      184 GETTABLEKS                       R18 R18 K27 ["createElement"]
+      186 GETUPVAL                         R19 1
+      187 GETTABLEKS                       R19 R19 K28 ["Fragment"]
+      189 NEWTABLE                         R20 0 0
+      191 DUPTABLE                         R21 K33 [{"MinBoundingBox", "MaxBoundingBox", "Ruler", "InvalidPartsHint"}]
+      192 JUMPIFNOT                        R16 ; [+29]
+      193 JUMPIF                           R14 ; [+28]
+      194 GETUPVAL                         R22 1
+      195 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      197 GETUPVAL                         R23 9
+      198 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
+      199 GETTABLEKS                       R25 R9 K40 ["CFrame"]
+      201 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
+      203 GETTABLEKS                       R25 R9 K18 ["Size"]
+      205 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
+      207 SETTABLEKS                       R12 R24 K36 ["IsValid"]
+      209 LOADB                            R25 1
+      210 SETTABLEKS                       R25 R24 K37 ["Inside"]
+      212 SETTABLEKS                       R14 R24 K38 ["AllValid"]
+      214 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      216 GETTABLEKS                       R25 R25 K17 ["minSize"]
+      218 SETTABLEKS                       R25 R24 K18 ["Size"]
+      220 CALL                             R22 2 1
+      221 JUMP                             ; [+1]
+      222 LOADNIL                          R22
+      223 SETTABLEKS                       R22 R21 K29 ["MinBoundingBox"]
+      225 JUMPIFNOT                        R16 ; [+29]
+      226 JUMPIF                           R14 ; [+28]
+      227 GETUPVAL                         R22 1
+      228 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      230 GETUPVAL                         R23 9
+      231 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
+      232 GETTABLEKS                       R25 R9 K40 ["CFrame"]
+      234 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
+      236 GETTABLEKS                       R25 R9 K18 ["Size"]
+      238 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
+      240 SETTABLEKS                       R13 R24 K36 ["IsValid"]
+      242 LOADB                            R25 0
+      243 SETTABLEKS                       R25 R24 K37 ["Inside"]
+      245 SETTABLEKS                       R14 R24 K38 ["AllValid"]
+      247 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      249 GETTABLEKS                       R25 R25 K19 ["maxSize"]
+      251 SETTABLEKS                       R25 R24 K18 ["Size"]
+      253 CALL                             R22 2 1
+      254 JUMP                             ; [+1]
+      255 LOADNIL                          R22
+      256 SETTABLEKS                       R22 R21 K30 ["MaxBoundingBox"]
+      258 JUMPIFNOT                        R16 ; [+27]
+      259 JUMPIF                           R14 ; [+26]
+      260 GETUPVAL                         R22 1
+      261 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      263 GETUPVAL                         R23 10
+      264 DUPTABLE                         R24 K43 [{"ItemName", "Size", "CFrame", "SizeBounds"}]
+      265 LOADK                            R27 K44 ["AvatarSizeRuler"]
+      266 LOADK                            R28 K45 ["AvatarLabel"]
+      267 NAMECALL                         R25 R1 K46 ["getText"]
+      269 CALL                             R25 3 1
+      270 SETTABLEKS                       R25 R24 K41 ["ItemName"]
+      272 GETTABLEKS                       R25 R9 K18 ["Size"]
+      274 SETTABLEKS                       R25 R24 K18 ["Size"]
+      276 GETTABLEKS                       R25 R9 K40 ["CFrame"]
+      278 SETTABLEKS                       R25 R24 K40 ["CFrame"]
+      280 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      282 SETTABLEKS                       R25 R24 K42 ["SizeBounds"]
+      284 CALL                             R22 2 1
+      285 JUMP                             ; [+1]
+      286 LOADNIL                          R22
+      287 SETTABLEKS                       R22 R21 K31 ["Ruler"]
+      289 JUMPIFNOT                        R16 ; [+18]
+      290 JUMPIFNOT                        R14 ; [+17]
+      291 GETIMPORT                        R23 K48 [next]
+      293 GETTABLEKS                       R24 R11 K49 ["invalidBodyParts"]
+      295 CALL                             R23 1 1
+      296 JUMPIFNOT                        R23 ; [+11]
+      297 GETUPVAL                         R22 1
+      298 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      300 GETUPVAL                         R23 11
+      301 DUPTABLE                         R24 K50 [{"invalidBodyParts"}]
+      302 GETTABLEKS                       R25 R11 K49 ["invalidBodyParts"]
+      304 SETTABLEKS                       R25 R24 K49 ["invalidBodyParts"]
+      306 CALL                             R22 2 1
+      307 JUMP                             ; [+1]
+      308 LOADNIL                          R22
+      309 SETTABLEKS                       R22 R21 K32 ["InvalidPartsHint"]
+      311 CALL                             R18 3 1
+      312 GETTABLEKS                       R19 R0 K51 ["Container"]
+      314 JUMPIF                           R19 ; [+1]
+      315 GETUPVAL                         R19 12
+      316 LOADK                            R20 K52 ["AvatarSizingHint"]
+      317 CALL                             R17 3 -1
+      318 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -453,40 +431,34 @@ MAIN:
       102 CALL                             R11 1 1
       103 GETIMPORT                        R12 K9 [require]
       105 GETTABLEKS                       R13 R0 K10 ["Src"]
-      107 GETTABLEKS                       R13 R13 K25 ["Flags"]
-      109 GETTABLEKS                       R13 R13 K26 ["getFFlagUGCValidateUseDataCache"]
-      111 CALL                             R12 1 1
-      112 GETIMPORT                        R13 K9 [require]
-      114 GETTABLEKS                       R14 R0 K10 ["Src"]
-      116 GETTABLEKS                       R14 R14 K11 ["Components"]
-      118 GETTABLEKS                       R14 R14 K12 ["Sizing"]
-      120 GETTABLEKS                       R14 R14 K27 ["useAvatarSizeState"]
-      122 CALL                             R13 1 1
-      123 GETIMPORT                        R14 K9 [require]
-      125 GETTABLEKS                       R15 R0 K10 ["Src"]
-      127 GETTABLEKS                       R15 R15 K11 ["Components"]
-      129 GETTABLEKS                       R15 R15 K12 ["Sizing"]
-      131 GETTABLEKS                       R15 R15 K28 ["useResetAvatarValuesToScale"]
-      133 CALL                             R14 1 1
-      134 GETIMPORT                        R15 K9 [require]
-      136 GETTABLEKS                       R16 R0 K10 ["Src"]
-      138 GETTABLEKS                       R16 R16 K11 ["Components"]
-      140 GETTABLEKS                       R16 R16 K12 ["Sizing"]
-      142 GETTABLEKS                       R16 R16 K29 ["useSelectedRibbonTool"]
-      144 CALL                             R15 1 1
-      145 DUPCLOSURE                       R16 K30 [PROTO_9]
-      146 CAPTURE                          VAL R6
-      147 CAPTURE                          VAL R8
-      148 CAPTURE                          VAL R11
-      149 CAPTURE                          VAL R12
-      150 CAPTURE                          VAL R13
-      151 CAPTURE                          VAL R5
-      152 CAPTURE                          VAL R3
-      153 CAPTURE                          VAL R14
-      154 CAPTURE                          VAL R15
-      155 CAPTURE                          VAL R9
-      156 CAPTURE                          VAL R4
-      157 CAPTURE                          VAL R2
-      158 CAPTURE                          VAL R7
-      159 CAPTURE                          VAL R1
-      160 RETURN                           R16 1
+      107 GETTABLEKS                       R13 R13 K11 ["Components"]
+      109 GETTABLEKS                       R13 R13 K12 ["Sizing"]
+      111 GETTABLEKS                       R13 R13 K25 ["useAvatarSizeState"]
+      113 CALL                             R12 1 1
+      114 GETIMPORT                        R13 K9 [require]
+      116 GETTABLEKS                       R14 R0 K10 ["Src"]
+      118 GETTABLEKS                       R14 R14 K11 ["Components"]
+      120 GETTABLEKS                       R14 R14 K12 ["Sizing"]
+      122 GETTABLEKS                       R14 R14 K26 ["useResetAvatarValuesToScale"]
+      124 CALL                             R13 1 1
+      125 GETIMPORT                        R14 K9 [require]
+      127 GETTABLEKS                       R15 R0 K10 ["Src"]
+      129 GETTABLEKS                       R15 R15 K11 ["Components"]
+      131 GETTABLEKS                       R15 R15 K12 ["Sizing"]
+      133 GETTABLEKS                       R15 R15 K27 ["useSelectedRibbonTool"]
+      135 CALL                             R14 1 1
+      136 DUPCLOSURE                       R15 K28 [PROTO_9]
+      137 CAPTURE                          VAL R6
+      138 CAPTURE                          VAL R8
+      139 CAPTURE                          VAL R11
+      140 CAPTURE                          VAL R12
+      141 CAPTURE                          VAL R5
+      142 CAPTURE                          VAL R3
+      143 CAPTURE                          VAL R13
+      144 CAPTURE                          VAL R14
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R2
+      148 CAPTURE                          VAL R7
+      149 CAPTURE                          VAL R1
+      150 RETURN                           R15 1

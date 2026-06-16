@@ -13,44 +13,70 @@ PROTO_0:
        13 RETURN                           R4 1
 
 PROTO_1:
-        0 GETIMPORT                        R4 K2 [string.lower]
-        2 MOVE                             R5 R0
-        3 CALL                             R4 1 1
-        4 GETIMPORT                        R5 K2 [string.lower]
-        6 MOVE                             R6 R1
-        7 CALL                             R5 1 1
-        8 JUMPIFNOTEQ                      R4 R5 ; [+3]
-       10 LOADN                            R3 0
-       11 RETURN                           R3 1
-       12 JUMPIFNOT                        R2 ; [+2]
-       13 LOADN                            R6 1
-       14 JUMP                             ; [+1]
-       15 LOADN                            R6 255
-       16 JUMPIFNOTLT                      R4 R5 ; [+3]
-       18 MOVE                             R3 R6
-       19 RETURN                           R3 1
-       20 MINUS                            R3 R6
-       21 RETURN                           R3 1
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+10]
+        3 GETUPVAL                         R4 1
+        4 MOVE                             R5 R0
+        5 MOVE                             R6 R1
+        6 CALL                             R4 2 1
+        7 JUMPIFNOT                        R2 ; [+2]
+        8 LOADN                            R5 255
+        9 JUMP                             ; [+1]
+       10 LOADN                            R5 1
+       11 MUL                              R3 R4 R5
+       12 RETURN                           R3 1
+       13 GETIMPORT                        R4 K2 [string.lower]
+       15 MOVE                             R5 R0
+       16 CALL                             R4 1 1
+       17 GETIMPORT                        R5 K2 [string.lower]
+       19 MOVE                             R6 R1
+       20 CALL                             R5 1 1
+       21 JUMPIFNOTEQ                      R4 R5 ; [+3]
+       23 LOADN                            R3 0
+       24 RETURN                           R3 1
+       25 JUMPIFNOT                        R2 ; [+2]
+       26 LOADN                            R6 1
+       27 JUMP                             ; [+1]
+       28 LOADN                            R6 255
+       29 JUMPIFNOTLT                      R4 R5 ; [+3]
+       31 MOVE                             R3 R6
+       32 RETURN                           R3 1
+       33 MINUS                            R3 R6
+       34 RETURN                           R3 1
 
 PROTO_2:
-        0 GETIMPORT                        R4 K2 [string.lower]
-        2 GETTABLEKS                       R5 R0 K3 ["Name"]
-        4 CALL                             R4 1 1
-        5 GETIMPORT                        R5 K2 [string.lower]
-        7 GETTABLEKS                       R6 R1 K3 ["Name"]
-        9 CALL                             R5 1 1
-       10 JUMPIFNOTEQ                      R4 R5 ; [+3]
-       12 LOADN                            R3 0
-       13 RETURN                           R3 1
-       14 JUMPIFNOT                        R2 ; [+2]
-       15 LOADN                            R6 1
-       16 JUMP                             ; [+1]
-       17 LOADN                            R6 255
-       18 JUMPIFNOTLT                      R4 R5 ; [+3]
-       20 MOVE                             R3 R6
-       21 RETURN                           R3 1
-       22 MINUS                            R3 R6
-       23 RETURN                           R3 1
+        0 GETUPVAL                         R3 0
+        1 CALL                             R3 0 1
+        2 JUMPIFNOT                        R3 ; [+12]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R5 R0 K0 ["Name"]
+        6 GETTABLEKS                       R6 R1 K0 ["Name"]
+        8 CALL                             R4 2 1
+        9 JUMPIFNOT                        R2 ; [+2]
+       10 LOADN                            R5 255
+       11 JUMP                             ; [+1]
+       12 LOADN                            R5 1
+       13 MUL                              R3 R4 R5
+       14 RETURN                           R3 1
+       15 GETIMPORT                        R4 K3 [string.lower]
+       17 GETTABLEKS                       R5 R0 K0 ["Name"]
+       19 CALL                             R4 1 1
+       20 GETIMPORT                        R5 K3 [string.lower]
+       22 GETTABLEKS                       R6 R1 K0 ["Name"]
+       24 CALL                             R5 1 1
+       25 JUMPIFNOTEQ                      R4 R5 ; [+3]
+       27 LOADN                            R3 0
+       28 RETURN                           R3 1
+       29 JUMPIFNOT                        R2 ; [+2]
+       30 LOADN                            R6 1
+       31 JUMP                             ; [+1]
+       32 LOADN                            R6 255
+       33 JUMPIFNOTLT                      R4 R5 ; [+3]
+       35 MOVE                             R3 R6
+       36 RETURN                           R3 1
+       37 MINUS                            R3 R6
+       38 RETURN                           R3 1
 
 PROTO_3:
         0 JUMPIFNOTEQ                      R0 R1 ; [+3]
@@ -77,21 +103,35 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["AssetInfoField"]
-       16 NEWTABLE                         R3 0 0
-       18 DUPCLOSURE                       R4 K9 [PROTO_0]
-       19 GETTABLEKS                       R5 R2 K10 ["DisplayName"]
-       21 DUPCLOSURE                       R6 K11 [PROTO_1]
-       22 SETTABLE                         R6 R3 R5
-       23 GETTABLEKS                       R5 R2 K12 ["Creator"]
-       25 DUPCLOSURE                       R6 K13 [PROTO_2]
-       26 SETTABLE                         R6 R3 R5
-       27 GETTABLEKS                       R5 R1 K14 ["asList"]
-       29 MOVE                             R6 R2
-       30 CALL                             R5 1 3
-       31 FORGPREP                         R5
-       32 GETTABLE                         R10 R3 R9
-       33 JUMPIF                           R10 ; [+2]
-       34 DUPCLOSURE                       R10 K15 [PROTO_3]
-       35 SETTABLE                         R10 R3 R9
-       36 FORGLOOP                         R5 2 ; [-5]
-       38 RETURN                           R3 1
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R4 R0 K6 ["Src"]
+       20 GETTABLEKS                       R4 R4 K9 ["Util"]
+       22 GETTABLEKS                       R4 R4 K10 ["naturalCompare"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K5 [require]
+       27 GETTABLEKS                       R5 R0 K6 ["Src"]
+       29 GETTABLEKS                       R5 R5 K11 ["Flags"]
+       31 GETTABLEKS                       R5 R5 K12 ["getFFlagAmrNaturalSortOrder"]
+       33 CALL                             R4 1 1
+       34 NEWTABLE                         R5 0 0
+       36 DUPCLOSURE                       R6 K13 [PROTO_0]
+       37 GETTABLEKS                       R7 R2 K14 ["DisplayName"]
+       39 DUPCLOSURE                       R8 K15 [PROTO_1]
+       40 CAPTURE                          VAL R4
+       41 CAPTURE                          VAL R3
+       42 SETTABLE                         R8 R5 R7
+       43 GETTABLEKS                       R7 R2 K16 ["Creator"]
+       45 DUPCLOSURE                       R8 K17 [PROTO_2]
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R3
+       48 SETTABLE                         R8 R5 R7
+       49 GETTABLEKS                       R7 R1 K18 ["asList"]
+       51 MOVE                             R8 R2
+       52 CALL                             R7 1 3
+       53 FORGPREP                         R7
+       54 GETTABLE                         R12 R5 R11
+       55 JUMPIF                           R12 ; [+2]
+       56 DUPCLOSURE                       R12 K19 [PROTO_3]
+       57 SETTABLE                         R12 R5 R11
+       58 FORGLOOP                         R7 2 ; [-5]
+       60 RETURN                           R5 1

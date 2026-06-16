@@ -16,18 +16,13 @@ PROTO_1:
         9 RETURN                           R1 1
 
 PROTO_2:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 -1
-        2 FASTCALL                         ASSERT ; [+2]
-        3 GETIMPORT                        R0 K1 [assert]
-        5 CALL                             R0 -1 0
-        6 GETUPVAL                         R0 1
-        7 GETTABLEKS                       R0 R0 K2 ["useCallback"]
-        9 DUPCLOSURE                       R1 K3 [PROTO_1]
-       10 CAPTURE                          UPVAL U2
-       11 NEWTABLE                         R2 0 0
-       13 CALL                             R0 2 1
-       14 RETURN                           R0 1
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["useCallback"]
+        3 DUPCLOSURE                       R1 K1 [PROTO_1]
+        4 CAPTURE                          UPVAL U1
+        5 NEWTABLE                         R2 0 0
+        7 CALL                             R0 2 1
+        8 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -44,14 +39,7 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K9 ["Packages"]
        20 GETTABLEKS                       R3 R3 K10 ["React"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K11 ["Bin"]
-       27 GETTABLEKS                       R4 R4 K12 ["Common"]
-       29 GETTABLEKS                       R4 R4 K13 ["defineLuaFlags"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R3 K14 ["getFFlagEnableFindReplaceAllMaxResultsSetting"]
-       34 DUPCLOSURE                       R5 K15 [PROTO_2]
-       35 CAPTURE                          VAL R4
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          VAL R1
-       38 RETURN                           R5 1
+       23 DUPCLOSURE                       R3 K11 [PROTO_2]
+       24 CAPTURE                          VAL R2
+       25 CAPTURE                          VAL R1
+       26 RETURN                           R3 1

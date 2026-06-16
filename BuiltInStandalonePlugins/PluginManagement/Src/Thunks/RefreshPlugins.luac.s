@@ -30,7 +30,7 @@ PROTO_0:
        38 FORGLOOP                         R3 2 ; [-26]
        40 LENGTH                           R3 R2
        41 LOADN                            R4 0
-       42 JUMPIFNOTLT                      R4 R3 ; [+11]
+       42 JUMPIFNOTLT                      R4 R3 ; [+21]
        44 GETUPVAL                         R5 2
        45 GETUPVAL                         R6 1
        46 GETUPVAL                         R7 3
@@ -39,13 +39,22 @@ PROTO_0:
        49 CALL                             R5 4 -1
        50 NAMECALL                         R3 R0 K10 ["dispatch"]
        52 CALL                             R3 -1 0
-       53 RETURN                           R0 0
-       54 GETUPVAL                         R5 4
-       55 NEWTABLE                         R6 0 0
-       57 CALL                             R5 1 -1
-       58 NAMECALL                         R3 R0 K10 ["dispatch"]
-       60 CALL                             R3 -1 0
-       61 RETURN                           R0 0
+       53 GETUPVAL                         R3 4
+       54 CALL                             R3 0 1
+       55 JUMPIFNOT                        R3 ; [+15]
+       56 GETUPVAL                         R5 5
+       57 GETUPVAL                         R6 1
+       58 GETUPVAL                         R7 3
+       59 CALL                             R5 2 -1
+       60 NAMECALL                         R3 R0 K10 ["dispatch"]
+       62 CALL                             R3 -1 0
+       63 RETURN                           R0 0
+       64 GETUPVAL                         R5 6
+       65 NEWTABLE                         R6 0 0
+       67 CALL                             R5 1 -1
+       68 NAMECALL                         R3 R0 K10 ["dispatch"]
+       70 CALL                             R3 -1 0
+       71 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R2 P0
@@ -54,7 +63,9 @@ PROTO_1:
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          VAL R1
         5 CAPTURE                          UPVAL U2
-        6 RETURN                           R2 1
+        6 CAPTURE                          UPVAL U3
+        7 CAPTURE                          UPVAL U4
+        8 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -64,21 +75,33 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
        11 GETTABLEKS                       R2 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R2 K6 ["Thunks"]
-       15 GETTABLEKS                       R2 R2 K7 ["MultiGetPluginInfoRequest"]
+       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRefreshPluginPermissions"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
        20 GETTABLEKS                       R3 R0 K5 ["Src"]
-       22 GETTABLEKS                       R3 R3 K8 ["Actions"]
-       24 GETTABLEKS                       R3 R3 K9 ["SetLoadedPluginData"]
+       22 GETTABLEKS                       R3 R3 K8 ["Thunks"]
+       24 GETTABLEKS                       R3 R3 K9 ["GetAllPluginPermissions"]
        26 CALL                             R2 1 1
        27 GETIMPORT                        R3 K4 [require]
        29 GETTABLEKS                       R4 R0 K5 ["Src"]
-       31 GETTABLEKS                       R4 R4 K10 ["Util"]
-       33 GETTABLEKS                       R4 R4 K11 ["extractPluginsFromJsonString"]
+       31 GETTABLEKS                       R4 R4 K8 ["Thunks"]
+       33 GETTABLEKS                       R4 R4 K10 ["MultiGetPluginInfoRequest"]
        35 CALL                             R3 1 1
-       36 DUPCLOSURE                       R4 K12 [PROTO_1]
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          VAL R2
-       40 RETURN                           R4 1
+       36 GETIMPORT                        R4 K4 [require]
+       38 GETTABLEKS                       R5 R0 K5 ["Src"]
+       40 GETTABLEKS                       R5 R5 K11 ["Actions"]
+       42 GETTABLEKS                       R5 R5 K12 ["SetLoadedPluginData"]
+       44 CALL                             R4 1 1
+       45 GETIMPORT                        R5 K4 [require]
+       47 GETTABLEKS                       R6 R0 K5 ["Src"]
+       49 GETTABLEKS                       R6 R6 K13 ["Util"]
+       51 GETTABLEKS                       R6 R6 K14 ["extractPluginsFromJsonString"]
+       53 CALL                             R5 1 1
+       54 DUPCLOSURE                       R6 K15 [PROTO_1]
+       55 CAPTURE                          VAL R5
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R4
+       60 RETURN                           R6 1

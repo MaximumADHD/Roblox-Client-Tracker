@@ -180,50 +180,44 @@ PROTO_6:
        15 LOADB                            R7 1
        16 NAMECALL                         R4 R3 K6 ["SetAttribute"]
        18 CALL                             R4 3 0
-       19 GETUPVAL                         R5 2
-       20 CALL                             R5 0 1
-       21 JUMPIFNOT                        R5 ; [+4]
-       22 GETUPVAL                         R4 3
-       23 MOVE                             R5 R1
-       24 CALL                             R4 1 1
-       25 JUMP                             ; [+3]
-       26 NAMECALL                         R4 R1 K7 ["Clone"]
-       28 CALL                             R4 1 1
-       29 LOADK                            R7 K8 ["RBX_AvatarPreviewer_TestingAvatar"]
-       30 LOADB                            R8 1
-       31 NAMECALL                         R5 R4 K6 ["SetAttribute"]
-       33 CALL                             R5 3 0
-       34 LOADK                            R5 K1 ["StarterCharacter"]
-       35 SETTABLEKS                       R5 R4 K4 ["Name"]
-       37 GETUPVAL                         R5 1
-       38 SETTABLEKS                       R5 R4 K9 ["Parent"]
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R5 R5 K10 ["_replaceAnimateScript"]
-       43 MOVE                             R6 R1
-       44 CALL                             R5 1 0
-       45 LOADK                            R7 K11 ["Humanoid"]
-       46 NAMECALL                         R5 R4 K12 ["FindFirstChildOfClass"]
-       48 CALL                             R5 2 1
-       49 GETTABLEKS                       R6 R2 K13 ["WorldModel"]
-       51 LOADK                            R8 K11 ["Humanoid"]
-       52 NAMECALL                         R6 R6 K12 ["FindFirstChildOfClass"]
-       54 CALL                             R6 2 1
-       55 JUMPIFEQKNIL                     R5 ; [+24]
-       57 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       59 JUMP                             ; [+20]
-       60 GETTABLEKS                       R7 R6 K14 ["WalkSpeed"]
-       62 SETTABLEKS                       R7 R5 K14 ["WalkSpeed"]
-       64 GETTABLEKS                       R7 R6 K15 ["JumpHeight"]
-       66 SETTABLEKS                       R7 R5 K15 ["JumpHeight"]
-       68 GETTABLEKS                       R7 R6 K16 ["JumpPower"]
-       70 SETTABLEKS                       R7 R5 K16 ["JumpPower"]
-       72 GETTABLEKS                       R7 R6 K17 ["NameDisplayDistance"]
-       74 SETTABLEKS                       R7 R5 K17 ["NameDisplayDistance"]
-       76 GETTABLEKS                       R7 R6 K18 ["HealthDisplayDistance"]
-       78 SETTABLEKS                       R7 R5 K18 ["HealthDisplayDistance"]
-       80 GETTABLEKS                       R5 R0 K19 ["startPlaySolo"]
-       82 CALL                             R5 0 0
-       83 RETURN                           R0 0
+       19 GETUPVAL                         R4 2
+       20 MOVE                             R5 R1
+       21 CALL                             R4 1 1
+       22 LOADK                            R7 K7 ["RBX_AvatarPreviewer_TestingAvatar"]
+       23 LOADB                            R8 1
+       24 NAMECALL                         R5 R4 K6 ["SetAttribute"]
+       26 CALL                             R5 3 0
+       27 LOADK                            R5 K1 ["StarterCharacter"]
+       28 SETTABLEKS                       R5 R4 K4 ["Name"]
+       30 GETUPVAL                         R5 1
+       31 SETTABLEKS                       R5 R4 K8 ["Parent"]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R5 R5 K9 ["_replaceAnimateScript"]
+       36 MOVE                             R6 R1
+       37 CALL                             R5 1 0
+       38 LOADK                            R7 K10 ["Humanoid"]
+       39 NAMECALL                         R5 R4 K11 ["FindFirstChildOfClass"]
+       41 CALL                             R5 2 1
+       42 GETTABLEKS                       R6 R2 K12 ["WorldModel"]
+       44 LOADK                            R8 K10 ["Humanoid"]
+       45 NAMECALL                         R6 R6 K11 ["FindFirstChildOfClass"]
+       47 CALL                             R6 2 1
+       48 JUMPIFEQKNIL                     R5 ; [+24]
+       50 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       52 JUMP                             ; [+20]
+       53 GETTABLEKS                       R7 R6 K13 ["WalkSpeed"]
+       55 SETTABLEKS                       R7 R5 K13 ["WalkSpeed"]
+       57 GETTABLEKS                       R7 R6 K14 ["JumpHeight"]
+       59 SETTABLEKS                       R7 R5 K14 ["JumpHeight"]
+       61 GETTABLEKS                       R7 R6 K15 ["JumpPower"]
+       63 SETTABLEKS                       R7 R5 K15 ["JumpPower"]
+       65 GETTABLEKS                       R7 R6 K16 ["NameDisplayDistance"]
+       67 SETTABLEKS                       R7 R5 K16 ["NameDisplayDistance"]
+       69 GETTABLEKS                       R7 R6 K17 ["HealthDisplayDistance"]
+       71 SETTABLEKS                       R7 R5 K17 ["HealthDisplayDistance"]
+       73 GETTABLEKS                       R5 R0 K18 ["startPlaySolo"]
+       75 CALL                             R5 0 0
+       76 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -249,34 +243,28 @@ MAIN:
        33 GETTABLEKS                       R5 R5 K14 ["Util"]
        35 GETTABLEKS                       R5 R5 K15 ["cloneWithAccessories"]
        37 CALL                             R4 1 1
-       38 GETIMPORT                        R5 K9 [require]
-       40 GETTABLEKS                       R6 R1 K10 ["Src"]
-       42 GETTABLEKS                       R6 R6 K16 ["Flags"]
-       44 GETTABLEKS                       R6 R6 K17 ["getFFlagAvatarPreviewerTestWithCustomAssets"]
-       46 CALL                             R5 1 1
-       47 NEWTABLE                         R6 8 0
-       49 DUPCLOSURE                       R7 K18 [PROTO_0]
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          VAL R6
-       52 SETTABLEKS                       R7 R6 K19 ["clearTestingAvatars"]
-       54 DUPCLOSURE                       R7 K20 [PROTO_1]
+       38 NEWTABLE                         R5 8 0
+       40 DUPCLOSURE                       R6 K16 [PROTO_0]
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          VAL R5
+       43 SETTABLEKS                       R6 R5 K17 ["clearTestingAvatars"]
+       45 DUPCLOSURE                       R6 K18 [PROTO_1]
+       46 CAPTURE                          VAL R0
+       47 SETTABLEKS                       R6 R5 K19 ["_clearTestingAnimateScripts"]
+       49 DUPCLOSURE                       R6 K20 [PROTO_2]
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R6 R5 K21 ["reset"]
+       54 DUPCLOSURE                       R6 K22 [PROTO_3]
        55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R7 R6 K21 ["_clearTestingAnimateScripts"]
-       58 DUPCLOSURE                       R7 K22 [PROTO_2]
-       59 CAPTURE                          VAL R6
-       60 CAPTURE                          VAL R0
-       61 SETTABLEKS                       R7 R6 K23 ["reset"]
-       63 DUPCLOSURE                       R7 K24 [PROTO_3]
-       64 CAPTURE                          VAL R0
-       65 SETTABLEKS                       R7 R6 K25 ["_resetAnimateScript"]
-       67 DUPCLOSURE                       R7 K26 [PROTO_4]
-       68 CAPTURE                          VAL R0
-       69 SETTABLEKS                       R7 R6 K27 ["_replaceAnimateScript"]
-       71 DUPCLOSURE                       R7 K28 [PROTO_5]
-       72 DUPCLOSURE                       R8 K29 [PROTO_6]
-       73 CAPTURE                          VAL R6
-       74 CAPTURE                          VAL R0
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          VAL R4
-       77 SETTABLEKS                       R8 R6 K30 ["test"]
-       79 RETURN                           R6 1
+       56 SETTABLEKS                       R6 R5 K23 ["_resetAnimateScript"]
+       58 DUPCLOSURE                       R6 K24 [PROTO_4]
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R6 R5 K25 ["_replaceAnimateScript"]
+       62 DUPCLOSURE                       R6 K26 [PROTO_5]
+       63 DUPCLOSURE                       R7 K27 [PROTO_6]
+       64 CAPTURE                          VAL R5
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          VAL R4
+       67 SETTABLEKS                       R7 R5 K28 ["test"]
+       69 RETURN                           R5 1

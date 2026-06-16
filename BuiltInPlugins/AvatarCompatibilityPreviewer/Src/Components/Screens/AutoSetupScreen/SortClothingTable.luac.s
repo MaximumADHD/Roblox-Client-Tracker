@@ -334,94 +334,88 @@ PROTO_9:
        38 RETURN                           R2 1
 
 PROTO_10:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["FFlagAvatarPreviewerSortClothingUI is not enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 NAMECALL                         R1 R1 K3 ["use"]
-       11 CALL                             R1 1 1
-       12 GETUPVAL                         R2 2
-       13 LOADK                            R4 K4 ["SortClothingTable"]
-       14 NAMECALL                         R2 R2 K3 ["use"]
-       16 CALL                             R2 2 1
-       17 GETTABLEKS                       R4 R0 K5 ["target"]
-       19 JUMPIFNOT                        R4 ; [+5]
-       20 GETTABLEKS                       R3 R0 K5 ["target"]
-       22 GETTABLEKS                       R3 R3 K6 ["lastFilteredSelection"]
-       24 JUMP                             ; [+1]
-       25 LOADNIL                          R3
-       26 GETUPVAL                         R4 3
-       27 GETTABLEKS                       R4 R4 K7 ["useMemo"]
-       29 NEWCLOSURE                       R5 P0
-       30 CAPTURE                          VAL R3
-       31 CAPTURE                          UPVAL U4
-       32 NEWTABLE                         R6 0 1
-       34 MOVE                             R7 R3
-       35 SETLIST                          R6 R7 1 [1]
-       37 CALL                             R4 2 1
-       38 GETIMPORT                        R5 K9 [next]
-       40 MOVE                             R6 R4
-       41 CALL                             R5 1 1
-       42 JUMPIF                           R5 ; [+2]
-       43 LOADNIL                          R5
-       44 RETURN                           R5 1
-       45 GETUPVAL                         R5 3
-       46 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       48 GETUPVAL                         R6 5
-       49 DUPTABLE                         R7 K19 [{"LayoutOrder", "Rows", "Columns", "RowHeight", "Size", "Scroll", "CellComponent", "CellProps"}]
-       50 GETUPVAL                         R9 6
-       51 CALL                             R9 0 1
-       52 JUMPIFNOT                        R9 ; [+2]
-       53 LOADN                            R8 2
-       54 JUMP                             ; [+1]
-       55 LOADNIL                          R8
-       56 SETTABLEKS                       R8 R7 K11 ["LayoutOrder"]
-       58 SETTABLEKS                       R4 R7 K12 ["Rows"]
-       60 NEWTABLE                         R8 0 2
-       62 DUPTABLE                         R9 K21 [{"Name"}]
-       63 LOADK                            R12 K4 ["SortClothingTable"]
-       64 LOADK                            R13 K20 ["Name"]
-       65 NAMECALL                         R10 R1 K22 ["getText"]
-       67 CALL                             R10 3 1
-       68 SETTABLEKS                       R10 R9 K20 ["Name"]
-       70 DUPTABLE                         R10 K21 [{"Name"}]
-       71 LOADK                            R13 K4 ["SortClothingTable"]
-       72 LOADK                            R14 K23 ["Type"]
-       73 NAMECALL                         R11 R1 K22 ["getText"]
-       75 CALL                             R11 3 1
-       76 SETTABLEKS                       R11 R10 K20 ["Name"]
-       78 SETLIST                          R8 R9 2 [1]
-       80 SETTABLEKS                       R8 R7 K13 ["Columns"]
-       82 GETTABLEKS                       R8 R2 K14 ["RowHeight"]
-       84 SETTABLEKS                       R8 R7 K14 ["RowHeight"]
-       86 GETUPVAL                         R9 6
-       87 CALL                             R9 0 1
-       88 JUMPIFNOT                        R9 ; [+8]
-       89 GETIMPORT                        R8 K26 [UDim2.new]
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R2 1
+        5 LOADK                            R4 K1 ["SortClothingTable"]
+        6 NAMECALL                         R2 R2 K0 ["use"]
+        8 CALL                             R2 2 1
+        9 GETTABLEKS                       R4 R0 K2 ["target"]
+       11 JUMPIFNOT                        R4 ; [+5]
+       12 GETTABLEKS                       R3 R0 K2 ["target"]
+       14 GETTABLEKS                       R3 R3 K3 ["lastFilteredSelection"]
+       16 JUMP                             ; [+1]
+       17 LOADNIL                          R3
+       18 GETUPVAL                         R4 2
+       19 GETTABLEKS                       R4 R4 K4 ["useMemo"]
+       21 NEWCLOSURE                       R5 P0
+       22 CAPTURE                          VAL R3
+       23 CAPTURE                          UPVAL U3
+       24 NEWTABLE                         R6 0 1
+       26 MOVE                             R7 R3
+       27 SETLIST                          R6 R7 1 [1]
+       29 CALL                             R4 2 1
+       30 GETIMPORT                        R5 K6 [next]
+       32 MOVE                             R6 R4
+       33 CALL                             R5 1 1
+       34 JUMPIF                           R5 ; [+2]
+       35 LOADNIL                          R5
+       36 RETURN                           R5 1
+       37 GETUPVAL                         R5 2
+       38 GETTABLEKS                       R5 R5 K7 ["createElement"]
+       40 GETUPVAL                         R6 4
+       41 DUPTABLE                         R7 K16 [{"LayoutOrder", "Rows", "Columns", "RowHeight", "Size", "Scroll", "CellComponent", "CellProps"}]
+       42 GETUPVAL                         R9 5
+       43 CALL                             R9 0 1
+       44 JUMPIFNOT                        R9 ; [+2]
+       45 LOADN                            R8 2
+       46 JUMP                             ; [+1]
+       47 LOADNIL                          R8
+       48 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+       50 SETTABLEKS                       R4 R7 K9 ["Rows"]
+       52 NEWTABLE                         R8 0 2
+       54 DUPTABLE                         R9 K18 [{"Name"}]
+       55 LOADK                            R12 K1 ["SortClothingTable"]
+       56 LOADK                            R13 K17 ["Name"]
+       57 NAMECALL                         R10 R1 K19 ["getText"]
+       59 CALL                             R10 3 1
+       60 SETTABLEKS                       R10 R9 K17 ["Name"]
+       62 DUPTABLE                         R10 K18 [{"Name"}]
+       63 LOADK                            R13 K1 ["SortClothingTable"]
+       64 LOADK                            R14 K20 ["Type"]
+       65 NAMECALL                         R11 R1 K19 ["getText"]
+       67 CALL                             R11 3 1
+       68 SETTABLEKS                       R11 R10 K17 ["Name"]
+       70 SETLIST                          R8 R9 2 [1]
+       72 SETTABLEKS                       R8 R7 K10 ["Columns"]
+       74 GETTABLEKS                       R8 R2 K11 ["RowHeight"]
+       76 SETTABLEKS                       R8 R7 K11 ["RowHeight"]
+       78 GETUPVAL                         R9 5
+       79 CALL                             R9 0 1
+       80 JUMPIFNOT                        R9 ; [+8]
+       81 GETIMPORT                        R8 K23 [UDim2.new]
+       83 LOADN                            R9 1
+       84 LOADN                            R10 0
+       85 LOADN                            R11 1
+       86 LOADN                            R12 232
+       87 CALL                             R8 4 1
+       88 JUMP                             ; [+5]
+       89 GETIMPORT                        R8 K25 [UDim2.fromScale]
        91 LOADN                            R9 1
-       92 LOADN                            R10 0
-       93 LOADN                            R11 1
-       94 LOADN                            R12 232
-       95 CALL                             R8 4 1
-       96 JUMP                             ; [+5]
-       97 GETIMPORT                        R8 K28 [UDim2.fromScale]
-       99 LOADN                            R9 1
-      100 LOADN                            R10 1
-      101 CALL                             R8 2 1
-      102 SETTABLEKS                       R8 R7 K15 ["Size"]
-      104 LOADB                            R8 1
-      105 SETTABLEKS                       R8 R7 K16 ["Scroll"]
-      107 GETUPVAL                         R8 7
-      108 SETTABLEKS                       R8 R7 K17 ["CellComponent"]
-      110 DUPTABLE                         R8 K30 [{"Padding"}]
-      111 GETTABLEKS                       R9 R2 K31 ["CellPadding"]
-      113 SETTABLEKS                       R9 R8 K29 ["Padding"]
-      115 SETTABLEKS                       R8 R7 K18 ["CellProps"]
-      117 CALL                             R5 2 -1
-      118 RETURN                           R5 -1
+       92 LOADN                            R10 1
+       93 CALL                             R8 2 1
+       94 SETTABLEKS                       R8 R7 K12 ["Size"]
+       96 LOADB                            R8 1
+       97 SETTABLEKS                       R8 R7 K13 ["Scroll"]
+       99 GETUPVAL                         R8 6
+      100 SETTABLEKS                       R8 R7 K14 ["CellComponent"]
+      102 DUPTABLE                         R8 K27 [{"Padding"}]
+      103 GETTABLEKS                       R9 R2 K28 ["CellPadding"]
+      105 SETTABLEKS                       R9 R8 K26 ["Padding"]
+      107 SETTABLEKS                       R8 R7 K15 ["CellProps"]
+      109 CALL                             R5 2 -1
+      110 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -477,39 +471,33 @@ MAIN:
        88 GETTABLEKS                       R11 R11 K23 ["Flags"]
        90 GETTABLEKS                       R11 R11 K24 ["getFFlagAvatarAutosetupOptionsInput"]
        92 CALL                             R10 1 1
-       93 GETIMPORT                        R11 K5 [require]
-       95 GETTABLEKS                       R12 R0 K6 ["Src"]
-       97 GETTABLEKS                       R12 R12 K23 ["Flags"]
-       99 GETTABLEKS                       R12 R12 K25 ["getFFlagAvatarPreviewerSortClothingUI"]
-      101 CALL                             R11 1 1
-      102 GETTABLEKS                       R12 R4 K26 ["UI"]
-      104 GETTABLEKS                       R13 R12 K27 ["Pane"]
-      106 GETTABLEKS                       R14 R12 K28 ["SelectInput"]
-      108 GETTABLEKS                       R15 R12 K29 ["Table"]
-      110 GETTABLEKS                       R16 R12 K30 ["TextLabel"]
-      112 GETTABLEKS                       R17 R4 K31 ["ContextServices"]
-      114 GETTABLEKS                       R17 R17 K32 ["Localization"]
-      116 GETTABLEKS                       R18 R4 K31 ["ContextServices"]
-      118 GETTABLEKS                       R18 R18 K33 ["Stylizer"]
-      120 DUPCLOSURE                       R19 K34 [PROTO_5]
-      121 CAPTURE                          VAL R5
-      122 CAPTURE                          VAL R6
-      123 CAPTURE                          VAL R10
-      124 CAPTURE                          VAL R2
+       93 GETTABLEKS                       R11 R4 K25 ["UI"]
+       95 GETTABLEKS                       R12 R11 K26 ["Pane"]
+       97 GETTABLEKS                       R13 R11 K27 ["SelectInput"]
+       99 GETTABLEKS                       R14 R11 K28 ["Table"]
+      101 GETTABLEKS                       R15 R11 K29 ["TextLabel"]
+      103 GETTABLEKS                       R16 R4 K30 ["ContextServices"]
+      105 GETTABLEKS                       R16 R16 K31 ["Localization"]
+      107 GETTABLEKS                       R17 R4 K30 ["ContextServices"]
+      109 GETTABLEKS                       R17 R17 K32 ["Stylizer"]
+      111 DUPCLOSURE                       R18 K33 [PROTO_5]
+      112 CAPTURE                          VAL R5
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R10
+      115 CAPTURE                          VAL R2
+      116 CAPTURE                          VAL R16
+      117 CAPTURE                          VAL R9
+      118 CAPTURE                          VAL R1
+      119 CAPTURE                          VAL R12
+      120 CAPTURE                          VAL R13
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R15
+      123 DUPCLOSURE                       R19 K34 [PROTO_10]
+      124 CAPTURE                          VAL R16
       125 CAPTURE                          VAL R17
-      126 CAPTURE                          VAL R9
+      126 CAPTURE                          VAL R5
       127 CAPTURE                          VAL R1
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R14
-      130 CAPTURE                          VAL R3
-      131 CAPTURE                          VAL R16
-      132 DUPCLOSURE                       R20 K35 [PROTO_10]
-      133 CAPTURE                          VAL R11
-      134 CAPTURE                          VAL R17
-      135 CAPTURE                          VAL R18
-      136 CAPTURE                          VAL R5
-      137 CAPTURE                          VAL R1
-      138 CAPTURE                          VAL R15
-      139 CAPTURE                          VAL R10
-      140 CAPTURE                          VAL R19
-      141 RETURN                           R20 1
+      128 CAPTURE                          VAL R14
+      129 CAPTURE                          VAL R10
+      130 CAPTURE                          VAL R18
+      131 RETURN                           R19 1

@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["fflagOwnerRolesetDeprecation"]
+        1 GETTABLEKS                       R2 R2 K0 ["fflagOwnerRolesetDeprecation2"]
         3 JUMPIFNOT                        R2 ; [+2]
         4 LOADB                            R2 0
         5 RETURN                           R2 1

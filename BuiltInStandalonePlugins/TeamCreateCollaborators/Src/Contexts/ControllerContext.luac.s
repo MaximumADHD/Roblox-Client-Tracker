@@ -20,15 +20,9 @@ MAIN:
        30 GETTABLEKS                       R6 R2 K12 ["useTrustedFriendLinkController"]
        32 CALL                             R5 1 1
        33 GETIMPORT                        R6 K5 [require]
-       35 GETTABLEKS                       R7 R2 K13 ["useTrustedConnectionParentalConsentController"]
+       35 GETTABLEKS                       R7 R2 K13 ["useUniverseInfoController"]
        37 CALL                             R6 1 1
-       38 GETIMPORT                        R7 K5 [require]
-       40 GETTABLEKS                       R8 R2 K14 ["useHasLinkedParentController"]
-       42 CALL                             R7 1 1
-       43 GETIMPORT                        R8 K5 [require]
-       45 GETTABLEKS                       R9 R2 K15 ["useUniverseInfoController"]
-       47 CALL                             R8 1 1
-       48 GETTABLEKS                       R9 R1 K16 ["createContext"]
-       50 NEWTABLE                         R10 0 0
-       52 CALL                             R9 1 -1
-       53 RETURN                           R9 -1
+       38 GETTABLEKS                       R7 R1 K14 ["createContext"]
+       40 NEWTABLE                         R8 0 0
+       42 CALL                             R7 1 -1
+       43 RETURN                           R7 -1

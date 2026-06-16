@@ -88,37 +88,25 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 CALL                             R0 0 1
-        2 JUMPIF                           R0 ; [+1]
-        3 RETURN                           R0 0
-        4 GETUPVAL                         R0 1
-        5 GETTABLEKS                       R0 R0 K0 ["addInputBegan"]
-        7 NEWCLOSURE                       R1 P0
-        8 CAPTURE                          UPVAL U2
-        9 CALL                             R0 1 1
-       10 RETURN                           R0 1
+        1 GETTABLEKS                       R0 R0 K0 ["addInputBegan"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 1
+        6 RETURN                           R0 1
 
 PROTO_8:
         0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIF                           R2 ; [+1]
-        3 RETURN                           R0 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K0 ["fireInputBegan"]
-        7 MOVE                             R3 R1
-        8 CALL                             R2 1 0
-        9 RETURN                           R0 0
+        1 GETTABLEKS                       R2 R2 K0 ["fireInputBegan"]
+        3 MOVE                             R3 R1
+        4 CALL                             R2 1 0
+        5 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIF                           R2 ; [+1]
-        3 RETURN                           R0 0
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K0 ["fireInputEnded"]
-        7 MOVE                             R3 R1
-        8 CALL                             R2 1 0
-        9 RETURN                           R0 0
+        1 GETTABLEKS                       R2 R2 K0 ["fireInputEnded"]
+        3 MOVE                             R3 R1
+        4 CALL                             R2 1 0
+        5 RETURN                           R0 0
 
 PROTO_10:
         0 GETIMPORT                        R1 K2 [UDim2.new]
@@ -277,236 +265,233 @@ PROTO_13:
       126 GETUPVAL                         R17 1
       127 GETTABLEKS                       R17 R17 K7 ["useEffect"]
       129 NEWCLOSURE                       R18 P6
-      130 CAPTURE                          UPVAL U9
-      131 CAPTURE                          VAL R5
-      132 CAPTURE                          VAL R0
-      133 NEWTABLE                         R19 0 3
-      135 MOVE                             R20 R5
-      136 GETTABLEKS                       R21 R0 K8 ["resultManager"]
-      138 MOVE                             R22 R13
-      139 SETLIST                          R19 R20 3 [1]
-      141 CALL                             R17 2 0
-      142 GETUPVAL                         R17 1
-      143 GETTABLEKS                       R17 R17 K4 ["useCallback"]
-      145 NEWCLOSURE                       R18 P7
-      146 CAPTURE                          UPVAL U9
-      147 CAPTURE                          VAL R5
-      148 NEWTABLE                         R19 0 1
-      150 MOVE                             R20 R5
-      151 SETLIST                          R19 R20 1 [1]
-      153 CALL                             R17 2 1
-      154 GETUPVAL                         R18 1
-      155 GETTABLEKS                       R18 R18 K4 ["useCallback"]
-      157 NEWCLOSURE                       R19 P8
-      158 CAPTURE                          UPVAL U9
-      159 CAPTURE                          VAL R5
-      160 NEWTABLE                         R20 0 1
-      162 MOVE                             R21 R5
-      163 SETLIST                          R20 R21 1 [1]
-      165 CALL                             R18 2 1
-      166 GETUPVAL                         R19 1
-      167 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      169 LOADK                            R20 K17 ["Frame"]
-      170 NEWTABLE                         R21 4 0
-      172 GETTABLEKS                       R22 R0 K18 ["LayoutOrder"]
-      174 SETTABLEKS                       R22 R21 K18 ["LayoutOrder"]
-      176 GETTABLEKS                       R22 R0 K19 ["ZIndex"]
-      178 SETTABLEKS                       R22 R21 K19 ["ZIndex"]
-      180 GETIMPORT                        R22 K22 [UDim2.fromOffset]
-      182 LOADN                            R23 0
-      183 GETTABLEKS                       R24 R0 K23 ["headerOffset"]
-      185 CALL                             R22 2 1
-      186 SETTABLEKS                       R22 R21 K24 ["Position"]
-      188 GETUPVAL                         R22 1
-      189 GETTABLEKS                       R22 R22 K25 ["Tag"]
-      191 LOADK                            R23 K26 ["X-FitY X-Column X-Transparent data-testid=WidgetBodyFrame"]
-      192 SETTABLE                         R23 R21 R22
-      193 DUPTABLE                         R22 K31 [{"ControlsContainer", "ReplaceAllConfirmationDialog", "Divider", "ScrollingFrame"}]
-      194 GETUPVAL                         R23 10
-      195 LOADK                            R24 K17 ["Frame"]
-      196 NEWTABLE                         R25 4 0
-      198 GETTABLEKS                       R26 R0 K19 ["ZIndex"]
-      200 SETTABLEKS                       R26 R25 K19 ["ZIndex"]
-      202 MOVE                             R26 R1
-      203 CALL                             R26 0 1
-      204 SETTABLEKS                       R26 R25 K18 ["LayoutOrder"]
-      206 GETUPVAL                         R26 1
-      207 GETTABLEKS                       R26 R26 K25 ["Tag"]
-      209 LOADK                            R27 K32 ["X-FitY X-Transparent data-testid=WidgetControlsContainer"]
-      210 SETTABLE                         R27 R25 R26
-      211 DUPTABLE                         R26 K36 [{"NavigationControls", "ReplaceControls", "UIPadding"}]
-      212 GETUPVAL                         R27 10
-      213 GETUPVAL                         R28 11
-      214 DUPTABLE                         R29 K44 [{"ZIndex", "Visible", "numAllResults", "numAllScripts", "selection", "onSizeChanged", "onFindNextClicked", "onFindPreviousClicked"}]
-      215 GETTABLEKS                       R30 R0 K19 ["ZIndex"]
-      217 SETTABLEKS                       R30 R29 K19 ["ZIndex"]
-      219 GETTABLEKS                       R31 R0 K45 ["confirmationDialogVisible"]
-      221 NOT                              R30 R31
-      222 SETTABLEKS                       R30 R29 K37 ["Visible"]
-      224 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      226 GETTABLEKS                       R30 R30 K46 ["totalNumResultsObservable"]
-      228 SETTABLEKS                       R30 R29 K38 ["numAllResults"]
-      230 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      232 GETTABLEKS                       R30 R30 K47 ["totalNumScriptsObservable"]
-      234 SETTABLEKS                       R30 R29 K39 ["numAllScripts"]
-      236 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      238 GETTABLEKS                       R30 R30 K48 ["selectedObservable"]
-      240 SETTABLEKS                       R30 R29 K40 ["selection"]
-      242 SETTABLEKS                       R4 R29 K41 ["onSizeChanged"]
-      244 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      246 GETTABLEKS                       R30 R30 K49 ["findNext"]
-      248 SETTABLEKS                       R30 R29 K42 ["onFindNextClicked"]
-      250 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      252 GETTABLEKS                       R30 R30 K50 ["findPrevious"]
-      254 SETTABLEKS                       R30 R29 K43 ["onFindPreviousClicked"]
-      256 CALL                             R27 2 1
-      257 SETTABLEKS                       R27 R26 K33 ["NavigationControls"]
-      259 GETUPVAL                         R27 10
-      260 GETUPVAL                         R28 12
-      261 DUPTABLE                         R29 K54 [{"ZIndex", "xOffset", "onReplaceButtonClicked", "selection", "numAllResults", "Visible", "onReplaceAllButtonClicked"}]
-      262 GETTABLEKS                       R31 R0 K19 ["ZIndex"]
-      264 ADDK                             R30 R31 K55 [1]
-      265 SETTABLEKS                       R30 R29 K19 ["ZIndex"]
-      267 SETTABLEKS                       R2 R29 K51 ["xOffset"]
-      269 SETTABLEKS                       R14 R29 K52 ["onReplaceButtonClicked"]
-      271 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      273 GETTABLEKS                       R30 R30 K48 ["selectedObservable"]
-      275 SETTABLEKS                       R30 R29 K40 ["selection"]
-      277 GETTABLEKS                       R30 R0 K8 ["resultManager"]
-      279 GETTABLEKS                       R30 R30 K46 ["totalNumResultsObservable"]
-      281 SETTABLEKS                       R30 R29 K38 ["numAllResults"]
-      283 GETTABLEKS                       R31 R0 K56 ["showReplace"]
-      285 JUMPIF                           R31 ; [+2]
-      286 LOADB                            R30 0
-      287 JUMP                             ; [+3]
-      288 GETTABLEKS                       R31 R0 K45 ["confirmationDialogVisible"]
-      290 NOT                              R30 R31
-      291 SETTABLEKS                       R30 R29 K37 ["Visible"]
-      293 GETTABLEKS                       R30 R0 K57 ["toggleConfirmationDialog"]
-      295 SETTABLEKS                       R30 R29 K53 ["onReplaceAllButtonClicked"]
-      297 CALL                             R27 2 1
-      298 SETTABLEKS                       R27 R26 K34 ["ReplaceControls"]
-      300 GETUPVAL                         R27 10
-      301 LOADK                            R28 K35 ["UIPadding"]
-      302 DUPTABLE                         R29 K61 [{"PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      303 GETIMPORT                        R30 K64 [UDim.new]
-      305 LOADN                            R31 0
-      306 LOADN                            R32 2
-      307 CALL                             R30 2 1
-      308 SETTABLEKS                       R30 R29 K58 ["PaddingBottom"]
-      310 GETIMPORT                        R30 K64 [UDim.new]
-      312 LOADN                            R31 0
-      313 LOADN                            R32 8
-      314 CALL                             R30 2 1
-      315 SETTABLEKS                       R30 R29 K59 ["PaddingLeft"]
-      317 GETIMPORT                        R30 K64 [UDim.new]
-      319 LOADN                            R31 0
-      320 LOADN                            R32 8
-      321 CALL                             R30 2 1
-      322 SETTABLEKS                       R30 R29 K60 ["PaddingRight"]
-      324 CALL                             R27 2 1
-      325 SETTABLEKS                       R27 R26 K35 ["UIPadding"]
-      327 CALL                             R23 3 1
-      328 SETTABLEKS                       R23 R22 K27 ["ControlsContainer"]
-      330 GETUPVAL                         R23 10
-      331 GETUPVAL                         R24 13
-      332 DUPTABLE                         R25 K66 [{"ZIndex", "Visible", "onButtonClicked"}]
-      333 GETTABLEKS                       R27 R0 K19 ["ZIndex"]
-      335 ADDK                             R26 R27 K55 [1]
-      336 SETTABLEKS                       R26 R25 K19 ["ZIndex"]
-      338 GETTABLEKS                       R26 R0 K45 ["confirmationDialogVisible"]
-      340 SETTABLEKS                       R26 R25 K37 ["Visible"]
-      342 GETTABLEKS                       R26 R0 K57 ["toggleConfirmationDialog"]
-      344 SETTABLEKS                       R26 R25 K65 ["onButtonClicked"]
-      346 CALL                             R23 2 1
-      347 SETTABLEKS                       R23 R22 K28 ["ReplaceAllConfirmationDialog"]
-      349 GETUPVAL                         R23 10
-      350 LOADK                            R24 K17 ["Frame"]
-      351 NEWTABLE                         R25 4 0
-      353 MOVE                             R26 R1
-      354 CALL                             R26 0 1
-      355 SETTABLEKS                       R26 R25 K18 ["LayoutOrder"]
-      357 GETIMPORT                        R26 K67 [UDim2.new]
-      359 LOADN                            R27 1
-      360 LOADN                            R28 0
-      361 LOADN                            R29 0
-      362 LOADN                            R30 1
-      363 CALL                             R26 4 1
-      364 SETTABLEKS                       R26 R25 K68 ["Size"]
-      366 GETUPVAL                         R26 1
-      367 GETTABLEKS                       R26 R26 K25 ["Tag"]
-      369 LOADK                            R27 K69 ["FindReplaceAll-UIStroke"]
-      370 SETTABLE                         R27 R25 R26
-      371 CALL                             R23 2 1
-      372 SETTABLEKS                       R23 R22 K29 ["Divider"]
-      374 GETUPVAL                         R23 10
-      375 LOADK                            R24 K30 ["ScrollingFrame"]
-      376 NEWTABLE                         R25 16 0
-      378 MOVE                             R26 R1
-      379 CALL                             R26 0 1
-      380 SETTABLEKS                       R26 R25 K18 ["LayoutOrder"]
-      382 LOADB                            R26 0
-      383 SETTABLEKS                       R26 R25 K70 ["SmoothScroll"]
-      385 GETUPVAL                         R28 2
-      386 GETTABLEKS                       R28 R28 K72 ["resultRowHeight"]
-      388 GETUPVAL                         R29 14
-      389 GETTABLEKS                       R29 R29 K73 ["SCROLL_RATE"]
-      391 MUL                              R27 R28 R29
-      392 DIVK                             R26 R27 K71 [140]
-      393 SETTABLEKS                       R26 R25 K74 ["ScrollRate"]
-      395 LOADN                            R26 1
-      396 SETTABLEKS                       R26 R25 K75 ["BackgroundTransparency"]
-      398 LOADN                            R26 0
-      399 SETTABLEKS                       R26 R25 K76 ["BorderSizePixel"]
-      401 DUPCLOSURE                       R28 K77 [PROTO_10]
-      402 CAPTURE                          UPVAL U2
-      403 NAMECALL                         R26 R15 K78 ["map"]
-      405 CALL                             R26 2 1
-      406 SETTABLEKS                       R26 R25 K79 ["CanvasSize"]
-      408 GETUPVAL                         R26 2
-      409 GETTABLEKS                       R26 R26 K80 ["scrollBarThickness"]
-      411 SETTABLEKS                       R26 R25 K81 ["ScrollBarThickness"]
-      413 GETIMPORT                        R26 K85 [Enum.ScrollBarInset.Always]
-      415 SETTABLEKS                       R26 R25 K86 ["VerticalScrollBarInset"]
-      417 GETIMPORT                        R26 K88 [Enum.ScrollBarInset.None]
-      419 SETTABLEKS                       R26 R25 K89 ["HorizontalScrollBarInset"]
-      421 GETTABLEKS                       R27 R0 K19 ["ZIndex"]
-      423 ADDK                             R26 R27 K55 [1]
-      424 SETTABLEKS                       R26 R25 K19 ["ZIndex"]
-      426 SETTABLEKS                       R6 R25 K90 ["ref"]
-      428 GETUPVAL                         R26 1
-      429 GETTABLEKS                       R26 R26 K91 ["Change"]
-      431 GETTABLEKS                       R26 R26 K92 ["AbsoluteSize"]
-      433 SETTABLE                         R10 R25 R26
-      434 GETUPVAL                         R26 1
-      435 GETTABLEKS                       R26 R26 K91 ["Change"]
-      437 GETTABLEKS                       R26 R26 K93 ["CanvasPosition"]
-      439 SETTABLE                         R11 R25 R26
-      440 GETUPVAL                         R26 1
-      441 GETTABLEKS                       R26 R26 K94 ["Event"]
-      443 GETTABLEKS                       R26 R26 K95 ["InputBegan"]
-      445 SETTABLE                         R17 R25 R26
-      446 GETUPVAL                         R26 1
-      447 GETTABLEKS                       R26 R26 K94 ["Event"]
-      449 GETTABLEKS                       R26 R26 K96 ["InputEnded"]
-      451 SETTABLE                         R18 R25 R26
-      452 GETUPVAL                         R26 1
-      453 GETTABLEKS                       R26 R26 K25 ["Tag"]
-      455 LOADK                            R27 K97 ["FindReplaceAll-FillX FindReplaceAll-ScrollingFrame data-testid=WidgetScrollingFrame"]
-      456 SETTABLE                         R27 R25 R26
-      457 GETUPVAL                         R26 15
-      458 MOVE                             R27 R13
-      459 NEWCLOSURE                       R28 P10
-      460 CAPTURE                          UPVAL U10
-      461 CAPTURE                          UPVAL U2
-      462 CAPTURE                          VAL R0
-      463 CAPTURE                          UPVAL U16
-      464 CAPTURE                          VAL R16
-      465 CALL                             R26 2 -1
-      466 CALL                             R23 -1 1
-      467 SETTABLEKS                       R23 R22 K30 ["ScrollingFrame"]
-      469 CALL                             R19 3 -1
-      470 RETURN                           R19 -1
+      130 CAPTURE                          VAL R5
+      131 CAPTURE                          VAL R0
+      132 NEWTABLE                         R19 0 3
+      134 MOVE                             R20 R5
+      135 GETTABLEKS                       R21 R0 K8 ["resultManager"]
+      137 MOVE                             R22 R13
+      138 SETLIST                          R19 R20 3 [1]
+      140 CALL                             R17 2 0
+      141 GETUPVAL                         R17 1
+      142 GETTABLEKS                       R17 R17 K4 ["useCallback"]
+      144 NEWCLOSURE                       R18 P7
+      145 CAPTURE                          VAL R5
+      146 NEWTABLE                         R19 0 1
+      148 MOVE                             R20 R5
+      149 SETLIST                          R19 R20 1 [1]
+      151 CALL                             R17 2 1
+      152 GETUPVAL                         R18 1
+      153 GETTABLEKS                       R18 R18 K4 ["useCallback"]
+      155 NEWCLOSURE                       R19 P8
+      156 CAPTURE                          VAL R5
+      157 NEWTABLE                         R20 0 1
+      159 MOVE                             R21 R5
+      160 SETLIST                          R20 R21 1 [1]
+      162 CALL                             R18 2 1
+      163 GETUPVAL                         R19 1
+      164 GETTABLEKS                       R19 R19 K16 ["createElement"]
+      166 LOADK                            R20 K17 ["Frame"]
+      167 NEWTABLE                         R21 4 0
+      169 GETTABLEKS                       R22 R0 K18 ["LayoutOrder"]
+      171 SETTABLEKS                       R22 R21 K18 ["LayoutOrder"]
+      173 GETTABLEKS                       R22 R0 K19 ["ZIndex"]
+      175 SETTABLEKS                       R22 R21 K19 ["ZIndex"]
+      177 GETIMPORT                        R22 K22 [UDim2.fromOffset]
+      179 LOADN                            R23 0
+      180 GETTABLEKS                       R24 R0 K23 ["headerOffset"]
+      182 CALL                             R22 2 1
+      183 SETTABLEKS                       R22 R21 K24 ["Position"]
+      185 GETUPVAL                         R22 1
+      186 GETTABLEKS                       R22 R22 K25 ["Tag"]
+      188 LOADK                            R23 K26 ["X-FitY X-Column X-Transparent data-testid=WidgetBodyFrame"]
+      189 SETTABLE                         R23 R21 R22
+      190 DUPTABLE                         R22 K31 [{"ControlsContainer", "ReplaceAllConfirmationDialog", "Divider", "ScrollingFrame"}]
+      191 GETUPVAL                         R23 9
+      192 LOADK                            R24 K17 ["Frame"]
+      193 NEWTABLE                         R25 4 0
+      195 GETTABLEKS                       R26 R0 K19 ["ZIndex"]
+      197 SETTABLEKS                       R26 R25 K19 ["ZIndex"]
+      199 MOVE                             R26 R1
+      200 CALL                             R26 0 1
+      201 SETTABLEKS                       R26 R25 K18 ["LayoutOrder"]
+      203 GETUPVAL                         R26 1
+      204 GETTABLEKS                       R26 R26 K25 ["Tag"]
+      206 LOADK                            R27 K32 ["X-FitY X-Transparent data-testid=WidgetControlsContainer"]
+      207 SETTABLE                         R27 R25 R26
+      208 DUPTABLE                         R26 K36 [{"NavigationControls", "ReplaceControls", "UIPadding"}]
+      209 GETUPVAL                         R27 9
+      210 GETUPVAL                         R28 10
+      211 DUPTABLE                         R29 K44 [{"ZIndex", "Visible", "numAllResults", "numAllScripts", "selection", "onSizeChanged", "onFindNextClicked", "onFindPreviousClicked"}]
+      212 GETTABLEKS                       R30 R0 K19 ["ZIndex"]
+      214 SETTABLEKS                       R30 R29 K19 ["ZIndex"]
+      216 GETTABLEKS                       R31 R0 K45 ["confirmationDialogVisible"]
+      218 NOT                              R30 R31
+      219 SETTABLEKS                       R30 R29 K37 ["Visible"]
+      221 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      223 GETTABLEKS                       R30 R30 K46 ["totalNumResultsObservable"]
+      225 SETTABLEKS                       R30 R29 K38 ["numAllResults"]
+      227 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      229 GETTABLEKS                       R30 R30 K47 ["totalNumScriptsObservable"]
+      231 SETTABLEKS                       R30 R29 K39 ["numAllScripts"]
+      233 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      235 GETTABLEKS                       R30 R30 K48 ["selectedObservable"]
+      237 SETTABLEKS                       R30 R29 K40 ["selection"]
+      239 SETTABLEKS                       R4 R29 K41 ["onSizeChanged"]
+      241 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      243 GETTABLEKS                       R30 R30 K49 ["findNext"]
+      245 SETTABLEKS                       R30 R29 K42 ["onFindNextClicked"]
+      247 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      249 GETTABLEKS                       R30 R30 K50 ["findPrevious"]
+      251 SETTABLEKS                       R30 R29 K43 ["onFindPreviousClicked"]
+      253 CALL                             R27 2 1
+      254 SETTABLEKS                       R27 R26 K33 ["NavigationControls"]
+      256 GETUPVAL                         R27 9
+      257 GETUPVAL                         R28 11
+      258 DUPTABLE                         R29 K54 [{"ZIndex", "xOffset", "onReplaceButtonClicked", "selection", "numAllResults", "Visible", "onReplaceAllButtonClicked"}]
+      259 GETTABLEKS                       R31 R0 K19 ["ZIndex"]
+      261 ADDK                             R30 R31 K55 [1]
+      262 SETTABLEKS                       R30 R29 K19 ["ZIndex"]
+      264 SETTABLEKS                       R2 R29 K51 ["xOffset"]
+      266 SETTABLEKS                       R14 R29 K52 ["onReplaceButtonClicked"]
+      268 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      270 GETTABLEKS                       R30 R30 K48 ["selectedObservable"]
+      272 SETTABLEKS                       R30 R29 K40 ["selection"]
+      274 GETTABLEKS                       R30 R0 K8 ["resultManager"]
+      276 GETTABLEKS                       R30 R30 K46 ["totalNumResultsObservable"]
+      278 SETTABLEKS                       R30 R29 K38 ["numAllResults"]
+      280 GETTABLEKS                       R31 R0 K56 ["showReplace"]
+      282 JUMPIF                           R31 ; [+2]
+      283 LOADB                            R30 0
+      284 JUMP                             ; [+3]
+      285 GETTABLEKS                       R31 R0 K45 ["confirmationDialogVisible"]
+      287 NOT                              R30 R31
+      288 SETTABLEKS                       R30 R29 K37 ["Visible"]
+      290 GETTABLEKS                       R30 R0 K57 ["toggleConfirmationDialog"]
+      292 SETTABLEKS                       R30 R29 K53 ["onReplaceAllButtonClicked"]
+      294 CALL                             R27 2 1
+      295 SETTABLEKS                       R27 R26 K34 ["ReplaceControls"]
+      297 GETUPVAL                         R27 9
+      298 LOADK                            R28 K35 ["UIPadding"]
+      299 DUPTABLE                         R29 K61 [{"PaddingBottom", "PaddingLeft", "PaddingRight"}]
+      300 GETIMPORT                        R30 K64 [UDim.new]
+      302 LOADN                            R31 0
+      303 LOADN                            R32 2
+      304 CALL                             R30 2 1
+      305 SETTABLEKS                       R30 R29 K58 ["PaddingBottom"]
+      307 GETIMPORT                        R30 K64 [UDim.new]
+      309 LOADN                            R31 0
+      310 LOADN                            R32 8
+      311 CALL                             R30 2 1
+      312 SETTABLEKS                       R30 R29 K59 ["PaddingLeft"]
+      314 GETIMPORT                        R30 K64 [UDim.new]
+      316 LOADN                            R31 0
+      317 LOADN                            R32 8
+      318 CALL                             R30 2 1
+      319 SETTABLEKS                       R30 R29 K60 ["PaddingRight"]
+      321 CALL                             R27 2 1
+      322 SETTABLEKS                       R27 R26 K35 ["UIPadding"]
+      324 CALL                             R23 3 1
+      325 SETTABLEKS                       R23 R22 K27 ["ControlsContainer"]
+      327 GETUPVAL                         R23 9
+      328 GETUPVAL                         R24 12
+      329 DUPTABLE                         R25 K66 [{"ZIndex", "Visible", "onButtonClicked"}]
+      330 GETTABLEKS                       R27 R0 K19 ["ZIndex"]
+      332 ADDK                             R26 R27 K55 [1]
+      333 SETTABLEKS                       R26 R25 K19 ["ZIndex"]
+      335 GETTABLEKS                       R26 R0 K45 ["confirmationDialogVisible"]
+      337 SETTABLEKS                       R26 R25 K37 ["Visible"]
+      339 GETTABLEKS                       R26 R0 K57 ["toggleConfirmationDialog"]
+      341 SETTABLEKS                       R26 R25 K65 ["onButtonClicked"]
+      343 CALL                             R23 2 1
+      344 SETTABLEKS                       R23 R22 K28 ["ReplaceAllConfirmationDialog"]
+      346 GETUPVAL                         R23 9
+      347 LOADK                            R24 K17 ["Frame"]
+      348 NEWTABLE                         R25 4 0
+      350 MOVE                             R26 R1
+      351 CALL                             R26 0 1
+      352 SETTABLEKS                       R26 R25 K18 ["LayoutOrder"]
+      354 GETIMPORT                        R26 K67 [UDim2.new]
+      356 LOADN                            R27 1
+      357 LOADN                            R28 0
+      358 LOADN                            R29 0
+      359 LOADN                            R30 1
+      360 CALL                             R26 4 1
+      361 SETTABLEKS                       R26 R25 K68 ["Size"]
+      363 GETUPVAL                         R26 1
+      364 GETTABLEKS                       R26 R26 K25 ["Tag"]
+      366 LOADK                            R27 K69 ["FindReplaceAll-UIStroke"]
+      367 SETTABLE                         R27 R25 R26
+      368 CALL                             R23 2 1
+      369 SETTABLEKS                       R23 R22 K29 ["Divider"]
+      371 GETUPVAL                         R23 9
+      372 LOADK                            R24 K30 ["ScrollingFrame"]
+      373 NEWTABLE                         R25 16 0
+      375 MOVE                             R26 R1
+      376 CALL                             R26 0 1
+      377 SETTABLEKS                       R26 R25 K18 ["LayoutOrder"]
+      379 LOADB                            R26 0
+      380 SETTABLEKS                       R26 R25 K70 ["SmoothScroll"]
+      382 GETUPVAL                         R28 2
+      383 GETTABLEKS                       R28 R28 K72 ["resultRowHeight"]
+      385 GETUPVAL                         R29 13
+      386 GETTABLEKS                       R29 R29 K73 ["SCROLL_RATE"]
+      388 MUL                              R27 R28 R29
+      389 DIVK                             R26 R27 K71 [140]
+      390 SETTABLEKS                       R26 R25 K74 ["ScrollRate"]
+      392 LOADN                            R26 1
+      393 SETTABLEKS                       R26 R25 K75 ["BackgroundTransparency"]
+      395 LOADN                            R26 0
+      396 SETTABLEKS                       R26 R25 K76 ["BorderSizePixel"]
+      398 DUPCLOSURE                       R28 K77 [PROTO_10]
+      399 CAPTURE                          UPVAL U2
+      400 NAMECALL                         R26 R15 K78 ["map"]
+      402 CALL                             R26 2 1
+      403 SETTABLEKS                       R26 R25 K79 ["CanvasSize"]
+      405 GETUPVAL                         R26 2
+      406 GETTABLEKS                       R26 R26 K80 ["scrollBarThickness"]
+      408 SETTABLEKS                       R26 R25 K81 ["ScrollBarThickness"]
+      410 GETIMPORT                        R26 K85 [Enum.ScrollBarInset.Always]
+      412 SETTABLEKS                       R26 R25 K86 ["VerticalScrollBarInset"]
+      414 GETIMPORT                        R26 K88 [Enum.ScrollBarInset.None]
+      416 SETTABLEKS                       R26 R25 K89 ["HorizontalScrollBarInset"]
+      418 GETTABLEKS                       R27 R0 K19 ["ZIndex"]
+      420 ADDK                             R26 R27 K55 [1]
+      421 SETTABLEKS                       R26 R25 K19 ["ZIndex"]
+      423 SETTABLEKS                       R6 R25 K90 ["ref"]
+      425 GETUPVAL                         R26 1
+      426 GETTABLEKS                       R26 R26 K91 ["Change"]
+      428 GETTABLEKS                       R26 R26 K92 ["AbsoluteSize"]
+      430 SETTABLE                         R10 R25 R26
+      431 GETUPVAL                         R26 1
+      432 GETTABLEKS                       R26 R26 K91 ["Change"]
+      434 GETTABLEKS                       R26 R26 K93 ["CanvasPosition"]
+      436 SETTABLE                         R11 R25 R26
+      437 GETUPVAL                         R26 1
+      438 GETTABLEKS                       R26 R26 K94 ["Event"]
+      440 GETTABLEKS                       R26 R26 K95 ["InputBegan"]
+      442 SETTABLE                         R17 R25 R26
+      443 GETUPVAL                         R26 1
+      444 GETTABLEKS                       R26 R26 K94 ["Event"]
+      446 GETTABLEKS                       R26 R26 K96 ["InputEnded"]
+      448 SETTABLE                         R18 R25 R26
+      449 GETUPVAL                         R26 1
+      450 GETTABLEKS                       R26 R26 K25 ["Tag"]
+      452 LOADK                            R27 K97 ["FindReplaceAll-FillX FindReplaceAll-ScrollingFrame data-testid=WidgetScrollingFrame"]
+      453 SETTABLE                         R27 R25 R26
+      454 GETUPVAL                         R26 14
+      455 MOVE                             R27 R13
+      456 NEWCLOSURE                       R28 P10
+      457 CAPTURE                          UPVAL U9
+      458 CAPTURE                          UPVAL U2
+      459 CAPTURE                          VAL R0
+      460 CAPTURE                          UPVAL U15
+      461 CAPTURE                          VAL R16
+      462 CALL                             R26 2 -1
+      463 CALL                             R23 -1 1
+      464 SETTABLEKS                       R23 R22 K30 ["ScrollingFrame"]
+      466 CALL                             R19 3 -1
+      467 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -593,28 +578,21 @@ MAIN:
       144 GETTABLEKS                       R18 R18 K28 ["Types"]
       146 CALL                             R17 1 1
       147 GETTABLEKS                       R18 R1 K29 ["createElement"]
-      149 GETIMPORT                        R19 K5 [require]
-      151 GETTABLEKS                       R20 R0 K30 ["Bin"]
-      153 GETTABLEKS                       R20 R20 K31 ["Common"]
-      155 GETTABLEKS                       R20 R20 K32 ["defineLuaFlags"]
-      157 CALL                             R19 1 1
-      158 GETTABLEKS                       R20 R19 K33 ["getFFlagFindReplaceKeyboardNavigation"]
-      160 DUPCLOSURE                       R21 K34 [PROTO_13]
-      161 CAPTURE                          VAL R3
-      162 CAPTURE                          VAL R1
-      163 CAPTURE                          VAL R8
-      164 CAPTURE                          VAL R11
-      165 CAPTURE                          VAL R12
-      166 CAPTURE                          VAL R16
-      167 CAPTURE                          VAL R13
-      168 CAPTURE                          VAL R14
-      169 CAPTURE                          VAL R15
-      170 CAPTURE                          VAL R20
-      171 CAPTURE                          VAL R18
-      172 CAPTURE                          VAL R6
-      173 CAPTURE                          VAL R5
-      174 CAPTURE                          VAL R4
-      175 CAPTURE                          VAL R9
-      176 CAPTURE                          VAL R10
-      177 CAPTURE                          VAL R7
-      178 RETURN                           R21 1
+      149 DUPCLOSURE                       R19 K30 [PROTO_13]
+      150 CAPTURE                          VAL R3
+      151 CAPTURE                          VAL R1
+      152 CAPTURE                          VAL R8
+      153 CAPTURE                          VAL R11
+      154 CAPTURE                          VAL R12
+      155 CAPTURE                          VAL R16
+      156 CAPTURE                          VAL R13
+      157 CAPTURE                          VAL R14
+      158 CAPTURE                          VAL R15
+      159 CAPTURE                          VAL R18
+      160 CAPTURE                          VAL R6
+      161 CAPTURE                          VAL R5
+      162 CAPTURE                          VAL R4
+      163 CAPTURE                          VAL R9
+      164 CAPTURE                          VAL R10
+      165 CAPTURE                          VAL R7
+      166 RETURN                           R19 1

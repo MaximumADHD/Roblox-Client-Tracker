@@ -106,7 +106,7 @@ PROTO_3:
        90 JUMP                             ; [+34]
        91 JUMPIFNOTEQKS                    R2 K26 ["UIButton"] ; [+10]
        93 GETUPVAL                         R3 0
-       94 GETTABLEKS                       R3 R3 K27 ["serializeUIButton"]
+       94 GETTABLEKS                       R3 R3 K27 ["serializeBindingButton"]
        96 GETTABLEKS                       R4 R0 K26 ["UIButton"]
        98 CALL                             R3 1 1
        99 SETTABLEKS                       R3 R1 K28 ["uiButton"]
@@ -429,7 +429,7 @@ MAIN:
        51 LOADK                            R6 K28 ["Vector3Scale"]
        52 SETLIST                          R5 R6 1 [17]
        54 DUPCLOSURE                       R6 K29 [PROTO_0]
-       55 SETTABLEKS                       R6 R2 K30 ["serializeUIButton"]
+       55 SETTABLEKS                       R6 R2 K30 ["serializeBindingButton"]
        57 DUPCLOSURE                       R6 K31 [PROTO_1]
        58 SETTABLEKS                       R6 R2 K32 ["serializeContextProperty"]
        60 DUPCLOSURE                       R6 K33 [PROTO_2]

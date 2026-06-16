@@ -23,12 +23,12 @@ MAIN:
        33 LOADK                            R10 K15 ["::UISizeConstraint"]
        34 DUPTABLE                         R11 K18 [{"MinSize", "MaxSize"}]
        35 GETIMPORT                        R12 K21 [Vector2.new]
-       37 LOADN                            R13 240
+       37 LOADN                            R13 220
        38 LOADN                            R14 40
        39 CALL                             R12 2 1
        40 SETTABLEKS                       R12 R11 K16 ["MinSize"]
        42 GETIMPORT                        R12 K21 [Vector2.new]
-       44 LOADN                            R13 240
+       44 LOADN                            R13 220
        45 LOADN                            R14 40
        46 CALL                             R12 2 1
        47 SETTABLEKS                       R12 R11 K17 ["MaxSize"]
@@ -147,7 +147,7 @@ MAIN:
       197 SETTABLEKS                       R6 R5 K63 ["SpacerSize"]
       199 GETIMPORT                        R6 K40 [UDim2.new]
       201 LOADN                            R7 0
-      202 LOADN                            R8 240
+      202 LOADN                            R8 220
       203 LOADN                            R9 1
       204 LOADN                            R10 0
       205 CALL                             R6 4 1

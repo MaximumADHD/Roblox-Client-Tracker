@@ -226,61 +226,14 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["Element"]
-        3 GETTABLEKS                       R0 R0 K1 ["new"]
-        5 GETUPVAL                         R1 1
-        6 CALL                             R0 1 1
-        7 NAMECALL                         R0 R0 K2 ["clickWithoutValidation"]
-        9 CALL                             R0 1 0
-       10 RETURN                           R0 0
+        1 GETUPVAL                         R1 1
+        2 DUPTABLE                         R2 K1 [{"scrollIntoView"}]
+        3 LOADB                            R3 1
+        4 SETTABLEKS                       R3 R2 K0 ["scrollIntoView"]
+        6 CALL                             R0 2 0
+        7 RETURN                           R0 0
 
 PROTO_8:
-        0 LOADK                            R4 K0 ["GuiObject"]
-        1 NAMECALL                         R2 R0 K1 ["IsA"]
-        3 CALL                             R2 2 1
-        4 JUMPIFNOT                        R2 ; [+2]
-        5 MOVE                             R1 R0
-        6 JUMPIF                           R1 ; [+1]
-        7 LOADNIL                          R1
-        8 JUMPIFNOT                        R1 ; [+17]
-        9 GETTABLEKS                       R3 R1 K2 ["AbsoluteSize"]
-       11 GETTABLEKS                       R3 R3 K3 ["X"]
-       13 LOADN                            R4 1
-       14 JUMPIFLT                         R3 R4 ; [+8]
-       16 GETTABLEKS                       R3 R1 K2 ["AbsoluteSize"]
-       18 GETTABLEKS                       R3 R3 K4 ["Y"]
-       20 LOADN                            R4 1
-       21 JUMPIFNOTLT                      R3 R4 ; [+4]
-       23 GETTABLEKS                       R2 R1 K5 ["Size"]
-       25 JUMPIF                           R2 ; [+1]
-       26 LOADNIL                          R2
-       27 JUMPIFNOT                        R2 ; [+8]
-       28 JUMPIFNOT                        R1 ; [+7]
-       29 GETIMPORT                        R3 K8 [UDim2.fromOffset]
-       31 LOADN                            R4 50
-       32 LOADN                            R5 24
-       33 CALL                             R3 2 1
-       34 SETTABLEKS                       R3 R1 K5 ["Size"]
-       36 GETUPVAL                         R3 0
-       37 GETTABLEKS                       R3 R3 K9 ["act"]
-       39 NEWCLOSURE                       R4 P0
-       40 CAPTURE                          UPVAL U1
-       41 CAPTURE                          VAL R0
-       42 CALL                             R3 1 0
-       43 JUMPIFNOT                        R2 ; [+6]
-       44 JUMPIFNOT                        R1 ; [+5]
-       45 GETTABLEKS                       R3 R1 K10 ["Parent"]
-       47 JUMPIFNOT                        R3 ; [+2]
-       48 SETTABLEKS                       R2 R1 K5 ["Size"]
-       50 RETURN                           R0 0
-
-PROTO_9:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 CALL                             R0 1 0
-        3 RETURN                           R0 0
-
-PROTO_10:
         0 NEWTABLE                         R1 0 0
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K0 ["within"]
@@ -293,184 +246,142 @@ PROTO_10:
        12 LOADNIL                          R4
        13 LOADNIL                          R5
        14 FORGPREP                         R3
-       15 LOADK                            R11 K3 ["TextButton"]
+       15 LOADK                            R11 K3 ["GuiButton"]
        16 NAMECALL                         R9 R7 K4 ["IsA"]
        18 CALL                             R9 2 1
-       19 JUMPIF                           R9 ; [+5]
-       20 LOADK                            R11 K5 ["ImageButton"]
-       21 NAMECALL                         R9 R7 K4 ["IsA"]
-       23 CALL                             R9 2 1
-       24 JUMPIFNOT                        R9 ; [+2]
-       25 MOVE                             R8 R7
-       26 JUMPIF                           R8 ; [+11]
-       27 LOADK                            R10 K3 ["TextButton"]
-       28 LOADB                            R11 1
-       29 NAMECALL                         R8 R7 K6 ["FindFirstChildWhichIsA"]
-       31 CALL                             R8 3 1
-       32 JUMPIF                           R8 ; [+5]
-       33 LOADK                            R10 K5 ["ImageButton"]
-       34 LOADB                            R11 1
-       35 NAMECALL                         R8 R7 K6 ["FindFirstChildWhichIsA"]
-       37 CALL                             R8 3 1
-       38 JUMPIFNOT                        R8 ; [+7]
-       39 FASTCALL2                        TABLE_INSERT R1 R8 ; [+5]
-       41 MOVE                             R10 R1
-       42 MOVE                             R11 R8
-       43 GETIMPORT                        R9 K9 [table.insert]
-       45 CALL                             R9 2 0
-       46 FORGLOOP                         R3 2 ; [-32]
-       48 NEWTABLE                         R3 0 0
-       50 MOVE                             R4 R1
-       51 LOADNIL                          R5
-       52 LOADNIL                          R6
-       53 FORGPREP                         R4
-       54 GETUPVAL                         R9 1
-       55 MOVE                             R10 R8
-       56 CALL                             R9 1 1
-       57 LENGTH                           R10 R9
-       58 JUMPIFNOTEQKN                    R10 K10 [0] ; [+8]
-       60 LOADK                            R10 K11 ["Option"]
-       61 FASTCALL1                        TOSTRING R7 ; [+3]
-       62 MOVE                             R12 R7
-       63 GETIMPORT                        R11 K13 [tostring]
-       65 CALL                             R11 1 1
-       66 CONCAT                           R9 R10 R11
-       67 LENGTH                           R10 R3
-       68 JUMPIFNOTEQKN                    R10 K10 [0] ; [+5]
-       70 JUMPIFEQKS                       R9 K14 ["Button"] ; [+17]
-       72 JUMPIFEQKS                       R9 K15 ["check"] ; [+15]
-       74 DUPTABLE                         R12 K18 [{"label", "click"}]
-       75 SETTABLEKS                       R9 R12 K16 ["label"]
-       77 NEWCLOSURE                       R13 P0
-       78 CAPTURE                          UPVAL U2
-       79 CAPTURE                          VAL R8
-       80 SETTABLEKS                       R13 R12 K17 ["click"]
-       82 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
-       84 MOVE                             R11 R3
-       85 GETIMPORT                        R10 K9 [table.insert]
-       87 CALL                             R10 2 0
-       88 FORGLOOP                         R4 2 ; [-35]
-       90 NEWTABLE                         R4 0 0
-       92 MOVE                             R5 R3
-       93 LOADNIL                          R6
-       94 LOADNIL                          R7
-       95 FORGPREP                         R5
-       96 GETTABLEKS                       R10 R9 K16 ["label"]
-       98 JUMPIFEQKS                       R10 K19 ["Option1"] ; [+12]
-      100 GETTABLEKS                       R10 R9 K16 ["label"]
-      102 JUMPIFEQKS                       R10 K20 ["Option2"] ; [+8]
-      104 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
-      106 MOVE                             R11 R4
-      107 MOVE                             R12 R9
-      108 GETIMPORT                        R10 K9 [table.insert]
-      110 CALL                             R10 2 0
-      111 FORGLOOP                         R5 2 ; [-16]
-      113 LENGTH                           R6 R4
-      114 LOADN                            R7 0
-      115 JUMPIFNOTLT                      R7 R6 ; [+3]
-      117 MOVE                             R5 R4
-      118 JUMPIF                           R5 ; [+1]
-      119 MOVE                             R5 R3
-      120 RETURN                           R5 1
+       19 JUMPIFNOT                        R9 ; [+2]
+       20 MOVE                             R8 R7
+       21 JUMP                             ; [+5]
+       22 LOADK                            R10 K3 ["GuiButton"]
+       23 LOADB                            R11 1
+       24 NAMECALL                         R8 R7 K5 ["FindFirstChildWhichIsA"]
+       26 CALL                             R8 3 1
+       27 JUMPIFNOT                        R8 ; [+7]
+       28 FASTCALL2                        TABLE_INSERT R1 R8 ; [+5]
+       30 MOVE                             R10 R1
+       31 MOVE                             R11 R8
+       32 GETIMPORT                        R9 K8 [table.insert]
+       34 CALL                             R9 2 0
+       35 FORGLOOP                         R3 2 ; [-21]
+       37 NEWTABLE                         R3 0 0
+       39 MOVE                             R4 R1
+       40 LOADNIL                          R5
+       41 LOADNIL                          R6
+       42 FORGPREP                         R4
+       43 GETUPVAL                         R9 1
+       44 MOVE                             R10 R8
+       45 CALL                             R9 1 1
+       46 LENGTH                           R10 R9
+       47 JUMPIFNOTEQKN                    R10 K9 [0] ; [+8]
+       49 LOADK                            R10 K10 ["Option"]
+       50 FASTCALL1                        TOSTRING R7 ; [+3]
+       51 MOVE                             R12 R7
+       52 GETIMPORT                        R11 K12 [tostring]
+       54 CALL                             R11 1 1
+       55 CONCAT                           R9 R10 R11
+       56 LENGTH                           R10 R3
+       57 JUMPIFNOTEQKN                    R10 K9 [0] ; [+5]
+       59 JUMPIFEQKS                       R9 K13 ["Button"] ; [+17]
+       61 JUMPIFEQKS                       R9 K14 ["check"] ; [+15]
+       63 DUPTABLE                         R12 K17 [{"label", "click"}]
+       64 SETTABLEKS                       R9 R12 K15 ["label"]
+       66 NEWCLOSURE                       R13 P0
+       67 CAPTURE                          UPVAL U2
+       68 CAPTURE                          VAL R8
+       69 SETTABLEKS                       R13 R12 K16 ["click"]
+       71 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
+       73 MOVE                             R11 R3
+       74 GETIMPORT                        R10 K8 [table.insert]
+       76 CALL                             R10 2 0
+       77 FORGLOOP                         R4 2 ; [-35]
+       79 NEWTABLE                         R4 0 0
+       81 MOVE                             R5 R3
+       82 LOADNIL                          R6
+       83 LOADNIL                          R7
+       84 FORGPREP                         R5
+       85 GETTABLEKS                       R10 R9 K15 ["label"]
+       87 JUMPIFEQKS                       R10 K18 ["Option1"] ; [+12]
+       89 GETTABLEKS                       R10 R9 K15 ["label"]
+       91 JUMPIFEQKS                       R10 K19 ["Option2"] ; [+8]
+       93 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
+       95 MOVE                             R11 R4
+       96 MOVE                             R12 R9
+       97 GETIMPORT                        R10 K8 [table.insert]
+       99 CALL                             R10 2 0
+      100 FORGLOOP                         R5 2 ; [-16]
+      102 LENGTH                           R6 R4
+      103 LOADN                            R7 0
+      104 JUMPIFNOTLT                      R7 R6 ; [+3]
+      106 MOVE                             R5 R4
+      107 JUMPIF                           R5 ; [+1]
+      108 MOVE                             R5 R3
+      109 RETURN                           R5 1
+
+PROTO_9:
+        0 MOVE                             R3 R1
+        1 LOADK                            R4 K0 ["--control"]
+        2 CONCAT                           R2 R3 R4
+        3 MOVE                             R4 R1
+        4 LOADK                            R5 K1 ["--menu"]
+        5 CONCAT                           R3 R4 R5
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K2 ["getByTestId"]
+        9 MOVE                             R5 R0
+       10 MOVE                             R6 R2
+       11 CALL                             R4 2 1
+       12 MOVE                             R6 R4
+       13 JUMPIFNOT                        R6 ; [+4]
+       14 LOADK                            R8 K3 ["GuiButton"]
+       15 NAMECALL                         R6 R4 K4 ["IsA"]
+       17 CALL                             R6 2 1
+       18 LOADK                            R8 K5 ["Dropdown control \"%*\" is not a GuiButton"]
+       19 MOVE                             R10 R2
+       20 NAMECALL                         R8 R8 K6 ["format"]
+       22 CALL                             R8 2 1
+       23 MOVE                             R7 R8
+       24 FASTCALL2                        ASSERT R6 R7 ; [+3]
+       26 GETIMPORT                        R5 K8 [assert]
+       28 CALL                             R5 2 0
+       29 GETUPVAL                         R5 1
+       30 MOVE                             R6 R4
+       31 CALL                             R5 1 0
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K9 ["within"]
+       35 GETUPVAL                         R6 2
+       36 GETTABLEKS                       R6 R6 K10 ["getSubWindow"]
+       38 CALL                             R6 0 -1
+       39 CALL                             R5 -1 1
+       40 GETTABLEKS                       R5 R5 K11 ["findByTestId"]
+       42 MOVE                             R6 R3
+       43 CALL                             R5 1 1
+       44 NAMECALL                         R5 R5 K12 ["expect"]
+       46 CALL                             R5 1 1
+       47 GETUPVAL                         R6 3
+       48 MOVE                             R7 R5
+       49 CALL                             R6 1 1
+       50 RETURN                           R6 1
+
+PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Element"]
+        3 GETTABLEKS                       R0 R0 K1 ["new"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 1
+        7 NAMECALL                         R0 R0 K2 ["click"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_11:
-        0 GETIMPORT                        R0 K2 [task.wait]
-        2 CALL                             R0 0 0
-        3 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["Element"]
+        3 GETTABLEKS                       R0 R0 K1 ["new"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 1
+        7 NAMECALL                         R0 R0 K2 ["click"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_12:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["getByTestId"]
-        3 MOVE                             R2 R0
-        4 LOADK                            R3 K1 ["--foundation-dropdown--control"]
-        5 CALL                             R1 2 1
-        6 FASTCALL2K                       ASSERT R1 K2 ; [+5]
-        8 MOVE                             R3 R1
-        9 LOADK                            R4 K2 ["Foundation dropdown control not found (testId --foundation-dropdown--control)"]
-       10 GETIMPORT                        R2 K4 [assert]
-       12 CALL                             R2 2 0
-       13 GETUPVAL                         R2 1
-       14 GETTABLEKS                       R2 R2 K5 ["getSubWindow"]
-       16 CALL                             R2 0 1
-       17 LOADK                            R4 K6 ["Overlay"]
-       18 LOADB                            R5 1
-       19 NAMECALL                         R2 R2 K7 ["FindFirstChild"]
-       21 CALL                             R2 3 1
-       22 FASTCALL2K                       ASSERT R2 K8 ; [+5]
-       24 MOVE                             R4 R2
-       25 LOADK                            R5 K8 ["Overlay not found (OverlayProvider should have a child named Overlay)"]
-       26 GETIMPORT                        R3 K4 [assert]
-       28 CALL                             R3 2 0
-       29 GETUPVAL                         R3 2
-       30 MOVE                             R4 R1
-       31 CALL                             R3 1 0
-       32 GETUPVAL                         R3 3
-       33 GETTABLEKS                       R3 R3 K9 ["act"]
-       35 DUPCLOSURE                       R4 K10 [PROTO_11]
-       36 CALL                             R3 1 0
-       37 LOADNIL                          R3
-       38 NAMECALL                         R4 R2 K11 ["GetDescendants"]
-       40 CALL                             R4 1 3
-       41 FORGPREP                         R4
-       42 LOADK                            R11 K12 ["Frame"]
-       43 NAMECALL                         R9 R8 K13 ["IsA"]
-       45 CALL                             R9 2 1
-       46 JUMPIF                           R9 ; [+5]
-       47 LOADK                            R11 K14 ["GuiObject"]
-       48 NAMECALL                         R9 R8 K13 ["IsA"]
-       50 CALL                             R9 2 1
-       51 JUMPIFNOT                        R9 ; [+24]
-       52 LOADK                            R11 K15 ["Content"]
-       53 NAMECALL                         R9 R8 K7 ["FindFirstChild"]
-       55 CALL                             R9 2 1
-       56 JUMPIFNOT                        R9 ; [+19]
-       57 NAMECALL                         R10 R9 K11 ["GetDescendants"]
-       59 CALL                             R10 1 3
-       60 FORGPREP                         R10
-       61 LOADK                            R17 K16 ["TextButton"]
-       62 NAMECALL                         R15 R14 K13 ["IsA"]
-       64 CALL                             R15 2 1
-       65 JUMPIF                           R15 ; [+5]
-       66 LOADK                            R17 K17 ["ImageButton"]
-       67 NAMECALL                         R15 R14 K13 ["IsA"]
-       69 CALL                             R15 2 1
-       70 JUMPIFNOT                        R15 ; [+2]
-       71 MOVE                             R3 R9
-       72 JUMP                             ; [+2]
-       73 FORGLOOP                         R10 2 ; [-13]
-       75 JUMPIF                           R3 ; [+2]
-       76 FORGLOOP                         R4 2 ; [-35]
-       78 FASTCALL2K                       ASSERT R3 K18 ; [+5]
-       80 MOVE                             R5 R3
-       81 LOADK                            R6 K18 ["Dropdown menu not found after click (ensure menu mounts under Overlay)"]
-       82 GETIMPORT                        R4 K4 [assert]
-       84 CALL                             R4 2 0
-       85 GETUPVAL                         R4 4
-       86 MOVE                             R5 R3
-       87 CALL                             R4 1 1
-       88 RETURN                           R4 1
-
-PROTO_13:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["Element"]
-        3 GETTABLEKS                       R0 R0 K1 ["new"]
-        5 GETUPVAL                         R1 1
-        6 CALL                             R0 1 1
-        7 NAMECALL                         R0 R0 K2 ["click"]
-        9 CALL                             R0 1 0
-       10 RETURN                           R0 0
-
-PROTO_14:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["Element"]
-        3 GETTABLEKS                       R0 R0 K1 ["new"]
-        5 GETUPVAL                         R1 1
-        6 CALL                             R0 1 1
-        7 NAMECALL                         R0 R0 K2 ["click"]
-        9 CALL                             R0 1 0
-       10 RETURN                           R0 0
-
-PROTO_15:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetChildren"]
         3 CALL                             R0 1 3
@@ -492,7 +403,7 @@ PROTO_15:
        24 CALL                             R0 1 0
        25 RETURN                           R0 0
 
-PROTO_16:
+PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["SelectInput"]
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["act"]
@@ -537,7 +448,7 @@ PROTO_16:
        60 FORGLOOP                         R4 2 ; [-32]
        62 RETURN                           R3 1
 
-PROTO_17:
+PROTO_14:
         0 MOVE                             R2 R0
         1 LOADNIL                          R3
         2 LOADNIL                          R4
@@ -581,86 +492,83 @@ PROTO_17:
        54 CALL                             R3 -1 0
        55 RETURN                           R0 0
 
+PROTO_15:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+5]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 LOADK                            R3 K0 ["ambiguous-asset-type"]
+        6 CALL                             R1 2 1
+        7 RETURN                           R1 1
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K1 ["openDropdown"]
+       11 GETTABLEKS                       R2 R0 K2 ["Children"]
+       13 GETTABLEKS                       R2 R2 K3 ["Dropdown"]
+       15 GETTABLEKS                       R2 R2 K4 ["DropdownMenu"]
+       17 CALL                             R1 1 -1
+       18 RETURN                           R1 -1
+
+PROTO_16:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+5]
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 LOADK                            R3 K0 ["lone-mesh-part-asset-type"]
+        6 CALL                             R1 2 1
+        7 RETURN                           R1 1
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K1 ["openDropdown"]
+       11 GETTABLEKS                       R2 R0 K2 ["Children"]
+       13 GETTABLEKS                       R2 R2 K2 ["Children"]
+       15 GETTABLEKS                       R2 R2 K3 ["AssetTypeDropdown"]
+       17 CALL                             R1 1 -1
+       18 RETURN                           R1 -1
+
+PROTO_17:
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+14]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R2 R2 K0 ["within"]
+        6 MOVE                             R3 R0
+        7 CALL                             R2 1 1
+        8 GETTABLEKS                       R2 R2 K1 ["queryByTestId"]
+       10 LOADK                            R3 K2 ["lone-mesh-part-attachment--control"]
+       11 CALL                             R2 1 1
+       12 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       14 LOADB                            R1 0 +1
+       15 LOADB                            R1 1
+       16 RETURN                           R1 1
+       17 GETTABLEKS                       R2 R0 K3 ["Children"]
+       19 GETTABLEKS                       R2 R2 K3 ["Children"]
+       21 LOADK                            R4 K4 ["AttachmentDropdown"]
+       22 NAMECALL                         R2 R2 K5 ["FindFirstChild"]
+       24 CALL                             R2 2 1
+       25 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       27 LOADB                            R1 0 +1
+       28 LOADB                            R1 1
+       29 RETURN                           R1 1
+
 PROTO_18:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+4]
+        2 JUMPIFNOT                        R1 ; [+5]
         3 GETUPVAL                         R1 1
         4 MOVE                             R2 R0
-        5 CALL                             R1 1 1
-        6 RETURN                           R1 1
-        7 GETUPVAL                         R1 2
-        8 GETTABLEKS                       R1 R1 K0 ["openDropdown"]
-       10 GETTABLEKS                       R2 R0 K1 ["Children"]
-       12 GETTABLEKS                       R2 R2 K2 ["Dropdown"]
-       14 GETTABLEKS                       R2 R2 K3 ["DropdownMenu"]
-       16 CALL                             R1 1 -1
-       17 RETURN                           R1 -1
+        5 LOADK                            R3 K0 ["lone-mesh-part-attachment"]
+        6 CALL                             R1 2 1
+        7 RETURN                           R1 1
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K1 ["openDropdown"]
+       11 GETTABLEKS                       R2 R0 K2 ["Children"]
+       13 GETTABLEKS                       R2 R2 K2 ["Children"]
+       15 GETTABLEKS                       R2 R2 K3 ["AttachmentDropdown"]
+       17 CALL                             R1 1 -1
+       18 RETURN                           R1 -1
 
 PROTO_19:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+4]
-        3 GETUPVAL                         R1 1
-        4 MOVE                             R2 R0
-        5 CALL                             R1 1 1
-        6 RETURN                           R1 1
-        7 GETUPVAL                         R1 2
-        8 GETTABLEKS                       R1 R1 K0 ["openDropdown"]
-       10 GETTABLEKS                       R2 R0 K1 ["Children"]
-       12 GETTABLEKS                       R2 R2 K1 ["Children"]
-       14 GETTABLEKS                       R2 R2 K2 ["AssetTypeDropdown"]
-       16 CALL                             R1 1 -1
-       17 RETURN                           R1 -1
-
-PROTO_20:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+10]
-        3 LOADK                            R4 K0 ["AttachmentDropdown"]
-        4 LOADB                            R5 1
-        5 NAMECALL                         R2 R0 K1 ["FindFirstChild"]
-        7 CALL                             R2 3 1
-        8 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       10 LOADB                            R1 0 +1
-       11 LOADB                            R1 1
-       12 RETURN                           R1 1
-       13 GETTABLEKS                       R2 R0 K2 ["Children"]
-       15 GETTABLEKS                       R2 R2 K2 ["Children"]
-       17 LOADK                            R4 K0 ["AttachmentDropdown"]
-       18 NAMECALL                         R2 R2 K1 ["FindFirstChild"]
-       20 CALL                             R2 2 1
-       21 JUMPIFNOTEQKNIL                  R2 ; [+2]
-       23 LOADB                            R1 0 +1
-       24 LOADB                            R1 1
-       25 RETURN                           R1 1
-
-PROTO_21:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+16]
-        3 LOADK                            R3 K0 ["AttachmentDropdown"]
-        4 LOADB                            R4 1
-        5 NAMECALL                         R1 R0 K1 ["FindFirstChild"]
-        7 CALL                             R1 3 1
-        8 FASTCALL2K                       ASSERT R1 K2 ; [+5]
-       10 MOVE                             R3 R1
-       11 LOADK                            R4 K2 ["AttachmentDropdown not found in entry"]
-       12 GETIMPORT                        R2 K4 [assert]
-       14 CALL                             R2 2 0
-       15 GETUPVAL                         R2 1
-       16 MOVE                             R3 R1
-       17 CALL                             R2 1 1
-       18 RETURN                           R2 1
-       19 GETUPVAL                         R1 2
-       20 GETTABLEKS                       R1 R1 K5 ["openDropdown"]
-       22 GETTABLEKS                       R2 R0 K6 ["Children"]
-       24 GETTABLEKS                       R2 R2 K6 ["Children"]
-       26 GETTABLEKS                       R2 R2 K0 ["AttachmentDropdown"]
-       28 CALL                             R1 1 -1
-       29 RETURN                           R1 -1
-
-PROTO_22:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["clickStyledDialogButton"]
         3 GETUPVAL                         R1 1
@@ -670,60 +578,27 @@ PROTO_22:
         8 CALL                             R0 2 0
         9 RETURN                           R0 0
 
-PROTO_23:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+52]
+        2 JUMPIFNOT                        R0 ; [+10]
         3 GETUPVAL                         R0 1
-        4 GETTABLEKS                       R0 R0 K0 ["getSubWindow"]
-        6 CALL                             R0 0 1
-        7 GETUPVAL                         R1 2
-        8 GETTABLEKS                       R1 R1 K1 ["within"]
-       10 MOVE                             R2 R0
-       11 CALL                             R1 1 1
-       12 GETTABLEKS                       R2 R1 K2 ["getByText"]
-       14 LOADK                            R3 K3 ["Save"]
-       15 DUPTABLE                         R4 K5 [{"exact"}]
-       16 LOADB                            R5 0
-       17 SETTABLEKS                       R5 R4 K4 ["exact"]
-       19 CALL                             R2 2 1
-       20 LOADK                            R6 K6 ["TextButton"]
-       21 NAMECALL                         R4 R2 K7 ["IsA"]
-       23 CALL                             R4 2 1
-       24 JUMPIF                           R4 ; [+5]
-       25 LOADK                            R6 K8 ["ImageButton"]
-       26 NAMECALL                         R4 R2 K7 ["IsA"]
-       28 CALL                             R4 2 1
-       29 JUMPIFNOT                        R4 ; [+2]
-       30 MOVE                             R3 R2
-       31 JUMP                             ; [+2]
-       32 GETTABLEKS                       R3 R2 K9 ["Parent"]
-       34 MOVE                             R5 R3
-       35 JUMPIFNOT                        R5 ; [+9]
-       36 LOADK                            R7 K6 ["TextButton"]
-       37 NAMECALL                         R5 R3 K7 ["IsA"]
-       39 CALL                             R5 2 1
-       40 JUMPIF                           R5 ; [+4]
-       41 LOADK                            R7 K8 ["ImageButton"]
-       42 NAMECALL                         R5 R3 K7 ["IsA"]
-       44 CALL                             R5 2 1
-       45 FASTCALL2K                       ASSERT R5 K10 ; [+4]
-       47 LOADK                            R6 K10 ["Save button not found (label 'Save')"]
-       48 GETIMPORT                        R4 K12 [assert]
-       50 CALL                             R4 2 0
-       51 GETUPVAL                         R4 3
-       52 MOVE                             R5 R3
-       53 CALL                             R4 1 0
-       54 RETURN                           R0 0
-       55 GETUPVAL                         R0 4
-       56 GETTABLEKS                       R0 R0 K13 ["act"]
-       58 NEWCLOSURE                       R1 P0
-       59 CAPTURE                          UPVAL U5
-       60 CAPTURE                          UPVAL U1
-       61 CALL                             R0 1 0
-       62 RETURN                           R0 0
+        4 GETTABLEKS                       R0 R0 K0 ["clickButtonInDialog"]
+        6 GETUPVAL                         R1 2
+        7 GETTABLEKS                       R1 R1 K1 ["getSubWindow"]
+        9 CALL                             R1 0 1
+       10 LOADK                            R2 K2 ["Save"]
+       11 CALL                             R0 2 0
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R0 3
+       14 GETTABLEKS                       R0 R0 K3 ["act"]
+       16 NEWCLOSURE                       R1 P0
+       17 CAPTURE                          UPVAL U1
+       18 CAPTURE                          UPVAL U2
+       19 CALL                             R0 1 0
+       20 RETURN                           R0 0
 
-PROTO_24:
+PROTO_21:
         0 NEWTABLE                         R1 16 0
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          VAL R0
@@ -747,52 +622,47 @@ PROTO_24:
        25 SETTABLEKS                       R3 R1 K5 ["getEntrySubtitleText"]
        27 DUPCLOSURE                       R3 K6 [PROTO_6]
        28 DUPCLOSURE                       R4 K7 [PROTO_8]
-       29 CAPTURE                          UPVAL U2
-       30 CAPTURE                          UPVAL U3
-       31 DUPCLOSURE                       R5 K8 [PROTO_10]
-       32 CAPTURE                          UPVAL U1
-       33 CAPTURE                          VAL R3
-       34 CAPTURE                          VAL R4
-       35 NEWCLOSURE                       R6 P9
-       36 CAPTURE                          UPVAL U1
-       37 CAPTURE                          VAL R1
-       38 CAPTURE                          VAL R4
-       39 CAPTURE                          UPVAL U2
-       40 CAPTURE                          VAL R5
-       41 NEWCLOSURE                       R7 P10
-       42 CAPTURE                          UPVAL U2
-       43 CAPTURE                          UPVAL U3
-       44 CAPTURE                          VAL R1
-       45 SETTABLEKS                       R7 R1 K9 ["openDropdown"]
-       47 DUPCLOSURE                       R7 K10 [PROTO_17]
-       48 SETTABLEKS                       R7 R1 K11 ["clickMatchingDropdownEntry"]
-       50 NEWCLOSURE                       R7 P12
-       51 CAPTURE                          UPVAL U0
-       52 CAPTURE                          VAL R6
-       53 CAPTURE                          VAL R1
-       54 SETTABLEKS                       R7 R1 K12 ["openAmbiguousAssetTypeDropdown"]
-       56 NEWCLOSURE                       R7 P13
-       57 CAPTURE                          UPVAL U0
-       58 CAPTURE                          VAL R6
-       59 CAPTURE                          VAL R1
-       60 SETTABLEKS                       R7 R1 K13 ["openLoneMeshPartAssetTypeDropdown"]
-       62 DUPCLOSURE                       R7 K14 [PROTO_20]
-       63 CAPTURE                          UPVAL U0
-       64 SETTABLEKS                       R7 R1 K15 ["attachmentDropdownExists"]
-       66 NEWCLOSURE                       R7 P15
-       67 CAPTURE                          UPVAL U0
-       68 CAPTURE                          VAL R6
-       69 CAPTURE                          VAL R1
-       70 SETTABLEKS                       R7 R1 K16 ["openAttachmentDropdown"]
-       72 NEWCLOSURE                       R7 P16
-       73 CAPTURE                          UPVAL U0
-       74 CAPTURE                          VAL R1
-       75 CAPTURE                          UPVAL U1
-       76 CAPTURE                          VAL R4
-       77 CAPTURE                          UPVAL U2
-       78 CAPTURE                          VAL R0
-       79 SETTABLEKS                       R7 R1 K17 ["clickOk"]
-       81 RETURN                           R1 1
+       29 CAPTURE                          UPVAL U1
+       30 CAPTURE                          VAL R3
+       31 CAPTURE                          UPVAL U2
+       32 NEWCLOSURE                       R5 P8
+       33 CAPTURE                          UPVAL U1
+       34 CAPTURE                          UPVAL U2
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          VAL R4
+       37 NEWCLOSURE                       R6 P9
+       38 CAPTURE                          UPVAL U3
+       39 CAPTURE                          UPVAL U4
+       40 CAPTURE                          VAL R1
+       41 SETTABLEKS                       R6 R1 K8 ["openDropdown"]
+       43 DUPCLOSURE                       R6 K9 [PROTO_14]
+       44 SETTABLEKS                       R6 R1 K10 ["clickMatchingDropdownEntry"]
+       46 NEWCLOSURE                       R6 P11
+       47 CAPTURE                          UPVAL U0
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R1
+       50 SETTABLEKS                       R6 R1 K11 ["openAmbiguousAssetTypeDropdown"]
+       52 NEWCLOSURE                       R6 P12
+       53 CAPTURE                          UPVAL U0
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R1
+       56 SETTABLEKS                       R6 R1 K12 ["openLoneMeshPartAssetTypeDropdown"]
+       58 DUPCLOSURE                       R6 K13 [PROTO_17]
+       59 CAPTURE                          UPVAL U0
+       60 CAPTURE                          UPVAL U1
+       61 SETTABLEKS                       R6 R1 K14 ["attachmentDropdownExists"]
+       63 NEWCLOSURE                       R6 P14
+       64 CAPTURE                          UPVAL U0
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R1
+       67 SETTABLEKS                       R6 R1 K15 ["openAttachmentDropdown"]
+       69 NEWCLOSURE                       R6 P15
+       70 CAPTURE                          UPVAL U0
+       71 CAPTURE                          VAL R0
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          UPVAL U3
+       74 SETTABLEKS                       R6 R1 K16 ["clickOk"]
+       76 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -815,13 +685,19 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K10 ["Rhodium"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K11 ["Src"]
-       36 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       38 GETTABLEKS                       R5 R5 K13 ["getFFlagAvatarPreviewerUpdateDialogUI"]
+       34 GETTABLEKS                       R5 R0 K11 ["RhodiumTests"]
+       36 GETTABLEKS                       R5 R5 K12 ["RhodiumTestHelpers"]
+       38 GETTABLEKS                       R5 R5 K13 ["clickFoundationButton"]
        40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K14 [PROTO_24]
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          VAL R2
-       44 CAPTURE                          VAL R1
-       45 CAPTURE                          VAL R3
-       46 RETURN                           R5 1
+       41 GETIMPORT                        R5 K5 [require]
+       43 GETTABLEKS                       R6 R0 K14 ["Src"]
+       45 GETTABLEKS                       R6 R6 K15 ["Flags"]
+       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAvatarPreviewerUpdateDialogUI"]
+       49 CALL                             R5 1 1
+       50 DUPCLOSURE                       R6 K17 [PROTO_21]
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R3
+       56 RETURN                           R6 1

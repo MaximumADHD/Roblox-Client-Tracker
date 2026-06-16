@@ -420,7 +420,7 @@ PROTO_9:
       201 NEWTABLE                         R13 16 0
       203 LOADB                            R14 1
       204 SETTABLEKS                       R14 R13 K45 ["Active"]
-      206 LOADB                            R14 1
+      206 GETUPVAL                         R14 7
       207 SETTABLEKS                       R14 R13 K46 ["ClipsDescendants"]
       209 DUPCLOSURE                       R16 K47 [PROTO_8]
       210 NAMECALL                         R14 R7 K10 ["map"]
@@ -451,7 +451,7 @@ PROTO_9:
       246 DUPTABLE                         R17 K67 [{"BackgroundTransparency", "ClipsDescendants", "Size", "Position"}]
       247 LOADN                            R18 1
       248 SETTABLEKS                       R18 R17 K65 ["BackgroundTransparency"]
-      250 LOADB                            R18 1
+      250 GETUPVAL                         R18 7
       251 SETTABLEKS                       R18 R17 K46 ["ClipsDescendants"]
       253 GETIMPORT                        R18 K51 [UDim2.fromScale]
       255 LOADN                            R19 1
@@ -542,16 +542,24 @@ MAIN:
        72 GETTABLEKS                       R9 R9 K15 ["Util"]
        74 GETTABLEKS                       R9 R9 K19 ["formatSize"]
        76 CALL                             R8 1 1
-       77 DUPCLOSURE                       R9 K20 [PROTO_1]
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R7
-       80 DUPCLOSURE                       R10 K21 [PROTO_2]
-       81 DUPCLOSURE                       R11 K22 [PROTO_9]
-       82 CAPTURE                          VAL R1
-       83 CAPTURE                          VAL R4
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R2
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R9
-       89 RETURN                           R11 1
+       77 GETIMPORT                        R9 K5 [require]
+       79 GETTABLEKS                       R10 R0 K20 ["Bin"]
+       81 GETTABLEKS                       R10 R10 K21 ["Common"]
+       83 GETTABLEKS                       R10 R10 K22 ["defineLuaFlags"]
+       85 CALL                             R9 1 1
+       86 GETTABLEKS                       R10 R9 K23 ["getFFlagSceneAnalysisBugfixesMay2026"]
+       88 CALL                             R10 0 1
+       89 DUPCLOSURE                       R11 K24 [PROTO_1]
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R7
+       92 DUPCLOSURE                       R12 K25 [PROTO_2]
+       93 DUPCLOSURE                       R13 K26 [PROTO_9]
+       94 CAPTURE                          VAL R1
+       95 CAPTURE                          VAL R4
+       96 CAPTURE                          VAL R5
+       97 CAPTURE                          VAL R6
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R8
+      100 CAPTURE                          VAL R11
+      101 CAPTURE                          VAL R10
+      102 RETURN                           R13 1
