@@ -1,26 +1,21 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+4]
-        3 GETUPVAL                         R1 1
-        4 GETTABLEKS                       R1 R1 K0 ["DEFAULT_ASSET_CLASSIFICATION"]
-        6 JUMP                             ; [+1]
-        7 LOADK                            R1 K1 ["Automatic"]
-        8 JUMPIFNOTEQ                      R0 R1 ; [+10]
-       10 GETUPVAL                         R1 2
-       11 GETUPVAL                         R3 3
-       12 GETTABLEKS                       R3 R3 K2 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
-       14 LOADNIL                          R4
-       15 NAMECALL                         R1 R1 K3 ["SetAttribute"]
-       17 CALL                             R1 3 0
-       18 RETURN                           R0 0
-       19 GETUPVAL                         R1 2
-       20 GETUPVAL                         R3 3
-       21 GETTABLEKS                       R3 R3 K2 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
-       23 MOVE                             R4 R0
-       24 NAMECALL                         R1 R1 K3 ["SetAttribute"]
-       26 CALL                             R1 3 0
-       27 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["DEFAULT_ASSET_CLASSIFICATION"]
+        3 JUMPIFNOTEQ                      R0 R1 ; [+10]
+        5 GETUPVAL                         R1 1
+        6 GETUPVAL                         R3 2
+        7 GETTABLEKS                       R3 R3 K1 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+        9 LOADNIL                          R4
+       10 NAMECALL                         R1 R1 K2 ["SetAttribute"]
+       12 CALL                             R1 3 0
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R1 1
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K1 ["ATTRIBUTE_ASSET_CLASSIFICATION"]
+       18 MOVE                             R4 R0
+       19 NAMECALL                         R1 R1 K2 ["SetAttribute"]
+       21 CALL                             R1 3 0
+       22 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -57,31 +52,20 @@ PROTO_1:
        37 GETUPVAL                         R4 4
        38 GETTABLEKS                       R4 R4 K6 ["useCallback"]
        40 NEWCLOSURE                       R5 P0
-       41 CAPTURE                          UPVAL U5
-       42 CAPTURE                          UPVAL U3
-       43 CAPTURE                          VAL R0
-       44 CAPTURE                          UPVAL U1
-       45 NEWTABLE                         R6 0 1
-       47 MOVE                             R7 R0
-       48 SETLIST                          R6 R7 1 [1]
-       50 CALL                             R4 2 1
-       51 GETUPVAL                         R5 5
-       52 CALL                             R5 0 1
-       53 JUMPIF                           R5 ; [+8]
-       54 JUMPIFNOTEQKNIL                  R1 ; [+4]
-       56 MOVE                             R5 R4
-       57 LOADK                            R6 K4 ["Body"]
-       58 CALL                             R5 1 0
-       59 MOVE                             R5 R1
-       60 MOVE                             R6 R4
-       61 RETURN                           R5 2
-       62 JUMPIFNOT                        R3 ; [+3]
-       63 MOVE                             R5 R2
-       64 LOADNIL                          R6
-       65 RETURN                           R5 2
-       66 MOVE                             R5 R2
-       67 MOVE                             R6 R4
-       68 RETURN                           R5 2
+       41 CAPTURE                          UPVAL U3
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          UPVAL U1
+       44 NEWTABLE                         R6 0 1
+       46 MOVE                             R7 R0
+       47 SETLIST                          R6 R7 1 [1]
+       49 CALL                             R4 2 1
+       50 JUMPIFNOT                        R3 ; [+3]
+       51 MOVE                             R5 R2
+       52 LOADNIL                          R6
+       53 RETURN                           R5 2
+       54 MOVE                             R5 R2
+       55 MOVE                             R6 R4
+       56 RETURN                           R5 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -105,24 +89,18 @@ MAIN:
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K5 [require]
        34 GETTABLEKS                       R5 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R5 K12 ["Flags"]
-       38 GETTABLEKS                       R5 R5 K13 ["getFFlagAvatarAutosetupOptionsInput"]
+       36 GETTABLEKS                       R5 R5 K9 ["Util"]
+       38 GETTABLEKS                       R5 R5 K12 ["isAvatar"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K8 ["Src"]
-       45 GETTABLEKS                       R6 R6 K9 ["Util"]
-       47 GETTABLEKS                       R6 R6 K14 ["isAvatar"]
+       45 GETTABLEKS                       R6 R6 K13 ["Hooks"]
+       47 GETTABLEKS                       R6 R6 K14 ["useAttribute"]
        49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K8 ["Src"]
-       54 GETTABLEKS                       R7 R7 K15 ["Hooks"]
-       56 GETTABLEKS                       R7 R7 K16 ["useAttribute"]
-       58 CALL                             R6 1 1
-       59 DUPCLOSURE                       R7 K17 [PROTO_1]
-       60 CAPTURE                          VAL R6
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R5
-       63 CAPTURE                          VAL R2
-       64 CAPTURE                          VAL R1
-       65 CAPTURE                          VAL R4
-       66 RETURN                           R7 1
+       50 DUPCLOSURE                       R6 K15 [PROTO_1]
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R2
+       55 CAPTURE                          VAL R1
+       56 RETURN                           R6 1

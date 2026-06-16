@@ -31,17 +31,20 @@ PROTO_1:
        32 GETUPVAL                         R4 0
        33 GETTABLEKS                       R4 R4 K1 ["props"]
        35 GETTABLEKS                       R4 R4 K11 ["assetTypeEnum"]
-       37 GETTABLEKS                       R5 R1 K12 ["creatorType"]
-       39 GETTABLEKS                       R6 R1 K13 ["creatorId"]
-       41 LOADN                            R7 1
-       42 CALL                             R2 5 0
-       43 GETUPVAL                         R2 0
-       44 DUPTABLE                         R4 K16 [{"selectIndex", "selectItem"}]
-       45 SETTABLEKS                       R0 R4 K14 ["selectIndex"]
-       47 SETTABLEKS                       R1 R4 K15 ["selectItem"]
-       49 NAMECALL                         R2 R2 K17 ["setState"]
-       51 CALL                             R2 2 0
-       52 RETURN                           R0 0
+       37 GETUPVAL                         R5 0
+       38 GETTABLEKS                       R5 R5 K1 ["props"]
+       40 GETTABLEKS                       R5 R5 K12 ["assetSubType"]
+       42 GETTABLEKS                       R6 R1 K13 ["creatorType"]
+       44 GETTABLEKS                       R7 R1 K14 ["creatorId"]
+       46 LOADN                            R8 1
+       47 CALL                             R2 6 0
+       48 GETUPVAL                         R2 0
+       49 DUPTABLE                         R4 K17 [{"selectIndex", "selectItem"}]
+       50 SETTABLEKS                       R0 R4 K15 ["selectIndex"]
+       52 SETTABLEKS                       R1 R4 K16 ["selectItem"]
+       54 NAMECALL                         R2 R2 K18 ["setState"]
+       56 CALL                             R2 2 0
+       57 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -57,11 +60,14 @@ PROTO_2:
        17 GETUPVAL                         R4 0
        18 GETTABLEKS                       R4 R4 K2 ["props"]
        20 GETTABLEKS                       R4 R4 K6 ["assetTypeEnum"]
-       22 GETTABLEKS                       R5 R1 K7 ["creatorType"]
-       24 GETTABLEKS                       R6 R1 K8 ["creatorId"]
-       26 MOVE                             R7 R0
-       27 CALL                             R2 5 0
-       28 RETURN                           R0 0
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K2 ["props"]
+       25 GETTABLEKS                       R5 R5 K7 ["assetSubType"]
+       27 GETTABLEKS                       R6 R1 K8 ["creatorType"]
+       29 GETTABLEKS                       R7 R1 K9 ["creatorId"]
+       31 MOVE                             R8 R0
+       32 CALL                             R2 6 0
+       33 RETURN                           R0 0
 
 PROTO_3:
         0 NEWTABLE                         R2 0 1
@@ -107,17 +113,19 @@ PROTO_4:
        11 GETTABLEKS                       R3 R3 K4 ["networkInterface"]
        13 GETTABLEKS                       R4 R0 K1 ["props"]
        15 GETTABLEKS                       R4 R4 K5 ["assetTypeEnum"]
-       17 GETTABLEKS                       R5 R1 K6 ["creatorType"]
-       19 GETTABLEKS                       R6 R1 K7 ["creatorId"]
-       21 LOADN                            R7 1
-       22 CALL                             R2 5 0
-       23 GETTABLEKS                       R2 R0 K1 ["props"]
-       25 GETTABLEKS                       R2 R2 K8 ["getManageableGroups"]
-       27 GETTABLEKS                       R3 R0 K1 ["props"]
-       29 GETTABLEKS                       R3 R3 K3 ["Network"]
-       31 GETTABLEKS                       R3 R3 K4 ["networkInterface"]
-       33 CALL                             R2 1 0
-       34 RETURN                           R0 0
+       17 GETTABLEKS                       R5 R0 K1 ["props"]
+       19 GETTABLEKS                       R5 R5 K6 ["assetSubType"]
+       21 GETTABLEKS                       R6 R1 K7 ["creatorType"]
+       23 GETTABLEKS                       R7 R1 K8 ["creatorId"]
+       25 LOADN                            R8 1
+       26 CALL                             R2 6 0
+       27 GETTABLEKS                       R2 R0 K1 ["props"]
+       29 GETTABLEKS                       R2 R2 K9 ["getManageableGroups"]
+       31 GETTABLEKS                       R3 R0 K1 ["props"]
+       33 GETTABLEKS                       R3 R3 K3 ["Network"]
+       35 GETTABLEKS                       R3 R3 K4 ["networkInterface"]
+       37 CALL                             R2 1 0
+       38 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -427,7 +435,7 @@ PROTO_6:
         1 JUMPIF                           R2 ; [+2]
         2 NEWTABLE                         R2 0 0
         4 MOVE                             R0 R2
-        5 DUPTABLE                         R2 K4 [{"totalResults", "resultsArray", "manageableGroups", "assetTypeEnum"}]
+        5 DUPTABLE                         R2 K5 [{"totalResults", "resultsArray", "manageableGroups", "assetTypeEnum", "assetSubType"}]
         6 GETTABLEKS                       R3 R0 K0 ["totalResults"]
         8 SETTABLEKS                       R3 R2 K0 ["totalResults"]
        10 GETTABLEKS                       R3 R0 K1 ["resultsArray"]
@@ -438,21 +446,24 @@ PROTO_6:
        19 SETTABLEKS                       R3 R2 K2 ["manageableGroups"]
        21 GETTABLEKS                       R3 R0 K3 ["assetTypeEnum"]
        23 SETTABLEKS                       R3 R2 K3 ["assetTypeEnum"]
-       25 GETTABLEKS                       R3 R0 K5 ["screenFlowType"]
-       27 SETTABLEKS                       R3 R2 K5 ["screenFlowType"]
-       29 RETURN                           R2 1
+       25 GETTABLEKS                       R3 R0 K4 ["assetSubType"]
+       27 SETTABLEKS                       R3 R2 K4 ["assetSubType"]
+       29 GETTABLEKS                       R3 R0 K6 ["screenFlowType"]
+       31 SETTABLEKS                       R3 R2 K6 ["screenFlowType"]
+       33 RETURN                           R2 1
 
 PROTO_7:
-        0 GETUPVAL                         R5 0
-        1 GETUPVAL                         R6 1
-        2 MOVE                             R7 R0
-        3 MOVE                             R8 R1
-        4 MOVE                             R9 R2
-        5 MOVE                             R10 R3
-        6 MOVE                             R11 R4
-        7 CALL                             R6 5 -1
-        8 CALL                             R5 -1 0
-        9 RETURN                           R0 0
+        0 GETUPVAL                         R6 0
+        1 GETUPVAL                         R7 1
+        2 MOVE                             R8 R0
+        3 MOVE                             R9 R1
+        4 MOVE                             R10 R2
+        5 MOVE                             R11 R3
+        6 MOVE                             R12 R4
+        7 MOVE                             R13 R5
+        8 CALL                             R7 6 -1
+        9 CALL                             R6 -1 0
+       10 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0

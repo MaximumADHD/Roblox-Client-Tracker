@@ -49,23 +49,16 @@ MAIN:
        42 GETTABLEKS                       R6 R6 K15 ["Common"]
        44 GETTABLEKS                       R6 R6 K16 ["RenderUi"]
        46 CALL                             R5 1 1
-       47 GETIMPORT                        R6 K7 [require]
-       49 GETTABLEKS                       R7 R0 K17 ["Flags"]
-       51 GETTABLEKS                       R7 R7 K18 ["GetFFlagReimportErrorConfigButton"]
-       53 CALL                             R6 1 1
-       54 NEWTABLE                         R7 2 0
-       56 DUPCLOSURE                       R8 K19 [PROTO_0]
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R1
-       59 SETTABLEKS                       R8 R7 K20 ["fromProps"]
-       61 DUPCLOSURE                       R8 K21 [PROTO_1]
-       62 CAPTURE                          VAL R7
-       63 SETTABLEKS                       R8 R7 K22 ["fromErrors"]
-       65 MOVE                             R9 R6
-       66 CALL                             R9 0 1
-       67 JUMPIFNOT                        R9 ; [+7]
-       68 GETTABLEKS                       R9 R3 K23 ["errors"]
-       70 GETTABLEKS                       R9 R9 K24 ["register"]
-       72 GETTABLEKS                       R10 R7 K22 ["fromErrors"]
-       74 CALL                             R9 1 0
-       75 RETURN                           R7 1
+       47 NEWTABLE                         R6 2 0
+       49 DUPCLOSURE                       R7 K17 [PROTO_0]
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          VAL R1
+       52 SETTABLEKS                       R7 R6 K18 ["fromProps"]
+       54 DUPCLOSURE                       R7 K19 [PROTO_1]
+       55 CAPTURE                          VAL R6
+       56 SETTABLEKS                       R7 R6 K20 ["fromErrors"]
+       58 GETTABLEKS                       R8 R3 K21 ["errors"]
+       60 GETTABLEKS                       R8 R8 K22 ["register"]
+       62 GETTABLEKS                       R9 R6 K20 ["fromErrors"]
+       64 CALL                             R8 1 0
+       65 RETURN                           R6 1

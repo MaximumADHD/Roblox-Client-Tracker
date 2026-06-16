@@ -511,7 +511,7 @@ MAIN:
       673 LOADN                            R18 1
       674 LOADN                            R19 0
       675 LOADN                            R20 0
-      676 GETTABLEKS                       R21 R2 K177 ["ItemRowHeight"]
+      676 GETTABLEKS                       R21 R2 K177 ["ItemRowHeightDefault"]
       678 CALL                             R17 4 1
       679 SETTABLEKS                       R17 R16 K111 ["Size"]
       681 NEWTABLE                         R17 0 0
@@ -872,13 +872,13 @@ MAIN:
      1167 LOADN                            R9 60
      1168 CALL                             R7 2 1
      1169 SETTABLEKS                       R7 R6 K242 ["ColumnMinSize"]
-     1171 GETTABLEKS                       R7 R2 K177 ["ItemRowHeight"]
+     1171 GETTABLEKS                       R7 R2 K177 ["ItemRowHeightDefault"]
      1173 SETTABLEKS                       R7 R6 K243 ["ContentListRowHeight"]
      1175 GETTABLEKS                       R7 R2 K181 ["ThumbnailContainerSize"]
      1177 SETTABLEKS                       R7 R6 K244 ["ListThumbnailSize"]
      1179 GETTABLEKS                       R7 R2 K90 ["Padding"]
      1181 SETTABLEKS                       R7 R6 K245 ["CellContentPadding"]
-     1183 GETTABLEKS                       R8 R2 K177 ["ItemRowHeight"]
+     1183 GETTABLEKS                       R8 R2 K177 ["ItemRowHeightDefault"]
      1185 LOADN                            R10 2
      1186 GETTABLEKS                       R11 R2 K90 ["Padding"]
      1188 MUL                              R9 R10 R11

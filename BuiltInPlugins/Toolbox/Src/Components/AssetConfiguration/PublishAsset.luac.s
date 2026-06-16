@@ -653,1099 +653,1072 @@ PROTO_18:
       101 GETTABLEKS                       R29 R2 K41 ["toggleCopy"]
       103 GETTABLEKS                       R30 R2 K42 ["toggleComment"]
       105 GETTABLEKS                       R31 R2 K43 ["toggleDeleteLocal"]
-      107 GETUPVAL                         R33 4
-      108 CALL                             R33 0 1
-      109 JUMPIFNOT                        R33 ; [+3]
-      110 GETTABLEKS                       R32 R2 K44 ["canUploadWithUgcRestrictions"]
-      112 JUMP                             ; [+1]
-      113 LOADNIL                          R32
-      114 GETUPVAL                         R34 4
-      115 CALL                             R34 0 1
-      116 JUMPIFNOT                        R34 ; [+3]
-      117 GETTABLEKS                       R33 R2 K45 ["canUploadWithUgcRestrictionsDenyReason"]
-      119 JUMP                             ; [+1]
-      120 LOADNIL                          R33
-      121 GETTABLEKS                       R34 R2 K46 ["publishingRequirements"]
-      123 GETTABLEKS                       R35 R2 K47 ["publishingRestriction"]
-      125 JUMPIFNOT                        R34 ; [+3]
-      126 GETTABLEKS                       R36 R34 K48 ["verification"]
-      128 JUMP                             ; [+1]
-      129 LOADNIL                          R36
-      130 JUMPIFNOT                        R36 ; [+11]
-      131 GETTABLEKS                       R38 R36 K49 ["supportedTypes"]
-      133 JUMPIFNOT                        R38 ; [+8]
-      134 GETTABLEKS                       R39 R36 K49 ["supportedTypes"]
-      136 LENGTH                           R38 R39
-      137 JUMPIFNOTEQKN                    R38 K50 [0] ; [+2]
-      139 LOADB                            R37 0 +1
-      140 LOADB                            R37 1
-      141 JUMP                             ; [+1]
-      142 LOADB                            R37 0
-      143 MOVE                             R38 R36
-      144 JUMPIFNOT                        R38 ; [+2]
-      145 GETTABLEKS                       R38 R36 K51 ["isVerified"]
-      147 AND                              R39 R38 R20
-      148 GETTABLEKS                       R40 R2 K52 ["displayOwnership"]
-      150 GETTABLEKS                       R41 R2 K53 ["displayCopy"]
-      152 GETTABLEKS                       R42 R2 K54 ["displayComment"]
-      154 JUMPIFNOT                        R20 ; [+2]
-      155 LOADB                            R43 0
-      156 JUMP                             ; [+2]
-      157 GETTABLEKS                       R43 R2 K55 ["displayAssetType"]
-      159 GETTABLEKS                       R44 R2 K56 ["displaySharing"]
-      161 GETTABLEKS                       R45 R2 K57 ["displayAssetTypeSelection"]
-      163 GETUPVAL                         R47 5
-      164 NOT                              R46 R47
-      165 JUMPIFNOT                        R20 ; [+3]
-      166 GETTABLEKS                       R47 R2 K58 ["allowedAssetTypesForRelease"]
-      168 JUMP                             ; [+1]
-      169 LOADNIL                          R47
-      170 GETTABLEKS                       R48 R2 K59 ["allowedAssetTypesForFree"]
-      172 JUMPIFNOT                        R20 ; [+3]
-      173 GETTABLEKS                       R49 R2 K60 ["newAssetStatus"]
-      175 JUMP                             ; [+1]
-      176 LOADNIL                          R49
-      177 JUMPIFNOT                        R20 ; [+3]
-      178 GETTABLEKS                       R50 R2 K61 ["currentAssetStatus"]
-      180 JUMP                             ; [+1]
-      181 LOADNIL                          R50
-      182 JUMPIFNOT                        R20 ; [+3]
-      183 GETTABLEKS                       R51 R2 K62 ["onStatusChange"]
-      185 JUMP                             ; [+1]
-      186 LOADNIL                          R51
-      187 JUMPIFNOT                        R20 ; [+3]
-      188 GETTABLEKS                       R52 R2 K63 ["price"]
-      190 JUMP                             ; [+1]
-      191 LOADNIL                          R52
-      192 JUMPIFNOT                        R20 ; [+3]
-      193 GETTABLEKS                       R53 R2 K64 ["minPrice"]
-      195 JUMP                             ; [+1]
-      196 LOADNIL                          R53
-      197 JUMPIFNOT                        R20 ; [+3]
-      198 GETTABLEKS                       R54 R2 K65 ["maxPrice"]
-      200 JUMP                             ; [+1]
-      201 LOADNIL                          R54
-      202 JUMPIFNOT                        R20 ; [+3]
-      203 GETTABLEKS                       R55 R2 K66 ["feeRate"]
-      205 JUMP                             ; [+1]
-      206 LOADNIL                          R55
-      207 JUMPIFNOT                        R20 ; [+3]
-      208 GETTABLEKS                       R56 R2 K67 ["isPriceValid"]
-      210 JUMP                             ; [+1]
-      211 LOADNIL                          R56
-      212 JUMPIFNOT                        R20 ; [+3]
-      213 GETTABLEKS                       R57 R2 K68 ["onPriceChange"]
+      107 GETTABLEKS                       R32 R2 K44 ["publishingRequirements"]
+      109 GETTABLEKS                       R33 R2 K45 ["publishingRestriction"]
+      111 JUMPIFNOT                        R32 ; [+3]
+      112 GETTABLEKS                       R34 R32 K46 ["verification"]
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R34
+      116 JUMPIFNOT                        R34 ; [+11]
+      117 GETTABLEKS                       R36 R34 K47 ["supportedTypes"]
+      119 JUMPIFNOT                        R36 ; [+8]
+      120 GETTABLEKS                       R37 R34 K47 ["supportedTypes"]
+      122 LENGTH                           R36 R37
+      123 JUMPIFNOTEQKN                    R36 K48 [0] ; [+2]
+      125 LOADB                            R35 0 +1
+      126 LOADB                            R35 1
+      127 JUMP                             ; [+1]
+      128 LOADB                            R35 0
+      129 MOVE                             R36 R34
+      130 JUMPIFNOT                        R36 ; [+2]
+      131 GETTABLEKS                       R36 R34 K49 ["isVerified"]
+      133 AND                              R37 R36 R20
+      134 GETTABLEKS                       R38 R2 K50 ["displayOwnership"]
+      136 GETTABLEKS                       R39 R2 K51 ["displayCopy"]
+      138 GETTABLEKS                       R40 R2 K52 ["displayComment"]
+      140 JUMPIFNOT                        R20 ; [+2]
+      141 LOADB                            R41 0
+      142 JUMP                             ; [+2]
+      143 GETTABLEKS                       R41 R2 K53 ["displayAssetType"]
+      145 GETTABLEKS                       R42 R2 K54 ["displaySharing"]
+      147 GETTABLEKS                       R43 R2 K55 ["displayAssetTypeSelection"]
+      149 GETUPVAL                         R45 4
+      150 NOT                              R44 R45
+      151 JUMPIFNOT                        R20 ; [+3]
+      152 GETTABLEKS                       R45 R2 K56 ["allowedAssetTypesForRelease"]
+      154 JUMP                             ; [+1]
+      155 LOADNIL                          R45
+      156 GETTABLEKS                       R46 R2 K57 ["allowedAssetTypesForFree"]
+      158 JUMPIFNOT                        R20 ; [+3]
+      159 GETTABLEKS                       R47 R2 K58 ["newAssetStatus"]
+      161 JUMP                             ; [+1]
+      162 LOADNIL                          R47
+      163 JUMPIFNOT                        R20 ; [+3]
+      164 GETTABLEKS                       R48 R2 K59 ["currentAssetStatus"]
+      166 JUMP                             ; [+1]
+      167 LOADNIL                          R48
+      168 JUMPIFNOT                        R20 ; [+3]
+      169 GETTABLEKS                       R49 R2 K60 ["onStatusChange"]
+      171 JUMP                             ; [+1]
+      172 LOADNIL                          R49
+      173 JUMPIFNOT                        R20 ; [+3]
+      174 GETTABLEKS                       R50 R2 K61 ["price"]
+      176 JUMP                             ; [+1]
+      177 LOADNIL                          R50
+      178 JUMPIFNOT                        R20 ; [+3]
+      179 GETTABLEKS                       R51 R2 K62 ["minPrice"]
+      181 JUMP                             ; [+1]
+      182 LOADNIL                          R51
+      183 JUMPIFNOT                        R20 ; [+3]
+      184 GETTABLEKS                       R52 R2 K63 ["maxPrice"]
+      186 JUMP                             ; [+1]
+      187 LOADNIL                          R52
+      188 JUMPIFNOT                        R20 ; [+3]
+      189 GETTABLEKS                       R53 R2 K64 ["feeRate"]
+      191 JUMP                             ; [+1]
+      192 LOADNIL                          R53
+      193 JUMPIFNOT                        R20 ; [+3]
+      194 GETTABLEKS                       R54 R2 K65 ["isPriceValid"]
+      196 JUMP                             ; [+1]
+      197 LOADNIL                          R54
+      198 JUMPIFNOT                        R20 ; [+3]
+      199 GETTABLEKS                       R55 R2 K66 ["onPriceChange"]
+      201 JUMP                             ; [+1]
+      202 LOADNIL                          R55
+      203 JUMPIFNOT                        R20 ; [+12]
+      204 GETUPVAL                         R56 1
+      205 GETTABLEKS                       R56 R56 K67 ["isReadyForSale"]
+      207 MOVE                             R57 R47
+      208 CALL                             R56 1 1
+      209 JUMPIF                           R56 ; [+7]
+      210 GETUPVAL                         R56 1
+      211 GETTABLEKS                       R56 R56 K68 ["isBuyableMarketplaceAsset"]
+      213 MOVE                             R57 R14
+      214 CALL                             R56 1 1
       215 JUMP                             ; [+1]
-      216 LOADNIL                          R57
-      217 JUMPIFNOT                        R20 ; [+12]
-      218 GETUPVAL                         R58 1
-      219 GETTABLEKS                       R58 R58 K69 ["isReadyForSale"]
-      221 MOVE                             R59 R49
-      222 CALL                             R58 1 1
-      223 JUMPIF                           R58 ; [+7]
-      224 GETUPVAL                         R58 1
-      225 GETTABLEKS                       R58 R58 K70 ["isBuyableMarketplaceAsset"]
-      227 MOVE                             R59 R14
-      228 CALL                             R58 1 1
-      229 JUMP                             ; [+1]
-      230 LOADNIL                          R58
-      231 LOADNIL                          R59
-      232 LOADNIL                          R60
-      233 GETTABLEKS                       R61 R2 K71 ["Localization"]
-      235 JUMPIF                           R17 ; [+3]
-      236 GETUPVAL                         R62 6
-      237 JUMPIFNOT                        R62 ; [+9]
-      238 JUMPIFNOT                        R18 ; [+8]
-      239 JUMPIF                           R15 ; [+7]
-      240 JUMPIFNOT                        R10 ; [+6]
-      241 LOADK                            R64 K72 ["AssetConfigCopy"]
-      242 LOADK                            R65 K73 ["MustShare"]
-      243 NAMECALL                         R62 R61 K74 ["getText"]
-      245 CALL                             R62 3 1
-      246 MOVE                             R59 R62
-      247 JUMPIFNOT                        R19 ; [+6]
-      248 LOADK                            R64 K75 ["AssetConfig"]
-      249 LOADK                            R65 K76 ["ModelPublishWarning"]
-      250 NAMECALL                         R62 R61 K74 ["getText"]
-      252 CALL                             R62 3 1
-      253 MOVE                             R60 R62
-      254 GETUPVAL                         R62 7
-      255 GETTABLEKS                       R62 R62 K77 ["new"]
-      257 CALL                             R62 0 1
-      258 GETTABLEKS                       R63 R1 K78 ["publishAsset"]
-      260 LOADN                            R64 80
-      261 JUMPIF                           R5 ; [+1]
-      262 ADDK                             R64 R64 K79 [60]
-      263 NEWTABLE                         R65 4 0
-      265 SETTABLEKS                       R3 R65 K2 ["Size"]
-      267 SETTABLEKS                       R4 R65 K3 ["LayoutOrder"]
-      269 GETUPVAL                         R66 8
-      270 GETTABLEKS                       R66 R66 K80 ["Ref"]
-      272 GETTABLEKS                       R67 R0 K81 ["baseFrameRef"]
-      274 SETTABLE                         R67 R65 R66
-      275 LOADNIL                          R66
-      276 GETTABLEKS                       R67 R2 K82 ["assetMediaMetadataArray"]
-      278 JUMPIFNOT                        R67 ; [+3]
-      279 GETTABLEKS                       R66 R2 K82 ["assetMediaMetadataArray"]
-      281 JUMP                             ; [+11]
-      282 GETTABLEKS                       R67 R2 K83 ["assetMediaIds"]
-      284 JUMPIFEQKNIL                     R67 ; [+8]
-      286 GETUPVAL                         R67 9
-      287 GETTABLEKS                       R68 R2 K83 ["assetMediaIds"]
-      289 DUPCLOSURE                       R69 K84 [PROTO_13]
-      290 CAPTURE                          UPVAL U10
-      291 CALL                             R67 2 1
-      292 MOVE                             R66 R67
-      293 JUMPIFNOT                        R20 ; [+7]
-      294 MOVE                             R67 R58
-      295 JUMPIFNOT                        R67 ; [+6]
-      296 JUMPIFEQKNIL                     R35 ; [+2]
-      298 LOADB                            R67 0 +1
-      299 LOADB                            R67 1
-      300 JUMP                             ; [+1]
-      301 MOVE                             R67 R5
-      302 LOADNIL                          R68
-      303 LOADNIL                          R69
-      304 LOADNIL                          R70
-      305 LOADNIL                          R71
-      306 GETUPVAL                         R72 1
-      307 GETTABLEKS                       R72 R72 K85 ["isUGCBundleType"]
-      309 MOVE                             R73 R14
-      310 CALL                             R72 1 1
-      311 MOVE                             R68 R72
-      312 GETUPVAL                         R72 11
-      313 CALL                             R72 0 1
-      314 JUMPIFNOT                        R72 ; [+36]
-      315 GETUPVAL                         R72 1
-      316 GETTABLEKS                       R72 R72 K86 ["isUGCBodyBundleType"]
-      318 MOVE                             R73 R14
-      319 CALL                             R72 1 1
-      320 JUMPIFNOT                        R72 ; [+7]
-      321 LOADK                            R74 K87 ["General"]
-      322 LOADK                            R75 K88 ["BodyValidation"]
-      323 NAMECALL                         R72 R61 K74 ["getText"]
-      325 CALL                             R72 3 1
-      326 MOVE                             R69 R72
-      327 JUMP                             ; [+29]
-      328 GETUPVAL                         R72 12
-      329 CALL                             R72 0 1
-      330 JUMPIFNOT                        R72 ; [+13]
-      331 GETUPVAL                         R72 1
-      332 GETTABLEKS                       R72 R72 K89 ["isAnimationBundleType"]
-      334 MOVE                             R73 R14
-      335 CALL                             R72 1 1
-      336 JUMPIFNOT                        R72 ; [+7]
-      337 LOADK                            R74 K87 ["General"]
-      338 LOADK                            R75 K90 ["AvatarAnimationsValidation"]
-      339 NAMECALL                         R72 R61 K74 ["getText"]
-      341 CALL                             R72 3 1
-      342 MOVE                             R69 R72
-      343 JUMP                             ; [+13]
-      344 LOADK                            R74 K87 ["General"]
-      345 LOADK                            R75 K91 ["ShoeValidation"]
-      346 NAMECALL                         R72 R61 K74 ["getText"]
-      348 CALL                             R72 3 1
-      349 MOVE                             R69 R72
-      350 JUMP                             ; [+6]
-      351 LOADK                            R74 K87 ["General"]
-      352 LOADK                            R75 K88 ["BodyValidation"]
-      353 NAMECALL                         R72 R61 K74 ["getText"]
-      355 CALL                             R72 3 1
-      356 MOVE                             R69 R72
-      357 GETTABLEKS                       R72 R2 K92 ["instances"]
-      359 JUMPIFNOT                        R72 ; [+20]
-      360 GETTABLEKS                       R75 R2 K92 ["instances"]
-      362 GETTABLEN                        R74 R75 1
-      363 GETTABLEKS                       R75 R2 K93 ["allowedBundleTypeSettings"]
-      365 MOVE                             R76 R14
-      366 MOVE                             R77 R1
-      367 NAMECALL                         R72 R0 K94 ["getMissingOptionalPartsMessage"]
-      369 CALL                             R72 5 1
-      370 MOVE                             R70 R72
-      371 GETTABLEKS                       R75 R2 K92 ["instances"]
-      373 GETTABLEN                        R74 R75 1
-      374 MOVE                             R75 R14
-      375 MOVE                             R76 R1
-      376 NAMECALL                         R72 R0 K95 ["getUnknownMeshPartMessage"]
-      378 CALL                             R72 4 1
-      379 MOVE                             R71 R72
-      380 GETUPVAL                         R72 8
-      381 GETTABLEKS                       R72 R72 K96 ["createElement"]
-      383 GETUPVAL                         R73 13
-      384 MOVE                             R74 R65
-      385 DUPTABLE                         R75 K116 [{"Padding", "UIListLayout", "ModelWarningFrame", "Header", "Title", "Description", "AssetTypeSelection", "Creator", "ColorPickerRow", "ContentTypeBodyValidation", "DataSharingConsent", "Ownership", "DividerBase", "Sharing", "SharingDivider", "CreatorStoreConfigurationFrame", "Comment", "DeleteLocal", "AnimationPackProperties"}]
-      386 GETUPVAL                         R76 8
-      387 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      389 LOADK                            R77 K117 ["UIPadding"]
-      390 DUPTABLE                         R78 K122 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      391 GETIMPORT                        R79 K124 [UDim.new]
-      393 LOADN                            R80 0
-      394 LOADN                            R81 24
-      395 CALL                             R79 2 1
-      396 SETTABLEKS                       R79 R78 K118 ["PaddingTop"]
-      398 GETIMPORT                        R79 K124 [UDim.new]
-      400 LOADN                            R80 0
-      401 LOADN                            R81 24
-      402 CALL                             R79 2 1
-      403 SETTABLEKS                       R79 R78 K119 ["PaddingBottom"]
-      405 GETIMPORT                        R79 K124 [UDim.new]
-      407 LOADN                            R80 0
-      408 LOADN                            R81 24
-      409 CALL                             R79 2 1
-      410 SETTABLEKS                       R79 R78 K120 ["PaddingLeft"]
-      412 GETIMPORT                        R79 K124 [UDim.new]
-      414 LOADN                            R80 0
-      415 LOADN                            R81 24
-      416 CALL                             R79 2 1
-      417 SETTABLEKS                       R79 R78 K121 ["PaddingRight"]
-      419 CALL                             R76 2 1
-      420 SETTABLEKS                       R76 R75 K97 ["Padding"]
-      422 GETUPVAL                         R76 8
-      423 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      425 LOADK                            R77 K98 ["UIListLayout"]
-      426 NEWTABLE                         R78 8 0
-      428 GETIMPORT                        R79 K127 [Enum.FillDirection.Vertical]
-      430 SETTABLEKS                       R79 R78 K125 ["FillDirection"]
-      432 GETIMPORT                        R79 K130 [Enum.HorizontalAlignment.Left]
-      434 SETTABLEKS                       R79 R78 K128 ["HorizontalAlignment"]
-      436 GETIMPORT                        R79 K133 [Enum.VerticalAlignment.Top]
-      438 SETTABLEKS                       R79 R78 K131 ["VerticalAlignment"]
-      440 GETIMPORT                        R79 K135 [Enum.SortOrder.LayoutOrder]
-      442 SETTABLEKS                       R79 R78 K134 ["SortOrder"]
-      444 GETIMPORT                        R79 K124 [UDim.new]
-      446 LOADN                            R80 0
-      447 LOADN                            R81 0
-      448 CALL                             R79 2 1
-      449 SETTABLEKS                       R79 R78 K97 ["Padding"]
-      451 GETUPVAL                         R79 8
-      452 GETTABLEKS                       R79 R79 K136 ["Change"]
-      454 GETTABLEKS                       R79 R79 K137 ["AbsoluteContentSize"]
-      456 GETTABLEKS                       R80 R0 K138 ["refreshCanvas"]
-      458 JUMPIF                           R80 ; [+3]
-      459 NEWCLOSURE                       R80 P1
-      460 CAPTURE                          VAL R0
-      461 CAPTURE                          VAL R3
-      462 SETTABLE                         R80 R78 R79
-      463 GETUPVAL                         R79 8
-      464 GETTABLEKS                       R79 R79 K80 ["Ref"]
-      466 GETTABLEKS                       R80 R0 K139 ["listLayoutRef"]
-      468 SETTABLE                         R80 R78 R79
-      469 CALL                             R76 2 1
-      470 SETTABLEKS                       R76 R75 K98 ["UIListLayout"]
-      472 JUMPIF                           R45 ; [+133]
-      473 JUMPIFNOT                        R19 ; [+132]
-      474 JUMPIFNOT                        R46 ; [+131]
-      475 GETUPVAL                         R76 8
-      476 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      478 GETUPVAL                         R77 14
-      479 DUPTABLE                         R78 K142 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Padding", "Spacing", "VerticalAlignment"}]
-      480 GETIMPORT                        R79 K130 [Enum.HorizontalAlignment.Left]
-      482 SETTABLEKS                       R79 R78 K128 ["HorizontalAlignment"]
-      484 GETIMPORT                        R79 K144 [Enum.FillDirection.Horizontal]
-      486 SETTABLEKS                       R79 R78 K140 ["Layout"]
-      488 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      490 CALL                             R79 1 1
-      491 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      493 GETIMPORT                        R79 K147 [UDim2.new]
-      495 LOADN                            R80 1
-      496 LOADN                            R81 0
-      497 LOADN                            R82 0
-      498 GETUPVAL                         R83 15
-      499 GETTABLEKS                       R83 R83 K148 ["FONT_SIZE_TITLE"]
-      501 CALL                             R79 4 1
-      502 SETTABLEKS                       R79 R78 K2 ["Size"]
-      504 DUPTABLE                         R79 K150 [{"Bottom"}]
-      505 LOADN                            R80 30
-      506 SETTABLEKS                       R80 R79 K149 ["Bottom"]
-      508 SETTABLEKS                       R79 R78 K97 ["Padding"]
-      510 LOADN                            R79 5
-      511 SETTABLEKS                       R79 R78 K141 ["Spacing"]
-      513 GETIMPORT                        R79 K133 [Enum.VerticalAlignment.Top]
-      515 SETTABLEKS                       R79 R78 K131 ["VerticalAlignment"]
-      517 DUPTABLE                         R79 K153 [{"Icon", "WarningText"}]
-      518 GETUPVAL                         R80 8
-      519 GETTABLEKS                       R80 R80 K96 ["createElement"]
-      521 LOADK                            R81 K154 ["ImageLabel"]
-      522 DUPTABLE                         R82 K158 [{"LayoutOrder", "BackgroundTransparency", "Image", "ImageColor3", "Size"}]
-      523 LOADN                            R83 1
-      524 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-      526 LOADN                            R83 1
-      527 SETTABLEKS                       R83 R82 K155 ["BackgroundTransparency"]
-      529 GETUPVAL                         R83 16
-      530 GETTABLEKS                       R83 R83 K159 ["WARNING_ICON"]
-      532 SETTABLEKS                       R83 R82 K156 ["Image"]
-      534 GETTABLEKS                       R83 R63 K160 ["warningIconColor"]
-      536 SETTABLEKS                       R83 R82 K157 ["ImageColor3"]
-      538 GETIMPORT                        R83 K162 [UDim2.fromOffset]
-      540 LOADN                            R84 24
-      541 LOADN                            R85 24
-      542 CALL                             R83 2 1
-      543 SETTABLEKS                       R83 R82 K2 ["Size"]
-      545 CALL                             R80 2 1
-      546 SETTABLEKS                       R80 R79 K151 ["Icon"]
-      548 GETUPVAL                         R80 8
-      549 GETTABLEKS                       R80 R80 K96 ["createElement"]
-      551 LOADK                            R81 K163 ["TextLabel"]
-      552 DUPTABLE                         R82 K172 [{"AutomaticSize", "LayoutOrder", "BackgroundTransparency", "Font", "Size", "Text", "TextWrapped", "TextColor3", "TextXAlignment", "TextYAlignment", "TextSize"}]
-      553 GETIMPORT                        R83 K174 [Enum.AutomaticSize.XY]
-      555 SETTABLEKS                       R83 R82 K164 ["AutomaticSize"]
-      557 LOADN                            R83 2
-      558 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-      560 LOADN                            R83 1
-      561 SETTABLEKS                       R83 R82 K155 ["BackgroundTransparency"]
-      563 GETUPVAL                         R83 15
-      564 GETTABLEKS                       R83 R83 K175 ["FONT"]
-      566 SETTABLEKS                       R83 R82 K165 ["Font"]
-      568 GETIMPORT                        R83 K147 [UDim2.new]
-      570 LOADN                            R84 1
-      571 LOADN                            R85 0
-      572 LOADN                            R86 1
-      573 LOADN                            R87 0
-      574 CALL                             R83 4 1
-      575 SETTABLEKS                       R83 R82 K2 ["Size"]
-      577 SETTABLEKS                       R60 R82 K166 ["Text"]
-      579 LOADB                            R83 1
-      580 SETTABLEKS                       R83 R82 K167 ["TextWrapped"]
-      582 GETTABLEKS                       R83 R1 K176 ["assetConfig"]
-      584 GETTABLEKS                       R83 R83 K177 ["warningColor"]
-      586 SETTABLEKS                       R83 R82 K168 ["TextColor3"]
-      588 GETIMPORT                        R83 K178 [Enum.TextXAlignment.Left]
-      590 SETTABLEKS                       R83 R82 K169 ["TextXAlignment"]
-      592 GETIMPORT                        R83 K180 [Enum.TextYAlignment.Center]
-      594 SETTABLEKS                       R83 R82 K170 ["TextYAlignment"]
-      596 GETUPVAL                         R83 15
-      597 GETTABLEKS                       R83 R83 K148 ["FONT_SIZE_TITLE"]
-      599 SETTABLEKS                       R83 R82 K171 ["TextSize"]
-      601 CALL                             R80 2 1
-      602 SETTABLEKS                       R80 R79 K152 ["WarningText"]
-      604 CALL                             R76 3 1
-      605 JUMP                             ; [+1]
-      606 LOADNIL                          R76
-      607 SETTABLEKS                       R76 R75 K99 ["ModelWarningFrame"]
-      609 JUMPIFNOT                        R20 ; [+19]
-      610 GETUPVAL                         R76 8
-      611 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      613 GETUPVAL                         R77 17
-      614 DUPTABLE                         R78 K181 [{"LayoutOrder", "Title"}]
-      615 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      617 CALL                             R79 1 1
-      618 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      620 LOADK                            R81 K75 ["AssetConfig"]
-      621 LOADK                            R82 K182 ["PublishPluginHeader"]
-      622 NAMECALL                         R79 R61 K74 ["getText"]
-      624 CALL                             R79 3 1
-      625 SETTABLEKS                       R79 R78 K101 ["Title"]
-      627 CALL                             R76 2 1
-      628 JUMP                             ; [+1]
-      629 LOADNIL                          R76
-      630 SETTABLEKS                       R76 R75 K100 ["Header"]
-      632 GETUPVAL                         R76 8
-      633 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      635 GETUPVAL                         R77 18
-      636 DUPTABLE                         R78 K189 [{"Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "showRequiredError", "ErrorCallback", "LayoutOrder"}]
-      637 LOADK                            R81 K87 ["General"]
-      638 LOADK                            R82 K101 ["Title"]
-      639 NAMECALL                         R79 R61 K74 ["getText"]
-      641 CALL                             R79 3 1
-      642 SETTABLEKS                       R79 R78 K101 ["Title"]
-      644 LOADN                            R79 100
-      645 SETTABLEKS                       R79 R78 K183 ["TotalHeight"]
-      647 GETUPVAL                         R79 0
-      648 GETTABLEKS                       R79 R79 K190 ["NAME_CHARACTER_LIMIT"]
-      650 SETTABLEKS                       R79 R78 K184 ["MaxCount"]
-      652 SETTABLEKS                       R24 R78 K185 ["TextChangeCallBack"]
-      654 SETTABLEKS                       R7 R78 K186 ["TextContent"]
-      656 GETUPVAL                         R80 19
-      657 CALL                             R80 0 1
-      658 JUMPIFNOT                        R80 ; [+3]
-      659 GETTABLEKS                       R79 R2 K191 ["showNameRequiredError"]
-      661 JUMP                             ; [+1]
-      662 LOADNIL                          R79
-      663 SETTABLEKS                       R79 R78 K187 ["showRequiredError"]
-      665 NEWCLOSURE                       R79 P2
-      666 CAPTURE                          VAL R0
-      667 CAPTURE                          UPVAL U0
-      668 SETTABLEKS                       R79 R78 K188 ["ErrorCallback"]
-      670 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      672 CALL                             R79 1 1
-      673 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      675 CALL                             R76 2 1
-      676 SETTABLEKS                       R76 R75 K101 ["Title"]
-      678 GETUPVAL                         R76 8
-      679 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      681 GETUPVAL                         R77 18
-      682 DUPTABLE                         R78 K193 [{"BottomRightText", "Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "showRequiredError", "ErrorCallback", "LayoutOrder"}]
-      683 LOADK                            R81 K194 ["AssetConfigDescription"]
-      684 LOADK                            R82 K195 ["AddRobloxLinks"]
-      685 NAMECALL                         R79 R61 K74 ["getText"]
-      687 CALL                             R79 3 1
-      688 SETTABLEKS                       R79 R78 K192 ["BottomRightText"]
-      690 LOADK                            R81 K87 ["General"]
-      691 LOADK                            R82 K102 ["Description"]
-      692 NAMECALL                         R79 R61 K74 ["getText"]
-      694 CALL                             R79 3 1
-      695 SETTABLEKS                       R79 R78 K101 ["Title"]
-      697 LOADN                            R79 180
-      698 SETTABLEKS                       R79 R78 K183 ["TotalHeight"]
-      700 GETUPVAL                         R79 0
-      701 GETTABLEKS                       R79 R79 K196 ["DESCRIPTION_CHARACTER_LIMIT"]
-      703 SETTABLEKS                       R79 R78 K184 ["MaxCount"]
-      705 SETTABLEKS                       R25 R78 K185 ["TextChangeCallBack"]
-      707 SETTABLEKS                       R8 R78 K186 ["TextContent"]
-      709 GETUPVAL                         R80 19
-      710 CALL                             R80 0 1
-      711 JUMPIFNOT                        R80 ; [+3]
-      712 GETTABLEKS                       R79 R2 K197 ["showDescriptionRequiredError"]
-      714 JUMP                             ; [+1]
-      715 LOADNIL                          R79
-      716 SETTABLEKS                       R79 R78 K187 ["showRequiredError"]
-      718 NEWCLOSURE                       R79 P3
-      719 CAPTURE                          VAL R0
-      720 CAPTURE                          UPVAL U0
-      721 SETTABLEKS                       R79 R78 K188 ["ErrorCallback"]
-      723 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      725 CALL                             R79 1 1
-      726 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      728 CALL                             R76 2 1
-      729 SETTABLEKS                       R76 R75 K102 ["Description"]
-      731 JUMPIFNOT                        R45 ; [+80]
-      732 GETUPVAL                         R76 8
-      733 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      735 GETUPVAL                         R77 20
-      736 DUPTABLE                         R78 K208 [{"LayoutOrder", "onCategoryChange", "canUploadWithUgcRestrictions", "canUploadWithUgcRestrictionsDenyReason", "dataSharingEnabled", "dataSharingToggled", "onDataConsentToggleClick", "validationState", "validationFailureReasons", "setValidationState", "setValidationFailureReasons", "ugcBundleValidationResults", "setUGCBundleValidationResults", "setCurrentAssetType", "instances"}]
-      737 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      739 CALL                             R79 1 1
-      740 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      742 SETTABLEKS                       R27 R78 K39 ["onCategoryChange"]
-      744 GETUPVAL                         R80 4
-      745 CALL                             R80 0 1
-      746 JUMPIFNOT                        R80 ; [+2]
-      747 MOVE                             R79 R32
-      748 JUMP                             ; [+1]
-      749 LOADNIL                          R79
-      750 SETTABLEKS                       R79 R78 K44 ["canUploadWithUgcRestrictions"]
-      752 GETUPVAL                         R80 4
-      753 CALL                             R80 0 1
-      754 JUMPIFNOT                        R80 ; [+2]
-      755 MOVE                             R79 R33
-      756 JUMP                             ; [+1]
-      757 LOADNIL                          R79
-      758 SETTABLEKS                       R79 R78 K45 ["canUploadWithUgcRestrictionsDenyReason"]
-      760 GETTABLEKS                       R79 R2 K198 ["dataSharingEnabled"]
-      762 SETTABLEKS                       R79 R78 K198 ["dataSharingEnabled"]
-      764 GETTABLEKS                       R79 R2 K199 ["dataSharingToggled"]
-      766 SETTABLEKS                       R79 R78 K199 ["dataSharingToggled"]
-      768 GETTABLEKS                       R79 R2 K200 ["onDataConsentToggleClick"]
-      770 SETTABLEKS                       R79 R78 K200 ["onDataConsentToggleClick"]
-      772 GETTABLEKS                       R79 R0 K209 ["state"]
-      774 GETTABLEKS                       R79 R79 K201 ["validationState"]
-      776 SETTABLEKS                       R79 R78 K201 ["validationState"]
-      778 GETTABLEKS                       R79 R0 K209 ["state"]
-      780 GETTABLEKS                       R79 R79 K202 ["validationFailureReasons"]
-      782 SETTABLEKS                       R79 R78 K202 ["validationFailureReasons"]
-      784 GETTABLEKS                       R79 R0 K203 ["setValidationState"]
-      786 SETTABLEKS                       R79 R78 K203 ["setValidationState"]
-      788 GETTABLEKS                       R79 R0 K204 ["setValidationFailureReasons"]
-      790 SETTABLEKS                       R79 R78 K204 ["setValidationFailureReasons"]
-      792 GETTABLEKS                       R79 R0 K209 ["state"]
-      794 GETTABLEKS                       R79 R79 K205 ["ugcBundleValidationResults"]
-      796 SETTABLEKS                       R79 R78 K205 ["ugcBundleValidationResults"]
-      798 GETTABLEKS                       R79 R0 K206 ["setUGCBundleValidationResults"]
-      800 SETTABLEKS                       R79 R78 K206 ["setUGCBundleValidationResults"]
-      802 GETTABLEKS                       R79 R0 K207 ["setCurrentAssetType"]
-      804 SETTABLEKS                       R79 R78 K207 ["setCurrentAssetType"]
-      806 GETTABLEKS                       R79 R2 K92 ["instances"]
-      808 SETTABLEKS                       R79 R78 K92 ["instances"]
-      810 CALL                             R76 2 1
-      811 JUMP                             ; [+1]
-      812 LOADNIL                          R76
-      813 SETTABLEKS                       R76 R75 K103 ["AssetTypeSelection"]
-      815 JUMPIFNOT                        R45 ; [+36]
-      816 JUMPIFNOT                        R40 ; [+35]
-      817 GETUPVAL                         R76 8
-      818 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      820 GETUPVAL                         R77 21
-      821 DUPTABLE                         R78 K212 [{"LayoutOrder", "onDropDownSelect", "owner", "preselectedGroupId", "Title", "TotalHeight"}]
-      822 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      824 CALL                             R79 1 1
-      825 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      827 SETTABLEKS                       R26 R78 K210 ["onDropDownSelect"]
-      829 SETTABLEKS                       R9 R78 K8 ["owner"]
-      831 GETUPVAL                         R80 22
-      832 CALL                             R80 0 1
-      833 JUMPIFNOT                        R80 ; [+3]
-      834 GETTABLEKS                       R79 R2 K211 ["preselectedGroupId"]
-      836 JUMP                             ; [+1]
-      837 LOADNIL                          R79
-      838 SETTABLEKS                       R79 R78 K211 ["preselectedGroupId"]
-      840 LOADK                            R81 K87 ["General"]
-      841 LOADK                            R82 K108 ["Ownership"]
-      842 NAMECALL                         R79 R61 K74 ["getText"]
-      844 CALL                             R79 3 1
-      845 SETTABLEKS                       R79 R78 K101 ["Title"]
-      847 LOADN                            R79 70
-      848 SETTABLEKS                       R79 R78 K183 ["TotalHeight"]
-      850 CALL                             R76 2 1
-      851 JUMP                             ; [+1]
-      852 LOADNIL                          R76
-      853 SETTABLEKS                       R76 R75 K104 ["Creator"]
-      855 GETUPVAL                         R77 23
-      856 CALL                             R77 0 1
-      857 JUMPIFNOT                        R77 ; [+110]
-      858 JUMPIFNOT                        R45 ; [+109]
-      859 JUMPIFNOT                        R40 ; [+108]
-      860 GETTABLEKS                       R77 R2 K213 ["showColorPicker"]
-      862 JUMPIFNOT                        R77 ; [+105]
-      863 GETUPVAL                         R76 8
-      864 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      866 GETUPVAL                         R77 24
-      867 GETTABLEKS                       R77 R77 K214 ["View"]
-      869 DUPTABLE                         R78 K216 [{"tag", "Size", "LayoutOrder"}]
-      870 LOADK                            R79 K217 ["row align-x-left align-y-top size-full-x"]
-      871 SETTABLEKS                       R79 R78 K215 ["tag"]
-      873 GETIMPORT                        R79 K147 [UDim2.new]
-      875 LOADN                            R80 1
-      876 LOADN                            R81 0
-      877 LOADN                            R82 0
-      878 LOADN                            R83 70
-      879 CALL                             R79 4 1
-      880 SETTABLEKS                       R79 R78 K2 ["Size"]
-      882 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      884 CALL                             R79 1 1
-      885 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      887 DUPTABLE                         R79 K219 [{"Title", "ColorPickerButton"}]
-      888 GETUPVAL                         R80 25
-      889 GETTABLEKS                       R80 R80 K96 ["createElement"]
-      891 GETUPVAL                         R81 24
-      892 GETTABLEKS                       R81 R81 K166 ["Text"]
-      894 DUPTABLE                         R82 K220 [{"tag", "Text", "Size", "LayoutOrder"}]
-      895 NEWTABLE                         R83 4 0
-      897 LOADB                            R84 1
-      898 SETTABLEKS                       R84 R83 K221 ["text-align-y-top text-align-x-left"]
-      900 GETUPVAL                         R84 26
-      901 CALL                             R84 0 1
-      902 SETTABLEKS                       R84 R83 K222 ["text-title-small bold content-emphasis"]
-      904 GETUPVAL                         R85 26
-      905 CALL                             R85 0 1
-      906 NOT                              R84 R85
-      907 SETTABLEKS                       R84 R83 K223 ["text-body-large"]
-      909 SETTABLEKS                       R83 R82 K215 ["tag"]
-      911 LOADK                            R85 K87 ["General"]
-      912 LOADK                            R86 K224 ["ThumbnailSkinTone"]
-      913 NAMECALL                         R83 R61 K74 ["getText"]
-      915 CALL                             R83 3 1
-      916 SETTABLEKS                       R83 R82 K166 ["Text"]
-      918 GETIMPORT                        R83 K147 [UDim2.new]
-      920 LOADN                            R84 0
-      921 GETUPVAL                         R85 0
-      922 GETTABLEKS                       R85 R85 K225 ["TITLE_GUTTER_WIDTH"]
-      924 LOADN                            R86 1
-      925 LOADN                            R87 0
-      926 CALL                             R83 4 1
-      927 SETTABLEKS                       R83 R82 K2 ["Size"]
-      929 LOADN                            R83 1
-      930 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-      932 CALL                             R80 2 1
-      933 SETTABLEKS                       R80 R79 K101 ["Title"]
-      935 GETUPVAL                         R80 8
-      936 GETTABLEKS                       R80 R80 K96 ["createElement"]
-      938 GETUPVAL                         R81 27
-      939 DUPTABLE                         R82 K229 [{"selectedColor", "setSelectedColor", "Localization", "showRequiredError", "LayoutOrder", "textColor"}]
-      940 GETTABLEKS                       R83 R2 K226 ["selectedColor"]
-      942 SETTABLEKS                       R83 R82 K226 ["selectedColor"]
-      944 GETTABLEKS                       R83 R2 K227 ["setSelectedColor"]
-      946 SETTABLEKS                       R83 R82 K227 ["setSelectedColor"]
-      948 SETTABLEKS                       R61 R82 K71 ["Localization"]
-      950 GETTABLEKS                       R83 R2 K230 ["showColorPickerRequiredError"]
-      952 SETTABLEKS                       R83 R82 K187 ["showRequiredError"]
-      954 LOADN                            R83 2
-      955 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-      957 GETTABLEKS                       R83 R1 K78 ["publishAsset"]
-      959 GETTABLEKS                       R83 R83 K231 ["titleTextColor"]
-      961 SETTABLEKS                       R83 R82 K228 ["textColor"]
-      963 CALL                             R80 2 1
-      964 SETTABLEKS                       R80 R79 K218 ["ColorPickerButton"]
-      966 CALL                             R76 3 1
-      967 JUMP                             ; [+1]
-      968 LOADNIL                          R76
-      969 SETTABLEKS                       R76 R75 K105 ["ColorPickerRow"]
-      971 JUMPIFNOT                        R68 ; [+193]
-      972 GETUPVAL                         R76 8
-      973 GETTABLEKS                       R76 R76 K96 ["createElement"]
-      975 GETUPVAL                         R77 28
-      976 DUPTABLE                         R78 K232 [{"AutomaticSize", "LayoutOrder", "Title"}]
-      977 GETIMPORT                        R79 K174 [Enum.AutomaticSize.XY]
-      979 SETTABLEKS                       R79 R78 K164 ["AutomaticSize"]
-      981 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-      983 CALL                             R79 1 1
-      984 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-      986 SETTABLEKS                       R69 R78 K101 ["Title"]
-      988 DUPTABLE                         R79 K234 [{"ValidationPane"}]
-      989 GETUPVAL                         R80 8
-      990 GETTABLEKS                       R80 R80 K96 ["createElement"]
-      992 GETUPVAL                         R81 14
-      993 DUPTABLE                         R82 K235 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing", "Padding"}]
-      994 GETIMPORT                        R83 K237 [Enum.AutomaticSize.Y]
-      996 SETTABLEKS                       R83 R82 K164 ["AutomaticSize"]
-      998 GETIMPORT                        R83 K127 [Enum.FillDirection.Vertical]
-     1000 SETTABLEKS                       R83 R82 K140 ["Layout"]
-     1002 LOADN                            R83 1
-     1003 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-     1005 GETIMPORT                        R83 K239 [UDim2.fromScale]
-     1007 LOADN                            R84 1
-     1008 LOADN                            R85 0
-     1009 CALL                             R83 2 1
-     1010 SETTABLEKS                       R83 R82 K2 ["Size"]
-     1012 LOADN                            R83 18
-     1013 SETTABLEKS                       R83 R82 K141 ["Spacing"]
-     1015 DUPTABLE                         R83 K150 [{"Bottom"}]
-     1016 LOADN                            R84 24
-     1017 SETTABLEKS                       R84 R83 K149 ["Bottom"]
-     1019 SETTABLEKS                       R83 R82 K97 ["Padding"]
-     1021 DUPTABLE                         R83 K243 [{"UGCBundleValidation", "MissingOptionalAccessoriesMsg", "UnknownMeshPartsMsgChildren"}]
-     1022 GETUPVAL                         R84 8
-     1023 GETTABLEKS                       R84 R84 K96 ["createElement"]
-     1025 GETUPVAL                         R85 29
-     1026 DUPTABLE                         R86 K246 [{"LayoutOrder", "isUGCBodyBundleType", "isAnimationBundleType", "validationState", "setValidationState", "validationFailureReasons", "setValidationFailureReasons", "validationResults", "setUGCBundleValidationResults", "assetTypeEnum", "instances", "allowedBundleTypeSettings", "onAssetValidationResultChanged"}]
-     1027 LOADN                            R87 1
-     1028 SETTABLEKS                       R87 R86 K3 ["LayoutOrder"]
-     1030 GETUPVAL                         R87 1
-     1031 GETTABLEKS                       R87 R87 K86 ["isUGCBodyBundleType"]
-     1033 MOVE                             R88 R14
-     1034 CALL                             R87 1 1
-     1035 SETTABLEKS                       R87 R86 K86 ["isUGCBodyBundleType"]
-     1037 GETUPVAL                         R88 12
-     1038 CALL                             R88 0 1
-     1039 JUMPIFNOT                        R88 ; [+6]
-     1040 GETUPVAL                         R87 1
-     1041 GETTABLEKS                       R87 R87 K89 ["isAnimationBundleType"]
-     1043 MOVE                             R88 R14
-     1044 CALL                             R87 1 1
-     1045 JUMP                             ; [+1]
-     1046 LOADNIL                          R87
-     1047 SETTABLEKS                       R87 R86 K89 ["isAnimationBundleType"]
-     1049 GETTABLEKS                       R87 R0 K209 ["state"]
-     1051 GETTABLEKS                       R87 R87 K201 ["validationState"]
-     1053 SETTABLEKS                       R87 R86 K201 ["validationState"]
-     1055 GETTABLEKS                       R87 R0 K203 ["setValidationState"]
-     1057 SETTABLEKS                       R87 R86 K203 ["setValidationState"]
-     1059 GETTABLEKS                       R87 R0 K209 ["state"]
-     1061 GETTABLEKS                       R87 R87 K202 ["validationFailureReasons"]
-     1063 SETTABLEKS                       R87 R86 K202 ["validationFailureReasons"]
-     1065 GETTABLEKS                       R87 R0 K204 ["setValidationFailureReasons"]
-     1067 SETTABLEKS                       R87 R86 K204 ["setValidationFailureReasons"]
-     1069 GETTABLEKS                       R87 R0 K209 ["state"]
-     1071 GETTABLEKS                       R87 R87 K205 ["ugcBundleValidationResults"]
-     1073 SETTABLEKS                       R87 R86 K244 ["validationResults"]
-     1075 GETTABLEKS                       R87 R0 K206 ["setUGCBundleValidationResults"]
-     1077 SETTABLEKS                       R87 R86 K206 ["setUGCBundleValidationResults"]
-     1079 GETTABLEKS                       R87 R0 K209 ["state"]
-     1081 GETTABLEKS                       R87 R87 K247 ["currentAssetType"]
-     1083 SETTABLEKS                       R87 R86 K13 ["assetTypeEnum"]
-     1085 GETTABLEKS                       R87 R2 K92 ["instances"]
-     1087 SETTABLEKS                       R87 R86 K92 ["instances"]
-     1089 GETTABLEKS                       R87 R2 K93 ["allowedBundleTypeSettings"]
-     1091 SETTABLEKS                       R87 R86 K93 ["allowedBundleTypeSettings"]
-     1093 GETTABLEKS                       R87 R2 K245 ["onAssetValidationResultChanged"]
-     1095 SETTABLEKS                       R87 R86 K245 ["onAssetValidationResultChanged"]
-     1097 CALL                             R84 2 1
-     1098 SETTABLEKS                       R84 R83 K240 ["UGCBundleValidation"]
-     1100 JUMPIFNOT                        R70 ; [+26]
-     1101 GETUPVAL                         R84 8
-     1102 GETTABLEKS                       R84 R84 K96 ["createElement"]
-     1104 GETUPVAL                         R85 14
-     1105 DUPTABLE                         R86 K248 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
-     1106 GETIMPORT                        R87 K237 [Enum.AutomaticSize.Y]
-     1108 SETTABLEKS                       R87 R86 K164 ["AutomaticSize"]
-     1110 GETIMPORT                        R87 K127 [Enum.FillDirection.Vertical]
-     1112 SETTABLEKS                       R87 R86 K140 ["Layout"]
-     1114 LOADN                            R87 2
-     1115 SETTABLEKS                       R87 R86 K3 ["LayoutOrder"]
-     1117 GETIMPORT                        R87 K239 [UDim2.fromScale]
-     1119 LOADN                            R88 1
-     1120 LOADN                            R89 0
-     1121 CALL                             R87 2 1
-     1122 SETTABLEKS                       R87 R86 K2 ["Size"]
-     1124 MOVE                             R87 R70
-     1125 CALL                             R84 3 1
-     1126 JUMP                             ; [+1]
-     1127 LOADNIL                          R84
-     1128 SETTABLEKS                       R84 R83 K241 ["MissingOptionalAccessoriesMsg"]
-     1130 JUMPIFNOT                        R71 ; [+26]
-     1131 GETUPVAL                         R84 8
-     1132 GETTABLEKS                       R84 R84 K96 ["createElement"]
-     1134 GETUPVAL                         R85 14
-     1135 DUPTABLE                         R86 K248 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
-     1136 GETIMPORT                        R87 K237 [Enum.AutomaticSize.Y]
-     1138 SETTABLEKS                       R87 R86 K164 ["AutomaticSize"]
-     1140 GETIMPORT                        R87 K127 [Enum.FillDirection.Vertical]
-     1142 SETTABLEKS                       R87 R86 K140 ["Layout"]
-     1144 LOADN                            R87 3
-     1145 SETTABLEKS                       R87 R86 K3 ["LayoutOrder"]
-     1147 GETIMPORT                        R87 K239 [UDim2.fromScale]
-     1149 LOADN                            R88 1
-     1150 LOADN                            R89 0
-     1151 CALL                             R87 2 1
-     1152 SETTABLEKS                       R87 R86 K2 ["Size"]
-     1154 MOVE                             R87 R71
-     1155 CALL                             R84 3 1
-     1156 JUMP                             ; [+1]
-     1157 LOADNIL                          R84
-     1158 SETTABLEKS                       R84 R83 K242 ["UnknownMeshPartsMsgChildren"]
-     1160 CALL                             R80 3 1
-     1161 SETTABLEKS                       R80 R79 K233 ["ValidationPane"]
-     1163 CALL                             R76 3 1
-     1164 JUMP                             ; [+1]
-     1165 LOADNIL                          R76
-     1166 SETTABLEKS                       R76 R75 K106 ["ContentTypeBodyValidation"]
-     1168 GETTABLEKS                       R77 R2 K198 ["dataSharingEnabled"]
-     1170 JUMPIFNOT                        R77 ; [+32]
-     1171 GETUPVAL                         R77 1
-     1172 GETTABLEKS                       R77 R77 K85 ["isUGCBundleType"]
-     1174 MOVE                             R78 R14
-     1175 CALL                             R77 1 1
-     1176 JUMPIF                           R77 ; [+6]
-     1177 GETUPVAL                         R77 1
-     1178 GETTABLEKS                       R77 R77 K249 ["isCatalogAsset"]
-     1180 MOVE                             R78 R14
-     1181 CALL                             R77 1 1
-     1182 JUMPIFNOT                        R77 ; [+20]
-     1183 GETUPVAL                         R76 8
-     1184 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1186 GETUPVAL                         R77 30
-     1187 DUPTABLE                         R78 K250 [{"LayoutOrder", "dataSharingToggled", "onDataConsentToggleClick"}]
-     1188 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1190 CALL                             R79 1 1
-     1191 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1193 GETTABLEKS                       R79 R2 K199 ["dataSharingToggled"]
-     1195 SETTABLEKS                       R79 R78 K199 ["dataSharingToggled"]
-     1197 GETTABLEKS                       R79 R2 K200 ["onDataConsentToggleClick"]
-     1199 SETTABLEKS                       R79 R78 K200 ["onDataConsentToggleClick"]
-     1201 CALL                             R76 2 1
-     1202 JUMP                             ; [+1]
-     1203 LOADNIL                          R76
-     1204 SETTABLEKS                       R76 R75 K107 ["DataSharingConsent"]
-     1206 JUMPIF                           R45 ; [+36]
-     1207 JUMPIFNOT                        R40 ; [+35]
-     1208 GETUPVAL                         R76 8
-     1209 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1211 GETUPVAL                         R77 21
-     1212 DUPTABLE                         R78 K251 [{"Title", "owner", "TotalHeight", "onDropDownSelect", "preselectedGroupId", "LayoutOrder"}]
-     1213 LOADK                            R81 K87 ["General"]
-     1214 LOADK                            R82 K108 ["Ownership"]
-     1215 NAMECALL                         R79 R61 K74 ["getText"]
-     1217 CALL                             R79 3 1
-     1218 SETTABLEKS                       R79 R78 K101 ["Title"]
-     1220 SETTABLEKS                       R9 R78 K8 ["owner"]
-     1222 LOADN                            R79 70
-     1223 SETTABLEKS                       R79 R78 K183 ["TotalHeight"]
-     1225 SETTABLEKS                       R26 R78 K210 ["onDropDownSelect"]
-     1227 GETUPVAL                         R80 22
-     1228 CALL                             R80 0 1
-     1229 JUMPIFNOT                        R80 ; [+3]
-     1230 GETTABLEKS                       R79 R2 K211 ["preselectedGroupId"]
-     1232 JUMP                             ; [+1]
-     1233 LOADNIL                          R79
-     1234 SETTABLEKS                       R79 R78 K211 ["preselectedGroupId"]
-     1236 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1238 CALL                             R79 1 1
-     1239 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1241 CALL                             R76 2 1
-     1242 JUMP                             ; [+1]
-     1243 LOADNIL                          R76
-     1244 SETTABLEKS                       R76 R75 K108 ["Ownership"]
-     1246 MOVE                             R76 R22
-     1247 JUMPIFNOT                        R76 ; [+58]
-     1248 GETUPVAL                         R77 31
-     1249 CALL                             R77 0 1
-     1250 JUMPIFNOT                        R77 ; [+14]
-     1251 GETUPVAL                         R76 25
-     1252 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1254 GETUPVAL                         R77 24
-     1255 GETTABLEKS                       R77 R77 K252 ["Divider"]
-     1257 DUPTABLE                         R78 K253 [{"LayoutOrder"}]
-     1258 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1260 CALL                             R79 1 1
-     1261 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1263 CALL                             R76 2 1
-     1264 JUMP                             ; [+41]
-     1265 GETUPVAL                         R76 8
-     1266 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1268 LOADK                            R77 K254 ["Frame"]
-     1269 DUPTABLE                         R78 K255 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-     1270 LOADN                            R79 1
-     1271 SETTABLEKS                       R79 R78 K155 ["BackgroundTransparency"]
-     1273 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1275 CALL                             R79 1 1
-     1276 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1278 GETIMPORT                        R79 K147 [UDim2.new]
-     1280 LOADN                            R80 1
-     1281 LOADN                            R81 0
-     1282 LOADN                            R82 0
-     1283 LOADN                            R83 20
-     1284 CALL                             R79 4 1
-     1285 SETTABLEKS                       R79 R78 K2 ["Size"]
-     1287 DUPTABLE                         R79 K257 [{"Separator"}]
-     1288 GETUPVAL                         R80 8
-     1289 GETTABLEKS                       R80 R80 K96 ["createElement"]
-     1291 GETUPVAL                         R81 32
-     1292 DUPTABLE                         R82 K259 [{"Position"}]
-     1293 GETIMPORT                        R83 K147 [UDim2.new]
-     1295 LOADK                            R84 K4 ["allowCopy"]
-     1296 LOADN                            R85 0
-     1297 LOADK                            R86 K4 ["allowCopy"]
-     1298 LOADN                            R87 0
-     1299 CALL                             R83 4 1
-     1300 SETTABLEKS                       R83 R82 K258 ["Position"]
-     1302 CALL                             R80 2 1
-     1303 SETTABLEKS                       R80 R79 K256 ["Separator"]
-     1305 CALL                             R76 3 1
-     1306 SETTABLEKS                       R76 R75 K109 ["DividerBase"]
-     1308 JUMPIFNOT                        R44 ; [+24]
-     1309 GETUPVAL                         R76 8
-     1310 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1312 GETUPVAL                         R77 33
-     1313 DUPTABLE                         R78 K265 [{"AssetId", "AssetType", "AllowSelectPrivate", "LayoutOrder", "IsAssetPublic", "OnSelected"}]
-     1314 GETTABLEKS                       R79 R2 K30 ["assetId"]
-     1316 SETTABLEKS                       R79 R78 K261 ["AssetId"]
-     1318 SETTABLEKS                       R14 R78 K18 ["AssetType"]
-     1320 SETTABLEKS                       R6 R78 K262 ["AllowSelectPrivate"]
-     1322 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1324 CALL                             R79 1 1
-     1325 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1327 SETTABLEKS                       R15 R78 K263 ["IsAssetPublic"]
-     1329 SETTABLEKS                       R28 R78 K264 ["OnSelected"]
-     1331 CALL                             R76 2 1
-     1332 JUMP                             ; [+1]
-     1333 LOADNIL                          R76
-     1334 SETTABLEKS                       R76 R75 K110 ["Sharing"]
-     1336 JUMPIFNOT                        R44 ; [+59]
-     1337 GETUPVAL                         R77 31
-     1338 CALL                             R77 0 1
-     1339 JUMPIFNOT                        R77 ; [+14]
-     1340 GETUPVAL                         R76 25
-     1341 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1343 GETUPVAL                         R77 24
-     1344 GETTABLEKS                       R77 R77 K252 ["Divider"]
-     1346 DUPTABLE                         R78 K253 [{"LayoutOrder"}]
-     1347 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1349 CALL                             R79 1 1
-     1350 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1352 CALL                             R76 2 1
-     1353 JUMP                             ; [+43]
-     1354 GETUPVAL                         R76 8
-     1355 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1357 LOADK                            R77 K254 ["Frame"]
-     1358 DUPTABLE                         R78 K255 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-     1359 LOADN                            R79 1
-     1360 SETTABLEKS                       R79 R78 K155 ["BackgroundTransparency"]
-     1362 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1364 CALL                             R79 1 1
-     1365 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1367 GETIMPORT                        R79 K147 [UDim2.new]
-     1369 LOADN                            R80 1
-     1370 LOADN                            R81 0
-     1371 LOADN                            R82 0
-     1372 LOADN                            R83 20
-     1373 CALL                             R79 4 1
-     1374 SETTABLEKS                       R79 R78 K2 ["Size"]
-     1376 DUPTABLE                         R79 K257 [{"Separator"}]
-     1377 GETUPVAL                         R80 8
-     1378 GETTABLEKS                       R80 R80 K96 ["createElement"]
-     1380 GETUPVAL                         R81 32
-     1381 DUPTABLE                         R82 K259 [{"Position"}]
-     1382 GETIMPORT                        R83 K147 [UDim2.new]
-     1384 LOADK                            R84 K4 ["allowCopy"]
-     1385 LOADN                            R85 0
-     1386 LOADK                            R86 K4 ["allowCopy"]
-     1387 LOADN                            R87 0
-     1388 CALL                             R83 4 1
-     1389 SETTABLEKS                       R83 R82 K258 ["Position"]
-     1391 CALL                             R80 2 1
-     1392 SETTABLEKS                       R80 R79 K256 ["Separator"]
-     1394 CALL                             R76 3 1
-     1395 JUMP                             ; [+1]
-     1396 LOADNIL                          R76
-     1397 SETTABLEKS                       R76 R75 K111 ["SharingDivider"]
-     1399 JUMPIFNOT                        R22 ; [+109]
-     1400 GETUPVAL                         R76 8
-     1401 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1403 GETUPVAL                         R77 14
-     1404 DUPTABLE                         R78 K266 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
-     1405 GETIMPORT                        R79 K237 [Enum.AutomaticSize.Y]
-     1407 SETTABLEKS                       R79 R78 K164 ["AutomaticSize"]
-     1409 GETIMPORT                        R79 K127 [Enum.FillDirection.Vertical]
-     1411 SETTABLEKS                       R79 R78 K140 ["Layout"]
-     1413 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1415 CALL                             R79 1 1
-     1416 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1418 DUPTABLE                         R79 K267 [{"Top"}]
-     1419 LOADN                            R80 20
-     1420 SETTABLEKS                       R80 R79 K132 ["Top"]
-     1422 SETTABLEKS                       R79 R78 K97 ["Padding"]
-     1424 DUPTABLE                         R79 K270 [{"CreatorStoreConfigurationText", "CreatorStoreConfigurationLink"}]
-     1425 GETUPVAL                         R80 8
-     1426 GETTABLEKS                       R80 R80 K96 ["createElement"]
-     1428 GETUPVAL                         R81 34
-     1429 DUPTABLE                         R82 K272 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder"}]
-     1430 GETTABLEKS                       R83 R2 K71 ["Localization"]
-     1432 LOADK                            R85 K17 ["Enum"]
-     1433 LOADK                            R86 K18 ["AssetType"]
-     1434 NAMECALL                         R83 R83 K74 ["getText"]
-     1436 CALL                             R83 3 1
-     1437 SETTABLEKS                       R83 R82 K166 ["Text"]
-     1439 GETTABLEKS                       R83 R1 K275 ["uploadResult"]
-     1441 GETTABLEKS                       R83 R83 K276 ["text"]
-     1443 SETTABLEKS                       R83 R82 K271 ["TextColor"]
-     1445 GETUPVAL                         R83 15
-     1446 GETTABLEKS                       R83 R83 K277 ["FONT_SIZE_LARGE"]
-     1448 SETTABLEKS                       R83 R82 K171 ["TextSize"]
-     1450 GETIMPORT                        R83 K147 [UDim2.new]
-     1452 LOADN                            R84 1
-     1453 LOADN                            R85 0
-     1454 LOADN                            R86 0
-     1455 LOADN                            R87 24
-     1456 CALL                             R83 4 1
-     1457 SETTABLEKS                       R83 R82 K2 ["Size"]
-     1459 NAMECALL                         R83 R62 K145 ["getNextOrder"]
-     1461 CALL                             R83 1 1
-     1462 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-     1464 CALL                             R80 2 1
-     1465 SETTABLEKS                       R80 R79 K268 ["CreatorStoreConfigurationText"]
-     1467 GETUPVAL                         R80 8
-     1468 GETTABLEKS                       R80 R80 K96 ["createElement"]
-     1470 GETUPVAL                         R81 35
-     1471 DUPTABLE                         R82 K279 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder", "OnClick"}]
-     1472 SETTABLEKS                       R23 R82 K166 ["Text"]
-     1474 GETTABLEKS                       R83 R1 K275 ["uploadResult"]
-     1476 GETTABLEKS                       R83 R83 K280 ["link"]
-     1478 SETTABLEKS                       R83 R82 K271 ["TextColor"]
-     1480 GETUPVAL                         R83 15
-     1481 GETTABLEKS                       R83 R83 K277 ["FONT_SIZE_LARGE"]
-     1483 SETTABLEKS                       R83 R82 K171 ["TextSize"]
-     1485 GETIMPORT                        R83 K147 [UDim2.new]
-     1487 LOADN                            R84 1
-     1488 LOADN                            R85 0
-     1489 LOADN                            R86 0
-     1490 LOADN                            R87 24
-     1491 CALL                             R83 4 1
-     1492 SETTABLEKS                       R83 R82 K2 ["Size"]
-     1494 NAMECALL                         R83 R62 K145 ["getNextOrder"]
-     1496 CALL                             R83 1 1
-     1497 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-     1499 NEWCLOSURE                       R83 P4
-     1500 CAPTURE                          UPVAL U36
-     1501 CAPTURE                          VAL R23
-     1502 SETTABLEKS                       R83 R82 K278 ["OnClick"]
-     1504 CALL                             R80 2 1
-     1505 SETTABLEKS                       R80 R79 K269 ["CreatorStoreConfigurationLink"]
-     1507 CALL                             R76 3 1
-     1508 JUMP                             ; [+1]
-     1509 LOADNIL                          R76
-     1510 SETTABLEKS                       R76 R75 K112 ["CreatorStoreConfigurationFrame"]
-     1512 MOVE                             R76 R42
-     1513 JUMPIFNOT                        R76 ; [+27]
-     1514 GETUPVAL                         R76 8
-     1515 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1517 GETUPVAL                         R77 37
-     1518 DUPTABLE                         R78 K284 [{"Title", "TotalHeight", "CommentEnabled", "CommentOn", "ToggleCallback", "LayoutOrder"}]
-     1519 LOADK                            R81 K87 ["General"]
-     1520 LOADK                            R82 K29 ["isCreatorStoreAssetNotIncludingAnimation"]
-     1521 NAMECALL                         R79 R61 K74 ["getText"]
-     1523 CALL                             R79 3 1
-     1524 SETTABLEKS                       R79 R78 K101 ["Title"]
-     1526 LOADN                            R79 80
-     1527 SETTABLEKS                       R79 R78 K183 ["TotalHeight"]
-     1529 SETTABLEKS                       R11 R78 K281 ["CommentEnabled"]
-     1531 SETTABLEKS                       R12 R78 K282 ["CommentOn"]
-     1533 SETTABLEKS                       R30 R78 K283 ["ToggleCallback"]
-     1535 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1537 CALL                             R79 1 1
-     1538 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1540 CALL                             R76 2 1
-     1541 SETTABLEKS                       R76 R75 K113 ["Comment"]
-     1543 MOVE                             R76 R21
-     1544 JUMPIFNOT                        R76 ; [+31]
-     1545 GETUPVAL                         R76 8
-     1546 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1548 GETUPVAL                         R77 38
-     1549 DUPTABLE                         R78 K286 [{"Title", "TotalHeight", "DeleteLocal", "ToggleCallback", "LayoutOrder"}]
-     1550 LOADK                            R81 K87 ["General"]
-     1551 LOADK                            R82 K114 ["DeleteLocal"]
-     1552 NAMECALL                         R79 R61 K74 ["getText"]
-     1554 CALL                             R79 3 1
-     1555 SETTABLEKS                       R79 R78 K101 ["Title"]
-     1557 GETUPVAL                         R80 12
-     1558 CALL                             R80 0 1
-     1559 JUMPIFNOT                        R80 ; [+3]
-     1560 JUMPIFNOT                        R21 ; [+2]
-     1561 LOADN                            R79 120
-     1562 JUMP                             ; [+1]
-     1563 LOADN                            R79 80
-     1564 SETTABLEKS                       R79 R78 K183 ["TotalHeight"]
-     1566 SETTABLEKS                       R13 R78 K114 ["DeleteLocal"]
-     1568 SETTABLEKS                       R31 R78 K283 ["ToggleCallback"]
-     1570 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1572 CALL                             R79 1 1
-     1573 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1575 CALL                             R76 2 1
-     1576 SETTABLEKS                       R76 R75 K114 ["DeleteLocal"]
-     1578 GETUPVAL                         R76 12
-     1579 CALL                             R76 0 1
-     1580 JUMPIFNOT                        R76 ; [+71]
-     1581 MOVE                             R76 R21
-     1582 JUMPIFNOT                        R76 ; [+69]
-     1583 GETUPVAL                         R76 25
-     1584 GETTABLEKS                       R76 R76 K96 ["createElement"]
-     1586 GETUPVAL                         R77 24
-     1587 GETTABLEKS                       R77 R77 K214 ["View"]
-     1589 DUPTABLE                         R78 K287 [{"tag", "LayoutOrder"}]
-     1590 LOADK                            R79 K32 [typeof]
-     1591 SETTABLEKS                       R79 R78 K215 ["tag"]
-     1593 NAMECALL                         R79 R62 K145 ["getNextOrder"]
-     1595 CALL                             R79 1 1
-     1596 SETTABLEKS                       R79 R78 K3 ["LayoutOrder"]
-     1598 DUPTABLE                         R79 K290 [{"Section"}]
-     1599 GETUPVAL                         R80 25
-     1600 GETTABLEKS                       R80 R80 K96 ["createElement"]
-     1602 GETUPVAL                         R81 28
-     1603 DUPTABLE                         R82 K292 [{"LayoutOrder", "Title", "AutomaticContentHeight", "Size"}]
-     1604 LOADN                            R83 1
-     1605 SETTABLEKS                       R83 R82 K3 ["LayoutOrder"]
-     1607 LOADK                            R85 K87 ["General"]
-     1608 LOADK                            R86 K37 ["onDescChange"]
-     1609 NAMECALL                         R83 R61 K74 ["getText"]
-     1611 CALL                             R83 3 1
-     1612 SETTABLEKS                       R83 R82 K101 ["Title"]
-     1614 LOADB                            R83 1
-     1615 SETTABLEKS                       R83 R82 K291 ["AutomaticContentHeight"]
-     1617 GETIMPORT                        R83 K147 [UDim2.new]
-     1619 LOADN                            R84 1
-     1620 LOADN                            R85 0
-     1621 LOADN                            R86 0
-     1622 LOADN                            R87 0
-     1623 CALL                             R83 4 1
-     1624 SETTABLEKS                       R83 R82 K2 ["Size"]
-     1626 DUPTABLE                         R83 K295 [{"AnimationCheckboxCol"}]
-     1627 GETUPVAL                         R84 25
-     1628 GETTABLEKS                       R84 R84 K96 ["createElement"]
-     1630 GETUPVAL                         R85 39
-     1631 DUPTABLE                         R86 K298 [{"LayoutOrder", "Localization", "OnSelectionChanged", "OnSectionValidityChanged"}]
-     1632 LOADN                            R87 1
-     1633 SETTABLEKS                       R87 R86 K3 ["LayoutOrder"]
-     1635 SETTABLEKS                       R61 R86 K71 ["Localization"]
-     1637 GETTABLEKS                       R87 R2 K299 ["onAnimationSelectionChanged"]
-     1639 SETTABLEKS                       R87 R86 K296 ["OnSelectionChanged"]
-     1641 GETTABLEKS                       R87 R2 K300 ["onanimationSectionValidityChanged"]
-     1643 SETTABLEKS                       R87 R86 K297 ["OnSectionValidityChanged"]
-     1645 CALL                             R84 2 1
-     1646 SETTABLEKS                       R84 R83 K294 ["AnimationCheckboxCol"]
-     1648 CALL                             R80 3 1
-     1649 SETTABLEKS                       R80 R79 K289 ["Section"]
-     1651 CALL                             R76 3 1
-     1652 SETTABLEKS                       R76 R75 K115 ["AnimationPackProperties"]
-     1654 CALL                             R72 3 -1
-     1655 RETURN                           R72 -1
+      216 LOADNIL                          R56
+      217 LOADNIL                          R57
+      218 LOADNIL                          R58
+      219 GETTABLEKS                       R59 R2 K69 ["Localization"]
+      221 JUMPIF                           R17 ; [+3]
+      222 GETUPVAL                         R60 5
+      223 JUMPIFNOT                        R60 ; [+9]
+      224 JUMPIFNOT                        R18 ; [+8]
+      225 JUMPIF                           R15 ; [+7]
+      226 JUMPIFNOT                        R10 ; [+6]
+      227 LOADK                            R62 K70 ["AssetConfigCopy"]
+      228 LOADK                            R63 K71 ["MustShare"]
+      229 NAMECALL                         R60 R59 K72 ["getText"]
+      231 CALL                             R60 3 1
+      232 MOVE                             R57 R60
+      233 JUMPIFNOT                        R19 ; [+6]
+      234 LOADK                            R62 K73 ["AssetConfig"]
+      235 LOADK                            R63 K74 ["ModelPublishWarning"]
+      236 NAMECALL                         R60 R59 K72 ["getText"]
+      238 CALL                             R60 3 1
+      239 MOVE                             R58 R60
+      240 GETUPVAL                         R60 6
+      241 GETTABLEKS                       R60 R60 K75 ["new"]
+      243 CALL                             R60 0 1
+      244 GETTABLEKS                       R61 R1 K76 ["publishAsset"]
+      246 LOADN                            R62 80
+      247 JUMPIF                           R5 ; [+1]
+      248 ADDK                             R62 R62 K77 [60]
+      249 NEWTABLE                         R63 4 0
+      251 SETTABLEKS                       R3 R63 K2 ["Size"]
+      253 SETTABLEKS                       R4 R63 K3 ["LayoutOrder"]
+      255 GETUPVAL                         R64 7
+      256 GETTABLEKS                       R64 R64 K78 ["Ref"]
+      258 GETTABLEKS                       R65 R0 K79 ["baseFrameRef"]
+      260 SETTABLE                         R65 R63 R64
+      261 LOADNIL                          R64
+      262 GETTABLEKS                       R65 R2 K80 ["assetMediaMetadataArray"]
+      264 JUMPIFNOT                        R65 ; [+3]
+      265 GETTABLEKS                       R64 R2 K80 ["assetMediaMetadataArray"]
+      267 JUMP                             ; [+11]
+      268 GETTABLEKS                       R65 R2 K81 ["assetMediaIds"]
+      270 JUMPIFEQKNIL                     R65 ; [+8]
+      272 GETUPVAL                         R65 8
+      273 GETTABLEKS                       R66 R2 K81 ["assetMediaIds"]
+      275 DUPCLOSURE                       R67 K82 [PROTO_13]
+      276 CAPTURE                          UPVAL U9
+      277 CALL                             R65 2 1
+      278 MOVE                             R64 R65
+      279 JUMPIFNOT                        R20 ; [+7]
+      280 MOVE                             R65 R56
+      281 JUMPIFNOT                        R65 ; [+6]
+      282 JUMPIFEQKNIL                     R33 ; [+2]
+      284 LOADB                            R65 0 +1
+      285 LOADB                            R65 1
+      286 JUMP                             ; [+1]
+      287 MOVE                             R65 R5
+      288 LOADNIL                          R66
+      289 LOADNIL                          R67
+      290 LOADNIL                          R68
+      291 LOADNIL                          R69
+      292 GETUPVAL                         R70 1
+      293 GETTABLEKS                       R70 R70 K83 ["isUGCBundleType"]
+      295 MOVE                             R71 R14
+      296 CALL                             R70 1 1
+      297 MOVE                             R66 R70
+      298 GETUPVAL                         R70 10
+      299 CALL                             R70 0 1
+      300 JUMPIFNOT                        R70 ; [+36]
+      301 GETUPVAL                         R70 1
+      302 GETTABLEKS                       R70 R70 K84 ["isUGCBodyBundleType"]
+      304 MOVE                             R71 R14
+      305 CALL                             R70 1 1
+      306 JUMPIFNOT                        R70 ; [+7]
+      307 LOADK                            R72 K85 ["General"]
+      308 LOADK                            R73 K86 ["BodyValidation"]
+      309 NAMECALL                         R70 R59 K72 ["getText"]
+      311 CALL                             R70 3 1
+      312 MOVE                             R67 R70
+      313 JUMP                             ; [+29]
+      314 GETUPVAL                         R70 11
+      315 CALL                             R70 0 1
+      316 JUMPIFNOT                        R70 ; [+13]
+      317 GETUPVAL                         R70 1
+      318 GETTABLEKS                       R70 R70 K87 ["isAnimationBundleType"]
+      320 MOVE                             R71 R14
+      321 CALL                             R70 1 1
+      322 JUMPIFNOT                        R70 ; [+7]
+      323 LOADK                            R72 K85 ["General"]
+      324 LOADK                            R73 K88 ["AvatarAnimationsValidation"]
+      325 NAMECALL                         R70 R59 K72 ["getText"]
+      327 CALL                             R70 3 1
+      328 MOVE                             R67 R70
+      329 JUMP                             ; [+13]
+      330 LOADK                            R72 K85 ["General"]
+      331 LOADK                            R73 K89 ["ShoeValidation"]
+      332 NAMECALL                         R70 R59 K72 ["getText"]
+      334 CALL                             R70 3 1
+      335 MOVE                             R67 R70
+      336 JUMP                             ; [+6]
+      337 LOADK                            R72 K85 ["General"]
+      338 LOADK                            R73 K86 ["BodyValidation"]
+      339 NAMECALL                         R70 R59 K72 ["getText"]
+      341 CALL                             R70 3 1
+      342 MOVE                             R67 R70
+      343 GETTABLEKS                       R70 R2 K90 ["instances"]
+      345 JUMPIFNOT                        R70 ; [+20]
+      346 GETTABLEKS                       R73 R2 K90 ["instances"]
+      348 GETTABLEN                        R72 R73 1
+      349 GETTABLEKS                       R73 R2 K91 ["allowedBundleTypeSettings"]
+      351 MOVE                             R74 R14
+      352 MOVE                             R75 R1
+      353 NAMECALL                         R70 R0 K92 ["getMissingOptionalPartsMessage"]
+      355 CALL                             R70 5 1
+      356 MOVE                             R68 R70
+      357 GETTABLEKS                       R73 R2 K90 ["instances"]
+      359 GETTABLEN                        R72 R73 1
+      360 MOVE                             R73 R14
+      361 MOVE                             R74 R1
+      362 NAMECALL                         R70 R0 K93 ["getUnknownMeshPartMessage"]
+      364 CALL                             R70 4 1
+      365 MOVE                             R69 R70
+      366 GETUPVAL                         R70 7
+      367 GETTABLEKS                       R70 R70 K94 ["createElement"]
+      369 GETUPVAL                         R71 12
+      370 MOVE                             R72 R63
+      371 DUPTABLE                         R73 K114 [{"Padding", "UIListLayout", "ModelWarningFrame", "Header", "Title", "Description", "AssetTypeSelection", "Creator", "ColorPickerRow", "ContentTypeBodyValidation", "DataSharingConsent", "Ownership", "DividerBase", "Sharing", "SharingDivider", "CreatorStoreConfigurationFrame", "Comment", "DeleteLocal", "AnimationPackProperties"}]
+      372 GETUPVAL                         R74 7
+      373 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      375 LOADK                            R75 K115 ["UIPadding"]
+      376 DUPTABLE                         R76 K120 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+      377 GETIMPORT                        R77 K122 [UDim.new]
+      379 LOADN                            R78 0
+      380 LOADN                            R79 24
+      381 CALL                             R77 2 1
+      382 SETTABLEKS                       R77 R76 K116 ["PaddingTop"]
+      384 GETIMPORT                        R77 K122 [UDim.new]
+      386 LOADN                            R78 0
+      387 LOADN                            R79 24
+      388 CALL                             R77 2 1
+      389 SETTABLEKS                       R77 R76 K117 ["PaddingBottom"]
+      391 GETIMPORT                        R77 K122 [UDim.new]
+      393 LOADN                            R78 0
+      394 LOADN                            R79 24
+      395 CALL                             R77 2 1
+      396 SETTABLEKS                       R77 R76 K118 ["PaddingLeft"]
+      398 GETIMPORT                        R77 K122 [UDim.new]
+      400 LOADN                            R78 0
+      401 LOADN                            R79 24
+      402 CALL                             R77 2 1
+      403 SETTABLEKS                       R77 R76 K119 ["PaddingRight"]
+      405 CALL                             R74 2 1
+      406 SETTABLEKS                       R74 R73 K95 ["Padding"]
+      408 GETUPVAL                         R74 7
+      409 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      411 LOADK                            R75 K96 ["UIListLayout"]
+      412 NEWTABLE                         R76 8 0
+      414 GETIMPORT                        R77 K125 [Enum.FillDirection.Vertical]
+      416 SETTABLEKS                       R77 R76 K123 ["FillDirection"]
+      418 GETIMPORT                        R77 K128 [Enum.HorizontalAlignment.Left]
+      420 SETTABLEKS                       R77 R76 K126 ["HorizontalAlignment"]
+      422 GETIMPORT                        R77 K131 [Enum.VerticalAlignment.Top]
+      424 SETTABLEKS                       R77 R76 K129 ["VerticalAlignment"]
+      426 GETIMPORT                        R77 K133 [Enum.SortOrder.LayoutOrder]
+      428 SETTABLEKS                       R77 R76 K132 ["SortOrder"]
+      430 GETIMPORT                        R77 K122 [UDim.new]
+      432 LOADN                            R78 0
+      433 LOADN                            R79 0
+      434 CALL                             R77 2 1
+      435 SETTABLEKS                       R77 R76 K95 ["Padding"]
+      437 GETUPVAL                         R77 7
+      438 GETTABLEKS                       R77 R77 K134 ["Change"]
+      440 GETTABLEKS                       R77 R77 K135 ["AbsoluteContentSize"]
+      442 GETTABLEKS                       R78 R0 K136 ["refreshCanvas"]
+      444 JUMPIF                           R78 ; [+3]
+      445 NEWCLOSURE                       R78 P1
+      446 CAPTURE                          VAL R0
+      447 CAPTURE                          VAL R3
+      448 SETTABLE                         R78 R76 R77
+      449 GETUPVAL                         R77 7
+      450 GETTABLEKS                       R77 R77 K78 ["Ref"]
+      452 GETTABLEKS                       R78 R0 K137 ["listLayoutRef"]
+      454 SETTABLE                         R78 R76 R77
+      455 CALL                             R74 2 1
+      456 SETTABLEKS                       R74 R73 K96 ["UIListLayout"]
+      458 JUMPIF                           R43 ; [+133]
+      459 JUMPIFNOT                        R19 ; [+132]
+      460 JUMPIFNOT                        R44 ; [+131]
+      461 GETUPVAL                         R74 7
+      462 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      464 GETUPVAL                         R75 13
+      465 DUPTABLE                         R76 K140 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Padding", "Spacing", "VerticalAlignment"}]
+      466 GETIMPORT                        R77 K128 [Enum.HorizontalAlignment.Left]
+      468 SETTABLEKS                       R77 R76 K126 ["HorizontalAlignment"]
+      470 GETIMPORT                        R77 K142 [Enum.FillDirection.Horizontal]
+      472 SETTABLEKS                       R77 R76 K138 ["Layout"]
+      474 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      476 CALL                             R77 1 1
+      477 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      479 GETIMPORT                        R77 K145 [UDim2.new]
+      481 LOADN                            R78 1
+      482 LOADN                            R79 0
+      483 LOADN                            R80 0
+      484 GETUPVAL                         R81 14
+      485 GETTABLEKS                       R81 R81 K146 ["FONT_SIZE_TITLE"]
+      487 CALL                             R77 4 1
+      488 SETTABLEKS                       R77 R76 K2 ["Size"]
+      490 DUPTABLE                         R77 K148 [{"Bottom"}]
+      491 LOADN                            R78 30
+      492 SETTABLEKS                       R78 R77 K147 ["Bottom"]
+      494 SETTABLEKS                       R77 R76 K95 ["Padding"]
+      496 LOADN                            R77 5
+      497 SETTABLEKS                       R77 R76 K139 ["Spacing"]
+      499 GETIMPORT                        R77 K131 [Enum.VerticalAlignment.Top]
+      501 SETTABLEKS                       R77 R76 K129 ["VerticalAlignment"]
+      503 DUPTABLE                         R77 K151 [{"Icon", "WarningText"}]
+      504 GETUPVAL                         R78 7
+      505 GETTABLEKS                       R78 R78 K94 ["createElement"]
+      507 LOADK                            R79 K152 ["ImageLabel"]
+      508 DUPTABLE                         R80 K156 [{"LayoutOrder", "BackgroundTransparency", "Image", "ImageColor3", "Size"}]
+      509 LOADN                            R81 1
+      510 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+      512 LOADN                            R81 1
+      513 SETTABLEKS                       R81 R80 K153 ["BackgroundTransparency"]
+      515 GETUPVAL                         R81 15
+      516 GETTABLEKS                       R81 R81 K157 ["WARNING_ICON"]
+      518 SETTABLEKS                       R81 R80 K154 ["Image"]
+      520 GETTABLEKS                       R81 R61 K158 ["warningIconColor"]
+      522 SETTABLEKS                       R81 R80 K155 ["ImageColor3"]
+      524 GETIMPORT                        R81 K160 [UDim2.fromOffset]
+      526 LOADN                            R82 24
+      527 LOADN                            R83 24
+      528 CALL                             R81 2 1
+      529 SETTABLEKS                       R81 R80 K2 ["Size"]
+      531 CALL                             R78 2 1
+      532 SETTABLEKS                       R78 R77 K149 ["Icon"]
+      534 GETUPVAL                         R78 7
+      535 GETTABLEKS                       R78 R78 K94 ["createElement"]
+      537 LOADK                            R79 K161 ["TextLabel"]
+      538 DUPTABLE                         R80 K170 [{"AutomaticSize", "LayoutOrder", "BackgroundTransparency", "Font", "Size", "Text", "TextWrapped", "TextColor3", "TextXAlignment", "TextYAlignment", "TextSize"}]
+      539 GETIMPORT                        R81 K172 [Enum.AutomaticSize.XY]
+      541 SETTABLEKS                       R81 R80 K162 ["AutomaticSize"]
+      543 LOADN                            R81 2
+      544 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+      546 LOADN                            R81 1
+      547 SETTABLEKS                       R81 R80 K153 ["BackgroundTransparency"]
+      549 GETUPVAL                         R81 14
+      550 GETTABLEKS                       R81 R81 K173 ["FONT"]
+      552 SETTABLEKS                       R81 R80 K163 ["Font"]
+      554 GETIMPORT                        R81 K145 [UDim2.new]
+      556 LOADN                            R82 1
+      557 LOADN                            R83 0
+      558 LOADN                            R84 1
+      559 LOADN                            R85 0
+      560 CALL                             R81 4 1
+      561 SETTABLEKS                       R81 R80 K2 ["Size"]
+      563 SETTABLEKS                       R58 R80 K164 ["Text"]
+      565 LOADB                            R81 1
+      566 SETTABLEKS                       R81 R80 K165 ["TextWrapped"]
+      568 GETTABLEKS                       R81 R1 K174 ["assetConfig"]
+      570 GETTABLEKS                       R81 R81 K175 ["warningColor"]
+      572 SETTABLEKS                       R81 R80 K166 ["TextColor3"]
+      574 GETIMPORT                        R81 K176 [Enum.TextXAlignment.Left]
+      576 SETTABLEKS                       R81 R80 K167 ["TextXAlignment"]
+      578 GETIMPORT                        R81 K178 [Enum.TextYAlignment.Center]
+      580 SETTABLEKS                       R81 R80 K168 ["TextYAlignment"]
+      582 GETUPVAL                         R81 14
+      583 GETTABLEKS                       R81 R81 K146 ["FONT_SIZE_TITLE"]
+      585 SETTABLEKS                       R81 R80 K169 ["TextSize"]
+      587 CALL                             R78 2 1
+      588 SETTABLEKS                       R78 R77 K150 ["WarningText"]
+      590 CALL                             R74 3 1
+      591 JUMP                             ; [+1]
+      592 LOADNIL                          R74
+      593 SETTABLEKS                       R74 R73 K97 ["ModelWarningFrame"]
+      595 JUMPIFNOT                        R20 ; [+19]
+      596 GETUPVAL                         R74 7
+      597 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      599 GETUPVAL                         R75 16
+      600 DUPTABLE                         R76 K179 [{"LayoutOrder", "Title"}]
+      601 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      603 CALL                             R77 1 1
+      604 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      606 LOADK                            R79 K73 ["AssetConfig"]
+      607 LOADK                            R80 K180 ["PublishPluginHeader"]
+      608 NAMECALL                         R77 R59 K72 ["getText"]
+      610 CALL                             R77 3 1
+      611 SETTABLEKS                       R77 R76 K99 ["Title"]
+      613 CALL                             R74 2 1
+      614 JUMP                             ; [+1]
+      615 LOADNIL                          R74
+      616 SETTABLEKS                       R74 R73 K98 ["Header"]
+      618 GETUPVAL                         R74 7
+      619 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      621 GETUPVAL                         R75 17
+      622 DUPTABLE                         R76 K187 [{"Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "showRequiredError", "ErrorCallback", "LayoutOrder"}]
+      623 LOADK                            R79 K85 ["General"]
+      624 LOADK                            R80 K99 ["Title"]
+      625 NAMECALL                         R77 R59 K72 ["getText"]
+      627 CALL                             R77 3 1
+      628 SETTABLEKS                       R77 R76 K99 ["Title"]
+      630 LOADN                            R77 100
+      631 SETTABLEKS                       R77 R76 K181 ["TotalHeight"]
+      633 GETUPVAL                         R77 0
+      634 GETTABLEKS                       R77 R77 K188 ["NAME_CHARACTER_LIMIT"]
+      636 SETTABLEKS                       R77 R76 K182 ["MaxCount"]
+      638 SETTABLEKS                       R24 R76 K183 ["TextChangeCallBack"]
+      640 SETTABLEKS                       R7 R76 K184 ["TextContent"]
+      642 GETUPVAL                         R78 18
+      643 CALL                             R78 0 1
+      644 JUMPIFNOT                        R78 ; [+3]
+      645 GETTABLEKS                       R77 R2 K189 ["showNameRequiredError"]
+      647 JUMP                             ; [+1]
+      648 LOADNIL                          R77
+      649 SETTABLEKS                       R77 R76 K185 ["showRequiredError"]
+      651 NEWCLOSURE                       R77 P2
+      652 CAPTURE                          VAL R0
+      653 CAPTURE                          UPVAL U0
+      654 SETTABLEKS                       R77 R76 K186 ["ErrorCallback"]
+      656 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      658 CALL                             R77 1 1
+      659 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      661 CALL                             R74 2 1
+      662 SETTABLEKS                       R74 R73 K99 ["Title"]
+      664 GETUPVAL                         R74 7
+      665 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      667 GETUPVAL                         R75 17
+      668 DUPTABLE                         R76 K191 [{"BottomRightText", "Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "showRequiredError", "ErrorCallback", "LayoutOrder"}]
+      669 LOADK                            R79 K192 ["AssetConfigDescription"]
+      670 LOADK                            R80 K193 ["AddRobloxLinks"]
+      671 NAMECALL                         R77 R59 K72 ["getText"]
+      673 CALL                             R77 3 1
+      674 SETTABLEKS                       R77 R76 K190 ["BottomRightText"]
+      676 LOADK                            R79 K85 ["General"]
+      677 LOADK                            R80 K100 ["Description"]
+      678 NAMECALL                         R77 R59 K72 ["getText"]
+      680 CALL                             R77 3 1
+      681 SETTABLEKS                       R77 R76 K99 ["Title"]
+      683 LOADN                            R77 180
+      684 SETTABLEKS                       R77 R76 K181 ["TotalHeight"]
+      686 GETUPVAL                         R77 0
+      687 GETTABLEKS                       R77 R77 K194 ["DESCRIPTION_CHARACTER_LIMIT"]
+      689 SETTABLEKS                       R77 R76 K182 ["MaxCount"]
+      691 SETTABLEKS                       R25 R76 K183 ["TextChangeCallBack"]
+      693 SETTABLEKS                       R8 R76 K184 ["TextContent"]
+      695 GETUPVAL                         R78 18
+      696 CALL                             R78 0 1
+      697 JUMPIFNOT                        R78 ; [+3]
+      698 GETTABLEKS                       R77 R2 K195 ["showDescriptionRequiredError"]
+      700 JUMP                             ; [+1]
+      701 LOADNIL                          R77
+      702 SETTABLEKS                       R77 R76 K185 ["showRequiredError"]
+      704 NEWCLOSURE                       R77 P3
+      705 CAPTURE                          VAL R0
+      706 CAPTURE                          UPVAL U0
+      707 SETTABLEKS                       R77 R76 K186 ["ErrorCallback"]
+      709 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      711 CALL                             R77 1 1
+      712 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      714 CALL                             R74 2 1
+      715 SETTABLEKS                       R74 R73 K100 ["Description"]
+      717 JUMPIFNOT                        R43 ; [+62]
+      718 GETUPVAL                         R74 7
+      719 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      721 GETUPVAL                         R75 19
+      722 DUPTABLE                         R76 K206 [{"LayoutOrder", "dataSharingEnabled", "dataSharingToggled", "onDataConsentToggleClick", "validationState", "validationFailureReasons", "setValidationState", "setValidationFailureReasons", "ugcBundleValidationResults", "setUGCBundleValidationResults", "setCurrentAssetType", "instances"}]
+      723 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      725 CALL                             R77 1 1
+      726 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      728 GETTABLEKS                       R77 R2 K196 ["dataSharingEnabled"]
+      730 SETTABLEKS                       R77 R76 K196 ["dataSharingEnabled"]
+      732 GETTABLEKS                       R77 R2 K197 ["dataSharingToggled"]
+      734 SETTABLEKS                       R77 R76 K197 ["dataSharingToggled"]
+      736 GETTABLEKS                       R77 R2 K198 ["onDataConsentToggleClick"]
+      738 SETTABLEKS                       R77 R76 K198 ["onDataConsentToggleClick"]
+      740 GETTABLEKS                       R77 R0 K207 ["state"]
+      742 GETTABLEKS                       R77 R77 K199 ["validationState"]
+      744 SETTABLEKS                       R77 R76 K199 ["validationState"]
+      746 GETTABLEKS                       R77 R0 K207 ["state"]
+      748 GETTABLEKS                       R77 R77 K200 ["validationFailureReasons"]
+      750 SETTABLEKS                       R77 R76 K200 ["validationFailureReasons"]
+      752 GETTABLEKS                       R77 R0 K201 ["setValidationState"]
+      754 SETTABLEKS                       R77 R76 K201 ["setValidationState"]
+      756 GETTABLEKS                       R77 R0 K202 ["setValidationFailureReasons"]
+      758 SETTABLEKS                       R77 R76 K202 ["setValidationFailureReasons"]
+      760 GETTABLEKS                       R77 R0 K207 ["state"]
+      762 GETTABLEKS                       R77 R77 K203 ["ugcBundleValidationResults"]
+      764 SETTABLEKS                       R77 R76 K203 ["ugcBundleValidationResults"]
+      766 GETTABLEKS                       R77 R0 K204 ["setUGCBundleValidationResults"]
+      768 SETTABLEKS                       R77 R76 K204 ["setUGCBundleValidationResults"]
+      770 GETTABLEKS                       R77 R0 K205 ["setCurrentAssetType"]
+      772 SETTABLEKS                       R77 R76 K205 ["setCurrentAssetType"]
+      774 GETTABLEKS                       R77 R2 K90 ["instances"]
+      776 SETTABLEKS                       R77 R76 K90 ["instances"]
+      778 CALL                             R74 2 1
+      779 JUMP                             ; [+1]
+      780 LOADNIL                          R74
+      781 SETTABLEKS                       R74 R73 K101 ["AssetTypeSelection"]
+      783 JUMPIFNOT                        R43 ; [+36]
+      784 JUMPIFNOT                        R38 ; [+35]
+      785 GETUPVAL                         R74 7
+      786 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      788 GETUPVAL                         R75 20
+      789 DUPTABLE                         R76 K210 [{"LayoutOrder", "onDropDownSelect", "owner", "preselectedGroupId", "Title", "TotalHeight"}]
+      790 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      792 CALL                             R77 1 1
+      793 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      795 SETTABLEKS                       R26 R76 K208 ["onDropDownSelect"]
+      797 SETTABLEKS                       R9 R76 K8 ["owner"]
+      799 GETUPVAL                         R78 21
+      800 CALL                             R78 0 1
+      801 JUMPIFNOT                        R78 ; [+3]
+      802 GETTABLEKS                       R77 R2 K209 ["preselectedGroupId"]
+      804 JUMP                             ; [+1]
+      805 LOADNIL                          R77
+      806 SETTABLEKS                       R77 R76 K209 ["preselectedGroupId"]
+      808 LOADK                            R79 K85 ["General"]
+      809 LOADK                            R80 K106 ["Ownership"]
+      810 NAMECALL                         R77 R59 K72 ["getText"]
+      812 CALL                             R77 3 1
+      813 SETTABLEKS                       R77 R76 K99 ["Title"]
+      815 LOADN                            R77 70
+      816 SETTABLEKS                       R77 R76 K181 ["TotalHeight"]
+      818 CALL                             R74 2 1
+      819 JUMP                             ; [+1]
+      820 LOADNIL                          R74
+      821 SETTABLEKS                       R74 R73 K102 ["Creator"]
+      823 GETUPVAL                         R75 22
+      824 CALL                             R75 0 1
+      825 JUMPIFNOT                        R75 ; [+110]
+      826 JUMPIFNOT                        R43 ; [+109]
+      827 JUMPIFNOT                        R38 ; [+108]
+      828 GETTABLEKS                       R75 R2 K211 ["showColorPicker"]
+      830 JUMPIFNOT                        R75 ; [+105]
+      831 GETUPVAL                         R74 7
+      832 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      834 GETUPVAL                         R75 23
+      835 GETTABLEKS                       R75 R75 K212 ["View"]
+      837 DUPTABLE                         R76 K214 [{"tag", "Size", "LayoutOrder"}]
+      838 LOADK                            R77 K215 ["row align-x-left align-y-top size-full-x"]
+      839 SETTABLEKS                       R77 R76 K213 ["tag"]
+      841 GETIMPORT                        R77 K145 [UDim2.new]
+      843 LOADN                            R78 1
+      844 LOADN                            R79 0
+      845 LOADN                            R80 0
+      846 LOADN                            R81 70
+      847 CALL                             R77 4 1
+      848 SETTABLEKS                       R77 R76 K2 ["Size"]
+      850 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      852 CALL                             R77 1 1
+      853 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      855 DUPTABLE                         R77 K217 [{"Title", "ColorPickerButton"}]
+      856 GETUPVAL                         R78 24
+      857 GETTABLEKS                       R78 R78 K94 ["createElement"]
+      859 GETUPVAL                         R79 23
+      860 GETTABLEKS                       R79 R79 K164 ["Text"]
+      862 DUPTABLE                         R80 K218 [{"tag", "Text", "Size", "LayoutOrder"}]
+      863 NEWTABLE                         R81 4 0
+      865 LOADB                            R82 1
+      866 SETTABLEKS                       R82 R81 K219 ["text-align-y-top text-align-x-left"]
+      868 GETUPVAL                         R82 25
+      869 CALL                             R82 0 1
+      870 SETTABLEKS                       R82 R81 K220 ["text-title-small bold content-emphasis"]
+      872 GETUPVAL                         R83 25
+      873 CALL                             R83 0 1
+      874 NOT                              R82 R83
+      875 SETTABLEKS                       R82 R81 K221 ["text-body-large"]
+      877 SETTABLEKS                       R81 R80 K213 ["tag"]
+      879 LOADK                            R83 K85 ["General"]
+      880 LOADK                            R84 K222 ["ThumbnailSkinTone"]
+      881 NAMECALL                         R81 R59 K72 ["getText"]
+      883 CALL                             R81 3 1
+      884 SETTABLEKS                       R81 R80 K164 ["Text"]
+      886 GETIMPORT                        R81 K145 [UDim2.new]
+      888 LOADN                            R82 0
+      889 GETUPVAL                         R83 0
+      890 GETTABLEKS                       R83 R83 K223 ["TITLE_GUTTER_WIDTH"]
+      892 LOADN                            R84 1
+      893 LOADN                            R85 0
+      894 CALL                             R81 4 1
+      895 SETTABLEKS                       R81 R80 K2 ["Size"]
+      897 LOADN                            R81 1
+      898 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+      900 CALL                             R78 2 1
+      901 SETTABLEKS                       R78 R77 K99 ["Title"]
+      903 GETUPVAL                         R78 7
+      904 GETTABLEKS                       R78 R78 K94 ["createElement"]
+      906 GETUPVAL                         R79 26
+      907 DUPTABLE                         R80 K227 [{"selectedColor", "setSelectedColor", "Localization", "showRequiredError", "LayoutOrder", "textColor"}]
+      908 GETTABLEKS                       R81 R2 K224 ["selectedColor"]
+      910 SETTABLEKS                       R81 R80 K224 ["selectedColor"]
+      912 GETTABLEKS                       R81 R2 K225 ["setSelectedColor"]
+      914 SETTABLEKS                       R81 R80 K225 ["setSelectedColor"]
+      916 SETTABLEKS                       R59 R80 K69 ["Localization"]
+      918 GETTABLEKS                       R81 R2 K228 ["showColorPickerRequiredError"]
+      920 SETTABLEKS                       R81 R80 K185 ["showRequiredError"]
+      922 LOADN                            R81 2
+      923 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+      925 GETTABLEKS                       R81 R1 K76 ["publishAsset"]
+      927 GETTABLEKS                       R81 R81 K229 ["titleTextColor"]
+      929 SETTABLEKS                       R81 R80 K226 ["textColor"]
+      931 CALL                             R78 2 1
+      932 SETTABLEKS                       R78 R77 K216 ["ColorPickerButton"]
+      934 CALL                             R74 3 1
+      935 JUMP                             ; [+1]
+      936 LOADNIL                          R74
+      937 SETTABLEKS                       R74 R73 K103 ["ColorPickerRow"]
+      939 JUMPIFNOT                        R66 ; [+193]
+      940 GETUPVAL                         R74 7
+      941 GETTABLEKS                       R74 R74 K94 ["createElement"]
+      943 GETUPVAL                         R75 27
+      944 DUPTABLE                         R76 K230 [{"AutomaticSize", "LayoutOrder", "Title"}]
+      945 GETIMPORT                        R77 K172 [Enum.AutomaticSize.XY]
+      947 SETTABLEKS                       R77 R76 K162 ["AutomaticSize"]
+      949 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+      951 CALL                             R77 1 1
+      952 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+      954 SETTABLEKS                       R67 R76 K99 ["Title"]
+      956 DUPTABLE                         R77 K232 [{"ValidationPane"}]
+      957 GETUPVAL                         R78 7
+      958 GETTABLEKS                       R78 R78 K94 ["createElement"]
+      960 GETUPVAL                         R79 13
+      961 DUPTABLE                         R80 K233 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing", "Padding"}]
+      962 GETIMPORT                        R81 K235 [Enum.AutomaticSize.Y]
+      964 SETTABLEKS                       R81 R80 K162 ["AutomaticSize"]
+      966 GETIMPORT                        R81 K125 [Enum.FillDirection.Vertical]
+      968 SETTABLEKS                       R81 R80 K138 ["Layout"]
+      970 LOADN                            R81 1
+      971 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+      973 GETIMPORT                        R81 K237 [UDim2.fromScale]
+      975 LOADN                            R82 1
+      976 LOADN                            R83 0
+      977 CALL                             R81 2 1
+      978 SETTABLEKS                       R81 R80 K2 ["Size"]
+      980 LOADN                            R81 18
+      981 SETTABLEKS                       R81 R80 K139 ["Spacing"]
+      983 DUPTABLE                         R81 K148 [{"Bottom"}]
+      984 LOADN                            R82 24
+      985 SETTABLEKS                       R82 R81 K147 ["Bottom"]
+      987 SETTABLEKS                       R81 R80 K95 ["Padding"]
+      989 DUPTABLE                         R81 K241 [{"UGCBundleValidation", "MissingOptionalAccessoriesMsg", "UnknownMeshPartsMsgChildren"}]
+      990 GETUPVAL                         R82 7
+      991 GETTABLEKS                       R82 R82 K94 ["createElement"]
+      993 GETUPVAL                         R83 28
+      994 DUPTABLE                         R84 K244 [{"LayoutOrder", "isUGCBodyBundleType", "isAnimationBundleType", "validationState", "setValidationState", "validationFailureReasons", "setValidationFailureReasons", "validationResults", "setUGCBundleValidationResults", "assetTypeEnum", "instances", "allowedBundleTypeSettings", "onAssetValidationResultChanged"}]
+      995 LOADN                            R85 1
+      996 SETTABLEKS                       R85 R84 K3 ["LayoutOrder"]
+      998 GETUPVAL                         R85 1
+      999 GETTABLEKS                       R85 R85 K84 ["isUGCBodyBundleType"]
+     1001 MOVE                             R86 R14
+     1002 CALL                             R85 1 1
+     1003 SETTABLEKS                       R85 R84 K84 ["isUGCBodyBundleType"]
+     1005 GETUPVAL                         R86 11
+     1006 CALL                             R86 0 1
+     1007 JUMPIFNOT                        R86 ; [+6]
+     1008 GETUPVAL                         R85 1
+     1009 GETTABLEKS                       R85 R85 K87 ["isAnimationBundleType"]
+     1011 MOVE                             R86 R14
+     1012 CALL                             R85 1 1
+     1013 JUMP                             ; [+1]
+     1014 LOADNIL                          R85
+     1015 SETTABLEKS                       R85 R84 K87 ["isAnimationBundleType"]
+     1017 GETTABLEKS                       R85 R0 K207 ["state"]
+     1019 GETTABLEKS                       R85 R85 K199 ["validationState"]
+     1021 SETTABLEKS                       R85 R84 K199 ["validationState"]
+     1023 GETTABLEKS                       R85 R0 K201 ["setValidationState"]
+     1025 SETTABLEKS                       R85 R84 K201 ["setValidationState"]
+     1027 GETTABLEKS                       R85 R0 K207 ["state"]
+     1029 GETTABLEKS                       R85 R85 K200 ["validationFailureReasons"]
+     1031 SETTABLEKS                       R85 R84 K200 ["validationFailureReasons"]
+     1033 GETTABLEKS                       R85 R0 K202 ["setValidationFailureReasons"]
+     1035 SETTABLEKS                       R85 R84 K202 ["setValidationFailureReasons"]
+     1037 GETTABLEKS                       R85 R0 K207 ["state"]
+     1039 GETTABLEKS                       R85 R85 K203 ["ugcBundleValidationResults"]
+     1041 SETTABLEKS                       R85 R84 K242 ["validationResults"]
+     1043 GETTABLEKS                       R85 R0 K204 ["setUGCBundleValidationResults"]
+     1045 SETTABLEKS                       R85 R84 K204 ["setUGCBundleValidationResults"]
+     1047 GETTABLEKS                       R85 R0 K207 ["state"]
+     1049 GETTABLEKS                       R85 R85 K245 ["currentAssetType"]
+     1051 SETTABLEKS                       R85 R84 K13 ["assetTypeEnum"]
+     1053 GETTABLEKS                       R85 R2 K90 ["instances"]
+     1055 SETTABLEKS                       R85 R84 K90 ["instances"]
+     1057 GETTABLEKS                       R85 R2 K91 ["allowedBundleTypeSettings"]
+     1059 SETTABLEKS                       R85 R84 K91 ["allowedBundleTypeSettings"]
+     1061 GETTABLEKS                       R85 R2 K243 ["onAssetValidationResultChanged"]
+     1063 SETTABLEKS                       R85 R84 K243 ["onAssetValidationResultChanged"]
+     1065 CALL                             R82 2 1
+     1066 SETTABLEKS                       R82 R81 K238 ["UGCBundleValidation"]
+     1068 JUMPIFNOT                        R68 ; [+26]
+     1069 GETUPVAL                         R82 7
+     1070 GETTABLEKS                       R82 R82 K94 ["createElement"]
+     1072 GETUPVAL                         R83 13
+     1073 DUPTABLE                         R84 K246 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
+     1074 GETIMPORT                        R85 K235 [Enum.AutomaticSize.Y]
+     1076 SETTABLEKS                       R85 R84 K162 ["AutomaticSize"]
+     1078 GETIMPORT                        R85 K125 [Enum.FillDirection.Vertical]
+     1080 SETTABLEKS                       R85 R84 K138 ["Layout"]
+     1082 LOADN                            R85 2
+     1083 SETTABLEKS                       R85 R84 K3 ["LayoutOrder"]
+     1085 GETIMPORT                        R85 K237 [UDim2.fromScale]
+     1087 LOADN                            R86 1
+     1088 LOADN                            R87 0
+     1089 CALL                             R85 2 1
+     1090 SETTABLEKS                       R85 R84 K2 ["Size"]
+     1092 MOVE                             R85 R68
+     1093 CALL                             R82 3 1
+     1094 JUMP                             ; [+1]
+     1095 LOADNIL                          R82
+     1096 SETTABLEKS                       R82 R81 K239 ["MissingOptionalAccessoriesMsg"]
+     1098 JUMPIFNOT                        R69 ; [+26]
+     1099 GETUPVAL                         R82 7
+     1100 GETTABLEKS                       R82 R82 K94 ["createElement"]
+     1102 GETUPVAL                         R83 13
+     1103 DUPTABLE                         R84 K246 [{"AutomaticSize", "Layout", "LayoutOrder", "Size"}]
+     1104 GETIMPORT                        R85 K235 [Enum.AutomaticSize.Y]
+     1106 SETTABLEKS                       R85 R84 K162 ["AutomaticSize"]
+     1108 GETIMPORT                        R85 K125 [Enum.FillDirection.Vertical]
+     1110 SETTABLEKS                       R85 R84 K138 ["Layout"]
+     1112 LOADN                            R85 3
+     1113 SETTABLEKS                       R85 R84 K3 ["LayoutOrder"]
+     1115 GETIMPORT                        R85 K237 [UDim2.fromScale]
+     1117 LOADN                            R86 1
+     1118 LOADN                            R87 0
+     1119 CALL                             R85 2 1
+     1120 SETTABLEKS                       R85 R84 K2 ["Size"]
+     1122 MOVE                             R85 R69
+     1123 CALL                             R82 3 1
+     1124 JUMP                             ; [+1]
+     1125 LOADNIL                          R82
+     1126 SETTABLEKS                       R82 R81 K240 ["UnknownMeshPartsMsgChildren"]
+     1128 CALL                             R78 3 1
+     1129 SETTABLEKS                       R78 R77 K231 ["ValidationPane"]
+     1131 CALL                             R74 3 1
+     1132 JUMP                             ; [+1]
+     1133 LOADNIL                          R74
+     1134 SETTABLEKS                       R74 R73 K104 ["ContentTypeBodyValidation"]
+     1136 GETTABLEKS                       R75 R2 K196 ["dataSharingEnabled"]
+     1138 JUMPIFNOT                        R75 ; [+32]
+     1139 GETUPVAL                         R75 1
+     1140 GETTABLEKS                       R75 R75 K83 ["isUGCBundleType"]
+     1142 MOVE                             R76 R14
+     1143 CALL                             R75 1 1
+     1144 JUMPIF                           R75 ; [+6]
+     1145 GETUPVAL                         R75 1
+     1146 GETTABLEKS                       R75 R75 K247 ["isCatalogAsset"]
+     1148 MOVE                             R76 R14
+     1149 CALL                             R75 1 1
+     1150 JUMPIFNOT                        R75 ; [+20]
+     1151 GETUPVAL                         R74 7
+     1152 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1154 GETUPVAL                         R75 29
+     1155 DUPTABLE                         R76 K248 [{"LayoutOrder", "dataSharingToggled", "onDataConsentToggleClick"}]
+     1156 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1158 CALL                             R77 1 1
+     1159 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1161 GETTABLEKS                       R77 R2 K197 ["dataSharingToggled"]
+     1163 SETTABLEKS                       R77 R76 K197 ["dataSharingToggled"]
+     1165 GETTABLEKS                       R77 R2 K198 ["onDataConsentToggleClick"]
+     1167 SETTABLEKS                       R77 R76 K198 ["onDataConsentToggleClick"]
+     1169 CALL                             R74 2 1
+     1170 JUMP                             ; [+1]
+     1171 LOADNIL                          R74
+     1172 SETTABLEKS                       R74 R73 K105 ["DataSharingConsent"]
+     1174 JUMPIF                           R43 ; [+36]
+     1175 JUMPIFNOT                        R38 ; [+35]
+     1176 GETUPVAL                         R74 7
+     1177 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1179 GETUPVAL                         R75 20
+     1180 DUPTABLE                         R76 K249 [{"Title", "owner", "TotalHeight", "onDropDownSelect", "preselectedGroupId", "LayoutOrder"}]
+     1181 LOADK                            R79 K85 ["General"]
+     1182 LOADK                            R80 K106 ["Ownership"]
+     1183 NAMECALL                         R77 R59 K72 ["getText"]
+     1185 CALL                             R77 3 1
+     1186 SETTABLEKS                       R77 R76 K99 ["Title"]
+     1188 SETTABLEKS                       R9 R76 K8 ["owner"]
+     1190 LOADN                            R77 70
+     1191 SETTABLEKS                       R77 R76 K181 ["TotalHeight"]
+     1193 SETTABLEKS                       R26 R76 K208 ["onDropDownSelect"]
+     1195 GETUPVAL                         R78 21
+     1196 CALL                             R78 0 1
+     1197 JUMPIFNOT                        R78 ; [+3]
+     1198 GETTABLEKS                       R77 R2 K209 ["preselectedGroupId"]
+     1200 JUMP                             ; [+1]
+     1201 LOADNIL                          R77
+     1202 SETTABLEKS                       R77 R76 K209 ["preselectedGroupId"]
+     1204 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1206 CALL                             R77 1 1
+     1207 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1209 CALL                             R74 2 1
+     1210 JUMP                             ; [+1]
+     1211 LOADNIL                          R74
+     1212 SETTABLEKS                       R74 R73 K106 ["Ownership"]
+     1214 MOVE                             R74 R22
+     1215 JUMPIFNOT                        R74 ; [+58]
+     1216 GETUPVAL                         R75 30
+     1217 CALL                             R75 0 1
+     1218 JUMPIFNOT                        R75 ; [+14]
+     1219 GETUPVAL                         R74 24
+     1220 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1222 GETUPVAL                         R75 23
+     1223 GETTABLEKS                       R75 R75 K250 ["Divider"]
+     1225 DUPTABLE                         R76 K251 [{"LayoutOrder"}]
+     1226 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1228 CALL                             R77 1 1
+     1229 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1231 CALL                             R74 2 1
+     1232 JUMP                             ; [+41]
+     1233 GETUPVAL                         R74 7
+     1234 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1236 LOADK                            R75 K252 ["Frame"]
+     1237 DUPTABLE                         R76 K253 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+     1238 LOADN                            R77 1
+     1239 SETTABLEKS                       R77 R76 K153 ["BackgroundTransparency"]
+     1241 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1243 CALL                             R77 1 1
+     1244 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1246 GETIMPORT                        R77 K145 [UDim2.new]
+     1248 LOADN                            R78 1
+     1249 LOADN                            R79 0
+     1250 LOADN                            R80 0
+     1251 LOADN                            R81 20
+     1252 CALL                             R77 4 1
+     1253 SETTABLEKS                       R77 R76 K2 ["Size"]
+     1255 DUPTABLE                         R77 K255 [{"Separator"}]
+     1256 GETUPVAL                         R78 7
+     1257 GETTABLEKS                       R78 R78 K94 ["createElement"]
+     1259 GETUPVAL                         R79 31
+     1260 DUPTABLE                         R80 K257 [{"Position"}]
+     1261 GETIMPORT                        R81 K145 [UDim2.new]
+     1263 LOADK                            R82 K2 ["Size"]
+     1264 LOADN                            R83 0
+     1265 LOADK                            R84 K2 ["Size"]
+     1266 LOADN                            R85 0
+     1267 CALL                             R81 4 1
+     1268 SETTABLEKS                       R81 R80 K256 ["Position"]
+     1270 CALL                             R78 2 1
+     1271 SETTABLEKS                       R78 R77 K254 ["Separator"]
+     1273 CALL                             R74 3 1
+     1274 SETTABLEKS                       R74 R73 K107 ["DividerBase"]
+     1276 JUMPIFNOT                        R42 ; [+24]
+     1277 GETUPVAL                         R74 7
+     1278 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1280 GETUPVAL                         R75 32
+     1281 DUPTABLE                         R76 K263 [{"AssetId", "AssetType", "AllowSelectPrivate", "LayoutOrder", "IsAssetPublic", "OnSelected"}]
+     1282 GETTABLEKS                       R77 R2 K30 ["assetId"]
+     1284 SETTABLEKS                       R77 R76 K259 ["AssetId"]
+     1286 SETTABLEKS                       R14 R76 K18 ["AssetType"]
+     1288 SETTABLEKS                       R6 R76 K260 ["AllowSelectPrivate"]
+     1290 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1292 CALL                             R77 1 1
+     1293 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1295 SETTABLEKS                       R15 R76 K261 ["IsAssetPublic"]
+     1297 SETTABLEKS                       R28 R76 K262 ["OnSelected"]
+     1299 CALL                             R74 2 1
+     1300 JUMP                             ; [+1]
+     1301 LOADNIL                          R74
+     1302 SETTABLEKS                       R74 R73 K108 ["Sharing"]
+     1304 JUMPIFNOT                        R42 ; [+59]
+     1305 GETUPVAL                         R75 30
+     1306 CALL                             R75 0 1
+     1307 JUMPIFNOT                        R75 ; [+14]
+     1308 GETUPVAL                         R74 24
+     1309 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1311 GETUPVAL                         R75 23
+     1312 GETTABLEKS                       R75 R75 K250 ["Divider"]
+     1314 DUPTABLE                         R76 K251 [{"LayoutOrder"}]
+     1315 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1317 CALL                             R77 1 1
+     1318 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1320 CALL                             R74 2 1
+     1321 JUMP                             ; [+43]
+     1322 GETUPVAL                         R74 7
+     1323 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1325 LOADK                            R75 K252 ["Frame"]
+     1326 DUPTABLE                         R76 K253 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+     1327 LOADN                            R77 1
+     1328 SETTABLEKS                       R77 R76 K153 ["BackgroundTransparency"]
+     1330 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1332 CALL                             R77 1 1
+     1333 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1335 GETIMPORT                        R77 K145 [UDim2.new]
+     1337 LOADN                            R78 1
+     1338 LOADN                            R79 0
+     1339 LOADN                            R80 0
+     1340 LOADN                            R81 20
+     1341 CALL                             R77 4 1
+     1342 SETTABLEKS                       R77 R76 K2 ["Size"]
+     1344 DUPTABLE                         R77 K255 [{"Separator"}]
+     1345 GETUPVAL                         R78 7
+     1346 GETTABLEKS                       R78 R78 K94 ["createElement"]
+     1348 GETUPVAL                         R79 31
+     1349 DUPTABLE                         R80 K257 [{"Position"}]
+     1350 GETIMPORT                        R81 K145 [UDim2.new]
+     1352 LOADK                            R82 K2 ["Size"]
+     1353 LOADN                            R83 0
+     1354 LOADK                            R84 K2 ["Size"]
+     1355 LOADN                            R85 0
+     1356 CALL                             R81 4 1
+     1357 SETTABLEKS                       R81 R80 K256 ["Position"]
+     1359 CALL                             R78 2 1
+     1360 SETTABLEKS                       R78 R77 K254 ["Separator"]
+     1362 CALL                             R74 3 1
+     1363 JUMP                             ; [+1]
+     1364 LOADNIL                          R74
+     1365 SETTABLEKS                       R74 R73 K109 ["SharingDivider"]
+     1367 JUMPIFNOT                        R22 ; [+109]
+     1368 GETUPVAL                         R74 7
+     1369 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1371 GETUPVAL                         R75 13
+     1372 DUPTABLE                         R76 K264 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
+     1373 GETIMPORT                        R77 K235 [Enum.AutomaticSize.Y]
+     1375 SETTABLEKS                       R77 R76 K162 ["AutomaticSize"]
+     1377 GETIMPORT                        R77 K125 [Enum.FillDirection.Vertical]
+     1379 SETTABLEKS                       R77 R76 K138 ["Layout"]
+     1381 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1383 CALL                             R77 1 1
+     1384 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1386 DUPTABLE                         R77 K265 [{"Top"}]
+     1387 LOADN                            R78 20
+     1388 SETTABLEKS                       R78 R77 K130 ["Top"]
+     1390 SETTABLEKS                       R77 R76 K95 ["Padding"]
+     1392 DUPTABLE                         R77 K268 [{"CreatorStoreConfigurationText", "CreatorStoreConfigurationLink"}]
+     1393 GETUPVAL                         R78 7
+     1394 GETTABLEKS                       R78 R78 K94 ["createElement"]
+     1396 GETUPVAL                         R79 33
+     1397 DUPTABLE                         R80 K270 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder"}]
+     1398 GETTABLEKS                       R81 R2 K69 ["Localization"]
+     1400 LOADK                            R83 K15 ["additionalImages"]
+     1401 LOADK                            R84 K16 ["MaxThumbnails"]
+     1402 NAMECALL                         R81 R81 K72 ["getText"]
+     1404 CALL                             R81 3 1
+     1405 SETTABLEKS                       R81 R80 K164 ["Text"]
+     1407 GETTABLEKS                       R81 R1 K273 ["uploadResult"]
+     1409 GETTABLEKS                       R81 R81 K274 ["text"]
+     1411 SETTABLEKS                       R81 R80 K269 ["TextColor"]
+     1413 GETUPVAL                         R81 14
+     1414 GETTABLEKS                       R81 R81 K275 ["FONT_SIZE_LARGE"]
+     1416 SETTABLEKS                       R81 R80 K169 ["TextSize"]
+     1418 GETIMPORT                        R81 K145 [UDim2.new]
+     1420 LOADN                            R82 1
+     1421 LOADN                            R83 0
+     1422 LOADN                            R84 0
+     1423 LOADN                            R85 24
+     1424 CALL                             R81 4 1
+     1425 SETTABLEKS                       R81 R80 K2 ["Size"]
+     1427 NAMECALL                         R81 R60 K143 ["getNextOrder"]
+     1429 CALL                             R81 1 1
+     1430 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+     1432 CALL                             R78 2 1
+     1433 SETTABLEKS                       R78 R77 K266 ["CreatorStoreConfigurationText"]
+     1435 GETUPVAL                         R78 7
+     1436 GETTABLEKS                       R78 R78 K94 ["createElement"]
+     1438 GETUPVAL                         R79 34
+     1439 DUPTABLE                         R80 K277 [{"Text", "TextColor", "TextSize", "Size", "LayoutOrder", "OnClick"}]
+     1440 SETTABLEKS                       R23 R80 K164 ["Text"]
+     1442 GETTABLEKS                       R81 R1 K273 ["uploadResult"]
+     1444 GETTABLEKS                       R81 R81 K278 ["link"]
+     1446 SETTABLEKS                       R81 R80 K269 ["TextColor"]
+     1448 GETUPVAL                         R81 14
+     1449 GETTABLEKS                       R81 R81 K275 ["FONT_SIZE_LARGE"]
+     1451 SETTABLEKS                       R81 R80 K169 ["TextSize"]
+     1453 GETIMPORT                        R81 K145 [UDim2.new]
+     1455 LOADN                            R82 1
+     1456 LOADN                            R83 0
+     1457 LOADN                            R84 0
+     1458 LOADN                            R85 24
+     1459 CALL                             R81 4 1
+     1460 SETTABLEKS                       R81 R80 K2 ["Size"]
+     1462 NAMECALL                         R81 R60 K143 ["getNextOrder"]
+     1464 CALL                             R81 1 1
+     1465 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+     1467 NEWCLOSURE                       R81 P4
+     1468 CAPTURE                          UPVAL U35
+     1469 CAPTURE                          VAL R23
+     1470 SETTABLEKS                       R81 R80 K276 ["OnClick"]
+     1472 CALL                             R78 2 1
+     1473 SETTABLEKS                       R78 R77 K267 ["CreatorStoreConfigurationLink"]
+     1475 CALL                             R74 3 1
+     1476 JUMP                             ; [+1]
+     1477 LOADNIL                          R74
+     1478 SETTABLEKS                       R74 R73 K110 ["CreatorStoreConfigurationFrame"]
+     1480 MOVE                             R74 R40
+     1481 JUMPIFNOT                        R74 ; [+27]
+     1482 GETUPVAL                         R74 7
+     1483 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1485 GETUPVAL                         R75 36
+     1486 DUPTABLE                         R76 K282 [{"Title", "TotalHeight", "CommentEnabled", "CommentOn", "ToggleCallback", "LayoutOrder"}]
+     1487 LOADK                            R79 K85 ["General"]
+     1488 LOADK                            R80 K27 ["Animation"]
+     1489 NAMECALL                         R77 R59 K72 ["getText"]
+     1491 CALL                             R77 3 1
+     1492 SETTABLEKS                       R77 R76 K99 ["Title"]
+     1494 LOADN                            R77 80
+     1495 SETTABLEKS                       R77 R76 K181 ["TotalHeight"]
+     1497 SETTABLEKS                       R11 R76 K279 ["CommentEnabled"]
+     1499 SETTABLEKS                       R12 R76 K280 ["CommentOn"]
+     1501 SETTABLEKS                       R30 R76 K281 ["ToggleCallback"]
+     1503 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1505 CALL                             R77 1 1
+     1506 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1508 CALL                             R74 2 1
+     1509 SETTABLEKS                       R74 R73 K111 ["Comment"]
+     1511 MOVE                             R74 R21
+     1512 JUMPIFNOT                        R74 ; [+31]
+     1513 GETUPVAL                         R74 7
+     1514 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1516 GETUPVAL                         R75 37
+     1517 DUPTABLE                         R76 K284 [{"Title", "TotalHeight", "DeleteLocal", "ToggleCallback", "LayoutOrder"}]
+     1518 LOADK                            R79 K85 ["General"]
+     1519 LOADK                            R80 K112 ["DeleteLocal"]
+     1520 NAMECALL                         R77 R59 K72 ["getText"]
+     1522 CALL                             R77 3 1
+     1523 SETTABLEKS                       R77 R76 K99 ["Title"]
+     1525 GETUPVAL                         R78 11
+     1526 CALL                             R78 0 1
+     1527 JUMPIFNOT                        R78 ; [+3]
+     1528 JUMPIFNOT                        R21 ; [+2]
+     1529 LOADN                            R77 120
+     1530 JUMP                             ; [+1]
+     1531 LOADN                            R77 80
+     1532 SETTABLEKS                       R77 R76 K181 ["TotalHeight"]
+     1534 SETTABLEKS                       R13 R76 K112 ["DeleteLocal"]
+     1536 SETTABLEKS                       R31 R76 K281 ["ToggleCallback"]
+     1538 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1540 CALL                             R77 1 1
+     1541 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1543 CALL                             R74 2 1
+     1544 SETTABLEKS                       R74 R73 K112 ["DeleteLocal"]
+     1546 GETUPVAL                         R74 11
+     1547 CALL                             R74 0 1
+     1548 JUMPIFNOT                        R74 ; [+71]
+     1549 MOVE                             R74 R21
+     1550 JUMPIFNOT                        R74 ; [+69]
+     1551 GETUPVAL                         R74 24
+     1552 GETTABLEKS                       R74 R74 K94 ["createElement"]
+     1554 GETUPVAL                         R75 23
+     1555 GETTABLEKS                       R75 R75 K212 ["View"]
+     1557 DUPTABLE                         R76 K285 [{"tag", "LayoutOrder"}]
+     1558 LOADK                            R77 K30 ["assetId"]
+     1559 SETTABLEKS                       R77 R76 K213 ["tag"]
+     1561 NAMECALL                         R77 R60 K143 ["getNextOrder"]
+     1563 CALL                             R77 1 1
+     1564 SETTABLEKS                       R77 R76 K3 ["LayoutOrder"]
+     1566 DUPTABLE                         R77 K288 [{"Section"}]
+     1567 GETUPVAL                         R78 24
+     1568 GETTABLEKS                       R78 R78 K94 ["createElement"]
+     1570 GETUPVAL                         R79 27
+     1571 DUPTABLE                         R80 K290 [{"LayoutOrder", "Title", "AutomaticContentHeight", "Size"}]
+     1572 LOADN                            R81 1
+     1573 SETTABLEKS                       R81 R80 K3 ["LayoutOrder"]
+     1575 LOADK                            R83 K85 ["General"]
+     1576 LOADK                            R84 K35 ["getCreatorDashboardBaseUrl"]
+     1577 NAMECALL                         R81 R59 K72 ["getText"]
+     1579 CALL                             R81 3 1
+     1580 SETTABLEKS                       R81 R80 K99 ["Title"]
+     1582 LOADB                            R81 1
+     1583 SETTABLEKS                       R81 R80 K289 ["AutomaticContentHeight"]
+     1585 GETIMPORT                        R81 K145 [UDim2.new]
+     1587 LOADN                            R82 1
+     1588 LOADN                            R83 0
+     1589 LOADN                            R84 0
+     1590 LOADN                            R85 0
+     1591 CALL                             R81 4 1
+     1592 SETTABLEKS                       R81 R80 K2 ["Size"]
+     1594 DUPTABLE                         R81 K293 [{"AnimationCheckboxCol"}]
+     1595 GETUPVAL                         R82 24
+     1596 GETTABLEKS                       R82 R82 K94 ["createElement"]
+     1598 GETUPVAL                         R83 38
+     1599 DUPTABLE                         R84 K296 [{"LayoutOrder", "Localization", "OnSelectionChanged", "OnSectionValidityChanged"}]
+     1600 LOADN                            R85 1
+     1601 SETTABLEKS                       R85 R84 K3 ["LayoutOrder"]
+     1603 SETTABLEKS                       R59 R84 K69 ["Localization"]
+     1605 GETTABLEKS                       R85 R2 K297 ["onAnimationSelectionChanged"]
+     1607 SETTABLEKS                       R85 R84 K294 ["OnSelectionChanged"]
+     1609 GETTABLEKS                       R85 R2 K298 ["onanimationSectionValidityChanged"]
+     1611 SETTABLEKS                       R85 R84 K295 ["OnSectionValidityChanged"]
+     1613 CALL                             R82 2 1
+     1614 SETTABLEKS                       R82 R81 K292 ["AnimationCheckboxCol"]
+     1616 CALL                             R78 3 1
+     1617 SETTABLEKS                       R78 R77 K287 ["Section"]
+     1619 CALL                             R74 3 1
+     1620 SETTABLEKS                       R74 R73 K113 ["AnimationPackProperties"]
+     1622 CALL                             R70 3 -1
+     1623 RETURN                           R70 -1
 
 PROTO_19:
         0 MOVE                             R1 R0
@@ -1828,295 +1801,288 @@ MAIN:
        33 GETIMPORT                        R6 K11 [require]
        35 GETTABLEKS                       R7 R3 K14 ["Foundation"]
        37 CALL                             R6 1 1
-       38 GETIMPORT                        R7 K11 [require]
-       40 GETTABLEKS                       R8 R1 K7 ["Src"]
-       42 GETTABLEKS                       R8 R8 K8 ["Util"]
-       44 GETTABLEKS                       R8 R8 K15 ["SharedFlags"]
-       46 GETTABLEKS                       R8 R8 K16 ["getFFlagEnableUGCForAllChecks"]
-       48 CALL                             R7 1 1
-       49 GETIMPORT                        R8 K1 [game]
-       51 LOADK                            R10 K17 ["ToolboxVideoConfigSharing2"]
-       52 NAMECALL                         R8 R8 K18 ["GetFastFlag"]
-       54 CALL                             R8 2 1
+       38 GETIMPORT                        R7 K1 [game]
+       40 LOADK                            R9 K15 ["ToolboxVideoConfigSharing2"]
+       41 NAMECALL                         R7 R7 K16 ["GetFastFlag"]
+       43 CALL                             R7 2 1
+       44 GETIMPORT                        R8 K11 [require]
+       46 GETTABLEKS                       R9 R1 K7 ["Src"]
+       48 GETTABLEKS                       R9 R9 K8 ["Util"]
+       50 GETTABLEKS                       R9 R9 K17 ["SharedFlags"]
+       52 GETTABLEKS                       R9 R9 K18 ["getFFlagToolboxEnableFiatFully"]
+       54 CALL                             R8 1 1
        55 GETIMPORT                        R9 K11 [require]
        57 GETTABLEKS                       R10 R1 K7 ["Src"]
        59 GETTABLEKS                       R10 R10 K8 ["Util"]
-       61 GETTABLEKS                       R10 R10 K15 ["SharedFlags"]
-       63 GETTABLEKS                       R10 R10 K19 ["getFFlagToolboxEnableFiatFully"]
+       61 GETTABLEKS                       R10 R10 K17 ["SharedFlags"]
+       63 GETTABLEKS                       R10 R10 K19 ["getFFlagToolboxAssetConfigOnboardingLink"]
        65 CALL                             R9 1 1
-       66 GETIMPORT                        R10 K11 [require]
-       68 GETTABLEKS                       R11 R1 K7 ["Src"]
-       70 GETTABLEKS                       R11 R11 K8 ["Util"]
-       72 GETTABLEKS                       R11 R11 K15 ["SharedFlags"]
-       74 GETTABLEKS                       R11 R11 K20 ["getFFlagToolboxAssetConfigOnboardingLink"]
-       76 CALL                             R10 1 1
-       77 GETIMPORT                        R11 K1 [game]
-       79 LOADK                            R13 K21 ["ToolboxRemoveRestrictedAssetWarning2"]
-       80 NAMECALL                         R11 R11 K18 ["GetFastFlag"]
-       82 CALL                             R11 2 1
-       83 GETIMPORT                        R12 K11 [require]
-       85 GETTABLEKS                       R13 R3 K22 ["React"]
-       87 CALL                             R12 1 1
-       88 GETIMPORT                        R13 K11 [require]
-       90 GETTABLEKS                       R14 R3 K23 ["Roact"]
-       92 CALL                             R13 1 1
-       93 GETIMPORT                        R14 K11 [require]
-       95 GETTABLEKS                       R15 R3 K24 ["RoactRodux"]
-       97 CALL                             R14 1 1
-       98 GETIMPORT                        R15 K11 [require]
-      100 GETTABLEKS                       R16 R3 K13 ["Framework"]
-      102 CALL                             R15 1 1
-      103 GETTABLEKS                       R15 R15 K25 ["ContextServices"]
-      105 GETTABLEKS                       R16 R15 K26 ["withContext"]
-      107 GETTABLEKS                       R17 R5 K27 ["UI"]
-      109 GETTABLEKS                       R18 R17 K28 ["MultiImagePickerWrapper"]
-      111 GETTABLEKS                       R19 R17 K29 ["TextLabel"]
-      113 GETTABLEKS                       R20 R17 K30 ["TitledFrame"]
-      115 GETTABLEKS                       R21 R17 K31 ["BulletList"]
-      117 GETTABLEKS                       R22 R17 K32 ["LinkText"]
-      119 GETTABLEKS                       R23 R17 K33 ["Pane"]
-      121 GETTABLEKS                       R24 R17 K34 ["Separator"]
-      123 GETIMPORT                        R25 K11 [require]
-      125 GETTABLEKS                       R26 R1 K7 ["Src"]
-      127 GETTABLEKS                       R26 R26 K35 ["Components"]
-      129 GETTABLEKS                       R26 R26 K36 ["StyledScrollingFrame"]
-      131 CALL                             R25 1 1
-      132 GETIMPORT                        R26 K11 [require]
-      134 GETTABLEKS                       R27 R3 K37 ["Dash"]
-      136 CALL                             R26 1 1
-      137 GETTABLEKS                       R27 R26 K38 ["map"]
-      139 GETIMPORT                        R28 K11 [require]
-      141 GETTABLEKS                       R29 R2 K39 ["createAssetMediaMetadata"]
-      143 CALL                             R28 1 1
-      144 GETIMPORT                        R29 K11 [require]
-      146 GETTABLEKS                       R30 R2 K40 ["LayoutOrderIterator"]
-      148 CALL                             R29 1 1
-      149 GETIMPORT                        R30 K11 [require]
-      151 GETTABLEKS                       R31 R2 K41 ["AssetConfigConstants"]
-      153 CALL                             R30 1 1
-      154 GETIMPORT                        R31 K11 [require]
-      156 GETTABLEKS                       R32 R2 K42 ["AssetConfigUtil"]
-      158 CALL                             R31 1 1
-      159 GETIMPORT                        R32 K11 [require]
-      161 GETTABLEKS                       R33 R2 K43 ["Constants"]
-      163 CALL                             R32 1 1
-      164 GETIMPORT                        R33 K11 [require]
-      166 GETTABLEKS                       R34 R1 K7 ["Src"]
-      168 GETTABLEKS                       R34 R34 K8 ["Util"]
-      170 GETTABLEKS                       R34 R34 K44 ["Images"]
-      172 CALL                             R33 1 1
-      173 GETIMPORT                        R34 K11 [require]
-      175 GETTABLEKS                       R35 R1 K7 ["Src"]
-      177 GETTABLEKS                       R35 R35 K45 ["Localization"]
-      179 GETTABLEKS                       R35 R35 K46 ["getLocalizedAssetTextMap"]
-      181 CALL                             R34 1 1
-      182 GETIMPORT                        R35 K11 [require]
-      184 GETTABLEKS                       R36 R2 K47 ["ToolboxUtilities"]
-      186 CALL                             R35 1 1
-      187 GETIMPORT                        R36 K11 [require]
-      189 GETTABLEKS                       R37 R2 K48 ["FiatTempConstants"]
-      191 CALL                             R36 1 1
-      192 GETIMPORT                        R37 K11 [require]
-      194 GETTABLEKS                       R38 R2 K49 ["Urls"]
-      196 CALL                             R37 1 1
-      197 GETTABLEKS                       R38 R1 K7 ["Src"]
-      199 GETTABLEKS                       R38 R38 K35 ["Components"]
-      201 GETTABLEKS                       R38 R38 K50 ["AssetConfiguration"]
-      203 GETIMPORT                        R39 K11 [require]
-      205 GETTABLEKS                       R40 R1 K7 ["Src"]
-      207 GETTABLEKS                       R40 R40 K51 ["Actions"]
-      209 GETTABLEKS                       R40 R40 K52 ["SetUploadAssetValidationStatus"]
-      211 CALL                             R39 1 1
-      212 GETIMPORT                        R40 K11 [require]
-      214 GETTABLEKS                       R41 R38 K53 ["ConfigTextField"]
-      216 CALL                             R40 1 1
-      217 GETIMPORT                        R41 K11 [require]
-      219 GETTABLEKS                       R42 R38 K54 ["ConfigAccess"]
-      221 CALL                             R41 1 1
-      222 GETIMPORT                        R42 K11 [require]
-      224 GETTABLEKS                       R43 R38 K55 ["ConfigDeleteLocal"]
-      226 CALL                             R42 1 1
-      227 GETIMPORT                        R43 K11 [require]
-      229 GETTABLEKS                       R44 R38 K56 ["ConfigCopy"]
-      231 CALL                             R43 1 1
-      232 GETIMPORT                        R44 K11 [require]
-      234 GETTABLEKS                       R45 R38 K57 ["ConfigAssetType"]
-      236 CALL                             R44 1 1
-      237 GETIMPORT                        R45 K11 [require]
-      239 GETTABLEKS                       R46 R38 K58 ["ConfigComment"]
-      241 CALL                             R45 1 1
-      242 GETIMPORT                        R46 K11 [require]
-      244 GETTABLEKS                       R47 R38 K59 ["ConfigSharing"]
-      246 CALL                             R46 1 1
-      247 GETIMPORT                        R47 K11 [require]
-      249 GETTABLEKS                       R48 R38 K60 ["ConfigSectionWrapper"]
-      251 CALL                             R47 1 1
-      252 GETIMPORT                        R48 K11 [require]
-      254 GETTABLEKS                       R49 R38 K61 ["Header"]
-      256 CALL                             R48 1 1
-      257 GETIMPORT                        R49 K11 [require]
-      259 GETTABLEKS                       R50 R38 K62 ["AnimationCheckboxCol"]
-      261 CALL                             R49 1 1
-      262 GETIMPORT                        R50 K11 [require]
-      264 GETTABLEKS                       R51 R38 K63 ["FiatPriceComponent"]
-      266 CALL                             R50 1 1
-      267 GETIMPORT                        R51 K11 [require]
-      269 GETTABLEKS                       R52 R38 K64 ["DataConsentToggle"]
-      271 CALL                             R51 1 1
-      272 GETIMPORT                        R52 K11 [require]
-      274 GETTABLEKS                       R53 R38 K65 ["UGCBundleValidation"]
-      276 CALL                             R52 1 1
-      277 GETIMPORT                        R53 K11 [require]
-      279 GETTABLEKS                       R54 R1 K7 ["Src"]
-      281 GETTABLEKS                       R54 R54 K8 ["Util"]
-      283 GETTABLEKS                       R54 R54 K66 ["ColorPicker"]
-      285 CALL                             R53 1 1
-      286 GETIMPORT                        R54 K11 [require]
-      288 GETTABLEKS                       R55 R1 K7 ["Src"]
-      290 GETTABLEKS                       R55 R55 K67 ["Flags"]
-      292 GETTABLEKS                       R55 R55 K68 ["getFFlagEnableUploadingMakeup"]
-      294 CALL                             R54 1 1
-      295 GETIMPORT                        R55 K11 [require]
-      297 GETTABLEKS                       R56 R1 K7 ["Src"]
-      299 GETTABLEKS                       R56 R56 K67 ["Flags"]
-      301 GETTABLEKS                       R56 R56 K69 ["getFFlagToolboxAssetConfigGroupOwnership"]
-      303 CALL                             R55 1 1
-      304 GETIMPORT                        R56 K11 [require]
-      306 GETTABLEKS                       R57 R1 K7 ["Src"]
-      308 GETTABLEKS                       R57 R57 K67 ["Flags"]
-      310 GETTABLEKS                       R57 R57 K70 ["getFFlagToolboxAssetConfigFoundationMigration"]
-      312 CALL                             R56 1 1
-      313 GETIMPORT                        R57 K11 [require]
-      315 GETTABLEKS                       R58 R1 K7 ["Src"]
-      317 GETTABLEKS                       R58 R58 K67 ["Flags"]
-      319 GETTABLEKS                       R58 R58 K71 ["getFFlagAvatarPreviewerUpdateDialogUI"]
-      321 CALL                             R57 1 1
-      322 GETIMPORT                        R58 K11 [require]
-      324 GETTABLEKS                       R59 R1 K7 ["Src"]
-      326 GETTABLEKS                       R59 R59 K67 ["Flags"]
-      328 GETTABLEKS                       R59 R59 K72 ["getFFlagEnableUploadingAvatarAnimations"]
-      330 CALL                             R58 1 1
-      331 GETIMPORT                        R59 K11 [require]
-      333 GETTABLEKS                       R60 R1 K7 ["Src"]
-      335 GETTABLEKS                       R60 R60 K67 ["Flags"]
-      337 GETTABLEKS                       R60 R60 K73 ["getFFlagFixBundleValidationTitle"]
-      339 CALL                             R59 1 1
-      340 GETIMPORT                        R60 K11 [require]
-      342 GETTABLEKS                       R61 R1 K7 ["Src"]
-      344 GETTABLEKS                       R61 R61 K67 ["Flags"]
-      346 GETTABLEKS                       R61 R61 K74 ["getFFlagDividerFoundationMigration"]
-      348 CALL                             R60 1 1
-      349 GETIMPORT                        R61 K11 [require]
-      351 GETTABLEKS                       R62 R1 K7 ["Src"]
-      353 GETTABLEKS                       R62 R62 K75 ["Types"]
-      355 GETTABLEKS                       R62 R62 K76 ["MarketplaceFiatServiceTypes"]
-      357 CALL                             R61 1 1
-      358 GETIMPORT                        R62 K11 [require]
-      360 GETTABLEKS                       R63 R1 K7 ["Src"]
-      362 GETTABLEKS                       R63 R63 K51 ["Actions"]
-      364 GETTABLEKS                       R63 R63 K77 ["SetFieldError"]
-      366 CALL                             R62 1 1
-      367 GETIMPORT                        R63 K11 [require]
-      369 GETTABLEKS                       R64 R1 K7 ["Src"]
-      371 GETTABLEKS                       R64 R64 K8 ["Util"]
-      373 GETTABLEKS                       R64 R64 K78 ["PageInfoHelper"]
-      375 CALL                             R63 1 1
-      376 GETTABLEKS                       R64 R13 K79 ["PureComponent"]
-      378 LOADK                            R66 K80 ["PublishAsset"]
-      379 NAMECALL                         R64 R64 K81 ["extend"]
-      381 CALL                             R64 2 1
-      382 DUPCLOSURE                       R65 K82 [PROTO_9]
+       66 GETIMPORT                        R10 K1 [game]
+       68 LOADK                            R12 K20 ["ToolboxRemoveRestrictedAssetWarning2"]
+       69 NAMECALL                         R10 R10 K16 ["GetFastFlag"]
+       71 CALL                             R10 2 1
+       72 GETIMPORT                        R11 K11 [require]
+       74 GETTABLEKS                       R12 R3 K21 ["React"]
+       76 CALL                             R11 1 1
+       77 GETIMPORT                        R12 K11 [require]
+       79 GETTABLEKS                       R13 R3 K22 ["Roact"]
+       81 CALL                             R12 1 1
+       82 GETIMPORT                        R13 K11 [require]
+       84 GETTABLEKS                       R14 R3 K23 ["RoactRodux"]
+       86 CALL                             R13 1 1
+       87 GETIMPORT                        R14 K11 [require]
+       89 GETTABLEKS                       R15 R3 K13 ["Framework"]
+       91 CALL                             R14 1 1
+       92 GETTABLEKS                       R14 R14 K24 ["ContextServices"]
+       94 GETTABLEKS                       R15 R14 K25 ["withContext"]
+       96 GETTABLEKS                       R16 R5 K26 ["UI"]
+       98 GETTABLEKS                       R17 R16 K27 ["MultiImagePickerWrapper"]
+      100 GETTABLEKS                       R18 R16 K28 ["TextLabel"]
+      102 GETTABLEKS                       R19 R16 K29 ["TitledFrame"]
+      104 GETTABLEKS                       R20 R16 K30 ["BulletList"]
+      106 GETTABLEKS                       R21 R16 K31 ["LinkText"]
+      108 GETTABLEKS                       R22 R16 K32 ["Pane"]
+      110 GETTABLEKS                       R23 R16 K33 ["Separator"]
+      112 GETIMPORT                        R24 K11 [require]
+      114 GETTABLEKS                       R25 R1 K7 ["Src"]
+      116 GETTABLEKS                       R25 R25 K34 ["Components"]
+      118 GETTABLEKS                       R25 R25 K35 ["StyledScrollingFrame"]
+      120 CALL                             R24 1 1
+      121 GETIMPORT                        R25 K11 [require]
+      123 GETTABLEKS                       R26 R3 K36 ["Dash"]
+      125 CALL                             R25 1 1
+      126 GETTABLEKS                       R26 R25 K37 ["map"]
+      128 GETIMPORT                        R27 K11 [require]
+      130 GETTABLEKS                       R28 R2 K38 ["createAssetMediaMetadata"]
+      132 CALL                             R27 1 1
+      133 GETIMPORT                        R28 K11 [require]
+      135 GETTABLEKS                       R29 R2 K39 ["LayoutOrderIterator"]
+      137 CALL                             R28 1 1
+      138 GETIMPORT                        R29 K11 [require]
+      140 GETTABLEKS                       R30 R2 K40 ["AssetConfigConstants"]
+      142 CALL                             R29 1 1
+      143 GETIMPORT                        R30 K11 [require]
+      145 GETTABLEKS                       R31 R2 K41 ["AssetConfigUtil"]
+      147 CALL                             R30 1 1
+      148 GETIMPORT                        R31 K11 [require]
+      150 GETTABLEKS                       R32 R2 K42 ["Constants"]
+      152 CALL                             R31 1 1
+      153 GETIMPORT                        R32 K11 [require]
+      155 GETTABLEKS                       R33 R1 K7 ["Src"]
+      157 GETTABLEKS                       R33 R33 K8 ["Util"]
+      159 GETTABLEKS                       R33 R33 K43 ["Images"]
+      161 CALL                             R32 1 1
+      162 GETIMPORT                        R33 K11 [require]
+      164 GETTABLEKS                       R34 R1 K7 ["Src"]
+      166 GETTABLEKS                       R34 R34 K44 ["Localization"]
+      168 GETTABLEKS                       R34 R34 K45 ["getLocalizedAssetTextMap"]
+      170 CALL                             R33 1 1
+      171 GETIMPORT                        R34 K11 [require]
+      173 GETTABLEKS                       R35 R2 K46 ["ToolboxUtilities"]
+      175 CALL                             R34 1 1
+      176 GETIMPORT                        R35 K11 [require]
+      178 GETTABLEKS                       R36 R2 K47 ["FiatTempConstants"]
+      180 CALL                             R35 1 1
+      181 GETIMPORT                        R36 K11 [require]
+      183 GETTABLEKS                       R37 R2 K48 ["Urls"]
+      185 CALL                             R36 1 1
+      186 GETTABLEKS                       R37 R1 K7 ["Src"]
+      188 GETTABLEKS                       R37 R37 K34 ["Components"]
+      190 GETTABLEKS                       R37 R37 K49 ["AssetConfiguration"]
+      192 GETIMPORT                        R38 K11 [require]
+      194 GETTABLEKS                       R39 R1 K7 ["Src"]
+      196 GETTABLEKS                       R39 R39 K50 ["Actions"]
+      198 GETTABLEKS                       R39 R39 K51 ["SetUploadAssetValidationStatus"]
+      200 CALL                             R38 1 1
+      201 GETIMPORT                        R39 K11 [require]
+      203 GETTABLEKS                       R40 R37 K52 ["ConfigTextField"]
+      205 CALL                             R39 1 1
+      206 GETIMPORT                        R40 K11 [require]
+      208 GETTABLEKS                       R41 R37 K53 ["ConfigAccess"]
+      210 CALL                             R40 1 1
+      211 GETIMPORT                        R41 K11 [require]
+      213 GETTABLEKS                       R42 R37 K54 ["ConfigDeleteLocal"]
+      215 CALL                             R41 1 1
+      216 GETIMPORT                        R42 K11 [require]
+      218 GETTABLEKS                       R43 R37 K55 ["ConfigCopy"]
+      220 CALL                             R42 1 1
+      221 GETIMPORT                        R43 K11 [require]
+      223 GETTABLEKS                       R44 R37 K56 ["ConfigAssetType"]
+      225 CALL                             R43 1 1
+      226 GETIMPORT                        R44 K11 [require]
+      228 GETTABLEKS                       R45 R37 K57 ["ConfigComment"]
+      230 CALL                             R44 1 1
+      231 GETIMPORT                        R45 K11 [require]
+      233 GETTABLEKS                       R46 R37 K58 ["ConfigSharing"]
+      235 CALL                             R45 1 1
+      236 GETIMPORT                        R46 K11 [require]
+      238 GETTABLEKS                       R47 R37 K59 ["ConfigSectionWrapper"]
+      240 CALL                             R46 1 1
+      241 GETIMPORT                        R47 K11 [require]
+      243 GETTABLEKS                       R48 R37 K60 ["Header"]
+      245 CALL                             R47 1 1
+      246 GETIMPORT                        R48 K11 [require]
+      248 GETTABLEKS                       R49 R37 K61 ["AnimationCheckboxCol"]
+      250 CALL                             R48 1 1
+      251 GETIMPORT                        R49 K11 [require]
+      253 GETTABLEKS                       R50 R37 K62 ["FiatPriceComponent"]
+      255 CALL                             R49 1 1
+      256 GETIMPORT                        R50 K11 [require]
+      258 GETTABLEKS                       R51 R37 K63 ["DataConsentToggle"]
+      260 CALL                             R50 1 1
+      261 GETIMPORT                        R51 K11 [require]
+      263 GETTABLEKS                       R52 R37 K64 ["UGCBundleValidation"]
+      265 CALL                             R51 1 1
+      266 GETIMPORT                        R52 K11 [require]
+      268 GETTABLEKS                       R53 R1 K7 ["Src"]
+      270 GETTABLEKS                       R53 R53 K8 ["Util"]
+      272 GETTABLEKS                       R53 R53 K65 ["ColorPicker"]
+      274 CALL                             R52 1 1
+      275 GETIMPORT                        R53 K11 [require]
+      277 GETTABLEKS                       R54 R1 K7 ["Src"]
+      279 GETTABLEKS                       R54 R54 K66 ["Flags"]
+      281 GETTABLEKS                       R54 R54 K67 ["getFFlagEnableUploadingMakeup"]
+      283 CALL                             R53 1 1
+      284 GETIMPORT                        R54 K11 [require]
+      286 GETTABLEKS                       R55 R1 K7 ["Src"]
+      288 GETTABLEKS                       R55 R55 K66 ["Flags"]
+      290 GETTABLEKS                       R55 R55 K68 ["getFFlagToolboxAssetConfigGroupOwnership"]
+      292 CALL                             R54 1 1
+      293 GETIMPORT                        R55 K11 [require]
+      295 GETTABLEKS                       R56 R1 K7 ["Src"]
+      297 GETTABLEKS                       R56 R56 K66 ["Flags"]
+      299 GETTABLEKS                       R56 R56 K69 ["getFFlagToolboxAssetConfigFoundationMigration"]
+      301 CALL                             R55 1 1
+      302 GETIMPORT                        R56 K11 [require]
+      304 GETTABLEKS                       R57 R1 K7 ["Src"]
+      306 GETTABLEKS                       R57 R57 K66 ["Flags"]
+      308 GETTABLEKS                       R57 R57 K70 ["getFFlagAvatarPreviewerUpdateDialogUI"]
+      310 CALL                             R56 1 1
+      311 GETIMPORT                        R57 K11 [require]
+      313 GETTABLEKS                       R58 R1 K7 ["Src"]
+      315 GETTABLEKS                       R58 R58 K66 ["Flags"]
+      317 GETTABLEKS                       R58 R58 K71 ["getFFlagEnableUploadingAvatarAnimations"]
+      319 CALL                             R57 1 1
+      320 GETIMPORT                        R58 K11 [require]
+      322 GETTABLEKS                       R59 R1 K7 ["Src"]
+      324 GETTABLEKS                       R59 R59 K66 ["Flags"]
+      326 GETTABLEKS                       R59 R59 K72 ["getFFlagFixBundleValidationTitle"]
+      328 CALL                             R58 1 1
+      329 GETIMPORT                        R59 K11 [require]
+      331 GETTABLEKS                       R60 R1 K7 ["Src"]
+      333 GETTABLEKS                       R60 R60 K66 ["Flags"]
+      335 GETTABLEKS                       R60 R60 K73 ["getFFlagDividerFoundationMigration"]
+      337 CALL                             R59 1 1
+      338 GETIMPORT                        R60 K11 [require]
+      340 GETTABLEKS                       R61 R1 K7 ["Src"]
+      342 GETTABLEKS                       R61 R61 K74 ["Types"]
+      344 GETTABLEKS                       R61 R61 K75 ["MarketplaceFiatServiceTypes"]
+      346 CALL                             R60 1 1
+      347 GETIMPORT                        R61 K11 [require]
+      349 GETTABLEKS                       R62 R1 K7 ["Src"]
+      351 GETTABLEKS                       R62 R62 K50 ["Actions"]
+      353 GETTABLEKS                       R62 R62 K76 ["SetFieldError"]
+      355 CALL                             R61 1 1
+      356 GETIMPORT                        R62 K11 [require]
+      358 GETTABLEKS                       R63 R1 K7 ["Src"]
+      360 GETTABLEKS                       R63 R63 K8 ["Util"]
+      362 GETTABLEKS                       R63 R63 K77 ["PageInfoHelper"]
+      364 CALL                             R62 1 1
+      365 GETTABLEKS                       R63 R12 K78 ["PureComponent"]
+      367 LOADK                            R65 K79 ["PublishAsset"]
+      368 NAMECALL                         R63 R63 K80 ["extend"]
+      370 CALL                             R63 2 1
+      371 DUPCLOSURE                       R64 K81 [PROTO_9]
+      372 CAPTURE                          VAL R29
+      373 CAPTURE                          VAL R12
+      374 CAPTURE                          VAL R0
+      375 CAPTURE                          VAL R34
+      376 CAPTURE                          VAL R9
+      377 SETTABLEKS                       R64 R63 K82 ["init"]
+      379 DUPCLOSURE                       R64 K83 [PROTO_10]
+      380 SETTABLEKS                       R64 R63 K84 ["bumpCanvas"]
+      382 DUPCLOSURE                       R64 K85 [PROTO_11]
       383 CAPTURE                          VAL R30
-      384 CAPTURE                          VAL R13
-      385 CAPTURE                          VAL R0
-      386 CAPTURE                          VAL R35
-      387 CAPTURE                          VAL R10
-      388 SETTABLEKS                       R65 R64 K83 ["init"]
-      390 DUPCLOSURE                       R65 K84 [PROTO_10]
-      391 SETTABLEKS                       R65 R64 K85 ["bumpCanvas"]
-      393 DUPCLOSURE                       R65 K86 [PROTO_11]
-      394 CAPTURE                          VAL R31
-      395 CAPTURE                          VAL R29
-      396 CAPTURE                          VAL R56
-      397 CAPTURE                          VAL R12
-      398 CAPTURE                          VAL R6
-      399 CAPTURE                          VAL R13
-      400 CAPTURE                          VAL R19
-      401 CAPTURE                          VAL R32
-      402 CAPTURE                          VAL R34
-      403 SETTABLEKS                       R65 R64 K87 ["getMissingOptionalPartsMessage"]
-      405 DUPCLOSURE                       R65 K88 [PROTO_12]
-      406 CAPTURE                          VAL R31
-      407 CAPTURE                          VAL R29
-      408 CAPTURE                          VAL R56
-      409 CAPTURE                          VAL R12
-      410 CAPTURE                          VAL R6
-      411 CAPTURE                          VAL R13
-      412 CAPTURE                          VAL R19
-      413 CAPTURE                          VAL R32
-      414 SETTABLEKS                       R65 R64 K89 ["getUnknownMeshPartMessage"]
-      416 DUPCLOSURE                       R65 K90 [PROTO_18]
-      417 CAPTURE                          VAL R30
-      418 CAPTURE                          VAL R31
-      419 CAPTURE                          VAL R37
-      420 CAPTURE                          VAL R35
-      421 CAPTURE                          VAL R7
-      422 CAPTURE                          VAL R11
-      423 CAPTURE                          VAL R8
-      424 CAPTURE                          VAL R29
-      425 CAPTURE                          VAL R13
-      426 CAPTURE                          VAL R27
-      427 CAPTURE                          VAL R28
-      428 CAPTURE                          VAL R59
-      429 CAPTURE                          VAL R58
-      430 CAPTURE                          VAL R25
-      431 CAPTURE                          VAL R23
-      432 CAPTURE                          VAL R32
-      433 CAPTURE                          VAL R33
-      434 CAPTURE                          VAL R48
-      435 CAPTURE                          VAL R40
-      436 CAPTURE                          VAL R57
-      437 CAPTURE                          VAL R44
-      438 CAPTURE                          VAL R41
-      439 CAPTURE                          VAL R55
-      440 CAPTURE                          VAL R54
-      441 CAPTURE                          VAL R6
-      442 CAPTURE                          VAL R12
-      443 CAPTURE                          VAL R56
-      444 CAPTURE                          VAL R53
-      445 CAPTURE                          VAL R47
-      446 CAPTURE                          VAL R52
-      447 CAPTURE                          VAL R51
-      448 CAPTURE                          VAL R60
-      449 CAPTURE                          VAL R24
-      450 CAPTURE                          VAL R46
-      451 CAPTURE                          VAL R19
-      452 CAPTURE                          VAL R22
-      453 CAPTURE                          VAL R0
-      454 CAPTURE                          VAL R45
-      455 CAPTURE                          VAL R42
-      456 CAPTURE                          VAL R49
-      457 SETTABLEKS                       R65 R64 K91 ["render"]
-      459 DUPCLOSURE                       R65 K92 [PROTO_19]
-      460 CAPTURE                          VAL R10
-      461 DUPCLOSURE                       R66 K93 [PROTO_22]
-      462 CAPTURE                          VAL R62
-      463 CAPTURE                          VAL R30
-      464 CAPTURE                          VAL R39
-      465 MOVE                             R67 R16
-      466 DUPTABLE                         R68 K95 [{"Localization", "Stylizer"}]
-      467 GETTABLEKS                       R69 R15 K45 ["Localization"]
-      469 SETTABLEKS                       R69 R68 K45 ["Localization"]
-      471 GETTABLEKS                       R69 R15 K94 ["Stylizer"]
-      473 SETTABLEKS                       R69 R68 K94 ["Stylizer"]
-      475 CALL                             R67 1 1
-      476 MOVE                             R68 R64
-      477 CALL                             R67 1 1
-      478 MOVE                             R64 R67
-      479 GETTABLEKS                       R67 R14 K96 ["connect"]
-      481 MOVE                             R68 R65
-      482 MOVE                             R69 R66
-      483 CALL                             R67 2 1
-      484 MOVE                             R68 R64
-      485 CALL                             R67 1 -1
-      486 RETURN                           R67 -1
+      384 CAPTURE                          VAL R28
+      385 CAPTURE                          VAL R55
+      386 CAPTURE                          VAL R11
+      387 CAPTURE                          VAL R6
+      388 CAPTURE                          VAL R12
+      389 CAPTURE                          VAL R18
+      390 CAPTURE                          VAL R31
+      391 CAPTURE                          VAL R33
+      392 SETTABLEKS                       R64 R63 K86 ["getMissingOptionalPartsMessage"]
+      394 DUPCLOSURE                       R64 K87 [PROTO_12]
+      395 CAPTURE                          VAL R30
+      396 CAPTURE                          VAL R28
+      397 CAPTURE                          VAL R55
+      398 CAPTURE                          VAL R11
+      399 CAPTURE                          VAL R6
+      400 CAPTURE                          VAL R12
+      401 CAPTURE                          VAL R18
+      402 CAPTURE                          VAL R31
+      403 SETTABLEKS                       R64 R63 K88 ["getUnknownMeshPartMessage"]
+      405 DUPCLOSURE                       R64 K89 [PROTO_18]
+      406 CAPTURE                          VAL R29
+      407 CAPTURE                          VAL R30
+      408 CAPTURE                          VAL R36
+      409 CAPTURE                          VAL R34
+      410 CAPTURE                          VAL R10
+      411 CAPTURE                          VAL R7
+      412 CAPTURE                          VAL R28
+      413 CAPTURE                          VAL R12
+      414 CAPTURE                          VAL R26
+      415 CAPTURE                          VAL R27
+      416 CAPTURE                          VAL R58
+      417 CAPTURE                          VAL R57
+      418 CAPTURE                          VAL R24
+      419 CAPTURE                          VAL R22
+      420 CAPTURE                          VAL R31
+      421 CAPTURE                          VAL R32
+      422 CAPTURE                          VAL R47
+      423 CAPTURE                          VAL R39
+      424 CAPTURE                          VAL R56
+      425 CAPTURE                          VAL R43
+      426 CAPTURE                          VAL R40
+      427 CAPTURE                          VAL R54
+      428 CAPTURE                          VAL R53
+      429 CAPTURE                          VAL R6
+      430 CAPTURE                          VAL R11
+      431 CAPTURE                          VAL R55
+      432 CAPTURE                          VAL R52
+      433 CAPTURE                          VAL R46
+      434 CAPTURE                          VAL R51
+      435 CAPTURE                          VAL R50
+      436 CAPTURE                          VAL R59
+      437 CAPTURE                          VAL R23
+      438 CAPTURE                          VAL R45
+      439 CAPTURE                          VAL R18
+      440 CAPTURE                          VAL R21
+      441 CAPTURE                          VAL R0
+      442 CAPTURE                          VAL R44
+      443 CAPTURE                          VAL R41
+      444 CAPTURE                          VAL R48
+      445 SETTABLEKS                       R64 R63 K90 ["render"]
+      447 DUPCLOSURE                       R64 K91 [PROTO_19]
+      448 CAPTURE                          VAL R9
+      449 DUPCLOSURE                       R65 K92 [PROTO_22]
+      450 CAPTURE                          VAL R61
+      451 CAPTURE                          VAL R29
+      452 CAPTURE                          VAL R38
+      453 MOVE                             R66 R15
+      454 DUPTABLE                         R67 K94 [{"Localization", "Stylizer"}]
+      455 GETTABLEKS                       R68 R14 K44 ["Localization"]
+      457 SETTABLEKS                       R68 R67 K44 ["Localization"]
+      459 GETTABLEKS                       R68 R14 K93 ["Stylizer"]
+      461 SETTABLEKS                       R68 R67 K93 ["Stylizer"]
+      463 CALL                             R66 1 1
+      464 MOVE                             R67 R63
+      465 CALL                             R66 1 1
+      466 MOVE                             R63 R66
+      467 GETTABLEKS                       R66 R13 K95 ["connect"]
+      469 MOVE                             R67 R64
+      470 MOVE                             R68 R65
+      471 CALL                             R66 2 1
+      472 MOVE                             R67 R63
+      473 CALL                             R66 1 -1
+      474 RETURN                           R66 -1

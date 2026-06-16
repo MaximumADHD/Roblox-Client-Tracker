@@ -19,13 +19,15 @@ PROTO_0:
        22 LOADK                            R1 K6 ["Unknown StyleSheetCategory:"]
        23 GETUPVAL                         R2 0
        24 CALL                             R0 2 0
-       25 GETUPVAL                         R0 2
-       26 LOADK                            R2 K7 ["StyleCategory"]
-       27 GETUPVAL                         R3 0
-       28 NAMECALL                         R0 R0 K8 ["SetAttribute"]
-       30 CALL                             R0 3 0
-       31 GETIMPORT                        R0 K12 [Enum.FinishRecordingOperation.Commit]
-       33 RETURN                           R0 1
+       25 GETUPVAL                         R0 4
+       26 JUMPIF                           R0 ; [+6]
+       27 GETUPVAL                         R0 2
+       28 LOADK                            R2 K7 ["StyleCategory"]
+       29 GETUPVAL                         R3 0
+       30 NAMECALL                         R0 R0 K8 ["SetAttribute"]
+       32 CALL                             R0 3 0
+       33 GETIMPORT                        R0 K12 [Enum.FinishRecordingOperation.Commit]
+       35 RETURN                           R0 1
 
 PROTO_1:
         0 LOADNIL                          R2
@@ -46,10 +48,11 @@ PROTO_1:
        21 CAPTURE                          UPVAL U2
        22 CAPTURE                          UPVAL U3
        23 CAPTURE                          REF R2
-       24 SETTABLEKS                       R5 R4 K6 ["DoChange"]
-       26 CALL                             R3 1 0
-       27 CLOSEUPVALS                      R2
-       28 RETURN                           R0 0
+       24 CAPTURE                          UPVAL U4
+       25 SETTABLEKS                       R5 R4 K6 ["DoChange"]
+       27 CALL                             R3 1 0
+       28 CLOSEUPVALS                      R2
+       29 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0
@@ -57,7 +60,8 @@ PROTO_2:
         2 CAPTURE                          VAL R1
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          VAL R0
-        5 RETURN                           R2 1
+        5 CAPTURE                          UPVAL U2
+        6 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -74,20 +78,27 @@ MAIN:
        20 CALL                             R1 0 1
        21 GETIMPORT                        R2 K4 [require]
        23 GETTABLEKS                       R3 R0 K5 ["Src"]
-       25 GETTABLEKS                       R3 R3 K8 ["Util"]
-       27 GETTABLEKS                       R3 R3 K9 ["DesignHelpers"]
+       25 GETTABLEKS                       R3 R3 K6 ["Flags"]
+       27 GETTABLEKS                       R3 R3 K8 ["getFFlagStyleEditorFixDerivesOrdering"]
        29 CALL                             R2 1 1
-       30 GETIMPORT                        R3 K4 [require]
-       32 GETTABLEKS                       R4 R0 K5 ["Src"]
-       34 GETTABLEKS                       R4 R4 K10 ["Reducers"]
-       36 GETTABLEKS                       R4 R4 K11 ["RootReducer"]
-       38 CALL                             R3 1 1
-       39 GETIMPORT                        R4 K4 [require]
-       41 GETTABLEKS                       R5 R0 K5 ["Src"]
-       43 GETTABLEKS                       R5 R5 K12 ["Thunks"]
-       45 GETTABLEKS                       R5 R5 K13 ["Types"]
-       47 CALL                             R4 1 1
-       48 DUPCLOSURE                       R5 K14 [PROTO_2]
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R2
-       51 RETURN                           R5 1
+       30 CALL                             R2 0 1
+       31 GETIMPORT                        R3 K4 [require]
+       33 GETTABLEKS                       R4 R0 K5 ["Src"]
+       35 GETTABLEKS                       R4 R4 K9 ["Util"]
+       37 GETTABLEKS                       R4 R4 K10 ["DesignHelpers"]
+       39 CALL                             R3 1 1
+       40 GETIMPORT                        R4 K4 [require]
+       42 GETTABLEKS                       R5 R0 K5 ["Src"]
+       44 GETTABLEKS                       R5 R5 K11 ["Reducers"]
+       46 GETTABLEKS                       R5 R5 K12 ["RootReducer"]
+       48 CALL                             R4 1 1
+       49 GETIMPORT                        R5 K4 [require]
+       51 GETTABLEKS                       R6 R0 K5 ["Src"]
+       53 GETTABLEKS                       R6 R6 K13 ["Thunks"]
+       55 GETTABLEKS                       R6 R6 K14 ["Types"]
+       57 CALL                             R5 1 1
+       58 DUPCLOSURE                       R6 K15 [PROTO_2]
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R2
+       62 RETURN                           R6 1

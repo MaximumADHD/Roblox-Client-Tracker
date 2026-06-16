@@ -16,29 +16,31 @@ PROTO_0:
        21 NAMECALL                         R6 R6 K12 ["getShowSidebar"]
        23 CALL                             R6 1 1
        24 SETTABLEKS                       R6 R5 K7 ["ShowSidebar"]
-       26 DUPTABLE                         R6 K14 [{"GridSize", "ViewType"}]
+       26 DUPTABLE                         R6 K15 [{"GridSize", "ViewType", "ListRowHeight"}]
        27 GETTABLEKS                       R7 R2 K13 ["GridSize"]
        29 SETTABLEKS                       R7 R6 K13 ["GridSize"]
        31 SETTABLEKS                       R3 R6 K2 ["ViewType"]
-       33 SETTABLEKS                       R6 R5 K8 ["BrowserLayout"]
-       35 GETTABLEKS                       R6 R1 K0 ["LayoutController"]
-       37 NAMECALL                         R6 R6 K15 ["getColumns"]
-       39 CALL                             R6 1 1
-       40 SETTABLEKS                       R6 R5 K9 ["Columns"]
-       42 GETTABLEKS                       R6 R1 K0 ["LayoutController"]
-       44 NAMECALL                         R6 R6 K16 ["getColumnWidths"]
-       46 CALL                             R6 1 1
-       47 SETTABLEKS                       R6 R5 K10 ["ColumnWidths"]
-       49 SETTABLEKS                       R5 R4 K5 ["Layout"]
-       51 GETUPVAL                         R5 1
-       52 MOVE                             R7 R4
-       53 NAMECALL                         R5 R5 K17 ["JSONEncode"]
-       55 CALL                             R5 2 1
-       56 LOADK                            R8 K18 ["AssetManager_Settings"]
-       57 MOVE                             R9 R5
-       58 NAMECALL                         R6 R0 K19 ["SetSetting"]
-       60 CALL                             R6 3 0
-       61 RETURN                           R0 0
+       33 GETTABLEKS                       R7 R2 K14 ["ListRowHeight"]
+       35 SETTABLEKS                       R7 R6 K14 ["ListRowHeight"]
+       37 SETTABLEKS                       R6 R5 K8 ["BrowserLayout"]
+       39 GETTABLEKS                       R6 R1 K0 ["LayoutController"]
+       41 NAMECALL                         R6 R6 K16 ["getColumns"]
+       43 CALL                             R6 1 1
+       44 SETTABLEKS                       R6 R5 K9 ["Columns"]
+       46 GETTABLEKS                       R6 R1 K0 ["LayoutController"]
+       48 NAMECALL                         R6 R6 K17 ["getColumnWidths"]
+       50 CALL                             R6 1 1
+       51 SETTABLEKS                       R6 R5 K10 ["ColumnWidths"]
+       53 SETTABLEKS                       R5 R4 K5 ["Layout"]
+       55 GETUPVAL                         R5 1
+       56 MOVE                             R7 R4
+       57 NAMECALL                         R5 R5 K18 ["JSONEncode"]
+       59 CALL                             R5 2 1
+       60 LOADK                            R8 K19 ["AssetManager_Settings"]
+       61 MOVE                             R9 R5
+       62 NAMECALL                         R6 R0 K20 ["SetSetting"]
+       64 CALL                             R6 3 0
+       65 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

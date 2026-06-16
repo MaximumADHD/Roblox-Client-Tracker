@@ -669,47 +669,176 @@ PROTO_6:
         6 GETIMPORT                        R3 K3 [assert]
         8 CALL                             R3 2 0
         9 GETTABLEKS                       R3 R2 K4 ["movementSettings"]
-       11 GETTABLEKS                       R4 R3 K5 ["characterControllerModeSetting"]
-       13 GETTABLEKS                       R4 R4 K6 ["set"]
-       15 GETTABLEKS                       R5 R1 K7 ["CharacterControllerMode"]
-       17 LOADB                            R6 1
-       18 CALL                             R4 2 0
-       19 GETTABLEKS                       R4 R3 K8 ["defaultAbilitiesEnableRunningSetting"]
-       21 GETTABLEKS                       R4 R4 K6 ["set"]
-       23 GETTABLEKS                       R5 R1 K9 ["EnableRunning"]
-       25 LOADB                            R6 1
-       26 CALL                             R4 2 0
-       27 GETTABLEKS                       R4 R3 K10 ["defaultAbilitiesEnableJumpingSetting"]
-       29 GETTABLEKS                       R4 R4 K6 ["set"]
-       31 GETTABLEKS                       R5 R1 K11 ["EnableJumping"]
-       33 LOADB                            R6 1
-       34 CALL                             R4 2 0
-       35 GETTABLEKS                       R4 R3 K12 ["defaultAbilitiesEnableSittingSetting"]
-       37 GETTABLEKS                       R4 R4 K6 ["set"]
-       39 GETTABLEKS                       R5 R1 K13 ["EnableSitting"]
-       41 LOADB                            R6 1
-       42 CALL                             R4 2 0
-       43 GETTABLEKS                       R4 R3 K14 ["defaultAbilitiesEnableFallingDownSetting"]
-       45 GETTABLEKS                       R4 R4 K6 ["set"]
-       47 GETTABLEKS                       R5 R1 K15 ["EnableFallingDown"]
-       49 LOADB                            R6 1
-       50 CALL                             R4 2 0
-       51 GETTABLEKS                       R4 R3 K16 ["defaultAbilitiesEnableGettingUpSetting"]
-       53 GETTABLEKS                       R4 R4 K6 ["set"]
-       55 GETTABLEKS                       R5 R1 K17 ["EnableGettingUp"]
-       57 LOADB                            R6 1
-       58 CALL                             R4 2 0
-       59 GETTABLEKS                       R4 R3 K18 ["defaultAbilitiesEnableClimbingSetting"]
-       61 GETTABLEKS                       R4 R4 K6 ["set"]
-       63 GETTABLEKS                       R5 R1 K19 ["EnableClimbing"]
-       65 LOADB                            R6 1
-       66 CALL                             R4 2 0
-       67 GETTABLEKS                       R4 R3 K20 ["defaultAbilitiesEnableSwimmingSetting"]
-       69 GETTABLEKS                       R4 R4 K6 ["set"]
-       71 GETTABLEKS                       R5 R1 K21 ["EnableSwimming"]
-       73 LOADB                            R6 1
-       74 CALL                             R4 2 0
-       75 RETURN                           R0 0
+       11 GETUPVAL                         R4 0
+       12 CALL                             R4 0 1
+       13 JUMPIFNOT                        R4 ; [+190]
+       14 GETTABLEKS                       R5 R3 K5 ["defaultAbilitiesEnableCrouchingSetting"]
+       16 FASTCALL2K                       ASSERT R5 K6 ; [+4]
+       18 LOADK                            R6 K6 ["Expected crouching setting"]
+       19 GETIMPORT                        R4 K3 [assert]
+       21 CALL                             R4 2 1
+       22 GETTABLEKS                       R6 R3 K7 ["defaultAbilitiesEnableHoldingSetting"]
+       24 FASTCALL2K                       ASSERT R6 K8 ; [+4]
+       26 LOADK                            R7 K8 ["Expected holding setting"]
+       27 GETIMPORT                        R5 K3 [assert]
+       29 CALL                             R5 2 1
+       30 GETTABLEKS                       R7 R3 K9 ["defaultAbilitiesEnableReachingSetting"]
+       32 FASTCALL2K                       ASSERT R7 K10 ; [+4]
+       34 LOADK                            R8 K10 ["Expected reaching setting"]
+       35 GETIMPORT                        R6 K3 [assert]
+       37 CALL                             R6 2 1
+       38 GETTABLEKS                       R8 R3 K11 ["defaultAbilitiesEnableSprintingSetting"]
+       40 FASTCALL2K                       ASSERT R8 K12 ; [+4]
+       42 LOADK                            R9 K12 ["Expected sprinting setting"]
+       43 GETIMPORT                        R7 K3 [assert]
+       45 CALL                             R7 2 1
+       46 GETTABLEKS                       R9 R3 K13 ["defaultAbilitiesEnableStrafingSetting"]
+       48 FASTCALL2K                       ASSERT R9 K14 ; [+4]
+       50 LOADK                            R10 K14 ["Expected strafing setting"]
+       51 GETIMPORT                        R8 K3 [assert]
+       53 CALL                             R8 2 1
+       54 GETTABLEKS                       R9 R3 K15 ["characterControllerModeSetting"]
+       56 GETTABLEKS                       R9 R9 K16 ["set"]
+       58 GETTABLEKS                       R10 R1 K17 ["CharacterControllerMode"]
+       60 LOADB                            R11 1
+       61 CALL                             R9 2 0
+       62 GETTABLEKS                       R9 R3 K18 ["defaultAbilitiesEnableClimbingSetting"]
+       64 GETTABLEKS                       R9 R9 K16 ["set"]
+       66 GETTABLEKS                       R10 R1 K19 ["EnableClimbing"]
+       68 LOADB                            R11 1
+       69 CALL                             R9 2 0
+       70 GETTABLEKS                       R9 R1 K20 ["EnableCrouching"]
+       72 JUMPIFNOTEQKNIL                  R9 ; [+2]
+       74 LOADB                            R11 0 +1
+       75 LOADB                            R11 1
+       76 FASTCALL2K                       ASSERT R11 K21 ; [+4]
+       78 LOADK                            R12 K21 ["Expected EnableCrouching"]
+       79 GETIMPORT                        R10 K3 [assert]
+       81 CALL                             R10 2 0
+       82 GETTABLEKS                       R10 R4 K16 ["set"]
+       84 MOVE                             R11 R9
+       85 LOADB                            R12 1
+       86 CALL                             R10 2 0
+       87 GETTABLEKS                       R10 R3 K22 ["defaultAbilitiesEnableFallingDownSetting"]
+       89 GETTABLEKS                       R10 R10 K16 ["set"]
+       91 GETTABLEKS                       R11 R1 K23 ["EnableFallingDown"]
+       93 LOADB                            R12 1
+       94 CALL                             R10 2 0
+       95 GETTABLEKS                       R10 R3 K24 ["defaultAbilitiesEnableGettingUpSetting"]
+       97 GETTABLEKS                       R10 R10 K16 ["set"]
+       99 GETTABLEKS                       R11 R1 K25 ["EnableGettingUp"]
+      101 LOADB                            R12 1
+      102 CALL                             R10 2 0
+      103 GETTABLEKS                       R10 R1 K26 ["EnableHolding"]
+      105 JUMPIFNOTEQKNIL                  R10 ; [+2]
+      107 LOADB                            R12 0 +1
+      108 LOADB                            R12 1
+      109 FASTCALL2K                       ASSERT R12 K27 ; [+4]
+      111 LOADK                            R13 K27 ["Expected EnableHolding"]
+      112 GETIMPORT                        R11 K3 [assert]
+      114 CALL                             R11 2 0
+      115 GETTABLEKS                       R11 R5 K16 ["set"]
+      117 MOVE                             R12 R10
+      118 LOADB                            R13 1
+      119 CALL                             R11 2 0
+      120 GETTABLEKS                       R11 R3 K28 ["defaultAbilitiesEnableJumpingSetting"]
+      122 GETTABLEKS                       R11 R11 K16 ["set"]
+      124 GETTABLEKS                       R12 R1 K29 ["EnableJumping"]
+      126 LOADB                            R13 1
+      127 CALL                             R11 2 0
+      128 GETTABLEKS                       R11 R1 K30 ["EnableReaching"]
+      130 JUMPIFNOTEQKNIL                  R11 ; [+2]
+      132 LOADB                            R13 0 +1
+      133 LOADB                            R13 1
+      134 FASTCALL2K                       ASSERT R13 K31 ; [+4]
+      136 LOADK                            R14 K31 ["Expected EnableReaching"]
+      137 GETIMPORT                        R12 K3 [assert]
+      139 CALL                             R12 2 0
+      140 GETTABLEKS                       R12 R6 K16 ["set"]
+      142 MOVE                             R13 R11
+      143 LOADB                            R14 1
+      144 CALL                             R12 2 0
+      145 GETTABLEKS                       R12 R3 K32 ["defaultAbilitiesEnableRunningSetting"]
+      147 GETTABLEKS                       R12 R12 K16 ["set"]
+      149 GETTABLEKS                       R13 R1 K33 ["EnableRunning"]
+      151 LOADB                            R14 1
+      152 CALL                             R12 2 0
+      153 GETTABLEKS                       R12 R3 K34 ["defaultAbilitiesEnableSittingSetting"]
+      155 GETTABLEKS                       R12 R12 K16 ["set"]
+      157 GETTABLEKS                       R13 R1 K35 ["EnableSitting"]
+      159 LOADB                            R14 1
+      160 CALL                             R12 2 0
+      161 GETTABLEKS                       R12 R1 K36 ["EnableSprinting"]
+      163 JUMPIFNOTEQKNIL                  R12 ; [+2]
+      165 LOADB                            R14 0 +1
+      166 LOADB                            R14 1
+      167 FASTCALL2K                       ASSERT R14 K37 ; [+4]
+      169 LOADK                            R15 K37 ["Expected EnableSprinting"]
+      170 GETIMPORT                        R13 K3 [assert]
+      172 CALL                             R13 2 0
+      173 GETTABLEKS                       R13 R7 K16 ["set"]
+      175 MOVE                             R14 R12
+      176 LOADB                            R15 1
+      177 CALL                             R13 2 0
+      178 GETTABLEKS                       R13 R1 K38 ["EnableStrafing"]
+      180 JUMPIFNOTEQKNIL                  R13 ; [+2]
+      182 LOADB                            R15 0 +1
+      183 LOADB                            R15 1
+      184 FASTCALL2K                       ASSERT R15 K39 ; [+4]
+      186 LOADK                            R16 K39 ["Expected EnableStrafing"]
+      187 GETIMPORT                        R14 K3 [assert]
+      189 CALL                             R14 2 0
+      190 GETTABLEKS                       R14 R8 K16 ["set"]
+      192 MOVE                             R15 R13
+      193 LOADB                            R16 1
+      194 CALL                             R14 2 0
+      195 GETTABLEKS                       R14 R3 K40 ["defaultAbilitiesEnableSwimmingSetting"]
+      197 GETTABLEKS                       R14 R14 K16 ["set"]
+      199 GETTABLEKS                       R15 R1 K41 ["EnableSwimming"]
+      201 LOADB                            R16 1
+      202 CALL                             R14 2 0
+      203 RETURN                           R0 0
+      204 GETTABLEKS                       R4 R3 K15 ["characterControllerModeSetting"]
+      206 GETTABLEKS                       R4 R4 K16 ["set"]
+      208 GETTABLEKS                       R5 R1 K17 ["CharacterControllerMode"]
+      210 LOADB                            R6 1
+      211 CALL                             R4 2 0
+      212 GETTABLEKS                       R4 R3 K32 ["defaultAbilitiesEnableRunningSetting"]
+      214 GETTABLEKS                       R4 R4 K16 ["set"]
+      216 GETTABLEKS                       R5 R1 K33 ["EnableRunning"]
+      218 LOADB                            R6 1
+      219 CALL                             R4 2 0
+      220 GETTABLEKS                       R4 R3 K28 ["defaultAbilitiesEnableJumpingSetting"]
+      222 GETTABLEKS                       R4 R4 K16 ["set"]
+      224 GETTABLEKS                       R5 R1 K29 ["EnableJumping"]
+      226 LOADB                            R6 1
+      227 CALL                             R4 2 0
+      228 GETTABLEKS                       R4 R3 K34 ["defaultAbilitiesEnableSittingSetting"]
+      230 GETTABLEKS                       R4 R4 K16 ["set"]
+      232 GETTABLEKS                       R5 R1 K35 ["EnableSitting"]
+      234 LOADB                            R6 1
+      235 CALL                             R4 2 0
+      236 GETTABLEKS                       R4 R3 K22 ["defaultAbilitiesEnableFallingDownSetting"]
+      238 GETTABLEKS                       R4 R4 K16 ["set"]
+      240 GETTABLEKS                       R5 R1 K23 ["EnableFallingDown"]
+      242 LOADB                            R6 1
+      243 CALL                             R4 2 0
+      244 GETTABLEKS                       R4 R3 K24 ["defaultAbilitiesEnableGettingUpSetting"]
+      246 GETTABLEKS                       R4 R4 K16 ["set"]
+      248 GETTABLEKS                       R5 R1 K25 ["EnableGettingUp"]
+      250 LOADB                            R6 1
+      251 CALL                             R4 2 0
+      252 GETTABLEKS                       R4 R3 K18 ["defaultAbilitiesEnableClimbingSetting"]
+      254 GETTABLEKS                       R4 R4 K16 ["set"]
+      256 GETTABLEKS                       R5 R1 K19 ["EnableClimbing"]
+      258 LOADB                            R6 1
+      259 CALL                             R4 2 0
+      260 GETTABLEKS                       R4 R3 K40 ["defaultAbilitiesEnableSwimmingSetting"]
+      262 GETTABLEKS                       R4 R4 K16 ["set"]
+      264 GETTABLEKS                       R5 R1 K41 ["EnableSwimming"]
+      266 LOADB                            R6 1
+      267 CALL                             R4 2 0
+      268 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["settings"]
@@ -780,18 +909,24 @@ MAIN:
        31 GETTABLEKS                       R4 R4 K10 ["Util"]
        33 GETTABLEKS                       R4 R4 K12 ["AvatarSettingsSyncTypes"]
        35 CALL                             R3 1 1
-       36 DUPCLOSURE                       R4 K13 [PROTO_0]
-       37 DUPCLOSURE                       R5 K14 [PROTO_1]
-       38 DUPCLOSURE                       R6 K15 [PROTO_2]
-       39 DUPCLOSURE                       R7 K16 [PROTO_3]
-       40 DUPCLOSURE                       R8 K17 [PROTO_4]
-       41 DUPCLOSURE                       R9 K18 [PROTO_5]
-       42 DUPCLOSURE                       R10 K19 [PROTO_6]
-       43 DUPCLOSURE                       R11 K20 [PROTO_7]
-       44 CAPTURE                          VAL R5
-       45 CAPTURE                          VAL R6
-       46 CAPTURE                          VAL R7
-       47 CAPTURE                          VAL R8
-       48 CAPTURE                          VAL R9
-       49 CAPTURE                          VAL R10
-       50 RETURN                           R11 1
+       36 GETIMPORT                        R4 K5 [require]
+       38 GETTABLEKS                       R5 R0 K6 ["Src"]
+       40 GETTABLEKS                       R5 R5 K13 ["Flags"]
+       42 GETTABLEKS                       R5 R5 K14 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
+       44 CALL                             R4 1 1
+       45 DUPCLOSURE                       R5 K15 [PROTO_0]
+       46 DUPCLOSURE                       R6 K16 [PROTO_1]
+       47 DUPCLOSURE                       R7 K17 [PROTO_2]
+       48 DUPCLOSURE                       R8 K18 [PROTO_3]
+       49 DUPCLOSURE                       R9 K19 [PROTO_4]
+       50 DUPCLOSURE                       R10 K20 [PROTO_5]
+       51 DUPCLOSURE                       R11 K21 [PROTO_6]
+       52 CAPTURE                          VAL R4
+       53 DUPCLOSURE                       R12 K22 [PROTO_7]
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R7
+       56 CAPTURE                          VAL R8
+       57 CAPTURE                          VAL R9
+       58 CAPTURE                          VAL R10
+       59 CAPTURE                          VAL R11
+       60 RETURN                           R12 1

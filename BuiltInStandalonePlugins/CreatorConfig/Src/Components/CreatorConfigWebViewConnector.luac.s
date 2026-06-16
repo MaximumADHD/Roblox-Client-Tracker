@@ -119,150 +119,133 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 DUPTABLE                         R3 K7 [{"Common", "PublishDialog", "PublishAsDialog", "CancelPublishDialog", "PublishFailureReason"}]
-        5 DUPTABLE                         R4 K11 [{"ConfigNounSingular", "ConfigNounPlural", "Retry"}]
+        4 DUPTABLE                         R3 K6 [{"Common", "PublishDialog", "PublishAsDialog", "CancelPublishDialog"}]
+        5 DUPTABLE                         R4 K10 [{"ConfigNounSingular", "ConfigNounPlural", "Retry"}]
         6 LOADK                            R7 K2 ["Common"]
-        7 LOADK                            R8 K8 ["ConfigNounSingular"]
-        8 NAMECALL                         R5 R2 K12 ["getText"]
+        7 LOADK                            R8 K7 ["ConfigNounSingular"]
+        8 NAMECALL                         R5 R2 K11 ["getText"]
        10 CALL                             R5 3 1
-       11 SETTABLEKS                       R5 R4 K8 ["ConfigNounSingular"]
+       11 SETTABLEKS                       R5 R4 K7 ["ConfigNounSingular"]
        13 LOADK                            R7 K2 ["Common"]
-       14 LOADK                            R8 K9 ["ConfigNounPlural"]
-       15 NAMECALL                         R5 R2 K12 ["getText"]
+       14 LOADK                            R8 K8 ["ConfigNounPlural"]
+       15 NAMECALL                         R5 R2 K11 ["getText"]
        17 CALL                             R5 3 1
-       18 SETTABLEKS                       R5 R4 K9 ["ConfigNounPlural"]
+       18 SETTABLEKS                       R5 R4 K8 ["ConfigNounPlural"]
        20 LOADK                            R7 K2 ["Common"]
-       21 LOADK                            R8 K10 ["Retry"]
-       22 NAMECALL                         R5 R2 K12 ["getText"]
+       21 LOADK                            R8 K9 ["Retry"]
+       22 NAMECALL                         R5 R2 K11 ["getText"]
        24 CALL                             R5 3 1
-       25 SETTABLEKS                       R5 R4 K10 ["Retry"]
+       25 SETTABLEKS                       R5 R4 K9 ["Retry"]
        27 SETTABLEKS                       R4 R3 K2 ["Common"]
-       29 DUPTABLE                         R4 K18 [{"MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton"}]
+       29 DUPTABLE                         R4 K17 [{"MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton"}]
        30 LOADK                            R7 K3 ["PublishDialog"]
-       31 LOADK                            R8 K13 ["MessageFieldLabel"]
-       32 NAMECALL                         R5 R2 K12 ["getText"]
+       31 LOADK                            R8 K12 ["MessageFieldLabel"]
+       32 NAMECALL                         R5 R2 K11 ["getText"]
        34 CALL                             R5 3 1
-       35 SETTABLEKS                       R5 R4 K13 ["MessageFieldLabel"]
+       35 SETTABLEKS                       R5 R4 K12 ["MessageFieldLabel"]
        37 LOADK                            R7 K3 ["PublishDialog"]
-       38 LOADK                            R8 K14 ["MessageFieldHint"]
-       39 NAMECALL                         R5 R2 K12 ["getText"]
+       38 LOADK                            R8 K13 ["MessageFieldHint"]
+       39 NAMECALL                         R5 R2 K11 ["getText"]
        41 CALL                             R5 3 1
-       42 SETTABLEKS                       R5 R4 K14 ["MessageFieldHint"]
+       42 SETTABLEKS                       R5 R4 K13 ["MessageFieldHint"]
        44 LOADK                            R7 K3 ["PublishDialog"]
-       45 LOADK                            R8 K15 ["MessageFieldPlaceholder"]
-       46 NAMECALL                         R5 R2 K12 ["getText"]
+       45 LOADK                            R8 K14 ["MessageFieldPlaceholder"]
+       46 NAMECALL                         R5 R2 K11 ["getText"]
        48 CALL                             R5 3 1
-       49 SETTABLEKS                       R5 R4 K15 ["MessageFieldPlaceholder"]
-       51 DUPTABLE                         R5 K21 [{"GradualRollout", "ImmediateRollout"}]
+       49 SETTABLEKS                       R5 R4 K14 ["MessageFieldPlaceholder"]
+       51 DUPTABLE                         R5 K20 [{"GradualRollout", "ImmediateRollout"}]
        52 LOADK                            R8 K3 ["PublishDialog"]
-       53 LOADK                            R9 K22 ["PublishSlowlyButton"]
-       54 NAMECALL                         R6 R2 K12 ["getText"]
+       53 LOADK                            R9 K21 ["PublishSlowlyButton"]
+       54 NAMECALL                         R6 R2 K11 ["getText"]
        56 CALL                             R6 3 1
-       57 SETTABLEKS                       R6 R5 K19 ["GradualRollout"]
+       57 SETTABLEKS                       R6 R5 K18 ["GradualRollout"]
        59 LOADK                            R8 K3 ["PublishDialog"]
-       60 LOADK                            R9 K16 ["PublishButton"]
-       61 NAMECALL                         R6 R2 K12 ["getText"]
+       60 LOADK                            R9 K15 ["PublishButton"]
+       61 NAMECALL                         R6 R2 K11 ["getText"]
        63 CALL                             R6 3 1
-       64 SETTABLEKS                       R6 R5 K20 ["ImmediateRollout"]
-       66 SETTABLEKS                       R5 R4 K16 ["PublishButton"]
+       64 SETTABLEKS                       R6 R5 K19 ["ImmediateRollout"]
+       66 SETTABLEKS                       R5 R4 K15 ["PublishButton"]
        68 LOADK                            R7 K3 ["PublishDialog"]
-       69 LOADK                            R8 K17 ["CancelButton"]
-       70 NAMECALL                         R5 R2 K12 ["getText"]
+       69 LOADK                            R8 K16 ["CancelButton"]
+       70 NAMECALL                         R5 R2 K11 ["getText"]
        72 CALL                             R5 3 1
-       73 SETTABLEKS                       R5 R4 K17 ["CancelButton"]
+       73 SETTABLEKS                       R5 R4 K16 ["CancelButton"]
        75 SETTABLEKS                       R4 R3 K3 ["PublishDialog"]
-       77 DUPTABLE                         R4 K33 [{"SearchPlaceholder", "MyExperiences", "Description", "FailedToLoadUniverses", "FailedToLoadGroups", "NoExperiencesMatchFilter", "DoneButton", "PublishSuccess", "PublishFailure", "PublishInProgress"}]
+       77 DUPTABLE                         R4 K32 [{"SearchPlaceholder", "MyExperiences", "Description", "FailedToLoadUniverses", "FailedToLoadGroups", "NoExperiencesMatchFilter", "DoneButton", "PublishSuccess", "PublishFailure", "PublishInProgress"}]
        78 LOADK                            R7 K4 ["PublishAsDialog"]
-       79 LOADK                            R8 K23 ["SearchPlaceholder"]
-       80 NAMECALL                         R5 R2 K12 ["getText"]
+       79 LOADK                            R8 K22 ["SearchPlaceholder"]
+       80 NAMECALL                         R5 R2 K11 ["getText"]
        82 CALL                             R5 3 1
-       83 SETTABLEKS                       R5 R4 K23 ["SearchPlaceholder"]
+       83 SETTABLEKS                       R5 R4 K22 ["SearchPlaceholder"]
        85 LOADK                            R7 K4 ["PublishAsDialog"]
-       86 LOADK                            R8 K24 ["MyExperiences"]
-       87 NAMECALL                         R5 R2 K12 ["getText"]
+       86 LOADK                            R8 K23 ["MyExperiences"]
+       87 NAMECALL                         R5 R2 K11 ["getText"]
        89 CALL                             R5 3 1
-       90 SETTABLEKS                       R5 R4 K24 ["MyExperiences"]
+       90 SETTABLEKS                       R5 R4 K23 ["MyExperiences"]
        92 LOADK                            R7 K4 ["PublishAsDialog"]
-       93 LOADK                            R8 K25 ["Description"]
-       94 NAMECALL                         R5 R2 K12 ["getText"]
+       93 LOADK                            R8 K24 ["Description"]
+       94 NAMECALL                         R5 R2 K11 ["getText"]
        96 CALL                             R5 3 1
-       97 SETTABLEKS                       R5 R4 K25 ["Description"]
+       97 SETTABLEKS                       R5 R4 K24 ["Description"]
        99 LOADK                            R7 K4 ["PublishAsDialog"]
-      100 LOADK                            R8 K26 ["FailedToLoadUniverses"]
-      101 NAMECALL                         R5 R2 K12 ["getText"]
+      100 LOADK                            R8 K25 ["FailedToLoadUniverses"]
+      101 NAMECALL                         R5 R2 K11 ["getText"]
       103 CALL                             R5 3 1
-      104 SETTABLEKS                       R5 R4 K26 ["FailedToLoadUniverses"]
+      104 SETTABLEKS                       R5 R4 K25 ["FailedToLoadUniverses"]
       106 LOADK                            R7 K4 ["PublishAsDialog"]
-      107 LOADK                            R8 K27 ["FailedToLoadGroups"]
-      108 NAMECALL                         R5 R2 K12 ["getText"]
+      107 LOADK                            R8 K26 ["FailedToLoadGroups"]
+      108 NAMECALL                         R5 R2 K11 ["getText"]
       110 CALL                             R5 3 1
-      111 SETTABLEKS                       R5 R4 K27 ["FailedToLoadGroups"]
+      111 SETTABLEKS                       R5 R4 K26 ["FailedToLoadGroups"]
       113 LOADK                            R7 K4 ["PublishAsDialog"]
-      114 LOADK                            R8 K28 ["NoExperiencesMatchFilter"]
-      115 NAMECALL                         R5 R2 K12 ["getText"]
+      114 LOADK                            R8 K27 ["NoExperiencesMatchFilter"]
+      115 NAMECALL                         R5 R2 K11 ["getText"]
       117 CALL                             R5 3 1
-      118 SETTABLEKS                       R5 R4 K28 ["NoExperiencesMatchFilter"]
+      118 SETTABLEKS                       R5 R4 K27 ["NoExperiencesMatchFilter"]
       120 LOADK                            R7 K4 ["PublishAsDialog"]
-      121 LOADK                            R8 K29 ["DoneButton"]
-      122 NAMECALL                         R5 R2 K12 ["getText"]
+      121 LOADK                            R8 K28 ["DoneButton"]
+      122 NAMECALL                         R5 R2 K11 ["getText"]
       124 CALL                             R5 3 1
-      125 SETTABLEKS                       R5 R4 K29 ["DoneButton"]
+      125 SETTABLEKS                       R5 R4 K28 ["DoneButton"]
       127 LOADK                            R7 K4 ["PublishAsDialog"]
-      128 LOADK                            R8 K30 ["PublishSuccess"]
-      129 NAMECALL                         R5 R2 K12 ["getText"]
+      128 LOADK                            R8 K29 ["PublishSuccess"]
+      129 NAMECALL                         R5 R2 K11 ["getText"]
       131 CALL                             R5 3 1
-      132 SETTABLEKS                       R5 R4 K30 ["PublishSuccess"]
+      132 SETTABLEKS                       R5 R4 K29 ["PublishSuccess"]
       134 LOADK                            R7 K4 ["PublishAsDialog"]
-      135 LOADK                            R8 K31 ["PublishFailure"]
-      136 NAMECALL                         R5 R2 K12 ["getText"]
+      135 LOADK                            R8 K30 ["PublishFailure"]
+      136 NAMECALL                         R5 R2 K11 ["getText"]
       138 CALL                             R5 3 1
-      139 SETTABLEKS                       R5 R4 K31 ["PublishFailure"]
+      139 SETTABLEKS                       R5 R4 K30 ["PublishFailure"]
       141 LOADK                            R7 K4 ["PublishAsDialog"]
-      142 LOADK                            R8 K32 ["PublishInProgress"]
-      143 NAMECALL                         R5 R2 K12 ["getText"]
+      142 LOADK                            R8 K31 ["PublishInProgress"]
+      143 NAMECALL                         R5 R2 K11 ["getText"]
       145 CALL                             R5 3 1
-      146 SETTABLEKS                       R5 R4 K32 ["PublishInProgress"]
+      146 SETTABLEKS                       R5 R4 K31 ["PublishInProgress"]
       148 SETTABLEKS                       R4 R3 K4 ["PublishAsDialog"]
-      150 DUPTABLE                         R4 K36 [{"Title", "Description", "ConfirmButton", "CancelButton"}]
+      150 DUPTABLE                         R4 K35 [{"Title", "Description", "ConfirmButton", "CancelButton"}]
       151 LOADK                            R7 K5 ["CancelPublishDialog"]
-      152 LOADK                            R8 K34 ["Title"]
-      153 NAMECALL                         R5 R2 K12 ["getText"]
+      152 LOADK                            R8 K33 ["Title"]
+      153 NAMECALL                         R5 R2 K11 ["getText"]
       155 CALL                             R5 3 1
-      156 SETTABLEKS                       R5 R4 K34 ["Title"]
+      156 SETTABLEKS                       R5 R4 K33 ["Title"]
       158 LOADK                            R7 K5 ["CancelPublishDialog"]
-      159 LOADK                            R8 K25 ["Description"]
-      160 NAMECALL                         R5 R2 K12 ["getText"]
+      159 LOADK                            R8 K24 ["Description"]
+      160 NAMECALL                         R5 R2 K11 ["getText"]
       162 CALL                             R5 3 1
-      163 SETTABLEKS                       R5 R4 K25 ["Description"]
+      163 SETTABLEKS                       R5 R4 K24 ["Description"]
       165 LOADK                            R7 K5 ["CancelPublishDialog"]
-      166 LOADK                            R8 K35 ["ConfirmButton"]
-      167 NAMECALL                         R5 R2 K12 ["getText"]
+      166 LOADK                            R8 K34 ["ConfirmButton"]
+      167 NAMECALL                         R5 R2 K11 ["getText"]
       169 CALL                             R5 3 1
-      170 SETTABLEKS                       R5 R4 K35 ["ConfirmButton"]
+      170 SETTABLEKS                       R5 R4 K34 ["ConfirmButton"]
       172 LOADK                            R7 K5 ["CancelPublishDialog"]
-      173 LOADK                            R8 K17 ["CancelButton"]
-      174 NAMECALL                         R5 R2 K12 ["getText"]
+      173 LOADK                            R8 K16 ["CancelButton"]
+      174 NAMECALL                         R5 R2 K11 ["getText"]
       176 CALL                             R5 3 1
-      177 SETTABLEKS                       R5 R4 K17 ["CancelButton"]
+      177 SETTABLEKS                       R5 R4 K16 ["CancelButton"]
       179 SETTABLEKS                       R4 R3 K5 ["CancelPublishDialog"]
-      181 DUPTABLE                         R4 K40 [{"unknown", "timeout", "ongoingPublish"}]
-      182 LOADK                            R7 K6 ["PublishFailureReason"]
-      183 LOADK                            R8 K41 ["Unknown"]
-      184 NAMECALL                         R5 R2 K12 ["getText"]
-      186 CALL                             R5 3 1
-      187 SETTABLEKS                       R5 R4 K37 ["unknown"]
-      189 LOADK                            R7 K6 ["PublishFailureReason"]
-      190 LOADK                            R8 K42 ["Timeout"]
-      191 NAMECALL                         R5 R2 K12 ["getText"]
-      193 CALL                             R5 3 1
-      194 SETTABLEKS                       R5 R4 K38 ["timeout"]
-      196 LOADK                            R7 K6 ["PublishFailureReason"]
-      197 LOADK                            R8 K43 ["OngoingPublish"]
-      198 NAMECALL                         R5 R2 K12 ["getText"]
-      200 CALL                             R5 3 1
-      201 SETTABLEKS                       R5 R4 K39 ["ongoingPublish"]
-      203 SETTABLEKS                       R4 R3 K6 ["PublishFailureReason"]
-      205 RETURN                           R3 1
+      181 RETURN                           R3 1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["strategy"]
@@ -379,8 +362,21 @@ PROTO_4:
        47 RETURN                           R0 0
 
 PROTO_5:
-        0 SETUPVAL                         R0 0
-        1 RETURN                           R0 0
+        0 GETIMPORT                        R1 K1 [ipairs]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 3
+        4 FORGPREP_INEXT                   R1
+        5 GETTABLEKS                       R6 R5 K2 ["GameId"]
+        7 GETUPVAL                         R7 0
+        8 JUMPIFNOTEQ                      R6 R7 ; [+7]
+       10 GETIMPORT                        R6 K5 [table.remove]
+       12 MOVE                             R7 R0
+       13 MOVE                             R8 R4
+       14 CALL                             R6 2 0
+       15 JUMP                             ; [+2]
+       16 FORGLOOP                         R1 2 [inext] ; [-12]
+       18 SETUPVAL                         R0 1
+       19 RETURN                           R0 0
 
 PROTO_6:
         0 LOADNIL                          R1
@@ -394,17 +390,18 @@ PROTO_7:
         3 MOVE                             R5 R1
         4 CALL                             R3 2 1
         5 NEWCLOSURE                       R5 P0
-        6 CAPTURE                          REF R2
-        7 NAMECALL                         R3 R3 K0 ["andThen"]
-        9 CALL                             R3 2 1
-       10 NEWCLOSURE                       R5 P1
-       11 CAPTURE                          REF R2
-       12 NAMECALL                         R3 R3 K1 ["catch"]
-       14 CALL                             R3 2 1
-       15 NAMECALL                         R3 R3 K2 ["await"]
-       17 CALL                             R3 1 0
-       18 CLOSEUPVALS                      R2
-       19 RETURN                           R2 1
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          REF R2
+        8 NAMECALL                         R3 R3 K0 ["andThen"]
+       10 CALL                             R3 2 1
+       11 NEWCLOSURE                       R5 P1
+       12 CAPTURE                          REF R2
+       13 NAMECALL                         R3 R3 K1 ["catch"]
+       15 CALL                             R3 2 1
+       16 NAMECALL                         R3 R3 K2 ["await"]
+       18 CALL                             R3 1 0
+       19 CLOSEUPVALS                      R2
+       20 RETURN                           R2 1
 
 PROTO_8:
         0 SETUPVAL                         R0 0
@@ -441,18 +438,28 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["PublishFailureReason"]
-        3 GETTABLE                         R1 R2 R0
-        4 JUMPIF                           R1 ; [+5]
-        5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R1 R1 K0 ["PublishFailureReason"]
-        8 GETTABLEKS                       R1 R1 K1 ["unknown"]
-       10 DUPTABLE                         R2 K4 [{"success", "error"}]
-       11 LOADB                            R3 0
-       12 SETTABLEKS                       R3 R2 K2 ["success"]
-       14 SETTABLEKS                       R1 R2 K3 ["error"]
-       16 SETUPVAL                         R2 1
-       17 RETURN                           R0 0
+        1 GETTABLE                         R1 R2 R0
+        2 JUMPIF                           R1 ; [+3]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R1 R2 K0 ["unknown"]
+        6 GETUPVAL                         R2 1
+        7 LOADK                            R4 K1 ["PublishFailureReason"]
+        8 MOVE                             R5 R1
+        9 DUPTABLE                         R6 K3 [{"universeName"}]
+       10 GETUPVAL                         R7 2
+       11 GETTABLEKS                       R7 R7 K4 ["universe"]
+       13 GETTABLEKS                       R7 R7 K5 ["Name"]
+       15 SETTABLEKS                       R7 R6 K2 ["universeName"]
+       17 NAMECALL                         R2 R2 K6 ["getText"]
+       19 CALL                             R2 4 1
+       20 LOADB                            R3 1
+       21 JUMPIFEQKS                       R0 K7 ["emptyDraft"] ; [+2]
+       23 LOADB                            R3 0
+       24 DUPTABLE                         R4 K10 [{"success", "message"}]
+       25 SETTABLEKS                       R3 R4 K8 ["success"]
+       27 SETTABLEKS                       R2 R4 K9 ["message"]
+       29 SETUPVAL                         R4 3
+       30 RETURN                           R0 0
 
 PROTO_13:
         0 LOADNIL                          R1
@@ -466,150 +473,175 @@ PROTO_13:
        11 SETTABLEKS                       R6 R5 K2 ["strategy"]
        13 GETTABLEKS                       R6 R0 K3 ["message"]
        15 SETTABLEKS                       R6 R5 K3 ["message"]
-       17 GETTABLEKS                       R6 R0 K4 ["universeId"]
-       19 SETTABLEKS                       R6 R5 K4 ["universeId"]
-       21 NAMECALL                         R2 R2 K6 ["requestPublish"]
-       23 CALL                             R2 3 1
-       24 NEWCLOSURE                       R4 P0
-       25 CAPTURE                          REF R1
-       26 NAMECALL                         R2 R2 K7 ["andThen"]
-       28 CALL                             R2 2 1
-       29 NEWCLOSURE                       R4 P1
-       30 CAPTURE                          UPVAL U3
-       31 CAPTURE                          REF R1
-       32 NAMECALL                         R2 R2 K8 ["catch"]
-       34 CALL                             R2 2 1
-       35 NAMECALL                         R2 R2 K9 ["await"]
-       37 CALL                             R2 1 0
-       38 CLOSEUPVALS                      R1
-       39 RETURN                           R1 1
+       17 GETTABLEKS                       R6 R0 K6 ["universe"]
+       19 GETTABLEKS                       R6 R6 K7 ["GameId"]
+       21 SETTABLEKS                       R6 R5 K4 ["universeId"]
+       23 NAMECALL                         R2 R2 K8 ["requestPublish"]
+       25 CALL                             R2 3 1
+       26 NEWCLOSURE                       R4 P0
+       27 CAPTURE                          REF R1
+       28 NAMECALL                         R2 R2 K9 ["andThen"]
+       30 CALL                             R2 2 1
+       31 NEWCLOSURE                       R4 P1
+       32 CAPTURE                          UPVAL U3
+       33 CAPTURE                          UPVAL U4
+       34 CAPTURE                          VAL R0
+       35 CAPTURE                          REF R1
+       36 NAMECALL                         R2 R2 K10 ["catch"]
+       38 CALL                             R2 2 1
+       39 NAMECALL                         R2 R2 K11 ["await"]
+       41 CALL                             R2 1 0
+       42 CLOSEUPVALS                      R1
+       43 RETURN                           R1 1
 
 PROTO_14:
-        0 DUPCLOSURE                       R1 K0 [PROTO_7]
-        1 CAPTURE                          UPVAL U0
-        2 DUPCLOSURE                       R2 K1 [PROTO_10]
-        3 CAPTURE                          UPVAL U1
-        4 NEWCLOSURE                       R3 P2
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U4
-        9 GETTABLEKS                       R5 R0 K2 ["strategy"]
-       11 JUMPIFEQKS                       R5 K3 ["DEPLOYMENT_STRATEGY_GRADUAL_ROLLOUT"] ; [+2]
-       13 LOADB                            R4 0 +1
-       14 LOADB                            R4 1
-       15 GETTABLEKS                       R6 R0 K5 ["configsCount"]
-       17 ORK                              R5 R6 K4 [1]
-       18 GETUPVAL                         R6 5
-       19 LOADK                            R8 K6 ["Common"]
-       20 JUMPIFNOTEQKN                    R5 K4 [1] ; [+3]
-       22 LOADK                            R9 K7 ["ConfigNounSingular"]
-       23 JUMP                             ; [+1]
-       24 LOADK                            R9 K8 ["ConfigNounPlural"]
-       25 NAMECALL                         R6 R6 K9 ["getText"]
-       27 CALL                             R6 3 1
-       28 GETUPVAL                         R7 6
-       29 GETUPVAL                         R9 7
-       30 DUPTABLE                         R10 K15 [{"deploymentStrategy", "getUniverses", "getGroups", "requestPublish", "translationStrings"}]
-       31 GETTABLEKS                       R11 R0 K2 ["strategy"]
-       33 SETTABLEKS                       R11 R10 K10 ["deploymentStrategy"]
-       35 SETTABLEKS                       R1 R10 K11 ["getUniverses"]
-       37 SETTABLEKS                       R2 R10 K12 ["getGroups"]
-       39 SETTABLEKS                       R3 R10 K13 ["requestPublish"]
-       41 DUPTABLE                         R11 K33 [{"Title", "MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton", "SearchPlaceholder", "MyExperiences", "Description", "FailedToLoadUniverses", "FailedToLoadGroups", "NoExperiencesMatchFilter", "RetryButton", "DoneButton", "PublishSuccess", "PublishFailure", "PublishInProgress"}]
-       42 GETUPVAL                         R12 5
-       43 LOADK                            R14 K34 ["PublishAsDialog"]
-       44 JUMPIFNOT                        R4 ; [+2]
-       45 LOADK                            R15 K35 ["PublishSlowlyTitle"]
-       46 JUMP                             ; [+1]
-       47 LOADK                            R15 K36 ["PublishNowTitle"]
-       48 DUPTABLE                         R16 K39 [{"changeCount", "noun"}]
-       49 FASTCALL1                        TOSTRING R5 ; [+3]
-       50 MOVE                             R18 R5
-       51 GETIMPORT                        R17 K41 [tostring]
-       53 CALL                             R17 1 1
-       54 SETTABLEKS                       R17 R16 K37 ["changeCount"]
-       56 SETTABLEKS                       R6 R16 K38 ["noun"]
-       58 NAMECALL                         R12 R12 K9 ["getText"]
-       60 CALL                             R12 4 1
-       61 SETTABLEKS                       R12 R11 K16 ["Title"]
-       63 GETUPVAL                         R12 4
-       64 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
-       66 GETTABLEKS                       R12 R12 K17 ["MessageFieldLabel"]
-       68 SETTABLEKS                       R12 R11 K17 ["MessageFieldLabel"]
-       70 GETUPVAL                         R12 4
-       71 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
-       73 GETTABLEKS                       R12 R12 K18 ["MessageFieldHint"]
-       75 SETTABLEKS                       R12 R11 K18 ["MessageFieldHint"]
-       77 GETUPVAL                         R12 4
-       78 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
-       80 GETTABLEKS                       R12 R12 K19 ["MessageFieldPlaceholder"]
-       82 SETTABLEKS                       R12 R11 K19 ["MessageFieldPlaceholder"]
-       84 JUMPIFNOT                        R4 ; [+8]
-       85 GETUPVAL                         R12 4
-       86 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
-       88 GETTABLEKS                       R12 R12 K20 ["PublishButton"]
-       90 GETTABLEKS                       R12 R12 K43 ["GradualRollout"]
-       92 JUMPIF                           R12 ; [+7]
-       93 GETUPVAL                         R12 4
-       94 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
-       96 GETTABLEKS                       R12 R12 K20 ["PublishButton"]
-       98 GETTABLEKS                       R12 R12 K44 ["ImmediateRollout"]
-      100 SETTABLEKS                       R12 R11 K20 ["PublishButton"]
-      102 GETUPVAL                         R12 4
-      103 GETTABLEKS                       R12 R12 K42 ["PublishDialog"]
-      105 GETTABLEKS                       R12 R12 K21 ["CancelButton"]
-      107 SETTABLEKS                       R12 R11 K21 ["CancelButton"]
-      109 GETUPVAL                         R12 4
-      110 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      112 GETTABLEKS                       R12 R12 K22 ["SearchPlaceholder"]
-      114 SETTABLEKS                       R12 R11 K22 ["SearchPlaceholder"]
-      116 GETUPVAL                         R12 4
-      117 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      119 GETTABLEKS                       R12 R12 K23 ["MyExperiences"]
-      121 SETTABLEKS                       R12 R11 K23 ["MyExperiences"]
-      123 GETUPVAL                         R12 4
-      124 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      126 GETTABLEKS                       R12 R12 K24 ["Description"]
-      128 SETTABLEKS                       R12 R11 K24 ["Description"]
-      130 GETUPVAL                         R12 4
-      131 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      133 GETTABLEKS                       R12 R12 K25 ["FailedToLoadUniverses"]
-      135 SETTABLEKS                       R12 R11 K25 ["FailedToLoadUniverses"]
-      137 GETUPVAL                         R12 4
-      138 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      140 GETTABLEKS                       R12 R12 K26 ["FailedToLoadGroups"]
-      142 SETTABLEKS                       R12 R11 K26 ["FailedToLoadGroups"]
-      144 GETUPVAL                         R12 4
-      145 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      147 GETTABLEKS                       R12 R12 K27 ["NoExperiencesMatchFilter"]
-      149 SETTABLEKS                       R12 R11 K27 ["NoExperiencesMatchFilter"]
-      151 GETUPVAL                         R12 4
-      152 GETTABLEKS                       R12 R12 K6 ["Common"]
-      154 GETTABLEKS                       R12 R12 K45 ["Retry"]
-      156 SETTABLEKS                       R12 R11 K28 ["RetryButton"]
-      158 GETUPVAL                         R12 4
-      159 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      161 GETTABLEKS                       R12 R12 K29 ["DoneButton"]
-      163 SETTABLEKS                       R12 R11 K29 ["DoneButton"]
-      165 GETUPVAL                         R12 4
-      166 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      168 GETTABLEKS                       R12 R12 K30 ["PublishSuccess"]
-      170 SETTABLEKS                       R12 R11 K30 ["PublishSuccess"]
-      172 GETUPVAL                         R12 4
-      173 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      175 GETTABLEKS                       R12 R12 K31 ["PublishFailure"]
-      177 SETTABLEKS                       R12 R11 K31 ["PublishFailure"]
-      179 GETUPVAL                         R12 4
-      180 GETTABLEKS                       R12 R12 K34 ["PublishAsDialog"]
-      182 GETTABLEKS                       R12 R12 K32 ["PublishInProgress"]
-      184 SETTABLEKS                       R12 R11 K32 ["PublishInProgress"]
-      186 SETTABLEKS                       R11 R10 K14 ["translationStrings"]
-      188 NAMECALL                         R7 R7 K46 ["ShowCustomDialogAsync"]
-      190 CALL                             R7 3 0
-      191 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["PublishAsDialog"]
+        2 LOADK                            R4 K1 ["PublishToExperienceSuccess"]
+        3 DUPTABLE                         R5 K3 [{"universeName"}]
+        4 GETTABLEKS                       R6 R0 K4 ["Name"]
+        6 SETTABLEKS                       R6 R5 K2 ["universeName"]
+        8 NAMECALL                         R1 R1 K5 ["getText"]
+       10 CALL                             R1 4 -1
+       11 RETURN                           R1 -1
 
 PROTO_15:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["Plugin"]
+        5 LOADK                            R3 K2 ["universeid"]
+        6 NAMECALL                         R1 R1 K3 ["GetItem"]
+        8 CALL                             R1 2 1
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          VAL R1
+       12 DUPCLOSURE                       R3 K4 [PROTO_10]
+       13 CAPTURE                          UPVAL U2
+       14 NEWCLOSURE                       R4 P2
+       15 CAPTURE                          UPVAL U0
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U4
+       19 CAPTURE                          UPVAL U5
+       20 GETTABLEKS                       R6 R0 K5 ["strategy"]
+       22 JUMPIFEQKS                       R6 K6 ["DEPLOYMENT_STRATEGY_GRADUAL_ROLLOUT"] ; [+2]
+       24 LOADB                            R5 0 +1
+       25 LOADB                            R5 1
+       26 GETTABLEKS                       R7 R0 K8 ["configsCount"]
+       28 ORK                              R6 R7 K7 [1]
+       29 GETUPVAL                         R7 5
+       30 LOADK                            R9 K9 ["Common"]
+       31 JUMPIFNOTEQKN                    R6 K7 [1] ; [+3]
+       33 LOADK                            R10 K10 ["ConfigNounSingular"]
+       34 JUMP                             ; [+1]
+       35 LOADK                            R10 K11 ["ConfigNounPlural"]
+       36 NAMECALL                         R7 R7 K12 ["getText"]
+       38 CALL                             R7 3 1
+       39 GETUPVAL                         R8 6
+       40 GETUPVAL                         R10 7
+       41 DUPTABLE                         R11 K18 [{"deploymentStrategy", "getUniverses", "getGroups", "requestPublish", "translationStrings"}]
+       42 GETTABLEKS                       R12 R0 K5 ["strategy"]
+       44 SETTABLEKS                       R12 R11 K13 ["deploymentStrategy"]
+       46 SETTABLEKS                       R2 R11 K14 ["getUniverses"]
+       48 SETTABLEKS                       R3 R11 K15 ["getGroups"]
+       50 SETTABLEKS                       R4 R11 K16 ["requestPublish"]
+       52 DUPTABLE                         R12 K37 [{"Title", "MessageFieldLabel", "MessageFieldHint", "MessageFieldPlaceholder", "PublishButton", "CancelButton", "SearchPlaceholder", "MyExperiences", "Description", "FailedToLoadUniverses", "FailedToLoadGroups", "NoExperiencesMatchFilter", "RetryButton", "DoneButton", "PublishSuccess", "PublishToExperienceSuccess", "PublishFailure", "PublishInProgress"}]
+       53 GETUPVAL                         R13 5
+       54 LOADK                            R15 K38 ["PublishAsDialog"]
+       55 JUMPIFNOT                        R5 ; [+2]
+       56 LOADK                            R16 K39 ["PublishSlowlyTitle"]
+       57 JUMP                             ; [+1]
+       58 LOADK                            R16 K40 ["PublishNowTitle"]
+       59 DUPTABLE                         R17 K43 [{"changeCount", "noun"}]
+       60 FASTCALL1                        TOSTRING R6 ; [+3]
+       61 MOVE                             R19 R6
+       62 GETIMPORT                        R18 K45 [tostring]
+       64 CALL                             R18 1 1
+       65 SETTABLEKS                       R18 R17 K41 ["changeCount"]
+       67 SETTABLEKS                       R7 R17 K42 ["noun"]
+       69 NAMECALL                         R13 R13 K12 ["getText"]
+       71 CALL                             R13 4 1
+       72 SETTABLEKS                       R13 R12 K19 ["Title"]
+       74 GETUPVAL                         R13 8
+       75 GETTABLEKS                       R13 R13 K46 ["PublishDialog"]
+       77 GETTABLEKS                       R13 R13 K20 ["MessageFieldLabel"]
+       79 SETTABLEKS                       R13 R12 K20 ["MessageFieldLabel"]
+       81 GETUPVAL                         R13 8
+       82 GETTABLEKS                       R13 R13 K46 ["PublishDialog"]
+       84 GETTABLEKS                       R13 R13 K21 ["MessageFieldHint"]
+       86 SETTABLEKS                       R13 R12 K21 ["MessageFieldHint"]
+       88 GETUPVAL                         R13 8
+       89 GETTABLEKS                       R13 R13 K46 ["PublishDialog"]
+       91 GETTABLEKS                       R13 R13 K22 ["MessageFieldPlaceholder"]
+       93 SETTABLEKS                       R13 R12 K22 ["MessageFieldPlaceholder"]
+       95 JUMPIFNOT                        R5 ; [+8]
+       96 GETUPVAL                         R13 8
+       97 GETTABLEKS                       R13 R13 K46 ["PublishDialog"]
+       99 GETTABLEKS                       R13 R13 K23 ["PublishButton"]
+      101 GETTABLEKS                       R13 R13 K47 ["GradualRollout"]
+      103 JUMPIF                           R13 ; [+7]
+      104 GETUPVAL                         R13 8
+      105 GETTABLEKS                       R13 R13 K46 ["PublishDialog"]
+      107 GETTABLEKS                       R13 R13 K23 ["PublishButton"]
+      109 GETTABLEKS                       R13 R13 K48 ["ImmediateRollout"]
+      111 SETTABLEKS                       R13 R12 K23 ["PublishButton"]
+      113 GETUPVAL                         R13 8
+      114 GETTABLEKS                       R13 R13 K46 ["PublishDialog"]
+      116 GETTABLEKS                       R13 R13 K24 ["CancelButton"]
+      118 SETTABLEKS                       R13 R12 K24 ["CancelButton"]
+      120 GETUPVAL                         R13 8
+      121 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      123 GETTABLEKS                       R13 R13 K25 ["SearchPlaceholder"]
+      125 SETTABLEKS                       R13 R12 K25 ["SearchPlaceholder"]
+      127 GETUPVAL                         R13 8
+      128 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      130 GETTABLEKS                       R13 R13 K26 ["MyExperiences"]
+      132 SETTABLEKS                       R13 R12 K26 ["MyExperiences"]
+      134 GETUPVAL                         R13 8
+      135 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      137 GETTABLEKS                       R13 R13 K27 ["Description"]
+      139 SETTABLEKS                       R13 R12 K27 ["Description"]
+      141 GETUPVAL                         R13 8
+      142 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      144 GETTABLEKS                       R13 R13 K28 ["FailedToLoadUniverses"]
+      146 SETTABLEKS                       R13 R12 K28 ["FailedToLoadUniverses"]
+      148 GETUPVAL                         R13 8
+      149 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      151 GETTABLEKS                       R13 R13 K29 ["FailedToLoadGroups"]
+      153 SETTABLEKS                       R13 R12 K29 ["FailedToLoadGroups"]
+      155 GETUPVAL                         R13 8
+      156 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      158 GETTABLEKS                       R13 R13 K30 ["NoExperiencesMatchFilter"]
+      160 SETTABLEKS                       R13 R12 K30 ["NoExperiencesMatchFilter"]
+      162 GETUPVAL                         R13 8
+      163 GETTABLEKS                       R13 R13 K9 ["Common"]
+      165 GETTABLEKS                       R13 R13 K49 ["Retry"]
+      167 SETTABLEKS                       R13 R12 K31 ["RetryButton"]
+      169 GETUPVAL                         R13 8
+      170 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      172 GETTABLEKS                       R13 R13 K32 ["DoneButton"]
+      174 SETTABLEKS                       R13 R12 K32 ["DoneButton"]
+      176 GETUPVAL                         R13 8
+      177 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      179 GETTABLEKS                       R13 R13 K33 ["PublishSuccess"]
+      181 SETTABLEKS                       R13 R12 K33 ["PublishSuccess"]
+      183 NEWCLOSURE                       R13 P3
+      184 CAPTURE                          UPVAL U5
+      185 SETTABLEKS                       R13 R12 K34 ["PublishToExperienceSuccess"]
+      187 GETUPVAL                         R13 8
+      188 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      190 GETTABLEKS                       R13 R13 K35 ["PublishFailure"]
+      192 SETTABLEKS                       R13 R12 K35 ["PublishFailure"]
+      194 GETUPVAL                         R13 8
+      195 GETTABLEKS                       R13 R13 K38 ["PublishAsDialog"]
+      197 GETTABLEKS                       R13 R13 K36 ["PublishInProgress"]
+      199 SETTABLEKS                       R13 R12 K36 ["PublishInProgress"]
+      201 SETTABLEKS                       R12 R11 K17 ["translationStrings"]
+      203 NAMECALL                         R8 R8 K50 ["ShowCustomDialogAsync"]
+      205 CALL                             R8 3 0
+      206 RETURN                           R0 0
+
+PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["publishSessionUuid"]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K1 ["pendingPublishes"]
@@ -634,7 +666,7 @@ PROTO_15:
        30 SETTABLE                         R4 R3 R1
        31 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 LOADK                            R4 K2 ["DialogManager"]
@@ -669,24 +701,25 @@ PROTO_16:
        42 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
        44 GETTABLEKS                       R7 R7 K10 ["OpenPublishAsModal"]
        46 NEWCLOSURE                       R8 P2
-       47 CAPTURE                          UPVAL U3
-       48 CAPTURE                          UPVAL U4
-       49 CAPTURE                          VAL R0
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          UPVAL U3
+       49 CAPTURE                          UPVAL U4
        50 CAPTURE                          UPVAL U0
-       51 CAPTURE                          VAL R5
+       51 CAPTURE                          UPVAL U5
        52 CAPTURE                          VAL R4
        53 CAPTURE                          VAL R2
-       54 CAPTURE                          UPVAL U5
-       55 SETTABLE                         R8 R6 R7
-       56 GETUPVAL                         R7 0
-       57 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
-       59 GETTABLEKS                       R7 R7 K11 ["PublishCompleted"]
-       61 NEWCLOSURE                       R8 P3
-       62 CAPTURE                          VAL R0
-       63 SETTABLE                         R8 R6 R7
-       64 RETURN                           R6 1
+       54 CAPTURE                          UPVAL U6
+       55 CAPTURE                          VAL R5
+       56 SETTABLE                         R8 R6 R7
+       57 GETUPVAL                         R7 0
+       58 GETTABLEKS                       R7 R7 K7 ["WebEvents"]
+       60 GETTABLEKS                       R7 R7 K11 ["PublishCompleted"]
+       62 NEWCLOSURE                       R8 P3
+       63 CAPTURE                          VAL R0
+       64 SETTABLE                         R8 R6 R7
+       65 RETURN                           R6 1
 
-PROTO_17:
+PROTO_18:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["timeout"]
         2 CALL                             R0 1 0
@@ -697,7 +730,7 @@ PROTO_17:
         8 SETTABLE                         R2 R0 R1
         9 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETIMPORT                        R2 K2 [task.delay]
         2 GETUPVAL                         R4 0
         3 ORK                              R3 R4 K3 [30]
@@ -716,7 +749,7 @@ PROTO_18:
        20 SETTABLE                         R5 R3 R4
        21 RETURN                           R0 0
 
-PROTO_19:
+PROTO_20:
         0 GETTABLEKS                       R4 R0 K0 ["props"]
         2 GETTABLEKS                       R4 R4 K1 ["WebViewManagerContext"]
         4 GETUPVAL                         R5 0
@@ -737,7 +770,7 @@ PROTO_19:
        23 CALL                             R6 1 -1
        24 RETURN                           R6 -1
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["getConfigUrl"]
         3 CALL                             R0 1 1
@@ -755,7 +788,7 @@ PROTO_20:
        20 CALL                             R1 2 0
        21 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 DUPTABLE                         R1 K1 [{"configUrl"}]
         1 NAMECALL                         R2 R0 K2 ["getConfigUrl"]
         3 CALL                             R2 1 1
@@ -782,7 +815,7 @@ PROTO_21:
        35 SETTABLEKS                       R1 R0 K13 ["pendingPublishes"]
        37 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R2 R2 K2 ["configUrl"]
@@ -824,7 +857,7 @@ PROTO_22:
        64 CALL                             R3 2 -1
        65 RETURN                           R3 -1
 
-PROTO_23:
+PROTO_24:
         0 GETTABLEKS                       R1 R0 K0 ["idsUpdatedConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["idsUpdatedConnection"]
@@ -906,33 +939,43 @@ MAIN:
       116 LOADK                            R21 K2 ["CreatorConfig"]
       117 LOADK                            R22 K37 ["CancelPublishDialog"]
       118 CALL                             R20 2 1
-      119 DUPCLOSURE                       R21 K38 [PROTO_0]
-      120 CAPTURE                          VAL R14
-      121 DUPCLOSURE                       R22 K39 [PROTO_1]
-      122 CAPTURE                          VAL R14
-      123 SETTABLEKS                       R22 R13 K40 ["getConfigUrl"]
-      125 DUPCLOSURE                       R22 K41 [PROTO_2]
-      126 SETTABLEKS                       R22 R13 K42 ["getStaticTranslationStrings"]
-      128 DUPCLOSURE                       R22 K43 [PROTO_16]
-      129 CAPTURE                          VAL R1
-      130 CAPTURE                          VAL R18
-      131 CAPTURE                          VAL R20
-      132 CAPTURE                          VAL R11
-      133 CAPTURE                          VAL R12
-      134 CAPTURE                          VAL R19
-      135 SETTABLEKS                       R22 R13 K44 ["getEventHandlers"]
-      137 DUPCLOSURE                       R22 K45 [PROTO_19]
-      138 CAPTURE                          VAL R2
-      139 CAPTURE                          VAL R7
-      140 SETTABLEKS                       R22 R13 K46 ["requestPublish"]
-      142 DUPCLOSURE                       R22 K47 [PROTO_21]
-      143 CAPTURE                          VAL R16
-      144 SETTABLEKS                       R22 R13 K48 ["init"]
-      146 DUPCLOSURE                       R22 K49 [PROTO_22]
-      147 CAPTURE                          VAL R4
-      148 CAPTURE                          VAL R9
-      149 CAPTURE                          VAL R10
-      150 SETTABLEKS                       R22 R13 K50 ["render"]
-      152 DUPCLOSURE                       R22 K51 [PROTO_23]
-      153 SETTABLEKS                       R22 R13 K52 ["willUnmount"]
-      155 RETURN                           R13 1
+      119 DUPTABLE                         R21 K42 [{"unknown", "timeout", "ongoingPublish", "emptyDraft"}]
+      120 LOADK                            R22 K43 ["Unknown"]
+      121 SETTABLEKS                       R22 R21 K38 ["unknown"]
+      123 LOADK                            R22 K44 ["Timeout"]
+      124 SETTABLEKS                       R22 R21 K39 ["timeout"]
+      126 LOADK                            R22 K45 ["OngoingPublish"]
+      127 SETTABLEKS                       R22 R21 K40 ["ongoingPublish"]
+      129 LOADK                            R22 K46 ["EmptyDraft"]
+      130 SETTABLEKS                       R22 R21 K41 ["emptyDraft"]
+      132 DUPCLOSURE                       R22 K47 [PROTO_0]
+      133 CAPTURE                          VAL R14
+      134 DUPCLOSURE                       R23 K48 [PROTO_1]
+      135 CAPTURE                          VAL R14
+      136 SETTABLEKS                       R23 R13 K49 ["getConfigUrl"]
+      138 DUPCLOSURE                       R23 K50 [PROTO_2]
+      139 SETTABLEKS                       R23 R13 K51 ["getStaticTranslationStrings"]
+      141 DUPCLOSURE                       R23 K52 [PROTO_17]
+      142 CAPTURE                          VAL R1
+      143 CAPTURE                          VAL R18
+      144 CAPTURE                          VAL R20
+      145 CAPTURE                          VAL R11
+      146 CAPTURE                          VAL R12
+      147 CAPTURE                          VAL R21
+      148 CAPTURE                          VAL R19
+      149 SETTABLEKS                       R23 R13 K53 ["getEventHandlers"]
+      151 DUPCLOSURE                       R23 K54 [PROTO_20]
+      152 CAPTURE                          VAL R2
+      153 CAPTURE                          VAL R7
+      154 SETTABLEKS                       R23 R13 K55 ["requestPublish"]
+      156 DUPCLOSURE                       R23 K56 [PROTO_22]
+      157 CAPTURE                          VAL R16
+      158 SETTABLEKS                       R23 R13 K57 ["init"]
+      160 DUPCLOSURE                       R23 K58 [PROTO_23]
+      161 CAPTURE                          VAL R4
+      162 CAPTURE                          VAL R9
+      163 CAPTURE                          VAL R10
+      164 SETTABLEKS                       R23 R13 K59 ["render"]
+      166 DUPCLOSURE                       R23 K60 [PROTO_24]
+      167 SETTABLEKS                       R23 R13 K61 ["willUnmount"]
+      169 RETURN                           R13 1

@@ -51,41 +51,34 @@ MAIN:
        73 GETTABLEKS                       R5 R3 K24 ["registerCrossPluginListeners"]
        75 CALL                             R5 0 0
        76 GETIMPORT                        R5 K7 [require]
-       78 GETTABLEKS                       R6 R0 K11 ["Flags"]
-       80 GETTABLEKS                       R6 R6 K25 ["GetFFlagReimportDefaultCreator"]
-       82 CALL                             R5 1 1
-       83 MOVE                             R6 R5
-       84 CALL                             R6 0 1
-       85 JUMPIFNOT                        R6 ; [+12]
-       86 GETIMPORT                        R6 K7 [require]
-       88 GETTABLEKS                       R7 R0 K26 ["Lib"]
-       90 GETTABLEKS                       R7 R7 K27 ["Reimport"]
-       92 GETTABLEKS                       R7 R7 K28 ["ReimportConfigs"]
+       78 GETTABLEKS                       R6 R0 K25 ["Lib"]
+       80 GETTABLEKS                       R6 R6 K26 ["Reimport"]
+       82 GETTABLEKS                       R6 R6 K27 ["ReimportConfigs"]
+       84 CALL                             R5 1 1
+       85 GETTABLEKS                       R6 R5 K28 ["init"]
+       87 CALL                             R6 0 0
+       88 GETIMPORT                        R6 K7 [require]
+       90 GETTABLEKS                       R7 R0 K11 ["Flags"]
+       92 GETTABLEKS                       R7 R7 K29 ["GetFFlagReimportFileWatcher"]
        94 CALL                             R6 1 1
-       95 GETTABLEKS                       R7 R6 K29 ["init"]
-       97 CALL                             R7 0 0
-       98 GETIMPORT                        R6 K7 [require]
-      100 GETTABLEKS                       R7 R0 K11 ["Flags"]
-      102 GETTABLEKS                       R7 R7 K30 ["GetFFlagReimportFileWatcher"]
-      104 CALL                             R6 1 1
-      105 MOVE                             R7 R6
-      106 CALL                             R7 0 1
-      107 JUMPIFNOT                        R7 ; [+12]
-      108 GETIMPORT                        R7 K7 [require]
-      110 GETTABLEKS                       R8 R0 K26 ["Lib"]
-      112 GETTABLEKS                       R8 R8 K31 ["FileWatch"]
-      114 CALL                             R7 1 1
-      115 GETTABLEKS                       R8 R7 K29 ["init"]
-      117 GETIMPORT                        R9 K1 [plugin]
-      119 CALL                             R8 1 0
-      120 GETIMPORT                        R7 K7 [require]
-      122 GETTABLEKS                       R8 R0 K19 ["Bin"]
-      124 GETTABLEKS                       R8 R8 K20 ["Common"]
-      126 GETTABLEKS                       R8 R8 K32 ["Debug"]
-      128 CALL                             R7 1 1
-      129 GETTABLEKS                       R8 R7 K33 ["debugEnabled"]
-      131 CALL                             R8 0 1
-      132 JUMPIFNOT                        R8 ; [+3]
-      133 GETTABLEKS                       R8 R7 K34 ["showDebugUi"]
-      135 CALL                             R8 0 0
-      136 RETURN                           R0 0
+       95 MOVE                             R7 R6
+       96 CALL                             R7 0 1
+       97 JUMPIFNOT                        R7 ; [+12]
+       98 GETIMPORT                        R7 K7 [require]
+      100 GETTABLEKS                       R8 R0 K25 ["Lib"]
+      102 GETTABLEKS                       R8 R8 K30 ["FileWatch"]
+      104 CALL                             R7 1 1
+      105 GETTABLEKS                       R8 R7 K28 ["init"]
+      107 GETIMPORT                        R9 K1 [plugin]
+      109 CALL                             R8 1 0
+      110 GETIMPORT                        R7 K7 [require]
+      112 GETTABLEKS                       R8 R0 K19 ["Bin"]
+      114 GETTABLEKS                       R8 R8 K20 ["Common"]
+      116 GETTABLEKS                       R8 R8 K31 ["Debug"]
+      118 CALL                             R7 1 1
+      119 GETTABLEKS                       R8 R7 K32 ["debugEnabled"]
+      121 CALL                             R8 0 1
+      122 JUMPIFNOT                        R8 ; [+3]
+      123 GETTABLEKS                       R8 R7 K33 ["showDebugUi"]
+      125 CALL                             R8 0 0
+      126 RETURN                           R0 0

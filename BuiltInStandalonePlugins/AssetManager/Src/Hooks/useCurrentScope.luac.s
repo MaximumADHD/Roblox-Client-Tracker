@@ -17,10 +17,18 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
+        2 NAMECALL                         R1 R1 K0 ["getCurrentShownScope"]
+        4 CALL                             R1 1 -1
+        5 CALL                             R0 -1 0
+        6 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
         2 CALL                             R0 1 0
         3 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 NEWTABLE                         R0 0 0
         2 MOVE                             R2 R0
         3 GETUPVAL                         R3 0
@@ -44,12 +52,23 @@ PROTO_3:
        26 FASTCALL                         TABLE_INSERT ; [+2]
        27 GETIMPORT                        R1 K4 [table.insert]
        29 CALL                             R1 -1 0
-       30 NEWCLOSURE                       R1 P2
-       31 CAPTURE                          UPVAL U4
-       32 CAPTURE                          VAL R0
-       33 RETURN                           R1 1
+       30 MOVE                             R2 R0
+       31 GETUPVAL                         R3 3
+       32 GETTABLEKS                       R3 R3 K6 ["OnShowSearchOptionsChanged"]
+       34 NEWCLOSURE                       R5 P2
+       35 CAPTURE                          UPVAL U1
+       36 CAPTURE                          UPVAL U2
+       37 NAMECALL                         R3 R3 K1 ["Connect"]
+       39 CALL                             R3 2 -1
+       40 FASTCALL                         TABLE_INSERT ; [+2]
+       41 GETIMPORT                        R1 K4 [table.insert]
+       43 CALL                             R1 -1 0
+       44 NEWCLOSURE                       R1 P3
+       45 CAPTURE                          UPVAL U4
+       46 CAPTURE                          VAL R0
+       47 RETURN                           R1 1
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["use"]
         3 CALL                             R0 0 1
@@ -110,7 +129,7 @@ MAIN:
        56 GETTABLEKS                       R9 R9 K16 ["Util"]
        58 GETTABLEKS                       R9 R9 K17 ["cleanConnections"]
        60 CALL                             R8 1 1
-       61 DUPCLOSURE                       R9 K18 [PROTO_4]
+       61 DUPCLOSURE                       R9 K18 [PROTO_5]
        62 CAPTURE                          VAL R5
        63 CAPTURE                          VAL R6
        64 CAPTURE                          VAL R7

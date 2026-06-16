@@ -123,51 +123,45 @@ PROTO_5:
        48 RETURN                           R6 -1
 
 PROTO_6:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 FASTCALL2K                       ASSERT R3 K0 ; [+4]
-        4 LOADK                            R4 K0 ["main requires FFlagStudioLazyPluginManagement"]
-        5 GETIMPORT                        R2 K2 [assert]
-        7 CALL                             R2 2 0
-        8 GETUPVAL                         R2 1
-        9 CALL                             R2 0 1
-       10 GETIMPORT                        R3 K4 [require]
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 GETIMPORT                        R3 K1 [require]
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R4 R4 K2 ["Src"]
+        7 GETTABLEKS                       R4 R4 K3 ["Resources"]
+        9 GETTABLEKS                       R4 R4 K4 ["makeTheme"]
+       11 CALL                             R3 1 1
        12 GETUPVAL                         R4 2
-       13 GETTABLEKS                       R4 R4 K5 ["Src"]
-       15 GETTABLEKS                       R4 R4 K6 ["Resources"]
-       17 GETTABLEKS                       R4 R4 K7 ["makeTheme"]
-       19 CALL                             R3 1 1
-       20 GETUPVAL                         R4 3
-       21 CALL                             R4 0 1
-       22 GETUPVAL                         R5 4
-       23 CALL                             R5 0 1
-       24 GETIMPORT                        R7 K4 [require]
-       26 GETUPVAL                         R8 2
-       27 GETTABLEKS                       R8 R8 K5 ["Src"]
-       29 GETTABLEKS                       R8 R8 K8 ["Util"]
-       31 GETTABLEKS                       R8 R8 K9 ["getAnalyticsContextItem"]
-       33 CALL                             R7 1 1
-       34 MOVE                             R8 R7
-       35 CALL                             R8 0 1
-       36 MOVE                             R6 R8
-       37 GETUPVAL                         R7 5
-       38 CALL                             R7 0 1
-       39 GETIMPORT                        R8 K4 [require]
-       41 GETUPVAL                         R9 2
-       42 GETTABLEKS                       R9 R9 K5 ["Src"]
-       44 GETTABLEKS                       R9 R9 K10 ["runPluginManagementPlugin"]
-       46 CALL                             R8 1 1
-       47 MOVE                             R9 R8
-       48 MOVE                             R10 R0
-       49 MOVE                             R11 R2
-       50 MOVE                             R12 R3
-       51 MOVE                             R13 R4
-       52 MOVE                             R14 R5
-       53 MOVE                             R15 R6
-       54 MOVE                             R16 R7
-       55 MOVE                             R17 R1
-       56 CALL                             R9 8 0
-       57 RETURN                           R0 0
+       13 CALL                             R4 0 1
+       14 GETUPVAL                         R5 3
+       15 CALL                             R5 0 1
+       16 GETIMPORT                        R7 K1 [require]
+       18 GETUPVAL                         R8 1
+       19 GETTABLEKS                       R8 R8 K2 ["Src"]
+       21 GETTABLEKS                       R8 R8 K5 ["Util"]
+       23 GETTABLEKS                       R8 R8 K6 ["getAnalyticsContextItem"]
+       25 CALL                             R7 1 1
+       26 MOVE                             R8 R7
+       27 CALL                             R8 0 1
+       28 MOVE                             R6 R8
+       29 GETUPVAL                         R7 4
+       30 CALL                             R7 0 1
+       31 GETIMPORT                        R8 K1 [require]
+       33 GETUPVAL                         R9 1
+       34 GETTABLEKS                       R9 R9 K2 ["Src"]
+       36 GETTABLEKS                       R9 R9 K7 ["runPluginManagementPlugin"]
+       38 CALL                             R8 1 1
+       39 MOVE                             R9 R8
+       40 MOVE                             R10 R0
+       41 MOVE                             R11 R2
+       42 MOVE                             R12 R3
+       43 MOVE                             R13 R4
+       44 MOVE                             R14 R5
+       45 MOVE                             R15 R6
+       46 MOVE                             R16 R7
+       47 MOVE                             R17 R1
+       48 CALL                             R9 8 0
+       49 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -175,28 +169,22 @@ MAIN:
         3 LOADK                            R2 K2 ["PluginManagement"]
         4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
         6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagStudioLazyPluginManagement"]
-       15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 CAPTURE                          VAL R0
-       18 DUPCLOSURE                       R3 K10 [PROTO_1]
-       19 CAPTURE                          VAL R0
-       20 DUPCLOSURE                       R4 K11 [PROTO_2]
+        7 DUPCLOSURE                       R1 K4 [PROTO_0]
+        8 CAPTURE                          VAL R0
+        9 DUPCLOSURE                       R2 K5 [PROTO_1]
+       10 CAPTURE                          VAL R0
+       11 DUPCLOSURE                       R3 K6 [PROTO_2]
+       12 CAPTURE                          VAL R0
+       13 DUPCLOSURE                       R4 K7 [PROTO_3]
+       14 CAPTURE                          VAL R0
+       15 DUPCLOSURE                       R5 K8 [PROTO_4]
+       16 CAPTURE                          VAL R0
+       17 DUPCLOSURE                       R6 K9 [PROTO_5]
+       18 CAPTURE                          VAL R0
+       19 DUPCLOSURE                       R7 K10 [PROTO_6]
+       20 CAPTURE                          VAL R1
        21 CAPTURE                          VAL R0
-       22 DUPCLOSURE                       R5 K12 [PROTO_3]
-       23 CAPTURE                          VAL R0
-       24 DUPCLOSURE                       R6 K13 [PROTO_4]
-       25 CAPTURE                          VAL R0
-       26 DUPCLOSURE                       R7 K14 [PROTO_5]
-       27 CAPTURE                          VAL R0
-       28 DUPCLOSURE                       R8 K15 [PROTO_6]
-       29 CAPTURE                          VAL R1
-       30 CAPTURE                          VAL R2
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          VAL R4
-       33 CAPTURE                          VAL R5
-       34 CAPTURE                          VAL R7
-       35 RETURN                           R8 1
+       22 CAPTURE                          VAL R3
+       23 CAPTURE                          VAL R4
+       24 CAPTURE                          VAL R6
+       25 RETURN                           R7 1

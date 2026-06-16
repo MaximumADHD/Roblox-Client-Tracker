@@ -55,10 +55,32 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [game]
-        3 LOADK                            R2 K2 ["TextService"]
-        4 NAMECALL                         R0 R0 K3 ["GetService"]
-        6 CALL                             R0 2 1
-        7 DUPCLOSURE                       R1 K4 [PROTO_0]
-        8 CAPTURE                          VAL R0
-        9 RETURN                           R1 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Util"]
+       15 GETTABLEKS                       R2 R2 K7 ["isCli"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K9 [game]
+       20 LOADK                            R4 K10 ["TextService"]
+       21 NAMECALL                         R2 R2 K11 ["GetService"]
+       23 CALL                             R2 2 1
+       24 MOVE                             R3 R1
+       25 CALL                             R3 0 1
+       26 JUMPIFNOT                        R3 ; [+15]
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K12 ["Tests"]
+       33 GETTABLEKS                       R4 R4 K13 ["Mocks"]
+       35 GETTABLEKS                       R4 R4 K14 ["MockTextService"]
+       37 CALL                             R3 1 1
+       38 GETTABLEKS                       R4 R3 K15 ["new"]
+       40 CALL                             R4 0 1
+       41 MOVE                             R2 R4
+       42 NEWCLOSURE                       R3 P0
+       43 CAPTURE                          REF R2
+       44 CLOSEUPVALS                      R2
+       45 RETURN                           R3 1

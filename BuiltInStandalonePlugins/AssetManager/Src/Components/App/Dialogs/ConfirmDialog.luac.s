@@ -58,7 +58,7 @@ PROTO_3:
        36 DUPTABLE                         R13 K11 [{"LayoutOrder", "tag"}]
        37 LOADN                            R14 1
        38 SETTABLEKS                       R14 R13 K10 ["LayoutOrder"]
-       40 LOADK                            R14 K12 ["row size-full-0 auto-y gap-medium align-y-center"]
+       40 LOADK                            R14 K12 ["row size-full-0 fill gap-medium align-y-center"]
        41 SETTABLEKS                       R14 R13 K4 ["tag"]
        43 DUPTABLE                         R14 K15 [{"Icon", "Text"}]
        44 GETUPVAL                         R15 3

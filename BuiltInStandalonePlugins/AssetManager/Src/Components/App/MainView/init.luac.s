@@ -46,89 +46,119 @@ PROTO_1:
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
-        5 CALL                             R2 0 1
-        6 GETUPVAL                         R3 2
-        7 CALL                             R3 0 1
-        8 GETUPVAL                         R4 3
-        9 GETTABLEKS                       R5 R2 K1 ["Uid"]
-       11 CALL                             R4 1 1
-       12 GETUPVAL                         R5 4
-       13 CALL                             R5 0 1
-       14 GETTABLEKS                       R6 R4 K2 ["IsLoading"]
-       16 GETUPVAL                         R7 5
-       17 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       19 GETUPVAL                         R8 6
-       20 NEWTABLE                         R9 2 0
-       22 GETTABLEKS                       R10 R0 K4 ["LayoutOrder"]
-       24 SETTABLEKS                       R10 R9 K4 ["LayoutOrder"]
-       26 GETUPVAL                         R10 5
-       27 GETTABLEKS                       R10 R10 K5 ["Tag"]
-       29 LOADK                            R11 K6 ["X-Stroke X-Top X-Column"]
-       30 SETTABLE                         R11 R9 R10
-       31 DUPTABLE                         R10 K10 [{"HeaderBar", "Contents", "LoadingBarContainer"}]
-       32 GETUPVAL                         R11 5
-       33 GETTABLEKS                       R11 R11 K3 ["createElement"]
-       35 GETUPVAL                         R12 7
-       36 DUPTABLE                         R13 K11 [{"LayoutOrder"}]
-       37 NAMECALL                         R14 R1 K12 ["getNextOrder"]
-       39 CALL                             R14 1 1
-       40 SETTABLEKS                       R14 R13 K4 ["LayoutOrder"]
-       42 CALL                             R11 2 1
-       43 SETTABLEKS                       R11 R10 K7 ["HeaderBar"]
-       45 LENGTH                           R12 R5
-       46 JUMPIFNOTEQKN                    R12 K13 [0] ; [+15]
-       48 GETUPVAL                         R11 5
-       49 GETTABLEKS                       R11 R11 K3 ["createElement"]
-       51 GETUPVAL                         R12 8
-       52 DUPTABLE                         R13 K14 [{"LayoutOrder", "IsLoading"}]
-       53 NAMECALL                         R14 R1 K12 ["getNextOrder"]
-       55 CALL                             R14 1 1
-       56 SETTABLEKS                       R14 R13 K4 ["LayoutOrder"]
-       58 SETTABLEKS                       R6 R13 K2 ["IsLoading"]
-       60 CALL                             R11 2 1
-       61 JUMP                             ; [+15]
-       62 GETUPVAL                         R11 9
-       63 GETTABLEKS                       R13 R3 K15 ["ViewType"]
-       65 GETUPVAL                         R14 10
-       66 GETTABLEKS                       R14 R14 K15 ["ViewType"]
-       68 GETTABLEKS                       R14 R14 K16 ["Grid"]
-       70 JUMPIFEQ                         R13 R14 ; [+2]
-       72 LOADB                            R12 0 +1
-       73 LOADB                            R12 1
-       74 MOVE                             R13 R6
-       75 MOVE                             R14 R1
-       76 CALL                             R11 3 1
-       77 SETTABLEKS                       R11 R10 K8 ["Contents"]
-       79 JUMPIFNOT                        R6 ; [+36]
-       80 GETUPVAL                         R11 5
-       81 GETTABLEKS                       R11 R11 K3 ["createElement"]
-       83 GETUPVAL                         R12 6
-       84 NEWTABLE                         R13 2 0
-       86 NAMECALL                         R14 R1 K12 ["getNextOrder"]
-       88 CALL                             R14 1 1
-       89 SETTABLEKS                       R14 R13 K4 ["LayoutOrder"]
-       91 GETUPVAL                         R14 5
-       92 GETTABLEKS                       R14 R14 K5 ["Tag"]
-       94 LOADK                            R15 K17 ["am-size-full-scrollbar"]
-       95 SETTABLE                         R15 R13 R14
-       96 DUPTABLE                         R14 K19 [{"LoadingBar"}]
-       97 GETUPVAL                         R15 5
-       98 GETTABLEKS                       R15 R15 K3 ["createElement"]
-      100 GETUPVAL                         R16 11
-      101 DUPTABLE                         R17 K21 [{"LayoutOrder", "Progress"}]
-      102 NAMECALL                         R18 R1 K12 ["getNextOrder"]
-      104 CALL                             R18 1 1
-      105 SETTABLEKS                       R18 R17 K4 ["LayoutOrder"]
-      107 GETTABLEKS                       R18 R4 K22 ["FetchProgress"]
-      109 SETTABLEKS                       R18 R17 K20 ["Progress"]
-      111 CALL                             R15 2 1
-      112 SETTABLEKS                       R15 R14 K18 ["LoadingBar"]
-      114 CALL                             R11 3 1
-      115 JUMP                             ; [+1]
-      116 LOADNIL                          R11
-      117 SETTABLEKS                       R11 R10 K9 ["LoadingBarContainer"]
-      119 CALL                             R7 3 -1
-      120 RETURN                           R7 -1
+        5 CALL                             R2 0 3
+        6 GETUPVAL                         R5 2
+        7 CALL                             R5 0 1
+        8 GETUPVAL                         R6 3
+        9 CALL                             R6 0 1
+       10 GETUPVAL                         R7 4
+       11 GETTABLEKS                       R8 R5 K1 ["Uid"]
+       13 CALL                             R7 1 1
+       14 GETUPVAL                         R8 5
+       15 CALL                             R8 0 1
+       16 GETTABLEKS                       R9 R7 K2 ["IsLoading"]
+       18 GETUPVAL                         R10 6
+       19 GETTABLEKS                       R10 R10 K3 ["createElement"]
+       21 GETUPVAL                         R11 7
+       22 NEWTABLE                         R12 2 0
+       24 GETTABLEKS                       R13 R0 K4 ["LayoutOrder"]
+       26 SETTABLEKS                       R13 R12 K4 ["LayoutOrder"]
+       28 GETUPVAL                         R13 6
+       29 GETTABLEKS                       R13 R13 K5 ["Tag"]
+       31 LOADK                            R14 K6 ["X-Stroke X-Top X-Column"]
+       32 SETTABLE                         R14 R12 R13
+       33 DUPTABLE                         R13 K11 [{"HeaderBar", "Contents", "LoadingBarContainer", "FooterBar"}]
+       34 GETUPVAL                         R15 8
+       35 CALL                             R15 0 1
+       36 JUMPIFNOT                        R15 ; [+13]
+       37 JUMPIFNOT                        R4 ; [+12]
+       38 GETUPVAL                         R14 6
+       39 GETTABLEKS                       R14 R14 K3 ["createElement"]
+       41 GETUPVAL                         R15 9
+       42 DUPTABLE                         R16 K12 [{"LayoutOrder"}]
+       43 NAMECALL                         R17 R1 K13 ["getNextOrder"]
+       45 CALL                             R17 1 1
+       46 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
+       48 CALL                             R14 2 1
+       49 JUMP                             ; [+11]
+       50 GETUPVAL                         R14 6
+       51 GETTABLEKS                       R14 R14 K3 ["createElement"]
+       53 GETUPVAL                         R15 10
+       54 DUPTABLE                         R16 K12 [{"LayoutOrder"}]
+       55 NAMECALL                         R17 R1 K13 ["getNextOrder"]
+       57 CALL                             R17 1 1
+       58 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
+       60 CALL                             R14 2 1
+       61 SETTABLEKS                       R14 R13 K7 ["HeaderBar"]
+       63 LENGTH                           R15 R8
+       64 JUMPIFNOTEQKN                    R15 K14 [0] ; [+15]
+       66 GETUPVAL                         R14 6
+       67 GETTABLEKS                       R14 R14 K3 ["createElement"]
+       69 GETUPVAL                         R15 11
+       70 DUPTABLE                         R16 K15 [{"LayoutOrder", "IsLoading"}]
+       71 NAMECALL                         R17 R1 K13 ["getNextOrder"]
+       73 CALL                             R17 1 1
+       74 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
+       76 SETTABLEKS                       R9 R16 K2 ["IsLoading"]
+       78 CALL                             R14 2 1
+       79 JUMP                             ; [+15]
+       80 GETUPVAL                         R14 12
+       81 GETTABLEKS                       R16 R6 K16 ["ViewType"]
+       83 GETUPVAL                         R17 13
+       84 GETTABLEKS                       R17 R17 K16 ["ViewType"]
+       86 GETTABLEKS                       R17 R17 K17 ["Grid"]
+       88 JUMPIFEQ                         R16 R17 ; [+2]
+       90 LOADB                            R15 0 +1
+       91 LOADB                            R15 1
+       92 MOVE                             R16 R9
+       93 MOVE                             R17 R1
+       94 CALL                             R14 3 1
+       95 SETTABLEKS                       R14 R13 K8 ["Contents"]
+       97 JUMPIFNOT                        R9 ; [+36]
+       98 GETUPVAL                         R14 6
+       99 GETTABLEKS                       R14 R14 K3 ["createElement"]
+      101 GETUPVAL                         R15 7
+      102 NEWTABLE                         R16 2 0
+      104 NAMECALL                         R17 R1 K13 ["getNextOrder"]
+      106 CALL                             R17 1 1
+      107 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
+      109 GETUPVAL                         R17 6
+      110 GETTABLEKS                       R17 R17 K5 ["Tag"]
+      112 LOADK                            R18 K18 ["am-size-full-scrollbar"]
+      113 SETTABLE                         R18 R16 R17
+      114 DUPTABLE                         R17 K20 [{"LoadingBar"}]
+      115 GETUPVAL                         R18 6
+      116 GETTABLEKS                       R18 R18 K3 ["createElement"]
+      118 GETUPVAL                         R19 14
+      119 DUPTABLE                         R20 K22 [{"LayoutOrder", "Progress"}]
+      120 NAMECALL                         R21 R1 K13 ["getNextOrder"]
+      122 CALL                             R21 1 1
+      123 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
+      125 GETTABLEKS                       R21 R7 K23 ["FetchProgress"]
+      127 SETTABLEKS                       R21 R20 K21 ["Progress"]
+      129 CALL                             R18 2 1
+      130 SETTABLEKS                       R18 R17 K19 ["LoadingBar"]
+      132 CALL                             R14 3 1
+      133 JUMP                             ; [+1]
+      134 LOADNIL                          R14
+      135 SETTABLEKS                       R14 R13 K9 ["LoadingBarContainer"]
+      137 GETUPVAL                         R15 8
+      138 CALL                             R15 0 1
+      139 JUMPIFNOT                        R15 ; [+13]
+      140 JUMPIFNOT                        R4 ; [+12]
+      141 GETUPVAL                         R14 6
+      142 GETTABLEKS                       R14 R14 K3 ["createElement"]
+      144 GETUPVAL                         R15 15
+      145 DUPTABLE                         R16 K12 [{"LayoutOrder"}]
+      146 NAMECALL                         R17 R1 K13 ["getNextOrder"]
+      148 CALL                             R17 1 1
+      149 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
+      151 CALL                             R14 2 1
+      152 JUMP                             ; [+1]
+      153 LOADNIL                          R14
+      154 SETTABLEKS                       R14 R13 K10 ["FooterBar"]
+      156 CALL                             R10 3 -1
+      157 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -164,46 +194,70 @@ MAIN:
        52 GETTABLEKS                       R10 R10 K15 ["HeaderBar"]
        54 CALL                             R9 1 1
        55 GETIMPORT                        R10 K5 [require]
-       57 GETTABLEKS                       R11 R0 K16 ["Src"]
-       59 GETTABLEKS                       R11 R11 K17 ["Hooks"]
-       61 GETTABLEKS                       R11 R11 K18 ["useCurrentScope"]
+       57 GETIMPORT                        R11 K1 [script]
+       59 GETTABLEKS                       R11 R11 K16 ["Compact"]
+       61 GETTABLEKS                       R11 R11 K15 ["HeaderBar"]
        63 CALL                             R10 1 1
        64 GETIMPORT                        R11 K5 [require]
-       66 GETTABLEKS                       R12 R0 K16 ["Src"]
-       68 GETTABLEKS                       R12 R12 K17 ["Hooks"]
-       70 GETTABLEKS                       R12 R12 K19 ["useFetchProgressInfo"]
+       66 GETIMPORT                        R12 K1 [script]
+       68 GETTABLEKS                       R12 R12 K16 ["Compact"]
+       70 GETTABLEKS                       R12 R12 K17 ["FooterBar"]
        72 CALL                             R11 1 1
        73 GETIMPORT                        R12 K5 [require]
-       75 GETTABLEKS                       R13 R0 K16 ["Src"]
-       77 GETTABLEKS                       R13 R13 K17 ["Hooks"]
-       79 GETTABLEKS                       R13 R13 K20 ["useLayoutInfo"]
+       75 GETTABLEKS                       R13 R0 K18 ["Src"]
+       77 GETTABLEKS                       R13 R13 K19 ["Flags"]
+       79 GETTABLEKS                       R13 R13 K20 ["getFFlagAmrUseRedesignedCompactView"]
        81 CALL                             R12 1 1
        82 GETIMPORT                        R13 K5 [require]
-       84 GETTABLEKS                       R14 R0 K16 ["Src"]
-       86 GETTABLEKS                       R14 R14 K17 ["Hooks"]
-       88 GETTABLEKS                       R14 R14 K21 ["useItems"]
+       84 GETTABLEKS                       R14 R0 K18 ["Src"]
+       86 GETTABLEKS                       R14 R14 K21 ["Hooks"]
+       88 GETTABLEKS                       R14 R14 K22 ["useCurrentScope"]
        90 CALL                             R13 1 1
-       91 GETTABLEKS                       R14 R2 K22 ["Util"]
-       93 GETTABLEKS                       R14 R14 K23 ["LayoutOrderIterator"]
-       95 GETIMPORT                        R15 K5 [require]
-       97 GETTABLEKS                       R16 R0 K16 ["Src"]
-       99 GETTABLEKS                       R16 R16 K24 ["Types"]
-      101 CALL                             R15 1 1
-      102 DUPCLOSURE                       R16 K25 [PROTO_0]
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R7
-      106 DUPCLOSURE                       R17 K26 [PROTO_1]
-      107 CAPTURE                          VAL R14
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R12
-      110 CAPTURE                          VAL R11
-      111 CAPTURE                          VAL R13
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R9
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          VAL R16
-      117 CAPTURE                          VAL R15
-      118 CAPTURE                          VAL R4
-      119 RETURN                           R17 1
+       91 GETIMPORT                        R14 K5 [require]
+       93 GETTABLEKS                       R15 R0 K18 ["Src"]
+       95 GETTABLEKS                       R15 R15 K21 ["Hooks"]
+       97 GETTABLEKS                       R15 R15 K23 ["useFetchProgressInfo"]
+       99 CALL                             R14 1 1
+      100 GETIMPORT                        R15 K5 [require]
+      102 GETTABLEKS                       R16 R0 K18 ["Src"]
+      104 GETTABLEKS                       R16 R16 K21 ["Hooks"]
+      106 GETTABLEKS                       R16 R16 K24 ["useLayoutInfo"]
+      108 CALL                             R15 1 1
+      109 GETIMPORT                        R16 K5 [require]
+      111 GETTABLEKS                       R17 R0 K18 ["Src"]
+      113 GETTABLEKS                       R17 R17 K21 ["Hooks"]
+      115 GETTABLEKS                       R17 R17 K25 ["usePluginSize"]
+      117 CALL                             R16 1 1
+      118 GETIMPORT                        R17 K5 [require]
+      120 GETTABLEKS                       R18 R0 K18 ["Src"]
+      122 GETTABLEKS                       R18 R18 K21 ["Hooks"]
+      124 GETTABLEKS                       R18 R18 K26 ["useItems"]
+      126 CALL                             R17 1 1
+      127 GETTABLEKS                       R18 R2 K27 ["Util"]
+      129 GETTABLEKS                       R18 R18 K28 ["LayoutOrderIterator"]
+      131 GETIMPORT                        R19 K5 [require]
+      133 GETTABLEKS                       R20 R0 K18 ["Src"]
+      135 GETTABLEKS                       R20 R20 K29 ["Types"]
+      137 CALL                             R19 1 1
+      138 DUPCLOSURE                       R20 K30 [PROTO_0]
+      139 CAPTURE                          VAL R1
+      140 CAPTURE                          VAL R6
+      141 CAPTURE                          VAL R7
+      142 DUPCLOSURE                       R21 K31 [PROTO_1]
+      143 CAPTURE                          VAL R18
+      144 CAPTURE                          VAL R16
+      145 CAPTURE                          VAL R13
+      146 CAPTURE                          VAL R15
+      147 CAPTURE                          VAL R14
+      148 CAPTURE                          VAL R17
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          VAL R5
+      151 CAPTURE                          VAL R12
+      152 CAPTURE                          VAL R10
+      153 CAPTURE                          VAL R9
+      154 CAPTURE                          VAL R8
+      155 CAPTURE                          VAL R20
+      156 CAPTURE                          VAL R19
+      157 CAPTURE                          VAL R4
+      158 CAPTURE                          VAL R11
+      159 RETURN                           R21 1

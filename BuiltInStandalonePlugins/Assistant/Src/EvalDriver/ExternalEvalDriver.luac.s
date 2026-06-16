@@ -590,31 +590,39 @@ PROTO_30:
         2 RETURN                           R0 0
 
 PROTO_31:
-        0 SETUPVAL                         R1 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["init"]
-        4 MOVE                             R3 R0
-        5 CALL                             R2 1 0
-        6 GETUPVAL                         R2 2
-        7 GETTABLEKS                       R2 R2 K0 ["init"]
-        9 MOVE                             R3 R0
-       10 GETUPVAL                         R4 0
-       11 CALL                             R2 2 0
-       12 GETUPVAL                         R2 3
-       13 GETTABLEKS                       R2 R2 K0 ["init"]
-       15 MOVE                             R3 R0
-       16 GETUPVAL                         R4 0
-       17 CALL                             R2 2 0
-       18 GETUPVAL                         R2 4
-       19 CALL                             R2 0 0
-       20 GETUPVAL                         R2 5
-       21 CALL                             R2 0 0
-       22 GETTABLEKS                       R2 R0 K1 ["Unloading"]
-       24 DUPCLOSURE                       R4 K2 [PROTO_30]
-       25 CAPTURE                          UPVAL U6
-       26 NAMECALL                         R2 R2 K3 ["Connect"]
-       28 CALL                             R2 2 0
-       29 RETURN                           R0 0
+        0 SETUPVAL                         R2 0
+        1 GETIMPORT                        R3 K1 [print]
+        3 LOADK                            R5 K2 ["[StudioEvalDriver]::EvalDriverIdentity=%*"]
+        4 GETUPVAL                         R7 0
+        5 NAMECALL                         R5 R5 K3 ["format"]
+        7 CALL                             R5 2 1
+        8 MOVE                             R4 R5
+        9 CALL                             R3 1 0
+       10 SETUPVAL                         R1 1
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R3 R3 K4 ["init"]
+       14 MOVE                             R4 R0
+       15 CALL                             R3 1 0
+       16 GETUPVAL                         R3 3
+       17 GETTABLEKS                       R3 R3 K4 ["init"]
+       19 MOVE                             R4 R0
+       20 GETUPVAL                         R5 1
+       21 CALL                             R3 2 0
+       22 GETUPVAL                         R3 4
+       23 GETTABLEKS                       R3 R3 K4 ["init"]
+       25 MOVE                             R4 R0
+       26 GETUPVAL                         R5 1
+       27 CALL                             R3 2 0
+       28 GETUPVAL                         R3 5
+       29 CALL                             R3 0 0
+       30 GETUPVAL                         R3 6
+       31 CALL                             R3 0 0
+       32 GETTABLEKS                       R3 R0 K5 ["Unloading"]
+       34 DUPCLOSURE                       R5 K6 [PROTO_30]
+       35 CAPTURE                          UPVAL U7
+       36 NAMECALL                         R3 R3 K7 ["Connect"]
+       38 CALL                             R3 2 0
+       39 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -675,74 +683,66 @@ MAIN:
        96 LOADNIL                          R18
        97 LOADNIL                          R19
        98 LOADNIL                          R20
-       99 LOADB                            R23 0
-      100 NAMECALL                         R21 R1 K28 ["GenerateGUID"]
-      102 CALL                             R21 2 1
-      103 GETIMPORT                        R22 K30 [print]
-      105 LOADK                            R24 K31 ["[StudioEvalDriver]::EvalDriverIdentity=%*"]
-      106 MOVE                             R26 R21
-      107 NAMECALL                         R24 R24 K32 ["format"]
-      109 CALL                             R24 2 1
-      110 MOVE                             R23 R24
-      111 CALL                             R22 1 0
-      112 DUPCLOSURE                       R22 K33 [PROTO_0]
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R11
-      115 DUPCLOSURE                       R23 K34 [PROTO_1]
-      116 CAPTURE                          VAL R10
-      117 NEWCLOSURE                       R24 P2
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R11
-      120 CAPTURE                          REF R16
-      121 CAPTURE                          VAL R1
-      122 DUPCLOSURE                       R25 K35 [PROTO_3]
-      123 CAPTURE                          VAL R21
-      124 DUPTABLE                         R26 K38 [{"invokeEventBridge", "identifyStudio"}]
-      125 SETTABLEKS                       R24 R26 K36 ["invokeEventBridge"]
-      127 SETTABLEKS                       R25 R26 K37 ["identifyStudio"]
-      129 DUPCLOSURE                       R27 K39 [PROTO_4]
-      130 CAPTURE                          VAL R26
-      131 CAPTURE                          VAL R14
-      132 NEWCLOSURE                       R28 P5
-      133 CAPTURE                          REF R17
-      134 CAPTURE                          REF R18
-      135 CAPTURE                          REF R19
-      136 NEWCLOSURE                       R29 P6
-      137 CAPTURE                          VAL R12
-      138 CAPTURE                          REF R17
-      139 CAPTURE                          REF R18
-      140 CAPTURE                          REF R19
-      141 CAPTURE                          VAL R15
-      142 CAPTURE                          REF R20
-      143 CAPTURE                          VAL R13
-      144 CAPTURE                          VAL R26
-      145 CAPTURE                          VAL R14
-      146 CAPTURE                          VAL R27
-      147 NEWTABLE                         R30 0 0
-      149 NEWCLOSURE                       R31 P7
-      150 CAPTURE                          VAL R11
-      151 CAPTURE                          VAL R5
-      152 CAPTURE                          VAL R6
-      153 CAPTURE                          VAL R8
-      154 CAPTURE                          VAL R7
-      155 CAPTURE                          VAL R10
-      156 CAPTURE                          VAL R22
-      157 CAPTURE                          VAL R23
-      158 CAPTURE                          REF R16
-      159 NEWCLOSURE                       R32 P8
-      160 CAPTURE                          REF R17
-      161 CAPTURE                          REF R18
-      162 CAPTURE                          REF R19
-      163 CAPTURE                          REF R30
-      164 NEWCLOSURE                       R33 P9
-      165 CAPTURE                          REF R16
-      166 CAPTURE                          VAL R6
-      167 CAPTURE                          VAL R7
-      168 CAPTURE                          VAL R8
-      169 CAPTURE                          VAL R31
-      170 CAPTURE                          VAL R29
-      171 CAPTURE                          VAL R32
-      172 DUPTABLE                         R34 K41 [{"init"}]
-      173 SETTABLEKS                       R33 R34 K40 ["init"]
-      175 CLOSEUPVALS                      R16
-      176 RETURN                           R34 1
+       99 LOADNIL                          R21
+      100 DUPCLOSURE                       R22 K28 [PROTO_0]
+      101 CAPTURE                          VAL R10
+      102 CAPTURE                          VAL R11
+      103 DUPCLOSURE                       R23 K29 [PROTO_1]
+      104 CAPTURE                          VAL R10
+      105 NEWCLOSURE                       R24 P2
+      106 CAPTURE                          VAL R9
+      107 CAPTURE                          VAL R11
+      108 CAPTURE                          REF R16
+      109 CAPTURE                          VAL R1
+      110 NEWCLOSURE                       R25 P3
+      111 CAPTURE                          REF R21
+      112 DUPTABLE                         R26 K32 [{"invokeEventBridge", "identifyStudio"}]
+      113 SETTABLEKS                       R24 R26 K30 ["invokeEventBridge"]
+      115 SETTABLEKS                       R25 R26 K31 ["identifyStudio"]
+      117 DUPCLOSURE                       R27 K33 [PROTO_4]
+      118 CAPTURE                          VAL R26
+      119 CAPTURE                          VAL R14
+      120 NEWCLOSURE                       R28 P5
+      121 CAPTURE                          REF R17
+      122 CAPTURE                          REF R18
+      123 CAPTURE                          REF R19
+      124 NEWCLOSURE                       R29 P6
+      125 CAPTURE                          VAL R12
+      126 CAPTURE                          REF R17
+      127 CAPTURE                          REF R18
+      128 CAPTURE                          REF R19
+      129 CAPTURE                          VAL R15
+      130 CAPTURE                          REF R20
+      131 CAPTURE                          VAL R13
+      132 CAPTURE                          VAL R26
+      133 CAPTURE                          VAL R14
+      134 CAPTURE                          VAL R27
+      135 NEWTABLE                         R30 0 0
+      137 NEWCLOSURE                       R31 P7
+      138 CAPTURE                          VAL R11
+      139 CAPTURE                          VAL R5
+      140 CAPTURE                          VAL R6
+      141 CAPTURE                          VAL R8
+      142 CAPTURE                          VAL R7
+      143 CAPTURE                          VAL R10
+      144 CAPTURE                          VAL R22
+      145 CAPTURE                          VAL R23
+      146 CAPTURE                          REF R16
+      147 NEWCLOSURE                       R32 P8
+      148 CAPTURE                          REF R17
+      149 CAPTURE                          REF R18
+      150 CAPTURE                          REF R19
+      151 CAPTURE                          REF R30
+      152 NEWCLOSURE                       R33 P9
+      153 CAPTURE                          REF R21
+      154 CAPTURE                          REF R16
+      155 CAPTURE                          VAL R6
+      156 CAPTURE                          VAL R7
+      157 CAPTURE                          VAL R8
+      158 CAPTURE                          VAL R31
+      159 CAPTURE                          VAL R29
+      160 CAPTURE                          VAL R32
+      161 DUPTABLE                         R34 K35 [{"init"}]
+      162 SETTABLEKS                       R33 R34 K34 ["init"]
+      164 CLOSEUPVALS                      R16
+      165 RETURN                           R34 1

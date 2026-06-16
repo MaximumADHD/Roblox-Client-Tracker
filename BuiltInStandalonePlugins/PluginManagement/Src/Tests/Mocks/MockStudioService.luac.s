@@ -5,30 +5,30 @@ PROTO_0:
         5 LOADK                            R1 K1 ["{}"]
         6 SETTABLEKS                       R1 R0 K2 ["InstalledPluginData"]
         8 GETUPVAL                         R1 0
-        9 CALL                             R1 0 1
-       10 JUMPIF                           R1 ; [+6]
-       11 GETUPVAL                         R1 1
-       12 GETTABLEKS                       R1 R1 K3 ["new"]
-       14 CALL                             R1 0 1
-       15 SETTABLEKS                       R1 R0 K4 ["OnPluginInstalledFromWeb"]
-       17 GETUPVAL                         R1 1
+        9 GETTABLEKS                       R1 R1 K3 ["new"]
+       11 CALL                             R1 0 1
+       12 SETTABLEKS                       R1 R0 K4 ["OnPluginInstalledFromToolbox"]
+       14 LOADN                            R1 0
+       15 SETTABLEKS                       R1 R0 K5 ["_userId"]
+       17 GETUPVAL                         R1 0
        18 GETTABLEKS                       R1 R1 K3 ["new"]
        20 CALL                             R1 0 1
-       21 SETTABLEKS                       R1 R0 K5 ["OnPluginInstalledFromToolbox"]
-       23 LOADN                            R1 0
-       24 SETTABLEKS                       R1 R0 K6 ["_userId"]
-       26 GETUPVAL                         R1 1
-       27 GETTABLEKS                       R1 R1 K3 ["new"]
-       29 CALL                             R1 0 1
-       30 SETTABLEKS                       R1 R0 K7 ["_installedPluginDataChanged"]
-       32 GETUPVAL                         R3 2
-       33 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       35 MOVE                             R2 R0
-       36 GETIMPORT                        R1 K9 [setmetatable]
-       38 CALL                             R1 2 1
-       39 RETURN                           R1 1
+       21 SETTABLEKS                       R1 R0 K6 ["_installedPluginDataChanged"]
+       23 NEWTABLE                         R1 0 0
+       25 SETTABLEKS                       R1 R0 K7 ["_enabledChangedStates"]
+       27 NEWTABLE                         R1 0 0
+       29 SETTABLEKS                       R1 R0 K8 ["_installPluginShouldSucceed"]
+       31 GETUPVAL                         R3 1
+       32 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       34 MOVE                             R2 R0
+       35 GETIMPORT                        R1 K10 [setmetatable]
+       37 CALL                             R1 2 1
+       38 RETURN                           R1 1
 
 PROTO_1:
+        0 RETURN                           R0 0
+
+PROTO_2:
         0 SETTABLEKS                       R1 R0 K0 ["_mockData"]
         2 GETTABLEKS                       R2 R0 K0 ["_mockData"]
         4 JUMPIF                           R2 ; [+4]
@@ -75,31 +75,69 @@ PROTO_1:
        64 CALL                             R2 1 0
        65 RETURN                           R0 0
 
-PROTO_2:
+PROTO_3:
         0 JUMPIFNOTEQKS                    R1 K0 ["InstalledPluginData"] ; [+4]
         2 GETTABLEKS                       R2 R0 K1 ["_installedPluginDataChanged"]
         4 RETURN                           R2 1
         5 LOADNIL                          R2
         6 RETURN                           R2 1
 
-PROTO_3:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 NOT                              R2 R3
-        3 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        5 LOADK                            R3 K0 ["MockStudioService:GetUserId is deprecated with FFlagStudioRemoveOldPluginInstallFromWebLua"]
-        6 GETIMPORT                        R1 K2 [assert]
-        8 CALL                             R1 2 0
-        9 GETTABLEKS                       R1 R0 K3 ["_userId"]
-       11 RETURN                           R1 1
-
 PROTO_4:
-        0 RETURN                           R0 0
+        0 GETIMPORT                        R0 K2 [table.clone]
+        2 GETUPVAL                         R1 0
+        3 GETTABLEKS                       R1 R1 K3 ["_mockData"]
+        5 CALL                             R0 1 1
+        6 GETIMPORT                        R1 K2 [table.clone]
+        8 GETUPVAL                         R3 1
+        9 GETTABLE                         R2 R0 R3
+       10 CALL                             R1 1 1
+       11 GETUPVAL                         R2 2
+       12 SETTABLEKS                       R2 R1 K4 ["AssetVersion"]
+       14 GETUPVAL                         R2 1
+       15 SETTABLE                         R1 R0 R2
+       16 GETUPVAL                         R2 0
+       17 MOVE                             R4 R0
+       18 NAMECALL                         R2 R2 K5 ["setMockData"]
+       20 CALL                             R2 2 0
+       21 RETURN                           R0 0
 
 PROTO_5:
-        0 RETURN                           R0 0
+        0 LOADB                            R3 0
+        1 FASTCALL1                        TOSTRING R1 ; [+3]
+        2 MOVE                             R5 R1
+        3 GETIMPORT                        R4 K1 [tostring]
+        5 CALL                             R4 1 1
+        6 GETTABLEKS                       R6 R0 K2 ["_mockData"]
+        8 GETTABLE                         R5 R6 R4
+        9 JUMPIF                           R5 ; [+2]
+       10 LOADB                            R3 1
+       11 JUMP                             ; [+5]
+       12 GETTABLEKS                       R6 R0 K3 ["_installPluginShouldSucceed"]
+       14 GETTABLE                         R5 R6 R1
+       15 JUMPIF                           R5 ; [+1]
+       16 LOADB                            R3 1
+       17 JUMPIFNOT                        R3 ; [+5]
+       18 GETIMPORT                        R5 K5 [error]
+       20 LOADK                            R6 K6 ["Installation failed"]
+       21 CALL                             R5 1 0
+       22 RETURN                           R0 0
+       23 GETIMPORT                        R5 K9 [task.spawn]
+       25 NEWCLOSURE                       R6 P0
+       26 CAPTURE                          VAL R0
+       27 CAPTURE                          VAL R4
+       28 CAPTURE                          VAL R2
+       29 CALL                             R5 1 0
+       30 RETURN                           R0 0
 
 PROTO_6:
+        0 GETTABLEKS                       R3 R0 K0 ["_installPluginShouldSucceed"]
+        2 SETTABLE                         R2 R3 R1
+        3 RETURN                           R0 0
+
+PROTO_7:
+        0 RETURN                           R0 0
+
+PROTO_8:
         0 FASTCALL1                        TOSTRING R1 ; [+3]
         1 MOVE                             R4 R1
         2 GETIMPORT                        R3 K1 [tostring]
@@ -119,10 +157,17 @@ PROTO_6:
        22 LOADB                            R4 1
        23 RETURN                           R4 1
 
-PROTO_7:
-        0 RETURN                           R0 0
+PROTO_9:
+        0 GETTABLEKS                       R3 R0 K0 ["_enabledChangedStates"]
+        2 SETTABLE                         R2 R3 R1
+        3 RETURN                           R0 0
 
-PROTO_8:
+PROTO_10:
+        0 GETTABLEKS                       R3 R0 K0 ["_enabledChangedStates"]
+        2 GETTABLE                         R2 R3 R1
+        3 RETURN                           R2 1
+
+PROTO_11:
         0 RETURN                           R0 0
 
 MAIN:
@@ -133,36 +178,33 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R2 R0 K5 ["Src"]
-       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRemoveOldPluginInstallFromWebLua"]
-       19 CALL                             R1 1 1
-       20 GETIMPORT                        R2 K4 [require]
-       22 GETTABLEKS                       R3 R0 K8 ["Packages"]
-       24 GETTABLEKS                       R3 R3 K9 ["Signal"]
-       26 CALL                             R2 1 1
-       27 NEWTABLE                         R3 16 0
-       29 SETTABLEKS                       R3 R3 K10 ["__index"]
-       31 DUPCLOSURE                       R4 K11 [PROTO_0]
-       32 CAPTURE                          VAL R1
-       33 CAPTURE                          VAL R2
-       34 CAPTURE                          VAL R3
-       35 SETTABLEKS                       R4 R3 K12 ["new"]
-       37 DUPCLOSURE                       R4 K13 [PROTO_1]
-       38 SETTABLEKS                       R4 R3 K14 ["setMockData"]
-       40 DUPCLOSURE                       R4 K15 [PROTO_2]
-       41 SETTABLEKS                       R4 R3 K16 ["GetPropertyChangedSignal"]
-       43 DUPCLOSURE                       R4 K17 [PROTO_3]
-       44 CAPTURE                          VAL R1
-       45 SETTABLEKS                       R4 R3 K18 ["GetUserId"]
-       47 DUPCLOSURE                       R4 K19 [PROTO_4]
-       48 SETTABLEKS                       R4 R3 K20 ["TryInstallPlugin"]
-       50 DUPCLOSURE                       R4 K21 [PROTO_5]
-       51 SETTABLEKS                       R4 R3 K22 ["UninstallPlugin"]
-       53 DUPCLOSURE                       R4 K23 [PROTO_6]
-       54 SETTABLEKS                       R4 R3 K24 ["IsPluginUpToDate"]
-       56 DUPCLOSURE                       R4 K25 [PROTO_7]
-       57 SETTABLEKS                       R4 R3 K26 ["SetPluginEnabled"]
-       59 DUPCLOSURE                       R4 K27 [PROTO_8]
-       60 SETTABLEKS                       R4 R3 K28 ["OpenInBrowser_DONOTUSE"]
-       62 RETURN                           R3 1
+       13 GETTABLEKS                       R2 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R2 K6 ["Signal"]
+       17 CALL                             R1 1 1
+       18 NEWTABLE                         R2 16 0
+       20 SETTABLEKS                       R2 R2 K7 ["__index"]
+       22 DUPCLOSURE                       R3 K8 [PROTO_0]
+       23 CAPTURE                          VAL R1
+       24 CAPTURE                          VAL R2
+       25 SETTABLEKS                       R3 R2 K9 ["new"]
+       27 DUPCLOSURE                       R3 K10 [PROTO_1]
+       28 SETTABLEKS                       R3 R2 K11 ["Destroy"]
+       30 DUPCLOSURE                       R3 K12 [PROTO_2]
+       31 SETTABLEKS                       R3 R2 K13 ["setMockData"]
+       33 DUPCLOSURE                       R3 K14 [PROTO_3]
+       34 SETTABLEKS                       R3 R2 K15 ["GetPropertyChangedSignal"]
+       36 DUPCLOSURE                       R3 K16 [PROTO_5]
+       37 SETTABLEKS                       R3 R2 K17 ["TryInstallPlugin"]
+       39 DUPCLOSURE                       R3 K18 [PROTO_6]
+       40 SETTABLEKS                       R3 R2 K19 ["setMockInstallPluginShouldSucceed"]
+       42 DUPCLOSURE                       R3 K20 [PROTO_7]
+       43 SETTABLEKS                       R3 R2 K21 ["UninstallPlugin"]
+       45 DUPCLOSURE                       R3 K22 [PROTO_8]
+       46 SETTABLEKS                       R3 R2 K23 ["IsPluginUpToDate"]
+       48 DUPCLOSURE                       R3 K24 [PROTO_9]
+       49 SETTABLEKS                       R3 R2 K25 ["SetPluginEnabled"]
+       51 DUPCLOSURE                       R3 K26 [PROTO_10]
+       52 SETTABLEKS                       R3 R2 K27 ["getPluginEnabledChangedState"]
+       54 DUPCLOSURE                       R3 K28 [PROTO_11]
+       55 SETTABLEKS                       R3 R2 K29 ["OpenInBrowser_DONOTUSE"]
+       57 RETURN                           R2 1

@@ -119,6 +119,15 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R1 0
+        1 LOADNIL                          R3
+        2 LOADNIL                          R4
+        3 MOVE                             R5 R0
+        4 NAMECALL                         R1 R1 K0 ["setBrowserLayout"]
+        6 CALL                             R1 4 0
+        7 RETURN                           R0 0
+
+PROTO_7:
+        0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
         4 GETUPVAL                         R2 1
@@ -257,7 +266,7 @@ PROTO_6:
       214 DUPTABLE                         R20 K57 [{"tag"}]
       215 LOADK                            R21 K58 ["col padding-xsmall gap-xsmall auto-xy"]
       216 SETTABLEKS                       R21 R20 K56 ["tag"]
-      218 DUPTABLE                         R21 K62 [{"ListButton", "GridButton", "GridSlider"}]
+      218 DUPTABLE                         R21 K62 [{"ListButton", "GridButton", "Slider"}]
       219 GETUPVAL                         R22 2
       220 GETTABLEKS                       R22 R22 K2 ["createElement"]
       222 GETUPVAL                         R23 7
@@ -290,35 +299,61 @@ PROTO_6:
       264 GETUPVAL                         R22 2
       265 GETTABLEKS                       R22 R22 K2 ["createElement"]
       267 GETUPVAL                         R23 5
-      268 GETTABLEKS                       R23 R23 K65 ["Slider"]
-      270 DUPTABLE                         R24 K70 [{"LayoutOrder", "value", "step", "range", "onValueChanged"}]
+      268 GETTABLEKS                       R23 R23 K61 ["Slider"]
+      270 DUPTABLE                         R24 K69 [{"LayoutOrder", "value", "step", "range", "onValueChanged"}]
       271 LOADN                            R25 3
       272 SETTABLEKS                       R25 R24 K5 ["LayoutOrder"]
-      274 GETTABLEKS                       R25 R5 K71 ["GridSize"]
-      276 SETTABLEKS                       R25 R24 K66 ["value"]
+      274 GETTABLEKS                       R25 R5 K70 ["GridSize"]
+      276 SETTABLEKS                       R25 R24 K65 ["value"]
       278 LOADN                            R25 1
-      279 SETTABLEKS                       R25 R24 K67 ["step"]
-      281 GETIMPORT                        R25 K74 [NumberRange.new]
+      279 SETTABLEKS                       R25 R24 K66 ["step"]
+      281 GETIMPORT                        R25 K73 [NumberRange.new]
       283 GETUPVAL                         R26 8
-      284 GETTABLEKS                       R26 R26 K75 ["GridCellHeightMin"]
+      284 GETTABLEKS                       R26 R26 K74 ["GridCellHeightMin"]
       286 GETUPVAL                         R27 8
-      287 GETTABLEKS                       R27 R27 K76 ["GridCellHeightMax"]
+      287 GETTABLEKS                       R27 R27 K75 ["GridCellHeightMax"]
       289 CALL                             R25 2 1
-      290 SETTABLEKS                       R25 R24 K68 ["range"]
+      290 SETTABLEKS                       R25 R24 K67 ["range"]
       292 NEWCLOSURE                       R25 P3
       293 CAPTURE                          VAL R2
-      294 SETTABLEKS                       R25 R24 K69 ["onValueChanged"]
+      294 SETTABLEKS                       R25 R24 K68 ["onValueChanged"]
       296 CALL                             R22 2 1
-      297 JUMP                             ; [+1]
-      298 LOADNIL                          R22
-      299 SETTABLEKS                       R22 R21 K61 ["GridSlider"]
-      301 CALL                             R18 3 1
-      302 SETTABLEKS                       R18 R17 K45 ["Menu"]
-      304 CALL                             R14 3 -1
-      305 CALL                             R11 -1 1
-      306 SETTABLEKS                       R11 R10 K10 ["Content"]
-      308 CALL                             R7 3 -1
-      309 RETURN                           R7 -1
+      297 JUMP                             ; [+38]
+      298 GETUPVAL                         R23 9
+      299 CALL                             R23 0 1
+      300 JUMPIFNOT                        R23 ; [+34]
+      301 GETUPVAL                         R22 2
+      302 GETTABLEKS                       R22 R22 K2 ["createElement"]
+      304 GETUPVAL                         R23 5
+      305 GETTABLEKS                       R23 R23 K61 ["Slider"]
+      307 DUPTABLE                         R24 K69 [{"LayoutOrder", "value", "step", "range", "onValueChanged"}]
+      308 LOADN                            R25 3
+      309 SETTABLEKS                       R25 R24 K5 ["LayoutOrder"]
+      311 GETTABLEKS                       R25 R5 K76 ["ListRowHeight"]
+      313 SETTABLEKS                       R25 R24 K65 ["value"]
+      315 LOADN                            R25 1
+      316 SETTABLEKS                       R25 R24 K66 ["step"]
+      318 GETIMPORT                        R25 K73 [NumberRange.new]
+      320 GETUPVAL                         R26 8
+      321 GETTABLEKS                       R26 R26 K77 ["ListRowHeightMin"]
+      323 GETUPVAL                         R27 8
+      324 GETTABLEKS                       R27 R27 K78 ["ListRowHeightMax"]
+      326 CALL                             R25 2 1
+      327 SETTABLEKS                       R25 R24 K67 ["range"]
+      329 NEWCLOSURE                       R25 P4
+      330 CAPTURE                          VAL R2
+      331 SETTABLEKS                       R25 R24 K68 ["onValueChanged"]
+      333 CALL                             R22 2 1
+      334 JUMP                             ; [+1]
+      335 LOADNIL                          R22
+      336 SETTABLEKS                       R22 R21 K61 ["Slider"]
+      338 CALL                             R18 3 1
+      339 SETTABLEKS                       R18 R17 K45 ["Menu"]
+      341 CALL                             R14 3 -1
+      342 CALL                             R11 -1 1
+      343 SETTABLEKS                       R11 R10 K10 ["Content"]
+      345 CALL                             R7 3 -1
+      346 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -361,21 +396,27 @@ MAIN:
        65 GETTABLEKS                       R11 R0 K12 ["Src"]
        67 GETTABLEKS                       R11 R11 K20 ["Types"]
        69 CALL                             R10 1 1
-       70 DUPCLOSURE                       R11 K21 [PROTO_1]
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R8
-       74 CAPTURE                          VAL R10
-       75 CAPTURE                          VAL R2
-       76 CAPTURE                          VAL R1
-       77 DUPCLOSURE                       R12 K22 [PROTO_6]
-       78 CAPTURE                          VAL R5
-       79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R7
+       70 GETIMPORT                        R11 K5 [require]
+       72 GETTABLEKS                       R12 R0 K12 ["Src"]
+       74 GETTABLEKS                       R12 R12 K21 ["Flags"]
+       76 GETTABLEKS                       R12 R12 K22 ["getFFlagAmrListViewCustomRowHeight"]
+       78 CALL                             R11 1 1
+       79 DUPCLOSURE                       R12 K23 [PROTO_1]
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R6
        82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R10
-       85 CAPTURE                          VAL R11
-       86 CAPTURE                          VAL R9
-       87 RETURN                           R12 1
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R2
+       85 CAPTURE                          VAL R1
+       86 DUPCLOSURE                       R13 K24 [PROTO_7]
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R6
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R8
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R10
+       94 CAPTURE                          VAL R12
+       95 CAPTURE                          VAL R9
+       96 CAPTURE                          VAL R11
+       97 RETURN                           R13 1

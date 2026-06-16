@@ -1,0 +1,20 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 DUPTABLE                         R0 K4 [{"External", "Generation", "QuotaExceeded", "TooManyRequest"}]
+        2 LOADK                            R1 K5 ["external"]
+        3 SETTABLEKS                       R1 R0 K0 ["External"]
+        5 LOADK                            R1 K6 ["generation"]
+        6 SETTABLEKS                       R1 R0 K1 ["Generation"]
+        8 LOADK                            R1 K7 ["quota_exceeded"]
+        9 SETTABLEKS                       R1 R0 K2 ["QuotaExceeded"]
+       11 LOADK                            R1 K8 ["too_many_request"]
+       12 SETTABLEKS                       R1 R0 K3 ["TooManyRequest"]
+       14 DUPTABLE                         R1 K11 [{"Loading", "Error"}]
+       15 LOADK                            R2 K12 ["loading"]
+       16 SETTABLEKS                       R2 R1 K9 ["Loading"]
+       18 LOADK                            R2 K13 ["error"]
+       19 SETTABLEKS                       R2 R1 K10 ["Error"]
+       21 DUPTABLE                         R2 K16 [{"InputDisabledReasons", "InputIconTypes"}]
+       22 SETTABLEKS                       R0 R2 K14 ["InputDisabledReasons"]
+       24 SETTABLEKS                       R1 R2 K15 ["InputIconTypes"]
+       26 RETURN                           R2 1

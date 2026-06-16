@@ -53,14 +53,16 @@ PROTO_0:
        71 GETTABLEKS                       R5 R5 K1 ["createElement"]
        73 GETUPVAL                         R6 8
        74 GETTABLEKS                       R6 R6 K11 ["View"]
-       76 DUPTABLE                         R7 K13 [{"LayoutOrder", "tag"}]
+       76 DUPTABLE                         R7 K14 [{"LayoutOrder", "tag", "testId"}]
        77 GETTABLEKS                       R8 R0 K2 ["LayoutOrder"]
        79 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       81 LOADK                            R8 K14 ["size-full col align-y-top data-testid=sidebar"]
+       81 LOADK                            R8 K15 ["size-full col align-y-top"]
        82 SETTABLEKS                       R8 R7 K12 ["tag"]
-       84 MOVE                             R8 R4
-       85 CALL                             R5 3 -1
-       86 RETURN                           R5 -1
+       84 LOADK                            R8 K16 ["sidebar"]
+       85 SETTABLEKS                       R8 R7 K13 ["testId"]
+       87 MOVE                             R8 R4
+       88 CALL                             R5 3 -1
+       89 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

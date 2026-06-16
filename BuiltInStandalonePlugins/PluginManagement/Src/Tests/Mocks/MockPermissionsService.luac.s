@@ -10,16 +10,19 @@ PROTO_0:
        12 RETURN                           R1 1
 
 PROTO_1:
+        0 RETURN                           R0 0
+
+PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["_permissions"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIF                           R2 ; [+2]
         4 NEWTABLE                         R2 0 0
         6 RETURN                           R2 1
 
-PROTO_2:
+PROTO_3:
         0 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["_permissions"]
         2 FASTCALL1                        TOSTRING R1 ; [+3]
         3 MOVE                             R5 R1
@@ -30,15 +33,27 @@ PROTO_3:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 NEWTABLE                         R0 8 0
-        3 SETTABLEKS                       R0 R0 K0 ["__index"]
-        5 DUPCLOSURE                       R1 K1 [PROTO_0]
-        6 CAPTURE                          VAL R0
-        7 SETTABLEKS                       R1 R0 K2 ["new"]
-        9 DUPCLOSURE                       R1 K3 [PROTO_1]
-       10 SETTABLEKS                       R1 R0 K4 ["GetPermissions"]
-       12 DUPCLOSURE                       R1 K5 [PROTO_2]
-       13 SETTABLEKS                       R1 R0 K6 ["SetPermissions"]
-       15 DUPCLOSURE                       R1 K7 [PROTO_3]
-       16 SETTABLEKS                       R1 R0 K8 ["setMockPermissions"]
-       18 RETURN                           R0 1
+        1 GETIMPORT                        R0 K1 [script]
+        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R2 R0 K5 ["Src"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["Types"]
+       19 CALL                             R1 1 1
+       20 NEWTABLE                         R2 8 0
+       22 SETTABLEKS                       R2 R2 K8 ["__index"]
+       24 DUPCLOSURE                       R3 K9 [PROTO_0]
+       25 CAPTURE                          VAL R2
+       26 SETTABLEKS                       R3 R2 K10 ["new"]
+       28 DUPCLOSURE                       R3 K11 [PROTO_1]
+       29 SETTABLEKS                       R3 R2 K12 ["Destroy"]
+       31 DUPCLOSURE                       R3 K13 [PROTO_2]
+       32 SETTABLEKS                       R3 R2 K14 ["GetPermissions"]
+       34 DUPCLOSURE                       R3 K15 [PROTO_3]
+       35 SETTABLEKS                       R3 R2 K16 ["SetPermissions"]
+       37 DUPCLOSURE                       R3 K17 [PROTO_4]
+       38 SETTABLEKS                       R3 R2 K18 ["setMockPermissions"]
+       40 RETURN                           R2 1

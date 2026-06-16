@@ -5,52 +5,47 @@ PROTO_0:
         4 CALL                             R1 1 1
         5 GETTABLEKS                       R2 R1 K1 ["avatarAssets"]
         7 GETUPVAL                         R3 2
-        8 GETUPVAL                         R5 3
-        9 CALL                             R5 0 1
-       10 JUMPIFNOT                        R5 ; [+5]
-       11 DUPTABLE                         R4 K3 [{"layerType"}]
-       12 LOADK                            R5 K4 ["layered"]
-       13 SETTABLEKS                       R5 R4 K2 ["layerType"]
-       15 JUMP                             ; [+1]
-       16 LOADNIL                          R4
-       17 CALL                             R3 1 1
-       18 GETTABLEKS                       R4 R0 K5 ["Dummy"]
-       20 JUMPIFNOTEQKNIL                  R4 ; [+3]
-       22 LOADNIL                          R4
-       23 RETURN                           R4 1
-       24 GETTABLEKS                       R5 R0 K5 ["Dummy"]
-       26 GETUPVAL                         R6 4
-       27 GETTABLEKS                       R6 R6 K6 ["LUAU_ANALYZE_ERROR"]
-       29 FASTCALL2                        ASSERT R5 R6 ; [+3]
-       31 GETIMPORT                        R4 K8 [assert]
-       33 CALL                             R4 2 0
-       34 GETUPVAL                         R4 0
-       35 GETTABLEKS                       R4 R4 K9 ["createElement"]
-       37 GETUPVAL                         R5 0
-       38 GETTABLEKS                       R5 R5 K10 ["Fragment"]
-       40 NEWTABLE                         R6 0 0
-       42 DUPTABLE                         R7 K13 [{"EquippedItemsSidebar", "AnimationController"}]
-       43 GETUPVAL                         R8 0
-       44 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       46 GETUPVAL                         R9 5
-       47 DUPTABLE                         R10 K15 [{"OnClothingLayerOrderChanged"}]
-       48 SETTABLEKS                       R3 R10 K14 ["OnClothingLayerOrderChanged"]
-       50 CALL                             R8 2 1
-       51 SETTABLEKS                       R8 R7 K11 ["EquippedItemsSidebar"]
-       53 GETTABLEKS                       R8 R2 K16 ["animation"]
-       55 JUMPIFNOT                        R8 ; [+14]
-       56 GETUPVAL                         R8 0
-       57 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       59 GETUPVAL                         R9 6
-       60 DUPTABLE                         R10 K18 [{"Dummy", "AnimationId"}]
-       61 GETTABLEKS                       R11 R0 K5 ["Dummy"]
-       63 SETTABLEKS                       R11 R10 K5 ["Dummy"]
-       65 GETTABLEKS                       R11 R2 K16 ["animation"]
-       67 SETTABLEKS                       R11 R10 K17 ["AnimationId"]
-       69 CALL                             R8 2 1
-       70 SETTABLEKS                       R8 R7 K12 ["AnimationController"]
-       72 CALL                             R4 3 -1
-       73 RETURN                           R4 -1
+        8 DUPTABLE                         R4 K3 [{"layerType"}]
+        9 LOADK                            R5 K4 ["layered"]
+       10 SETTABLEKS                       R5 R4 K2 ["layerType"]
+       12 CALL                             R3 1 1
+       13 GETTABLEKS                       R4 R0 K5 ["Dummy"]
+       15 JUMPIFNOTEQKNIL                  R4 ; [+3]
+       17 LOADNIL                          R4
+       18 RETURN                           R4 1
+       19 GETTABLEKS                       R5 R0 K5 ["Dummy"]
+       21 GETUPVAL                         R6 3
+       22 GETTABLEKS                       R6 R6 K6 ["LUAU_ANALYZE_ERROR"]
+       24 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       26 GETIMPORT                        R4 K8 [assert]
+       28 CALL                             R4 2 0
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K9 ["createElement"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K10 ["Fragment"]
+       35 NEWTABLE                         R6 0 0
+       37 DUPTABLE                         R7 K13 [{"EquippedItemsSidebar", "AnimationController"}]
+       38 GETUPVAL                         R8 0
+       39 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       41 GETUPVAL                         R9 4
+       42 DUPTABLE                         R10 K15 [{"OnClothingLayerOrderChanged"}]
+       43 SETTABLEKS                       R3 R10 K14 ["OnClothingLayerOrderChanged"]
+       45 CALL                             R8 2 1
+       46 SETTABLEKS                       R8 R7 K11 ["EquippedItemsSidebar"]
+       48 GETTABLEKS                       R8 R2 K16 ["animation"]
+       50 JUMPIFNOT                        R8 ; [+14]
+       51 GETUPVAL                         R8 0
+       52 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       54 GETUPVAL                         R9 5
+       55 DUPTABLE                         R10 K18 [{"Dummy", "AnimationId"}]
+       56 GETTABLEKS                       R11 R0 K5 ["Dummy"]
+       58 SETTABLEKS                       R11 R10 K5 ["Dummy"]
+       60 GETTABLEKS                       R11 R2 K16 ["animation"]
+       62 SETTABLEKS                       R11 R10 K17 ["AnimationId"]
+       64 CALL                             R8 2 1
+       65 SETTABLEKS                       R8 R7 K12 ["AnimationController"]
+       67 CALL                             R4 3 -1
+       68 RETURN                           R4 -1
 
 PROTO_1:
         0 DUPTABLE                         R1 K2 [{"focus", "fov"}]
@@ -102,31 +97,25 @@ MAIN:
        65 CALL                             R7 1 1
        66 GETIMPORT                        R8 K5 [require]
        68 GETTABLEKS                       R9 R0 K8 ["Src"]
-       70 GETTABLEKS                       R9 R9 K18 ["Flags"]
-       72 GETTABLEKS                       R9 R9 K19 ["getFFlagAvatarPreviewerMakeup"]
+       70 GETTABLEKS                       R9 R9 K18 ["Hooks"]
+       72 GETTABLEKS                       R9 R9 K19 ["useOnClothingLayerOrderChanged"]
        74 CALL                             R8 1 1
-       75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R10 R0 K8 ["Src"]
-       79 GETTABLEKS                       R10 R10 K20 ["Hooks"]
-       81 GETTABLEKS                       R10 R10 K21 ["useOnClothingLayerOrderChanged"]
-       83 CALL                             R9 1 1
-       84 DUPCLOSURE                       R10 K22 [PROTO_0]
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R6
-       87 CAPTURE                          VAL R9
-       88 CAPTURE                          VAL R8
-       89 CAPTURE                          VAL R5
-       90 CAPTURE                          VAL R3
-       91 CAPTURE                          VAL R2
-       92 DUPTABLE                         R11 K26 [{"tabs", "render", "getPreviewCameraModifications"}]
-       93 NEWTABLE                         R12 0 4
-       95 LOADK                            R13 K27 ["animations"]
-       96 LOADK                            R14 K28 ["clothing"]
-       97 LOADK                            R15 K29 ["accessories"]
-       98 LOADK                            R16 K30 ["body"]
-       99 SETLIST                          R12 R13 4 [1]
-      101 SETTABLEKS                       R12 R11 K23 ["tabs"]
-      103 SETTABLEKS                       R10 R11 K24 ["render"]
-      105 DUPCLOSURE                       R12 K31 [PROTO_1]
-      106 SETTABLEKS                       R12 R11 K25 ["getPreviewCameraModifications"]
-      108 RETURN                           R11 1
+       75 DUPCLOSURE                       R9 K20 [PROTO_0]
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          VAL R6
+       78 CAPTURE                          VAL R8
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R2
+       82 DUPTABLE                         R10 K24 [{"tabs", "render", "getPreviewCameraModifications"}]
+       83 NEWTABLE                         R11 0 4
+       85 LOADK                            R12 K25 ["animations"]
+       86 LOADK                            R13 K26 ["clothing"]
+       87 LOADK                            R14 K27 ["accessories"]
+       88 LOADK                            R15 K28 ["body"]
+       89 SETLIST                          R11 R12 4 [1]
+       91 SETTABLEKS                       R11 R10 K21 ["tabs"]
+       93 SETTABLEKS                       R9 R10 K22 ["render"]
+       95 DUPCLOSURE                       R11 K29 [PROTO_1]
+       96 SETTABLEKS                       R11 R10 K23 ["getPreviewCameraModifications"]
+       98 RETURN                           R10 1

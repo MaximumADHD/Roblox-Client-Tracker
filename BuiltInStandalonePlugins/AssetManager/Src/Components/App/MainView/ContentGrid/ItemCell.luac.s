@@ -228,114 +228,116 @@ PROTO_3:
       265 CALL                             R34 2 1
       266 SETTABLEKS                       R34 R33 K55 ["Thumbnail"]
       268 MOVE                             R34 R9
-      269 JUMPIFNOT                        R34 ; [+14]
+      269 JUMPIFNOT                        R34 ; [+17]
       270 GETUPVAL                         R34 8
       271 GETTABLEKS                       R34 R34 K29 ["createElement"]
       273 GETUPVAL                         R35 13
       274 GETTABLEKS                       R35 R35 K59 ["Image"]
-      276 DUPTABLE                         R36 K61 [{"ZIndex", "tag"}]
+      276 DUPTABLE                         R36 K62 [{"ZIndex", "tag", "testId"}]
       277 LOADN                            R37 2
       278 SETTABLEKS                       R37 R36 K60 ["ZIndex"]
-      280 LOADK                            R37 K62 ["icon-packageLink anchor-bottom-right am-size-icon bg-over-media-0 radius-small data-testid=package-link-icon"]
+      280 LOADK                            R37 K63 ["icon-packageLink anchor-bottom-right am-size-icon bg-over-media-0 radius-small"]
       281 SETTABLEKS                       R37 R36 K34 ["tag"]
-      283 CALL                             R34 2 1
-      284 SETTABLEKS                       R34 R33 K56 ["PackageLinkIcon"]
-      286 CALL                             R30 3 1
-      287 SETTABLEKS                       R30 R29 K48 ["ThumbnailContainer"]
-      289 GETUPVAL                         R30 8
-      290 GETTABLEKS                       R30 R30 K29 ["createElement"]
-      292 GETUPVAL                         R31 13
-      293 GETTABLEKS                       R31 R31 K30 ["View"]
-      295 DUPTABLE                         R32 K51 [{"LayoutOrder", "tag"}]
-      296 NAMECALL                         R33 R1 K52 ["getNextOrder"]
-      298 CALL                             R33 1 1
-      299 SETTABLEKS                       R33 R32 K31 ["LayoutOrder"]
-      301 LOADK                            R33 K63 ["am-size-full-celldata col align-x-left align-y-middle"]
-      302 SETTABLEKS                       R33 R32 K34 ["tag"]
-      304 DUPTABLE                         R33 K66 [{"NameTag", "TypeTag"}]
-      305 JUMPIFNOT                        R5 ; [+24]
-      306 GETUPVAL                         R34 8
-      307 GETTABLEKS                       R34 R34 K29 ["createElement"]
-      309 GETUPVAL                         R35 16
-      310 DUPTABLE                         R36 K70 [{"LayoutOrder", "InitialText", "ItemType", "ItemPath", "Size"}]
-      311 NAMECALL                         R37 R1 K52 ["getNextOrder"]
-      313 CALL                             R37 1 1
-      314 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
-      316 SETTABLEKS                       R8 R36 K67 ["InitialText"]
-      318 SETTABLEKS                       R7 R36 K68 ["ItemType"]
-      320 GETTABLEKS                       R37 R0 K2 ["Cell"]
-      322 SETTABLEKS                       R37 R36 K69 ["ItemPath"]
-      324 GETTABLEKS                       R37 R0 K9 ["Size"]
-      326 SETTABLEKS                       R37 R36 K9 ["Size"]
-      328 CALL                             R34 2 1
-      329 JUMP                             ; [+66]
-      330 JUMPIFNOT                        R20 ; [+47]
-      331 GETUPVAL                         R34 8
-      332 GETTABLEKS                       R34 R34 K29 ["createElement"]
-      334 GETUPVAL                         R35 13
-      335 GETTABLEKS                       R35 R35 K71 ["Tooltip"]
-      337 DUPTABLE                         R36 K74 [{"LayoutOrder", "title", "side"}]
-      338 NAMECALL                         R37 R1 K52 ["getNextOrder"]
-      340 CALL                             R37 1 1
-      341 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
-      343 SETTABLEKS                       R8 R36 K72 ["title"]
-      345 GETUPVAL                         R37 13
-      346 GETTABLEKS                       R37 R37 K75 ["Enums"]
-      348 GETTABLEKS                       R37 R37 K76 ["PopoverSide"]
-      350 GETTABLEKS                       R37 R37 K77 ["Bottom"]
-      352 SETTABLEKS                       R37 R36 K73 ["side"]
-      354 NEWTABLE                         R37 0 1
-      356 GETUPVAL                         R38 8
-      357 GETTABLEKS                       R38 R38 K29 ["createElement"]
-      359 GETUPVAL                         R39 13
-      360 GETTABLEKS                       R39 R39 K78 ["Text"]
-      362 DUPTABLE                         R40 K79 [{"LayoutOrder", "Text", "tag"}]
-      363 NAMECALL                         R41 R1 K52 ["getNextOrder"]
-      365 CALL                             R41 1 1
-      366 SETTABLEKS                       R41 R40 K31 ["LayoutOrder"]
-      368 SETTABLEKS                       R8 R40 K78 ["Text"]
-      370 LOADK                            R41 K80 ["text-body-small text-align-left text-truncate-end auto-xy size-0 content-emphasis"]
-      371 SETTABLEKS                       R41 R40 K34 ["tag"]
-      373 CALL                             R38 2 -1
-      374 SETLIST                          R37 R38 -1 [1]
-      376 CALL                             R34 3 1
-      377 JUMP                             ; [+18]
-      378 GETUPVAL                         R34 8
-      379 GETTABLEKS                       R34 R34 K29 ["createElement"]
-      381 GETUPVAL                         R35 13
-      382 GETTABLEKS                       R35 R35 K78 ["Text"]
-      384 DUPTABLE                         R36 K79 [{"LayoutOrder", "Text", "tag"}]
-      385 NAMECALL                         R37 R1 K52 ["getNextOrder"]
-      387 CALL                             R37 1 1
-      388 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
-      390 SETTABLEKS                       R8 R36 K78 ["Text"]
-      392 LOADK                            R37 K80 ["text-body-small text-align-left text-truncate-end auto-xy size-0 content-emphasis"]
-      393 SETTABLEKS                       R37 R36 K34 ["tag"]
-      395 CALL                             R34 2 1
-      396 SETTABLEKS                       R34 R33 K64 ["NameTag"]
-      398 GETUPVAL                         R34 8
-      399 GETTABLEKS                       R34 R34 K29 ["createElement"]
-      401 GETUPVAL                         R35 13
-      402 GETTABLEKS                       R35 R35 K78 ["Text"]
-      404 DUPTABLE                         R36 K79 [{"LayoutOrder", "Text", "tag"}]
-      405 NAMECALL                         R37 R1 K52 ["getNextOrder"]
-      407 CALL                             R37 1 1
-      408 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
-      410 LOADK                            R39 K3 ["AssetType"]
-      411 MOVE                             R40 R7
-      412 NAMECALL                         R37 R2 K81 ["getText"]
-      414 CALL                             R37 3 1
-      415 SETTABLEKS                       R37 R36 K78 ["Text"]
-      417 LOADK                            R37 K82 ["text-caption-small text-truncate-end auto-xy size-0 padding content-default"]
-      418 SETTABLEKS                       R37 R36 K34 ["tag"]
-      420 CALL                             R34 2 1
-      421 SETTABLEKS                       R34 R33 K65 ["TypeTag"]
-      423 CALL                             R30 3 1
-      424 SETTABLEKS                       R30 R29 K49 ["CellData"]
-      426 CALL                             R26 3 1
-      427 SETTABLEKS                       R26 R25 K39 ["InputHandler"]
-      429 CALL                             R22 3 -1
-      430 RETURN                           R22 -1
+      283 LOADK                            R37 K64 ["package-link-icon"]
+      284 SETTABLEKS                       R37 R36 K61 ["testId"]
+      286 CALL                             R34 2 1
+      287 SETTABLEKS                       R34 R33 K56 ["PackageLinkIcon"]
+      289 CALL                             R30 3 1
+      290 SETTABLEKS                       R30 R29 K48 ["ThumbnailContainer"]
+      292 GETUPVAL                         R30 8
+      293 GETTABLEKS                       R30 R30 K29 ["createElement"]
+      295 GETUPVAL                         R31 13
+      296 GETTABLEKS                       R31 R31 K30 ["View"]
+      298 DUPTABLE                         R32 K51 [{"LayoutOrder", "tag"}]
+      299 NAMECALL                         R33 R1 K52 ["getNextOrder"]
+      301 CALL                             R33 1 1
+      302 SETTABLEKS                       R33 R32 K31 ["LayoutOrder"]
+      304 LOADK                            R33 K65 ["am-size-full-celldata col align-x-left align-y-middle"]
+      305 SETTABLEKS                       R33 R32 K34 ["tag"]
+      307 DUPTABLE                         R33 K68 [{"NameTag", "TypeTag"}]
+      308 JUMPIFNOT                        R5 ; [+24]
+      309 GETUPVAL                         R34 8
+      310 GETTABLEKS                       R34 R34 K29 ["createElement"]
+      312 GETUPVAL                         R35 16
+      313 DUPTABLE                         R36 K72 [{"LayoutOrder", "InitialText", "ItemType", "ItemPath", "Size"}]
+      314 NAMECALL                         R37 R1 K52 ["getNextOrder"]
+      316 CALL                             R37 1 1
+      317 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
+      319 SETTABLEKS                       R8 R36 K69 ["InitialText"]
+      321 SETTABLEKS                       R7 R36 K70 ["ItemType"]
+      323 GETTABLEKS                       R37 R0 K2 ["Cell"]
+      325 SETTABLEKS                       R37 R36 K71 ["ItemPath"]
+      327 GETTABLEKS                       R37 R0 K9 ["Size"]
+      329 SETTABLEKS                       R37 R36 K9 ["Size"]
+      331 CALL                             R34 2 1
+      332 JUMP                             ; [+66]
+      333 JUMPIFNOT                        R20 ; [+47]
+      334 GETUPVAL                         R34 8
+      335 GETTABLEKS                       R34 R34 K29 ["createElement"]
+      337 GETUPVAL                         R35 13
+      338 GETTABLEKS                       R35 R35 K73 ["Tooltip"]
+      340 DUPTABLE                         R36 K76 [{"LayoutOrder", "title", "side"}]
+      341 NAMECALL                         R37 R1 K52 ["getNextOrder"]
+      343 CALL                             R37 1 1
+      344 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
+      346 SETTABLEKS                       R8 R36 K74 ["title"]
+      348 GETUPVAL                         R37 13
+      349 GETTABLEKS                       R37 R37 K77 ["Enums"]
+      351 GETTABLEKS                       R37 R37 K78 ["PopoverSide"]
+      353 GETTABLEKS                       R37 R37 K79 ["Bottom"]
+      355 SETTABLEKS                       R37 R36 K75 ["side"]
+      357 NEWTABLE                         R37 0 1
+      359 GETUPVAL                         R38 8
+      360 GETTABLEKS                       R38 R38 K29 ["createElement"]
+      362 GETUPVAL                         R39 13
+      363 GETTABLEKS                       R39 R39 K80 ["Text"]
+      365 DUPTABLE                         R40 K81 [{"LayoutOrder", "Text", "tag"}]
+      366 NAMECALL                         R41 R1 K52 ["getNextOrder"]
+      368 CALL                             R41 1 1
+      369 SETTABLEKS                       R41 R40 K31 ["LayoutOrder"]
+      371 SETTABLEKS                       R8 R40 K80 ["Text"]
+      373 LOADK                            R41 K82 ["text-body-small text-align-left text-truncate-end auto-xy size-0 content-emphasis"]
+      374 SETTABLEKS                       R41 R40 K34 ["tag"]
+      376 CALL                             R38 2 -1
+      377 SETLIST                          R37 R38 -1 [1]
+      379 CALL                             R34 3 1
+      380 JUMP                             ; [+18]
+      381 GETUPVAL                         R34 8
+      382 GETTABLEKS                       R34 R34 K29 ["createElement"]
+      384 GETUPVAL                         R35 13
+      385 GETTABLEKS                       R35 R35 K80 ["Text"]
+      387 DUPTABLE                         R36 K81 [{"LayoutOrder", "Text", "tag"}]
+      388 NAMECALL                         R37 R1 K52 ["getNextOrder"]
+      390 CALL                             R37 1 1
+      391 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
+      393 SETTABLEKS                       R8 R36 K80 ["Text"]
+      395 LOADK                            R37 K82 ["text-body-small text-align-left text-truncate-end auto-xy size-0 content-emphasis"]
+      396 SETTABLEKS                       R37 R36 K34 ["tag"]
+      398 CALL                             R34 2 1
+      399 SETTABLEKS                       R34 R33 K66 ["NameTag"]
+      401 GETUPVAL                         R34 8
+      402 GETTABLEKS                       R34 R34 K29 ["createElement"]
+      404 GETUPVAL                         R35 13
+      405 GETTABLEKS                       R35 R35 K80 ["Text"]
+      407 DUPTABLE                         R36 K81 [{"LayoutOrder", "Text", "tag"}]
+      408 NAMECALL                         R37 R1 K52 ["getNextOrder"]
+      410 CALL                             R37 1 1
+      411 SETTABLEKS                       R37 R36 K31 ["LayoutOrder"]
+      413 LOADK                            R39 K3 ["AssetType"]
+      414 MOVE                             R40 R7
+      415 NAMECALL                         R37 R2 K83 ["getText"]
+      417 CALL                             R37 3 1
+      418 SETTABLEKS                       R37 R36 K80 ["Text"]
+      420 LOADK                            R37 K84 ["text-caption-small text-truncate-end auto-xy size-0 padding content-default"]
+      421 SETTABLEKS                       R37 R36 K34 ["tag"]
+      423 CALL                             R34 2 1
+      424 SETTABLEKS                       R34 R33 K67 ["TypeTag"]
+      426 CALL                             R30 3 1
+      427 SETTABLEKS                       R30 R29 K49 ["CellData"]
+      429 CALL                             R26 3 1
+      430 SETTABLEKS                       R26 R25 K39 ["InputHandler"]
+      432 CALL                             R22 3 -1
+      433 RETURN                           R22 -1
 
 MAIN:
         0 PREPVARARGS                      0

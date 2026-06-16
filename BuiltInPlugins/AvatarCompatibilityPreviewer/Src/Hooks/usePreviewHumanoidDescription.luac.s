@@ -71,34 +71,31 @@ PROTO_3:
        40 LOADB                            R9 1
        41 NAMECALL                         R6 R5 K14 ["SetAccessories"]
        43 CALL                             R6 3 0
-       44 GETUPVAL                         R6 3
-       45 CALL                             R6 0 1
-       46 JUMPIFNOT                        R6 ; [+38]
-       47 MOVE                             R6 R3
-       48 LOADNIL                          R7
-       49 LOADNIL                          R8
-       50 FORGPREP                         R6
-       51 GETIMPORT                        R11 K17 [Instance.new]
-       53 LOADK                            R12 K18 ["MakeupDescription"]
-       54 CALL                             R11 1 1
-       55 GETTABLEKS                       R12 R10 K19 ["AssetId"]
-       57 JUMPIFEQKNIL                     R12 ; [+6]
-       59 GETTABLEKS                       R12 R10 K19 ["AssetId"]
-       61 SETTABLEKS                       R12 R11 K19 ["AssetId"]
-       63 JUMP                             ; [+4]
-       64 GETTABLEKS                       R12 R10 K15 ["Instance"]
-       66 SETTABLEKS                       R12 R11 K15 ["Instance"]
-       68 GETUPVAL                         R13 2
-       69 GETTABLEKS                       R13 R13 K20 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
-       71 GETTABLEKS                       R14 R10 K4 ["AssetType"]
-       73 GETTABLE                         R12 R13 R14
-       74 SETTABLEKS                       R12 R11 K21 ["MakeupType"]
-       76 GETTABLEKS                       R13 R10 K22 ["Order"]
-       78 ORK                              R12 R13 K2 [0]
-       79 SETTABLEKS                       R12 R11 K22 ["Order"]
-       81 SETTABLEKS                       R5 R11 K23 ["Parent"]
-       83 FORGLOOP                         R6 2 ; [-33]
-       85 RETURN                           R5 1
+       44 MOVE                             R6 R3
+       45 LOADNIL                          R7
+       46 LOADNIL                          R8
+       47 FORGPREP                         R6
+       48 GETIMPORT                        R11 K17 [Instance.new]
+       50 LOADK                            R12 K18 ["MakeupDescription"]
+       51 CALL                             R11 1 1
+       52 GETTABLEKS                       R12 R10 K19 ["AssetId"]
+       54 JUMPIFEQKNIL                     R12 ; [+6]
+       56 GETTABLEKS                       R12 R10 K19 ["AssetId"]
+       58 SETTABLEKS                       R12 R11 K19 ["AssetId"]
+       60 JUMP                             ; [+4]
+       61 GETTABLEKS                       R12 R10 K15 ["Instance"]
+       63 SETTABLEKS                       R12 R11 K15 ["Instance"]
+       65 GETUPVAL                         R13 2
+       66 GETTABLEKS                       R13 R13 K20 ["ASSET_TYPE_TO_MAKEUP_TYPE"]
+       68 GETTABLEKS                       R14 R10 K4 ["AssetType"]
+       70 GETTABLE                         R12 R13 R14
+       71 SETTABLEKS                       R12 R11 K21 ["MakeupType"]
+       73 GETTABLEKS                       R13 R10 K22 ["Order"]
+       75 ORK                              R12 R13 K2 [0]
+       76 SETTABLEKS                       R12 R11 K22 ["Order"]
+       78 SETTABLEKS                       R5 R11 K23 ["Parent"]
+       80 FORGLOOP                         R6 2 ; [-33]
+       82 RETURN                           R5 1
 
 PROTO_4:
         0 DUPTABLE                         R2 K2 [{"AssetId", "AssetType"}]
@@ -332,59 +329,54 @@ PROTO_11:
        49 DUPCLOSURE                       R8 K9 [PROTO_6]
        50 CALL                             R6 2 -1
        51 CALL                             R4 -1 1
-       52 GETUPVAL                         R6 5
-       53 CALL                             R6 0 1
-       54 JUMPIFNOT                        R6 ; [+20]
-       55 GETUPVAL                         R5 0
-       56 GETTABLEKS                       R5 R5 K1 ["useMemo"]
-       58 NEWCLOSURE                       R6 P2
-       59 CAPTURE                          VAL R2
-       60 CAPTURE                          UPVAL U4
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          UPVAL U6
-       63 NEWTABLE                         R7 0 2
-       65 MOVE                             R8 R2
-       66 JUMPIFNOT                        R8 ; [+2]
-       67 GETTABLEKS                       R8 R2 K2 ["includeAccessories"]
-       69 GETTABLEKS                       R9 R3 K10 ["equippedItems"]
-       71 SETLIST                          R7 R8 2 [1]
-       73 CALL                             R5 2 1
-       74 JUMP                             ; [+1]
-       75 LOADNIL                          R5
-       76 GETUPVAL                         R6 0
-       77 GETTABLEKS                       R6 R6 K1 ["useMemo"]
-       79 NEWCLOSURE                       R7 P3
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          VAL R0
-       82 CAPTURE                          UPVAL U7
-       83 CAPTURE                          UPVAL U8
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          UPVAL U9
-       87 CAPTURE                          UPVAL U10
-       88 CAPTURE                          VAL R2
-       89 GETUPVAL                         R8 3
-       90 GETTABLEKS                       R8 R8 K6 ["List"]
-       92 GETTABLEKS                       R8 R8 K7 ["join"]
-       94 NEWTABLE                         R9 0 3
-       96 GETTABLEKS                       R10 R3 K3 ["avatarAssets"]
-       98 GETUPVAL                         R12 2
-       99 JUMPIFNOT                        R12 ; [+2]
-      100 MOVE                             R11 R4
-      101 JUMP                             ; [+1]
-      102 LOADNIL                          R11
-      103 GETUPVAL                         R13 2
-      104 JUMPIFNOT                        R13 ; [+5]
-      105 MOVE                             R12 R2
-      106 JUMPIFNOT                        R12 ; [+4]
-      107 GETTABLEKS                       R12 R2 K11 ["resetIncludesBodyParts"]
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R12
-      111 SETLIST                          R9 R10 3 [1]
-      113 MOVE                             R10 R1
-      114 CALL                             R8 2 -1
-      115 CALL                             R6 -1 -1
-      116 RETURN                           R6 -1
+       52 GETUPVAL                         R5 0
+       53 GETTABLEKS                       R5 R5 K1 ["useMemo"]
+       55 NEWCLOSURE                       R6 P2
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          UPVAL U4
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          UPVAL U5
+       60 NEWTABLE                         R7 0 2
+       62 MOVE                             R8 R2
+       63 JUMPIFNOT                        R8 ; [+2]
+       64 GETTABLEKS                       R8 R2 K2 ["includeAccessories"]
+       66 GETTABLEKS                       R9 R3 K10 ["equippedItems"]
+       68 SETLIST                          R7 R8 2 [1]
+       70 CALL                             R5 2 1
+       71 GETUPVAL                         R6 0
+       72 GETTABLEKS                       R6 R6 K1 ["useMemo"]
+       74 NEWCLOSURE                       R7 P3
+       75 CAPTURE                          VAL R3
+       76 CAPTURE                          VAL R0
+       77 CAPTURE                          UPVAL U6
+       78 CAPTURE                          UPVAL U7
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          UPVAL U8
+       82 CAPTURE                          UPVAL U9
+       83 CAPTURE                          VAL R2
+       84 GETUPVAL                         R8 3
+       85 GETTABLEKS                       R8 R8 K6 ["List"]
+       87 GETTABLEKS                       R8 R8 K7 ["join"]
+       89 NEWTABLE                         R9 0 3
+       91 GETTABLEKS                       R10 R3 K3 ["avatarAssets"]
+       93 GETUPVAL                         R12 2
+       94 JUMPIFNOT                        R12 ; [+2]
+       95 MOVE                             R11 R4
+       96 JUMP                             ; [+1]
+       97 LOADNIL                          R11
+       98 GETUPVAL                         R13 2
+       99 JUMPIFNOT                        R13 ; [+5]
+      100 MOVE                             R12 R2
+      101 JUMPIFNOT                        R12 ; [+4]
+      102 GETTABLEKS                       R12 R2 K11 ["resetIncludesBodyParts"]
+      104 JUMP                             ; [+1]
+      105 LOADNIL                          R12
+      106 SETLIST                          R9 R10 3 [1]
+      108 MOVE                             R10 R1
+      109 CALL                             R8 2 -1
+      110 CALL                             R6 -1 -1
+      111 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -440,30 +432,23 @@ MAIN:
        88 CALL                             R10 1 1
        89 MOVE                             R11 R10
        90 CALL                             R11 0 1
-       91 GETIMPORT                        R12 K5 [require]
-       93 GETTABLEKS                       R13 R0 K10 ["Src"]
-       95 GETTABLEKS                       R13 R13 K17 ["Flags"]
-       97 GETTABLEKS                       R13 R13 K20 ["getFFlagAvatarPreviewerMakeupDescription"]
-       99 CALL                             R12 1 1
-      100 DUPCLOSURE                       R13 K21 [PROTO_0]
-      101 DUPCLOSURE                       R14 K22 [PROTO_2]
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R4
-      104 DUPCLOSURE                       R15 K23 [PROTO_3]
-      105 CAPTURE                          VAL R9
-      106 CAPTURE                          VAL R2
-      107 CAPTURE                          VAL R4
-      108 CAPTURE                          VAL R12
-      109 DUPCLOSURE                       R16 K24 [PROTO_11]
-      110 CAPTURE                          VAL R3
-      111 CAPTURE                          VAL R5
-      112 CAPTURE                          VAL R11
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R2
-      115 CAPTURE                          VAL R12
-      116 CAPTURE                          VAL R8
-      117 CAPTURE                          VAL R4
-      118 CAPTURE                          VAL R15
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          VAL R10
-      121 RETURN                           R16 1
+       91 DUPCLOSURE                       R12 K20 [PROTO_0]
+       92 DUPCLOSURE                       R13 K21 [PROTO_2]
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R4
+       95 DUPCLOSURE                       R14 K22 [PROTO_3]
+       96 CAPTURE                          VAL R9
+       97 CAPTURE                          VAL R2
+       98 CAPTURE                          VAL R4
+       99 DUPCLOSURE                       R15 K23 [PROTO_11]
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          VAL R5
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          VAL R1
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R14
+      108 CAPTURE                          VAL R7
+      109 CAPTURE                          VAL R10
+      110 RETURN                           R15 1

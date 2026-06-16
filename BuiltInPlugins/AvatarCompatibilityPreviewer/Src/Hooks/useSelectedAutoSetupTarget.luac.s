@@ -59,36 +59,33 @@ PROTO_1:
        68 LOADK                            R4 K9 ["Model"]
        69 NAMECALL                         R2 R0 K6 ["IsA"]
        71 CALL                             R2 2 1
-       72 JUMPIFNOT                        R2 ; [+35]
+       72 JUMPIFNOT                        R2 ; [+32]
        73 GETTABLEKS                       R2 R0 K17 ["PrimaryPart"]
-       75 GETUPVAL                         R3 3
-       76 CALL                             R3 0 1
-       77 JUMPIFNOT                        R3 ; [+2]
-       78 JUMPIFEQKNIL                     R2 ; [+29]
-       80 LOADNIL                          R3
-       81 NAMECALL                         R4 R1 K18 ["GetDescendants"]
-       83 CALL                             R4 1 3
-       84 FORGPREP                         R4
-       85 GETUPVAL                         R11 2
-       86 GETTABLEKS                       R11 R11 K14 ["ORIGINAL_INSTANCE_VALUE_NAME"]
-       88 NAMECALL                         R9 R8 K19 ["FindFirstChild"]
-       90 CALL                             R9 2 1
-       91 JUMPIFEQKNIL                     R9 ; [+12]
-       93 LOADK                            R12 K13 ["ObjectValue"]
-       94 NAMECALL                         R10 R9 K6 ["IsA"]
-       96 CALL                             R10 2 1
-       97 JUMPIFNOT                        R10 ; [+6]
-       98 GETTABLEKS                       R10 R9 K16 ["Value"]
-      100 JUMPIFNOTEQ                      R10 R2 ; [+3]
-      102 MOVE                             R3 R8
-      103 JUMP                             ; [+2]
-      104 FORGLOOP                         R4 2 ; [-20]
-      106 SETTABLEKS                       R3 R1 K17 ["PrimaryPart"]
-      108 GETUPVAL                         R2 4
-      109 MOVE                             R3 R1
-      110 CALL                             R2 1 0
-      111 CLOSEUPVALS                      R1
-      112 RETURN                           R1 1
+       75 JUMPIFEQKNIL                     R2 ; [+29]
+       77 LOADNIL                          R3
+       78 NAMECALL                         R4 R1 K18 ["GetDescendants"]
+       80 CALL                             R4 1 3
+       81 FORGPREP                         R4
+       82 GETUPVAL                         R11 2
+       83 GETTABLEKS                       R11 R11 K14 ["ORIGINAL_INSTANCE_VALUE_NAME"]
+       85 NAMECALL                         R9 R8 K19 ["FindFirstChild"]
+       87 CALL                             R9 2 1
+       88 JUMPIFEQKNIL                     R9 ; [+12]
+       90 LOADK                            R12 K13 ["ObjectValue"]
+       91 NAMECALL                         R10 R9 K6 ["IsA"]
+       93 CALL                             R10 2 1
+       94 JUMPIFNOT                        R10 ; [+6]
+       95 GETTABLEKS                       R10 R9 K16 ["Value"]
+       97 JUMPIFNOTEQ                      R10 R2 ; [+3]
+       99 MOVE                             R3 R8
+      100 JUMP                             ; [+2]
+      101 FORGLOOP                         R4 2 ; [-20]
+      103 SETTABLEKS                       R3 R1 K17 ["PrimaryPart"]
+      105 GETUPVAL                         R2 3
+      106 MOVE                             R3 R1
+      107 CALL                             R2 1 0
+      108 CLOSEUPVALS                      R1
+      109 RETURN                           R1 1
 
 PROTO_2:
         0 LOADNIL                          R3
@@ -134,40 +131,31 @@ PROTO_3:
         9 JUMPIFNOT                        R2 ; [+2]
        10 LOADB                            R2 1
        11 RETURN                           R2 1
-       12 GETUPVAL                         R2 0
-       13 CALL                             R2 0 1
-       14 JUMPIFNOT                        R2 ; [+2]
-       15 JUMPIFEQKNIL                     R0 ; [+8]
-       17 LOADK                            R4 K3 ["FaceControls"]
-       18 NAMECALL                         R2 R1 K4 ["FindFirstChildWhichIsA"]
-       20 CALL                             R2 2 1
-       21 JUMPIFNOT                        R2 ; [+2]
-       22 LOADB                            R2 1
-       23 RETURN                           R2 1
-       24 GETUPVAL                         R4 1
-       25 NAMECALL                         R2 R1 K5 ["IsDescendantOf"]
-       27 CALL                             R2 2 1
-       28 JUMPIF                           R2 ; [+2]
-       29 LOADB                            R2 1
-       30 RETURN                           R2 1
-       31 JUMPIFNOTEQKNIL                  R0 ; [+3]
-       33 LOADB                            R2 0
-       34 RETURN                           R2 1
-       35 GETTABLEKS                       R2 R0 K6 ["WorldModel"]
-       37 GETUPVAL                         R3 0
-       38 CALL                             R3 0 1
-       39 JUMPIF                           R3 ; [+4]
-       40 JUMPIFNOTEQ                      R1 R2 ; [+3]
-       42 LOADB                            R3 1
-       43 RETURN                           R3 1
-       44 MOVE                             R5 R2
-       45 NAMECALL                         R3 R1 K5 ["IsDescendantOf"]
-       47 CALL                             R3 2 1
-       48 JUMPIFNOT                        R3 ; [+2]
-       49 LOADB                            R3 1
-       50 RETURN                           R3 1
-       51 LOADB                            R3 0
-       52 RETURN                           R3 1
+       12 JUMPIFEQKNIL                     R0 ; [+8]
+       14 LOADK                            R4 K3 ["FaceControls"]
+       15 NAMECALL                         R2 R1 K4 ["FindFirstChildWhichIsA"]
+       17 CALL                             R2 2 1
+       18 JUMPIFNOT                        R2 ; [+2]
+       19 LOADB                            R2 1
+       20 RETURN                           R2 1
+       21 GETUPVAL                         R4 0
+       22 NAMECALL                         R2 R1 K5 ["IsDescendantOf"]
+       24 CALL                             R2 2 1
+       25 JUMPIF                           R2 ; [+2]
+       26 LOADB                            R2 1
+       27 RETURN                           R2 1
+       28 JUMPIFNOTEQKNIL                  R0 ; [+3]
+       30 LOADB                            R2 0
+       31 RETURN                           R2 1
+       32 GETTABLEKS                       R2 R0 K6 ["WorldModel"]
+       34 MOVE                             R5 R2
+       35 NAMECALL                         R3 R1 K5 ["IsDescendantOf"]
+       37 CALL                             R3 2 1
+       38 JUMPIFNOT                        R3 ; [+2]
+       39 LOADB                            R3 1
+       40 RETURN                           R3 1
+       41 LOADB                            R3 0
+       42 RETURN                           R3 1
 
 PROTO_4:
         0 NEWTABLE                         R1 0 0
@@ -540,49 +528,42 @@ MAIN:
        71 CALL                             R8 1 1
        72 GETIMPORT                        R9 K9 [require]
        74 GETTABLEKS                       R10 R1 K10 ["Src"]
-       76 GETTABLEKS                       R10 R10 K20 ["Flags"]
-       78 GETTABLEKS                       R10 R10 K21 ["getFFlagAvatarAutosetupOptionsInput"]
+       76 GETTABLEKS                       R10 R10 K14 ["Util"]
+       78 GETTABLEKS                       R10 R10 K20 ["sanitizeModel"]
        80 CALL                             R9 1 1
        81 GETIMPORT                        R10 K9 [require]
-       83 GETTABLEKS                       R11 R1 K10 ["Src"]
-       85 GETTABLEKS                       R11 R11 K14 ["Util"]
-       87 GETTABLEKS                       R11 R11 K22 ["sanitizeModel"]
+       83 GETTABLEKS                       R12 R1 K10 ["Src"]
+       85 GETTABLEKS                       R12 R12 K14 ["Util"]
+       87 GETTABLEKS                       R11 R12 K21 ["sha256.global"]
        89 CALL                             R10 1 1
        90 GETIMPORT                        R11 K9 [require]
-       92 GETTABLEKS                       R13 R1 K10 ["Src"]
-       94 GETTABLEKS                       R13 R13 K14 ["Util"]
-       96 GETTABLEKS                       R12 R13 K23 ["sha256.global"]
+       92 GETTABLEKS                       R12 R1 K10 ["Src"]
+       94 GETTABLEKS                       R12 R12 K22 ["Hooks"]
+       96 GETTABLEKS                       R12 R12 K23 ["useEventConnection"]
        98 CALL                             R11 1 1
-       99 GETIMPORT                        R12 K9 [require]
-      101 GETTABLEKS                       R13 R1 K10 ["Src"]
-      103 GETTABLEKS                       R13 R13 K24 ["Hooks"]
-      105 GETTABLEKS                       R13 R13 K25 ["useEventConnection"]
-      107 CALL                             R12 1 1
-      108 DUPCLOSURE                       R13 K26 [PROTO_1]
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          VAL R13
-      111 CAPTURE                          VAL R5
-      112 CAPTURE                          VAL R9
-      113 CAPTURE                          VAL R10
-      114 DUPCLOSURE                       R14 K27 [PROTO_2]
-      115 DUPCLOSURE                       R15 K28 [PROTO_3]
-      116 CAPTURE                          VAL R9
-      117 CAPTURE                          VAL R0
-      118 DUPCLOSURE                       R16 K29 [PROTO_4]
-      119 CAPTURE                          VAL R13
-      120 DUPCLOSURE                       R17 K30 [PROTO_5]
-      121 DUPCLOSURE                       R18 K31 [PROTO_13]
-      122 CAPTURE                          VAL R8
-      123 CAPTURE                          VAL R3
-      124 CAPTURE                          VAL R0
-      125 CAPTURE                          VAL R15
-      126 CAPTURE                          VAL R17
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R4
-      129 CAPTURE                          VAL R11
-      130 CAPTURE                          VAL R7
-      131 CAPTURE                          VAL R6
-      132 CAPTURE                          VAL R13
-      133 CAPTURE                          VAL R16
-      134 CAPTURE                          VAL R14
-      135 RETURN                           R18 1
+       99 DUPCLOSURE                       R12 K24 [PROTO_1]
+      100 CAPTURE                          VAL R0
+      101 CAPTURE                          VAL R12
+      102 CAPTURE                          VAL R5
+      103 CAPTURE                          VAL R9
+      104 DUPCLOSURE                       R13 K25 [PROTO_2]
+      105 DUPCLOSURE                       R14 K26 [PROTO_3]
+      106 CAPTURE                          VAL R0
+      107 DUPCLOSURE                       R15 K27 [PROTO_4]
+      108 CAPTURE                          VAL R12
+      109 DUPCLOSURE                       R16 K28 [PROTO_5]
+      110 DUPCLOSURE                       R17 K29 [PROTO_13]
+      111 CAPTURE                          VAL R8
+      112 CAPTURE                          VAL R3
+      113 CAPTURE                          VAL R0
+      114 CAPTURE                          VAL R14
+      115 CAPTURE                          VAL R16
+      116 CAPTURE                          VAL R11
+      117 CAPTURE                          VAL R4
+      118 CAPTURE                          VAL R10
+      119 CAPTURE                          VAL R7
+      120 CAPTURE                          VAL R6
+      121 CAPTURE                          VAL R12
+      122 CAPTURE                          VAL R15
+      123 CAPTURE                          VAL R13
+      124 RETURN                           R17 1

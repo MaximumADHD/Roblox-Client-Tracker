@@ -694,16 +694,6 @@ PROTO_27:
        18 RETURN                           R0 0
 
 PROTO_28:
-        0 GETTABLEKS                       R1 R0 K0 ["_layoutController"]
-        2 NAMECALL                         R1 R1 K1 ["getIsCompact"]
-        4 CALL                             R1 1 1
-        5 JUMPIFNOT                        R1 ; [+5]
-        6 GETTABLEKS                       R1 R0 K0 ["_layoutController"]
-        8 NAMECALL                         R1 R1 K2 ["toggleSidebar"]
-       10 CALL                             R1 1 0
-       11 RETURN                           R0 0
-
-PROTO_29:
         0 PREPVARARGS                      2
         1 SETTABLEKS                       R1 R0 K0 ["_lastZone"]
         3 GETUPVAL                         R2 0
@@ -717,24 +707,17 @@ PROTO_29:
        16 RETURN                           R0 0
        17 GETUPVAL                         R2 0
        18 GETTABLEKS                       R2 R2 K1 ["UiZone"]
-       20 GETTABLEKS                       R2 R2 K5 ["Sidebar"]
-       22 JUMPIFNOTEQ                      R1 R2 ; [+5]
-       24 NAMECALL                         R2 R0 K6 ["_handleSidebarClick"]
-       26 CALL                             R2 1 0
-       27 RETURN                           R0 0
-       28 GETUPVAL                         R2 0
-       29 GETTABLEKS                       R2 R2 K1 ["UiZone"]
-       31 GETTABLEKS                       R2 R2 K7 ["Browser"]
-       33 JUMPIFNOTEQ                      R1 R2 ; [+11]
-       35 GETTABLEKS                       R2 R0 K8 ["_heldShift"]
-       37 JUMPIF                           R2 ; [+7]
-       38 GETTABLEKS                       R2 R0 K3 ["_itemsController"]
-       40 NEWTABLE                         R4 0 0
-       42 NAMECALL                         R2 R2 K9 ["setSelection"]
-       44 CALL                             R2 2 0
-       45 RETURN                           R0 0
+       20 GETTABLEKS                       R2 R2 K5 ["Browser"]
+       22 JUMPIFNOTEQ                      R1 R2 ; [+11]
+       24 GETTABLEKS                       R2 R0 K6 ["_heldShift"]
+       26 JUMPIF                           R2 ; [+7]
+       27 GETTABLEKS                       R2 R0 K3 ["_itemsController"]
+       29 NEWTABLE                         R4 0 0
+       31 NAMECALL                         R2 R2 K7 ["setSelection"]
+       33 CALL                             R2 2 0
+       34 RETURN                           R0 0
 
-PROTO_30:
+PROTO_29:
         0 PREPVARARGS                      2
         1 GETTABLEKS                       R2 R0 K0 ["_resolvingDoubleClick"]
         3 JUMPIFNOT                        R2 ; [+1]
@@ -778,7 +761,7 @@ PROTO_30:
        63 CALL                             R2 -1 0
        64 RETURN                           R0 0
 
-PROTO_31:
+PROTO_30:
         0 PREPVARARGS                      2
         1 GETTABLEKS                       R2 R0 K0 ["_resolvingDoubleClick"]
         3 JUMPIFNOT                        R2 ; [+1]
@@ -815,7 +798,7 @@ PROTO_31:
        50 CALL                             R2 -1 0
        51 RETURN                           R0 0
 
-PROTO_32:
+PROTO_31:
         0 PREPVARARGS                      2
         1 SETTABLEKS                       R1 R0 K0 ["_lastZone"]
         3 GETUPVAL                         R2 0
@@ -828,7 +811,7 @@ PROTO_32:
        15 CALL                             R2 -1 0
        16 RETURN                           R0 0
 
-PROTO_33:
+PROTO_32:
         0 GETTABLEKS                       R3 R0 K0 ["_pressedKeys"]
         2 GETIMPORT                        R4 K4 [Enum.KeyCode.MouseLeftButton]
         4 GETTABLE                         R2 R3 R4
@@ -837,19 +820,19 @@ PROTO_33:
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
-PROTO_34:
+PROTO_33:
         0 GETTABLEKS                       R1 R0 K0 ["_dragging"]
         2 RETURN                           R1 1
 
-PROTO_35:
+PROTO_34:
         0 GETTABLEKS                       R1 R0 K0 ["_lastZone"]
         2 RETURN                           R1 1
 
-PROTO_36:
+PROTO_35:
         0 GETTABLEKS                       R1 R0 K0 ["_dragInfo"]
         2 RETURN                           R1 1
 
-PROTO_37:
+PROTO_36:
         0 GETTABLEKS                       R3 R0 K0 ["_explorerController"]
         2 MOVE                             R5 R1
         3 NAMECALL                         R3 R3 K1 ["getScopeRoot"]
@@ -875,7 +858,7 @@ PROTO_37:
        33 LOADB                            R5 1
        34 RETURN                           R5 1
 
-PROTO_38:
+PROTO_37:
         0 GETTABLEKS                       R3 R0 K0 ["_explorerController"]
         2 MOVE                             R5 R1
         3 NAMECALL                         R3 R3 K1 ["getScopeRoot"]
@@ -926,7 +909,7 @@ PROTO_38:
        69 LOADB                            R6 1
        70 RETURN                           R6 1
 
-PROTO_39:
+PROTO_38:
         0 GETTABLEKS                       R3 R0 K0 ["_dragging"]
         2 JUMPIFNOT                        R3 ; [+7]
         3 GETTABLEKS                       R3 R0 K1 ["_isDragInGui"]
@@ -986,15 +969,15 @@ PROTO_39:
        76 LOADB                            R4 0
        77 RETURN                           R4 1
 
-PROTO_40:
+PROTO_39:
         0 SETTABLEKS                       R1 R0 K0 ["_invalidDragHoverPosition"]
         2 RETURN                           R0 0
 
-PROTO_41:
+PROTO_40:
         0 GETTABLEKS                       R1 R0 K0 ["_invalidDragHoverPosition"]
         2 RETURN                           R1 1
 
-PROTO_42:
+PROTO_41:
         0 NAMECALL                         R1 R0 K0 ["getMousePosition"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R0 K1 ["_dragging"]
@@ -1211,46 +1194,44 @@ MAIN:
       178 DUPCLOSURE                       R17 K58 [PROTO_27]
       179 SETTABLEKS                       R17 R16 K59 ["_waitForSelectionDoubleClick"]
       181 DUPCLOSURE                       R17 K60 [PROTO_28]
-      182 SETTABLEKS                       R17 R16 K61 ["_handleSidebarClick"]
-      184 DUPCLOSURE                       R17 K62 [PROTO_29]
-      185 CAPTURE                          VAL R13
-      186 SETTABLEKS                       R17 R16 K63 ["handleMouse1Click"]
-      188 DUPCLOSURE                       R17 K64 [PROTO_30]
-      189 CAPTURE                          VAL R13
-      190 SETTABLEKS                       R17 R16 K65 ["handleMouse1Down"]
-      192 DUPCLOSURE                       R17 K66 [PROTO_31]
-      193 CAPTURE                          VAL R13
-      194 SETTABLEKS                       R17 R16 K67 ["handleMouse1Up"]
-      196 DUPCLOSURE                       R17 K68 [PROTO_32]
-      197 CAPTURE                          VAL R13
-      198 SETTABLEKS                       R17 R16 K69 ["handleMouse2Click"]
+      182 CAPTURE                          VAL R13
+      183 SETTABLEKS                       R17 R16 K61 ["handleMouse1Click"]
+      185 DUPCLOSURE                       R17 K62 [PROTO_29]
+      186 CAPTURE                          VAL R13
+      187 SETTABLEKS                       R17 R16 K63 ["handleMouse1Down"]
+      189 DUPCLOSURE                       R17 K64 [PROTO_30]
+      190 CAPTURE                          VAL R13
+      191 SETTABLEKS                       R17 R16 K65 ["handleMouse1Up"]
+      193 DUPCLOSURE                       R17 K66 [PROTO_31]
+      194 CAPTURE                          VAL R13
+      195 SETTABLEKS                       R17 R16 K67 ["handleMouse2Click"]
+      197 DUPCLOSURE                       R17 K68 [PROTO_32]
+      198 SETTABLEKS                       R17 R16 K69 ["isMouse1Down"]
       200 DUPCLOSURE                       R17 K70 [PROTO_33]
-      201 SETTABLEKS                       R17 R16 K71 ["isMouse1Down"]
+      201 SETTABLEKS                       R17 R16 K71 ["isDragging"]
       203 DUPCLOSURE                       R17 K72 [PROTO_34]
-      204 SETTABLEKS                       R17 R16 K73 ["isDragging"]
+      204 SETTABLEKS                       R17 R16 K73 ["getLastZoneClicked"]
       206 DUPCLOSURE                       R17 K74 [PROTO_35]
-      207 SETTABLEKS                       R17 R16 K75 ["getLastZoneClicked"]
+      207 SETTABLEKS                       R17 R16 K75 ["getDragInfo"]
       209 DUPCLOSURE                       R17 K76 [PROTO_36]
-      210 SETTABLEKS                       R17 R16 K77 ["getDragInfo"]
+      210 SETTABLEKS                       R17 R16 K77 ["_isValidSidebarDrag"]
       212 DUPCLOSURE                       R17 K78 [PROTO_37]
-      213 SETTABLEKS                       R17 R16 K79 ["_isValidSidebarDrag"]
-      215 DUPCLOSURE                       R17 K80 [PROTO_38]
-      216 CAPTURE                          VAL R13
-      217 CAPTURE                          VAL R8
-      218 SETTABLEKS                       R17 R16 K81 ["_isValidBrowserDrag"]
-      220 DUPCLOSURE                       R17 K82 [PROTO_39]
-      221 CAPTURE                          VAL R8
-      222 CAPTURE                          VAL R13
-      223 CAPTURE                          VAL R11
-      224 SETTABLEKS                       R17 R16 K83 ["isValidDragForTarget"]
+      213 CAPTURE                          VAL R13
+      214 CAPTURE                          VAL R8
+      215 SETTABLEKS                       R17 R16 K79 ["_isValidBrowserDrag"]
+      217 DUPCLOSURE                       R17 K80 [PROTO_38]
+      218 CAPTURE                          VAL R8
+      219 CAPTURE                          VAL R13
+      220 CAPTURE                          VAL R11
+      221 SETTABLEKS                       R17 R16 K81 ["isValidDragForTarget"]
+      223 DUPCLOSURE                       R17 K82 [PROTO_39]
+      224 SETTABLEKS                       R17 R16 K83 ["setInvalidDragHoverPosition"]
       226 DUPCLOSURE                       R17 K84 [PROTO_40]
-      227 SETTABLEKS                       R17 R16 K85 ["setInvalidDragHoverPosition"]
+      227 SETTABLEKS                       R17 R16 K85 ["getInvalidDragHoverPosition"]
       229 DUPCLOSURE                       R17 K86 [PROTO_41]
-      230 SETTABLEKS                       R17 R16 K87 ["getInvalidDragHoverPosition"]
-      232 DUPCLOSURE                       R17 K88 [PROTO_42]
-      233 CAPTURE                          VAL R13
-      234 CAPTURE                          VAL R11
-      235 CAPTURE                          VAL R9
-      236 CAPTURE                          VAL R12
-      237 SETTABLEKS                       R17 R16 K89 ["_updateDrag"]
-      239 RETURN                           R16 1
+      230 CAPTURE                          VAL R13
+      231 CAPTURE                          VAL R11
+      232 CAPTURE                          VAL R9
+      233 CAPTURE                          VAL R12
+      234 SETTABLEKS                       R17 R16 K87 ["_updateDrag"]
+      236 RETURN                           R16 1

@@ -270,14 +270,16 @@ PROTO_3:
       192 GETTABLEKS                       R13 R13 K3 ["createElement"]
       194 GETUPVAL                         R14 8
       195 GETTABLEKS                       R14 R14 K4 ["View"]
-      197 DUPTABLE                         R15 K33 [{"LayoutOrder", "tag"}]
+      197 DUPTABLE                         R15 K34 [{"LayoutOrder", "tag", "testId"}]
       198 GETTABLEKS                       R16 R0 K9 ["LayoutOrder"]
       200 SETTABLEKS                       R16 R15 K9 ["LayoutOrder"]
-      202 LOADK                            R16 K34 ["row padding-left-xxsmall size-full-1000 align-x-left align-y-center data-testid=header-bar"]
+      202 LOADK                            R16 K35 ["row padding-left-xxsmall size-full-1000 align-x-left align-y-center"]
       203 SETTABLEKS                       R16 R15 K5 ["tag"]
-      205 MOVE                             R16 R9
-      206 CALL                             R13 3 -1
-      207 RETURN                           R13 -1
+      205 LOADK                            R16 K36 ["header-bar"]
+      206 SETTABLEKS                       R16 R15 K33 ["testId"]
+      208 MOVE                             R16 R9
+      209 CALL                             R13 3 -1
+      210 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -315,75 +317,78 @@ MAIN:
        56 GETTABLEKS                       R10 R10 K17 ["HeaderOptions"]
        58 CALL                             R9 1 1
        59 GETIMPORT                        R10 K5 [require]
-       61 GETIMPORT                        R11 K1 [script]
-       63 GETTABLEKS                       R11 R11 K18 ["NavigationButtons"]
-       65 CALL                             R10 1 1
-       66 GETIMPORT                        R11 K5 [require]
-       68 GETTABLEKS                       R12 R0 K10 ["Src"]
-       70 GETTABLEKS                       R12 R12 K19 ["Networking"]
-       72 CALL                             R11 1 1
-       73 GETTABLEKS                       R12 R1 K20 ["useState"]
-       75 GETIMPORT                        R13 K5 [require]
-       77 GETTABLEKS                       R14 R0 K10 ["Src"]
-       79 GETTABLEKS                       R14 R14 K21 ["Hooks"]
-       81 GETTABLEKS                       R14 R14 K22 ["useSearchInfo"]
-       83 CALL                             R13 1 1
-       84 GETIMPORT                        R14 K5 [require]
-       86 GETTABLEKS                       R15 R0 K10 ["Src"]
-       88 GETTABLEKS                       R15 R15 K21 ["Hooks"]
-       90 GETTABLEKS                       R15 R15 K23 ["useCurrentScope"]
-       92 CALL                             R14 1 1
-       93 GETIMPORT                        R15 K5 [require]
-       95 GETTABLEKS                       R16 R0 K10 ["Src"]
-       97 GETTABLEKS                       R16 R16 K21 ["Hooks"]
-       99 GETTABLEKS                       R16 R16 K24 ["useShowSidebar"]
-      101 CALL                             R15 1 1
-      102 GETIMPORT                        R16 K5 [require]
-      104 GETTABLEKS                       R17 R0 K10 ["Src"]
-      106 GETTABLEKS                       R17 R17 K25 ["Flags"]
-      108 GETTABLEKS                       R17 R17 K26 ["getFFlagAmrOrganizationFoundation"]
-      110 CALL                             R16 1 1
-      111 NEWTABLE                         R17 4 0
-      113 GETTABLEKS                       R18 R4 K27 ["ScopeType"]
-      115 GETTABLEKS                       R18 R18 K28 ["User"]
-      117 GETTABLEKS                       R19 R2 K29 ["Enums"]
-      119 GETTABLEKS                       R19 R19 K30 ["IconName"]
-      121 GETTABLEKS                       R19 R19 K31 ["Person"]
-      123 SETTABLE                         R19 R17 R18
-      124 GETTABLEKS                       R18 R4 K27 ["ScopeType"]
-      126 GETTABLEKS                       R18 R18 K32 ["Group"]
-      128 GETTABLEKS                       R19 R2 K29 ["Enums"]
-      130 GETTABLEKS                       R19 R19 K30 ["IconName"]
-      132 GETTABLEKS                       R19 R19 K33 ["ThreePeople"]
-      134 SETTABLE                         R19 R17 R18
-      135 GETTABLEKS                       R18 R4 K27 ["ScopeType"]
-      137 GETTABLEKS                       R18 R18 K34 ["RecentUploads"]
-      139 GETTABLEKS                       R19 R2 K29 ["Enums"]
-      141 GETTABLEKS                       R19 R19 K30 ["IconName"]
-      143 GETTABLEKS                       R19 R19 K35 ["ClockSpinReverse"]
-      145 SETTABLE                         R19 R17 R18
-      146 DUPCLOSURE                       R18 K36 [PROTO_0]
-      147 CAPTURE                          VAL R2
-      148 CAPTURE                          VAL R1
-      149 DUPCLOSURE                       R19 K37 [PROTO_1]
-      150 CAPTURE                          VAL R1
-      151 CAPTURE                          VAL R2
-      152 DUPCLOSURE                       R20 K38 [PROTO_3]
-      153 CAPTURE                          VAL R7
-      154 CAPTURE                          VAL R8
-      155 CAPTURE                          VAL R11
-      156 CAPTURE                          VAL R12
-      157 CAPTURE                          VAL R14
-      158 CAPTURE                          VAL R13
-      159 CAPTURE                          VAL R15
-      160 CAPTURE                          VAL R1
-      161 CAPTURE                          VAL R2
-      162 CAPTURE                          VAL R10
-      163 CAPTURE                          VAL R5
-      164 CAPTURE                          VAL R4
-      165 CAPTURE                          VAL R17
-      166 CAPTURE                          VAL R16
-      167 CAPTURE                          VAL R18
-      168 CAPTURE                          VAL R19
-      169 CAPTURE                          VAL R9
-      170 RETURN                           R20 1
+       61 GETTABLEKS                       R11 R0 K10 ["Src"]
+       63 GETTABLEKS                       R11 R11 K18 ["Components"]
+       65 GETTABLEKS                       R11 R11 K19 ["App"]
+       67 GETTABLEKS                       R11 R11 K20 ["MainView"]
+       69 GETTABLEKS                       R11 R11 K21 ["NavigationButtons"]
+       71 CALL                             R10 1 1
+       72 GETIMPORT                        R11 K5 [require]
+       74 GETTABLEKS                       R12 R0 K10 ["Src"]
+       76 GETTABLEKS                       R12 R12 K22 ["Networking"]
+       78 CALL                             R11 1 1
+       79 GETTABLEKS                       R12 R1 K23 ["useState"]
+       81 GETIMPORT                        R13 K5 [require]
+       83 GETTABLEKS                       R14 R0 K10 ["Src"]
+       85 GETTABLEKS                       R14 R14 K24 ["Hooks"]
+       87 GETTABLEKS                       R14 R14 K25 ["useSearchInfo"]
+       89 CALL                             R13 1 1
+       90 GETIMPORT                        R14 K5 [require]
+       92 GETTABLEKS                       R15 R0 K10 ["Src"]
+       94 GETTABLEKS                       R15 R15 K24 ["Hooks"]
+       96 GETTABLEKS                       R15 R15 K26 ["useCurrentScope"]
+       98 CALL                             R14 1 1
+       99 GETIMPORT                        R15 K5 [require]
+      101 GETTABLEKS                       R16 R0 K10 ["Src"]
+      103 GETTABLEKS                       R16 R16 K24 ["Hooks"]
+      105 GETTABLEKS                       R16 R16 K27 ["useShowSidebar"]
+      107 CALL                             R15 1 1
+      108 GETIMPORT                        R16 K5 [require]
+      110 GETTABLEKS                       R17 R0 K10 ["Src"]
+      112 GETTABLEKS                       R17 R17 K28 ["Flags"]
+      114 GETTABLEKS                       R17 R17 K29 ["getFFlagAmrOrganizationFoundation"]
+      116 CALL                             R16 1 1
+      117 NEWTABLE                         R17 4 0
+      119 GETTABLEKS                       R18 R4 K30 ["ScopeType"]
+      121 GETTABLEKS                       R18 R18 K31 ["User"]
+      123 GETTABLEKS                       R19 R2 K32 ["Enums"]
+      125 GETTABLEKS                       R19 R19 K33 ["IconName"]
+      127 GETTABLEKS                       R19 R19 K34 ["Person"]
+      129 SETTABLE                         R19 R17 R18
+      130 GETTABLEKS                       R18 R4 K30 ["ScopeType"]
+      132 GETTABLEKS                       R18 R18 K35 ["Group"]
+      134 GETTABLEKS                       R19 R2 K32 ["Enums"]
+      136 GETTABLEKS                       R19 R19 K33 ["IconName"]
+      138 GETTABLEKS                       R19 R19 K36 ["ThreePeople"]
+      140 SETTABLE                         R19 R17 R18
+      141 GETTABLEKS                       R18 R4 K30 ["ScopeType"]
+      143 GETTABLEKS                       R18 R18 K37 ["RecentUploads"]
+      145 GETTABLEKS                       R19 R2 K32 ["Enums"]
+      147 GETTABLEKS                       R19 R19 K33 ["IconName"]
+      149 GETTABLEKS                       R19 R19 K38 ["ClockSpinReverse"]
+      151 SETTABLE                         R19 R17 R18
+      152 DUPCLOSURE                       R18 K39 [PROTO_0]
+      153 CAPTURE                          VAL R2
+      154 CAPTURE                          VAL R1
+      155 DUPCLOSURE                       R19 K40 [PROTO_1]
+      156 CAPTURE                          VAL R1
+      157 CAPTURE                          VAL R2
+      158 DUPCLOSURE                       R20 K41 [PROTO_3]
+      159 CAPTURE                          VAL R7
+      160 CAPTURE                          VAL R8
+      161 CAPTURE                          VAL R11
+      162 CAPTURE                          VAL R12
+      163 CAPTURE                          VAL R14
+      164 CAPTURE                          VAL R13
+      165 CAPTURE                          VAL R15
+      166 CAPTURE                          VAL R1
+      167 CAPTURE                          VAL R2
+      168 CAPTURE                          VAL R10
+      169 CAPTURE                          VAL R5
+      170 CAPTURE                          VAL R4
+      171 CAPTURE                          VAL R17
+      172 CAPTURE                          VAL R16
+      173 CAPTURE                          VAL R18
+      174 CAPTURE                          VAL R19
+      175 CAPTURE                          VAL R9
+      176 RETURN                           R20 1

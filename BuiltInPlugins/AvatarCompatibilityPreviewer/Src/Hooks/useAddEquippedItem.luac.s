@@ -69,60 +69,52 @@ PROTO_3:
         8 NEWCLOSURE                       R4 P0
         9 CAPTURE                          UPVAL U1
        10 CALL                             R2 2 1
-       11 JUMPIFEQKNIL                     R2 ; [+42]
-       13 GETUPVAL                         R3 2
-       14 CALL                             R3 0 1
-       15 JUMPIFNOT                        R3 ; [+33]
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R3 R3 K4 ["palette"]
-       19 GETTABLEKS                       R3 R3 K5 ["MaxItems"]
-       21 JUMPIFNOTEQKNIL                  R3 ; [+7]
-       23 GETIMPORT                        R3 K7 [table.remove]
-       25 MOVE                             R4 R1
-       26 MOVE                             R5 R2
-       27 CALL                             R3 2 0
-       28 JUMP                             ; [+25]
-       29 GETUPVAL                         R3 0
-       30 GETTABLEKS                       R3 R3 K8 ["count"]
-       32 MOVE                             R4 R1
-       33 NEWCLOSURE                       R5 P1
-       34 CAPTURE                          UPVAL U1
-       35 CALL                             R3 2 1
-       36 GETUPVAL                         R4 1
-       37 GETTABLEKS                       R4 R4 K4 ["palette"]
-       39 GETTABLEKS                       R4 R4 K5 ["MaxItems"]
-       41 JUMPIFNOTLE                      R4 R3 ; [+12]
-       43 GETIMPORT                        R4 K7 [table.remove]
-       45 MOVE                             R5 R1
-       46 MOVE                             R6 R2
-       47 CALL                             R4 2 0
-       48 JUMP                             ; [+5]
-       49 GETIMPORT                        R3 K7 [table.remove]
-       51 MOVE                             R4 R1
-       52 MOVE                             R5 R2
-       53 CALL                             R3 2 0
-       54 GETUPVAL                         R3 1
-       55 GETTABLEKS                       R3 R3 K4 ["palette"]
-       57 GETTABLEKS                       R3 R3 K9 ["PreferredLayer"]
-       59 JUMPIFNOTEQKNIL                  R3 ; [+9]
-       61 GETUPVAL                         R5 1
-       62 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
-       64 MOVE                             R4 R1
-       65 GETIMPORT                        R3 K11 [table.insert]
-       67 CALL                             R3 2 0
-       68 RETURN                           R1 1
-       69 GETUPVAL                         R5 3
-       70 MOVE                             R6 R1
-       71 GETUPVAL                         R7 1
-       72 GETTABLEKS                       R7 R7 K4 ["palette"]
-       74 GETTABLEKS                       R7 R7 K9 ["PreferredLayer"]
-       76 CALL                             R5 2 1
-       77 GETUPVAL                         R6 1
-       78 FASTCALL3                        TABLE_INSERT R1 R5 R6
-       80 MOVE                             R4 R1
-       81 GETIMPORT                        R3 K11 [table.insert]
-       83 CALL                             R3 3 0
-       84 RETURN                           R1 1
+       11 JUMPIFEQKNIL                     R2 ; [+33]
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R3 R3 K4 ["palette"]
+       16 GETTABLEKS                       R3 R3 K5 ["MaxItems"]
+       18 JUMPIFNOTEQKNIL                  R3 ; [+7]
+       20 GETIMPORT                        R3 K7 [table.remove]
+       22 MOVE                             R4 R1
+       23 MOVE                             R5 R2
+       24 CALL                             R3 2 0
+       25 JUMP                             ; [+19]
+       26 GETUPVAL                         R3 0
+       27 GETTABLEKS                       R3 R3 K8 ["count"]
+       29 MOVE                             R4 R1
+       30 NEWCLOSURE                       R5 P1
+       31 CAPTURE                          UPVAL U1
+       32 CALL                             R3 2 1
+       33 GETUPVAL                         R4 1
+       34 GETTABLEKS                       R4 R4 K4 ["palette"]
+       36 GETTABLEKS                       R4 R4 K5 ["MaxItems"]
+       38 JUMPIFNOTLE                      R4 R3 ; [+6]
+       40 GETIMPORT                        R4 K7 [table.remove]
+       42 MOVE                             R5 R1
+       43 MOVE                             R6 R2
+       44 CALL                             R4 2 0
+       45 GETUPVAL                         R3 1
+       46 GETTABLEKS                       R3 R3 K4 ["palette"]
+       48 GETTABLEKS                       R3 R3 K9 ["PreferredLayer"]
+       50 JUMPIFNOTEQKNIL                  R3 ; [+9]
+       52 GETUPVAL                         R5 1
+       53 FASTCALL2                        TABLE_INSERT R1 R5 ; [+4]
+       55 MOVE                             R4 R1
+       56 GETIMPORT                        R3 K11 [table.insert]
+       58 CALL                             R3 2 0
+       59 RETURN                           R1 1
+       60 GETUPVAL                         R5 2
+       61 MOVE                             R6 R1
+       62 GETUPVAL                         R7 1
+       63 GETTABLEKS                       R7 R7 K4 ["palette"]
+       65 GETTABLEKS                       R7 R7 K9 ["PreferredLayer"]
+       67 CALL                             R5 2 1
+       68 GETUPVAL                         R6 1
+       69 FASTCALL3                        TABLE_INSERT R1 R5 R6
+       71 MOVE                             R4 R1
+       72 GETIMPORT                        R3 K11 [table.insert]
+       74 CALL                             R3 3 0
+       75 RETURN                           R1 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -130,9 +122,8 @@ PROTO_4:
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          VAL R0
         4 CAPTURE                          UPVAL U2
-        5 CAPTURE                          UPVAL U3
-        6 CALL                             R1 1 0
-        7 RETURN                           R0 0
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -141,12 +132,11 @@ PROTO_5:
         4 CAPTURE                          VAL R0
         5 CAPTURE                          UPVAL U1
         6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          UPVAL U3
-        8 NEWTABLE                         R3 0 1
-       10 MOVE                             R4 R0
-       11 SETLIST                          R3 R4 1 [1]
-       13 CALL                             R1 2 -1
-       14 RETURN                           R1 -1
+        7 NEWTABLE                         R3 0 1
+        9 MOVE                             R4 R0
+       10 SETLIST                          R3 R4 1 [1]
+       12 CALL                             R1 2 -1
+       13 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -171,16 +161,10 @@ MAIN:
        32 GETTABLEKS                       R5 R0 K9 ["Src"]
        34 GETTABLEKS                       R5 R5 K12 ["Types"]
        36 CALL                             R4 1 1
-       37 GETIMPORT                        R5 K5 [require]
-       39 GETTABLEKS                       R6 R0 K9 ["Src"]
-       41 GETTABLEKS                       R6 R6 K13 ["Flags"]
-       43 GETTABLEKS                       R6 R6 K14 ["getFFlagAvatarPreviewerMakeup"]
-       45 CALL                             R5 1 1
-       46 DUPCLOSURE                       R6 K15 [PROTO_0]
-       47 CAPTURE                          VAL R3
-       48 DUPCLOSURE                       R7 K16 [PROTO_5]
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R6
-       53 RETURN                           R7 1
+       37 DUPCLOSURE                       R5 K13 [PROTO_0]
+       38 CAPTURE                          VAL R3
+       39 DUPCLOSURE                       R6 K14 [PROTO_5]
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R1
+       42 CAPTURE                          VAL R5
+       43 RETURN                           R6 1

@@ -473,49 +473,50 @@ MAIN:
       223 GETTABLEKS                       R30 R0 K9 ["Src"]
       225 GETTABLEKS                       R30 R30 K45 ["Types"]
       227 CALL                             R29 1 1
-      228 NEWTABLE                         R30 0 6
+      228 NEWTABLE                         R30 0 7
       230 LOADK                            R31 K46 ["ConfigureExperience"]
       231 LOADK                            R32 K47 ["ConfigurePlace"]
       232 LOADK                            R33 K48 ["OpenPlace"]
-      233 JUMPIF                           R4 ; [+2]
-      234 LOADK                            R34 K49 ["PublicPrivateToggle"]
-      235 JUMP                             ; [+1]
-      236 LOADK                            R34 K50 [""]
-      237 LOADK                            R35 K51 ["Archive"]
-      238 LOADK                            R36 K52 ["RemoveRecent"]
-      239 SETLIST                          R30 R31 6 [1]
-      241 DUPCLOSURE                       R31 K53 [PROTO_4]
-      242 CAPTURE                          VAL R25
-      243 CAPTURE                          VAL R14
-      244 CAPTURE                          VAL R1
-      245 CAPTURE                          VAL R9
-      246 CAPTURE                          VAL R8
-      247 CAPTURE                          VAL R26
-      248 CAPTURE                          VAL R20
-      249 CAPTURE                          VAL R21
-      250 CAPTURE                          VAL R22
-      251 DUPCLOSURE                       R32 K54 [PROTO_6]
-      252 CAPTURE                          VAL R2
-      253 CAPTURE                          VAL R23
-      254 CAPTURE                          VAL R6
-      255 CAPTURE                          VAL R5
-      256 CAPTURE                          VAL R12
-      257 CAPTURE                          VAL R11
-      258 CAPTURE                          VAL R18
-      259 CAPTURE                          VAL R1
-      260 CAPTURE                          VAL R31
-      261 CAPTURE                          VAL R30
-      262 CAPTURE                          VAL R27
-      263 CAPTURE                          VAL R15
-      264 CAPTURE                          VAL R17
-      265 CAPTURE                          VAL R14
-      266 CAPTURE                          VAL R16
-      267 CAPTURE                          VAL R3
-      268 CAPTURE                          VAL R19
-      269 CAPTURE                          VAL R13
-      270 DUPCLOSURE                       R33 K55 [PROTO_7]
-      271 CAPTURE                          VAL R11
-      272 CAPTURE                          VAL R1
-      273 CAPTURE                          VAL R7
-      274 CAPTURE                          VAL R32
-      275 RETURN                           R33 1
+      233 LOADK                            R34 K49 ["OpenACopy"]
+      234 JUMPIF                           R4 ; [+2]
+      235 LOADK                            R35 K50 ["PublicPrivateToggle"]
+      236 JUMP                             ; [+1]
+      237 LOADK                            R35 K51 [""]
+      238 LOADK                            R36 K52 ["Archive"]
+      239 LOADK                            R37 K53 ["RemoveRecent"]
+      240 SETLIST                          R30 R31 7 [1]
+      242 DUPCLOSURE                       R31 K54 [PROTO_4]
+      243 CAPTURE                          VAL R25
+      244 CAPTURE                          VAL R14
+      245 CAPTURE                          VAL R1
+      246 CAPTURE                          VAL R9
+      247 CAPTURE                          VAL R8
+      248 CAPTURE                          VAL R26
+      249 CAPTURE                          VAL R20
+      250 CAPTURE                          VAL R21
+      251 CAPTURE                          VAL R22
+      252 DUPCLOSURE                       R32 K55 [PROTO_6]
+      253 CAPTURE                          VAL R2
+      254 CAPTURE                          VAL R23
+      255 CAPTURE                          VAL R6
+      256 CAPTURE                          VAL R5
+      257 CAPTURE                          VAL R12
+      258 CAPTURE                          VAL R11
+      259 CAPTURE                          VAL R18
+      260 CAPTURE                          VAL R1
+      261 CAPTURE                          VAL R31
+      262 CAPTURE                          VAL R30
+      263 CAPTURE                          VAL R27
+      264 CAPTURE                          VAL R15
+      265 CAPTURE                          VAL R17
+      266 CAPTURE                          VAL R14
+      267 CAPTURE                          VAL R16
+      268 CAPTURE                          VAL R3
+      269 CAPTURE                          VAL R19
+      270 CAPTURE                          VAL R13
+      271 DUPCLOSURE                       R33 K56 [PROTO_7]
+      272 CAPTURE                          VAL R11
+      273 CAPTURE                          VAL R1
+      274 CAPTURE                          VAL R7
+      275 CAPTURE                          VAL R32
+      276 RETURN                           R33 1

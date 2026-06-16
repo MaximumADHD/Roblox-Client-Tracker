@@ -78,55 +78,32 @@ PROTO_4:
         7 GETTABLEKS                       R7 R0 K2 ["FieldOfView"]
         9 MOVE                             R8 R2
        10 CALL                             R5 3 1
-       11 GETUPVAL                         R7 1
-       12 CALL                             R7 0 1
-       13 JUMPIFNOT                        R7 ; [+26]
-       14 GETIMPORT                        R6 K5 [CFrame.lookAt]
-       16 GETTABLEKS                       R10 R3 K6 ["Position"]
-       18 GETTABLEKS                       R13 R4 K8 ["Magnitude"]
-       20 LOADK                            R14 K9 [{0, 0, -1}]
-       21 MUL                              R12 R13 R14
-       22 MULK                             R11 R12 K7 [2]
-       23 ADD                              R9 R10 R11
-       24 GETTABLEKS                       R12 R4 K8 ["Magnitude"]
-       26 LOADK                            R13 K11 [{1, 0, 0}]
-       27 MUL                              R11 R12 R13
-       28 MULK                             R10 R11 K10 [1]
-       29 SUB                              R8 R9 R10
-       30 GETTABLEKS                       R11 R4 K8 ["Magnitude"]
-       32 LOADK                            R12 K13 [{0, 1, 0}]
-       33 MUL                              R10 R11 R12
-       34 MULK                             R9 R10 K12 [0.5]
-       35 ADD                              R7 R8 R9
-       36 GETTABLEKS                       R8 R3 K6 ["Position"]
-       38 CALL                             R6 2 1
-       39 JUMP                             ; [+28]
-       40 GETIMPORT                        R6 K5 [CFrame.lookAt]
-       42 GETTABLEKS                       R10 R3 K6 ["Position"]
-       44 GETTABLEKS                       R13 R4 K8 ["Magnitude"]
-       46 GETTABLEKS                       R14 R3 K14 ["LookVector"]
-       48 MUL                              R12 R13 R14
-       49 MULK                             R11 R12 K7 [2]
-       50 ADD                              R9 R10 R11
-       51 GETTABLEKS                       R12 R4 K8 ["Magnitude"]
-       53 GETTABLEKS                       R13 R3 K15 ["RightVector"]
-       55 MUL                              R11 R12 R13
-       56 MULK                             R10 R11 K10 [1]
-       57 SUB                              R8 R9 R10
-       58 GETTABLEKS                       R11 R4 K8 ["Magnitude"]
-       60 GETTABLEKS                       R12 R3 K16 ["UpVector"]
-       62 MUL                              R10 R11 R12
-       63 MULK                             R9 R10 K12 [0.5]
-       64 ADD                              R7 R8 R9
-       65 GETTABLEKS                       R8 R3 K6 ["Position"]
-       67 CALL                             R6 2 1
-       68 GETTABLEKS                       R9 R6 K17 ["Rotation"]
-       70 GETTABLEKS                       R10 R3 K6 ["Position"]
-       72 ADD                              R8 R9 R10
-       73 GETTABLEKS                       R10 R6 K14 ["LookVector"]
-       75 MUL                              R9 R10 R5
-       76 SUB                              R7 R8 R9
-       77 RETURN                           R7 1
+       11 GETIMPORT                        R6 K5 [CFrame.lookAt]
+       13 GETTABLEKS                       R10 R3 K6 ["Position"]
+       15 GETTABLEKS                       R13 R4 K8 ["Magnitude"]
+       17 LOADK                            R14 K9 [{0, 0, -1}]
+       18 MUL                              R12 R13 R14
+       19 MULK                             R11 R12 K7 [2]
+       20 ADD                              R9 R10 R11
+       21 GETTABLEKS                       R12 R4 K8 ["Magnitude"]
+       23 LOADK                            R13 K11 [{1, 0, 0}]
+       24 MUL                              R11 R12 R13
+       25 MULK                             R10 R11 K10 [1]
+       26 SUB                              R8 R9 R10
+       27 GETTABLEKS                       R11 R4 K8 ["Magnitude"]
+       29 LOADK                            R12 K13 [{0, 1, 0}]
+       30 MUL                              R10 R11 R12
+       31 MULK                             R9 R10 K12 [0.5]
+       32 ADD                              R7 R8 R9
+       33 GETTABLEKS                       R8 R3 K6 ["Position"]
+       35 CALL                             R6 2 1
+       36 GETTABLEKS                       R9 R6 K14 ["Rotation"]
+       38 GETTABLEKS                       R10 R3 K6 ["Position"]
+       40 ADD                              R8 R9 R10
+       41 GETTABLEKS                       R10 R6 K15 ["LookVector"]
+       43 MUL                              R9 R10 R5
+       44 SUB                              R7 R8 R9
+       45 RETURN                           R7 1
 
 PROTO_5:
         0 NAMECALL                         R3 R1 K0 ["GetBoundingBox"]
@@ -154,33 +131,23 @@ PROTO_6:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarAutosetupOptionsInput"]
-       15 CALL                             R1 1 1
-       16 NEWTABLE                         R2 8 0
-       18 DUPCLOSURE                       R3 K9 [PROTO_0]
-       19 SETTABLEKS                       R3 R2 K10 ["getCuboidDiameter"]
-       21 DUPCLOSURE                       R3 K11 [PROTO_1]
-       22 CAPTURE                          VAL R2
-       23 SETTABLEKS                       R3 R2 K12 ["fitBoundingBoxToCamera"]
-       25 DUPCLOSURE                       R3 K13 [PROTO_2]
-       26 SETTABLEKS                       R3 R2 K14 ["fitSphereToCamera"]
-       28 DUPCLOSURE                       R3 K15 [PROTO_3]
-       29 CAPTURE                          VAL R2
-       30 SETTABLEKS                       R3 R2 K16 ["getZoomedCFrame"]
-       32 DUPCLOSURE                       R3 K17 [PROTO_4]
-       33 CAPTURE                          VAL R2
-       34 CAPTURE                          VAL R1
-       35 SETTABLEKS                       R3 R2 K18 ["getAngledAndZoomedCFrame"]
-       37 DUPCLOSURE                       R3 K19 [PROTO_5]
-       38 CAPTURE                          VAL R2
-       39 SETTABLEKS                       R3 R2 K20 ["zoomToExtents"]
-       41 DUPCLOSURE                       R3 K21 [PROTO_6]
-       42 SETTABLEKS                       R3 R2 K22 ["zoomIsRequired"]
-       44 RETURN                           R2 1
+        1 NEWTABLE                         R0 8 0
+        3 DUPCLOSURE                       R1 K0 [PROTO_0]
+        4 SETTABLEKS                       R1 R0 K1 ["getCuboidDiameter"]
+        6 DUPCLOSURE                       R1 K2 [PROTO_1]
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R1 R0 K3 ["fitBoundingBoxToCamera"]
+       10 DUPCLOSURE                       R1 K4 [PROTO_2]
+       11 SETTABLEKS                       R1 R0 K5 ["fitSphereToCamera"]
+       13 DUPCLOSURE                       R1 K6 [PROTO_3]
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K7 ["getZoomedCFrame"]
+       17 DUPCLOSURE                       R1 K8 [PROTO_4]
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R1 R0 K9 ["getAngledAndZoomedCFrame"]
+       21 DUPCLOSURE                       R1 K10 [PROTO_5]
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R1 R0 K11 ["zoomToExtents"]
+       25 DUPCLOSURE                       R1 K12 [PROTO_6]
+       26 SETTABLEKS                       R1 R0 K13 ["zoomIsRequired"]
+       28 RETURN                           R0 1

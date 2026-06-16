@@ -87,64 +87,61 @@ PROTO_2:
        13 GETTABLEKS                       R5 R0 K3 ["Instance"]
        15 SETLIST                          R4 R5 1 [1]
        17 CALL                             R2 2 1
-       18 JUMPIFNOTEQKNIL                  R2 ; [+36]
-       20 GETUPVAL                         R3 3
-       21 CALL                             R3 0 1
-       22 JUMPIFNOT                        R3 ; [+30]
-       23 GETTABLEKS                       R3 R0 K3 ["Instance"]
-       25 LOADK                            R5 K4 ["Decal"]
-       26 NAMECALL                         R3 R3 K5 ["IsA"]
-       28 CALL                             R3 2 1
-       29 JUMPIFNOT                        R3 ; [+23]
-       30 GETUPVAL                         R3 1
-       31 GETTABLEKS                       R3 R3 K6 ["createElement"]
-       33 GETUPVAL                         R4 4
-       34 DUPTABLE                         R5 K11 [{"AnimateTargetAsset", "Child", "Style", "Transparency"}]
-       35 GETUPVAL                         R6 5
-       36 GETTABLEKS                       R6 R6 K12 ["HEAD_PREVIEW_PATH"]
-       38 SETTABLEKS                       R6 R5 K7 ["AnimateTargetAsset"]
-       40 GETTABLEKS                       R6 R0 K3 ["Instance"]
-       42 SETTABLEKS                       R6 R5 K8 ["Child"]
-       44 LOADK                            R6 K13 ["FacePreview"]
-       45 SETTABLEKS                       R6 R5 K9 ["Style"]
-       47 GETTABLEKS                       R6 R0 K10 ["Transparency"]
-       49 SETTABLEKS                       R6 R5 K10 ["Transparency"]
-       51 CALL                             R3 2 -1
-       52 RETURN                           R3 -1
-       53 LOADNIL                          R3
-       54 RETURN                           R3 1
-       55 GETUPVAL                         R3 1
-       56 GETTABLEKS                       R3 R3 K6 ["createElement"]
-       58 GETUPVAL                         R4 6
-       59 DUPTABLE                         R5 K21 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection", "ImageTransparency"}]
+       18 JUMPIFNOTEQKNIL                  R2 ; [+33]
+       20 GETTABLEKS                       R3 R0 K3 ["Instance"]
+       22 LOADK                            R5 K4 ["Decal"]
+       23 NAMECALL                         R3 R3 K5 ["IsA"]
+       25 CALL                             R3 2 1
+       26 JUMPIFNOT                        R3 ; [+23]
+       27 GETUPVAL                         R3 1
+       28 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       30 GETUPVAL                         R4 3
+       31 DUPTABLE                         R5 K11 [{"AnimateTargetAsset", "Child", "Style", "Transparency"}]
+       32 GETUPVAL                         R6 4
+       33 GETTABLEKS                       R6 R6 K12 ["HEAD_PREVIEW_PATH"]
+       35 SETTABLEKS                       R6 R5 K7 ["AnimateTargetAsset"]
+       37 GETTABLEKS                       R6 R0 K3 ["Instance"]
+       39 SETTABLEKS                       R6 R5 K8 ["Child"]
+       41 LOADK                            R6 K13 ["FacePreview"]
+       42 SETTABLEKS                       R6 R5 K9 ["Style"]
+       44 GETTABLEKS                       R6 R0 K10 ["Transparency"]
+       46 SETTABLEKS                       R6 R5 K10 ["Transparency"]
+       48 CALL                             R3 2 -1
+       49 RETURN                           R3 -1
+       50 LOADNIL                          R3
+       51 RETURN                           R3 1
+       52 GETUPVAL                         R3 1
+       53 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       55 GETUPVAL                         R4 5
+       56 DUPTABLE                         R5 K21 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection", "ImageTransparency"}]
+       57 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
+       59 JUMPIFNOT                        R6 ; [+6]
        60 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
-       62 JUMPIFNOT                        R6 ; [+6]
-       63 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
-       65 GETTABLEKS                       R6 R6 K23 ["CFrame"]
-       67 GETTABLEKS                       R6 R6 K24 ["LookVector"]
-       69 SETTABLEKS                       R6 R5 K14 ["FocusDirection"]
-       71 SETTABLEKS                       R2 R5 K15 ["Model"]
-       73 LOADB                            R6 1
-       74 SETTABLEKS                       R6 R5 K16 ["Static"]
-       76 GETTABLEKS                       R6 R1 K25 ["InstanceAmbient"]
-       78 SETTABLEKS                       R6 R5 K17 ["Ambient"]
-       80 GETIMPORT                        R6 K28 [Color3.new]
-       82 LOADN                            R7 1
-       83 LOADN                            R8 1
-       84 LOADN                            R9 1
-       85 CALL                             R6 3 1
-       86 SETTABLEKS                       R6 R5 K18 ["LightColor"]
-       88 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
-       90 JUMPIFNOT                        R6 ; [+7]
-       91 GETTABLEKS                       R7 R2 K22 ["PrimaryPart"]
-       93 GETTABLEKS                       R7 R7 K23 ["CFrame"]
-       95 GETTABLEKS                       R7 R7 K24 ["LookVector"]
-       97 MINUS                            R6 R7
-       98 SETTABLEKS                       R6 R5 K19 ["LightDirection"]
-      100 GETTABLEKS                       R6 R0 K10 ["Transparency"]
-      102 SETTABLEKS                       R6 R5 K20 ["ImageTransparency"]
-      104 CALL                             R3 2 -1
-      105 RETURN                           R3 -1
+       62 GETTABLEKS                       R6 R6 K23 ["CFrame"]
+       64 GETTABLEKS                       R6 R6 K24 ["LookVector"]
+       66 SETTABLEKS                       R6 R5 K14 ["FocusDirection"]
+       68 SETTABLEKS                       R2 R5 K15 ["Model"]
+       70 LOADB                            R6 1
+       71 SETTABLEKS                       R6 R5 K16 ["Static"]
+       73 GETTABLEKS                       R6 R1 K25 ["InstanceAmbient"]
+       75 SETTABLEKS                       R6 R5 K17 ["Ambient"]
+       77 GETIMPORT                        R6 K28 [Color3.new]
+       79 LOADN                            R7 1
+       80 LOADN                            R8 1
+       81 LOADN                            R9 1
+       82 CALL                             R6 3 1
+       83 SETTABLEKS                       R6 R5 K18 ["LightColor"]
+       85 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
+       87 JUMPIFNOT                        R6 ; [+7]
+       88 GETTABLEKS                       R7 R2 K22 ["PrimaryPart"]
+       90 GETTABLEKS                       R7 R7 K23 ["CFrame"]
+       92 GETTABLEKS                       R7 R7 K24 ["LookVector"]
+       94 MINUS                            R6 R7
+       95 SETTABLEKS                       R6 R5 K19 ["LightDirection"]
+       97 GETTABLEKS                       R6 R0 K10 ["Transparency"]
+       99 SETTABLEKS                       R6 R5 K20 ["ImageTransparency"]
+      101 CALL                             R3 2 -1
+      102 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -175,22 +172,16 @@ MAIN:
        43 GETTABLEKS                       R6 R6 K14 ["Components"]
        45 GETTABLEKS                       R6 R6 K15 ["FacePreview"]
        47 CALL                             R5 1 1
-       48 GETIMPORT                        R6 K5 [require]
-       50 GETTABLEKS                       R7 R0 K9 ["Src"]
-       52 GETTABLEKS                       R7 R7 K16 ["Flags"]
-       54 GETTABLEKS                       R7 R7 K17 ["getFFlagAvatarPreviewerMakeup"]
-       56 CALL                             R6 1 1
-       57 GETTABLEKS                       R7 R1 K18 ["UI"]
-       59 GETTABLEKS                       R8 R7 K19 ["AssetRenderModel"]
-       61 GETTABLEKS                       R9 R1 K20 ["ContextServices"]
-       63 GETTABLEKS                       R9 R9 K21 ["Stylizer"]
-       65 DUPCLOSURE                       R10 K22 [PROTO_0]
-       66 DUPCLOSURE                       R11 K23 [PROTO_2]
-       67 CAPTURE                          VAL R9
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R10
-       70 CAPTURE                          VAL R6
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R3
-       73 CAPTURE                          VAL R8
-       74 RETURN                           R11 1
+       48 GETTABLEKS                       R6 R1 K16 ["UI"]
+       50 GETTABLEKS                       R7 R6 K17 ["AssetRenderModel"]
+       52 GETTABLEKS                       R8 R1 K18 ["ContextServices"]
+       54 GETTABLEKS                       R8 R8 K19 ["Stylizer"]
+       56 DUPCLOSURE                       R9 K20 [PROTO_0]
+       57 DUPCLOSURE                       R10 K21 [PROTO_2]
+       58 CAPTURE                          VAL R8
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R9
+       61 CAPTURE                          VAL R5
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R7
+       64 RETURN                           R10 1

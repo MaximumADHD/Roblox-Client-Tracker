@@ -9,6 +9,9 @@ PROTO_0:
 PROTO_1:
         0 RETURN                           R0 0
 
+PROTO_2:
+        0 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 4 0
@@ -17,5 +20,7 @@ MAIN:
         6 CAPTURE                          VAL R0
         7 SETTABLEKS                       R1 R0 K2 ["new"]
         9 DUPCLOSURE                       R1 K3 [PROTO_1]
-       10 SETTABLEKS                       R1 R0 K4 ["SetAutoUpdate"]
-       12 RETURN                           R0 1
+       10 SETTABLEKS                       R1 R0 K4 ["Destroy"]
+       12 DUPCLOSURE                       R1 K5 [PROTO_2]
+       13 SETTABLEKS                       R1 R0 K6 ["SetAutoUpdate"]
+       15 RETURN                           R0 1

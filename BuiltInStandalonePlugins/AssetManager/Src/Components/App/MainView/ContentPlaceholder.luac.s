@@ -85,7 +85,7 @@ PROTO_2:
        85 JUMP                             ; [+1]
        86 LOADNIL                          R14
        87 SETTABLEKS                       R14 R13 K15 ["stateLayer"]
-       89 LOADK                            R14 K23 ["size-full col align-x-center align-y-center gap-xlarge"]
+       89 LOADK                            R14 K23 ["size-full-0 fill col align-x-center align-y-center gap-xlarge"]
        90 SETTABLEKS                       R14 R13 K16 ["tag"]
        92 DUPTABLE                         R14 K26 [{"Content", "ClearFiltersButton"}]
        93 GETTABLEKS                       R16 R0 K3 ["IsLoading"]

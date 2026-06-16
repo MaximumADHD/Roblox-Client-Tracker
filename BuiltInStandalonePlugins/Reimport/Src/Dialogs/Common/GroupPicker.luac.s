@@ -157,19 +157,14 @@ PROTO_5:
       102 CAPTURE                          VAL R7
       103 CAPTURE                          VAL R2
       104 SETTABLEKS                       R13 R12 K1 ["onItemChanged"]
-      106 GETUPVAL                         R14 8
-      107 CALL                             R14 0 1
-      108 JUMPIFNOT                        R14 ; [+5]
-      109 GETTABLEKS                       R13 R3 K26 ["dialogSize"]
-      111 GETTABLEKS                       R13 R13 K27 ["Y"]
-      113 JUMP                             ; [+1]
-      114 LOADN                            R13 150
-      115 SETTABLEKS                       R13 R12 K18 ["maxHeight"]
-      117 SETTABLEKS                       R8 R12 K19 ["items"]
-      119 LOADK                            R13 K28 ["group-picker-dropdown"]
-      120 SETTABLEKS                       R13 R12 K20 ["testId"]
-      122 CALL                             R10 2 -1
-      123 RETURN                           R10 -1
+      106 GETTABLEKS                       R13 R3 K26 ["dialogSize"]
+      108 GETTABLEKS                       R13 R13 K27 ["Y"]
+      110 SETTABLEKS                       R13 R12 K18 ["maxHeight"]
+      112 SETTABLEKS                       R8 R12 K19 ["items"]
+      114 LOADK                            R13 K28 ["group-picker-dropdown"]
+      115 SETTABLEKS                       R13 R12 K20 ["testId"]
+      117 CALL                             R10 2 -1
+      118 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -207,21 +202,16 @@ MAIN:
        55 GETTABLEKS                       R8 R0 K17 ["Flags"]
        57 GETTABLEKS                       R8 R8 K18 ["GetFFlagReimportLocalizeDialogs"]
        59 CALL                             R7 1 1
-       60 GETIMPORT                        R8 K5 [require]
-       62 GETTABLEKS                       R9 R0 K17 ["Flags"]
-       64 GETTABLEKS                       R9 R9 K19 ["GetFFlagReimportScrollableDropdowns"]
-       66 CALL                             R8 1 1
-       67 GETTABLEKS                       R9 R3 K20 ["createElement"]
-       69 GETTABLEKS                       R10 R2 K21 ["ContextServices"]
-       71 GETTABLEKS                       R11 R10 K22 ["Localization"]
-       73 DUPCLOSURE                       R12 K23 [PROTO_5]
-       74 CAPTURE                          VAL R11
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R7
-       78 CAPTURE                          VAL R4
-       79 CAPTURE                          VAL R9
-       80 CAPTURE                          VAL R5
-       81 CAPTURE                          VAL R1
-       82 CAPTURE                          VAL R8
-       83 RETURN                           R12 1
+       60 GETTABLEKS                       R8 R3 K19 ["createElement"]
+       62 GETTABLEKS                       R9 R2 K20 ["ContextServices"]
+       64 GETTABLEKS                       R10 R9 K21 ["Localization"]
+       66 DUPCLOSURE                       R11 K22 [PROTO_5]
+       67 CAPTURE                          VAL R10
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R8
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R1
+       75 RETURN                           R11 1

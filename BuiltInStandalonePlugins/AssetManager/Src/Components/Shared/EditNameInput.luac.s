@@ -234,7 +234,7 @@ PROTO_4:
       195 CALL                             R13 3 1
       196 SETTABLEKS                       R13 R12 K17 ["Anchor"]
       198 NOT                              R13 R6
-      199 JUMPIFNOT                        R13 ; [+58]
+      199 JUMPIFNOT                        R13 ; [+61]
       200 GETUPVAL                         R13 1
       201 GETTABLEKS                       R13 R13 K11 ["createElement"]
       203 GETUPVAL                         R14 2
@@ -262,18 +262,20 @@ PROTO_4:
       240 GETTABLEKS                       R17 R17 K11 ["createElement"]
       242 GETUPVAL                         R18 2
       243 GETTABLEKS                       R18 R18 K66 ["Text"]
-      245 DUPTABLE                         R19 K68 [{"Text", "RichText", "tag"}]
+      245 DUPTABLE                         R19 K69 [{"Text", "RichText", "tag", "testId"}]
       246 SETTABLEKS                       R7 R19 K66 ["Text"]
       248 LOADB                            R20 1
       249 SETTABLEKS                       R20 R19 K67 ["RichText"]
-      251 LOADK                            R20 K69 ["size-0 text-wrap text-align-x-left auto-xy padding-xsmall text-body-small content-inverse-default data-testid=edit-name-input-helper-text"]
+      251 LOADK                            R20 K70 ["size-0 text-wrap text-align-x-left auto-xy padding-xsmall text-body-small content-inverse-default"]
       252 SETTABLEKS                       R20 R19 K25 ["tag"]
-      254 CALL                             R17 2 1
-      255 SETTABLEKS                       R17 R16 K64 ["HelperText"]
-      257 CALL                             R13 3 1
-      258 SETTABLEKS                       R13 R12 K18 ["Content"]
-      260 CALL                             R9 3 -1
-      261 RETURN                           R9 -1
+      254 LOADK                            R20 K71 ["edit-name-input-helper-text"]
+      255 SETTABLEKS                       R20 R19 K68 ["testId"]
+      257 CALL                             R17 2 1
+      258 SETTABLEKS                       R17 R16 K64 ["HelperText"]
+      260 CALL                             R13 3 1
+      261 SETTABLEKS                       R13 R12 K18 ["Content"]
+      263 CALL                             R9 3 -1
+      264 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

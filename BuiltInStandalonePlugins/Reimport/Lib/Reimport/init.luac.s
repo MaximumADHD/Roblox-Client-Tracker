@@ -8,43 +8,32 @@ PROTO_0:
         9 MOVE                             R6 R1
        10 NAMECALL                         R2 R2 K3 ["Fire"]
        12 CALL                             R2 4 0
-       13 GETUPVAL                         R2 2
-       14 CALL                             R2 0 1
-       15 JUMPIF                           R2 ; [+3]
-       16 GETUPVAL                         R2 3
-       17 CALL                             R2 0 1
-       18 JUMPIFNOT                        R2 ; [+17]
-       19 GETTABLEKS                       R2 R1 K4 ["isReimporting"]
-       21 JUMPIF                           R2 ; [+4]
-       22 GETUPVAL                         R2 4
-       23 LOADNIL                          R3
-       24 SETTABLE                         R3 R2 R0
-       25 JUMP                             ; [+10]
-       26 GETTABLEKS                       R2 R1 K5 ["progress"]
-       28 JUMPIFNOT                        R2 ; [+7]
-       29 GETUPVAL                         R2 3
-       30 CALL                             R2 0 1
-       31 JUMPIFNOT                        R2 ; [+4]
-       32 GETUPVAL                         R2 4
-       33 GETTABLEKS                       R3 R1 K5 ["progress"]
-       35 SETTABLE                         R3 R2 R0
-       36 GETUPVAL                         R2 2
-       37 CALL                             R2 0 1
-       38 JUMPIFNOT                        R2 ; [+15]
-       39 GETTABLEKS                       R2 R1 K4 ["isReimporting"]
-       41 JUMPIF                           R2 ; [+12]
-       42 GETUPVAL                         R3 5
-       43 GETTABLE                         R2 R3 R0
-       44 JUMPIFNOT                        R2 ; [+9]
-       45 GETUPVAL                         R3 5
-       46 LOADNIL                          R4
-       47 SETTABLE                         R4 R3 R0
-       48 GETUPVAL                         R3 6
-       49 GETTABLEKS                       R3 R3 K6 ["reimportInstance"]
-       51 MOVE                             R4 R0
-       52 MOVE                             R5 R2
-       53 CALL                             R3 2 0
-       54 RETURN                           R0 0
+       13 GETTABLEKS                       R2 R1 K4 ["isReimporting"]
+       15 JUMPIF                           R2 ; [+16]
+       16 GETUPVAL                         R2 2
+       17 LOADNIL                          R3
+       18 SETTABLE                         R3 R2 R0
+       19 GETUPVAL                         R3 3
+       20 GETTABLE                         R2 R3 R0
+       21 JUMPIFNOT                        R2 ; [+20]
+       22 GETUPVAL                         R3 3
+       23 LOADNIL                          R4
+       24 SETTABLE                         R4 R3 R0
+       25 GETUPVAL                         R3 4
+       26 GETTABLEKS                       R3 R3 K5 ["reimportInstance"]
+       28 MOVE                             R4 R0
+       29 MOVE                             R5 R2
+       30 CALL                             R3 2 0
+       31 RETURN                           R0 0
+       32 GETTABLEKS                       R2 R1 K6 ["progress"]
+       34 JUMPIFNOT                        R2 ; [+7]
+       35 GETUPVAL                         R2 5
+       36 CALL                             R2 0 1
+       37 JUMPIFNOT                        R2 ; [+4]
+       38 GETUPVAL                         R2 2
+       39 GETTABLEKS                       R3 R1 K6 ["progress"]
+       41 SETTABLE                         R3 R2 R0
+       42 RETURN                           R0 0
 
 PROTO_1:
         0 DUPTABLE                         R1 K2 [{"isReimporting", "progress"}]
@@ -86,25 +75,12 @@ PROTO_3:
        19 SETLIST                          R1 R2 1 [1]
        21 MOVE                             R0 R1
        22 GETUPVAL                         R1 2
-       23 CALL                             R1 0 1
-       24 JUMPIFNOT                        R1 ; [+9]
-       25 GETUPVAL                         R1 3
-       26 GETTABLEKS                       R1 R1 K7 ["errors"]
-       28 GETTABLEKS                       R1 R1 K8 ["show"]
-       30 MOVE                             R2 R0
-       31 GETUPVAL                         R3 1
-       32 CALL                             R1 2 0
-       33 RETURN                           R0 0
-       34 GETIMPORT                        R1 K10 [require]
-       36 GETUPVAL                         R2 4
-       37 GETTABLEKS                       R2 R2 K11 ["Lib"]
-       39 GETTABLEKS                       R2 R2 K12 ["DialogRegistry"]
-       41 GETTABLEKS                       R2 R2 K13 ["ShowErrorDialog"]
-       43 CALL                             R1 1 1
-       44 GETTABLEKS                       R2 R1 K14 ["fromErrors"]
-       46 MOVE                             R3 R0
-       47 CALL                             R2 1 0
-       48 RETURN                           R0 0
+       23 GETTABLEKS                       R1 R1 K7 ["errors"]
+       25 GETTABLEKS                       R1 R1 K8 ["show"]
+       27 MOVE                             R2 R0
+       28 GETUPVAL                         R3 1
+       29 CALL                             R1 2 0
+       30 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R1 K1 [warn]
@@ -132,16 +108,14 @@ PROTO_6:
         7 CAPTURE                          UPVAL U0
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 CAPTURE                          UPVAL U3
-       12 SETTABLEKS                       R2 R1 K1 ["error"]
-       14 DUPCLOSURE                       R2 K5 [PROTO_4]
-       15 SETTABLEKS                       R2 R1 K2 ["warning"]
-       17 NEWCLOSURE                       R2 P3
-       18 CAPTURE                          UPVAL U0
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R1 K3 ["progress"]
-       22 RETURN                           R1 1
+       10 SETTABLEKS                       R2 R1 K1 ["error"]
+       12 DUPCLOSURE                       R2 K5 [PROTO_4]
+       13 SETTABLEKS                       R2 R1 K2 ["warning"]
+       15 NEWCLOSURE                       R2 P3
+       16 CAPTURE                          UPVAL U0
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R1 K3 ["progress"]
+       20 RETURN                           R1 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -219,163 +193,132 @@ PROTO_10:
         1 MOVE                             R3 R0
         2 CALL                             R2 1 1
         3 GETUPVAL                         R3 1
-        4 CALL                             R3 0 1
-        5 JUMPIFNOT                        R3 ; [+6]
-        6 GETUPVAL                         R3 2
-        7 MOVE                             R4 R2
-        8 MOVE                             R5 R0
-        9 MOVE                             R6 R1
-       10 CALL                             R3 3 1
-       11 MOVE                             R2 R3
-       12 GETUPVAL                         R3 3
-       13 GETTABLEKS                       R3 R3 K0 ["reimport"]
-       15 MOVE                             R4 R0
-       16 MOVE                             R5 R2
-       17 MOVE                             R6 R1
-       18 CALL                             R3 3 0
-       19 RETURN                           R0 0
+        4 MOVE                             R4 R2
+        5 MOVE                             R5 R0
+        6 MOVE                             R6 R1
+        7 CALL                             R3 3 1
+        8 MOVE                             R2 R3
+        9 GETUPVAL                         R3 2
+       10 GETTABLEKS                       R3 R3 K0 ["reimport"]
+       12 MOVE                             R4 R0
+       13 MOVE                             R5 R2
+       14 MOVE                             R6 R1
+       15 CALL                             R3 3 0
+       16 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
         3 GETUPVAL                         R2 1
-        4 CALL                             R2 0 1
-        5 JUMPIFNOT                        R2 ; [+5]
-        6 GETUPVAL                         R2 2
-        7 MOVE                             R3 R1
-        8 MOVE                             R4 R0
-        9 CALL                             R2 2 1
-       10 MOVE                             R1 R2
-       11 GETUPVAL                         R2 3
-       12 GETTABLEKS                       R2 R2 K0 ["reimport"]
-       14 MOVE                             R3 R0
-       15 MOVE                             R4 R1
-       16 CALL                             R2 2 0
-       17 RETURN                           R0 0
+        4 MOVE                             R3 R1
+        5 MOVE                             R4 R0
+        6 CALL                             R2 2 1
+        7 MOVE                             R1 R2
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K0 ["reimport"]
+       11 MOVE                             R3 R0
+       12 MOVE                             R4 R1
+       13 CALL                             R2 2 0
+       14 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
         3 GETUPVAL                         R2 1
-        4 CALL                             R2 0 1
-        5 JUMPIFNOT                        R2 ; [+5]
-        6 GETUPVAL                         R2 2
-        7 MOVE                             R3 R1
-        8 MOVE                             R4 R0
-        9 CALL                             R2 2 1
-       10 MOVE                             R1 R2
-       11 GETUPVAL                         R2 3
-       12 GETTABLEKS                       R2 R2 K0 ["reimport"]
-       14 MOVE                             R3 R0
-       15 MOVE                             R4 R1
-       16 CALL                             R2 2 0
-       17 RETURN                           R0 0
+        4 MOVE                             R3 R1
+        5 MOVE                             R4 R0
+        6 CALL                             R2 2 1
+        7 MOVE                             R1 R2
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K0 ["reimport"]
+       11 MOVE                             R3 R0
+       12 MOVE                             R4 R1
+       13 CALL                             R2 2 0
+       14 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+10]
-        3 GETUPVAL                         R3 1
-        4 GETTABLE                         R2 R3 R0
-        5 JUMPIFNOT                        R2 ; [+7]
-        6 GETUPVAL                         R2 2
-        7 MOVE                             R3 R1
-        8 JUMPIF                           R3 ; [+2]
-        9 NEWTABLE                         R3 0 0
-       11 SETTABLE                         R3 R2 R0
-       12 RETURN                           R0 0
-       13 GETUPVAL                         R2 0
-       14 CALL                             R2 0 1
-       15 JUMPIF                           R2 ; [+3]
-       16 GETUPVAL                         R2 3
-       17 CALL                             R2 0 1
-       18 JUMPIFNOT                        R2 ; [+4]
-       19 GETUPVAL                         R2 1
-       20 LOADN                            R3 0
-       21 SETTABLE                         R3 R2 R0
-       22 JUMP                             ; [+3]
-       23 GETUPVAL                         R2 1
-       24 LOADB                            R3 1
-       25 SETTABLE                         R3 R2 R0
-       26 LOADK                            R4 K0 ["SurfaceAppearance"]
-       27 NAMECALL                         R2 R0 K1 ["IsA"]
-       29 CALL                             R2 2 1
-       30 JUMPIFNOT                        R2 ; [+18]
-       31 GETUPVAL                         R2 4
-       32 MOVE                             R3 R0
-       33 CALL                             R2 1 1
-       34 GETUPVAL                         R3 5
-       35 CALL                             R3 0 1
-       36 JUMPIFNOT                        R3 ; [+5]
-       37 GETUPVAL                         R3 6
-       38 MOVE                             R4 R2
-       39 MOVE                             R5 R0
-       40 CALL                             R3 2 1
-       41 MOVE                             R2 R3
-       42 GETUPVAL                         R3 7
-       43 GETTABLEKS                       R3 R3 K2 ["reimport"]
-       45 MOVE                             R4 R0
-       46 MOVE                             R5 R2
-       47 CALL                             R3 2 0
-       48 RETURN                           R0 0
-       49 LOADK                            R4 K3 ["Decal"]
-       50 NAMECALL                         R2 R0 K1 ["IsA"]
-       52 CALL                             R2 2 1
-       53 JUMPIFNOT                        R2 ; [+18]
-       54 GETUPVAL                         R2 4
-       55 MOVE                             R3 R0
-       56 CALL                             R2 1 1
-       57 GETUPVAL                         R3 5
-       58 CALL                             R3 0 1
-       59 JUMPIFNOT                        R3 ; [+5]
-       60 GETUPVAL                         R3 6
-       61 MOVE                             R4 R2
-       62 MOVE                             R5 R0
-       63 CALL                             R3 2 1
-       64 MOVE                             R2 R3
-       65 GETUPVAL                         R3 7
-       66 GETTABLEKS                       R3 R3 K2 ["reimport"]
-       68 MOVE                             R4 R0
-       69 MOVE                             R5 R2
-       70 CALL                             R3 2 0
-       71 RETURN                           R0 0
-       72 GETTABLEKS                       R2 R0 K4 ["ClassName"]
-       74 JUMPIFNOTEQKS                    R2 K5 ["Model"] ; [+29]
-       76 LOADK                            R5 K5 ["Model"]
-       77 NAMECALL                         R3 R0 K1 ["IsA"]
-       79 CALL                             R3 2 -1
-       80 FASTCALL                         ASSERT ; [+2]
-       81 GETIMPORT                        R2 K7 [assert]
-       83 CALL                             R2 -1 0
-       84 GETUPVAL                         R2 4
-       85 MOVE                             R3 R0
-       86 CALL                             R2 1 1
-       87 GETUPVAL                         R3 5
-       88 CALL                             R3 0 1
-       89 JUMPIFNOT                        R3 ; [+6]
-       90 GETUPVAL                         R3 6
-       91 MOVE                             R4 R2
-       92 MOVE                             R5 R0
-       93 MOVE                             R6 R1
-       94 CALL                             R3 3 1
-       95 MOVE                             R2 R3
-       96 GETUPVAL                         R3 8
-       97 GETTABLEKS                       R3 R3 K2 ["reimport"]
-       99 MOVE                             R4 R0
-      100 MOVE                             R5 R2
-      101 MOVE                             R6 R1
-      102 CALL                             R3 3 0
-      103 RETURN                           R0 0
-      104 GETIMPORT                        R2 K9 [error]
-      106 LOADK                            R4 K10 ["reimport is not supported for targets of type '%*'"]
-      107 GETTABLEKS                       R6 R0 K4 ["ClassName"]
-      109 NAMECALL                         R4 R4 K11 ["format"]
-      111 CALL                             R4 2 1
-      112 MOVE                             R3 R4
-      113 CALL                             R2 1 0
-      114 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R0
+        2 JUMPIFNOT                        R2 ; [+7]
+        3 GETUPVAL                         R2 1
+        4 MOVE                             R3 R1
+        5 JUMPIF                           R3 ; [+2]
+        6 NEWTABLE                         R3 0 0
+        8 SETTABLE                         R3 R2 R0
+        9 RETURN                           R0 0
+       10 GETUPVAL                         R2 0
+       11 LOADN                            R3 0
+       12 SETTABLE                         R3 R2 R0
+       13 LOADK                            R4 K0 ["SurfaceAppearance"]
+       14 NAMECALL                         R2 R0 K1 ["IsA"]
+       16 CALL                             R2 2 1
+       17 JUMPIFNOT                        R2 ; [+15]
+       18 GETUPVAL                         R2 2
+       19 MOVE                             R3 R0
+       20 CALL                             R2 1 1
+       21 GETUPVAL                         R3 3
+       22 MOVE                             R4 R2
+       23 MOVE                             R5 R0
+       24 CALL                             R3 2 1
+       25 MOVE                             R2 R3
+       26 GETUPVAL                         R3 4
+       27 GETTABLEKS                       R3 R3 K2 ["reimport"]
+       29 MOVE                             R4 R0
+       30 MOVE                             R5 R2
+       31 CALL                             R3 2 0
+       32 RETURN                           R0 0
+       33 LOADK                            R4 K3 ["Decal"]
+       34 NAMECALL                         R2 R0 K1 ["IsA"]
+       36 CALL                             R2 2 1
+       37 JUMPIFNOT                        R2 ; [+15]
+       38 GETUPVAL                         R2 2
+       39 MOVE                             R3 R0
+       40 CALL                             R2 1 1
+       41 GETUPVAL                         R3 3
+       42 MOVE                             R4 R2
+       43 MOVE                             R5 R0
+       44 CALL                             R3 2 1
+       45 MOVE                             R2 R3
+       46 GETUPVAL                         R3 4
+       47 GETTABLEKS                       R3 R3 K2 ["reimport"]
+       49 MOVE                             R4 R0
+       50 MOVE                             R5 R2
+       51 CALL                             R3 2 0
+       52 RETURN                           R0 0
+       53 GETTABLEKS                       R2 R0 K4 ["ClassName"]
+       55 JUMPIFNOTEQKS                    R2 K5 ["Model"] ; [+26]
+       57 LOADK                            R5 K5 ["Model"]
+       58 NAMECALL                         R3 R0 K1 ["IsA"]
+       60 CALL                             R3 2 -1
+       61 FASTCALL                         ASSERT ; [+2]
+       62 GETIMPORT                        R2 K7 [assert]
+       64 CALL                             R2 -1 0
+       65 GETUPVAL                         R2 2
+       66 MOVE                             R3 R0
+       67 CALL                             R2 1 1
+       68 GETUPVAL                         R3 3
+       69 MOVE                             R4 R2
+       70 MOVE                             R5 R0
+       71 MOVE                             R6 R1
+       72 CALL                             R3 3 1
+       73 MOVE                             R2 R3
+       74 GETUPVAL                         R3 5
+       75 GETTABLEKS                       R3 R3 K2 ["reimport"]
+       77 MOVE                             R4 R0
+       78 MOVE                             R5 R2
+       79 MOVE                             R6 R1
+       80 CALL                             R3 3 0
+       81 RETURN                           R0 0
+       82 GETIMPORT                        R2 K9 [error]
+       84 LOADK                            R4 K10 ["reimport is not supported for targets of type '%*'"]
+       85 GETTABLEKS                       R6 R0 K4 ["ClassName"]
+       87 NAMECALL                         R4 R4 K11 ["format"]
+       89 CALL                             R4 2 1
+       90 MOVE                             R3 R4
+       91 CALL                             R2 1 0
+       92 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -426,73 +369,52 @@ MAIN:
        78 GETTABLEKS                       R11 R5 K21 ["REIMPORT"]
        80 GETTABLEKS                       R11 R11 K22 ["CPC_ID"]
        82 CALL                             R10 1 1
-       83 GETIMPORT                        R11 K5 [require]
-       85 GETTABLEKS                       R12 R0 K23 ["Flags"]
-       87 GETTABLEKS                       R12 R12 K24 ["GetFFlagReimportErrorConfigButton"]
-       89 CALL                             R11 1 1
-       90 GETIMPORT                        R12 K5 [require]
-       92 GETTABLEKS                       R13 R0 K23 ["Flags"]
-       94 GETTABLEKS                       R13 R13 K25 ["GetFFlagReimportBasicTelemetry"]
-       96 CALL                             R12 1 1
-       97 GETIMPORT                        R13 K5 [require]
-       99 GETTABLEKS                       R14 R0 K23 ["Flags"]
-      101 GETTABLEKS                       R14 R14 K26 ["GetFFlagDebounceReimports"]
-      103 CALL                             R13 1 1
-      104 GETTABLEKS                       R14 R5 K21 ["REIMPORT"]
-      106 GETTABLEKS                       R14 R14 K27 ["getFFlagReimportFileWatchIcon"]
-      108 NEWTABLE                         R15 2 0
-      110 NEWTABLE                         R16 0 0
-      112 NEWTABLE                         R17 0 0
-      114 DUPCLOSURE                       R18 K28 [PROTO_0]
-      115 CAPTURE                          VAL R10
-      116 CAPTURE                          VAL R5
-      117 CAPTURE                          VAL R13
-      118 CAPTURE                          VAL R14
-      119 CAPTURE                          VAL R16
-      120 CAPTURE                          VAL R17
-      121 CAPTURE                          VAL R15
-      122 DUPCLOSURE                       R19 K29 [PROTO_1]
+       83 GETTABLEKS                       R11 R5 K21 ["REIMPORT"]
+       85 GETTABLEKS                       R11 R11 K23 ["getFFlagReimportFileWatchIcon"]
+       87 NEWTABLE                         R12 2 0
+       89 NEWTABLE                         R13 0 0
+       91 NEWTABLE                         R14 0 0
+       93 DUPCLOSURE                       R15 K24 [PROTO_0]
+       94 CAPTURE                          VAL R10
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R13
+       97 CAPTURE                          VAL R14
+       98 CAPTURE                          VAL R12
+       99 CAPTURE                          VAL R11
+      100 DUPCLOSURE                       R16 K25 [PROTO_1]
+      101 CAPTURE                          VAL R13
+      102 SETTABLEKS                       R16 R12 K26 ["getProgress"]
+      104 GETTABLEKS                       R18 R5 K21 ["REIMPORT"]
+      106 GETTABLEKS                       R18 R18 K27 ["CPC_CALLBACKS"]
+      108 GETTABLEKS                       R18 R18 K28 ["GET_PROGRESS"]
+      110 GETTABLEKS                       R19 R12 K26 ["getProgress"]
+      112 NAMECALL                         R16 R10 K29 ["OnInvoke"]
+      114 CALL                             R16 3 0
+      115 DUPCLOSURE                       R16 K30 [PROTO_6]
+      116 CAPTURE                          VAL R15
+      117 CAPTURE                          VAL R6
+      118 DUPCLOSURE                       R17 K31 [PROTO_9]
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R9
+      121 CAPTURE                          VAL R1
+      122 DUPCLOSURE                       R18 K32 [PROTO_10]
       123 CAPTURE                          VAL R16
-      124 SETTABLEKS                       R19 R15 K30 ["getProgress"]
-      126 GETTABLEKS                       R21 R5 K21 ["REIMPORT"]
-      128 GETTABLEKS                       R21 R21 K31 ["CPC_CALLBACKS"]
-      130 GETTABLEKS                       R21 R21 K32 ["GET_PROGRESS"]
-      132 GETTABLEKS                       R22 R15 K30 ["getProgress"]
-      134 NAMECALL                         R19 R10 K33 ["OnInvoke"]
-      136 CALL                             R19 3 0
-      137 DUPCLOSURE                       R19 K34 [PROTO_6]
-      138 CAPTURE                          VAL R18
-      139 CAPTURE                          VAL R11
-      140 CAPTURE                          VAL R6
-      141 CAPTURE                          VAL R0
-      142 DUPCLOSURE                       R20 K35 [PROTO_9]
-      143 CAPTURE                          VAL R8
-      144 CAPTURE                          VAL R9
-      145 CAPTURE                          VAL R1
-      146 DUPCLOSURE                       R21 K36 [PROTO_10]
-      147 CAPTURE                          VAL R19
-      148 CAPTURE                          VAL R12
-      149 CAPTURE                          VAL R20
-      150 CAPTURE                          VAL R3
-      151 DUPCLOSURE                       R22 K37 [PROTO_11]
-      152 CAPTURE                          VAL R19
-      153 CAPTURE                          VAL R12
-      154 CAPTURE                          VAL R20
-      155 CAPTURE                          VAL R4
-      156 DUPCLOSURE                       R23 K38 [PROTO_12]
-      157 CAPTURE                          VAL R19
-      158 CAPTURE                          VAL R12
-      159 CAPTURE                          VAL R20
-      160 CAPTURE                          VAL R4
-      161 DUPCLOSURE                       R24 K39 [PROTO_13]
-      162 CAPTURE                          VAL R13
-      163 CAPTURE                          VAL R16
-      164 CAPTURE                          VAL R17
-      165 CAPTURE                          VAL R14
-      166 CAPTURE                          VAL R19
-      167 CAPTURE                          VAL R12
-      168 CAPTURE                          VAL R20
-      169 CAPTURE                          VAL R4
-      170 CAPTURE                          VAL R3
-      171 SETTABLEKS                       R24 R15 K40 ["reimportInstance"]
-      173 RETURN                           R15 1
+      124 CAPTURE                          VAL R17
+      125 CAPTURE                          VAL R3
+      126 DUPCLOSURE                       R19 K33 [PROTO_11]
+      127 CAPTURE                          VAL R16
+      128 CAPTURE                          VAL R17
+      129 CAPTURE                          VAL R4
+      130 DUPCLOSURE                       R20 K34 [PROTO_12]
+      131 CAPTURE                          VAL R16
+      132 CAPTURE                          VAL R17
+      133 CAPTURE                          VAL R4
+      134 DUPCLOSURE                       R21 K35 [PROTO_13]
+      135 CAPTURE                          VAL R13
+      136 CAPTURE                          VAL R14
+      137 CAPTURE                          VAL R16
+      138 CAPTURE                          VAL R17
+      139 CAPTURE                          VAL R4
+      140 CAPTURE                          VAL R3
+      141 SETTABLEKS                       R21 R12 K36 ["reimportInstance"]
+      143 RETURN                           R12 1

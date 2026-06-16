@@ -384,7 +384,7 @@ MAIN:
       130 GETTABLEKS                       R21 R21 K37 ["ToolTypes"]
       132 GETTABLEKS                       R21 R21 K38 ["ToolNames"]
       134 GETTABLEKS                       R22 R3 K39 ["createElement"]
-      136 NEWTABLE                         R23 16 0
+      136 NEWTABLE                         R23 32 0
       138 GETTABLEKS                       R24 R21 K40 ["ExecuteLuau"]
       140 LOADK                            R25 K40 ["ExecuteLuau"]
       141 SETTABLE                         R25 R23 R24

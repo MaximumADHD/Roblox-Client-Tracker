@@ -1,11 +1,18 @@
 PROTO_0:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["reimportInstance"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
+
+PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["normalize"]
         3 MOVE                             R2 R0
         4 CALL                             R1 1 1
         5 GETUPVAL                         R3 1
         6 GETTABLE                         R2 R3 R1
-        7 JUMPIFNOT                        R2 ; [+17]
+        7 JUMPIFNOT                        R2 ; [+18]
         8 MOVE                             R3 R2
         9 LOADNIL                          R4
        10 LOADNIL                          R5
@@ -13,15 +20,16 @@ PROTO_0:
        12 GETIMPORT                        R10 K2 [game]
        14 NAMECALL                         R8 R6 K3 ["IsDescendantOf"]
        16 CALL                             R8 2 1
-       17 JUMPIFNOT                        R8 ; [+5]
-       18 GETUPVAL                         R8 2
-       19 GETTABLEKS                       R8 R8 K4 ["reimportInstance"]
-       21 MOVE                             R9 R6
-       22 CALL                             R8 1 0
-       23 FORGLOOP                         R3 2 ; [-12]
-       25 RETURN                           R0 0
+       17 JUMPIFNOT                        R8 ; [+6]
+       18 GETIMPORT                        R8 K6 [task.defer]
+       20 NEWCLOSURE                       R9 P0
+       21 CAPTURE                          UPVAL U2
+       22 CAPTURE                          VAL R6
+       23 CALL                             R8 1 0
+       24 FORGLOOP                         R3 2 ; [-13]
+       26 RETURN                           R0 0
 
-PROTO_1:
+PROTO_2:
         0 JUMPIF                           R0 ; [+8]
         1 DUPTABLE                         R1 K2 [{"Watchable", "IsWatched"}]
         2 LOADB                            R2 0
@@ -65,7 +73,7 @@ PROTO_1:
        53 SETTABLEKS                       R3 R5 K4 ["filepath"]
        55 RETURN                           R5 1
 
-PROTO_2:
+PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R4 1
         2 GETTABLEKS                       R4 R4 K0 ["REIMPORT"]
@@ -77,7 +85,7 @@ PROTO_2:
        12 CALL                             R2 4 0
        13 RETURN                           R0 0
 
-PROTO_3:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["getSelectionIfOneInstance"]
         3 CALL                             R0 0 2
@@ -98,7 +106,7 @@ PROTO_3:
        26 CALL                             R3 2 0
        27 RETURN                           R0 0
 
-PROTO_4:
+PROTO_5:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 JUMPIF                           R2 ; [+9]
@@ -127,7 +135,7 @@ PROTO_4:
        29 SETTABLE                         R3 R2 R0
        30 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["getConfigFromInstance"]
         3 MOVE                             R2 R0
@@ -210,7 +218,7 @@ PROTO_5:
        98 CALL                             R4 1 0
        99 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R3 0
         1 GETTABLE                         R2 R3 R1
         2 LOADNIL                          R3
@@ -229,7 +237,7 @@ PROTO_6:
        17 CALL                             R2 2 0
        18 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 JUMPIFNOT                        R1 ; [+3]
         1 GETUPVAL                         R3 0
         2 GETTABLE                         R2 R3 R1
@@ -322,7 +330,7 @@ PROTO_7:
       107 CALL                             R2 0 0
       108 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 JUMPIFNOT                        R1 ; [+10]
         1 GETTABLEKS                       R4 R1 K0 ["filepath"]
         3 JUMPIFNOT                        R4 ; [+7]
@@ -341,36 +349,43 @@ PROTO_8:
        21 CALL                             R4 1 1
        22 JUMP                             ; [+1]
        23 LOADNIL                          R4
-       24 JUMPIFNOT                        R3 ; [+7]
+       24 JUMPIFNOT                        R3 ; [+3]
        25 GETUPVAL                         R6 1
        26 GETTABLE                         R5 R6 R3
-       27 JUMPIFNOT                        R5 ; [+4]
-       28 GETUPVAL                         R7 1
-       29 GETTABLE                         R6 R7 R3
-       30 GETTABLE                         R5 R6 R0
-       31 JUMPIF                           R5 ; [+3]
-       32 GETUPVAL                         R5 2
-       33 CALL                             R5 0 0
-       34 RETURN                           R0 0
-       35 JUMPIFNOTEQ                      R3 R4 ; [+2]
-       37 LOADB                            R5 0 +1
-       38 LOADB                            R5 1
-       39 JUMPIFNOT                        R3 ; [+7]
-       40 JUMPIFEQKS                       R3 K2 [""] ; [+6]
-       42 JUMPIFNOT                        R5 ; [+4]
-       43 GETUPVAL                         R6 3
-       44 MOVE                             R7 R0
-       45 MOVE                             R8 R3
-       46 CALL                             R6 2 0
-       47 JUMPIFNOT                        R4 ; [+6]
-       48 JUMPIFEQKS                       R4 K2 [""] ; [+5]
-       50 JUMPIFNOT                        R5 ; [+3]
-       51 GETUPVAL                         R6 4
-       52 MOVE                             R7 R0
-       53 CALL                             R6 1 0
-       54 RETURN                           R0 0
+       27 JUMPIF                           R5 ; [+3]
+       28 GETUPVAL                         R5 2
+       29 CALL                             R5 0 0
+       30 RETURN                           R0 0
+       31 GETUPVAL                         R8 1
+       32 GETTABLE                         R5 R8 R3
+       33 LOADNIL                          R6
+       34 LOADNIL                          R7
+       35 FORGPREP                         R5
+       36 GETUPVAL                         R10 3
+       37 GETTABLEKS                       R10 R10 K2 ["getConfigIdFromInstance"]
+       39 MOVE                             R11 R8
+       40 CALL                             R10 1 1
+       41 JUMPIFNOTEQ                      R10 R0 ; [+20]
+       43 JUMPIFNOTEQ                      R3 R4 ; [+2]
+       45 LOADB                            R11 0 +1
+       46 LOADB                            R11 1
+       47 JUMPIFNOT                        R3 ; [+7]
+       48 JUMPIFEQKS                       R3 K3 [""] ; [+6]
+       50 JUMPIFNOT                        R11 ; [+4]
+       51 GETUPVAL                         R12 4
+       52 MOVE                             R13 R8
+       53 MOVE                             R14 R3
+       54 CALL                             R12 2 0
+       55 JUMPIFNOT                        R4 ; [+6]
+       56 JUMPIFEQKS                       R4 K3 [""] ; [+5]
+       58 JUMPIFNOT                        R11 ; [+3]
+       59 GETUPVAL                         R12 5
+       60 MOVE                             R13 R8
+       61 CALL                             R12 1 0
+       62 FORGLOOP                         R5 2 ; [-27]
+       64 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -385,7 +400,7 @@ PROTO_9:
        12 FORGLOOP                         R0 2 ; [-9]
        14 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["CurrentDataModelType"]
         3 GETIMPORT                        R1 K4 [Enum.StudioDataModelType.PlayClient]
@@ -409,7 +424,7 @@ PROTO_10:
        31 CALL                             R1 0 0
        32 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["MultipleDocumentInterfaceInstance"]
         2 GETTABLEKS                       R1 R1 K1 ["FocusedDataModelSession"]
         4 GETTABLEKS                       R2 R1 K2 ["CurrentDataModelTypeChanged"]
@@ -422,7 +437,7 @@ PROTO_11:
        13 CALL                             R2 2 0
        14 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["SingleFileChanged"]
         3 GETUPVAL                         R3 1
@@ -457,14 +472,14 @@ PROTO_12:
        43 CALL                             R1 2 0
        44 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R1 R1 K0 ["IsWatched"]
         5 RETURN                           R1 1
 
-PROTO_14:
+PROTO_15:
         0 DUPTABLE                         R1 K1 [{"isWatched"}]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K2 ["isWatching"]
@@ -473,13 +488,13 @@ PROTO_14:
         6 SETTABLEKS                       R2 R1 K0 ["isWatched"]
         8 RETURN                           R1 1
 
-PROTO_15:
+PROTO_16:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
         3 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
@@ -564,10 +579,10 @@ MAIN:
       122 CAPTURE                          VAL R8
       123 CAPTURE                          VAL R9
       124 CAPTURE                          REF R14
-      125 DUPCLOSURE                       R18 K27 [PROTO_2]
+      125 DUPCLOSURE                       R18 K27 [PROTO_3]
       126 CAPTURE                          VAL R11
       127 CAPTURE                          VAL R6
-      128 DUPCLOSURE                       R19 K28 [PROTO_3]
+      128 DUPCLOSURE                       R19 K28 [PROTO_4]
       129 CAPTURE                          VAL R4
       130 CAPTURE                          VAL R17
       131 CAPTURE                          VAL R7
@@ -575,7 +590,7 @@ MAIN:
       133 NEWCLOSURE                       R20 P4
       134 CAPTURE                          REF R14
       135 CAPTURE                          VAL R2
-      136 DUPCLOSURE                       R21 K29 [PROTO_5]
+      136 DUPCLOSURE                       R21 K29 [PROTO_6]
       137 CAPTURE                          VAL R8
       138 CAPTURE                          VAL R9
       139 CAPTURE                          VAL R20
@@ -604,43 +619,44 @@ MAIN:
       162 CAPTURE                          VAL R9
       163 CAPTURE                          REF R14
       164 CAPTURE                          VAL R19
-      165 CAPTURE                          VAL R23
-      166 CAPTURE                          VAL R21
-      167 NEWCLOSURE                       R25 P9
-      168 CAPTURE                          REF R14
-      169 CAPTURE                          VAL R2
-      170 DUPCLOSURE                       R26 K30 [PROTO_11]
-      171 CAPTURE                          VAL R7
-      172 CAPTURE                          VAL R6
-      173 CAPTURE                          VAL R19
-      174 NEWCLOSURE                       R27 P11
-      175 CAPTURE                          VAL R2
-      176 CAPTURE                          VAL R16
-      177 CAPTURE                          REF R14
-      178 CAPTURE                          VAL R3
-      179 CAPTURE                          VAL R19
-      180 CAPTURE                          VAL R8
-      181 CAPTURE                          VAL R24
-      182 CAPTURE                          VAL R7
-      183 CAPTURE                          VAL R6
-      184 CAPTURE                          VAL R25
-      185 SETTABLEKS                       R27 R15 K31 ["init"]
-      187 DUPCLOSURE                       R27 K32 [PROTO_13]
-      188 CAPTURE                          VAL R17
-      189 SETTABLEKS                       R27 R15 K33 ["isWatching"]
-      191 GETTABLEKS                       R29 R6 K22 ["REIMPORT"]
-      193 GETTABLEKS                       R29 R29 K34 ["CPC_CALLBACKS"]
-      195 GETTABLEKS                       R29 R29 K35 ["GET_WATCH_STATUS"]
-      197 DUPCLOSURE                       R30 K36 [PROTO_14]
-      198 CAPTURE                          VAL R15
-      199 NAMECALL                         R27 R11 K37 ["OnInvoke"]
-      201 CALL                             R27 3 0
-      202 DUPCLOSURE                       R27 K38 [PROTO_15]
-      203 CAPTURE                          VAL R21
-      204 SETTABLEKS                       R27 R15 K39 ["start"]
-      206 DUPCLOSURE                       R27 K40 [PROTO_16]
-      207 CAPTURE                          VAL R17
-      208 CAPTURE                          VAL R23
-      209 SETTABLEKS                       R27 R15 K41 ["stop"]
-      211 CLOSEUPVALS                      R14
-      212 RETURN                           R15 1
+      165 CAPTURE                          VAL R8
+      166 CAPTURE                          VAL R23
+      167 CAPTURE                          VAL R21
+      168 NEWCLOSURE                       R25 P9
+      169 CAPTURE                          REF R14
+      170 CAPTURE                          VAL R2
+      171 DUPCLOSURE                       R26 K30 [PROTO_12]
+      172 CAPTURE                          VAL R7
+      173 CAPTURE                          VAL R6
+      174 CAPTURE                          VAL R19
+      175 NEWCLOSURE                       R27 P11
+      176 CAPTURE                          VAL R2
+      177 CAPTURE                          VAL R16
+      178 CAPTURE                          REF R14
+      179 CAPTURE                          VAL R3
+      180 CAPTURE                          VAL R19
+      181 CAPTURE                          VAL R8
+      182 CAPTURE                          VAL R24
+      183 CAPTURE                          VAL R7
+      184 CAPTURE                          VAL R6
+      185 CAPTURE                          VAL R25
+      186 SETTABLEKS                       R27 R15 K31 ["init"]
+      188 DUPCLOSURE                       R27 K32 [PROTO_14]
+      189 CAPTURE                          VAL R17
+      190 SETTABLEKS                       R27 R15 K33 ["isWatching"]
+      192 GETTABLEKS                       R29 R6 K22 ["REIMPORT"]
+      194 GETTABLEKS                       R29 R29 K34 ["CPC_CALLBACKS"]
+      196 GETTABLEKS                       R29 R29 K35 ["GET_WATCH_STATUS"]
+      198 DUPCLOSURE                       R30 K36 [PROTO_15]
+      199 CAPTURE                          VAL R15
+      200 NAMECALL                         R27 R11 K37 ["OnInvoke"]
+      202 CALL                             R27 3 0
+      203 DUPCLOSURE                       R27 K38 [PROTO_16]
+      204 CAPTURE                          VAL R21
+      205 SETTABLEKS                       R27 R15 K39 ["start"]
+      207 DUPCLOSURE                       R27 K40 [PROTO_17]
+      208 CAPTURE                          VAL R17
+      209 CAPTURE                          VAL R23
+      210 SETTABLEKS                       R27 R15 K41 ["stop"]
+      212 CLOSEUPVALS                      R14
+      213 RETURN                           R15 1

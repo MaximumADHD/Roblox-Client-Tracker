@@ -156,19 +156,6 @@ PROTO_6:
        20 RETURN                           R0 0
 
 PROTO_7:
-        0 MOVE                             R2 R0
-        1 LOADNIL                          R3
-        2 LOADNIL                          R4
-        3 FORGPREP                         R2
-        4 LOADK                            R9 K0 ["Decal"]
-        5 NAMECALL                         R7 R6 K1 ["IsA"]
-        7 CALL                             R7 2 1
-        8 JUMPIFNOT                        R7 ; [+2]
-        9 SETTABLEKS                       R1 R6 K2 ["ZIndex"]
-       11 FORGLOOP                         R2 2 ; [-8]
-       13 RETURN                           R0 0
-
-PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["id"]
         2 GETUPVAL                         R3 0
         3 JUMPIFEQ                         R2 R3 ; [+2]
@@ -176,7 +163,7 @@ PROTO_8:
         6 LOADB                            R1 1
         7 RETURN                           R1 1
 
-PROTO_9:
+PROTO_8:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["allItems"]
@@ -201,20 +188,20 @@ PROTO_9:
        29 CALL                             R2 2 0
        30 RETURN                           R1 1
 
-PROTO_10:
+PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["accessories"]
         2 GETUPVAL                         R3 0
         3 SETTABLE                         R0 R2 R3
         4 RETURN                           R0 0
 
-PROTO_11:
+PROTO_10:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 GETUPVAL                         R3 1
         3 CALL                             R1 2 1
         4 RETURN                           R1 1
 
-PROTO_12:
+PROTO_11:
         0 DUPTABLE                         R3 K9 [{"Key", "Items", "PreviewComponent", "PublishAssetType", "WearBuiltin", "WearInstance", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "UpdateInstances"}]
         1 SETTABLEKS                       R0 R3 K0 ["Key"]
         3 SETTABLEKS                       R2 R3 K1 ["Items"]
@@ -236,13 +223,13 @@ PROTO_12:
        26 SETTABLEKS                       R4 R3 K8 ["UpdateInstances"]
        28 RETURN                           R3 1
 
-PROTO_13:
+PROTO_12:
         0 GETTABLEKS                       R2 R1 K0 ["classicClothing"]
         2 GETUPVAL                         R3 0
         3 SETTABLE                         R0 R2 R3
         4 RETURN                           R0 0
 
-PROTO_14:
+PROTO_13:
         0 DUPTABLE                         R3 K9 [{"Key", "Items", "PreviewComponent", "PublishAssetType", "MaxItems", "WearBuiltin", "CreateCustomInstanceFromSelection", "WearInstance", "GetBuiltinItemData"}]
         1 SETTABLEKS                       R0 R3 K0 ["Key"]
         3 SETTABLEKS                       R2 R3 K1 ["Items"]
@@ -262,7 +249,7 @@ PROTO_14:
        24 SETTABLEKS                       R4 R3 K8 ["GetBuiltinItemData"]
        26 RETURN                           R3 1
 
-PROTO_15:
+PROTO_14:
         0 GETTABLEKS                       R3 R1 K0 ["clothing"]
         2 LOADNIL                          R4
         3 LOADNIL                          R5
@@ -289,14 +276,14 @@ PROTO_15:
        36 CALL                             R3 2 0
        37 RETURN                           R0 0
 
-PROTO_16:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 GETUPVAL                         R3 1
         3 CALL                             R1 2 1
         4 RETURN                           R1 1
 
-PROTO_17:
+PROTO_16:
         0 NEWCLOSURE                       R4 P0
         1 CAPTURE                          VAL R1
         2 DUPTABLE                         R5 K10 [{"Key", "Items", "PreviewComponent", "PublishAssetType", "WearBuiltin", "CreateCustomInstanceFromSelection", "WearInstance", "UpdateInstances", "GetBuiltinItemData", "PreferredLayer"}]
@@ -319,17 +306,17 @@ PROTO_17:
        28 SETTABLEKS                       R3 R5 K9 ["PreferredLayer"]
        30 RETURN                           R5 1
 
-PROTO_18:
+PROTO_17:
         0 GETTABLEKS                       R2 R1 K0 ["patches"]
         2 GETUPVAL                         R3 0
         3 SETTABLE                         R0 R2 R3
         4 RETURN                           R0 0
 
-PROTO_19:
+PROTO_18:
         0 LOADNIL                          R0
         1 RETURN                           R0 1
 
-PROTO_20:
+PROTO_19:
         0 DUPTABLE                         R4 K7 [{"Key", "PreviewComponent", "Items", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance"}]
         1 SETTABLEKS                       R0 R4 K0 ["Key"]
         3 GETUPVAL                         R5 0
@@ -340,13 +327,13 @@ PROTO_20:
        10 SETTABLEKS                       R5 R4 K3 ["WearBuiltin"]
        12 GETTABLEKS                       R5 R3 K4 ["CreateCustomInstanceFromSelection"]
        14 SETTABLEKS                       R5 R4 K4 ["CreateCustomInstanceFromSelection"]
-       16 DUPCLOSURE                       R5 K8 [PROTO_19]
+       16 DUPCLOSURE                       R5 K8 [PROTO_18]
        17 SETTABLEKS                       R5 R4 K5 ["GetBuiltinItemData"]
        19 GETTABLEKS                       R5 R3 K6 ["WearInstance"]
        21 SETTABLEKS                       R5 R4 K6 ["WearInstance"]
        23 RETURN                           R4 1
 
-PROTO_21:
+PROTO_20:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createBodyPalette"]
         3 MOVE                             R2 R0
@@ -362,7 +349,7 @@ PROTO_21:
        16 CALL                             R1 4 -1
        17 RETURN                           R1 -1
 
-PROTO_22:
+PROTO_21:
         0 NEWTABLE                         R1 0 0
         2 MOVE                             R2 R0
         3 LOADNIL                          R3
@@ -446,7 +433,7 @@ PROTO_22:
       113 SETLIST                          R3 R4 -1 [1]
       115 RETURN                           R3 1
 
-PROTO_23:
+PROTO_22:
         0 GETTABLEKS                       R1 R0 K0 ["Name"]
         2 JUMPIFNOTEQKS                    R1 K1 ["Head"] ; [+6]
         4 LOADK                            R3 K2 ["MeshPart"]
@@ -463,7 +450,7 @@ PROTO_23:
        18 SETTABLEKS                       R2 R1 K8 ["Position"]
        20 RETURN                           R1 1
 
-PROTO_24:
+PROTO_23:
         0 NAMECALL                         R2 R0 K0 ["Clone"]
         2 CALL                             R2 1 1
         3 LOADK                            R3 K1 ["Head"]
@@ -476,21 +463,21 @@ PROTO_24:
        14 NEWTABLE                         R3 0 0
        16 RETURN                           R3 1
 
-PROTO_25:
+PROTO_24:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createBodyPalette"]
         3 LOADK                            R2 K1 ["HeadBodyPart"]
         4 GETIMPORT                        R3 K5 [Enum.AssetType.Head]
         6 MOVE                             R4 R0
         7 DUPTABLE                         R5 K8 [{"CreateCustomInstanceFromSelection", "WearInstance"}]
-        8 DUPCLOSURE                       R6 K9 [PROTO_23]
+        8 DUPCLOSURE                       R6 K9 [PROTO_22]
         9 SETTABLEKS                       R6 R5 K6 ["CreateCustomInstanceFromSelection"]
-       11 DUPCLOSURE                       R6 K10 [PROTO_24]
+       11 DUPCLOSURE                       R6 K10 [PROTO_23]
        12 SETTABLEKS                       R6 R5 K7 ["WearInstance"]
        14 CALL                             R1 4 -1
        15 RETURN                           R1 -1
 
-PROTO_26:
+PROTO_25:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -507,36 +494,36 @@ PROTO_26:
        21 CALL                             R1 2 -1
        22 RETURN                           R1 -1
 
-PROTO_27:
+PROTO_26:
         0 SETTABLEKS                       R0 R1 K0 ["animation"]
         2 RETURN                           R0 0
 
-PROTO_28:
+PROTO_27:
         0 LOADNIL                          R0
         1 RETURN                           R0 1
 
-PROTO_29:
+PROTO_28:
         0 DUPTABLE                         R2 K8 [{"Key", "OverrideEquipKey", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance"}]
         1 SETTABLEKS                       R0 R2 K0 ["Key"]
         3 LOADK                            R3 K9 ["animations"]
         4 SETTABLEKS                       R3 R2 K1 ["OverrideEquipKey"]
         6 SETTABLEKS                       R1 R2 K2 ["Items"]
-        8 DUPCLOSURE                       R3 K10 [PROTO_26]
+        8 DUPCLOSURE                       R3 K10 [PROTO_25]
         9 CAPTURE                          UPVAL U0
        10 CAPTURE                          UPVAL U1
        11 CAPTURE                          UPVAL U2
        12 SETTABLEKS                       R3 R2 K3 ["PreviewComponent"]
-       14 DUPCLOSURE                       R3 K11 [PROTO_27]
+       14 DUPCLOSURE                       R3 K11 [PROTO_26]
        15 SETTABLEKS                       R3 R2 K4 ["WearBuiltin"]
        17 GETUPVAL                         R3 3
        18 SETTABLEKS                       R3 R2 K5 ["CreateCustomInstanceFromSelection"]
-       20 DUPCLOSURE                       R3 K12 [PROTO_28]
+       20 DUPCLOSURE                       R3 K12 [PROTO_27]
        21 SETTABLEKS                       R3 R2 K6 ["GetBuiltinItemData"]
        23 GETUPVAL                         R3 4
        24 SETTABLEKS                       R3 R2 K7 ["WearInstance"]
        26 RETURN                           R2 1
 
-PROTO_30:
+PROTO_29:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -549,7 +536,7 @@ PROTO_30:
        15 CALL                             R1 2 -1
        16 RETURN                           R1 -1
 
-PROTO_31:
+PROTO_30:
         0 GETTABLEKS                       R4 R1 K0 ["clothing"]
         2 DUPTABLE                         R5 K4 [{"AssetId", "AssetType", "Order"}]
         3 GETTABLEKS                       R6 R0 K5 ["left"]
@@ -572,7 +559,7 @@ PROTO_31:
        35 CALL                             R3 2 0
        36 RETURN                           R0 0
 
-PROTO_32:
+PROTO_31:
         0 LOADK                            R3 K0 ["Folder"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
@@ -659,7 +646,7 @@ PROTO_32:
       104 CALL                             R1 2 1
       105 RETURN                           R1 1
 
-PROTO_33:
+PROTO_32:
         0 LOADK                            R5 K0 ["Folder"]
         1 NAMECALL                         R3 R0 K1 ["IsA"]
         3 CALL                             R3 2 1
@@ -691,7 +678,7 @@ PROTO_33:
        35 CALL                             R3 3 1
        36 RETURN                           R3 1
 
-PROTO_34:
+PROTO_33:
         0 GETTABLEKS                       R2 R0 K0 ["left"]
         2 GETUPVAL                         R3 0
         3 GETUPVAL                         R4 1
@@ -718,11 +705,11 @@ PROTO_34:
        32 MOVE                             R1 R3
        33 RETURN                           R1 1
 
-PROTO_35:
+PROTO_34:
         0 GETTABLEKS                       R1 R0 K0 ["left"]
         2 RETURN                           R1 1
 
-PROTO_36:
+PROTO_35:
         0 GETUPVAL                         R1 0
         1 LOADNIL                          R2
         2 LOADNIL                          R3
@@ -740,32 +727,32 @@ PROTO_36:
        19 CALL                             R1 1 0
        20 RETURN                           R0 0
 
-PROTO_37:
+PROTO_36:
         0 DUPTABLE                         R1 K10 [{"Key", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "WearInstance", "UpdateInstances", "GetBuiltinItemData", "Serializer", "PreferredLayer"}]
         1 LOADK                            R2 K11 ["Shoes"]
         2 SETTABLEKS                       R2 R1 K0 ["Key"]
         4 SETTABLEKS                       R0 R1 K1 ["Items"]
-        6 DUPCLOSURE                       R2 K12 [PROTO_30]
+        6 DUPCLOSURE                       R2 K12 [PROTO_29]
         7 CAPTURE                          UPVAL U0
         8 CAPTURE                          UPVAL U1
         9 SETTABLEKS                       R2 R1 K2 ["PreviewComponent"]
-       11 DUPCLOSURE                       R2 K13 [PROTO_31]
+       11 DUPCLOSURE                       R2 K13 [PROTO_30]
        12 SETTABLEKS                       R2 R1 K3 ["WearBuiltin"]
-       14 DUPCLOSURE                       R2 K14 [PROTO_32]
+       14 DUPCLOSURE                       R2 K14 [PROTO_31]
        15 CAPTURE                          UPVAL U2
        16 SETTABLEKS                       R2 R1 K4 ["CreateCustomInstanceFromSelection"]
-       18 DUPCLOSURE                       R2 K15 [PROTO_33]
+       18 DUPCLOSURE                       R2 K15 [PROTO_32]
        19 CAPTURE                          UPVAL U3
        20 SETTABLEKS                       R2 R1 K5 ["WearInstance"]
        22 GETUPVAL                         R2 4
        23 SETTABLEKS                       R2 R1 K6 ["UpdateInstances"]
-       25 DUPCLOSURE                       R2 K16 [PROTO_34]
+       25 DUPCLOSURE                       R2 K16 [PROTO_33]
        26 CAPTURE                          UPVAL U5
        27 CAPTURE                          UPVAL U6
        28 CAPTURE                          UPVAL U7
        29 SETTABLEKS                       R2 R1 K7 ["GetBuiltinItemData"]
        31 DUPTABLE                         R2 K19 [{"serialize", "deserialize"}]
-       32 DUPCLOSURE                       R3 K20 [PROTO_35]
+       32 DUPCLOSURE                       R3 K20 [PROTO_34]
        33 SETTABLEKS                       R3 R2 K17 ["serialize"]
        35 NEWCLOSURE                       R3 P6
        36 CAPTURE                          VAL R0
@@ -777,7 +764,7 @@ PROTO_37:
        46 SETTABLEKS                       R2 R1 K9 ["PreferredLayer"]
        48 RETURN                           R1 1
 
-PROTO_38:
+PROTO_37:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -794,27 +781,27 @@ PROTO_38:
        21 CALL                             R1 2 -1
        22 RETURN                           R1 -1
 
-PROTO_39:
+PROTO_38:
         0 SETTABLEKS                       R0 R1 K0 ["emotion"]
         2 RETURN                           R0 0
 
-PROTO_40:
+PROTO_39:
         0 LOADNIL                          R0
         1 RETURN                           R0 1
 
-PROTO_41:
+PROTO_40:
         0 DUPTABLE                         R1 K7 [{"Key", "Items", "PreviewComponent", "WearBuiltin", "GetBuiltinItemData", "CreateCustomInstanceFromSelection", "WearInstance"}]
         1 LOADK                            R2 K8 ["Emotions"]
         2 SETTABLEKS                       R2 R1 K0 ["Key"]
         4 SETTABLEKS                       R0 R1 K1 ["Items"]
-        6 DUPCLOSURE                       R2 K9 [PROTO_38]
+        6 DUPCLOSURE                       R2 K9 [PROTO_37]
         7 CAPTURE                          UPVAL U0
         8 CAPTURE                          UPVAL U1
         9 CAPTURE                          UPVAL U2
        10 SETTABLEKS                       R2 R1 K2 ["PreviewComponent"]
-       12 DUPCLOSURE                       R2 K10 [PROTO_39]
+       12 DUPCLOSURE                       R2 K10 [PROTO_38]
        13 SETTABLEKS                       R2 R1 K3 ["WearBuiltin"]
-       15 DUPCLOSURE                       R2 K11 [PROTO_40]
+       15 DUPCLOSURE                       R2 K11 [PROTO_39]
        16 SETTABLEKS                       R2 R1 K4 ["GetBuiltinItemData"]
        18 GETUPVAL                         R2 3
        19 SETTABLEKS                       R2 R1 K5 ["CreateCustomInstanceFromSelection"]
@@ -822,15 +809,15 @@ PROTO_41:
        22 SETTABLEKS                       R2 R1 K6 ["WearInstance"]
        24 RETURN                           R1 1
 
-PROTO_42:
+PROTO_41:
         0 SETTABLEKS                       R0 R1 K0 ["skinTone"]
         2 RETURN                           R0 0
 
-PROTO_43:
+PROTO_42:
         0 LOADNIL                          R0
         1 RETURN                           R0 1
 
-PROTO_44:
+PROTO_43:
         0 NEWTABLE                         R1 0 3
         2 GETTABLEKS                       R2 R0 K0 ["R"]
         4 GETTABLEKS                       R3 R0 K1 ["G"]
@@ -838,7 +825,7 @@ PROTO_44:
         8 SETLIST                          R1 R2 3 [1]
        10 RETURN                           R1 1
 
-PROTO_45:
+PROTO_44:
         0 GETIMPORT                        R1 K2 [Color3.new]
         2 GETTABLEN                        R2 R0 1
         3 GETTABLEN                        R3 R0 2
@@ -846,7 +833,7 @@ PROTO_45:
         5 CALL                             R1 3 -1
         6 RETURN                           R1 -1
 
-PROTO_46:
+PROTO_45:
         0 DUPTABLE                         R1 K9 [{"Key", "Items", "PreviewAspectRatio", "PreviewComponent", "CreateCustomInstanceFromSelection", "WearBuiltin", "WearInstance", "GetBuiltinItemData", "Serializer"}]
         1 LOADK                            R2 K10 ["Skin"]
         2 SETTABLEKS                       R2 R1 K0 ["Key"]
@@ -857,27 +844,27 @@ PROTO_46:
        10 SETTABLEKS                       R2 R1 K3 ["PreviewComponent"]
        12 GETUPVAL                         R2 1
        13 SETTABLEKS                       R2 R1 K4 ["CreateCustomInstanceFromSelection"]
-       15 DUPCLOSURE                       R2 K11 [PROTO_42]
+       15 DUPCLOSURE                       R2 K11 [PROTO_41]
        16 SETTABLEKS                       R2 R1 K5 ["WearBuiltin"]
        18 GETUPVAL                         R2 2
        19 SETTABLEKS                       R2 R1 K6 ["WearInstance"]
-       21 DUPCLOSURE                       R2 K12 [PROTO_43]
+       21 DUPCLOSURE                       R2 K12 [PROTO_42]
        22 SETTABLEKS                       R2 R1 K7 ["GetBuiltinItemData"]
        24 DUPTABLE                         R2 K15 [{"serialize", "deserialize"}]
-       25 DUPCLOSURE                       R3 K16 [PROTO_44]
+       25 DUPCLOSURE                       R3 K16 [PROTO_43]
        26 SETTABLEKS                       R3 R2 K13 ["serialize"]
-       28 DUPCLOSURE                       R3 K17 [PROTO_45]
+       28 DUPCLOSURE                       R3 K17 [PROTO_44]
        29 SETTABLEKS                       R3 R2 K14 ["deserialize"]
        31 SETTABLEKS                       R2 R1 K8 ["Serializer"]
        33 RETURN                           R1 1
 
-PROTO_47:
+PROTO_46:
         0 GETTABLEKS                       R2 R1 K0 ["gear"]
         2 GETUPVAL                         R3 0
         3 SETTABLE                         R0 R2 R3
         4 RETURN                           R0 0
 
-PROTO_48:
+PROTO_47:
         0 GETUPVAL                         R2 0
         1 JUMPIFNOTEQKS                    R2 K0 ["left"] ; [+3]
         3 LOADK                            R1 K1 ["LeftGripAttachment"]
@@ -909,7 +896,7 @@ PROTO_48:
        37 LOADNIL                          R2
        38 RETURN                           R2 1
 
-PROTO_49:
+PROTO_48:
         0 DUPTABLE                         R2 K9 [{"Key", "Items", "PreviewComponent", "PublishAssetType", "WearBuiltin", "WearInstance", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "UpdateInstances"}]
         1 LOADK                            R4 K10 ["Gear"]
         2 MOVE                             R5 R1
@@ -934,7 +921,7 @@ PROTO_49:
        30 SETTABLEKS                       R3 R2 K8 ["UpdateInstances"]
        32 RETURN                           R2 1
 
-PROTO_50:
+PROTO_49:
         0 GETTABLEKS                       R4 R1 K0 ["makeup"]
         2 DUPTABLE                         R5 K4 [{"AssetId", "AssetType", "Order"}]
         3 SETTABLEKS                       R0 R5 K1 ["AssetId"]
@@ -946,7 +933,7 @@ PROTO_50:
        14 CALL                             R3 2 0
        15 RETURN                           R0 0
 
-PROTO_51:
+PROTO_50:
         0 LOADK                            R3 K0 ["Decal"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
@@ -963,121 +950,36 @@ PROTO_51:
        16 CALL                             R1 1 -1
        17 RETURN                           R1 -1
 
+PROTO_51:
+        0 NEWTABLE                         R3 0 0
+        2 RETURN                           R3 1
+
 PROTO_52:
-        0 LOADNIL                          R0
-        1 RETURN                           R0 1
-
-PROTO_53:
-        0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["Head"]
-        3 LOADK                            R2 K1 ["AvatarPreviewerMakeup"]
-        4 NAMECALL                         R0 R0 K2 ["FindFirstChild"]
-        6 CALL                             R0 2 1
-        7 JUMPIFEQKNIL                     R0 ; [+7]
-        9 LOADK                            R3 K3 ["Folder"]
-       10 NAMECALL                         R1 R0 K4 ["IsA"]
-       12 CALL                             R1 2 1
-       13 JUMPIFNOT                        R1 ; [+1]
-       14 RETURN                           R0 1
-       15 GETIMPORT                        R1 K7 [Instance.new]
-       17 LOADK                            R2 K3 ["Folder"]
-       18 CALL                             R1 1 1
-       19 LOADK                            R2 K1 ["AvatarPreviewerMakeup"]
-       20 SETTABLEKS                       R2 R1 K8 ["Name"]
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R2 R2 K0 ["Head"]
-       25 SETTABLEKS                       R2 R1 K9 ["Parent"]
-       27 RETURN                           R1 1
-
-PROTO_54:
-        0 GETUPVAL                         R3 0
-        1 CALL                             R3 0 1
-        2 JUMPIFNOT                        R3 ; [+3]
-        3 NEWTABLE                         R3 0 0
-        5 RETURN                           R3 1
-        6 NEWCLOSURE                       R3 P0
-        7 CAPTURE                          VAL R1
-        8 NAMECALL                         R4 R0 K0 ["Clone"]
-       10 CALL                             R4 1 1
-       11 SETTABLEKS                       R2 R4 K1 ["ZIndex"]
-       13 GETTABLEKS                       R6 R1 K2 ["Head"]
-       15 LOADK                            R8 K3 ["AvatarPreviewerMakeup"]
-       16 NAMECALL                         R6 R6 K4 ["FindFirstChild"]
-       18 CALL                             R6 2 1
-       19 JUMPIFEQKNIL                     R6 ; [+8]
-       21 LOADK                            R9 K5 ["Folder"]
-       22 NAMECALL                         R7 R6 K6 ["IsA"]
-       24 CALL                             R7 2 1
-       25 JUMPIFNOT                        R7 ; [+2]
-       26 MOVE                             R5 R6
-       27 JUMP                             ; [+12]
-       28 GETIMPORT                        R7 K9 [Instance.new]
-       30 LOADK                            R8 K5 ["Folder"]
-       31 CALL                             R7 1 1
-       32 LOADK                            R8 K3 ["AvatarPreviewerMakeup"]
-       33 SETTABLEKS                       R8 R7 K10 ["Name"]
-       35 GETTABLEKS                       R8 R1 K2 ["Head"]
-       37 SETTABLEKS                       R8 R7 K11 ["Parent"]
-       39 MOVE                             R5 R7
-       40 SETTABLEKS                       R5 R4 K11 ["Parent"]
-       42 NEWTABLE                         R5 0 1
-       44 MOVE                             R6 R4
-       45 SETLIST                          R5 R6 1 [1]
-       47 RETURN                           R5 1
-
-PROTO_55:
-        0 DUPTABLE                         R3 K11 [{"Key", "OverrideEquipKey", "MaxItems", "PublishAssetType", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance", "UpdateInstances"}]
+        0 DUPTABLE                         R3 K10 [{"Key", "OverrideEquipKey", "MaxItems", "PublishAssetType", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance"}]
         1 SETTABLEKS                       R0 R3 K0 ["Key"]
         3 GETUPVAL                         R5 0
         4 CALL                             R5 0 1
         5 JUMPIFNOT                        R5 ; [+2]
-        6 LOADK                            R4 K12 ["Makeup"]
+        6 LOADK                            R4 K11 ["Makeup"]
         7 JUMP                             ; [+1]
         8 LOADNIL                          R4
         9 SETTABLEKS                       R4 R3 K1 ["OverrideEquipKey"]
        11 LOADN                            R4 6
        12 SETTABLEKS                       R4 R3 K2 ["MaxItems"]
-       14 GETUPVAL                         R5 1
-       15 CALL                             R5 0 1
-       16 JUMPIF                           R5 ; [+3]
-       17 GETUPVAL                         R5 2
-       18 CALL                             R5 0 1
-       19 JUMPIFNOT                        R5 ; [+2]
-       20 MOVE                             R4 R1
-       21 JUMP                             ; [+1]
-       22 LOADNIL                          R4
-       23 SETTABLEKS                       R4 R3 K3 ["PublishAssetType"]
-       25 SETTABLEKS                       R2 R3 K4 ["Items"]
-       27 GETUPVAL                         R4 3
-       28 SETTABLEKS                       R4 R3 K5 ["PreviewComponent"]
-       30 GETUPVAL                         R5 2
-       31 CALL                             R5 0 1
-       32 JUMPIFNOT                        R5 ; [+3]
-       33 NEWCLOSURE                       R4 P0
-       34 CAPTURE                          VAL R1
-       35 JUMP                             ; [+1]
-       36 GETUPVAL                         R4 4
-       37 SETTABLEKS                       R4 R3 K6 ["WearBuiltin"]
-       39 DUPCLOSURE                       R4 K13 [PROTO_51]
-       40 SETTABLEKS                       R4 R3 K7 ["CreateCustomInstanceFromSelection"]
-       42 GETUPVAL                         R5 2
-       43 CALL                             R5 0 1
-       44 JUMPIFNOT                        R5 ; [+2]
-       45 GETUPVAL                         R4 5
-       46 JUMP                             ; [+1]
-       47 DUPCLOSURE                       R4 K14 [PROTO_52]
-       48 SETTABLEKS                       R4 R3 K8 ["GetBuiltinItemData"]
-       50 DUPCLOSURE                       R4 K15 [PROTO_54]
-       51 CAPTURE                          UPVAL U2
-       52 SETTABLEKS                       R4 R3 K9 ["WearInstance"]
-       54 GETUPVAL                         R5 2
-       55 CALL                             R5 0 1
-       56 JUMPIFNOT                        R5 ; [+2]
-       57 LOADNIL                          R4
-       58 JUMP                             ; [+1]
-       59 GETUPVAL                         R4 6
-       60 SETTABLEKS                       R4 R3 K10 ["UpdateInstances"]
-       62 RETURN                           R3 1
+       14 SETTABLEKS                       R1 R3 K3 ["PublishAssetType"]
+       16 SETTABLEKS                       R2 R3 K4 ["Items"]
+       18 GETUPVAL                         R4 1
+       19 SETTABLEKS                       R4 R3 K5 ["PreviewComponent"]
+       21 NEWCLOSURE                       R4 P0
+       22 CAPTURE                          VAL R1
+       23 SETTABLEKS                       R4 R3 K6 ["WearBuiltin"]
+       25 DUPCLOSURE                       R4 K12 [PROTO_50]
+       26 SETTABLEKS                       R4 R3 K7 ["CreateCustomInstanceFromSelection"]
+       28 GETUPVAL                         R4 2
+       29 SETTABLEKS                       R4 R3 K8 ["GetBuiltinItemData"]
+       31 DUPCLOSURE                       R4 K13 [PROTO_51]
+       32 SETTABLEKS                       R4 R3 K9 ["WearInstance"]
+       34 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1134,114 +1036,99 @@ MAIN:
        89 GETIMPORT                        R11 K5 [require]
        91 GETTABLEKS                       R12 R0 K10 ["Src"]
        93 GETTABLEKS                       R12 R12 K21 ["Flags"]
-       95 GETTABLEKS                       R12 R12 K22 ["getFFlagAvatarPreviewerMakeupDescription"]
+       95 GETTABLEKS                       R12 R12 K22 ["getFFlagAvatarPreviewerMakeupSharedLimit"]
        97 CALL                             R11 1 1
        98 GETIMPORT                        R12 K5 [require]
       100 GETTABLEKS                       R13 R0 K10 ["Src"]
       102 GETTABLEKS                       R13 R13 K21 ["Flags"]
-      104 GETTABLEKS                       R13 R13 K23 ["getFFlagAvatarPreviewerMakeupSharedLimit"]
+      104 GETTABLEKS                       R13 R13 K23 ["getFFlagAvatarPreviewerBoneNestedAttachmentFix"]
       106 CALL                             R12 1 1
-      107 GETIMPORT                        R13 K5 [require]
-      109 GETTABLEKS                       R14 R0 K10 ["Src"]
-      111 GETTABLEKS                       R14 R14 K21 ["Flags"]
-      113 GETTABLEKS                       R14 R14 K24 ["getFFlagAvatarPreviewerLookComposer"]
-      115 CALL                             R13 1 1
-      116 GETIMPORT                        R14 K5 [require]
-      118 GETTABLEKS                       R15 R0 K10 ["Src"]
-      120 GETTABLEKS                       R15 R15 K21 ["Flags"]
-      122 GETTABLEKS                       R15 R15 K25 ["getFFlagAvatarPreviewerBoneNestedAttachmentFix"]
-      124 CALL                             R14 1 1
-      125 GETTABLEKS                       R15 R1 K17 ["Util"]
-      127 GETTABLEKS                       R15 R15 K26 ["AccessoryAndBodyToolShared"]
-      129 GETTABLEKS                       R15 R15 K27 ["AssetTypeAttachmentInfo"]
-      131 NEWTABLE                         R16 16 0
-      133 DUPCLOSURE                       R17 K28 [PROTO_0]
-      134 DUPCLOSURE                       R18 K29 [PROTO_1]
-      135 DUPCLOSURE                       R19 K30 [PROTO_3]
-      136 CAPTURE                          VAL R8
-      137 CAPTURE                          VAL R2
+      107 GETTABLEKS                       R13 R1 K17 ["Util"]
+      109 GETTABLEKS                       R13 R13 K24 ["AccessoryAndBodyToolShared"]
+      111 GETTABLEKS                       R13 R13 K25 ["AssetTypeAttachmentInfo"]
+      113 NEWTABLE                         R14 16 0
+      115 DUPCLOSURE                       R15 K26 [PROTO_0]
+      116 DUPCLOSURE                       R16 K27 [PROTO_1]
+      117 DUPCLOSURE                       R17 K28 [PROTO_3]
+      118 CAPTURE                          VAL R8
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          VAL R13
+      121 DUPCLOSURE                       R18 K29 [PROTO_4]
+      122 CAPTURE                          VAL R12
+      123 DUPCLOSURE                       R19 K30 [PROTO_6]
+      124 DUPCLOSURE                       R20 K31 [PROTO_8]
+      125 CAPTURE                          VAL R10
+      126 CAPTURE                          VAL R6
+      127 CAPTURE                          VAL R8
+      128 DUPCLOSURE                       R21 K32 [PROTO_11]
+      129 CAPTURE                          VAL R7
+      130 CAPTURE                          VAL R18
+      131 CAPTURE                          VAL R17
+      132 CAPTURE                          VAL R20
+      133 CAPTURE                          VAL R19
+      134 SETTABLEKS                       R21 R14 K33 ["basicAccessoryPalette"]
+      136 DUPCLOSURE                       R21 K34 [PROTO_13]
+      137 CAPTURE                          VAL R7
       138 CAPTURE                          VAL R15
-      139 DUPCLOSURE                       R20 K31 [PROTO_4]
-      140 CAPTURE                          VAL R14
-      141 DUPCLOSURE                       R21 K32 [PROTO_6]
-      142 DUPCLOSURE                       R22 K33 [PROTO_7]
-      143 DUPCLOSURE                       R23 K34 [PROTO_9]
-      144 CAPTURE                          VAL R10
-      145 CAPTURE                          VAL R6
-      146 CAPTURE                          VAL R8
-      147 DUPCLOSURE                       R24 K35 [PROTO_12]
-      148 CAPTURE                          VAL R7
-      149 CAPTURE                          VAL R20
-      150 CAPTURE                          VAL R19
-      151 CAPTURE                          VAL R23
-      152 CAPTURE                          VAL R21
-      153 SETTABLEKS                       R24 R16 K36 ["basicAccessoryPalette"]
-      155 DUPCLOSURE                       R24 K37 [PROTO_14]
-      156 CAPTURE                          VAL R7
-      157 CAPTURE                          VAL R17
-      158 CAPTURE                          VAL R18
-      159 CAPTURE                          VAL R23
-      160 SETTABLEKS                       R24 R16 K38 ["classicClothingPalette"]
-      162 DUPCLOSURE                       R24 K39 [PROTO_17]
-      163 CAPTURE                          VAL R7
-      164 CAPTURE                          VAL R19
-      165 CAPTURE                          VAL R20
-      166 CAPTURE                          VAL R21
-      167 CAPTURE                          VAL R23
-      168 SETTABLEKS                       R24 R16 K40 ["layeredClothingPalette"]
-      170 DUPCLOSURE                       R24 K41 [PROTO_20]
-      171 CAPTURE                          VAL R7
-      172 SETTABLEKS                       R24 R16 K42 ["createBodyPalette"]
-      174 DUPCLOSURE                       R24 K43 [PROTO_22]
-      175 CAPTURE                          VAL R16
+      139 CAPTURE                          VAL R16
+      140 CAPTURE                          VAL R20
+      141 SETTABLEKS                       R21 R14 K35 ["classicClothingPalette"]
+      143 DUPCLOSURE                       R21 K36 [PROTO_16]
+      144 CAPTURE                          VAL R7
+      145 CAPTURE                          VAL R17
+      146 CAPTURE                          VAL R18
+      147 CAPTURE                          VAL R19
+      148 CAPTURE                          VAL R20
+      149 SETTABLEKS                       R21 R14 K37 ["layeredClothingPalette"]
+      151 DUPCLOSURE                       R21 K38 [PROTO_19]
+      152 CAPTURE                          VAL R7
+      153 SETTABLEKS                       R21 R14 K39 ["createBodyPalette"]
+      155 DUPCLOSURE                       R21 K40 [PROTO_21]
+      156 CAPTURE                          VAL R14
+      157 CAPTURE                          VAL R15
+      158 CAPTURE                          VAL R16
+      159 SETTABLEKS                       R21 R14 K41 ["createBodyCategory"]
+      161 DUPCLOSURE                       R21 K42 [PROTO_24]
+      162 CAPTURE                          VAL R14
+      163 SETTABLEKS                       R21 R14 K43 ["createHeadPalette"]
+      165 DUPCLOSURE                       R21 K44 [PROTO_28]
+      166 CAPTURE                          VAL R3
+      167 CAPTURE                          VAL R5
+      168 CAPTURE                          VAL R8
+      169 CAPTURE                          VAL R15
+      170 CAPTURE                          VAL R16
+      171 SETTABLEKS                       R21 R14 K45 ["createBodyAnimationPalette"]
+      173 DUPCLOSURE                       R21 K46 [PROTO_36]
+      174 CAPTURE                          VAL R3
+      175 CAPTURE                          VAL R7
       176 CAPTURE                          VAL R17
       177 CAPTURE                          VAL R18
-      178 SETTABLEKS                       R24 R16 K44 ["createBodyCategory"]
-      180 DUPCLOSURE                       R24 K45 [PROTO_25]
-      181 CAPTURE                          VAL R16
-      182 SETTABLEKS                       R24 R16 K46 ["createHeadPalette"]
-      184 DUPCLOSURE                       R24 K47 [PROTO_29]
+      178 CAPTURE                          VAL R19
+      179 CAPTURE                          VAL R10
+      180 CAPTURE                          VAL R6
+      181 CAPTURE                          VAL R8
+      182 SETTABLEKS                       R21 R14 K47 ["shoesPalette"]
+      184 DUPCLOSURE                       R21 K48 [PROTO_40]
       185 CAPTURE                          VAL R3
       186 CAPTURE                          VAL R5
       187 CAPTURE                          VAL R8
-      188 CAPTURE                          VAL R17
-      189 CAPTURE                          VAL R18
-      190 SETTABLEKS                       R24 R16 K48 ["createBodyAnimationPalette"]
-      192 DUPCLOSURE                       R24 K49 [PROTO_37]
-      193 CAPTURE                          VAL R3
-      194 CAPTURE                          VAL R7
-      195 CAPTURE                          VAL R19
-      196 CAPTURE                          VAL R20
-      197 CAPTURE                          VAL R21
-      198 CAPTURE                          VAL R10
-      199 CAPTURE                          VAL R6
-      200 CAPTURE                          VAL R8
-      201 SETTABLEKS                       R24 R16 K50 ["shoesPalette"]
-      203 DUPCLOSURE                       R24 K51 [PROTO_41]
-      204 CAPTURE                          VAL R3
-      205 CAPTURE                          VAL R5
-      206 CAPTURE                          VAL R8
-      207 CAPTURE                          VAL R17
-      208 CAPTURE                          VAL R18
-      209 SETTABLEKS                       R24 R16 K52 ["emotionPalette"]
-      211 DUPCLOSURE                       R24 K53 [PROTO_46]
-      212 CAPTURE                          VAL R9
-      213 CAPTURE                          VAL R17
-      214 CAPTURE                          VAL R18
-      215 SETTABLEKS                       R24 R16 K54 ["skinPalette"]
-      217 DUPCLOSURE                       R24 K55 [PROTO_49]
-      218 CAPTURE                          VAL R7
-      219 CAPTURE                          VAL R20
-      220 CAPTURE                          VAL R23
-      221 CAPTURE                          VAL R21
-      222 SETTABLEKS                       R24 R16 K56 ["gearPalette"]
-      224 DUPCLOSURE                       R24 K57 [PROTO_55]
-      225 CAPTURE                          VAL R12
-      226 CAPTURE                          VAL R13
-      227 CAPTURE                          VAL R11
-      228 CAPTURE                          VAL R7
-      229 CAPTURE                          VAL R18
-      230 CAPTURE                          VAL R23
-      231 CAPTURE                          VAL R22
-      232 SETTABLEKS                       R24 R16 K58 ["createMakeupPalette"]
-      234 RETURN                           R16 1
+      188 CAPTURE                          VAL R15
+      189 CAPTURE                          VAL R16
+      190 SETTABLEKS                       R21 R14 K49 ["emotionPalette"]
+      192 DUPCLOSURE                       R21 K50 [PROTO_45]
+      193 CAPTURE                          VAL R9
+      194 CAPTURE                          VAL R15
+      195 CAPTURE                          VAL R16
+      196 SETTABLEKS                       R21 R14 K51 ["skinPalette"]
+      198 DUPCLOSURE                       R21 K52 [PROTO_48]
+      199 CAPTURE                          VAL R7
+      200 CAPTURE                          VAL R18
+      201 CAPTURE                          VAL R20
+      202 CAPTURE                          VAL R19
+      203 SETTABLEKS                       R21 R14 K53 ["gearPalette"]
+      205 DUPCLOSURE                       R21 K54 [PROTO_52]
+      206 CAPTURE                          VAL R11
+      207 CAPTURE                          VAL R7
+      208 CAPTURE                          VAL R20
+      209 SETTABLEKS                       R21 R14 K55 ["createMakeupPalette"]
+      211 RETURN                           R14 1

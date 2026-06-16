@@ -1,0 +1,105 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 DUPTABLE                         R0 K17 [{"Canvas", "CanvasContext", "Curve", "Grid", "GridLine", "InputDetector", "Label", "Panel", "Path2DWrapper", "Point", "Scale", "ScaleTick", "Scrollbar", "ScrollbarButton", "GridUtil", "MathUtil", "StyleUtil"}]
+        2 GETIMPORT                        R1 K19 [require]
+        4 GETIMPORT                        R2 K21 [script]
+        6 GETTABLEKS                       R2 R2 K22 ["Components"]
+        8 GETTABLEKS                       R2 R2 K0 ["Canvas"]
+       10 CALL                             R1 1 1
+       11 SETTABLEKS                       R1 R0 K0 ["Canvas"]
+       13 GETIMPORT                        R1 K19 [require]
+       15 GETIMPORT                        R2 K21 [script]
+       17 GETTABLEKS                       R2 R2 K1 ["CanvasContext"]
+       19 CALL                             R1 1 1
+       20 SETTABLEKS                       R1 R0 K1 ["CanvasContext"]
+       22 GETIMPORT                        R1 K19 [require]
+       24 GETIMPORT                        R2 K21 [script]
+       26 GETTABLEKS                       R2 R2 K22 ["Components"]
+       28 GETTABLEKS                       R2 R2 K2 ["Curve"]
+       30 CALL                             R1 1 1
+       31 SETTABLEKS                       R1 R0 K2 ["Curve"]
+       33 GETIMPORT                        R1 K19 [require]
+       35 GETIMPORT                        R2 K21 [script]
+       37 GETTABLEKS                       R2 R2 K22 ["Components"]
+       39 GETTABLEKS                       R2 R2 K3 ["Grid"]
+       41 CALL                             R1 1 1
+       42 SETTABLEKS                       R1 R0 K3 ["Grid"]
+       44 GETIMPORT                        R1 K19 [require]
+       46 GETIMPORT                        R2 K21 [script]
+       48 GETTABLEKS                       R2 R2 K22 ["Components"]
+       50 GETTABLEKS                       R2 R2 K4 ["GridLine"]
+       52 CALL                             R1 1 1
+       53 SETTABLEKS                       R1 R0 K4 ["GridLine"]
+       55 GETIMPORT                        R1 K19 [require]
+       57 GETIMPORT                        R2 K21 [script]
+       59 GETTABLEKS                       R2 R2 K22 ["Components"]
+       61 GETTABLEKS                       R2 R2 K5 ["InputDetector"]
+       63 CALL                             R1 1 1
+       64 SETTABLEKS                       R1 R0 K5 ["InputDetector"]
+       66 GETIMPORT                        R1 K19 [require]
+       68 GETIMPORT                        R2 K21 [script]
+       70 GETTABLEKS                       R2 R2 K22 ["Components"]
+       72 GETTABLEKS                       R2 R2 K6 ["Label"]
+       74 CALL                             R1 1 1
+       75 SETTABLEKS                       R1 R0 K6 ["Label"]
+       77 GETIMPORT                        R1 K19 [require]
+       79 GETIMPORT                        R2 K21 [script]
+       81 GETTABLEKS                       R2 R2 K22 ["Components"]
+       83 GETTABLEKS                       R2 R2 K7 ["Panel"]
+       85 CALL                             R1 1 1
+       86 SETTABLEKS                       R1 R0 K7 ["Panel"]
+       88 GETIMPORT                        R1 K19 [require]
+       90 GETIMPORT                        R2 K21 [script]
+       92 GETTABLEKS                       R2 R2 K22 ["Components"]
+       94 GETTABLEKS                       R2 R2 K8 ["Path2DWrapper"]
+       96 CALL                             R1 1 1
+       97 SETTABLEKS                       R1 R0 K8 ["Path2DWrapper"]
+       99 GETIMPORT                        R1 K19 [require]
+      101 GETIMPORT                        R2 K21 [script]
+      103 GETTABLEKS                       R2 R2 K22 ["Components"]
+      105 GETTABLEKS                       R2 R2 K9 ["Point"]
+      107 CALL                             R1 1 1
+      108 SETTABLEKS                       R1 R0 K9 ["Point"]
+      110 GETIMPORT                        R1 K19 [require]
+      112 GETIMPORT                        R2 K21 [script]
+      114 GETTABLEKS                       R2 R2 K22 ["Components"]
+      116 GETTABLEKS                       R2 R2 K10 ["Scale"]
+      118 CALL                             R1 1 1
+      119 SETTABLEKS                       R1 R0 K10 ["Scale"]
+      121 GETIMPORT                        R1 K19 [require]
+      123 GETIMPORT                        R2 K21 [script]
+      125 GETTABLEKS                       R2 R2 K22 ["Components"]
+      127 GETTABLEKS                       R2 R2 K11 ["ScaleTick"]
+      129 CALL                             R1 1 1
+      130 SETTABLEKS                       R1 R0 K11 ["ScaleTick"]
+      132 GETIMPORT                        R1 K19 [require]
+      134 GETIMPORT                        R2 K21 [script]
+      136 GETTABLEKS                       R2 R2 K22 ["Components"]
+      138 GETTABLEKS                       R2 R2 K12 ["Scrollbar"]
+      140 CALL                             R1 1 1
+      141 SETTABLEKS                       R1 R0 K12 ["Scrollbar"]
+      143 GETIMPORT                        R1 K19 [require]
+      145 GETIMPORT                        R2 K21 [script]
+      147 GETTABLEKS                       R2 R2 K22 ["Components"]
+      149 GETTABLEKS                       R2 R2 K13 ["ScrollbarButton"]
+      151 CALL                             R1 1 1
+      152 SETTABLEKS                       R1 R0 K13 ["ScrollbarButton"]
+      154 GETIMPORT                        R1 K19 [require]
+      156 GETIMPORT                        R2 K21 [script]
+      158 GETTABLEKS                       R2 R2 K23 ["Util"]
+      160 GETTABLEKS                       R2 R2 K14 ["GridUtil"]
+      162 CALL                             R1 1 1
+      163 SETTABLEKS                       R1 R0 K14 ["GridUtil"]
+      165 GETIMPORT                        R1 K19 [require]
+      167 GETIMPORT                        R2 K21 [script]
+      169 GETTABLEKS                       R2 R2 K23 ["Util"]
+      171 GETTABLEKS                       R2 R2 K15 ["MathUtil"]
+      173 CALL                             R1 1 1
+      174 SETTABLEKS                       R1 R0 K15 ["MathUtil"]
+      176 GETIMPORT                        R1 K19 [require]
+      178 GETIMPORT                        R2 K21 [script]
+      180 GETTABLEKS                       R2 R2 K23 ["Util"]
+      182 GETTABLEKS                       R2 R2 K16 ["StyleUtil"]
+      184 CALL                             R1 1 1
+      185 SETTABLEKS                       R1 R0 K16 ["StyleUtil"]
+      187 RETURN                           R0 1

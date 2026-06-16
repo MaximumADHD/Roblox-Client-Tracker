@@ -37,10 +37,10 @@ PROTO_1:
        18 GETTABLEKS                       R5 R5 K5 ["createElement"]
        20 GETUPVAL                         R6 0
        21 GETTABLEKS                       R6 R6 K6 ["View"]
-       23 DUPTABLE                         R7 K11 [{"LayoutOrder", "onActivated", "stateLayer", "tag"}]
+       23 DUPTABLE                         R7 K12 [{"LayoutOrder", "onActivated", "stateLayer", "tag", "testId"}]
        24 GETTABLEKS                       R8 R0 K7 ["LayoutOrder"]
        26 SETTABLEKS                       R8 R7 K7 ["LayoutOrder"]
-       28 GETTABLEKS                       R9 R0 K12 ["IsDisabled"]
+       28 GETTABLEKS                       R9 R0 K13 ["IsDisabled"]
        30 JUMPIF                           R9 ; [+5]
        31 NEWCLOSURE                       R8 P0
        32 CAPTURE                          VAL R4
@@ -49,102 +49,106 @@ PROTO_1:
        35 JUMP                             ; [+1]
        36 LOADNIL                          R8
        37 SETTABLEKS                       R8 R7 K8 ["onActivated"]
-       39 DUPTABLE                         R8 K14 [{"affordance"}]
+       39 DUPTABLE                         R8 K15 [{"affordance"}]
        40 GETUPVAL                         R9 0
-       41 GETTABLEKS                       R9 R9 K15 ["Enums"]
-       43 GETTABLEKS                       R9 R9 K16 ["StateLayerAffordance"]
-       45 GETTABLEKS                       R9 R9 K17 ["None"]
-       47 SETTABLEKS                       R9 R8 K13 ["affordance"]
+       41 GETTABLEKS                       R9 R9 K16 ["Enums"]
+       43 GETTABLEKS                       R9 R9 K17 ["StateLayerAffordance"]
+       45 GETTABLEKS                       R9 R9 K18 ["None"]
+       47 SETTABLEKS                       R9 R8 K14 ["affordance"]
        49 SETTABLEKS                       R8 R7 K9 ["stateLayer"]
        51 NEWTABLE                         R8 4 0
        53 LOADB                            R9 1
-       54 SETTABLEKS                       R9 R8 K18 ["row radius-small size-full-0 auto-y align-y-center padding-xsmall gap-small data-testid=move-dialog-folder-row"]
-       56 GETTABLEKS                       R9 R0 K19 ["IsSelected"]
-       58 SETTABLEKS                       R9 R8 K20 ["bg-action-soft-emphasis"]
-       60 GETTABLEKS                       R10 R0 K19 ["IsSelected"]
+       54 SETTABLEKS                       R9 R8 K19 ["row radius-small size-full-0 auto-y align-y-center padding-xsmall gap-small"]
+       56 GETTABLEKS                       R9 R0 K20 ["IsSelected"]
+       58 SETTABLEKS                       R9 R8 K21 ["bg-action-soft-emphasis"]
+       60 GETTABLEKS                       R10 R0 K20 ["IsSelected"]
        62 NOT                              R9 R10
-       63 SETTABLEKS                       R9 R8 K21 ["am-hover"]
+       63 SETTABLEKS                       R9 R8 K22 ["am-hover"]
        65 SETTABLEKS                       R8 R7 K10 ["tag"]
-       67 DUPTABLE                         R8 K25 [{"Icon", "Name", "DrillInButton"}]
-       68 GETUPVAL                         R9 2
-       69 GETTABLEKS                       R9 R9 K5 ["createElement"]
-       71 GETUPVAL                         R10 0
-       72 GETTABLEKS                       R10 R10 K22 ["Icon"]
-       74 DUPTABLE                         R11 K30 [{"LayoutOrder", "name", "variant", "style", "size"}]
-       75 LOADN                            R12 1
-       76 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-       78 GETUPVAL                         R12 0
-       79 GETTABLEKS                       R12 R12 K15 ["Enums"]
-       81 GETTABLEKS                       R12 R12 K31 ["IconName"]
-       83 GETTABLEKS                       R12 R12 K32 ["Folder"]
-       85 SETTABLEKS                       R12 R11 K26 ["name"]
-       87 GETUPVAL                         R12 0
-       88 GETTABLEKS                       R12 R12 K15 ["Enums"]
-       90 GETTABLEKS                       R12 R12 K33 ["IconVariant"]
-       92 GETTABLEKS                       R12 R12 K34 ["Filled"]
-       94 SETTABLEKS                       R12 R11 K27 ["variant"]
-       96 GETTABLEKS                       R12 R1 K35 ["Color"]
-       98 GETTABLEKS                       R12 R12 K36 ["Extended"]
-      100 GETTABLEKS                       R12 R12 K37 ["Yellow"]
-      102 GETTABLEKS                       R12 R12 K38 ["Yellow_300"]
-      104 SETTABLEKS                       R12 R11 K28 ["style"]
-      106 GETTABLEKS                       R12 R1 K39 ["Size"]
-      108 GETTABLEKS                       R12 R12 K40 ["Size_400"]
-      110 SETTABLEKS                       R12 R11 K29 ["size"]
-      112 CALL                             R9 2 1
-      113 SETTABLEKS                       R9 R8 K22 ["Icon"]
-      115 GETUPVAL                         R9 2
-      116 GETTABLEKS                       R9 R9 K5 ["createElement"]
-      118 GETUPVAL                         R10 0
-      119 GETTABLEKS                       R10 R10 K41 ["Text"]
-      121 DUPTABLE                         R11 K42 [{"LayoutOrder", "Text", "tag"}]
-      122 LOADN                            R12 2
-      123 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-      125 GETTABLEKS                       R12 R0 K32 ["Folder"]
-      127 GETTABLEKS                       R12 R12 K23 ["Name"]
-      129 SETTABLEKS                       R12 R11 K41 ["Text"]
-      131 NEWTABLE                         R12 2 0
-      133 LOADB                            R13 1
-      134 SETTABLEKS                       R13 R12 K43 ["fill auto-y text-label-medium text-truncate-end text-align-x-left"]
-      136 GETTABLEKS                       R13 R0 K12 ["IsDisabled"]
-      138 SETTABLEKS                       R13 R12 K44 ["content-inverse-muted"]
-      140 SETTABLEKS                       R12 R11 K10 ["tag"]
-      142 CALL                             R9 2 1
-      143 SETTABLEKS                       R9 R8 K23 ["Name"]
-      145 LOADB                            R9 0
-      146 GETTABLEKS                       R10 R0 K12 ["IsDisabled"]
-      148 JUMPIFEQKB                       R10 TRUE ; [+45]
-      150 GETUPVAL                         R9 2
-      151 GETTABLEKS                       R9 R9 K5 ["createElement"]
-      153 GETUPVAL                         R10 0
-      154 GETTABLEKS                       R10 R10 K6 ["View"]
-      156 DUPTABLE                         R11 K45 [{"LayoutOrder", "onActivated", "tag"}]
-      157 LOADN                            R12 3
-      158 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-      160 GETTABLEKS                       R12 R0 K46 ["OnDrillIn"]
-      162 SETTABLEKS                       R12 R11 K8 ["onActivated"]
-      164 LOADK                            R12 K47 ["auto-xy align-y-center data-testid=folder-row-drill-in"]
-      165 SETTABLEKS                       R12 R11 K10 ["tag"]
-      167 GETUPVAL                         R12 2
-      168 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      170 GETUPVAL                         R13 0
-      171 GETTABLEKS                       R13 R13 K22 ["Icon"]
-      173 DUPTABLE                         R14 K48 [{"name", "size"}]
-      174 GETUPVAL                         R15 0
-      175 GETTABLEKS                       R15 R15 K15 ["Enums"]
-      177 GETTABLEKS                       R15 R15 K31 ["IconName"]
-      179 GETTABLEKS                       R15 R15 K49 ["ChevronSmallRight"]
-      181 SETTABLEKS                       R15 R14 K26 ["name"]
-      183 GETUPVAL                         R15 0
-      184 GETTABLEKS                       R15 R15 K15 ["Enums"]
-      186 GETTABLEKS                       R15 R15 K50 ["IconSize"]
-      188 GETTABLEKS                       R15 R15 K51 ["Small"]
-      190 SETTABLEKS                       R15 R14 K29 ["size"]
-      192 CALL                             R12 2 -1
-      193 CALL                             R9 -1 1
-      194 SETTABLEKS                       R9 R8 K24 ["DrillInButton"]
-      196 CALL                             R5 3 -1
-      197 RETURN                           R5 -1
+       67 LOADK                            R8 K23 ["move-dialog-folder-row"]
+       68 SETTABLEKS                       R8 R7 K11 ["testId"]
+       70 DUPTABLE                         R8 K27 [{"Icon", "Name", "DrillInButton"}]
+       71 GETUPVAL                         R9 2
+       72 GETTABLEKS                       R9 R9 K5 ["createElement"]
+       74 GETUPVAL                         R10 0
+       75 GETTABLEKS                       R10 R10 K24 ["Icon"]
+       77 DUPTABLE                         R11 K32 [{"LayoutOrder", "name", "variant", "style", "size"}]
+       78 LOADN                            R12 1
+       79 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
+       81 GETUPVAL                         R12 0
+       82 GETTABLEKS                       R12 R12 K16 ["Enums"]
+       84 GETTABLEKS                       R12 R12 K33 ["IconName"]
+       86 GETTABLEKS                       R12 R12 K34 ["Folder"]
+       88 SETTABLEKS                       R12 R11 K28 ["name"]
+       90 GETUPVAL                         R12 0
+       91 GETTABLEKS                       R12 R12 K16 ["Enums"]
+       93 GETTABLEKS                       R12 R12 K35 ["IconVariant"]
+       95 GETTABLEKS                       R12 R12 K36 ["Filled"]
+       97 SETTABLEKS                       R12 R11 K29 ["variant"]
+       99 GETTABLEKS                       R12 R1 K37 ["Color"]
+      101 GETTABLEKS                       R12 R12 K38 ["Extended"]
+      103 GETTABLEKS                       R12 R12 K39 ["Yellow"]
+      105 GETTABLEKS                       R12 R12 K40 ["Yellow_300"]
+      107 SETTABLEKS                       R12 R11 K30 ["style"]
+      109 GETTABLEKS                       R12 R1 K41 ["Size"]
+      111 GETTABLEKS                       R12 R12 K42 ["Size_400"]
+      113 SETTABLEKS                       R12 R11 K31 ["size"]
+      115 CALL                             R9 2 1
+      116 SETTABLEKS                       R9 R8 K24 ["Icon"]
+      118 GETUPVAL                         R9 2
+      119 GETTABLEKS                       R9 R9 K5 ["createElement"]
+      121 GETUPVAL                         R10 0
+      122 GETTABLEKS                       R10 R10 K43 ["Text"]
+      124 DUPTABLE                         R11 K44 [{"LayoutOrder", "Text", "tag"}]
+      125 LOADN                            R12 2
+      126 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
+      128 GETTABLEKS                       R12 R0 K34 ["Folder"]
+      130 GETTABLEKS                       R12 R12 K25 ["Name"]
+      132 SETTABLEKS                       R12 R11 K43 ["Text"]
+      134 NEWTABLE                         R12 2 0
+      136 LOADB                            R13 1
+      137 SETTABLEKS                       R13 R12 K45 ["fill auto-y text-label-medium text-truncate-end text-align-x-left"]
+      139 GETTABLEKS                       R13 R0 K13 ["IsDisabled"]
+      141 SETTABLEKS                       R13 R12 K46 ["content-inverse-muted"]
+      143 SETTABLEKS                       R12 R11 K10 ["tag"]
+      145 CALL                             R9 2 1
+      146 SETTABLEKS                       R9 R8 K25 ["Name"]
+      148 LOADB                            R9 0
+      149 GETTABLEKS                       R10 R0 K13 ["IsDisabled"]
+      151 JUMPIFEQKB                       R10 TRUE ; [+48]
+      153 GETUPVAL                         R9 2
+      154 GETTABLEKS                       R9 R9 K5 ["createElement"]
+      156 GETUPVAL                         R10 0
+      157 GETTABLEKS                       R10 R10 K6 ["View"]
+      159 DUPTABLE                         R11 K47 [{"LayoutOrder", "onActivated", "tag", "testId"}]
+      160 LOADN                            R12 3
+      161 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
+      163 GETTABLEKS                       R12 R0 K48 ["OnDrillIn"]
+      165 SETTABLEKS                       R12 R11 K8 ["onActivated"]
+      167 LOADK                            R12 K49 ["auto-xy align-y-center"]
+      168 SETTABLEKS                       R12 R11 K10 ["tag"]
+      170 LOADK                            R12 K50 ["folder-row-drill-in"]
+      171 SETTABLEKS                       R12 R11 K11 ["testId"]
+      173 GETUPVAL                         R12 2
+      174 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      176 GETUPVAL                         R13 0
+      177 GETTABLEKS                       R13 R13 K24 ["Icon"]
+      179 DUPTABLE                         R14 K51 [{"name", "size"}]
+      180 GETUPVAL                         R15 0
+      181 GETTABLEKS                       R15 R15 K16 ["Enums"]
+      183 GETTABLEKS                       R15 R15 K33 ["IconName"]
+      185 GETTABLEKS                       R15 R15 K52 ["ChevronSmallRight"]
+      187 SETTABLEKS                       R15 R14 K28 ["name"]
+      189 GETUPVAL                         R15 0
+      190 GETTABLEKS                       R15 R15 K16 ["Enums"]
+      192 GETTABLEKS                       R15 R15 K53 ["IconSize"]
+      194 GETTABLEKS                       R15 R15 K54 ["Small"]
+      196 SETTABLEKS                       R15 R14 K31 ["size"]
+      198 CALL                             R12 2 -1
+      199 CALL                             R9 -1 1
+      200 SETTABLEKS                       R9 R8 K26 ["DrillInButton"]
+      202 CALL                             R5 3 -1
+      203 RETURN                           R5 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

@@ -14,44 +14,35 @@ MAIN:
        19 CALL                             R1 1 0
        20 GETIMPORT                        R1 K7 [require]
        22 GETTABLEKS                       R2 R0 K8 ["Src"]
-       24 GETTABLEKS                       R2 R2 K9 ["Flags"]
-       26 GETTABLEKS                       R2 R2 K11 ["getFFlagStudioLazyPluginManagement"]
+       24 GETTABLEKS                       R2 R2 K11 ["Util"]
+       26 GETTABLEKS                       R2 R2 K12 ["isCli"]
        28 CALL                             R1 1 1
        29 MOVE                             R2 R1
        30 CALL                             R2 0 1
-       31 JUMPIF                           R2 ; [+1]
+       31 JUMPIFNOT                        R2 ; [+1]
        32 RETURN                           R0 0
        33 GETIMPORT                        R2 K7 [require]
-       35 GETTABLEKS                       R3 R0 K8 ["Src"]
-       37 GETTABLEKS                       R3 R3 K12 ["Util"]
-       39 GETTABLEKS                       R3 R3 K13 ["isCli"]
+       35 GETTABLEKS                       R3 R0 K13 ["Bin"]
+       37 GETTABLEKS                       R3 R3 K14 ["Common"]
+       39 GETTABLEKS                       R3 R3 K15 ["pluginType"]
        41 CALL                             R2 1 1
-       42 MOVE                             R3 R2
-       43 CALL                             R3 0 1
-       44 JUMPIFNOT                        R3 ; [+1]
-       45 RETURN                           R0 0
-       46 GETIMPORT                        R3 K7 [require]
-       48 GETTABLEKS                       R4 R0 K14 ["Bin"]
-       50 GETTABLEKS                       R4 R4 K15 ["Common"]
-       52 GETTABLEKS                       R4 R4 K16 ["pluginType"]
-       54 CALL                             R3 1 1
-       55 GETTABLEKS                       R4 R3 K17 ["get"]
-       57 CALL                             R4 0 1
-       58 GETTABLEKS                       R5 R3 K18 ["Standalone"]
-       60 JUMPIFEQ                         R4 R5 ; [+2]
-       62 RETURN                           R0 0
-       63 GETIMPORT                        R4 K7 [require]
-       65 GETTABLEKS                       R5 R0 K14 ["Bin"]
-       67 GETTABLEKS                       R5 R5 K15 ["Common"]
-       69 GETTABLEKS                       R5 R5 K19 ["setup"]
-       71 CALL                             R4 1 1
-       72 GETIMPORT                        R5 K7 [require]
-       74 GETTABLEKS                       R6 R0 K14 ["Bin"]
-       76 GETTABLEKS                       R6 R6 K15 ["Common"]
-       78 GETTABLEKS                       R6 R6 K20 ["setupMain"]
-       80 CALL                             R5 1 1
-       81 MOVE                             R6 R4
-       82 GETIMPORT                        R7 K1 [plugin]
-       84 MOVE                             R8 R5
-       85 CALL                             R6 2 0
-       86 RETURN                           R0 0
+       42 GETTABLEKS                       R3 R2 K16 ["get"]
+       44 CALL                             R3 0 1
+       45 GETTABLEKS                       R4 R2 K17 ["Standalone"]
+       47 JUMPIFEQ                         R3 R4 ; [+2]
+       49 RETURN                           R0 0
+       50 GETIMPORT                        R3 K7 [require]
+       52 GETTABLEKS                       R4 R0 K13 ["Bin"]
+       54 GETTABLEKS                       R4 R4 K14 ["Common"]
+       56 GETTABLEKS                       R4 R4 K18 ["setup"]
+       58 CALL                             R3 1 1
+       59 GETIMPORT                        R4 K7 [require]
+       61 GETTABLEKS                       R5 R0 K13 ["Bin"]
+       63 GETTABLEKS                       R5 R5 K14 ["Common"]
+       65 GETTABLEKS                       R5 R5 K19 ["setupMain"]
+       67 CALL                             R4 1 1
+       68 MOVE                             R5 R3
+       69 GETIMPORT                        R6 K1 [plugin]
+       71 MOVE                             R7 R4
+       72 CALL                             R5 2 0
+       73 RETURN                           R0 0

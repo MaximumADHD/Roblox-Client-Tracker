@@ -41,7 +41,7 @@ PROTO_0:
        56 CALL                             R10 -1 -1
        57 NAMECALL                         R8 R0 K14 ["dispatch"]
        59 CALL                             R8 -1 0
-       60 JUMPIFNOT                        R7 ; [+101]
+       60 JUMPIFNOT                        R7 ; [+94]
        61 GETUPVAL                         R8 2
        62 GETTABLEKS                       R8 R8 K15 ["List"]
        64 GETTABLEKS                       R8 R8 K16 ["removeIndex"]
@@ -65,62 +65,55 @@ PROTO_0:
        89 CALL                             R15 1 3
        90 FORGPREP_NEXT                    R15
        91 GETUPVAL                         R20 0
-       92 JUMPIFNOTEQ                      R18 R20 ; [+65]
+       92 JUMPIFNOTEQ                      R18 R20 ; [+58]
        94 GETUPVAL                         R20 4
-       95 JUMPIFNOT                        R20 ; [+3]
-       96 GETUPVAL                         R20 5
-       97 CALL                             R20 0 1
-       98 JUMPIFNOT                        R20 ; [+5]
-       99 GETUPVAL                         R20 4
-      100 JUMPIF                           R20 ; [+8]
-      101 GETUPVAL                         R20 5
-      102 CALL                             R20 0 1
-      103 JUMPIFNOT                        R20 ; [+5]
-      104 GETUPVAL                         R20 6
-      105 GETTABLEKS                       R20 R20 K21 ["clearPose"]
-      107 MOVE                             R21 R5
-      108 CALL                             R20 1 0
-      109 GETTABLEKS                       R20 R18 K22 ["Keyframes"]
-      111 JUMPIFNOT                        R20 ; [+5]
-      112 GETUPVAL                         R21 7
-      113 GETTABLEKS                       R22 R18 K22 ["Keyframes"]
-      115 CALL                             R21 1 1
-      116 NOT                              R20 R21
-      117 GETUPVAL                         R21 8
-      118 MOVE                             R22 R9
-      119 CALL                             R21 1 1
-      120 GETTABLEKS                       R23 R21 K20 ["Instances"]
-      122 GETTABLE                         R22 R23 R13
-      123 GETTABLEKS                       R22 R22 K2 ["Tracks"]
-      125 LOADNIL                          R23
-      126 SETTABLE                         R23 R22 R18
-      127 GETUPVAL                         R24 9
-      128 MOVE                             R25 R21
+       95 CALL                             R20 0 1
+       96 JUMPIF                           R20 ; [+5]
+       97 GETUPVAL                         R20 5
+       98 GETTABLEKS                       R20 R20 K21 ["clearPose"]
+      100 MOVE                             R21 R5
+      101 CALL                             R20 1 0
+      102 GETTABLEKS                       R20 R18 K22 ["Keyframes"]
+      104 JUMPIFNOT                        R20 ; [+5]
+      105 GETUPVAL                         R21 6
+      106 GETTABLEKS                       R22 R18 K22 ["Keyframes"]
+      108 CALL                             R21 1 1
+      109 NOT                              R20 R21
+      110 GETUPVAL                         R21 7
+      111 MOVE                             R22 R9
+      112 CALL                             R21 1 1
+      113 GETTABLEKS                       R23 R21 K20 ["Instances"]
+      115 GETTABLE                         R22 R23 R13
+      116 GETTABLEKS                       R22 R22 K2 ["Tracks"]
+      118 LOADNIL                          R23
+      119 SETTABLE                         R23 R22 R18
+      120 GETUPVAL                         R24 8
+      121 MOVE                             R25 R21
+      122 CALL                             R24 1 -1
+      123 NAMECALL                         R22 R0 K14 ["dispatch"]
+      125 CALL                             R22 -1 0
+      126 GETUPVAL                         R24 9
+      127 NEWTABLE                         R25 0 0
       129 CALL                             R24 1 -1
       130 NAMECALL                         R22 R0 K14 ["dispatch"]
       132 CALL                             R22 -1 0
-      133 GETUPVAL                         R24 10
-      134 NEWTABLE                         R25 0 0
-      136 CALL                             R24 1 -1
-      137 NAMECALL                         R22 R0 K14 ["dispatch"]
-      139 CALL                             R22 -1 0
-      140 GETUPVAL                         R22 11
-      141 LOADK                            R24 K23 ["onTrackDeleted"]
-      142 GETUPVAL                         R25 0
-      143 MOVE                             R26 R20
-      144 MOVE                             R27 R6
-      145 GETTABLEKS                       R29 R9 K24 ["Metadata"]
-      147 JUMPIFNOT                        R29 ; [+5]
-      148 GETTABLEKS                       R28 R9 K24 ["Metadata"]
-      150 GETTABLEKS                       R28 R28 K25 ["Guid"]
-      152 JUMP                             ; [+1]
-      153 LOADNIL                          R28
-      154 NAMECALL                         R22 R22 K26 ["report"]
-      156 CALL                             R22 6 0
-      157 RETURN                           R0 0
-      158 FORGLOOP                         R15 2 ; [-68]
-      160 FORGLOOP                         R10 2 ; [-76]
-      162 RETURN                           R0 0
+      133 GETUPVAL                         R22 10
+      134 LOADK                            R24 K23 ["onTrackDeleted"]
+      135 GETUPVAL                         R25 0
+      136 MOVE                             R26 R20
+      137 MOVE                             R27 R6
+      138 GETTABLEKS                       R29 R9 K24 ["Metadata"]
+      140 JUMPIFNOT                        R29 ; [+5]
+      141 GETTABLEKS                       R28 R9 K24 ["Metadata"]
+      143 GETTABLEKS                       R28 R28 K25 ["Guid"]
+      145 JUMP                             ; [+1]
+      146 LOADNIL                          R28
+      147 NAMECALL                         R22 R22 K26 ["report"]
+      149 CALL                             R22 6 0
+      150 RETURN                           R0 0
+      151 FORGLOOP                         R15 2 ; [-61]
+      153 FORGLOOP                         R10 2 ; [-69]
+      155 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R2 P0
@@ -134,9 +127,8 @@ PROTO_1:
         8 CAPTURE                          UPVAL U6
         9 CAPTURE                          UPVAL U7
        10 CAPTURE                          UPVAL U8
-       11 CAPTURE                          UPVAL U9
-       12 CAPTURE                          VAL R1
-       13 RETURN                           R2 1
+       11 CAPTURE                          VAL R1
+       12 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -183,20 +175,14 @@ MAIN:
        71 GETTABLEKS                       R13 R0 K19 ["LuaFlags"]
        73 GETTABLEKS                       R13 R13 K20 ["GetFFlagEngineAnimator"]
        75 CALL                             R12 1 1
-       76 GETIMPORT                        R13 K22 [game]
-       78 LOADK                            R15 K23 ["ACEDeleteClearPose"]
-       79 LOADB                            R16 0
-       80 NAMECALL                         R13 R13 K24 ["DefineFastFlag"]
-       82 CALL                             R13 3 1
-       83 DUPCLOSURE                       R14 K25 [PROTO_1]
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R5
-       87 CAPTURE                          VAL R13
-       88 CAPTURE                          VAL R12
-       89 CAPTURE                          VAL R11
-       90 CAPTURE                          VAL R10
-       91 CAPTURE                          VAL R9
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R3
-       94 RETURN                           R14 1
+       76 DUPCLOSURE                       R13 K21 [PROTO_1]
+       77 CAPTURE                          VAL R6
+       78 CAPTURE                          VAL R1
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R12
+       81 CAPTURE                          VAL R11
+       82 CAPTURE                          VAL R10
+       83 CAPTURE                          VAL R9
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R3
+       86 RETURN                           R13 1

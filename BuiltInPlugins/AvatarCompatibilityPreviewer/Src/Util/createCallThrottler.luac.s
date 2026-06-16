@@ -10,22 +10,15 @@ PROTO_1:
         2 GETIMPORT                        R0 K2 [os.clock]
         4 CALL                             R0 0 1
         5 SETUPVAL                         R0 1
-        6 GETUPVAL                         R0 2
-        7 CALL                             R0 0 1
-        8 JUMPIFNOT                        R0 ; [+8]
-        9 GETIMPORT                        R0 K5 [task.spawn]
-       11 NEWCLOSURE                       R1 P0
-       12 CAPTURE                          UPVAL U4
-       13 CAPTURE                          UPVAL U5
-       14 CALL                             R0 1 1
-       15 SETUPVAL                         R0 3
-       16 JUMP                             ; [+3]
-       17 GETUPVAL                         R0 4
-       18 GETUPVAL                         R1 5
-       19 CALL                             R0 1 0
-       20 LOADNIL                          R0
-       21 SETUPVAL                         R0 5
-       22 RETURN                           R0 0
+        6 GETIMPORT                        R0 K5 [task.spawn]
+        8 NEWCLOSURE                       R1 P0
+        9 CAPTURE                          UPVAL U3
+       10 CAPTURE                          UPVAL U4
+       11 CALL                             R0 1 1
+       12 SETUPVAL                         R0 2
+       13 LOADNIL                          R0
+       14 SETUPVAL                         R0 4
+       15 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0
@@ -34,37 +27,44 @@ PROTO_2:
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
         5 CAPTURE                          UPVAL U4
-        6 CAPTURE                          UPVAL U5
-        7 SETUPVAL                         R0 5
-        8 GETUPVAL                         R2 0
-        9 JUMPIFNOT                        R2 ; [+1]
-       10 RETURN                           R0 0
-       11 GETIMPORT                        R2 K2 [os.clock]
-       13 CALL                             R2 0 1
-       14 GETUPVAL                         R4 1
-       15 GETUPVAL                         R5 6
-       16 ADD                              R3 R4 R5
-       17 JUMPIFNOTLT                      R3 R2 ; [+16]
-       19 GETUPVAL                         R2 2
-       20 CALL                             R2 0 1
-       21 JUMPIFNOT                        R2 ; [+9]
-       22 GETUPVAL                         R2 7
-       23 JUMPIFNOT                        R2 ; [+7]
-       24 GETUPVAL                         R2 3
-       25 JUMPIFEQKNIL                     R2 ; [+5]
-       27 GETIMPORT                        R2 K5 [task.cancel]
-       29 GETUPVAL                         R3 3
-       30 CALL                             R2 1 0
-       31 MOVE                             R2 R1
-       32 CALL                             R2 0 0
-       33 RETURN                           R0 0
-       34 LOADB                            R2 1
-       35 SETUPVAL                         R2 0
-       36 GETIMPORT                        R2 K7 [task.delay]
-       38 GETUPVAL                         R3 6
-       39 MOVE                             R4 R1
-       40 CALL                             R2 2 0
-       41 RETURN                           R0 0
+        6 SETUPVAL                         R0 4
+        7 GETUPVAL                         R2 0
+        8 JUMPIFNOT                        R2 ; [+1]
+        9 RETURN                           R0 0
+       10 GETIMPORT                        R2 K2 [os.clock]
+       12 CALL                             R2 0 1
+       13 GETUPVAL                         R4 1
+       14 GETUPVAL                         R5 5
+       15 ADD                              R3 R4 R5
+       16 JUMPIFNOTLT                      R3 R2 ; [+26]
+       18 GETUPVAL                         R2 6
+       19 JUMPIFNOT                        R2 ; [+7]
+       20 GETUPVAL                         R2 2
+       21 JUMPIFEQKNIL                     R2 ; [+5]
+       23 GETIMPORT                        R2 K5 [task.cancel]
+       25 GETUPVAL                         R3 2
+       26 CALL                             R2 1 0
+       27 LOADB                            R2 0
+       28 SETUPVAL                         R2 0
+       29 GETIMPORT                        R2 K2 [os.clock]
+       31 CALL                             R2 0 1
+       32 SETUPVAL                         R2 1
+       33 GETIMPORT                        R2 K7 [task.spawn]
+       35 NEWCLOSURE                       R3 P1
+       36 CAPTURE                          UPVAL U3
+       37 CAPTURE                          UPVAL U4
+       38 CALL                             R2 1 1
+       39 SETUPVAL                         R2 2
+       40 LOADNIL                          R2
+       41 SETUPVAL                         R2 4
+       42 RETURN                           R0 0
+       43 LOADB                            R2 1
+       44 SETUPVAL                         R2 0
+       45 GETIMPORT                        R2 K9 [task.delay]
+       47 GETUPVAL                         R3 5
+       48 MOVE                             R4 R1
+       49 CALL                             R2 2 0
+       50 RETURN                           R0 0
 
 PROTO_3:
         0 LOADNIL                          R3
@@ -74,26 +74,15 @@ PROTO_3:
         4 NEWCLOSURE                       R7 P0
         5 CAPTURE                          REF R4
         6 CAPTURE                          REF R5
-        7 CAPTURE                          UPVAL U0
-        8 CAPTURE                          REF R6
-        9 CAPTURE                          VAL R0
-       10 CAPTURE                          REF R3
-       11 CAPTURE                          VAL R1
-       12 CAPTURE                          VAL R2
-       13 CLOSEUPVALS                      R3
-       14 RETURN                           R7 1
+        7 CAPTURE                          REF R6
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          REF R3
+       10 CAPTURE                          VAL R1
+       11 CAPTURE                          VAL R2
+       12 CLOSEUPVALS                      R3
+       13 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
-        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
-        6 CALL                             R0 2 1
-        7 GETIMPORT                        R1 K5 [require]
-        9 GETTABLEKS                       R2 R0 K6 ["Src"]
-       11 GETTABLEKS                       R2 R2 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarPreviewerMakeup"]
-       15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_3]
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R2 1
+        1 DUPCLOSURE                       R0 K0 [PROTO_3]
+        2 RETURN                           R0 1

@@ -64,54 +64,46 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Flags"]
        13 GETTABLEKS                       R2 R2 K8 ["getFFlagAvatarPreviewerFilterRigDescriptions"]
        15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K5 [require]
-       18 GETTABLEKS                       R3 R0 K6 ["Src"]
-       20 GETTABLEKS                       R3 R3 K7 ["Flags"]
-       22 GETTABLEKS                       R3 R3 K9 ["getFFlagAvatarPreviewerMakeup"]
-       24 CALL                             R2 1 1
-       25 NEWTABLE                         R3 0 9
-       27 LOADK                            R4 K10 ["Animation"]
-       28 LOADK                            R5 K11 ["Attachment"]
-       29 LOADK                            R6 K12 ["BasePart"]
-       30 LOADK                            R7 K13 ["BaseWrap"]
-       31 LOADK                            R8 K14 ["DataModelMesh"]
-       32 LOADK                            R9 K15 ["FaceControls"]
-       33 LOADK                            R10 K16 ["Humanoid"]
-       34 LOADK                            R11 K17 ["SurfaceAppearance"]
-       35 LOADK                            R12 K18 ["ValueBase"]
-       36 SETLIST                          R3 R4 9 [1]
-       38 MOVE                             R4 R2
-       39 CALL                             R4 0 1
-       40 JUMPIFNOT                        R4 ; [+7]
-       41 FASTCALL2K                       TABLE_INSERT R3 K19 ; [+5]
-       43 MOVE                             R5 R3
-       44 LOADK                            R6 K19 ["WrapTextureTransfer"]
-       45 GETIMPORT                        R4 K22 [table.insert]
-       47 CALL                             R4 2 0
-       48 MOVE                             R4 R1
-       49 CALL                             R4 0 1
-       50 JUMPIFNOT                        R4 ; [+28]
-       51 FASTCALL2K                       TABLE_INSERT R3 K23 ; [+5]
-       53 MOVE                             R5 R3
-       54 LOADK                            R6 K23 ["HumanoidRigDescription"]
-       55 GETIMPORT                        R4 K22 [table.insert]
-       57 CALL                             R4 2 0
-       58 FASTCALL2K                       TABLE_INSERT R3 K24 ; [+5]
-       60 MOVE                             R5 R3
-       61 LOADK                            R6 K24 ["DigitsRigDescription"]
-       62 GETIMPORT                        R4 K22 [table.insert]
-       64 CALL                             R4 2 0
-       65 FASTCALL2K                       TABLE_INSERT R3 K25 ; [+5]
-       67 MOVE                             R5 R3
-       68 LOADK                            R6 K25 ["AnimationConstraint"]
-       69 GETIMPORT                        R4 K22 [table.insert]
-       71 CALL                             R4 2 0
-       72 FASTCALL2K                       TABLE_INSERT R3 K26 ; [+5]
-       74 MOVE                             R5 R3
-       75 LOADK                            R6 K26 ["JointInstance"]
-       76 GETIMPORT                        R4 K22 [table.insert]
-       78 CALL                             R4 2 0
-       79 DUPCLOSURE                       R4 K27 [PROTO_0]
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          VAL R4
-       82 RETURN                           R4 1
+       16 NEWTABLE                         R2 0 9
+       18 LOADK                            R3 K9 ["Animation"]
+       19 LOADK                            R4 K10 ["Attachment"]
+       20 LOADK                            R5 K11 ["BasePart"]
+       21 LOADK                            R6 K12 ["BaseWrap"]
+       22 LOADK                            R7 K13 ["DataModelMesh"]
+       23 LOADK                            R8 K14 ["FaceControls"]
+       24 LOADK                            R9 K15 ["Humanoid"]
+       25 LOADK                            R10 K16 ["SurfaceAppearance"]
+       26 LOADK                            R11 K17 ["ValueBase"]
+       27 SETLIST                          R2 R3 9 [1]
+       29 FASTCALL2K                       TABLE_INSERT R2 K18 ; [+5]
+       31 MOVE                             R4 R2
+       32 LOADK                            R5 K18 ["WrapTextureTransfer"]
+       33 GETIMPORT                        R3 K21 [table.insert]
+       35 CALL                             R3 2 0
+       36 MOVE                             R3 R1
+       37 CALL                             R3 0 1
+       38 JUMPIFNOT                        R3 ; [+28]
+       39 FASTCALL2K                       TABLE_INSERT R2 K22 ; [+5]
+       41 MOVE                             R4 R2
+       42 LOADK                            R5 K22 ["HumanoidRigDescription"]
+       43 GETIMPORT                        R3 K21 [table.insert]
+       45 CALL                             R3 2 0
+       46 FASTCALL2K                       TABLE_INSERT R2 K23 ; [+5]
+       48 MOVE                             R4 R2
+       49 LOADK                            R5 K23 ["DigitsRigDescription"]
+       50 GETIMPORT                        R3 K21 [table.insert]
+       52 CALL                             R3 2 0
+       53 FASTCALL2K                       TABLE_INSERT R2 K24 ; [+5]
+       55 MOVE                             R4 R2
+       56 LOADK                            R5 K24 ["AnimationConstraint"]
+       57 GETIMPORT                        R3 K21 [table.insert]
+       59 CALL                             R3 2 0
+       60 FASTCALL2K                       TABLE_INSERT R2 K25 ; [+5]
+       62 MOVE                             R4 R2
+       63 LOADK                            R5 K25 ["JointInstance"]
+       64 GETIMPORT                        R3 K21 [table.insert]
+       66 CALL                             R3 2 0
+       67 DUPCLOSURE                       R3 K26 [PROTO_0]
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          VAL R3
+       70 RETURN                           R3 1

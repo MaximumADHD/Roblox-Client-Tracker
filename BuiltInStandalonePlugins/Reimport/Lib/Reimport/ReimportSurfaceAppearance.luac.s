@@ -8,41 +8,58 @@ PROTO_0:
         9 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K4 [{"creatorId", "creatorType", "assetName", "targetType"}]
-        3 GETUPVAL                         R5 2
-        4 CALL                             R5 0 1
-        5 JUMPIFNOT                        R5 ; [+4]
-        6 GETUPVAL                         R4 3
-        7 GETTABLEKS                       R4 R4 K0 ["creatorId"]
-        9 JUMP                             ; [+1]
-       10 GETUPVAL                         R4 4
-       11 SETTABLEKS                       R4 R3 K0 ["creatorId"]
-       13 GETUPVAL                         R5 2
-       14 CALL                             R5 0 1
-       15 JUMPIFNOT                        R5 ; [+4]
-       16 GETUPVAL                         R4 3
-       17 GETTABLEKS                       R4 R4 K1 ["creatorType"]
-       19 JUMP                             ; [+2]
-       20 GETIMPORT                        R4 K8 [Enum.AssetCreatorType.User]
-       22 SETTABLEKS                       R4 R3 K1 ["creatorType"]
-       24 LOADK                            R4 K9 ["Image"]
-       25 SETTABLEKS                       R4 R3 K2 ["assetName"]
-       27 GETIMPORT                        R4 K11 [Enum.AssetType.Image]
-       29 SETTABLEKS                       R4 R3 K3 ["targetType"]
-       31 NAMECALL                         R0 R0 K12 ["UploadAssetFromPathAsync"]
-       33 CALL                             R0 3 2
-       34 SETUPVAL                         R1 5
-       35 GETUPVAL                         R2 6
-       36 CALL                             R2 0 1
-       37 JUMPIFNOT                        R2 ; [+6]
-       38 GETIMPORT                        R2 K14 [pcall]
-       40 NEWCLOSURE                       R3 P0
-       41 CAPTURE                          UPVAL U7
-       42 CAPTURE                          VAL R0
-       43 CALL                             R2 1 0
-       44 RETURN                           R0 1
+        0 LOADNIL                          R0
+        1 GETUPVAL                         R1 0
+        2 CALL                             R1 0 1
+        3 JUMPIFNOT                        R1 ; [+9]
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R1 R1 K0 ["acquireLock"]
+        7 GETUPVAL                         R2 2
+        8 GETUPVAL                         R3 3
+        9 GETTABLEKS                       R3 R3 K1 ["creatorId"]
+       11 CALL                             R1 2 1
+       12 MOVE                             R0 R1
+       13 GETUPVAL                         R1 4
+       14 GETUPVAL                         R3 2
+       15 DUPTABLE                         R4 K5 [{"creatorId", "creatorType", "assetName", "targetType"}]
+       16 GETUPVAL                         R6 5
+       17 CALL                             R6 0 1
+       18 JUMPIFNOT                        R6 ; [+4]
+       19 GETUPVAL                         R5 3
+       20 GETTABLEKS                       R5 R5 K1 ["creatorId"]
+       22 JUMP                             ; [+1]
+       23 GETUPVAL                         R5 6
+       24 SETTABLEKS                       R5 R4 K1 ["creatorId"]
+       26 GETUPVAL                         R6 5
+       27 CALL                             R6 0 1
+       28 JUMPIFNOT                        R6 ; [+4]
+       29 GETUPVAL                         R5 3
+       30 GETTABLEKS                       R5 R5 K2 ["creatorType"]
+       32 JUMP                             ; [+2]
+       33 GETIMPORT                        R5 K9 [Enum.AssetCreatorType.User]
+       35 SETTABLEKS                       R5 R4 K2 ["creatorType"]
+       37 LOADK                            R5 K10 ["Image"]
+       38 SETTABLEKS                       R5 R4 K3 ["assetName"]
+       40 GETIMPORT                        R5 K12 [Enum.AssetType.Image]
+       42 SETTABLEKS                       R5 R4 K4 ["targetType"]
+       44 NAMECALL                         R1 R1 K13 ["UploadAssetFromPathAsync"]
+       46 CALL                             R1 3 2
+       47 GETUPVAL                         R3 0
+       48 CALL                             R3 0 1
+       49 JUMPIFNOT                        R3 ; [+4]
+       50 JUMPIFNOT                        R0 ; [+3]
+       51 GETTABLEKS                       R3 R0 K14 ["release"]
+       53 CALL                             R3 0 0
+       54 SETUPVAL                         R2 7
+       55 GETUPVAL                         R3 8
+       56 CALL                             R3 0 1
+       57 JUMPIFNOT                        R3 ; [+6]
+       58 GETIMPORT                        R3 K16 [pcall]
+       60 NEWCLOSURE                       R4 P0
+       61 CAPTURE                          UPVAL U9
+       62 CAPTURE                          VAL R1
+       63 CALL                             R3 1 0
+       64 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -52,28 +69,30 @@ PROTO_2:
         5 GETIMPORT                        R4 K2 [pcall]
         7 NEWCLOSURE                       R5 P0
         8 CAPTURE                          UPVAL U1
-        9 CAPTURE                          VAL R0
-       10 CAPTURE                          UPVAL U2
+        9 CAPTURE                          UPVAL U2
+       10 CAPTURE                          VAL R0
        11 CAPTURE                          VAL R1
-       12 CAPTURE                          VAL R2
-       13 CAPTURE                          REF R3
-       14 CAPTURE                          UPVAL U3
-       15 CAPTURE                          UPVAL U4
-       16 CALL                             R4 1 2
-       17 JUMPIF                           R4 ; [+4]
-       18 LOADNIL                          R6
-       19 MOVE                             R7 R5
-       20 CLOSEUPVALS                      R3
-       21 RETURN                           R6 2
-       22 JUMPIFEQKNIL                     R3 ; [+5]
-       24 LOADNIL                          R6
-       25 MOVE                             R7 R3
-       26 CLOSEUPVALS                      R3
-       27 RETURN                           R6 2
-       28 MOVE                             R6 R5
-       29 LOADNIL                          R7
-       30 CLOSEUPVALS                      R3
-       31 RETURN                           R6 2
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U4
+       14 CAPTURE                          VAL R2
+       15 CAPTURE                          REF R3
+       16 CAPTURE                          UPVAL U5
+       17 CAPTURE                          UPVAL U6
+       18 CALL                             R4 1 2
+       19 JUMPIF                           R4 ; [+4]
+       20 LOADNIL                          R6
+       21 MOVE                             R7 R5
+       22 CLOSEUPVALS                      R3
+       23 RETURN                           R6 2
+       24 JUMPIFEQKNIL                     R3 ; [+5]
+       26 LOADNIL                          R6
+       27 MOVE                             R7 R3
+       28 CLOSEUPVALS                      R3
+       29 RETURN                           R6 2
+       30 MOVE                             R6 R5
+       31 LOADNIL                          R7
+       32 CLOSEUPVALS                      R3
+       33 RETURN                           R6 2
 
 PROTO_3:
         0 GETUPVAL                         R3 0
@@ -85,46 +104,48 @@ PROTO_3:
         7 GETIMPORT                        R7 K2 [pcall]
         9 NEWCLOSURE                       R8 P0
        10 CAPTURE                          UPVAL U3
-       11 CAPTURE                          VAL R3
-       12 CAPTURE                          UPVAL U4
+       11 CAPTURE                          UPVAL U4
+       12 CAPTURE                          VAL R3
        13 CAPTURE                          VAL R4
-       14 CAPTURE                          VAL R5
-       15 CAPTURE                          REF R6
-       16 CAPTURE                          UPVAL U5
-       17 CAPTURE                          UPVAL U6
-       18 CALL                             R7 1 2
-       19 JUMPIF                           R7 ; [+4]
-       20 LOADNIL                          R1
-       21 MOVE                             R2 R8
-       22 CLOSEUPVALS                      R6
-       23 JUMP                             ; [+9]
-       24 JUMPIFEQKNIL                     R6 ; [+5]
-       26 LOADNIL                          R1
-       27 MOVE                             R2 R6
-       28 CLOSEUPVALS                      R6
-       29 JUMP                             ; [+3]
-       30 MOVE                             R1 R8
-       31 LOADNIL                          R2
-       32 CLOSEUPVALS                      R6
-       33 GETUPVAL                         R4 7
-       34 ADDK                             R3 R4 K3 [1]
-       35 SETUPVAL                         R3 7
-       36 GETUPVAL                         R3 8
-       37 JUMPIFNOT                        R3 ; [+6]
-       38 GETUPVAL                         R3 8
-       39 GETUPVAL                         R5 7
-       40 GETUPVAL                         R7 9
-       41 LENGTH                           R6 R7
-       42 DIV                              R4 R5 R6
-       43 CALL                             R3 1 0
-       44 MOVE                             R3 R0
-       45 DUPTABLE                         R4 K7 [{"kind", "assetId", "err"}]
-       46 GETUPVAL                         R5 10
-       47 SETTABLEKS                       R5 R4 K4 ["kind"]
-       49 SETTABLEKS                       R1 R4 K5 ["assetId"]
-       51 SETTABLEKS                       R2 R4 K6 ["err"]
-       53 CALL                             R3 1 0
-       54 RETURN                           R0 0
+       14 CAPTURE                          UPVAL U5
+       15 CAPTURE                          UPVAL U6
+       16 CAPTURE                          VAL R5
+       17 CAPTURE                          REF R6
+       18 CAPTURE                          UPVAL U7
+       19 CAPTURE                          UPVAL U8
+       20 CALL                             R7 1 2
+       21 JUMPIF                           R7 ; [+4]
+       22 LOADNIL                          R1
+       23 MOVE                             R2 R8
+       24 CLOSEUPVALS                      R6
+       25 JUMP                             ; [+9]
+       26 JUMPIFEQKNIL                     R6 ; [+5]
+       28 LOADNIL                          R1
+       29 MOVE                             R2 R6
+       30 CLOSEUPVALS                      R6
+       31 JUMP                             ; [+3]
+       32 MOVE                             R1 R8
+       33 LOADNIL                          R2
+       34 CLOSEUPVALS                      R6
+       35 GETUPVAL                         R4 9
+       36 ADDK                             R3 R4 K3 [1]
+       37 SETUPVAL                         R3 9
+       38 GETUPVAL                         R3 10
+       39 JUMPIFNOT                        R3 ; [+6]
+       40 GETUPVAL                         R3 10
+       41 GETUPVAL                         R5 9
+       42 GETUPVAL                         R7 11
+       43 LENGTH                           R6 R7
+       44 DIV                              R4 R5 R6
+       45 CALL                             R3 1 0
+       46 MOVE                             R3 R0
+       47 DUPTABLE                         R4 K7 [{"kind", "assetId", "err"}]
+       48 GETUPVAL                         R5 12
+       49 SETTABLEKS                       R5 R4 K4 ["kind"]
+       51 SETTABLEKS                       R1 R4 K5 ["assetId"]
+       53 SETTABLEKS                       R2 R4 K6 ["err"]
+       55 CALL                             R3 1 0
+       56 RETURN                           R0 0
 
 PROTO_4:
         0 LOADN                            R3 0
@@ -144,36 +165,38 @@ PROTO_4:
        16 CAPTURE                          UPVAL U3
        17 CAPTURE                          UPVAL U4
        18 CAPTURE                          UPVAL U5
-       19 CAPTURE                          REF R3
-       20 CAPTURE                          VAL R2
-       21 CAPTURE                          VAL R4
-       22 CAPTURE                          VAL R8
-       23 CALL                             R12 1 -1
-       24 FASTCALL                         TABLE_INSERT ; [+2]
-       25 GETIMPORT                        R10 K3 [table.insert]
-       27 CALL                             R10 -1 0
-       28 FORGLOOP                         R5 2 ; [-22]
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R5 R5 K4 ["all"]
-       33 MOVE                             R6 R4
-       34 CALL                             R5 1 1
-       35 NAMECALL                         R5 R5 K5 ["await"]
-       37 CALL                             R5 1 2
-       38 NEWTABLE                         R7 0 0
-       40 MOVE                             R8 R6
-       41 LOADNIL                          R9
-       42 LOADNIL                          R10
-       43 FORGPREP                         R8
-       44 GETTABLEKS                       R13 R12 K6 ["kind"]
-       46 DUPTABLE                         R14 K9 [{"assetId", "err"}]
-       47 GETTABLEKS                       R15 R12 K7 ["assetId"]
-       49 SETTABLEKS                       R15 R14 K7 ["assetId"]
-       51 GETTABLEKS                       R15 R12 K8 ["err"]
-       53 SETTABLEKS                       R15 R14 K8 ["err"]
-       55 SETTABLE                         R14 R7 R13
-       56 FORGLOOP                         R8 2 ; [-13]
-       58 CLOSEUPVALS                      R3
-       59 RETURN                           R7 1
+       19 CAPTURE                          UPVAL U6
+       20 CAPTURE                          UPVAL U7
+       21 CAPTURE                          REF R3
+       22 CAPTURE                          VAL R2
+       23 CAPTURE                          VAL R4
+       24 CAPTURE                          VAL R8
+       25 CALL                             R12 1 -1
+       26 FASTCALL                         TABLE_INSERT ; [+2]
+       27 GETIMPORT                        R10 K3 [table.insert]
+       29 CALL                             R10 -1 0
+       30 FORGLOOP                         R5 2 ; [-24]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K4 ["all"]
+       35 MOVE                             R6 R4
+       36 CALL                             R5 1 1
+       37 NAMECALL                         R5 R5 K5 ["await"]
+       39 CALL                             R5 1 2
+       40 NEWTABLE                         R7 0 0
+       42 MOVE                             R8 R6
+       43 LOADNIL                          R9
+       44 LOADNIL                          R10
+       45 FORGPREP                         R8
+       46 GETTABLEKS                       R13 R12 K6 ["kind"]
+       48 DUPTABLE                         R14 K9 [{"assetId", "err"}]
+       49 GETTABLEKS                       R15 R12 K7 ["assetId"]
+       51 SETTABLEKS                       R15 R14 K7 ["assetId"]
+       53 GETTABLEKS                       R15 R12 K8 ["err"]
+       55 SETTABLEKS                       R15 R14 K8 ["err"]
+       57 SETTABLE                         R14 R7 R13
+       58 FORGLOOP                         R8 2 ; [-13]
+       60 CLOSEUPVALS                      R3
+       61 RETURN                           R7 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -357,35 +380,13 @@ PROTO_8:
       202 GETIMPORT                        R18 K41 [Enum.FinishRecordingOperation.Commit]
       204 NAMECALL                         R15 R15 K42 ["FinishRecording"]
       206 CALL                             R15 3 0
-      207 GETUPVAL                         R15 8
-      208 CALL                             R15 0 1
-      209 JUMPIF                           R15 ; [+30]
-      210 GETUPVAL                         R15 9
-      211 GETTABLEKS                       R15 R15 K43 ["logReimportEvent"]
-      213 DUPTABLE                         R16 K48 [{"configId", "usedStudioDefaultPreset", "wasReimportRelativeToThis", "targetType"}]
-      214 SETTABLEKS                       R2 R16 K44 ["configId"]
-      216 LOADB                            R17 1
-      217 GETTABLEKS                       R18 R3 K49 ["preset"]
-      219 JUMPIFEQKNIL                     R18 ; [+10]
-      221 GETTABLEKS                       R18 R3 K49 ["preset"]
-      223 GETUPVAL                         R19 10
-      224 GETTABLEKS                       R19 R19 K50 ["StudioDefaultPreset"]
-      226 JUMPIFEQ                         R18 R19 ; [+2]
-      228 LOADB                            R17 0 +1
-      229 LOADB                            R17 1
-      230 SETTABLEKS                       R17 R16 K45 ["usedStudioDefaultPreset"]
-      232 LOADB                            R17 0
-      233 SETTABLEKS                       R17 R16 K46 ["wasReimportRelativeToThis"]
-      235 GETTABLEKS                       R17 R0 K51 ["ClassName"]
-      237 SETTABLEKS                       R17 R16 K47 ["targetType"]
-      239 CALL                             R15 1 0
-      240 GETIMPORT                        R15 K54 [task.delay]
-      242 LOADK                            R16 K55 [0.3]
-      243 NEWCLOSURE                       R17 P2
-      244 CAPTURE                          VAL R1
-      245 CALL                             R15 2 0
-      246 CLOSEUPVALS                      R6
-      247 RETURN                           R0 0
+      207 GETIMPORT                        R15 K45 [task.delay]
+      209 LOADK                            R16 K46 [0.3]
+      210 NEWCLOSURE                       R17 P2
+      211 CAPTURE                          VAL R1
+      212 CALL                             R15 2 0
+      213 CLOSEUPVALS                      R6
+      214 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -395,93 +396,90 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R2 R0 K6 ["Lib"]
-       11 GETTABLEKS                       R2 R2 K7 ["Constants"]
-       13 CALL                             R1 1 1
-       14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K6 ["Lib"]
-       18 GETTABLEKS                       R3 R3 K8 ["External"]
-       20 GETTABLEKS                       R3 R3 K9 ["AssetImportService"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K6 ["Lib"]
-       27 GETTABLEKS                       R4 R4 K8 ["External"]
-       29 GETTABLEKS                       R4 R4 K10 ["ChangeHistoryService"]
-       31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R5 R0 K6 ["Lib"]
-       36 GETTABLEKS                       R5 R5 K11 ["Reimport"]
-       38 GETTABLEKS                       R5 R5 K12 ["MaterialUtils"]
-       40 CALL                             R4 1 1
-       41 GETIMPORT                        R5 K5 [require]
-       43 GETTABLEKS                       R6 R0 K6 ["Lib"]
-       45 GETTABLEKS                       R6 R6 K11 ["Reimport"]
-       47 GETTABLEKS                       R6 R6 K13 ["ReimportConfigs"]
-       49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K6 ["Lib"]
-       54 GETTABLEKS                       R7 R7 K8 ["External"]
-       56 GETTABLEKS                       R7 R7 K14 ["StudioService"]
+       11 GETTABLEKS                       R2 R2 K7 ["External"]
+       13 GETTABLEKS                       R2 R2 K8 ["AssetImportService"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R3 R0 K6 ["Lib"]
+       20 GETTABLEKS                       R3 R3 K7 ["External"]
+       22 GETTABLEKS                       R3 R3 K9 ["ChangeHistoryService"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R4 R0 K6 ["Lib"]
+       29 GETTABLEKS                       R4 R4 K10 ["Reimport"]
+       31 GETTABLEKS                       R4 R4 K11 ["MaterialUtils"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R5 R0 K6 ["Lib"]
+       38 GETTABLEKS                       R5 R5 K10 ["Reimport"]
+       40 GETTABLEKS                       R5 R5 K12 ["ReimportConfigs"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K5 [require]
+       45 GETTABLEKS                       R6 R0 K6 ["Lib"]
+       47 GETTABLEKS                       R6 R6 K7 ["External"]
+       49 GETTABLEKS                       R6 R6 K13 ["StudioService"]
+       51 CALL                             R5 1 1
+       52 GETIMPORT                        R6 K5 [require]
+       54 GETTABLEKS                       R7 R0 K14 ["Packages"]
+       56 GETTABLEKS                       R7 R7 K15 ["Promise"]
        58 CALL                             R6 1 1
        59 GETIMPORT                        R7 K5 [require]
        61 GETTABLEKS                       R8 R0 K6 ["Lib"]
-       63 GETTABLEKS                       R8 R8 K15 ["Util"]
-       65 GETTABLEKS                       R8 R8 K16 ["Telemetry"]
+       63 GETTABLEKS                       R8 R8 K7 ["External"]
+       65 GETTABLEKS                       R8 R8 K16 ["AssetAccess"]
        67 CALL                             R7 1 1
        68 GETIMPORT                        R8 K5 [require]
-       70 GETTABLEKS                       R9 R0 K17 ["Packages"]
-       72 GETTABLEKS                       R9 R9 K18 ["Promise"]
-       74 CALL                             R8 1 1
-       75 GETIMPORT                        R9 K5 [require]
-       77 GETTABLEKS                       R10 R0 K6 ["Lib"]
-       79 GETTABLEKS                       R10 R10 K8 ["External"]
-       81 GETTABLEKS                       R10 R10 K19 ["AssetAccess"]
+       70 GETTABLEKS                       R9 R0 K6 ["Lib"]
+       72 GETTABLEKS                       R9 R9 K10 ["Reimport"]
+       74 GETTABLEKS                       R9 R9 K17 ["UploadUtils"]
+       76 CALL                             R8 1 1
+       77 GETIMPORT                        R9 K5 [require]
+       79 GETTABLEKS                       R10 R0 K18 ["Flags"]
+       81 GETTABLEKS                       R10 R10 K19 ["GetFFlagReimportNoSuffixIsColorMap"]
        83 CALL                             R9 1 1
        84 GETIMPORT                        R10 K5 [require]
-       86 GETTABLEKS                       R11 R0 K20 ["Flags"]
-       88 GETTABLEKS                       R11 R11 K21 ["GetFFlagReimportNoSuffixIsColorMap"]
+       86 GETTABLEKS                       R11 R0 K18 ["Flags"]
+       88 GETTABLEKS                       R11 R11 K20 ["GetFFlagEnableGroupUpload"]
        90 CALL                             R10 1 1
        91 GETIMPORT                        R11 K5 [require]
-       93 GETTABLEKS                       R12 R0 K20 ["Flags"]
-       95 GETTABLEKS                       R12 R12 K22 ["GetFFlagEnableGroupUpload"]
+       93 GETTABLEKS                       R12 R0 K18 ["Flags"]
+       95 GETTABLEKS                       R12 R12 K21 ["GetFFlagExpShareUploadedTextures"]
        97 CALL                             R11 1 1
        98 GETIMPORT                        R12 K5 [require]
-      100 GETTABLEKS                       R13 R0 K20 ["Flags"]
-      102 GETTABLEKS                       R13 R13 K23 ["GetFFlagExpShareUploadedTextures"]
+      100 GETTABLEKS                       R13 R0 K18 ["Flags"]
+      102 GETTABLEKS                       R13 R13 K22 ["GetFFlagReimportFileWatcher"]
       104 CALL                             R12 1 1
       105 GETIMPORT                        R13 K5 [require]
-      107 GETTABLEKS                       R14 R0 K20 ["Flags"]
-      109 GETTABLEKS                       R14 R14 K24 ["GetFFlagReimportBasicTelemetry"]
-      111 CALL                             R13 1 1
-      112 GETIMPORT                        R14 K5 [require]
-      114 GETIMPORT                        R15 K1 [script]
-      116 GETTABLEKS                       R15 R15 K25 ["Parent"]
-      118 GETTABLEKS                       R15 R15 K26 ["Types"]
-      120 CALL                             R14 1 1
-      121 NEWTABLE                         R15 1 0
-      123 DUPCLOSURE                       R16 K27 [PROTO_2]
-      124 CAPTURE                          VAL R6
-      125 CAPTURE                          VAL R2
-      126 CAPTURE                          VAL R11
+      107 GETIMPORT                        R14 K1 [script]
+      109 GETTABLEKS                       R14 R14 K23 ["Parent"]
+      111 GETTABLEKS                       R14 R14 K24 ["Types"]
+      113 CALL                             R13 1 1
+      114 NEWTABLE                         R14 1 0
+      116 DUPCLOSURE                       R15 K25 [PROTO_2]
+      117 CAPTURE                          VAL R5
+      118 CAPTURE                          VAL R12
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R1
+      121 CAPTURE                          VAL R10
+      122 CAPTURE                          VAL R11
+      123 CAPTURE                          VAL R7
+      124 DUPCLOSURE                       R16 K26 [PROTO_4]
+      125 CAPTURE                          VAL R6
+      126 CAPTURE                          VAL R5
       127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R9
-      129 DUPCLOSURE                       R17 K28 [PROTO_4]
-      130 CAPTURE                          VAL R8
-      131 CAPTURE                          VAL R6
-      132 CAPTURE                          VAL R2
-      133 CAPTURE                          VAL R11
-      134 CAPTURE                          VAL R12
-      135 CAPTURE                          VAL R9
-      136 DUPCLOSURE                       R18 K29 [PROTO_8]
-      137 CAPTURE                          VAL R5
-      138 CAPTURE                          VAL R2
-      139 CAPTURE                          VAL R4
-      140 CAPTURE                          VAL R10
-      141 CAPTURE                          VAL R6
-      142 CAPTURE                          VAL R11
-      143 CAPTURE                          VAL R17
-      144 CAPTURE                          VAL R3
-      145 CAPTURE                          VAL R13
-      146 CAPTURE                          VAL R7
-      147 CAPTURE                          VAL R1
-      148 SETTABLEKS                       R18 R15 K30 ["reimport"]
-      150 RETURN                           R15 1
+      128 CAPTURE                          VAL R8
+      129 CAPTURE                          VAL R1
+      130 CAPTURE                          VAL R10
+      131 CAPTURE                          VAL R11
+      132 CAPTURE                          VAL R7
+      133 DUPCLOSURE                       R17 K27 [PROTO_8]
+      134 CAPTURE                          VAL R4
+      135 CAPTURE                          VAL R1
+      136 CAPTURE                          VAL R3
+      137 CAPTURE                          VAL R9
+      138 CAPTURE                          VAL R5
+      139 CAPTURE                          VAL R10
+      140 CAPTURE                          VAL R16
+      141 CAPTURE                          VAL R2
+      142 SETTABLEKS                       R17 R14 K28 ["reimport"]
+      144 RETURN                           R14 1

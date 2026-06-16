@@ -7,6 +7,9 @@ PROTO_0:
         8 RETURN                           R0 1
 
 PROTO_1:
+        0 RETURN                           R0 0
+
+PROTO_2:
         0 JUMPIFNOTEQKS                    R1 K0 ["Toolbox"] ; [+6]
         2 DUPTABLE                         R2 K2 [{"CreatorMarketplaceWebUrl"}]
         3 LOADK                            R3 K3 [""]
@@ -23,5 +26,7 @@ MAIN:
         6 CAPTURE                          VAL R0
         7 SETTABLEKS                       R1 R0 K2 ["new"]
         9 DUPCLOSURE                       R1 K3 [PROTO_1]
-       10 SETTABLEKS                       R1 R0 K4 ["GetPluginPolicy"]
-       12 RETURN                           R0 1
+       10 SETTABLEKS                       R1 R0 K4 ["Destroy"]
+       12 DUPCLOSURE                       R1 K5 [PROTO_2]
+       13 SETTABLEKS                       R1 R0 K6 ["GetPluginPolicy"]
+       15 RETURN                           R0 1

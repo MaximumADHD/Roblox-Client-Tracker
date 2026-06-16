@@ -3,27 +3,49 @@ PROTO_0:
         2 RETURN                           R1 1
 
 PROTO_1:
-        0 NEWTABLE                         R0 1 0
-        2 DUPCLOSURE                       R1 K0 [PROTO_0]
-        3 SETTABLEKS                       R1 R0 K1 ["_productInfoFetcher"]
-        5 GETUPVAL                         R3 0
-        6 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-        8 MOVE                             R2 R0
-        9 GETIMPORT                        R1 K3 [setmetatable]
-       11 CALL                             R1 2 1
-       12 RETURN                           R1 1
+        0 NEWTABLE                         R0 2 0
+        2 NEWTABLE                         R1 0 0
+        4 SETTABLEKS                       R1 R0 K0 ["_mockProductInfos"]
+        6 DUPCLOSURE                       R1 K1 [PROTO_0]
+        7 SETTABLEKS                       R1 R0 K2 ["_productInfoFetcher"]
+        9 GETUPVAL                         R3 0
+       10 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       12 MOVE                             R2 R0
+       13 GETIMPORT                        R1 K4 [setmetatable]
+       15 CALL                             R1 2 1
+       16 RETURN                           R1 1
 
 PROTO_2:
-        0 GETTABLEKS                       R2 R0 K0 ["_productInfoFetcher"]
-        2 MOVE                             R3 R1
-        3 CALL                             R2 1 -1
-        4 RETURN                           R2 -1
+        0 RETURN                           R0 0
 
 PROTO_3:
+        0 GETTABLEKS                       R3 R0 K0 ["_mockProductInfos"]
+        2 GETTABLE                         R2 R3 R1
+        3 JUMPIFNOT                        R2 ; [+4]
+        4 GETTABLEKS                       R3 R0 K0 ["_mockProductInfos"]
+        6 GETTABLE                         R2 R3 R1
+        7 RETURN                           R2 1
+        8 GETTABLEKS                       R2 R0 K1 ["_productInfoFetcher"]
+       10 JUMPIFNOT                        R2 ; [+5]
+       11 GETTABLEKS                       R2 R0 K1 ["_productInfoFetcher"]
+       13 MOVE                             R3 R1
+       14 CALL                             R2 1 -1
+       15 RETURN                           R2 -1
+       16 GETIMPORT                        R2 K3 [error]
+       18 LOADK                            R3 K4 ["No product info for asset id"]
+       19 CALL                             R2 1 0
+       20 RETURN                           R0 0
+
+PROTO_4:
+        0 GETTABLEKS                       R3 R0 K0 ["_mockProductInfos"]
+        2 SETTABLE                         R2 R3 R1
+        3 RETURN                           R0 0
+
+PROTO_5:
         0 SETTABLEKS                       R1 R0 K0 ["_productInfoFetcher"]
         2 RETURN                           R0 0
 
-PROTO_4:
+PROTO_6:
         0 DUPTABLE                         R2 K18 [{"AssetId", "AssetTypeId", "ContentRatingTypeId", "Created", "Creator", "Description", "IconImageAssetId", "IsForSale", "IsLimited", "IsLimitedUnique", "IsNew", "IsPublicDomain", "MinimumMembershipLevel", "Name", "ProductId", "Sales", "TargetId", "Updated"}]
         1 SETTABLEKS                       R0 R2 K0 ["AssetId"]
         3 GETIMPORT                        R3 K22 [Enum.AssetType.Plugin]
@@ -80,9 +102,13 @@ MAIN:
         6 CAPTURE                          VAL R0
         7 SETTABLEKS                       R1 R0 K2 ["new"]
         9 DUPCLOSURE                       R1 K3 [PROTO_2]
-       10 SETTABLEKS                       R1 R0 K4 ["GetProductInfoAsync"]
+       10 SETTABLEKS                       R1 R0 K4 ["Destroy"]
        12 DUPCLOSURE                       R1 K5 [PROTO_3]
-       13 SETTABLEKS                       R1 R0 K6 ["setProductInfoFetcher"]
+       13 SETTABLEKS                       R1 R0 K6 ["GetProductInfoAsync"]
        15 DUPCLOSURE                       R1 K7 [PROTO_4]
-       16 SETTABLEKS                       R1 R0 K8 ["generateProductInfo"]
-       18 RETURN                           R0 1
+       16 SETTABLEKS                       R1 R0 K8 ["setMockProductInfo"]
+       18 DUPCLOSURE                       R1 K9 [PROTO_5]
+       19 SETTABLEKS                       R1 R0 K10 ["setProductInfoFetcher"]
+       21 DUPCLOSURE                       R1 K11 [PROTO_6]
+       22 SETTABLEKS                       R1 R0 K12 ["generateProductInfo"]
+       24 RETURN                           R0 1

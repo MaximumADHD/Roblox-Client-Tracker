@@ -1922,84 +1922,90 @@ PROTO_43:
         3 GETUPVAL                         R2 1
         4 LOADN                            R3 1
         5 DUPTABLE                         R4 K2 [{"customFields"}]
-        6 DUPTABLE                         R6 K4 [{"success"}]
+        6 DUPTABLE                         R6 K5 [{"success", "errorCode"}]
         7 GETTABLEKS                       R7 R0 K3 ["success"]
         9 SETTABLEKS                       R7 R6 K3 ["success"]
-       11 GETUPVAL                         R7 2
-       12 GETTABLEKS                       R7 R7 K5 ["join"]
-       14 MOVE                             R8 R6
-       15 DUPTABLE                         R9 K7 [{"experimentationGroup"}]
-       16 GETUPVAL                         R11 3
-       17 NAMECALL                         R11 R11 K8 ["get"]
-       19 CALL                             R11 1 1
-       20 JUMPIFNOTEQKNIL                  R11 ; [+3]
-       22 LOADNIL                          R10
-       23 JUMP                             ; [+16]
-       24 GETUPVAL                         R13 4
-       25 GETTABLE                         R12 R11 R13
-       26 JUMPIFNOTEQKNIL                  R12 ; [+3]
-       28 GETTABLEKS                       R12 R11 K9 ["generatedExperimentVariantDistributionVariable"]
+       11 GETTABLEKS                       R7 R0 K4 ["errorCode"]
+       13 SETTABLEKS                       R7 R6 K4 ["errorCode"]
+       15 GETUPVAL                         R7 2
+       16 GETTABLEKS                       R7 R7 K6 ["join"]
+       18 MOVE                             R8 R6
+       19 DUPTABLE                         R9 K8 [{"experimentationGroup"}]
+       20 GETUPVAL                         R11 3
+       21 NAMECALL                         R11 R11 K9 ["get"]
+       23 CALL                             R11 1 1
+       24 JUMPIFNOTEQKNIL                  R11 ; [+3]
+       26 LOADNIL                          R10
+       27 JUMP                             ; [+16]
+       28 GETUPVAL                         R13 4
+       29 GETTABLE                         R12 R11 R13
        30 JUMPIFNOTEQKNIL                  R12 ; [+3]
-       32 LOADNIL                          R10
-       33 JUMP                             ; [+6]
-       34 FASTCALL1                        TOSTRING R12 ; [+3]
-       35 MOVE                             R14 R12
-       36 GETIMPORT                        R13 K11 [tostring]
-       38 CALL                             R13 1 1
-       39 MOVE                             R10 R13
-       40 SETTABLEKS                       R10 R9 K6 ["experimentationGroup"]
-       42 CALL                             R7 2 1
-       43 MOVE                             R5 R7
-       44 SETTABLEKS                       R5 R4 K1 ["customFields"]
-       46 CALL                             R1 3 0
-       47 DUPTABLE                         R2 K19 [{"requestId", "generationId", "success", "errorMessage", "prompt", "hasImage", "timeToFirstRender", "dependencyVersion"}]
-       48 GETTABLEKS                       R3 R0 K12 ["requestId"]
-       50 SETTABLEKS                       R3 R2 K12 ["requestId"]
-       52 GETTABLEKS                       R3 R0 K13 ["generationId"]
-       54 SETTABLEKS                       R3 R2 K13 ["generationId"]
-       56 GETTABLEKS                       R3 R0 K3 ["success"]
-       58 SETTABLEKS                       R3 R2 K3 ["success"]
-       60 GETTABLEKS                       R3 R0 K14 ["errorMessage"]
-       62 SETTABLEKS                       R3 R2 K14 ["errorMessage"]
-       64 GETTABLEKS                       R3 R0 K15 ["prompt"]
-       66 SETTABLEKS                       R3 R2 K15 ["prompt"]
-       68 GETTABLEKS                       R3 R0 K16 ["hasImage"]
-       70 SETTABLEKS                       R3 R2 K16 ["hasImage"]
-       72 GETTABLEKS                       R3 R0 K17 ["timeToFirstRender"]
-       74 SETTABLEKS                       R3 R2 K17 ["timeToFirstRender"]
-       76 GETTABLEKS                       R3 R0 K18 ["dependencyVersion"]
-       78 SETTABLEKS                       R3 R2 K18 ["dependencyVersion"]
-       80 GETUPVAL                         R3 2
-       81 GETTABLEKS                       R3 R3 K20 ["assign"]
-       83 MOVE                             R4 R2
-       84 DUPTABLE                         R5 K22 [{"timestampMilliseconds"}]
-       85 GETUPVAL                         R6 5
-       86 GETTABLEKS                       R6 R6 K23 ["getTimestampMilliseconds"]
-       88 CALL                             R6 0 1
-       89 SETTABLEKS                       R6 R5 K21 ["timestampMilliseconds"]
-       91 CALL                             R3 2 1
-       92 MOVE                             R1 R3
-       93 GETUPVAL                         R2 0
-       94 GETTABLEKS                       R2 R2 K24 ["logEvent"]
-       96 GETUPVAL                         R3 6
-       97 DUPTABLE                         R4 K26 [{"customFields", "standardizedFields"}]
-       98 SETTABLEKS                       R1 R4 K1 ["customFields"]
-      100 NEWTABLE                         R6 0 0
-      102 GETUPVAL                         R7 7
-      103 GETTABLEKS                       R7 R7 K27 ["StandardizedFields"]
-      105 LOADNIL                          R8
-      106 LOADNIL                          R9
-      107 FORGPREP                         R7
-      108 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
-      110 MOVE                             R13 R6
-      111 MOVE                             R14 R11
-      112 GETIMPORT                        R12 K30 [table.insert]
-      114 CALL                             R12 2 0
-      115 FORGLOOP                         R7 2 ; [-8]
-      117 MOVE                             R5 R6
-      118 SETTABLEKS                       R5 R4 K25 ["standardizedFields"]
-      120 CALL                             R2 2 0
-      121 RETURN                           R0 0
+       32 GETTABLEKS                       R12 R11 K10 ["generatedExperimentVariantDistributionVariable"]
+       34 JUMPIFNOTEQKNIL                  R12 ; [+3]
+       36 LOADNIL                          R10
+       37 JUMP                             ; [+6]
+       38 FASTCALL1                        TOSTRING R12 ; [+3]
+       39 MOVE                             R14 R12
+       40 GETIMPORT                        R13 K12 [tostring]
+       42 CALL                             R13 1 1
+       43 MOVE                             R10 R13
+       44 SETTABLEKS                       R10 R9 K7 ["experimentationGroup"]
+       46 CALL                             R7 2 1
+       47 MOVE                             R5 R7
+       48 SETTABLEKS                       R5 R4 K1 ["customFields"]
+       50 CALL                             R1 3 0
+       51 DUPTABLE                         R2 K21 [{"requestId", "generationId", "toolId", "success", "errorMessage", "errorCode", "prompt", "hasImage", "timeToFirstRender", "dependencyVersion"}]
+       52 GETTABLEKS                       R3 R0 K13 ["requestId"]
+       54 SETTABLEKS                       R3 R2 K13 ["requestId"]
+       56 GETTABLEKS                       R3 R0 K14 ["generationId"]
+       58 SETTABLEKS                       R3 R2 K14 ["generationId"]
+       60 GETTABLEKS                       R3 R0 K15 ["toolId"]
+       62 SETTABLEKS                       R3 R2 K15 ["toolId"]
+       64 GETTABLEKS                       R3 R0 K3 ["success"]
+       66 SETTABLEKS                       R3 R2 K3 ["success"]
+       68 GETTABLEKS                       R3 R0 K16 ["errorMessage"]
+       70 SETTABLEKS                       R3 R2 K16 ["errorMessage"]
+       72 GETTABLEKS                       R3 R0 K4 ["errorCode"]
+       74 SETTABLEKS                       R3 R2 K4 ["errorCode"]
+       76 GETTABLEKS                       R3 R0 K17 ["prompt"]
+       78 SETTABLEKS                       R3 R2 K17 ["prompt"]
+       80 GETTABLEKS                       R3 R0 K18 ["hasImage"]
+       82 SETTABLEKS                       R3 R2 K18 ["hasImage"]
+       84 GETTABLEKS                       R3 R0 K19 ["timeToFirstRender"]
+       86 SETTABLEKS                       R3 R2 K19 ["timeToFirstRender"]
+       88 GETTABLEKS                       R3 R0 K20 ["dependencyVersion"]
+       90 SETTABLEKS                       R3 R2 K20 ["dependencyVersion"]
+       92 GETUPVAL                         R3 2
+       93 GETTABLEKS                       R3 R3 K22 ["assign"]
+       95 MOVE                             R4 R2
+       96 DUPTABLE                         R5 K24 [{"timestampMilliseconds"}]
+       97 GETUPVAL                         R6 5
+       98 GETTABLEKS                       R6 R6 K25 ["getTimestampMilliseconds"]
+      100 CALL                             R6 0 1
+      101 SETTABLEKS                       R6 R5 K23 ["timestampMilliseconds"]
+      103 CALL                             R3 2 1
+      104 MOVE                             R1 R3
+      105 GETUPVAL                         R2 0
+      106 GETTABLEKS                       R2 R2 K26 ["logEvent"]
+      108 GETUPVAL                         R3 6
+      109 DUPTABLE                         R4 K28 [{"customFields", "standardizedFields"}]
+      110 SETTABLEKS                       R1 R4 K1 ["customFields"]
+      112 NEWTABLE                         R6 0 0
+      114 GETUPVAL                         R7 7
+      115 GETTABLEKS                       R7 R7 K29 ["StandardizedFields"]
+      117 LOADNIL                          R8
+      118 LOADNIL                          R9
+      119 FORGPREP                         R7
+      120 FASTCALL2                        TABLE_INSERT R6 R11 ; [+5]
+      122 MOVE                             R13 R6
+      123 MOVE                             R14 R11
+      124 GETIMPORT                        R12 K32 [table.insert]
+      126 CALL                             R12 2 0
+      127 FORGLOOP                         R7 2 ; [-8]
+      129 MOVE                             R5 R6
+      130 SETTABLEKS                       R5 R4 K27 ["standardizedFields"]
+      132 CALL                             R2 2 0
+      133 RETURN                           R0 0
 
 PROTO_44:
         0 GETUPVAL                         R1 0

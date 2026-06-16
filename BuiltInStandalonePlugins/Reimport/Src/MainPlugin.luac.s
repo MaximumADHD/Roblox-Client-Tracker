@@ -237,26 +237,19 @@ PROTO_6:
       186 GETUPVAL                         R21 14
       187 DUPTABLE                         R22 K50 [{"onStyleSheetChange"}]
       188 SETTABLEKS                       R4 R22 K49 ["onStyleSheetChange"]
-      190 GETUPVAL                         R24 15
-      191 CALL                             R24 0 1
-      192 JUMPIFNOT                        R24 ; [+10]
-      193 GETUPVAL                         R23 6
-      194 GETUPVAL                         R24 16
-      195 GETTABLEKS                       R24 R24 K51 ["Provider"]
-      197 NEWTABLE                         R25 0 0
-      199 MOVE                             R26 R12
-      200 CALL                             R26 0 -1
-      201 CALL                             R23 -1 1
-      202 JUMP                             ; [+3]
-      203 GETUPVAL                         R23 6
-      204 MOVE                             R24 R12
-      205 CALL                             R23 1 1
-      206 CALL                             R20 3 1
-      207 SETTABLEKS                       R20 R19 K47 ["FoundationProvider"]
-      209 CALL                             R16 3 1
-      210 SETTABLEKS                       R16 R15 K31 ["MainWindow"]
-      212 CALL                             R13 2 -1
-      213 RETURN                           R13 -1
+      190 GETUPVAL                         R23 6
+      191 GETUPVAL                         R24 15
+      192 GETTABLEKS                       R24 R24 K51 ["Provider"]
+      194 NEWTABLE                         R25 0 0
+      196 MOVE                             R26 R12
+      197 CALL                             R26 0 -1
+      198 CALL                             R23 -1 -1
+      199 CALL                             R20 -1 1
+      200 SETTABLEKS                       R20 R19 K47 ["FoundationProvider"]
+      202 CALL                             R16 3 1
+      203 SETTABLEKS                       R16 R15 K31 ["MainWindow"]
+      205 CALL                             R13 2 -1
+      206 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -309,26 +302,21 @@ MAIN:
        84 GETTABLEKS                       R16 R16 K26 ["Contexts"]
        86 GETTABLEKS                       R16 R16 K27 ["DialogContext"]
        88 CALL                             R15 1 1
-       89 GETIMPORT                        R16 K5 [require]
-       91 GETTABLEKS                       R17 R0 K28 ["Flags"]
-       93 GETTABLEKS                       R17 R17 K29 ["GetFFlagReimportScrollableDropdowns"]
-       95 CALL                             R16 1 1
-       96 DUPCLOSURE                       R17 K30 [PROTO_6]
-       97 CAPTURE                          VAL R4
-       98 CAPTURE                          VAL R0
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R14
-      103 CAPTURE                          VAL R10
-      104 CAPTURE                          VAL R11
-      105 CAPTURE                          VAL R12
-      106 CAPTURE                          VAL R13
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R6
-      109 CAPTURE                          VAL R7
-      110 CAPTURE                          VAL R1
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R16
-      113 CAPTURE                          VAL R15
-      114 RETURN                           R17 1
+       89 DUPCLOSURE                       R16 K28 [PROTO_6]
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R0
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R9
+       95 CAPTURE                          VAL R14
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R11
+       98 CAPTURE                          VAL R12
+       99 CAPTURE                          VAL R13
+      100 CAPTURE                          VAL R5
+      101 CAPTURE                          VAL R6
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R1
+      104 CAPTURE                          VAL R3
+      105 CAPTURE                          VAL R15
+      106 RETURN                           R16 1

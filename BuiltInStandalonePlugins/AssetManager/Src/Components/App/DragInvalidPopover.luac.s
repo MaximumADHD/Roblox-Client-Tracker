@@ -202,33 +202,35 @@ PROTO_9:
        70 GETTABLEKS                       R9 R9 K8 ["createElement"]
        72 GETUPVAL                         R10 3
        73 GETTABLEKS                       R10 R10 K9 ["View"]
-       75 DUPTABLE                         R11 K14 [{"ZIndex", "Position", "backgroundStyle", "tag"}]
+       75 DUPTABLE                         R11 K15 [{"ZIndex", "Position", "backgroundStyle", "tag", "testId"}]
        76 LOADN                            R12 4
        77 SETTABLEKS                       R12 R11 K10 ["ZIndex"]
-       79 GETIMPORT                        R12 K17 [UDim2.fromOffset]
-       81 GETTABLEKS                       R14 R6 K19 ["X"]
-       83 ADDK                             R13 R14 K18 [16]
-       84 GETTABLEKS                       R15 R6 K20 ["Y"]
-       86 ADDK                             R14 R15 K18 [16]
+       79 GETIMPORT                        R12 K18 [UDim2.fromOffset]
+       81 GETTABLEKS                       R14 R6 K20 ["X"]
+       83 ADDK                             R13 R14 K19 [16]
+       84 GETTABLEKS                       R15 R6 K21 ["Y"]
+       86 ADDK                             R14 R15 K19 [16]
        87 CALL                             R12 2 1
        88 SETTABLEKS                       R12 R11 K11 ["Position"]
-       90 GETTABLEKS                       R12 R3 K21 ["Inverse"]
-       92 GETTABLEKS                       R12 R12 K22 ["Surface"]
-       94 GETTABLEKS                       R12 R12 K23 ["Surface_0"]
+       90 GETTABLEKS                       R12 R3 K22 ["Inverse"]
+       92 GETTABLEKS                       R12 R12 K23 ["Surface"]
+       94 GETTABLEKS                       R12 R12 K24 ["Surface_0"]
        96 SETTABLEKS                       R12 R11 K12 ["backgroundStyle"]
-       98 LOADK                            R12 K24 ["auto-xy padding-xsmall radius-small data-testid=drag-invalid-popover"]
+       98 LOADK                            R12 K25 ["auto-xy padding-xsmall radius-small"]
        99 SETTABLEKS                       R12 R11 K13 ["tag"]
-      101 GETUPVAL                         R12 4
-      102 GETTABLEKS                       R12 R12 K8 ["createElement"]
-      104 GETUPVAL                         R13 3
-      105 GETTABLEKS                       R13 R13 K25 ["Text"]
-      107 DUPTABLE                         R14 K26 [{"Text", "tag"}]
-      108 SETTABLEKS                       R8 R14 K25 ["Text"]
-      110 LOADK                            R15 K27 ["text-body-small content-inverse-default auto-xy"]
-      111 SETTABLEKS                       R15 R14 K13 ["tag"]
-      113 CALL                             R12 2 -1
-      114 CALL                             R9 -1 -1
-      115 RETURN                           R9 -1
+      101 LOADK                            R12 K26 ["drag-invalid-popover"]
+      102 SETTABLEKS                       R12 R11 K14 ["testId"]
+      104 GETUPVAL                         R12 4
+      105 GETTABLEKS                       R12 R12 K8 ["createElement"]
+      107 GETUPVAL                         R13 3
+      108 GETTABLEKS                       R13 R13 K27 ["Text"]
+      110 DUPTABLE                         R14 K28 [{"Text", "tag"}]
+      111 SETTABLEKS                       R8 R14 K27 ["Text"]
+      113 LOADK                            R15 K29 ["text-body-small content-inverse-default auto-xy"]
+      114 SETTABLEKS                       R15 R14 K13 ["tag"]
+      116 CALL                             R12 2 -1
+      117 CALL                             R9 -1 -1
+      118 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -24,90 +24,115 @@ MAIN:
        33 LOADN                            R1 24
        34 SETTABLEKS                       R1 R0 K10 ["SidebarRowHeight"]
        36 LOADN                            R1 50
-       37 SETTABLEKS                       R1 R0 K11 ["ItemRowHeight"]
-       39 LOADN                            R1 45
-       40 SETTABLEKS                       R1 R0 K12 ["ShimmerRotation"]
-       42 LOADN                            R1 20
-       43 SETTABLEKS                       R1 R0 K13 ["ListThumbnailSize"]
-       45 LOADK                            R1 K14 [0.75]
-       46 SETTABLEKS                       R1 R0 K15 ["GridThumbnailScale"]
-       48 LOADN                            R1 4
-       49 SETTABLEKS                       R1 R0 K16 ["GridThumbnailOffset"]
-       51 LOADN                            R1 42
-       52 SETTABLEKS                       R1 R0 K17 ["TopBarHeight"]
-       54 LOADN                            R1 25
-       55 SETTABLEKS                       R1 R0 K18 ["HeaderRowHeight"]
-       57 LOADN                            R1 30
-       58 SETTABLEKS                       R1 R0 K19 ["CellDataHeight"]
-       60 LOADN                            R1 20
-       61 SETTABLEKS                       R1 R0 K20 ["BaseWidth"]
-       63 LOADN                            R1 35
-       64 SETTABLEKS                       R1 R0 K21 ["ThumbnailContainerSize"]
-       66 LOADN                            R1 60
-       67 SETTABLEKS                       R1 R0 K22 ["GridCellHeightMin"]
-       69 LOADN                            R1 200
-       70 SETTABLEKS                       R1 R0 K23 ["GridCellHeightMax"]
-       72 GETIMPORT                        R1 K26 [UDim2.fromOffset]
-       74 LOADN                            R2 10
-       75 LOADN                            R3 10
-       76 CALL                             R1 2 1
-       77 SETTABLEKS                       R1 R0 K27 ["GridCellPadding"]
-       79 LOADN                            R1 200
-       80 SETTABLEKS                       R1 R0 K28 ["SortOptionsWidth"]
-       82 LOADN                            R1 250
-       83 SETTABLEKS                       R1 R0 K29 ["FilterTypesWidth"]
-       85 LOADN                            R1 64
-       86 SETTABLEKS                       R1 R0 K30 ["FilterTypesHeight"]
-       88 GETIMPORT                        R1 K33 [Vector2.new]
-       90 LOADK                            R2 K34 [0.5]
-       91 LOADK                            R3 K34 [0.5]
-       92 CALL                             R1 2 1
-       93 SETTABLEKS                       R1 R0 K35 ["AnchorCenter"]
-       95 GETIMPORT                        R1 K37 [UDim2.fromScale]
-       97 LOADK                            R2 K34 [0.5]
-       98 LOADK                            R3 K34 [0.5]
-       99 CALL                             R1 2 1
-      100 SETTABLEKS                       R1 R0 K38 ["PositionCenter"]
-      102 GETIMPORT                        R1 K33 [Vector2.new]
-      104 LOADN                            R2 128
-      105 LOADN                            R3 104
-      106 CALL                             R1 2 1
-      107 SETTABLEKS                       R1 R0 K39 ["QuickShareDialogSize"]
-      109 GETIMPORT                        R1 K26 [UDim2.fromOffset]
-      111 LOADN                            R2 96
-      112 LOADN                            R3 125
-      113 CALL                             R1 2 1
-      114 SETTABLEKS                       R1 R0 K40 ["QuickShareDropdownSize"]
-      116 GETIMPORT                        R1 K33 [Vector2.new]
-      118 LOADN                            R2 100
-      119 LOADN                            R3 200
-      120 CALL                             R1 2 1
-      121 SETTABLEKS                       R1 R0 K41 ["QuickSharePermissionsDropdownSize"]
-      123 GETIMPORT                        R1 K33 [Vector2.new]
-      125 LOADN                            R2 159
-      126 LOADN                            R3 100
-      127 CALL                             R1 2 1
-      128 SETTABLEKS                       R1 R0 K42 ["ConfirmDialogSize"]
-      130 GETIMPORT                        R1 K33 [Vector2.new]
-      132 LOADN                            R2 144
-      133 LOADN                            R3 224
-      134 CALL                             R1 2 1
-      135 SETTABLEKS                       R1 R0 K43 ["MoveDialogSize"]
-      137 LOADN                            R1 180
-      138 SETTABLEKS                       R1 R0 K44 ["ContextMenuWidth"]
-      140 GETIMPORT                        R1 K26 [UDim2.fromOffset]
-      142 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
-      144 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
-      146 CALL                             R1 2 1
-      147 SETTABLEKS                       R1 R0 K45 ["IconSizeXSmall"]
-      149 GETIMPORT                        R1 K26 [UDim2.fromOffset]
-      151 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
-      153 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
-      155 CALL                             R1 2 1
-      156 SETTABLEKS                       R1 R0 K46 ["IconSize"]
-      158 GETIMPORT                        R1 K26 [UDim2.fromOffset]
-      160 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
-      162 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
-      164 CALL                             R1 2 1
-      165 SETTABLEKS                       R1 R0 K47 ["IconSizeXLarge"]
-      167 RETURN                           R0 1
+       37 SETTABLEKS                       R1 R0 K11 ["ItemRowHeightDefault"]
+       39 LOADN                            R1 100
+       40 SETTABLEKS                       R1 R0 K12 ["ItemCellSizeDefault"]
+       42 LOADN                            R1 45
+       43 SETTABLEKS                       R1 R0 K13 ["ShimmerRotation"]
+       45 LOADN                            R1 20
+       46 SETTABLEKS                       R1 R0 K14 ["ListThumbnailSize"]
+       48 LOADK                            R1 K15 [0.75]
+       49 SETTABLEKS                       R1 R0 K16 ["GridThumbnailScale"]
+       51 LOADN                            R1 4
+       52 SETTABLEKS                       R1 R0 K17 ["GridThumbnailOffset"]
+       54 LOADN                            R1 42
+       55 SETTABLEKS                       R1 R0 K18 ["TopBarHeight"]
+       57 LOADN                            R1 25
+       58 SETTABLEKS                       R1 R0 K19 ["HeaderRowHeight"]
+       60 LOADN                            R1 30
+       61 SETTABLEKS                       R1 R0 K20 ["CellDataHeight"]
+       63 LOADN                            R1 20
+       64 SETTABLEKS                       R1 R0 K21 ["BaseWidth"]
+       66 LOADN                            R1 35
+       67 SETTABLEKS                       R1 R0 K22 ["ThumbnailContainerSize"]
+       69 LOADN                            R1 32
+       70 SETTABLEKS                       R1 R0 K23 ["ListRowHeightMin"]
+       72 LOADN                            R1 96
+       73 SETTABLEKS                       R1 R0 K24 ["ListRowHeightMax"]
+       75 LOADK                            R1 K25 [0.4]
+       76 SETTABLEKS                       R1 R0 K26 ["ListThumbnailScale"]
+       78 LOADK                            R1 K27 [0.7]
+       79 SETTABLEKS                       R1 R0 K28 ["ListThumbnailContainerScale"]
+       81 LOADN                            R1 60
+       82 SETTABLEKS                       R1 R0 K29 ["GridCellHeightMin"]
+       84 LOADN                            R1 200
+       85 SETTABLEKS                       R1 R0 K30 ["GridCellHeightMax"]
+       87 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+       89 LOADN                            R2 10
+       90 LOADN                            R3 10
+       91 CALL                             R1 2 1
+       92 SETTABLEKS                       R1 R0 K34 ["GridCellPadding"]
+       94 LOADN                            R1 200
+       95 SETTABLEKS                       R1 R0 K35 ["SortOptionsWidth"]
+       97 LOADN                            R1 250
+       98 SETTABLEKS                       R1 R0 K36 ["FilterTypesWidth"]
+      100 LOADN                            R1 64
+      101 SETTABLEKS                       R1 R0 K37 ["FilterTypesHeight"]
+      103 GETIMPORT                        R1 K40 [Vector2.new]
+      105 LOADK                            R2 K41 [0.5]
+      106 LOADK                            R3 K41 [0.5]
+      107 CALL                             R1 2 1
+      108 SETTABLEKS                       R1 R0 K42 ["AnchorCenter"]
+      110 GETIMPORT                        R1 K44 [UDim2.fromScale]
+      112 LOADK                            R2 K41 [0.5]
+      113 LOADK                            R3 K41 [0.5]
+      114 CALL                             R1 2 1
+      115 SETTABLEKS                       R1 R0 K45 ["PositionCenter"]
+      117 GETIMPORT                        R1 K40 [Vector2.new]
+      119 LOADN                            R2 128
+      120 LOADN                            R3 104
+      121 CALL                             R1 2 1
+      122 SETTABLEKS                       R1 R0 K46 ["QuickShareDialogSize"]
+      124 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      126 LOADN                            R2 96
+      127 LOADN                            R3 125
+      128 CALL                             R1 2 1
+      129 SETTABLEKS                       R1 R0 K47 ["QuickShareDropdownSize"]
+      131 GETIMPORT                        R1 K40 [Vector2.new]
+      133 LOADN                            R2 100
+      134 LOADN                            R3 200
+      135 CALL                             R1 2 1
+      136 SETTABLEKS                       R1 R0 K48 ["QuickSharePermissionsDropdownSize"]
+      138 GETIMPORT                        R1 K40 [Vector2.new]
+      140 LOADN                            R2 159
+      141 LOADN                            R3 100
+      142 CALL                             R1 2 1
+      143 SETTABLEKS                       R1 R0 K49 ["ConfirmDialogSize"]
+      145 GETIMPORT                        R1 K40 [Vector2.new]
+      147 LOADN                            R2 194
+      148 LOADN                            R3 125
+      149 CALL                             R1 2 1
+      150 SETTABLEKS                       R1 R0 K50 ["ConfirmOpenInBrowserDialogSize"]
+      152 GETIMPORT                        R1 K40 [Vector2.new]
+      154 LOADN                            R2 144
+      155 LOADN                            R3 224
+      156 CALL                             R1 2 1
+      157 SETTABLEKS                       R1 R0 K51 ["MoveDialogSize"]
+      159 LOADN                            R1 180
+      160 SETTABLEKS                       R1 R0 K52 ["ContextMenuWidth"]
+      162 LOADN                            R1 180
+      163 SETTABLEKS                       R1 R0 K53 ["CompactOptionsMenuWidth"]
+      165 LOADN                            R1 220
+      166 SETTABLEKS                       R1 R0 K54 ["CompactScopeListWidth"]
+      168 LOADN                            R1 32
+      169 SETTABLEKS                       R1 R0 K55 ["CompactScopeListMinHeight"]
+      171 LOADN                            R1 64
+      172 SETTABLEKS                       R1 R0 K56 ["CompactScopeListMaxHeight"]
+      174 LOADN                            R1 27
+      175 SETTABLEKS                       R1 R0 K57 ["CompactScopeListItemHeight"]
+      177 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      179 GETTABLEKS                       R2 R0 K6 ["IconWidthXSmall"]
+      181 GETTABLEKS                       R3 R0 K6 ["IconWidthXSmall"]
+      183 CALL                             R1 2 1
+      184 SETTABLEKS                       R1 R0 K58 ["IconSizeXSmall"]
+      186 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      188 GETTABLEKS                       R2 R0 K7 ["IconWidth"]
+      190 GETTABLEKS                       R3 R0 K7 ["IconWidth"]
+      192 CALL                             R1 2 1
+      193 SETTABLEKS                       R1 R0 K59 ["IconSize"]
+      195 GETIMPORT                        R1 K33 [UDim2.fromOffset]
+      197 GETTABLEKS                       R2 R0 K8 ["IconWidthXLarge"]
+      199 GETTABLEKS                       R3 R0 K8 ["IconWidthXLarge"]
+      201 CALL                             R1 2 1
+      202 SETTABLEKS                       R1 R0 K60 ["IconSizeXLarge"]
+      204 RETURN                           R0 1

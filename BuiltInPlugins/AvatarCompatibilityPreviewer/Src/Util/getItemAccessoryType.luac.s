@@ -60,20 +60,17 @@ PROTO_0:
        89 JUMPIFEQKNIL                     R1 ; [+3]
        91 LOADK                            R1 K21 ["layered"]
        92 RETURN                           R1 1
-       93 GETUPVAL                         R1 4
-       94 CALL                             R1 0 1
-       95 JUMPIFNOT                        R1 ; [+13]
-       96 GETTABLEKS                       R1 R0 K0 ["item"]
-       98 GETTABLEKS                       R1 R1 K23 ["instance"]
-      100 LOADK                            R3 K26 ["WrapTextureTransfer"]
-      101 LOADB                            R4 1
-      102 NAMECALL                         R1 R1 K25 ["FindFirstChildWhichIsA"]
-      104 CALL                             R1 3 1
-      105 JUMPIFEQKNIL                     R1 ; [+3]
-      107 LOADK                            R1 K27 ["makeup"]
-      108 RETURN                           R1 1
-      109 LOADK                            R1 K22 ["rigid"]
-      110 RETURN                           R1 1
+       93 GETTABLEKS                       R1 R0 K0 ["item"]
+       95 GETTABLEKS                       R1 R1 K23 ["instance"]
+       97 LOADK                            R3 K26 ["WrapTextureTransfer"]
+       98 LOADB                            R4 1
+       99 NAMECALL                         R1 R1 K25 ["FindFirstChildWhichIsA"]
+      101 CALL                             R1 3 1
+      102 JUMPIFEQKNIL                     R1 ; [+3]
+      104 LOADK                            R1 K27 ["makeup"]
+      105 RETURN                           R1 1
+      106 LOADK                            R1 K22 ["rigid"]
+      107 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -98,22 +95,16 @@ MAIN:
        32 GETIMPORT                        R4 K5 [require]
        34 GETTABLEKS                       R5 R0 K6 ["Src"]
        36 GETTABLEKS                       R5 R5 K11 ["Flags"]
-       38 GETTABLEKS                       R5 R5 K12 ["getFFlagAvatarPreviewerMakeup"]
+       38 GETTABLEKS                       R5 R5 K12 ["getFFlagAvatarPreviewerLookComposer"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K6 ["Src"]
        45 GETTABLEKS                       R6 R6 K11 ["Flags"]
-       47 GETTABLEKS                       R6 R6 K13 ["getFFlagAvatarPreviewerLookComposer"]
+       47 GETTABLEKS                       R6 R6 K13 ["getFFlagAvatarPreviewerClassicClothingPalettes"]
        49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K6 ["Src"]
-       54 GETTABLEKS                       R7 R7 K11 ["Flags"]
-       56 GETTABLEKS                       R7 R7 K14 ["getFFlagAvatarPreviewerClassicClothingPalettes"]
-       58 CALL                             R6 1 1
-       59 DUPCLOSURE                       R7 K15 [PROTO_0]
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R2
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R3
-       64 CAPTURE                          VAL R4
-       65 RETURN                           R7 1
+       50 DUPCLOSURE                       R6 K14 [PROTO_0]
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R5
+       54 CAPTURE                          VAL R3
+       55 RETURN                           R6 1

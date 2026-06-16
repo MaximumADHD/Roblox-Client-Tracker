@@ -24,23 +24,20 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+12]
-        3 GETUPVAL                         R1 1
-        4 GETUPVAL                         R3 2
-        5 GETTABLEKS                       R3 R3 K0 ["MATERIAL_MANAGER_ENABLED"]
-        7 FASTCALL1                        TOSTRING R0 ; [+3]
-        8 MOVE                             R5 R0
-        9 GETIMPORT                        R4 K2 [tostring]
-       11 CALL                             R4 1 1
-       12 NAMECALL                         R1 R1 K3 ["setItem"]
-       14 CALL                             R1 3 0
-       15 GETUPVAL                         R1 3
-       16 DUPTABLE                         R3 K5 [{"enabled"}]
-       17 SETTABLEKS                       R0 R3 K4 ["enabled"]
-       19 NAMECALL                         R1 R1 K6 ["setState"]
-       21 CALL                             R1 2 0
-       22 RETURN                           R0 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R3 R3 K0 ["MATERIAL_MANAGER_ENABLED"]
+        4 FASTCALL1                        TOSTRING R0 ; [+3]
+        5 MOVE                             R5 R0
+        6 GETIMPORT                        R4 K2 [tostring]
+        8 CALL                             R4 1 1
+        9 NAMECALL                         R1 R1 K3 ["setItem"]
+       11 CALL                             R1 3 0
+       12 GETUPVAL                         R1 2
+       13 DUPTABLE                         R3 K5 [{"enabled"}]
+       14 SETTABLEKS                       R0 R3 K4 ["enabled"]
+       16 NAMECALL                         R1 R1 K6 ["setState"]
+       18 CALL                             R1 2 0
+       19 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -141,94 +138,93 @@ PROTO_10:
        48 NEWCLOSURE                       R5 P1
        49 CAPTURE                          UPVAL U4
        50 CAPTURE                          UPVAL U5
-       51 CAPTURE                          UPVAL U6
-       52 CAPTURE                          VAL R0
-       53 SETTABLEKS                       R5 R0 K14 ["setEnabled"]
-       55 NEWCLOSURE                       R5 P2
-       56 CAPTURE                          VAL R0
-       57 SETTABLEKS                       R5 R0 K15 ["toggleEnabled"]
-       59 NEWCLOSURE                       R5 P3
-       60 CAPTURE                          VAL R0
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          UPVAL U0
-       63 SETTABLEKS                       R5 R0 K16 ["onClose"]
-       65 NEWCLOSURE                       R5 P4
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          UPVAL U0
-       69 SETTABLEKS                       R5 R0 K17 ["onRestore"]
-       71 NEWCLOSURE                       R5 P5
-       72 CAPTURE                          VAL R0
-       73 SETTABLEKS                       R5 R0 K18 ["onWidgetEnabledChanged"]
-       75 GETUPVAL                         R5 7
-       76 GETTABLEKS                       R5 R5 K19 ["Store"]
-       78 GETTABLEKS                       R5 R5 K11 ["new"]
-       80 GETUPVAL                         R6 8
-       81 LOADNIL                          R7
-       82 NEWTABLE                         R8 0 1
-       84 GETUPVAL                         R9 7
-       85 GETTABLEKS                       R9 R9 K20 ["thunkMiddleware"]
-       87 SETLIST                          R8 R9 1 [1]
-       89 LOADNIL                          R9
-       90 CALL                             R5 4 1
-       91 SETTABLEKS                       R5 R0 K21 ["store"]
-       93 GETUPVAL                         R5 9
-       94 GETTABLEKS                       R5 R5 K22 ["Localization"]
-       96 GETTABLEKS                       R5 R5 K11 ["new"]
-       98 DUPTABLE                         R6 K26 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       99 GETUPVAL                         R7 10
-      100 SETTABLEKS                       R7 R6 K23 ["stringResourceTable"]
-      102 GETUPVAL                         R7 11
-      103 SETTABLEKS                       R7 R6 K24 ["translationResourceTable"]
-      105 LOADK                            R7 K27 ["MaterialManager"]
-      106 SETTABLEKS                       R7 R6 K25 ["pluginName"]
-      108 CALL                             R5 1 1
-      109 SETTABLEKS                       R5 R0 K28 ["localization"]
-      111 GETUPVAL                         R5 9
-      112 GETTABLEKS                       R5 R5 K29 ["Analytics"]
-      114 GETTABLEKS                       R5 R5 K11 ["new"]
-      116 GETUPVAL                         R6 12
-      117 CALL                             R5 1 1
-      118 SETTABLEKS                       R5 R0 K30 ["analytics"]
-      120 GETUPVAL                         R5 13
-      121 GETTABLEKS                       R5 R5 K11 ["new"]
-      123 GETTABLEKS                       R6 R0 K21 ["store"]
-      125 CALL                             R5 1 1
-      126 SETTABLEKS                       R5 R0 K31 ["materialServiceController"]
-      128 GETUPVAL                         R5 14
-      129 GETTABLEKS                       R5 R5 K11 ["new"]
-      131 CALL                             R5 0 1
-      132 SETTABLEKS                       R5 R0 K32 ["generalServiceController"]
-      134 GETUPVAL                         R5 15
-      135 GETTABLEKS                       R5 R5 K11 ["new"]
-      137 MOVE                             R6 R2
-      138 GETTABLEKS                       R7 R0 K21 ["store"]
-      140 NAMECALL                         R8 R2 K33 ["getMouse"]
-      142 CALL                             R8 1 1
-      143 GETTABLEKS                       R9 R0 K32 ["generalServiceController"]
-      145 CALL                             R5 4 1
-      146 SETTABLEKS                       R5 R0 K34 ["pluginController"]
-      148 GETTABLEKS                       R5 R0 K34 ["pluginController"]
-      150 NAMECALL                         R5 R5 K35 ["initialize"]
-      152 CALL                             R5 1 0
-      153 GETIMPORT                        R5 K37 [game]
-      155 LOADK                            R7 K38 ["MaterialPickerBetaEnabled"]
-      156 NAMECALL                         R5 R5 K39 ["GetEngineFeature"]
-      158 CALL                             R5 2 1
-      159 JUMPIF                           R5 ; [+7]
-      160 GETIMPORT                        R5 K37 [game]
-      162 LOADK                            R7 K40 ["ShowMaterialManagerFromElsewhere"]
-      163 NAMECALL                         R5 R5 K41 ["GetFastFlag"]
-      165 CALL                             R5 2 1
-      166 JUMPIFNOT                        R5 ; [+9]
-      167 GETUPVAL                         R5 5
-      168 GETUPVAL                         R7 6
-      169 GETTABLEKS                       R7 R7 K42 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
-      171 NEWCLOSURE                       R8 P6
-      172 CAPTURE                          VAL R0
-      173 NAMECALL                         R5 R5 K43 ["Bind"]
-      175 CALL                             R5 3 0
-      176 RETURN                           R0 0
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R5 R0 K14 ["setEnabled"]
+       54 NEWCLOSURE                       R5 P2
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R5 R0 K15 ["toggleEnabled"]
+       58 NEWCLOSURE                       R5 P3
+       59 CAPTURE                          VAL R0
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          UPVAL U0
+       62 SETTABLEKS                       R5 R0 K16 ["onClose"]
+       64 NEWCLOSURE                       R5 P4
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          VAL R3
+       67 CAPTURE                          UPVAL U0
+       68 SETTABLEKS                       R5 R0 K17 ["onRestore"]
+       70 NEWCLOSURE                       R5 P5
+       71 CAPTURE                          VAL R0
+       72 SETTABLEKS                       R5 R0 K18 ["onWidgetEnabledChanged"]
+       74 GETUPVAL                         R5 6
+       75 GETTABLEKS                       R5 R5 K19 ["Store"]
+       77 GETTABLEKS                       R5 R5 K11 ["new"]
+       79 GETUPVAL                         R6 7
+       80 LOADNIL                          R7
+       81 NEWTABLE                         R8 0 1
+       83 GETUPVAL                         R9 6
+       84 GETTABLEKS                       R9 R9 K20 ["thunkMiddleware"]
+       86 SETLIST                          R8 R9 1 [1]
+       88 LOADNIL                          R9
+       89 CALL                             R5 4 1
+       90 SETTABLEKS                       R5 R0 K21 ["store"]
+       92 GETUPVAL                         R5 8
+       93 GETTABLEKS                       R5 R5 K22 ["Localization"]
+       95 GETTABLEKS                       R5 R5 K11 ["new"]
+       97 DUPTABLE                         R6 K26 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       98 GETUPVAL                         R7 9
+       99 SETTABLEKS                       R7 R6 K23 ["stringResourceTable"]
+      101 GETUPVAL                         R7 10
+      102 SETTABLEKS                       R7 R6 K24 ["translationResourceTable"]
+      104 LOADK                            R7 K27 ["MaterialManager"]
+      105 SETTABLEKS                       R7 R6 K25 ["pluginName"]
+      107 CALL                             R5 1 1
+      108 SETTABLEKS                       R5 R0 K28 ["localization"]
+      110 GETUPVAL                         R5 8
+      111 GETTABLEKS                       R5 R5 K29 ["Analytics"]
+      113 GETTABLEKS                       R5 R5 K11 ["new"]
+      115 GETUPVAL                         R6 11
+      116 CALL                             R5 1 1
+      117 SETTABLEKS                       R5 R0 K30 ["analytics"]
+      119 GETUPVAL                         R5 12
+      120 GETTABLEKS                       R5 R5 K11 ["new"]
+      122 GETTABLEKS                       R6 R0 K21 ["store"]
+      124 CALL                             R5 1 1
+      125 SETTABLEKS                       R5 R0 K31 ["materialServiceController"]
+      127 GETUPVAL                         R5 13
+      128 GETTABLEKS                       R5 R5 K11 ["new"]
+      130 CALL                             R5 0 1
+      131 SETTABLEKS                       R5 R0 K32 ["generalServiceController"]
+      133 GETUPVAL                         R5 14
+      134 GETTABLEKS                       R5 R5 K11 ["new"]
+      136 MOVE                             R6 R2
+      137 GETTABLEKS                       R7 R0 K21 ["store"]
+      139 NAMECALL                         R8 R2 K33 ["getMouse"]
+      141 CALL                             R8 1 1
+      142 GETTABLEKS                       R9 R0 K32 ["generalServiceController"]
+      144 CALL                             R5 4 1
+      145 SETTABLEKS                       R5 R0 K34 ["pluginController"]
+      147 GETTABLEKS                       R5 R0 K34 ["pluginController"]
+      149 NAMECALL                         R5 R5 K35 ["initialize"]
+      151 CALL                             R5 1 0
+      152 GETIMPORT                        R5 K37 [game]
+      154 LOADK                            R7 K38 ["MaterialPickerBetaEnabled"]
+      155 NAMECALL                         R5 R5 K39 ["GetEngineFeature"]
+      157 CALL                             R5 2 1
+      158 JUMPIF                           R5 ; [+7]
+      159 GETIMPORT                        R5 K37 [game]
+      161 LOADK                            R7 K40 ["ShowMaterialManagerFromElsewhere"]
+      162 NAMECALL                         R5 R5 K41 ["GetFastFlag"]
+      164 CALL                             R5 2 1
+      165 JUMPIFNOT                        R5 ; [+9]
+      166 GETUPVAL                         R5 4
+      167 GETUPVAL                         R7 5
+      168 GETTABLEKS                       R7 R7 K42 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
+      170 NEWCLOSURE                       R8 P6
+      171 CAPTURE                          VAL R0
+      172 NAMECALL                         R5 R5 K43 ["Bind"]
+      174 CALL                             R5 3 0
+      175 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["imageLoader"]
@@ -456,59 +452,53 @@ MAIN:
       136 GETIMPORT                        R27 K4 [require]
       138 GETTABLEKS                       R28 R21 K39 ["PluginController"]
       140 CALL                             R27 1 1
-      141 GETIMPORT                        R28 K4 [require]
-      143 GETTABLEKS                       R29 R0 K22 ["Src"]
-      145 GETTABLEKS                       R29 R29 K40 ["Flags"]
-      147 GETTABLEKS                       R29 R29 K41 ["getFFlagMaterialPickerUIChanges"]
-      149 CALL                             R28 1 1
-      150 DUPTABLE                         R29 K47 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-      151 LOADK                            R30 K48 ["Standalone"]
-      152 SETTABLEKS                       R30 R29 K42 ["DataModel"]
-      154 LOADK                            R30 K49 ["Unknown"]
-      155 SETTABLEKS                       R30 R29 K43 ["PluginType"]
-      157 LOADK                            R30 K50 ["MaterialManager"]
-      158 SETTABLEKS                       R30 R29 K44 ["PluginId"]
-      160 LOADK                            R30 K51 ["Actions"]
-      161 SETTABLEKS                       R30 R29 K45 ["Category"]
-      163 LOADK                            R30 K52 ["Toggle"]
-      164 SETTABLEKS                       R30 R29 K46 ["ItemId"]
-      166 GETTABLEKS                       R30 R1 K53 ["PureComponent"]
-      168 LOADK                            R32 K54 ["MainPlugin"]
-      169 NAMECALL                         R30 R30 K55 ["extend"]
-      171 CALL                             R30 2 1
-      172 DUPCLOSURE                       R31 K56 [PROTO_10]
-      173 CAPTURE                          VAL R29
-      174 CAPTURE                          VAL R23
-      175 CAPTURE                          VAL R24
-      176 CAPTURE                          VAL R25
-      177 CAPTURE                          VAL R28
-      178 CAPTURE                          VAL R13
-      179 CAPTURE                          VAL R12
-      180 CAPTURE                          VAL R2
-      181 CAPTURE                          VAL R14
-      182 CAPTURE                          VAL R8
-      183 CAPTURE                          VAL R17
-      184 CAPTURE                          VAL R18
-      185 CAPTURE                          VAL R16
-      186 CAPTURE                          VAL R26
-      187 CAPTURE                          VAL R22
-      188 CAPTURE                          VAL R27
-      189 SETTABLEKS                       R31 R30 K57 ["init"]
-      191 DUPCLOSURE                       R31 K58 [PROTO_11]
-      192 SETTABLEKS                       R31 R30 K59 ["willUnmount"]
-      194 DUPCLOSURE                       R31 K60 [PROTO_12]
+      141 DUPTABLE                         R28 K45 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+      142 LOADK                            R29 K46 ["Standalone"]
+      143 SETTABLEKS                       R29 R28 K40 ["DataModel"]
+      145 LOADK                            R29 K47 ["Unknown"]
+      146 SETTABLEKS                       R29 R28 K41 ["PluginType"]
+      148 LOADK                            R29 K48 ["MaterialManager"]
+      149 SETTABLEKS                       R29 R28 K42 ["PluginId"]
+      151 LOADK                            R29 K49 ["Actions"]
+      152 SETTABLEKS                       R29 R28 K43 ["Category"]
+      154 LOADK                            R29 K50 ["Toggle"]
+      155 SETTABLEKS                       R29 R28 K44 ["ItemId"]
+      157 GETTABLEKS                       R29 R1 K51 ["PureComponent"]
+      159 LOADK                            R31 K52 ["MainPlugin"]
+      160 NAMECALL                         R29 R29 K53 ["extend"]
+      162 CALL                             R29 2 1
+      163 DUPCLOSURE                       R30 K54 [PROTO_10]
+      164 CAPTURE                          VAL R28
+      165 CAPTURE                          VAL R23
+      166 CAPTURE                          VAL R24
+      167 CAPTURE                          VAL R25
+      168 CAPTURE                          VAL R13
+      169 CAPTURE                          VAL R12
+      170 CAPTURE                          VAL R2
+      171 CAPTURE                          VAL R14
+      172 CAPTURE                          VAL R8
+      173 CAPTURE                          VAL R17
+      174 CAPTURE                          VAL R18
+      175 CAPTURE                          VAL R16
+      176 CAPTURE                          VAL R26
+      177 CAPTURE                          VAL R22
+      178 CAPTURE                          VAL R27
+      179 SETTABLEKS                       R30 R29 K55 ["init"]
+      181 DUPCLOSURE                       R30 K56 [PROTO_11]
+      182 SETTABLEKS                       R30 R29 K57 ["willUnmount"]
+      184 DUPCLOSURE                       R30 K58 [PROTO_12]
+      185 CAPTURE                          VAL R1
+      186 CAPTURE                          VAL R6
+      187 SETTABLEKS                       R30 R29 K59 ["renderButtons"]
+      189 DUPCLOSURE                       R30 K60 [PROTO_14]
+      190 CAPTURE                          VAL R8
+      191 CAPTURE                          VAL R9
+      192 CAPTURE                          VAL R11
+      193 CAPTURE                          VAL R10
+      194 CAPTURE                          VAL R15
       195 CAPTURE                          VAL R1
-      196 CAPTURE                          VAL R6
-      197 SETTABLEKS                       R31 R30 K61 ["renderButtons"]
-      199 DUPCLOSURE                       R31 K62 [PROTO_14]
-      200 CAPTURE                          VAL R8
-      201 CAPTURE                          VAL R9
-      202 CAPTURE                          VAL R11
-      203 CAPTURE                          VAL R10
-      204 CAPTURE                          VAL R15
-      205 CAPTURE                          VAL R1
-      206 CAPTURE                          VAL R7
-      207 CAPTURE                          VAL R5
-      208 CAPTURE                          VAL R20
-      209 SETTABLEKS                       R31 R30 K63 ["render"]
-      211 RETURN                           R30 1
+      196 CAPTURE                          VAL R7
+      197 CAPTURE                          VAL R5
+      198 CAPTURE                          VAL R20
+      199 SETTABLEKS                       R30 R29 K61 ["render"]
+      201 RETURN                           R29 1

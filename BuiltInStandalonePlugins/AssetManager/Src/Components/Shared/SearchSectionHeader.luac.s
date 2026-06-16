@@ -72,24 +72,24 @@ PROTO_1:
        89 CALL                             R13 2 1
        90 SETTABLEKS                       R13 R12 K2 ["Text"]
        92 MOVE                             R13 R5
-       93 JUMPIFNOT                        R13 ; [+48]
+       93 JUMPIFNOT                        R13 ; [+51]
        94 LOADB                            R13 0
-       95 JUMPIFEQKNIL                     R3 ; [+46]
+       95 JUMPIFEQKNIL                     R3 ; [+49]
        97 GETUPVAL                         R13 7
        98 GETTABLEKS                       R13 R13 K14 ["createElement"]
       100 GETUPVAL                         R14 8
       101 GETTABLEKS                       R14 R14 K2 ["Text"]
-      103 DUPTABLE                         R15 K27 [{"LayoutOrder", "Text", "onActivated", "stateLayer", "tag"}]
+      103 DUPTABLE                         R15 K28 [{"LayoutOrder", "Text", "onActivated", "stateLayer", "tag", "testId"}]
       104 LOADN                            R16 2
       105 SETTABLEKS                       R16 R15 K22 ["LayoutOrder"]
       107 JUMPIFNOT                        R3 ; [+6]
-      108 LOADK                            R18 K28 ["Section"]
-      109 LOADK                            R19 K29 ["SeeLess"]
+      108 LOADK                            R18 K29 ["Section"]
+      109 LOADK                            R19 K30 ["SeeLess"]
       110 NAMECALL                         R16 R1 K6 ["getText"]
       112 CALL                             R16 3 1
       113 JUMP                             ; [+5]
-      114 LOADK                            R18 K28 ["Section"]
-      115 LOADK                            R19 K30 ["SeeAll"]
+      114 LOADK                            R18 K29 ["Section"]
+      115 LOADK                            R19 K31 ["SeeAll"]
       116 NAMECALL                         R16 R1 K6 ["getText"]
       118 CALL                             R16 3 1
       119 SETTABLEKS                       R16 R15 K2 ["Text"]
@@ -97,19 +97,21 @@ PROTO_1:
       122 CAPTURE                          VAL R2
       123 CAPTURE                          VAL R3
       124 SETTABLEKS                       R16 R15 K25 ["onActivated"]
-      126 DUPTABLE                         R16 K32 [{"affordance"}]
+      126 DUPTABLE                         R16 K33 [{"affordance"}]
       127 GETUPVAL                         R17 8
-      128 GETTABLEKS                       R17 R17 K33 ["Enums"]
-      130 GETTABLEKS                       R17 R17 K34 ["StateLayerAffordance"]
-      132 GETTABLEKS                       R17 R17 K35 ["None"]
-      134 SETTABLEKS                       R17 R16 K31 ["affordance"]
+      128 GETTABLEKS                       R17 R17 K34 ["Enums"]
+      130 GETTABLEKS                       R17 R17 K35 ["StateLayerAffordance"]
+      132 GETTABLEKS                       R17 R17 K36 ["None"]
+      134 SETTABLEKS                       R17 R16 K32 ["affordance"]
       136 SETTABLEKS                       R16 R15 K26 ["stateLayer"]
-      138 LOADK                            R16 K36 ["size-0-full auto-x text-align-y-center text-align-x-right text-label-small content-link data-testid=see-all-button"]
+      138 LOADK                            R16 K37 ["size-0-full auto-x text-align-y-center text-align-x-right text-label-small content-link"]
       139 SETTABLEKS                       R16 R15 K17 ["tag"]
-      141 CALL                             R13 2 1
-      142 SETTABLEKS                       R13 R12 K20 ["SeeAllButton"]
-      144 CALL                             R9 3 -1
-      145 RETURN                           R9 -1
+      141 LOADK                            R16 K38 ["see-all-button"]
+      142 SETTABLEKS                       R16 R15 K27 ["testId"]
+      144 CALL                             R13 2 1
+      145 SETTABLEKS                       R13 R12 K20 ["SeeAllButton"]
+      147 CALL                             R9 3 -1
+      148 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -196,28 +196,23 @@ PROTO_6:
       193 NEWCLOSURE                       R28 P4
       194 CAPTURE                          VAL R8
       195 SETTABLEKS                       R28 R27 K30 ["onItemChanged"]
-      197 GETUPVAL                         R29 14
-      198 CALL                             R29 0 1
-      199 JUMPIFNOT                        R29 ; [+5]
-      200 GETTABLEKS                       R28 R2 K41 ["dialogSize"]
-      202 GETTABLEKS                       R28 R28 K42 ["Y"]
-      204 JUMP                             ; [+1]
-      205 LOADNIL                          R28
-      206 SETTABLEKS                       R28 R27 K37 ["maxHeight"]
-      208 GETUPVAL                         R28 15
-      209 GETTABLEKS                       R28 R28 K43 ["map"]
-      211 MOVE                             R29 R4
-      212 DUPCLOSURE                       R30 K44 [PROTO_5]
-      213 CALL                             R28 2 1
-      214 SETTABLEKS                       R28 R27 K38 ["items"]
-      216 CALL                             R25 2 1
-      217 SETTABLEKS                       R25 R24 K17 ["content"]
-      219 SETLIST                          R21 R22 3 [1]
-      221 CALL                             R18 3 -1
-      222 SETLIST                          R17 R18 -1 [1]
-      224 CALL                             R14 3 -1
-      225 SETLIST                          R13 R14 -1 [1]
-      227 RETURN                           R13 1
+      197 GETTABLEKS                       R28 R2 K41 ["dialogSize"]
+      199 GETTABLEKS                       R28 R28 K42 ["Y"]
+      201 SETTABLEKS                       R28 R27 K37 ["maxHeight"]
+      203 GETUPVAL                         R28 14
+      204 GETTABLEKS                       R28 R28 K43 ["map"]
+      206 MOVE                             R29 R4
+      207 DUPCLOSURE                       R30 K44 [PROTO_5]
+      208 CALL                             R28 2 1
+      209 SETTABLEKS                       R28 R27 K38 ["items"]
+      211 CALL                             R25 2 1
+      212 SETTABLEKS                       R25 R24 K17 ["content"]
+      214 SETLIST                          R21 R22 3 [1]
+      216 CALL                             R18 3 -1
+      217 SETLIST                          R17 R18 -1 [1]
+      219 CALL                             R14 3 -1
+      220 SETLIST                          R13 R14 -1 [1]
+      222 RETURN                           R13 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -291,32 +286,27 @@ MAIN:
       121 CALL                             R16 1 1
       122 GETIMPORT                        R17 K5 [require]
       124 GETTABLEKS                       R18 R0 K29 ["Flags"]
-      126 GETTABLEKS                       R18 R18 K31 ["GetFFlagReimportScrollableDropdowns"]
+      126 GETTABLEKS                       R18 R18 K31 ["GetFFlagReimportLocalizeDialogs"]
       128 CALL                             R17 1 1
       129 GETIMPORT                        R18 K5 [require]
-      131 GETTABLEKS                       R19 R0 K29 ["Flags"]
-      133 GETTABLEKS                       R19 R19 K32 ["GetFFlagReimportLocalizeDialogs"]
-      135 CALL                             R18 1 1
-      136 GETIMPORT                        R19 K5 [require]
-      138 GETTABLEKS                       R20 R0 K16 ["Src"]
-      140 GETTABLEKS                       R20 R20 K17 ["Dialogs"]
-      142 GETTABLEKS                       R20 R20 K26 ["Types"]
-      144 CALL                             R19 1 1
-      145 DUPCLOSURE                       R20 K33 [PROTO_6]
-      146 CAPTURE                          VAL R7
-      147 CAPTURE                          VAL R4
-      148 CAPTURE                          VAL R15
-      149 CAPTURE                          VAL R8
-      150 CAPTURE                          VAL R5
-      151 CAPTURE                          VAL R9
-      152 CAPTURE                          VAL R10
-      153 CAPTURE                          VAL R18
-      154 CAPTURE                          VAL R12
-      155 CAPTURE                          VAL R0
-      156 CAPTURE                          VAL R16
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R2
-      159 CAPTURE                          VAL R11
-      160 CAPTURE                          VAL R17
-      161 CAPTURE                          VAL R1
-      162 RETURN                           R20 1
+      131 GETTABLEKS                       R19 R0 K16 ["Src"]
+      133 GETTABLEKS                       R19 R19 K17 ["Dialogs"]
+      135 GETTABLEKS                       R19 R19 K26 ["Types"]
+      137 CALL                             R18 1 1
+      138 DUPCLOSURE                       R19 K32 [PROTO_6]
+      139 CAPTURE                          VAL R7
+      140 CAPTURE                          VAL R4
+      141 CAPTURE                          VAL R15
+      142 CAPTURE                          VAL R8
+      143 CAPTURE                          VAL R5
+      144 CAPTURE                          VAL R9
+      145 CAPTURE                          VAL R10
+      146 CAPTURE                          VAL R17
+      147 CAPTURE                          VAL R12
+      148 CAPTURE                          VAL R0
+      149 CAPTURE                          VAL R16
+      150 CAPTURE                          VAL R13
+      151 CAPTURE                          VAL R2
+      152 CAPTURE                          VAL R11
+      153 CAPTURE                          VAL R1
+      154 RETURN                           R19 1

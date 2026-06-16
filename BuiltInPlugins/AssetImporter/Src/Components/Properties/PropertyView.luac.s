@@ -141,58 +141,41 @@ PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["props"]
         3 GETTABLEKS                       R2 R1 K1 ["PropertyMetadata"]
-        5 GETUPVAL                         R3 1
-        6 CALL                             R3 0 1
-        7 JUMPIF                           R3 ; [+19]
-        8 GETTABLEKS                       R3 R2 K2 ["Name"]
-       10 JUMPIFNOTEQKS                    R3 K3 ["ImportName"] ; [+16]
-       12 GETTABLEKS                       R3 R1 K4 ["Instance"]
-       14 GETTABLEKS                       R3 R3 K3 ["ImportName"]
-       16 JUMPIFEQ                         R3 R0 ; [+10]
-       18 GETTABLEKS                       R3 R1 K5 ["UpdateQueueItem"]
-       20 GETTABLEKS                       R4 R1 K6 ["ActiveQueueItem"]
-       22 DUPTABLE                         R5 K8 [{"settingsChanged"}]
-       23 LOADB                            R6 1
-       24 SETTABLEKS                       R6 R5 K7 ["settingsChanged"]
-       26 CALL                             R3 2 0
-       27 GETTABLEKS                       R4 R1 K4 ["Instance"]
-       29 GETTABLEKS                       R5 R2 K2 ["Name"]
-       31 GETTABLE                         R3 R4 R5
-       32 GETTABLEKS                       R4 R1 K4 ["Instance"]
-       34 GETTABLEKS                       R5 R2 K2 ["Name"]
-       36 SETTABLE                         R0 R4 R5
-       37 GETUPVAL                         R4 0
-       38 GETTABLEKS                       R4 R4 K0 ["props"]
-       40 GETTABLEKS                       R4 R4 K9 ["UpdatePreviewInstance"]
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R5 R5 K0 ["props"]
-       45 GETTABLEKS                       R5 R5 K4 ["Instance"]
-       47 NAMECALL                         R5 R5 K10 ["GetPreview"]
-       49 CALL                             R5 1 -1
-       50 CALL                             R4 -1 0
-       51 GETUPVAL                         R4 1
-       52 CALL                             R4 0 1
-       53 JUMPIFNOT                        R4 ; [+18]
-       54 GETIMPORT                        R4 K13 [table.find]
-       56 GETUPVAL                         R5 2
-       57 GETTABLEKS                       R6 R2 K2 ["Name"]
-       59 CALL                             R4 2 1
-       60 JUMPIFNOT                        R4 ; [+11]
-       61 JUMPIFEQ                         R3 R0 ; [+10]
-       63 GETTABLEKS                       R4 R1 K5 ["UpdateQueueItem"]
-       65 GETTABLEKS                       R5 R1 K6 ["ActiveQueueItem"]
-       67 DUPTABLE                         R6 K8 [{"settingsChanged"}]
-       68 LOADB                            R7 1
-       69 SETTABLEKS                       R7 R6 K7 ["settingsChanged"]
-       71 CALL                             R4 2 0
-       72 GETTABLEKS                       R4 R1 K14 ["SetErrorNodeChecked"]
-       74 GETUPVAL                         R5 3
-       75 GETTABLEKS                       R6 R1 K15 ["ImportTree"]
-       77 CALL                             R5 1 -1
-       78 CALL                             R4 -1 0
-       79 GETTABLEKS                       R4 R1 K16 ["OnInteract"]
-       81 CALL                             R4 0 0
-       82 RETURN                           R0 0
+        5 GETTABLEKS                       R4 R1 K2 ["Instance"]
+        7 GETTABLEKS                       R5 R2 K3 ["Name"]
+        9 GETTABLE                         R3 R4 R5
+       10 GETTABLEKS                       R4 R1 K2 ["Instance"]
+       12 GETTABLEKS                       R5 R2 K3 ["Name"]
+       14 SETTABLE                         R0 R4 R5
+       15 GETUPVAL                         R4 0
+       16 GETTABLEKS                       R4 R4 K0 ["props"]
+       18 GETTABLEKS                       R4 R4 K4 ["UpdatePreviewInstance"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K0 ["props"]
+       23 GETTABLEKS                       R5 R5 K2 ["Instance"]
+       25 NAMECALL                         R5 R5 K5 ["GetPreview"]
+       27 CALL                             R5 1 -1
+       28 CALL                             R4 -1 0
+       29 GETIMPORT                        R4 K8 [table.find]
+       31 GETUPVAL                         R5 1
+       32 GETTABLEKS                       R6 R2 K3 ["Name"]
+       34 CALL                             R4 2 1
+       35 JUMPIFNOT                        R4 ; [+11]
+       36 JUMPIFEQ                         R3 R0 ; [+10]
+       38 GETTABLEKS                       R4 R1 K9 ["UpdateQueueItem"]
+       40 GETTABLEKS                       R5 R1 K10 ["ActiveQueueItem"]
+       42 DUPTABLE                         R6 K12 [{"settingsChanged"}]
+       43 LOADB                            R7 1
+       44 SETTABLEKS                       R7 R6 K11 ["settingsChanged"]
+       46 CALL                             R4 2 0
+       47 GETTABLEKS                       R4 R1 K13 ["SetErrorNodeChecked"]
+       49 GETUPVAL                         R5 2
+       50 GETTABLEKS                       R6 R1 K14 ["ImportTree"]
+       52 CALL                             R5 1 -1
+       53 CALL                             R4 -1 0
+       54 GETTABLEKS                       R4 R1 K15 ["OnInteract"]
+       56 CALL                             R4 0 0
+       57 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -245,32 +228,31 @@ PROTO_9:
         7 NEWCLOSURE                       R2 P2
         8 CAPTURE                          VAL R0
         9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 CAPTURE                          UPVAL U0
-       12 SETTABLEKS                       R2 R0 K1 ["onSetItem"]
-       14 NEWCLOSURE                       R2 P3
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U0
-       17 SETTABLEKS                       R2 R0 K2 ["onSelectItem"]
-       19 DUPTABLE                         R4 K5 [{"value", "dependencies"}]
-       20 GETTABLEKS                       R6 R0 K6 ["props"]
-       22 GETTABLEKS                       R6 R6 K7 ["Instance"]
-       24 GETTABLEKS                       R7 R0 K6 ["props"]
-       26 GETTABLEKS                       R7 R7 K8 ["PropertyMetadata"]
-       28 GETTABLEKS                       R7 R7 K9 ["Name"]
-       30 GETTABLE                         R5 R6 R7
-       31 SETTABLEKS                       R5 R4 K3 ["value"]
-       33 GETUPVAL                         R5 3
-       34 GETTABLEKS                       R6 R0 K6 ["props"]
-       36 GETTABLEKS                       R6 R6 K7 ["Instance"]
-       38 GETTABLEKS                       R7 R0 K6 ["props"]
-       40 GETTABLEKS                       R7 R7 K8 ["PropertyMetadata"]
-       42 GETTABLEKS                       R7 R7 K10 ["Dependencies"]
-       44 CALL                             R5 2 1
-       45 SETTABLEKS                       R5 R4 K4 ["dependencies"]
-       47 NAMECALL                         R2 R0 K11 ["setState"]
-       49 CALL                             R2 2 0
-       50 RETURN                           R0 0
+       10 CAPTURE                          UPVAL U0
+       11 SETTABLEKS                       R2 R0 K1 ["onSetItem"]
+       13 NEWCLOSURE                       R2 P3
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          UPVAL U0
+       16 SETTABLEKS                       R2 R0 K2 ["onSelectItem"]
+       18 DUPTABLE                         R4 K5 [{"value", "dependencies"}]
+       19 GETTABLEKS                       R6 R0 K6 ["props"]
+       21 GETTABLEKS                       R6 R6 K7 ["Instance"]
+       23 GETTABLEKS                       R7 R0 K6 ["props"]
+       25 GETTABLEKS                       R7 R7 K8 ["PropertyMetadata"]
+       27 GETTABLEKS                       R7 R7 K9 ["Name"]
+       29 GETTABLE                         R5 R6 R7
+       30 SETTABLEKS                       R5 R4 K3 ["value"]
+       32 GETUPVAL                         R5 2
+       33 GETTABLEKS                       R6 R0 K6 ["props"]
+       35 GETTABLEKS                       R6 R6 K7 ["Instance"]
+       37 GETTABLEKS                       R7 R0 K6 ["props"]
+       39 GETTABLEKS                       R7 R7 K8 ["PropertyMetadata"]
+       41 GETTABLEKS                       R7 R7 K10 ["Dependencies"]
+       43 CALL                             R5 2 1
+       44 SETTABLEKS                       R5 R4 K4 ["dependencies"]
+       46 NAMECALL                         R2 R0 K11 ["setState"]
+       48 CALL                             R2 2 0
+       49 RETURN                           R0 0
 
 PROTO_10:
         0 NAMECALL                         R1 R0 K0 ["_connect"]
@@ -658,79 +640,73 @@ MAIN:
       114 GETIMPORT                        R22 K5 [require]
       116 GETTABLEKS                       R23 R0 K19 ["Src"]
       118 GETTABLEKS                       R23 R23 K34 ["Flags"]
-      120 GETTABLEKS                       R23 R23 K35 ["getFFlagAssetImporterQueueUpdates"]
+      120 GETTABLEKS                       R23 R23 K35 ["getFFlagMeshImporterStudsPerMeterUseNewValue"]
       122 CALL                             R22 1 1
       123 GETIMPORT                        R23 K5 [require]
       125 GETTABLEKS                       R24 R0 K19 ["Src"]
       127 GETTABLEKS                       R24 R24 K34 ["Flags"]
-      129 GETTABLEKS                       R24 R24 K36 ["getFFlagMeshImporterStudsPerMeterUseNewValue"]
+      129 GETTABLEKS                       R24 R24 K36 ["getFFlagShowScaleUnitChangeWarnings"]
       131 CALL                             R23 1 1
-      132 GETIMPORT                        R24 K5 [require]
-      134 GETTABLEKS                       R25 R0 K19 ["Src"]
-      136 GETTABLEKS                       R25 R25 K34 ["Flags"]
-      138 GETTABLEKS                       R25 R25 K37 ["getFFlagShowScaleUnitChangeWarnings"]
-      140 CALL                             R24 1 1
-      141 GETTABLEKS                       R25 R1 K38 ["PureComponent"]
-      143 LOADK                            R27 K39 ["PropertyView"]
-      144 NAMECALL                         R25 R25 K40 ["extend"]
-      146 CALL                             R25 2 1
-      147 DUPCLOSURE                       R26 K41 [PROTO_0]
-      148 DUPCLOSURE                       R27 K42 [PROTO_1]
-      149 DUPCLOSURE                       R28 K43 [PROTO_3]
-      150 CAPTURE                          VAL R26
-      151 SETTABLEKS                       R28 R25 K44 ["_connect"]
-      153 DUPCLOSURE                       R28 K45 [PROTO_4]
-      154 SETTABLEKS                       R28 R25 K46 ["_disconnect"]
-      156 NEWTABLE                         R28 0 2
-      158 LOADK                            R29 K47 ["ImportName"]
-      159 LOADK                            R30 K48 ["PreferredUploadId"]
-      160 SETLIST                          R28 R29 2 [1]
-      162 DUPCLOSURE                       R29 K49 [PROTO_9]
-      163 CAPTURE                          VAL R19
-      164 CAPTURE                          VAL R22
-      165 CAPTURE                          VAL R28
-      166 CAPTURE                          VAL R26
-      167 SETTABLEKS                       R29 R25 K50 ["init"]
-      169 DUPCLOSURE                       R29 K51 [PROTO_10]
-      170 SETTABLEKS                       R29 R25 K52 ["didMount"]
-      172 DUPCLOSURE                       R29 K53 [PROTO_11]
-      173 SETTABLEKS                       R29 R25 K54 ["willUnmount"]
-      175 DUPCLOSURE                       R29 K55 [PROTO_12]
-      176 SETTABLEKS                       R29 R25 K56 ["didUpdate"]
-      178 DUPCLOSURE                       R29 K57 [PROTO_13]
-      179 CAPTURE                          VAL R26
-      180 SETTABLEKS                       R29 R25 K58 ["getDerivedStateFromProps"]
-      182 DUPCLOSURE                       R29 K59 [PROTO_14]
-      183 CAPTURE                          VAL R24
-      184 CAPTURE                          VAL R23
-      185 CAPTURE                          VAL R26
-      186 CAPTURE                          VAL R18
-      187 CAPTURE                          VAL R1
-      188 CAPTURE                          VAL R12
-      189 CAPTURE                          VAL R10
-      190 CAPTURE                          VAL R13
-      191 CAPTURE                          VAL R11
-      192 SETTABLEKS                       R29 R25 K60 ["render"]
-      194 DUPCLOSURE                       R29 K61 [PROTO_15]
-      195 CAPTURE                          VAL R16
-      196 SETTABLEKS                       R29 R25 K62 ["shouldUpdate"]
-      198 MOVE                             R29 R6
-      199 DUPTABLE                         R30 K63 [{"Localization", "Stylizer"}]
-      200 SETTABLEKS                       R7 R30 K13 ["Localization"]
-      202 SETTABLEKS                       R8 R30 K14 ["Stylizer"]
-      204 CALL                             R29 1 1
-      205 MOVE                             R30 R25
-      206 CALL                             R29 1 1
-      207 MOVE                             R25 R29
-      208 DUPCLOSURE                       R29 K64 [PROTO_16]
-      209 DUPCLOSURE                       R30 K65 [PROTO_20]
-      210 CAPTURE                          VAL R14
-      211 CAPTURE                          VAL R20
-      212 CAPTURE                          VAL R15
-      213 GETTABLEKS                       R31 R2 K66 ["connect"]
-      215 MOVE                             R32 R29
-      216 MOVE                             R33 R30
-      217 CALL                             R31 2 1
-      218 MOVE                             R32 R25
-      219 CALL                             R31 1 -1
-      220 RETURN                           R31 -1
+      132 GETTABLEKS                       R24 R1 K37 ["PureComponent"]
+      134 LOADK                            R26 K38 ["PropertyView"]
+      135 NAMECALL                         R24 R24 K39 ["extend"]
+      137 CALL                             R24 2 1
+      138 DUPCLOSURE                       R25 K40 [PROTO_0]
+      139 DUPCLOSURE                       R26 K41 [PROTO_1]
+      140 DUPCLOSURE                       R27 K42 [PROTO_3]
+      141 CAPTURE                          VAL R25
+      142 SETTABLEKS                       R27 R24 K43 ["_connect"]
+      144 DUPCLOSURE                       R27 K44 [PROTO_4]
+      145 SETTABLEKS                       R27 R24 K45 ["_disconnect"]
+      147 NEWTABLE                         R27 0 2
+      149 LOADK                            R28 K46 ["ImportName"]
+      150 LOADK                            R29 K47 ["PreferredUploadId"]
+      151 SETLIST                          R27 R28 2 [1]
+      153 DUPCLOSURE                       R28 K48 [PROTO_9]
+      154 CAPTURE                          VAL R19
+      155 CAPTURE                          VAL R27
+      156 CAPTURE                          VAL R25
+      157 SETTABLEKS                       R28 R24 K49 ["init"]
+      159 DUPCLOSURE                       R28 K50 [PROTO_10]
+      160 SETTABLEKS                       R28 R24 K51 ["didMount"]
+      162 DUPCLOSURE                       R28 K52 [PROTO_11]
+      163 SETTABLEKS                       R28 R24 K53 ["willUnmount"]
+      165 DUPCLOSURE                       R28 K54 [PROTO_12]
+      166 SETTABLEKS                       R28 R24 K55 ["didUpdate"]
+      168 DUPCLOSURE                       R28 K56 [PROTO_13]
+      169 CAPTURE                          VAL R25
+      170 SETTABLEKS                       R28 R24 K57 ["getDerivedStateFromProps"]
+      172 DUPCLOSURE                       R28 K58 [PROTO_14]
+      173 CAPTURE                          VAL R23
+      174 CAPTURE                          VAL R22
+      175 CAPTURE                          VAL R25
+      176 CAPTURE                          VAL R18
+      177 CAPTURE                          VAL R1
+      178 CAPTURE                          VAL R12
+      179 CAPTURE                          VAL R10
+      180 CAPTURE                          VAL R13
+      181 CAPTURE                          VAL R11
+      182 SETTABLEKS                       R28 R24 K59 ["render"]
+      184 DUPCLOSURE                       R28 K60 [PROTO_15]
+      185 CAPTURE                          VAL R16
+      186 SETTABLEKS                       R28 R24 K61 ["shouldUpdate"]
+      188 MOVE                             R28 R6
+      189 DUPTABLE                         R29 K62 [{"Localization", "Stylizer"}]
+      190 SETTABLEKS                       R7 R29 K13 ["Localization"]
+      192 SETTABLEKS                       R8 R29 K14 ["Stylizer"]
+      194 CALL                             R28 1 1
+      195 MOVE                             R29 R24
+      196 CALL                             R28 1 1
+      197 MOVE                             R24 R28
+      198 DUPCLOSURE                       R28 K63 [PROTO_16]
+      199 DUPCLOSURE                       R29 K64 [PROTO_20]
+      200 CAPTURE                          VAL R14
+      201 CAPTURE                          VAL R20
+      202 CAPTURE                          VAL R15
+      203 GETTABLEKS                       R30 R2 K65 ["connect"]
+      205 MOVE                             R31 R28
+      206 MOVE                             R32 R29
+      207 CALL                             R30 2 1
+      208 MOVE                             R31 R24
+      209 CALL                             R30 1 -1
+      210 RETURN                           R30 -1

@@ -197,27 +197,24 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 JUMPIFEQKNIL                     R0 ; [+8]
-        3 GETUPVAL                         R0 1
-        4 CALL                             R0 0 1
-        5 JUMPIFNOT                        R0 ; [+6]
-        6 GETUPVAL                         R1 0
-        7 LENGTH                           R0 R1
-        8 JUMPIFEQKN                       R0 K0 [1] ; [+3]
-       10 LOADB                            R0 0
-       11 RETURN                           R0 1
-       12 GETUPVAL                         R0 2
-       13 GETTABLEKS                       R0 R0 K1 ["originalDummy"]
-       15 GETUPVAL                         R1 0
-       16 LOADNIL                          R2
-       17 LOADNIL                          R3
-       18 FORGPREP                         R1
-       19 JUMPIFNOTEQ                      R5 R0 ; [+3]
-       21 LOADB                            R6 1
-       22 RETURN                           R6 1
-       23 FORGLOOP                         R1 2 ; [-5]
-       25 LOADB                            R1 0
-       26 RETURN                           R1 1
+        1 JUMPIFEQKNIL                     R0 ; [+5]
+        3 GETUPVAL                         R1 0
+        4 LENGTH                           R0 R1
+        5 JUMPIFEQKN                       R0 K0 [1] ; [+3]
+        7 LOADB                            R0 0
+        8 RETURN                           R0 1
+        9 GETUPVAL                         R0 1
+       10 GETTABLEKS                       R0 R0 K1 ["originalDummy"]
+       12 GETUPVAL                         R1 0
+       13 LOADNIL                          R2
+       14 LOADNIL                          R3
+       15 FORGPREP                         R1
+       16 JUMPIFNOTEQ                      R5 R0 ; [+3]
+       18 LOADB                            R6 1
+       19 RETURN                           R6 1
+       20 FORGLOOP                         R1 2 ; [-5]
+       22 LOADB                            R1 0
+       23 RETURN                           R1 1
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -333,18 +330,17 @@ PROTO_13:
       141 GETTABLEKS                       R13 R13 K8 ["useMemo"]
       143 NEWCLOSURE                       R14 P8
       144 CAPTURE                          VAL R5
-      145 CAPTURE                          UPVAL U12
-      146 CAPTURE                          VAL R10
-      147 NEWTABLE                         R15 0 2
-      149 MOVE                             R16 R5
-      150 GETTABLEKS                       R17 R10 K9 ["originalDummy"]
-      152 SETLIST                          R15 R16 2 [1]
-      154 CALL                             R13 2 1
-      155 MOVE                             R14 R12
-      156 MOVE                             R15 R13
-      157 MOVE                             R16 R7
-      158 CLOSEUPVALS                      R8
-      159 RETURN                           R14 3
+      145 CAPTURE                          VAL R10
+      146 NEWTABLE                         R15 0 2
+      148 MOVE                             R16 R5
+      149 GETTABLEKS                       R17 R10 K9 ["originalDummy"]
+      151 SETLIST                          R15 R16 2 [1]
+      153 CALL                             R13 2 1
+      154 MOVE                             R14 R12
+      155 MOVE                             R15 R13
+      156 MOVE                             R16 R7
+      157 CLOSEUPVALS                      R8
+      158 RETURN                           R14 3
 
 MAIN:
         0 PREPVARARGS                      0
@@ -399,37 +395,31 @@ MAIN:
        85 GETIMPORT                        R10 K9 [require]
        87 GETTABLEKS                       R11 R0 K10 ["Src"]
        89 GETTABLEKS                       R11 R11 K24 ["Flags"]
-       91 GETTABLEKS                       R11 R11 K25 ["getFFlagAvatarAutosetupOptionsInput"]
+       91 GETTABLEKS                       R11 R11 K25 ["getFFlagAvatarPreviewerAvatarScreenBack"]
        93 CALL                             R10 1 1
        94 GETIMPORT                        R11 K9 [require]
        96 GETTABLEKS                       R12 R0 K10 ["Src"]
        98 GETTABLEKS                       R12 R12 K24 ["Flags"]
-      100 GETTABLEKS                       R12 R12 K26 ["getFFlagAvatarPreviewerAvatarScreenBack"]
+      100 GETTABLEKS                       R12 R12 K26 ["getFFlagAvatarPreviewerEditingTools"]
       102 CALL                             R11 1 1
       103 GETIMPORT                        R12 K9 [require]
       105 GETTABLEKS                       R13 R0 K10 ["Src"]
-      107 GETTABLEKS                       R13 R13 K24 ["Flags"]
-      109 GETTABLEKS                       R13 R13 K27 ["getFFlagAvatarPreviewerEditingTools"]
-      111 CALL                             R12 1 1
-      112 GETIMPORT                        R13 K9 [require]
-      114 GETTABLEKS                       R14 R0 K10 ["Src"]
-      116 GETTABLEKS                       R14 R14 K28 ["Types"]
-      118 CALL                             R13 1 1
-      119 GETIMPORT                        R14 K31 [table.freeze]
-      121 NEWTABLE                         R15 0 0
-      123 CALL                             R14 1 1
-      124 DUPCLOSURE                       R15 K32 [PROTO_13]
-      125 CAPTURE                          VAL R6
-      126 CAPTURE                          VAL R5
-      127 CAPTURE                          VAL R7
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          VAL R12
-      130 CAPTURE                          VAL R9
-      131 CAPTURE                          VAL R8
-      132 CAPTURE                          VAL R14
-      133 CAPTURE                          VAL R1
-      134 CAPTURE                          VAL R2
-      135 CAPTURE                          VAL R4
-      136 CAPTURE                          VAL R3
-      137 CAPTURE                          VAL R10
-      138 RETURN                           R15 1
+      107 GETTABLEKS                       R13 R13 K27 ["Types"]
+      109 CALL                             R12 1 1
+      110 GETIMPORT                        R13 K30 [table.freeze]
+      112 NEWTABLE                         R14 0 0
+      114 CALL                             R13 1 1
+      115 DUPCLOSURE                       R14 K31 [PROTO_13]
+      116 CAPTURE                          VAL R6
+      117 CAPTURE                          VAL R5
+      118 CAPTURE                          VAL R7
+      119 CAPTURE                          VAL R10
+      120 CAPTURE                          VAL R11
+      121 CAPTURE                          VAL R9
+      122 CAPTURE                          VAL R8
+      123 CAPTURE                          VAL R13
+      124 CAPTURE                          VAL R1
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R4
+      127 CAPTURE                          VAL R3
+      128 RETURN                           R14 1

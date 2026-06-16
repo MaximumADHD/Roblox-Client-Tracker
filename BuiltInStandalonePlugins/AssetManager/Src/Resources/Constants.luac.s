@@ -43,135 +43,143 @@ MAIN:
        72 GETTABLEKS                       R9 R9 K10 ["Flags"]
        74 GETTABLEKS                       R9 R9 K16 ["getFIntAmrMoveFolderMax"]
        76 CALL                             R8 1 1
-       77 NEWTABLE                         R9 32 0
-       79 LOADK                            R10 K17 ["OpenAssetConfiguration"]
-       80 SETTABLEKS                       R10 R9 K18 ["OpenAssetConfigurationKey"]
-       82 DUPTABLE                         R10 K24 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       83 LOADK                            R11 K25 ["Standalone"]
-       84 SETTABLEKS                       R11 R10 K19 ["DataModel"]
-       86 LOADK                            R11 K25 ["Standalone"]
-       87 SETTABLEKS                       R11 R10 K20 ["PluginType"]
-       89 LOADK                            R11 K2 ["AssetManager"]
-       90 SETTABLEKS                       R11 R10 K21 ["PluginId"]
-       92 LOADK                            R11 K26 ["Widgets"]
-       93 SETTABLEKS                       R11 R10 K22 ["Category"]
-       95 LOADK                            R11 K27 ["AssetManagerGui"]
-       96 SETTABLEKS                       R11 R10 K23 ["ItemId"]
-       98 SETTABLEKS                       R10 R9 K28 ["GuiUri"]
-      100 DUPTABLE                         R10 K29 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      101 LOADK                            R11 K25 ["Standalone"]
-      102 SETTABLEKS                       R11 R10 K19 ["DataModel"]
-      104 LOADK                            R11 K30 ["PlaceVersionHistory"]
-      105 SETTABLEKS                       R11 R10 K21 ["PluginId"]
-      107 LOADK                            R11 K31 ["Actions"]
-      108 SETTABLEKS                       R11 R10 K22 ["Category"]
-      110 LOADK                            R11 K32 ["Toggle"]
-      111 SETTABLEKS                       R11 R10 K23 ["ItemId"]
-      113 SETTABLEKS                       R10 R9 K33 ["PlaceVersionHistoryToggle"]
-      115 DUPTABLE                         R10 K29 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      116 LOADK                            R11 K25 ["Standalone"]
-      117 SETTABLEKS                       R11 R10 K19 ["DataModel"]
-      119 LOADK                            R11 K30 ["PlaceVersionHistory"]
-      120 SETTABLEKS                       R11 R10 K21 ["PluginId"]
-      122 LOADK                            R11 K34 ["Settings"]
-      123 SETTABLEKS                       R11 R10 K22 ["Category"]
-      125 LOADK                            R11 K35 ["PlaceId"]
-      126 SETTABLEKS                       R11 R10 K23 ["ItemId"]
-      128 SETTABLEKS                       R10 R9 K36 ["PlaceVersionHistoryPlaceIdUri"]
-      130 NEWTABLE                         R10 0 4
-      132 GETTABLEKS                       R11 R1 K37 ["ScopeType"]
-      134 GETTABLEKS                       R11 R11 K38 ["User"]
-      136 GETTABLEKS                       R12 R1 K37 ["ScopeType"]
-      138 GETTABLEKS                       R12 R12 K39 ["Group"]
-      140 GETTABLEKS                       R13 R1 K37 ["ScopeType"]
-      142 GETTABLEKS                       R13 R13 K40 ["ProjectShared"]
-      144 GETTABLEKS                       R14 R1 K37 ["ScopeType"]
-      146 GETTABLEKS                       R14 R14 K41 ["Universe"]
-      148 SETLIST                          R10 R11 4 [1]
-      150 SETTABLEKS                       R10 R9 K42 ["RootAccountScopeTypes"]
-      152 LOADK                            R10 K43 ["--"]
-      153 SETTABLEKS                       R10 R9 K44 ["PlaceholderText"]
-      155 DUPTABLE                         R10 K49 [{"Name", "Type", "Id", "Uid"}]
-      156 LOADK                            R11 K50 [""]
-      157 SETTABLEKS                       R11 R10 K45 ["Name"]
-      159 GETTABLEKS                       R11 R1 K37 ["ScopeType"]
-      161 GETTABLEKS                       R11 R11 K51 ["RecentUploads"]
-      163 SETTABLEKS                       R11 R10 K46 ["Type"]
-      165 LOADN                            R11 0
-      166 SETTABLEKS                       R11 R10 K47 ["Id"]
-      168 MOVE                             R11 R2
-      169 GETTABLEKS                       R12 R1 K37 ["ScopeType"]
-      171 GETTABLEKS                       R12 R12 K51 ["RecentUploads"]
-      173 LOADN                            R13 0
-      174 CALL                             R11 2 1
-      175 SETTABLEKS                       R11 R10 K48 ["Uid"]
-      177 SETTABLEKS                       R10 R9 K51 ["RecentUploads"]
-      179 LOADN                            R10 0
-      180 SETTABLEKS                       R10 R9 K52 ["NewFolderId"]
-      182 MOVE                             R10 R2
-      183 GETTABLEKS                       R11 R1 K37 ["ScopeType"]
-      185 GETTABLEKS                       R11 R11 K53 ["Folder"]
-      187 GETTABLEKS                       R12 R9 K52 ["NewFolderId"]
-      189 CALL                             R10 2 1
-      190 SETTABLEKS                       R10 R9 K54 ["NewFolderUid"]
-      192 MOVE                             R10 R5
-      193 CALL                             R10 0 1
-      194 SETTABLEKS                       R10 R9 K55 ["FolderDepthMax"]
-      196 MOVE                             R10 R6
-      197 CALL                             R10 0 1
-      198 SETTABLEKS                       R10 R9 K56 ["FolderBreadthMax"]
-      200 MOVE                             R10 R7
-      201 CALL                             R10 0 1
-      202 SETTABLEKS                       R10 R9 K57 ["MoveBatchAssetMax"]
-      204 MOVE                             R10 R8
-      205 CALL                             R10 0 1
-      206 SETTABLEKS                       R10 R9 K58 ["MoveBatchFolderMax"]
-      208 MOVE                             R10 R4
-      209 CALL                             R10 0 1
-      210 SETTABLEKS                       R10 R9 K59 ["RecentMax"]
-      212 MOVE                             R10 R3
-      213 CALL                             R10 0 1
-      214 SETTABLEKS                       R10 R9 K60 ["ItemFetchMax"]
-      216 LOADN                            R10 5
-      217 SETTABLEKS                       R10 R9 K61 ["FolderReadinessRetryCount"]
-      219 NEWTABLE                         R10 16 0
-      221 LOADB                            R11 1
-      222 SETTABLEKS                       R11 R10 K62 ["\\"]
-      224 LOADB                            R11 1
-      225 SETTABLEKS                       R11 R10 K63 ["/"]
-      227 LOADB                            R11 1
-      228 SETTABLEKS                       R11 R10 K64 [":"]
-      230 LOADB                            R11 1
-      231 SETTABLEKS                       R11 R10 K65 ["*"]
-      233 LOADB                            R11 1
-      234 SETTABLEKS                       R11 R10 K66 ["?"]
-      236 LOADB                            R11 1
-      237 SETTABLEKS                       R11 R10 K67 ["\""]
-      239 LOADB                            R11 1
-      240 SETTABLEKS                       R11 R10 K68 ["<"]
-      242 LOADB                            R11 1
-      243 SETTABLEKS                       R11 R10 K69 [">"]
-      245 LOADB                            R11 1
-      246 SETTABLEKS                       R11 R10 K70 ["|"]
-      248 SETTABLEKS                       R10 R9 K71 ["FolderForbiddenChars"]
-      250 LOADN                            R10 3
-      251 SETTABLEKS                       R10 R9 K72 ["SearchFoldersResultCountDefault"]
-      253 LOADK                            R10 K73 [1.5]
-      254 SETTABLEKS                       R10 R9 K74 ["RecentlyCreatedFolderHighlightTime"]
-      256 DUPTABLE                         R10 K78 [{"DeleteFolder", "GetItems", "CreateFolder"}]
-      257 NEWTABLE                         R11 2 0
-      259 LOADK                            R12 K79 ["DeleteFolderFailedNotEmpty"]
-      260 SETTABLEN                        R12 R11 1
-      261 LOADK                            R12 K80 ["FolderNotFound"]
-      262 SETTABLEN                        R12 R11 5
-      263 SETTABLEKS                       R11 R10 K75 ["DeleteFolder"]
-      265 NEWTABLE                         R11 1 0
-      267 LOADK                            R12 K80 ["FolderNotFound"]
-      268 SETTABLEN                        R12 R11 5
-      269 SETTABLEKS                       R11 R10 K76 ["GetItems"]
-      271 NEWTABLE                         R11 0 1
-      273 LOADK                            R12 K81 ["CreateFolderDepthLimitExceeded"]
-      274 SETTABLEN                        R12 R11 1
-      275 SETTABLEKS                       R11 R10 K77 ["CreateFolder"]
-      277 SETTABLEKS                       R10 R9 K82 ["ErrorTypeLookup"]
-      279 RETURN                           R9 1
+       77 GETIMPORT                        R9 K5 [require]
+       79 GETTABLEKS                       R10 R0 K6 ["Src"]
+       81 GETTABLEKS                       R10 R10 K10 ["Flags"]
+       83 GETTABLEKS                       R10 R10 K17 ["getFIntAmrOpenInBrowserWarningThreshold"]
+       85 CALL                             R9 1 1
+       86 NEWTABLE                         R10 32 0
+       88 LOADK                            R11 K18 ["OpenAssetConfiguration"]
+       89 SETTABLEKS                       R11 R10 K19 ["OpenAssetConfigurationKey"]
+       91 DUPTABLE                         R11 K25 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+       92 LOADK                            R12 K26 ["Standalone"]
+       93 SETTABLEKS                       R12 R11 K20 ["DataModel"]
+       95 LOADK                            R12 K26 ["Standalone"]
+       96 SETTABLEKS                       R12 R11 K21 ["PluginType"]
+       98 LOADK                            R12 K2 ["AssetManager"]
+       99 SETTABLEKS                       R12 R11 K22 ["PluginId"]
+      101 LOADK                            R12 K27 ["Widgets"]
+      102 SETTABLEKS                       R12 R11 K23 ["Category"]
+      104 LOADK                            R12 K28 ["AssetManagerGui"]
+      105 SETTABLEKS                       R12 R11 K24 ["ItemId"]
+      107 SETTABLEKS                       R11 R10 K29 ["GuiUri"]
+      109 DUPTABLE                         R11 K30 [{"DataModel", "PluginId", "Category", "ItemId"}]
+      110 LOADK                            R12 K26 ["Standalone"]
+      111 SETTABLEKS                       R12 R11 K20 ["DataModel"]
+      113 LOADK                            R12 K31 ["PlaceVersionHistory"]
+      114 SETTABLEKS                       R12 R11 K22 ["PluginId"]
+      116 LOADK                            R12 K32 ["Actions"]
+      117 SETTABLEKS                       R12 R11 K23 ["Category"]
+      119 LOADK                            R12 K33 ["Toggle"]
+      120 SETTABLEKS                       R12 R11 K24 ["ItemId"]
+      122 SETTABLEKS                       R11 R10 K34 ["PlaceVersionHistoryToggle"]
+      124 DUPTABLE                         R11 K30 [{"DataModel", "PluginId", "Category", "ItemId"}]
+      125 LOADK                            R12 K26 ["Standalone"]
+      126 SETTABLEKS                       R12 R11 K20 ["DataModel"]
+      128 LOADK                            R12 K31 ["PlaceVersionHistory"]
+      129 SETTABLEKS                       R12 R11 K22 ["PluginId"]
+      131 LOADK                            R12 K35 ["Settings"]
+      132 SETTABLEKS                       R12 R11 K23 ["Category"]
+      134 LOADK                            R12 K36 ["PlaceId"]
+      135 SETTABLEKS                       R12 R11 K24 ["ItemId"]
+      137 SETTABLEKS                       R11 R10 K37 ["PlaceVersionHistoryPlaceIdUri"]
+      139 NEWTABLE                         R11 0 4
+      141 GETTABLEKS                       R12 R1 K38 ["ScopeType"]
+      143 GETTABLEKS                       R12 R12 K39 ["User"]
+      145 GETTABLEKS                       R13 R1 K38 ["ScopeType"]
+      147 GETTABLEKS                       R13 R13 K40 ["Group"]
+      149 GETTABLEKS                       R14 R1 K38 ["ScopeType"]
+      151 GETTABLEKS                       R14 R14 K41 ["ProjectShared"]
+      153 GETTABLEKS                       R15 R1 K38 ["ScopeType"]
+      155 GETTABLEKS                       R15 R15 K42 ["Universe"]
+      157 SETLIST                          R11 R12 4 [1]
+      159 SETTABLEKS                       R11 R10 K43 ["RootAccountScopeTypes"]
+      161 LOADK                            R11 K44 ["--"]
+      162 SETTABLEKS                       R11 R10 K45 ["PlaceholderText"]
+      164 DUPTABLE                         R11 K50 [{"Name", "Type", "Id", "Uid"}]
+      165 LOADK                            R12 K51 [""]
+      166 SETTABLEKS                       R12 R11 K46 ["Name"]
+      168 GETTABLEKS                       R12 R1 K38 ["ScopeType"]
+      170 GETTABLEKS                       R12 R12 K52 ["RecentUploads"]
+      172 SETTABLEKS                       R12 R11 K47 ["Type"]
+      174 LOADN                            R12 0
+      175 SETTABLEKS                       R12 R11 K48 ["Id"]
+      177 MOVE                             R12 R2
+      178 GETTABLEKS                       R13 R1 K38 ["ScopeType"]
+      180 GETTABLEKS                       R13 R13 K52 ["RecentUploads"]
+      182 LOADN                            R14 0
+      183 CALL                             R12 2 1
+      184 SETTABLEKS                       R12 R11 K49 ["Uid"]
+      186 SETTABLEKS                       R11 R10 K52 ["RecentUploads"]
+      188 LOADN                            R11 0
+      189 SETTABLEKS                       R11 R10 K53 ["NewFolderId"]
+      191 MOVE                             R11 R2
+      192 GETTABLEKS                       R12 R1 K38 ["ScopeType"]
+      194 GETTABLEKS                       R12 R12 K54 ["Folder"]
+      196 GETTABLEKS                       R13 R10 K53 ["NewFolderId"]
+      198 CALL                             R11 2 1
+      199 SETTABLEKS                       R11 R10 K55 ["NewFolderUid"]
+      201 MOVE                             R11 R5
+      202 CALL                             R11 0 1
+      203 SETTABLEKS                       R11 R10 K56 ["FolderDepthMax"]
+      205 MOVE                             R11 R6
+      206 CALL                             R11 0 1
+      207 SETTABLEKS                       R11 R10 K57 ["FolderBreadthMax"]
+      209 MOVE                             R11 R7
+      210 CALL                             R11 0 1
+      211 SETTABLEKS                       R11 R10 K58 ["MoveBatchAssetMax"]
+      213 MOVE                             R11 R8
+      214 CALL                             R11 0 1
+      215 SETTABLEKS                       R11 R10 K59 ["MoveBatchFolderMax"]
+      217 MOVE                             R11 R4
+      218 CALL                             R11 0 1
+      219 SETTABLEKS                       R11 R10 K60 ["RecentMax"]
+      221 MOVE                             R11 R3
+      222 CALL                             R11 0 1
+      223 SETTABLEKS                       R11 R10 K61 ["ItemFetchMax"]
+      225 LOADN                            R11 5
+      226 SETTABLEKS                       R11 R10 K62 ["FolderReadinessRetryCount"]
+      228 NEWTABLE                         R11 16 0
+      230 LOADB                            R12 1
+      231 SETTABLEKS                       R12 R11 K63 ["\\"]
+      233 LOADB                            R12 1
+      234 SETTABLEKS                       R12 R11 K64 ["/"]
+      236 LOADB                            R12 1
+      237 SETTABLEKS                       R12 R11 K65 [":"]
+      239 LOADB                            R12 1
+      240 SETTABLEKS                       R12 R11 K66 ["*"]
+      242 LOADB                            R12 1
+      243 SETTABLEKS                       R12 R11 K67 ["?"]
+      245 LOADB                            R12 1
+      246 SETTABLEKS                       R12 R11 K68 ["\""]
+      248 LOADB                            R12 1
+      249 SETTABLEKS                       R12 R11 K69 ["<"]
+      251 LOADB                            R12 1
+      252 SETTABLEKS                       R12 R11 K70 [">"]
+      254 LOADB                            R12 1
+      255 SETTABLEKS                       R12 R11 K71 ["|"]
+      257 SETTABLEKS                       R11 R10 K72 ["FolderForbiddenChars"]
+      259 MOVE                             R11 R9
+      260 CALL                             R11 0 1
+      261 SETTABLEKS                       R11 R10 K73 ["OpenInBrowserWarningThreshold"]
+      263 LOADN                            R11 3
+      264 SETTABLEKS                       R11 R10 K74 ["SearchFoldersResultCountDefault"]
+      266 LOADK                            R11 K75 [1.5]
+      267 SETTABLEKS                       R11 R10 K76 ["RecentlyCreatedFolderHighlightTime"]
+      269 DUPTABLE                         R11 K80 [{"DeleteFolder", "GetItems", "CreateFolder"}]
+      270 NEWTABLE                         R12 2 0
+      272 LOADK                            R13 K81 ["DeleteFolderFailedNotEmpty"]
+      273 SETTABLEN                        R13 R12 1
+      274 LOADK                            R13 K82 ["FolderNotFound"]
+      275 SETTABLEN                        R13 R12 5
+      276 SETTABLEKS                       R12 R11 K77 ["DeleteFolder"]
+      278 NEWTABLE                         R12 1 0
+      280 LOADK                            R13 K82 ["FolderNotFound"]
+      281 SETTABLEN                        R13 R12 5
+      282 SETTABLEKS                       R12 R11 K78 ["GetItems"]
+      284 NEWTABLE                         R12 0 1
+      286 LOADK                            R13 K83 ["CreateFolderDepthLimitExceeded"]
+      287 SETTABLEN                        R13 R12 1
+      288 SETTABLEKS                       R12 R11 K79 ["CreateFolder"]
+      290 SETTABLEKS                       R11 R10 K84 ["ErrorTypeLookup"]
+      292 RETURN                           R10 1

@@ -328,15 +328,11 @@ PROTO_34:
 
 PROTO_35:
         0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+7]
-        3 GETUPVAL                         R1 1
-        4 LOADK                            R3 K0 ["Info"]
-        5 MOVE                             R4 R0
-        6 NAMECALL                         R1 R1 K1 ["PrintToStudioLogAsync"]
-        8 CALL                             R1 3 -1
-        9 RETURN                           R1 -1
-       10 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["Info"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["PrintToStudioLogAsync"]
+        5 CALL                             R1 3 -1
+        6 RETURN                           R1 -1
 
 PROTO_36:
         0 GETUPVAL                         R0 0
@@ -475,41 +471,40 @@ PROTO_41:
       136 CAPTURE                          VAL R3
       137 SETTABLEKS                       R6 R0 K33 ["importFileBinaryAsync"]
       139 NEWCLOSURE                       R6 P29
-      140 CAPTURE                          UPVAL U0
-      141 CAPTURE                          VAL R3
-      142 SETTABLEKS                       R6 R0 K34 ["printToStudioLogAsync"]
-      144 GETUPVAL                         R6 1
-      145 CALL                             R6 0 1
-      146 JUMPIFNOT                        R6 ; [+44]
-      147 GETTABLEKS                       R6 R0 K35 ["userSkills"]
-      149 NEWCLOSURE                       R7 P30
-      150 CAPTURE                          VAL R3
-      151 SETTABLEKS                       R7 R6 K36 ["listAsync"]
-      153 GETTABLEKS                       R6 R0 K35 ["userSkills"]
-      155 NEWCLOSURE                       R7 P31
-      156 CAPTURE                          VAL R3
-      157 SETTABLEKS                       R7 R6 K30 ["readFileAsync"]
-      159 GETUPVAL                         R6 2
-      160 GETTABLEKS                       R6 R6 K37 ["Utils"]
-      162 GETTABLEKS                       R6 R6 K38 ["DataModelType"]
-      164 GETTABLEKS                       R7 R6 K39 ["getDataModelType"]
-      166 CALL                             R7 0 1
-      167 GETTABLEKS                       R8 R6 K40 ["Types"]
-      169 GETTABLEKS                       R8 R8 K41 ["Standalone"]
-      171 JUMPIFNOTEQ                      R7 R8 ; [+19]
-      173 GETTABLEKS                       R7 R0 K35 ["userSkills"]
-      175 NEWCLOSURE                       R8 P32
-      176 CAPTURE                          VAL R3
-      177 SETTABLEKS                       R8 R7 K42 ["writeFileAsync"]
-      179 GETTABLEKS                       R7 R0 K35 ["userSkills"]
-      181 NEWCLOSURE                       R8 P33
-      182 CAPTURE                          VAL R3
-      183 SETTABLEKS                       R8 R7 K43 ["deleteFileAsync"]
-      185 GETTABLEKS                       R7 R0 K35 ["userSkills"]
-      187 NEWCLOSURE                       R8 P34
-      188 CAPTURE                          VAL R3
-      189 SETTABLEKS                       R8 R7 K44 ["openFolderAsync"]
-      191 RETURN                           R0 0
+      140 CAPTURE                          VAL R3
+      141 SETTABLEKS                       R6 R0 K34 ["printToStudioLogAsync"]
+      143 GETUPVAL                         R6 0
+      144 CALL                             R6 0 1
+      145 JUMPIFNOT                        R6 ; [+44]
+      146 GETTABLEKS                       R6 R0 K35 ["userSkills"]
+      148 NEWCLOSURE                       R7 P30
+      149 CAPTURE                          VAL R3
+      150 SETTABLEKS                       R7 R6 K36 ["listAsync"]
+      152 GETTABLEKS                       R6 R0 K35 ["userSkills"]
+      154 NEWCLOSURE                       R7 P31
+      155 CAPTURE                          VAL R3
+      156 SETTABLEKS                       R7 R6 K30 ["readFileAsync"]
+      158 GETUPVAL                         R6 1
+      159 GETTABLEKS                       R6 R6 K37 ["Utils"]
+      161 GETTABLEKS                       R6 R6 K38 ["DataModelType"]
+      163 GETTABLEKS                       R7 R6 K39 ["getDataModelType"]
+      165 CALL                             R7 0 1
+      166 GETTABLEKS                       R8 R6 K40 ["Types"]
+      168 GETTABLEKS                       R8 R8 K41 ["Standalone"]
+      170 JUMPIFNOTEQ                      R7 R8 ; [+19]
+      172 GETTABLEKS                       R7 R0 K35 ["userSkills"]
+      174 NEWCLOSURE                       R8 P32
+      175 CAPTURE                          VAL R3
+      176 SETTABLEKS                       R8 R7 K42 ["writeFileAsync"]
+      178 GETTABLEKS                       R7 R0 K35 ["userSkills"]
+      180 NEWCLOSURE                       R8 P33
+      181 CAPTURE                          VAL R3
+      182 SETTABLEKS                       R8 R7 K43 ["deleteFileAsync"]
+      184 GETTABLEKS                       R7 R0 K35 ["userSkills"]
+      186 NEWCLOSURE                       R8 P34
+      187 CAPTURE                          VAL R3
+      188 SETTABLEKS                       R8 R7 K44 ["openFolderAsync"]
+      190 RETURN                           R0 0
 
 PROTO_42:
         0 GETUPVAL                         R0 0
@@ -1944,90 +1939,86 @@ MAIN:
       348 GETTABLEKS                       R46 R14 K53 ["Flags"]
       350 GETTABLEKS                       R46 R46 K54 ["Shared"]
       352 GETTABLEKS                       R46 R46 K66 ["FFlagAssistantInstancePickerSelectModel"]
-      354 GETTABLEKS                       R47 R14 K53 ["Flags"]
-      356 GETTABLEKS                       R47 R47 K54 ["Shared"]
-      358 GETTABLEKS                       R47 R47 K67 ["FFlagPrimGenEnableStatusLog"]
-      360 GETTABLEKS                       R48 R18 K68 ["Http"]
-      362 GETTABLEKS                       R48 R48 K69 ["Networking"]
-      364 GETTABLEKS                       R49 R48 K70 ["new"]
-      366 DUPTABLE                         R50 K73 [{"isInternal", "loggingLevel"}]
-      367 LOADB                            R51 1
-      368 SETTABLEKS                       R51 R50 K71 ["isInternal"]
-      370 MOVE                             R52 R45
-      371 CALL                             R52 0 1
-      372 JUMPIFNOT                        R52 ; [+2]
-      373 LOADN                            R51 4
-      374 JUMP                             ; [+1]
-      375 LOADN                            R51 0
-      376 SETTABLEKS                       R51 R50 K72 ["loggingLevel"]
-      378 CALL                             R49 1 1
-      379 GETTABLEKS                       R50 R18 K74 ["Url"]
-      381 GETTABLEKS                       R51 R50 K70 ["new"]
-      383 LOADNIL                          R52
-      384 CALL                             R51 1 1
-      385 DUPCLOSURE                       R52 K75 [PROTO_1]
-      386 CAPTURE                          VAL R0
-      387 CAPTURE                          VAL R21
-      388 CAPTURE                          VAL R22
-      389 DUPCLOSURE                       R53 K76 [PROTO_41]
-      390 CAPTURE                          VAL R47
-      391 CAPTURE                          VAL R36
-      392 CAPTURE                          VAL R14
-      393 DUPCLOSURE                       R54 K77 [PROTO_51]
-      394 CAPTURE                          VAL R4
-      395 CAPTURE                          VAL R43
+      354 GETTABLEKS                       R47 R18 K67 ["Http"]
+      356 GETTABLEKS                       R47 R47 K68 ["Networking"]
+      358 GETTABLEKS                       R48 R47 K69 ["new"]
+      360 DUPTABLE                         R49 K72 [{"isInternal", "loggingLevel"}]
+      361 LOADB                            R50 1
+      362 SETTABLEKS                       R50 R49 K70 ["isInternal"]
+      364 MOVE                             R51 R45
+      365 CALL                             R51 0 1
+      366 JUMPIFNOT                        R51 ; [+2]
+      367 LOADN                            R50 4
+      368 JUMP                             ; [+1]
+      369 LOADN                            R50 0
+      370 SETTABLEKS                       R50 R49 K71 ["loggingLevel"]
+      372 CALL                             R48 1 1
+      373 GETTABLEKS                       R49 R18 K73 ["Url"]
+      375 GETTABLEKS                       R50 R49 K69 ["new"]
+      377 LOADNIL                          R51
+      378 CALL                             R50 1 1
+      379 DUPCLOSURE                       R51 K74 [PROTO_1]
+      380 CAPTURE                          VAL R0
+      381 CAPTURE                          VAL R21
+      382 CAPTURE                          VAL R22
+      383 DUPCLOSURE                       R52 K75 [PROTO_41]
+      384 CAPTURE                          VAL R36
+      385 CAPTURE                          VAL R14
+      386 DUPCLOSURE                       R53 K76 [PROTO_51]
+      387 CAPTURE                          VAL R4
+      388 CAPTURE                          VAL R43
+      389 CAPTURE                          VAL R14
+      390 DUPCLOSURE                       R54 K77 [PROTO_52]
+      391 CAPTURE                          VAL R25
+      392 DUPCLOSURE                       R55 K78 [PROTO_56]
+      393 CAPTURE                          VAL R12
+      394 CAPTURE                          VAL R26
+      395 CAPTURE                          VAL R16
       396 CAPTURE                          VAL R14
-      397 DUPCLOSURE                       R55 K78 [PROTO_52]
-      398 CAPTURE                          VAL R25
-      399 DUPCLOSURE                       R56 K79 [PROTO_56]
-      400 CAPTURE                          VAL R12
-      401 CAPTURE                          VAL R26
-      402 CAPTURE                          VAL R16
+      397 DUPCLOSURE                       R56 K79 [PROTO_65]
+      398 CAPTURE                          VAL R32
+      399 CAPTURE                          VAL R40
+      400 CAPTURE                          VAL R13
+      401 CAPTURE                          VAL R46
+      402 DUPCLOSURE                       R57 K80 [PROTO_118]
       403 CAPTURE                          VAL R14
-      404 DUPCLOSURE                       R57 K80 [PROTO_65]
-      405 CAPTURE                          VAL R32
-      406 CAPTURE                          VAL R40
-      407 CAPTURE                          VAL R13
-      408 CAPTURE                          VAL R46
-      409 DUPCLOSURE                       R58 K81 [PROTO_118]
-      410 CAPTURE                          VAL R14
-      411 CAPTURE                          VAL R51
-      412 CAPTURE                          VAL R34
-      413 CAPTURE                          VAL R41
-      414 CAPTURE                          VAL R42
-      415 CAPTURE                          VAL R27
-      416 CAPTURE                          VAL R7
-      417 CAPTURE                          VAL R24
-      418 CAPTURE                          VAL R5
-      419 CAPTURE                          VAL R11
-      420 CAPTURE                          VAL R4
-      421 CAPTURE                          VAL R37
-      422 CAPTURE                          VAL R29
-      423 CAPTURE                          VAL R38
-      424 CAPTURE                          VAL R23
-      425 CAPTURE                          VAL R2
-      426 CAPTURE                          VAL R56
-      427 CAPTURE                          VAL R44
-      428 CAPTURE                          VAL R25
-      429 CAPTURE                          VAL R10
-      430 CAPTURE                          VAL R39
-      431 CAPTURE                          VAL R26
-      432 CAPTURE                          VAL R15
-      433 CAPTURE                          VAL R49
-      434 CAPTURE                          VAL R43
-      435 CAPTURE                          VAL R12
-      436 CAPTURE                          VAL R33
-      437 CAPTURE                          VAL R53
-      438 CAPTURE                          VAL R54
-      439 CAPTURE                          VAL R52
-      440 CAPTURE                          VAL R6
-      441 CAPTURE                          VAL R35
-      442 CAPTURE                          VAL R9
-      443 CAPTURE                          VAL R8
-      444 CAPTURE                          VAL R19
-      445 CAPTURE                          VAL R20
-      446 CAPTURE                          VAL R31
-      447 CAPTURE                          VAL R57
-      448 CAPTURE                          VAL R0
-      449 CAPTURE                          VAL R28
-      450 RETURN                           R58 1
+      404 CAPTURE                          VAL R50
+      405 CAPTURE                          VAL R34
+      406 CAPTURE                          VAL R41
+      407 CAPTURE                          VAL R42
+      408 CAPTURE                          VAL R27
+      409 CAPTURE                          VAL R7
+      410 CAPTURE                          VAL R24
+      411 CAPTURE                          VAL R5
+      412 CAPTURE                          VAL R11
+      413 CAPTURE                          VAL R4
+      414 CAPTURE                          VAL R37
+      415 CAPTURE                          VAL R29
+      416 CAPTURE                          VAL R38
+      417 CAPTURE                          VAL R23
+      418 CAPTURE                          VAL R2
+      419 CAPTURE                          VAL R55
+      420 CAPTURE                          VAL R44
+      421 CAPTURE                          VAL R25
+      422 CAPTURE                          VAL R10
+      423 CAPTURE                          VAL R39
+      424 CAPTURE                          VAL R26
+      425 CAPTURE                          VAL R15
+      426 CAPTURE                          VAL R48
+      427 CAPTURE                          VAL R43
+      428 CAPTURE                          VAL R12
+      429 CAPTURE                          VAL R33
+      430 CAPTURE                          VAL R52
+      431 CAPTURE                          VAL R53
+      432 CAPTURE                          VAL R51
+      433 CAPTURE                          VAL R6
+      434 CAPTURE                          VAL R35
+      435 CAPTURE                          VAL R9
+      436 CAPTURE                          VAL R8
+      437 CAPTURE                          VAL R19
+      438 CAPTURE                          VAL R20
+      439 CAPTURE                          VAL R31
+      440 CAPTURE                          VAL R56
+      441 CAPTURE                          VAL R0
+      442 CAPTURE                          VAL R28
+      443 RETURN                           R57 1

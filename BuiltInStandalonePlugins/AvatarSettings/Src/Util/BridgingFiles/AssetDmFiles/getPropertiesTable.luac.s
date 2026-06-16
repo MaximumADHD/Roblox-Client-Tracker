@@ -144,24 +144,55 @@ PROTO_4:
         7 LOADK                            R3 K1 ["AvatarAbilityRules not found"]
         8 GETIMPORT                        R1 K3 [assert]
        10 CALL                             R1 2 0
-       11 DUPTABLE                         R1 K12 [{"CharacterControllerMode", "EnableRunning", "EnableJumping", "EnableSitting", "EnableFallingDown", "EnableGettingUp", "EnableClimbing", "EnableSwimming"}]
-       12 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
-       14 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
-       16 GETTABLEKS                       R2 R0 K5 ["EnableRunning"]
-       18 SETTABLEKS                       R2 R1 K5 ["EnableRunning"]
-       20 GETTABLEKS                       R2 R0 K6 ["EnableJumping"]
-       22 SETTABLEKS                       R2 R1 K6 ["EnableJumping"]
-       24 GETTABLEKS                       R2 R0 K7 ["EnableSitting"]
-       26 SETTABLEKS                       R2 R1 K7 ["EnableSitting"]
-       28 GETTABLEKS                       R2 R0 K8 ["EnableFallingDown"]
-       30 SETTABLEKS                       R2 R1 K8 ["EnableFallingDown"]
-       32 GETTABLEKS                       R2 R0 K9 ["EnableGettingUp"]
-       34 SETTABLEKS                       R2 R1 K9 ["EnableGettingUp"]
-       36 GETTABLEKS                       R2 R0 K10 ["EnableClimbing"]
-       38 SETTABLEKS                       R2 R1 K10 ["EnableClimbing"]
-       40 GETTABLEKS                       R2 R0 K11 ["EnableSwimming"]
-       42 SETTABLEKS                       R2 R1 K11 ["EnableSwimming"]
-       44 RETURN                           R1 1
+       11 GETUPVAL                         R1 1
+       12 CALL                             R1 0 1
+       13 JUMPIFNOT                        R1 ; [+54]
+       14 DUPTABLE                         R1 K17 [{"CharacterControllerMode", "EnableClimbing", "EnableCrouching", "EnableFallingDown", "EnableGettingUp", "EnableHolding", "EnableJumping", "EnableReaching", "EnableRunning", "EnableSitting", "EnableSprinting", "EnableStrafing", "EnableSwimming"}]
+       15 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
+       17 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
+       19 GETTABLEKS                       R2 R0 K5 ["EnableClimbing"]
+       21 SETTABLEKS                       R2 R1 K5 ["EnableClimbing"]
+       23 GETTABLEKS                       R2 R0 K6 ["EnableCrouching"]
+       25 SETTABLEKS                       R2 R1 K6 ["EnableCrouching"]
+       27 GETTABLEKS                       R2 R0 K7 ["EnableFallingDown"]
+       29 SETTABLEKS                       R2 R1 K7 ["EnableFallingDown"]
+       31 GETTABLEKS                       R2 R0 K8 ["EnableGettingUp"]
+       33 SETTABLEKS                       R2 R1 K8 ["EnableGettingUp"]
+       35 GETTABLEKS                       R2 R0 K9 ["EnableHolding"]
+       37 SETTABLEKS                       R2 R1 K9 ["EnableHolding"]
+       39 GETTABLEKS                       R2 R0 K10 ["EnableJumping"]
+       41 SETTABLEKS                       R2 R1 K10 ["EnableJumping"]
+       43 GETTABLEKS                       R2 R0 K11 ["EnableReaching"]
+       45 SETTABLEKS                       R2 R1 K11 ["EnableReaching"]
+       47 GETTABLEKS                       R2 R0 K12 ["EnableRunning"]
+       49 SETTABLEKS                       R2 R1 K12 ["EnableRunning"]
+       51 GETTABLEKS                       R2 R0 K13 ["EnableSitting"]
+       53 SETTABLEKS                       R2 R1 K13 ["EnableSitting"]
+       55 GETTABLEKS                       R2 R0 K14 ["EnableSprinting"]
+       57 SETTABLEKS                       R2 R1 K14 ["EnableSprinting"]
+       59 GETTABLEKS                       R2 R0 K15 ["EnableStrafing"]
+       61 SETTABLEKS                       R2 R1 K15 ["EnableStrafing"]
+       63 GETTABLEKS                       R2 R0 K16 ["EnableSwimming"]
+       65 SETTABLEKS                       R2 R1 K16 ["EnableSwimming"]
+       67 RETURN                           R1 1
+       68 DUPTABLE                         R1 K18 [{"CharacterControllerMode", "EnableRunning", "EnableJumping", "EnableSitting", "EnableFallingDown", "EnableGettingUp", "EnableClimbing", "EnableSwimming"}]
+       69 GETTABLEKS                       R2 R0 K4 ["CharacterControllerMode"]
+       71 SETTABLEKS                       R2 R1 K4 ["CharacterControllerMode"]
+       73 GETTABLEKS                       R2 R0 K12 ["EnableRunning"]
+       75 SETTABLEKS                       R2 R1 K12 ["EnableRunning"]
+       77 GETTABLEKS                       R2 R0 K10 ["EnableJumping"]
+       79 SETTABLEKS                       R2 R1 K10 ["EnableJumping"]
+       81 GETTABLEKS                       R2 R0 K13 ["EnableSitting"]
+       83 SETTABLEKS                       R2 R1 K13 ["EnableSitting"]
+       85 GETTABLEKS                       R2 R0 K7 ["EnableFallingDown"]
+       87 SETTABLEKS                       R2 R1 K7 ["EnableFallingDown"]
+       89 GETTABLEKS                       R2 R0 K8 ["EnableGettingUp"]
+       91 SETTABLEKS                       R2 R1 K8 ["EnableGettingUp"]
+       93 GETTABLEKS                       R2 R0 K5 ["EnableClimbing"]
+       95 SETTABLEKS                       R2 R1 K5 ["EnableClimbing"]
+       97 GETTABLEKS                       R2 R0 K16 ["EnableSwimming"]
+       99 SETTABLEKS                       R2 R1 K16 ["EnableSwimming"]
+      101 RETURN                           R1 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -494,35 +525,41 @@ MAIN:
        43 GETTABLEKS                       R5 R5 K14 ["AssetDmFiles"]
        45 GETTABLEKS                       R5 R5 K16 ["assetDmUtils"]
        47 CALL                             R4 1 1
-       48 DUPCLOSURE                       R5 K17 [PROTO_0]
-       49 DUPCLOSURE                       R6 K18 [PROTO_1]
-       50 CAPTURE                          VAL R4
-       51 DUPCLOSURE                       R7 K19 [PROTO_2]
-       52 CAPTURE                          VAL R4
-       53 DUPCLOSURE                       R8 K20 [PROTO_3]
-       54 CAPTURE                          VAL R4
-       55 DUPCLOSURE                       R9 K21 [PROTO_4]
-       56 CAPTURE                          VAL R4
-       57 DUPCLOSURE                       R10 K22 [PROTO_5]
-       58 CAPTURE                          VAL R4
-       59 DUPCLOSURE                       R11 K23 [PROTO_6]
-       60 CAPTURE                          VAL R4
-       61 DUPCLOSURE                       R12 K24 [PROTO_7]
-       62 CAPTURE                          VAL R4
-       63 DUPCLOSURE                       R13 K25 [PROTO_8]
-       64 CAPTURE                          VAL R1
-       65 GETIMPORT                        R14 K9 [require]
-       67 GETTABLEKS                       R15 R0 K10 ["Src"]
-       69 GETTABLEKS                       R15 R15 K26 ["Flags"]
-       71 GETTABLEKS                       R15 R15 K27 ["getFFlagAvatarSettingsEnableAbilities"]
-       73 CALL                             R14 1 1
-       74 DUPCLOSURE                       R15 K28 [PROTO_9]
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R7
-       77 CAPTURE                          VAL R14
-       78 CAPTURE                          VAL R9
-       79 CAPTURE                          VAL R10
-       80 CAPTURE                          VAL R11
-       81 CAPTURE                          VAL R12
-       82 CAPTURE                          VAL R1
-       83 RETURN                           R15 1
+       48 GETIMPORT                        R5 K9 [require]
+       50 GETTABLEKS                       R6 R0 K10 ["Src"]
+       52 GETTABLEKS                       R6 R6 K17 ["Flags"]
+       54 GETTABLEKS                       R6 R6 K18 ["getFFlagAvatarSettingsCrouchSprintStrafe"]
+       56 CALL                             R5 1 1
+       57 DUPCLOSURE                       R6 K19 [PROTO_0]
+       58 DUPCLOSURE                       R7 K20 [PROTO_1]
+       59 CAPTURE                          VAL R4
+       60 DUPCLOSURE                       R8 K21 [PROTO_2]
+       61 CAPTURE                          VAL R4
+       62 DUPCLOSURE                       R9 K22 [PROTO_3]
+       63 CAPTURE                          VAL R4
+       64 DUPCLOSURE                       R10 K23 [PROTO_4]
+       65 CAPTURE                          VAL R4
+       66 CAPTURE                          VAL R5
+       67 DUPCLOSURE                       R11 K24 [PROTO_5]
+       68 CAPTURE                          VAL R4
+       69 DUPCLOSURE                       R12 K25 [PROTO_6]
+       70 CAPTURE                          VAL R4
+       71 DUPCLOSURE                       R13 K26 [PROTO_7]
+       72 CAPTURE                          VAL R4
+       73 DUPCLOSURE                       R14 K27 [PROTO_8]
+       74 CAPTURE                          VAL R1
+       75 GETIMPORT                        R15 K9 [require]
+       77 GETTABLEKS                       R16 R0 K10 ["Src"]
+       79 GETTABLEKS                       R16 R16 K17 ["Flags"]
+       81 GETTABLEKS                       R16 R16 K28 ["getFFlagAvatarSettingsEnableAbilities"]
+       83 CALL                             R15 1 1
+       84 DUPCLOSURE                       R16 K29 [PROTO_9]
+       85 CAPTURE                          VAL R4
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R15
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          VAL R11
+       90 CAPTURE                          VAL R12
+       91 CAPTURE                          VAL R13
+       92 CAPTURE                          VAL R1
+       93 RETURN                           R16 1

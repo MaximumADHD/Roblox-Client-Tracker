@@ -10,27 +10,35 @@ PROTO_0:
        10 LENGTH                           R5 R3
        11 SUBK                             R4 R5 K3 [1]
        12 GETTABLE                         R2 R3 R4
-       13 LENGTH                           R5 R3
-       14 GETTABLE                         R4 R3 R5
-       15 GETUPVAL                         R5 0
-       16 LOADNIL                          R6
-       17 LOADNIL                          R7
-       18 FORGPREP                         R5
-       19 GETUPVAL                         R10 1
-       20 GETTABLEKS                       R10 R10 K4 ["includes"]
-       22 MOVE                             R11 R9
-       23 MOVE                             R12 R4
-       24 CALL                             R10 2 1
-       25 JUMPIFNOT                        R10 ; [+3]
-       26 MOVE                             R10 R2
-       27 MOVE                             R11 R8
-       28 RETURN                           R10 2
-       29 FORGLOOP                         R5 2 ; [-11]
-       31 MOVE                             R5 R2
-       32 GETUPVAL                         R6 2
-       33 GETTABLEKS                       R6 R6 K5 ["FileType"]
-       35 GETTABLEKS                       R6 R6 K6 ["None"]
-       37 RETURN                           R5 2
+       13 GETUPVAL                         R5 0
+       14 CALL                             R5 0 1
+       15 JUMPIFNOT                        R5 ; [+6]
+       16 LENGTH                           R5 R3
+       17 GETTABLE                         R4 R3 R5
+       18 NAMECALL                         R4 R4 K4 ["lower"]
+       20 CALL                             R4 1 1
+       21 JUMP                             ; [+2]
+       22 LENGTH                           R5 R3
+       23 GETTABLE                         R4 R3 R5
+       24 GETUPVAL                         R5 1
+       25 LOADNIL                          R6
+       26 LOADNIL                          R7
+       27 FORGPREP                         R5
+       28 GETUPVAL                         R10 2
+       29 GETTABLEKS                       R10 R10 K5 ["includes"]
+       31 MOVE                             R11 R9
+       32 MOVE                             R12 R4
+       33 CALL                             R10 2 1
+       34 JUMPIFNOT                        R10 ; [+3]
+       35 MOVE                             R10 R2
+       36 MOVE                             R11 R8
+       37 RETURN                           R10 2
+       38 FORGLOOP                         R5 2 ; [-11]
+       40 MOVE                             R5 R2
+       41 GETUPVAL                         R6 3
+       42 GETTABLEKS                       R6 R6 K6 ["FileType"]
+       44 GETTABLEKS                       R6 R6 K7 ["None"]
+       46 RETURN                           R5 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -46,37 +54,43 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K8 ["Src"]
        18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
-       21 NEWTABLE                         R3 4 0
-       23 NEWTABLE                         R4 0 6
-       25 LOADK                            R5 K10 ["bmp"]
-       26 LOADK                            R6 K11 ["gif"]
-       27 LOADK                            R7 K12 ["jpeg"]
-       28 LOADK                            R8 K13 ["jpg"]
-       29 LOADK                            R9 K14 ["png"]
-       30 LOADK                            R10 K15 ["tga"]
-       31 SETLIST                          R4 R5 6 [1]
-       33 SETTABLEKS                       R4 R3 K16 ["Image"]
-       35 NEWTABLE                         R4 0 4
-       37 LOADK                            R5 K17 ["fbx"]
-       38 LOADK                            R6 K18 ["obj"]
-       39 LOADK                            R7 K19 ["gltf"]
-       40 LOADK                            R8 K20 ["glb"]
-       41 SETLIST                          R4 R5 4 [1]
-       43 SETTABLEKS                       R4 R3 K21 ["Scene"]
-       45 NEWTABLE                         R4 0 4
-       47 LOADK                            R5 K22 ["ogg"]
-       48 LOADK                            R6 K23 ["mp3"]
-       49 LOADK                            R7 K24 ["wav"]
-       50 LOADK                            R8 K25 ["flac"]
-       51 SETLIST                          R4 R5 4 [1]
-       53 SETTABLEKS                       R4 R3 K26 ["Audio"]
-       55 NEWTABLE                         R4 0 2
-       57 LOADK                            R5 K27 ["mp4"]
-       58 LOADK                            R6 K28 ["mov"]
-       59 SETLIST                          R4 R5 2 [1]
-       61 SETTABLEKS                       R4 R3 K29 ["Video"]
-       63 DUPCLOSURE                       R4 K30 [PROTO_0]
-       64 CAPTURE                          VAL R3
-       65 CAPTURE                          VAL R1
-       66 CAPTURE                          VAL R2
-       67 RETURN                           R4 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Flags"]
+       27 GETTABLEKS                       R4 R4 K11 ["getFFlagRemoveCaseSensitiveFileExtensionCheck"]
+       29 CALL                             R3 1 1
+       30 NEWTABLE                         R4 4 0
+       32 NEWTABLE                         R5 0 6
+       34 LOADK                            R6 K12 ["bmp"]
+       35 LOADK                            R7 K13 ["gif"]
+       36 LOADK                            R8 K14 ["jpeg"]
+       37 LOADK                            R9 K15 ["jpg"]
+       38 LOADK                            R10 K16 ["png"]
+       39 LOADK                            R11 K17 ["tga"]
+       40 SETLIST                          R5 R6 6 [1]
+       42 SETTABLEKS                       R5 R4 K18 ["Image"]
+       44 NEWTABLE                         R5 0 4
+       46 LOADK                            R6 K19 ["fbx"]
+       47 LOADK                            R7 K20 ["obj"]
+       48 LOADK                            R8 K21 ["gltf"]
+       49 LOADK                            R9 K22 ["glb"]
+       50 SETLIST                          R5 R6 4 [1]
+       52 SETTABLEKS                       R5 R4 K23 ["Scene"]
+       54 NEWTABLE                         R5 0 4
+       56 LOADK                            R6 K24 ["ogg"]
+       57 LOADK                            R7 K25 ["mp3"]
+       58 LOADK                            R8 K26 ["wav"]
+       59 LOADK                            R9 K27 ["flac"]
+       60 SETLIST                          R5 R6 4 [1]
+       62 SETTABLEKS                       R5 R4 K28 ["Audio"]
+       64 NEWTABLE                         R5 0 2
+       66 LOADK                            R6 K29 ["mp4"]
+       67 LOADK                            R7 K30 ["mov"]
+       68 SETLIST                          R5 R6 2 [1]
+       70 SETTABLEKS                       R5 R4 K31 ["Video"]
+       72 DUPCLOSURE                       R5 K32 [PROTO_0]
+       73 CAPTURE                          VAL R3
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          VAL R2
+       77 RETURN                           R5 1

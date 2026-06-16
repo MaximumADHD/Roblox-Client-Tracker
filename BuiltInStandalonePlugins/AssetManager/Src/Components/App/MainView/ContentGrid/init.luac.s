@@ -152,7 +152,7 @@ PROTO_6:
       121 GETTABLEKS                       R14 R14 K11 ["createElement"]
       123 GETUPVAL                         R15 18
       124 GETTABLEKS                       R15 R15 K9 ["View"]
-      126 DUPTABLE                         R16 K37 [{"LayoutOrder", "onActivated", "onSecondaryActivated", "stateLayer", "tag"}]
+      126 DUPTABLE                         R16 K38 [{"LayoutOrder", "onActivated", "onSecondaryActivated", "stateLayer", "tag", "testId"}]
       127 GETTABLEKS                       R17 R0 K32 ["LayoutOrder"]
       129 SETTABLEKS                       R17 R16 K32 ["LayoutOrder"]
       131 NEWCLOSURE                       R17 P3
@@ -164,18 +164,20 @@ PROTO_6:
       138 CAPTURE                          UPVAL U9
       139 CAPTURE                          VAL R10
       140 SETTABLEKS                       R17 R16 K34 ["onSecondaryActivated"]
-      142 DUPTABLE                         R17 K39 [{"affordance"}]
+      142 DUPTABLE                         R17 K40 [{"affordance"}]
       143 GETUPVAL                         R18 18
-      144 GETTABLEKS                       R18 R18 K40 ["Enums"]
-      146 GETTABLEKS                       R18 R18 K41 ["StateLayerAffordance"]
-      148 GETTABLEKS                       R18 R18 K42 ["None"]
-      150 SETTABLEKS                       R18 R17 K38 ["affordance"]
+      144 GETTABLEKS                       R18 R18 K41 ["Enums"]
+      146 GETTABLEKS                       R18 R18 K42 ["StateLayerAffordance"]
+      148 GETTABLEKS                       R18 R18 K43 ["None"]
+      150 SETTABLEKS                       R18 R17 K39 ["affordance"]
       152 SETTABLEKS                       R17 R16 K35 ["stateLayer"]
-      154 LOADK                            R17 K43 ["size-full fill col align-x-center data-testid=content-grid"]
+      154 LOADK                            R17 K44 ["size-full fill col align-x-center"]
       155 SETTABLEKS                       R17 R16 K36 ["tag"]
-      157 MOVE                             R17 R13
-      158 CALL                             R14 3 -1
-      159 RETURN                           R14 -1
+      157 LOADK                            R17 K45 ["content-grid"]
+      158 SETTABLEKS                       R17 R16 K37 ["testId"]
+      160 MOVE                             R17 R13
+      161 CALL                             R14 3 -1
+      162 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0
