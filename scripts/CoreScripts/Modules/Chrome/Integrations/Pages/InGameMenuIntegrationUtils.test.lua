@@ -12,6 +12,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 local MOCK_PAGES = {
 	PlayersPage = { Page = { Name = "Players" } },
 	GameSettingsPage = { Page = { Name = "GameSettings" } },
+	TraversalHistoryPage = { Page = { Name = "TraversalHistoryPage" } },
 }
 
 local mockCurrentPageSignalListeners: { (string) -> () } = {}
@@ -40,6 +41,20 @@ jest.mock(Chrome.Parent.Settings.SettingsHub, function()
 	}
 end)
 
+local Settings = Chrome.Parent.Settings
+local EnumReactPage = require(Settings.EnumReactPage)
+
+local mockSetCurrentReactPage = jest.fn()
+
+jest.mock(Settings.ReactPageSignal, function()
+	return function(_scope)
+		return {
+			currentReactPage = function() end,
+			setCurrentReactPage = mockSetCurrentReactPage,
+		}
+	end
+end)
+
 local InGameMenuIntegrationUtils = require(script.Parent.InGameMenuIntegrationUtils)
 
 local function fireCurrentPageSignal(pageName: string)
@@ -54,6 +69,7 @@ describe("InGameMenuIntegrationUtils", function()
 		mockIsVisible = false
 		mockSetVisibility:mockReset()
 		mockSwitchToPage:mockReset()
+		mockSetCurrentReactPage:mockReset()
 	end)
 
 	describe("createPageOpenSignal", function()
@@ -117,6 +133,32 @@ describe("InGameMenuIntegrationUtils", function()
 			mockIsVisible = false
 			InGameMenuIntegrationUtils.toggleIGMPage("PlayersPage", false)
 			expect(mockSetVisibility).toHaveBeenCalledWith(true, false, MOCK_PAGES.PlayersPage)
+		end)
+	end)
+
+	describe("toggleReactPage", function()
+		it("SHOULD close the menu and clear the react page when visible and page is already open", function()
+			mockIsVisible = true
+			InGameMenuIntegrationUtils.toggleReactPage("TraversalHistoryPage", true, EnumReactPage.TraversalHistory)
+			expect(mockSetVisibility).toHaveBeenCalledWith(false)
+			expect(mockSetCurrentReactPage).toHaveBeenCalledWith(nil)
+			expect(mockSwitchToPage).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD switch to the page and set the react page when visible but page is not open", function()
+			mockIsVisible = true
+			InGameMenuIntegrationUtils.toggleReactPage("TraversalHistoryPage", false, EnumReactPage.TraversalHistory)
+			expect(mockSwitchToPage).toHaveBeenCalledWith(MOCK_PAGES.TraversalHistoryPage, true)
+			expect(mockSetCurrentReactPage).toHaveBeenCalledWith(EnumReactPage.TraversalHistory)
+			expect(mockSetVisibility).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD open the menu to the page and set the react page when not visible", function()
+			mockIsVisible = false
+			InGameMenuIntegrationUtils.toggleReactPage("TraversalHistoryPage", false, EnumReactPage.TraversalHistory)
+			expect(mockSetVisibility).toHaveBeenCalledWith(true, false, MOCK_PAGES.TraversalHistoryPage)
+			expect(mockSetCurrentReactPage).toHaveBeenCalledWith(EnumReactPage.TraversalHistory)
+			expect(mockSwitchToPage).never.toHaveBeenCalled()
 		end)
 	end)
 end)

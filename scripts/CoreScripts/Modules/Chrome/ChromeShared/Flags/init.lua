@@ -5,5 +5,4 @@ return {
 		script.FFlagRemoveRespawnShortcutFromRespawnConfirmation
 	),
 	FFlagEnableChromeWindowsNotInMenu = require(script.FFlagEnableChromeWindowsNotInMenu),
-	FFlagFixSpatialSubMenuSizing = require(script.FFlagFixSpatialSubMenuSizing),
 }

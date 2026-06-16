@@ -10,6 +10,7 @@ local BoxButton = require(Components.BoxButton)
 local CellCheckbox = require(Components.CellCheckbox)
 local CellLabel = require(Components.CellLabel)
 local DataConsumer = require(Components.DataConsumer)
+local DropDown = require(Components.DropDown)
 local HeaderButton = require(Components.HeaderButton)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
@@ -27,6 +28,7 @@ local MIN_FRAME_WIDTH = DebugVisualizationsFormatting.MinFrameWidth
 local LEARN_MORE_WIDTH = DebugVisualizationsFormatting.LearnMoreWidth
 
 local NON_FOUND_ENTRIES_STR = "No DebugVisualizations Found"
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
 
 -- create table of offsets and sizes for each cell
 local totalCellWidth = 0
@@ -149,13 +151,39 @@ local function constructEntry(entry, width, frameHeight, layoutOrder, isExpanded
 		pos = cellOffset[1],
 	})
 
-	row.checkbox = Roact.createElement(CellCheckbox, {
-		name = enumStr,
-		isSelected = settingInfo["Value"],
-		size = entryCellSize[2],
-		pos = cellOffset[2],
-		OnCheckboxClicked = entry.valueChangeCallback,
-	})
+	if FFlagSlimDevConsole and settingInfo["Kind"] == "Dropdown" then
+		local enumItems = settingInfo["EnumItems"]
+		local selectedIndex = 1
+		for i, item in ipairs(enumItems) do
+			if item == settingInfo["Value"] then
+				selectedIndex = i
+				break
+			end
+		end
+		row.checkbox = Roact.createElement("Frame", {
+			Size = entryCellSize[2],
+			Position = cellOffset[2],
+			BackgroundTransparency = 1,
+		}, {
+			DropDown = Roact.createElement(DropDown, {
+				buttonSize = UDim2.new(1, -CELL_PADDING, 0, ENTRY_HEIGHT - 8),
+				position = UDim2.new(0, 0, 0, 4),
+				dropDownList = settingInfo["DropDownList"],
+				selectedIndex = selectedIndex,
+				onSelection = function(idx)
+					entry.valueChangeCallback(enumStr, enumItems[idx])
+				end,
+			}),
+		})
+	else
+		row.checkbox = Roact.createElement(CellCheckbox, {
+			name = enumStr,
+			isSelected = settingInfo["Value"],
+			size = entryCellSize[2],
+			pos = cellOffset[2],
+			OnCheckboxClicked = entry.valueChangeCallback,
+		})
+	end
 
 	row.visualType = Roact.createElement(CellLabel, {
 		text = settingInfo["Type"],

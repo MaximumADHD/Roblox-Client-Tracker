@@ -139,7 +139,7 @@ local function validateAssetCreatorsRCC(contentIdMap: any, validationContext: Ty
 end
 
 export type SkipFlags = {
-	-- Skip the validateExistance pass (covered by AssetCanLoad in the new system).
+	-- Skip the validateExistance pass (covered by DescendantIdsNotMissing in the new system).
 	skipExistenceCheck: boolean?,
 	-- Skip the validateAssetCreatorsRCC / validateModerationRCC pass (covered by
 	-- DescendantIdsAllowed in the new system).

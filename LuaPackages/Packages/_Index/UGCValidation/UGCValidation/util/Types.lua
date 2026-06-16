@@ -114,7 +114,9 @@ export type CurveAnimComputedFramesData = {
 	tracks: { any },
 }
 
-export type ContentIdMap = { [string]: { instance: Instance, fieldName: string } }
+export type ContentIdEntry = { instance: Instance, fieldName: string }
+export type ContentIdMap = { [string]: ContentIdEntry }
+export type ContentIdEntriesMap = { [string]: { ContentIdEntry } }
 
 export type SharedData = {
 	-- Names should match ValidationEnums.SharedDataMember.
@@ -134,8 +136,9 @@ export type SharedData = {
 	meshTextures: { [string]: EditableImageWithPBRData },
 	curveAnimations: CurveAnimationsData,
 	curveAnimComputedFrames: CurveAnimComputedFramesData,
-	contentIds: ContentIdMap,
+	contentIds: ContentIdEntriesMap,
 	hsrAssets: { [string]: { Instance } },
+	curveAnimBoneData: { hasBones: boolean }?,
 }
 
 export type failureStringContext = {
@@ -187,6 +190,8 @@ export type ValidationReporter = {
 	setReportingInstance: (self: ValidationReporter, instance: Instance?) -> nil,
 	-- Backend-only: throws past ValidationManager so RCC reschedules the job.
 	forceError: (self: ValidationReporter, message: string) -> never,
+	-- Aborts the current test. Backend re-raises (RCC reschedules); Studio/IEC reports as err.
+	fetchError: (self: ValidationReporter, message: string) -> never,
 }
 
 export type SingleValidationFileData = {
@@ -224,6 +229,7 @@ export type ConsumerEnv = "Studio" | "Backend" | "IEC"
 -- consumer's env matches.
 export type BackendConfigs = {
 	restrictedUserIds: RestrictedUserIds?,
+	isUserInTrustedCreatorProgram: boolean?,
 }
 
 export type IECConfigs = {

@@ -184,14 +184,18 @@ function LegacyValidationAdapter.mergeLegacyIntoModern(
 	if legacyReasons and #legacyReasons > 0 then
 		local legacyEntries: { Types.FailureEntry } = {}
 		for _, reason in legacyReasons do
-			table.insert(legacyEntries, {
-				failureStringKey = LegacyValidationAdapter.LegacyValidator,
-				failureStringParams = { Message = reason },
-				instancePath = "",
-			})
+			if reason ~= "" then
+				table.insert(legacyEntries, {
+					failureStringKey = LegacyValidationAdapter.LegacyValidator,
+					failureStringParams = { Message = reason },
+					instancePath = "",
+				})
+			end
 		end
-		validationData.failureMap[LegacyValidationAdapter.LegacyValidator] = legacyEntries
-		validationData.numFailures += #legacyEntries
+		if #legacyEntries > 0 then
+			validationData.failureMap[LegacyValidationAdapter.LegacyValidator] = legacyEntries
+			validationData.numFailures += #legacyEntries
+		end
 	end
 end
 

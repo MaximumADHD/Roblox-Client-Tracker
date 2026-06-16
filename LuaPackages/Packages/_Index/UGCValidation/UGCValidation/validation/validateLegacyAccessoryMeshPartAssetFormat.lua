@@ -17,6 +17,9 @@ local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSen
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
+local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
+local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
+	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
 
 local function validateLegacyAccessoryMeshPartAssetFormat(
 	specialMeshAssetFormatAccessory: Instance,
@@ -54,23 +57,29 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 		end
 	end
 
-	success, reasons = validateSurfaceAppearances(meshPartAssetFormatAccessory, validationContext)
-	if not success then
-		return false, reasons
-	end
-	success, reasons = validateSurfaceAppearanceTextureSize(meshPartAssetFormatAccessory, validationContext)
-	if not success then
-		return false, reasons
-	end
-	success, reasons = validateSurfaceAppearanceTransparency(meshPartAssetFormatAccessory, validationContext)
-	if not success then
-		return false, reasons
-	end
-
-	if getFFlagUGCValidateTexturePack() then
-		success, reasons = ValidateTexturePack.validate(meshPartAssetFormatAccessory, false, validationContext)
+	if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+		success, reasons = validateSurfaceAppearances(meshPartAssetFormatAccessory, validationContext)
 		if not success then
 			return false, reasons
+		end
+	end
+	if not getFFlagUGCValidateMigrateTextureTransparency() then
+		success, reasons = validateSurfaceAppearanceTextureSize(meshPartAssetFormatAccessory, validationContext)
+		if not success then
+			return false, reasons
+		end
+		success, reasons = validateSurfaceAppearanceTransparency(meshPartAssetFormatAccessory, validationContext)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+		if getFFlagUGCValidateTexturePack() then
+			success, reasons = ValidateTexturePack.validate(meshPartAssetFormatAccessory, false, validationContext)
+			if not success then
+				return false, reasons
+			end
 		end
 	end
 

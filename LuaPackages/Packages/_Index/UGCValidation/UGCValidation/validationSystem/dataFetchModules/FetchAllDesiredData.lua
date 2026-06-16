@@ -10,10 +10,13 @@ local FetchCurveAnimations = require(root.validationSystem.dataFetchModules.Fetc
 local FetchCurveAnimComputedFrames = require(root.validationSystem.dataFetchModules.FetchCurveAnimComputedFrames)
 local FetchContentIds = require(root.validationSystem.dataFetchModules.FetchContentIds)
 local FetchHSRAssets = require(root.validationSystem.dataFetchModules.FetchHSRAssets)
+local FetchCurveAnimBoneData = require(root.validationSystem.dataFetchModules.FetchCurveAnimBoneData)
 local Types = require(root.util.Types)
 local DataEnums = ValidationEnums.SharedDataMember
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
+local resetPhysicsData = require(root.util.resetPhysicsData)
 
 local EDITABLE_ENUMS = {
 	DataEnums.renderMeshesData,
@@ -34,6 +37,13 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 	local rootInstance = sharedData.rootInstance
 	local preloadedMeshes = sharedData.consumerConfig.preloadedEditableMeshes or {}
 	local preloadedImages = sharedData.consumerConfig.preloadedEditableImages or {}
+
+	if getFFlagUGCValidateMigrateBodyPartBounds() then
+		if sharedData.consumerConfig.consumerEnv ~= ValidationEnums.ConsumerEnv.IEC then
+			local isServer = sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend
+			pcall(resetPhysicsData, { rootInstance }, { isServer = isServer, bypassFlags = {} } :: any)
+		end
+	end
 
 	-- IEC is the only env where editable instances can be re-used directly.
 	local allowEditableInstances
@@ -80,14 +90,18 @@ function FetchAllDesiredData.storeDesiredData(sharedData: Types.SharedData, desi
 
 	if getFFlagUGCValidateMigrateSchemaProperties() then
 		if desiredData[DataEnums.contentIds] then
-			local result = FetchContentIds.getData(rootInstance)
-			sharedData.contentIds = result or (FetchAllDesiredData.DATA_FETCH_FAILURE :: any)
+			sharedData.contentIds = FetchContentIds.getData(sharedData)
 		end
 
 		if desiredData[DataEnums.hsrAssets] then
 			local result = FetchHSRAssets.getData(rootInstance, sharedData.consumerConfig)
 			sharedData.hsrAssets = result or (FetchAllDesiredData.DATA_FETCH_FAILURE :: any)
 		end
+	end
+
+	if desiredData[DataEnums.curveAnimBoneData] then
+		local boneData = FetchCurveAnimBoneData.getData(sharedData[DataEnums.curveAnimations])
+		sharedData[DataEnums.curveAnimBoneData] = boneData
 	end
 end
 

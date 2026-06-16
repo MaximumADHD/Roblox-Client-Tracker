@@ -224,6 +224,7 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 					sharedData.aqsFetchMetrics.fetchTimeMs or 0
 				)
 			)
+			print(sharedData.aqsSummaryData)
 		end
 	else
 		sharedData.aqsFetchMetrics.fetchFailureReason = errors

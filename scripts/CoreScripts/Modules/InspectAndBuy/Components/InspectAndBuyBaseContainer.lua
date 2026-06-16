@@ -12,6 +12,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local AvatarExperienceFlags = require(CorePackages.Workspace.Packages.AvatarExperienceFlags)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local AvatarExperienceInspectAndBuy = require(CorePackages.Workspace.Packages.AvatarExperienceInspectAndBuy)
+local AvatarExperienceTimedOptions = require(CorePackages.Workspace.Packages.AvatarExperienceTimedOptions)
+local PopoverFocusRestorationContext = AvatarExperienceTimedOptions.PopoverFocusRestorationContext
 local useViewBreakpoints = AvatarExperienceInspectAndBuy.Hooks.useViewBreakpoints
 local ResponsivePanelLayout = AvatarExperienceInspectAndBuy.Components.ResponsivePanelLayout
 local useResponsivePanelLayoutProps = AvatarExperienceInspectAndBuy.Hooks.useResponsivePanelLayoutProps
@@ -70,6 +72,7 @@ local FFlagIBV2Attribution = SharedFlags.FFlagIBV2Attribution
 local FFlagAXEnableBatchItemDetailsFetchV2 = AvatarExperienceFlags.FFlagAXEnableBatchItemDetailsFetchV2
 local FFlagAXEnableInspectAndBuyFocusNavigation = AvatarExperienceFlags.FFlagAXEnableInspectAndBuyFocusNavigation
 local FFlagAXEnableIaBTimedOptionsBulkPurchase = AvatarExperienceFlags.FFlagAXEnableIaBTimedOptionsBulkPurchase
+local FFlagAXFixIaBTimedOptionsPopoverFocus = AvatarExperienceFlags.FFlagAXFixIaBTimedOptionsPopoverFocus
 local ItemSelectionStoreContext = if FFlagAXEnableIaBTimedOptionsBulkPurchase
 	then AvatarExperienceInspectAndBuy.Contexts.ItemSelectionStoreContext
 	else nil
@@ -321,7 +324,7 @@ local function InspectAndBuyBaseContainer(props)
 		-- Focus navigation (handles purchase modal detection and auto-focus)
 		local focusNavigationConfig = useInspectAndBuyFocusNavigation()
 
-		return React.createElement("Frame", {
+		local focusNavigationFrame = React.createElement("Frame", {
 			ref = focusNavigationConfig.setFocusRef,
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,
@@ -365,6 +368,19 @@ local function InspectAndBuyBaseContainer(props)
 				Overlay = if FFlagIBV2Attribution then React.createElement(Overlay) else nil,
 			}),
 		})
+
+		-- Opt this CoreScripts subtree into manual popover-anchor focus restoration:
+		-- useGlobalFocusHandler is not mounted here, so timed-options popovers cannot
+		-- rely on it + SelectionGroup memory to return focus to the trigger on close.
+		if FFlagAXFixIaBTimedOptionsPopoverFocus then
+			return React.createElement(PopoverFocusRestorationContext.Provider, {
+				value = true,
+			}, {
+				InspectAndBuyContent = focusNavigationFrame,
+			}) :: React.ReactElement<any, any>
+		end
+
+		return focusNavigationFrame
 	else
 		return React.createElement(Foundation.View, {
 			Size = viewBreakpoints.OverlaySize,

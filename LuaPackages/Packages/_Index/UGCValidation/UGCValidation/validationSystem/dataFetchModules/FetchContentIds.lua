@@ -6,21 +6,35 @@ local Types = require(root.util.Types)
 
 local FetchContentIds = {}
 
-function FetchContentIds.getData(rootInstance: Instance): Types.ContentIdMap?
-	local contentIds: { string } = {}
-	local contentIdMap: Types.ContentIdMap = {}
+function FetchContentIds.getData(sharedData: Types.SharedData): Types.ContentIdEntriesMap
+	local rootInstance = sharedData.rootInstance
+	local contentIdMap: Types.ContentIdEntriesMap = {}
 
-	local parseSuccess = ParseContentIds.parseWithErrorCheck(
-		contentIds,
-		contentIdMap,
-		rootInstance,
-		nil,
-		Constants.CONTENT_ID_REQUIRED_FIELDS,
-		nil
-	)
+	local descendantsAndRoot = rootInstance:GetDescendants()
+	table.insert(descendantsAndRoot, rootInstance)
 
-	if not parseSuccess then
-		return nil
+	for _, instance in descendantsAndRoot do
+		local fields = Constants.CONTENT_ID_FIELDS[instance.ClassName]
+		if not fields then
+			continue
+		end
+
+		for _, fieldName in fields do
+			local contentId = (instance :: any)[fieldName]
+			if contentId == "" then
+				continue
+			end
+
+			local id = ParseContentIds.tryGetAssetIdFromContentId(contentId)
+			if id == nil then
+				continue
+			end
+
+			if contentIdMap[id] == nil then
+				contentIdMap[id] = {}
+			end
+			table.insert(contentIdMap[id], { fieldName = fieldName, instance = instance })
+		end
 	end
 
 	return contentIdMap

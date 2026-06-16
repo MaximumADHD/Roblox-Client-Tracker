@@ -4,6 +4,7 @@ local getCageMeshInfos = require(root.validation.getCageMeshInfos)
 
 local getFStringLCCageQualityDocumentationLink = require(root.flags.getFStringLCCageQualityDocumentationLink)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
+local getFFlagUGCValidateMigrateCageGeometry = require(root.flags.getFFlagUGCValidateMigrateCageGeometry)
 
 local validateVerticesSimilarity = require(root.validation.validateVerticesSimilarity)
 local validateLCCagingRelevancy = require(root.validation.validateLCCagingRelevancy)
@@ -39,13 +40,16 @@ local function validateLCCageQuality(
 	-- Cages do not have the scaling factor. They are aligned at scale of (1,1,1)
 	local unit_scale = Vector3.new(1, 1, 1)
 
-	for _, cageInfo: Types.MeshInfo in cageMeshInfos do
-		success, failedReason = validateVerticesSimilarity(cageInfo, validationContext, unit_scale, cageInfo.fullName)
+	if not getFFlagUGCValidateMigrateCageGeometry() then
+		for _, cageInfo: Types.MeshInfo in cageMeshInfos do
+			success, failedReason =
+				validateVerticesSimilarity(cageInfo, validationContext, unit_scale, cageInfo.fullName)
 
-		if not success and failedReason ~= nil then
-			validationResult = false
-			for _, issue in failedReason do
-				table.insert(issues, issue)
+			if not success and failedReason ~= nil then
+				validationResult = false
+				for _, issue in failedReason do
+					table.insert(issues, issue)
+				end
 			end
 		end
 	end
@@ -75,9 +79,27 @@ local function validateLCCageQuality(
 		end
 	end
 
-	if getFFlagUGCValidationEyebrowEyelashSupport() then
-		local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
-		if assetTypeEnum ~= Enum.AssetType.EyebrowAccessory and assetTypeEnum ~= Enum.AssetType.EyelashAccessory then
+	if not getFFlagUGCValidateMigrateCageGeometry() then
+		if getFFlagUGCValidationEyebrowEyelashSupport() then
+			local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
+			if
+				assetTypeEnum ~= Enum.AssetType.EyebrowAccessory
+				and assetTypeEnum ~= Enum.AssetType.EyelashAccessory
+			then
+				success, failedReason = validateCageMeshDistance(
+					innerCage,
+					outerCage,
+					meshInfoRenderMesh,
+					wrapLayer.ReferenceOrigin,
+					wrapLayer.CageOrigin,
+					validationContext
+				)
+				if not success then
+					table.insert(issues, table.concat(failedReason :: { string }, "\n"))
+					validationResult = false
+				end
+			end
+		else
 			success, failedReason = validateCageMeshDistance(
 				innerCage,
 				outerCage,
@@ -90,19 +112,6 @@ local function validateLCCageQuality(
 				table.insert(issues, table.concat(failedReason :: { string }, "\n"))
 				validationResult = false
 			end
-		end
-	else
-		success, failedReason = validateCageMeshDistance(
-			innerCage,
-			outerCage,
-			meshInfoRenderMesh,
-			wrapLayer.ReferenceOrigin,
-			wrapLayer.CageOrigin,
-			validationContext
-		)
-		if not success then
-			table.insert(issues, table.concat(failedReason :: { string }, "\n"))
-			validationResult = false
 		end
 	end
 

@@ -6,7 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Packages.Roact)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
-local migrationLookup = BuilderIcons.Migration['uiblox']
+local migrationLookup = BuilderIcons.Migration["uiblox"]
 local Foundation = require(CorePackages.Packages.Foundation)
 local IconName = Foundation.Enums.IconName
 local IconVariant = Foundation.Enums.IconVariant
@@ -23,10 +23,13 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 
-local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
+local FFlagHideShortcutsOnReportDropdown =
+	require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
-local FFlagReportFocusNavIEMButtons =  require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagReportFocusNavIEMButtons)
+local FFlagIEMSettingsPageDisplaying = SharedFlags.FFlagIEMSettingsPageDisplaying
+local FFlagReportFocusNavIEMButtons = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagReportFocusNavIEMButtons)
 local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
+local FFlagSwitchOverToAbuseReportMenuV2 = game:DefineFastFlag("SwitchOverToAbuseReportMenuV2", false) and FFlagAbuseReportMenuV2
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -39,6 +42,7 @@ local function Initialize()
 
 	this._onHiddenCallback = function() end
 	this._onDisplayedCallback = function() end
+	this._onDisplayingCallback = function() end
 	this._onSettingsHiddenCallback = function() end
 	this._setNextPlayerToReportCallback = function() end
 	this._onMenuWidthChange = function() end
@@ -84,6 +88,10 @@ local function Initialize()
 		this._onDisplayedCallback()
 	end
 
+	function this:onDisplaying()
+		this._onDisplayingCallback()
+	end
+
 	function this:setNextPlayerToReport(player)
 		this._setNextPlayerToReportCallback(player)
 	end
@@ -108,7 +116,7 @@ local function Initialize()
 	-- TODO: Need to flip FFlagAddAbilityToDisableIGMScroll before turning on FFlagAbuseReportMenuV2
 	this.ShouldDisableDefaultScroll = FFlagAbuseReportMenuV2
 
-	local abuseReportMenu = Roact.createElement(if FFlagAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
+	local abuseReportMenu = Roact.createElement(if FFlagSwitchOverToAbuseReportMenuV2 then AbuseReportMenuV2 else AbuseReportMenu, {
 		hideReportTab = function()
 			this:HideMenu()
 		end,
@@ -120,6 +128,9 @@ local function Initialize()
 		end,
 		registerOnReportTabDisplayed = function(onDisplayedCallback)
 			this._onDisplayedCallback = onDisplayedCallback
+		end,
+		registerOnReportTabDisplaying = function(onDisplayingCallback)
+			this._onDisplayingCallback = onDisplayingCallback
 		end,
 		registerOnMenuWidthChange = function(callback)
 			this._onMenuWidthChange = callback
@@ -142,12 +153,16 @@ local function Initialize()
 				this:HideMenu()
 			end)
 		end,
-		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown and ChromeEnabled then function(isOpen)
-			ChromeService:setHideShortcutBar("InExperienceReportDropdown", isOpen)
-		end else nil,
-		getSettingsHubRef = if FFlagReportFocusNavIEMButtons then function()
-			return this.HubRef
-		end else nil,
+		onDropdownMenuOpenChange = if FFlagHideShortcutsOnReportDropdown and ChromeEnabled
+			then function(isOpen)
+				ChromeService:setHideShortcutBar("InExperienceReportDropdown", isOpen)
+			end
+			else nil,
+		getSettingsHubRef = if FFlagReportFocusNavIEMButtons
+			then function()
+				return this.HubRef
+			end
+			else nil,
 	})
 	Roact.mount(abuseReportMenu, this.Page, "AbuseReportMenu")
 
@@ -171,6 +186,12 @@ PageInstance = Initialize()
 PageInstance.Displayed.Event:connect(function()
 	PageInstance:onDisplayed()
 end)
+
+if FFlagIEMSettingsPageDisplaying then
+	PageInstance.Displaying.Event:connect(function()
+		PageInstance:onDisplaying()
+	end)
+end
 
 PageInstance.Hidden.Event:connect(function()
 	PageInstance:onHidden()

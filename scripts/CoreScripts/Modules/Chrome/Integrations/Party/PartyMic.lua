@@ -41,12 +41,14 @@ local partyMicActivatedSignal: any = if FFlagChromeActivatedMappedSignal
 	end)
 	else nil
 
+local FFlagChangeToggleMicText = require(Chrome.Flags.FFlagChangeToggleMicText)
+
 local integration = nil
 
 if GetFFlagEnableCrossExpVoice() then
 	integration = ChromeService:register({
 		id = Constants.TOGGLE_MIC_INTEGRATION_ID,
-		label = "CoreScripts.TopBar.ToggleMic",
+		label = if FFlagChangeToggleMicText then "CoreScripts.TopBar.Mic" else "CoreScripts.TopBar.ToggleMic",
 		sideSheetPlacement = SideSheetPlacement.Unibar,
 		isActivated = if FFlagChromeActivatedMappedSignal then partyMicActivatedSignal else nil,
 		activated = function()

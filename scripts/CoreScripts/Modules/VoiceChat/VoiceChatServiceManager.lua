@@ -63,6 +63,8 @@ local GetFFlagEnableVoiceTrustedConnectionsToasts =
 	require(script.Parent.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 local DebugShowAudioDeviceInputDebugger =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugShowAudioDeviceInputDebugger()
+local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 = require(script.Parent.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
+local VoiceNudgeUseNewDACopy = require(script.Parent.Helpers.VoiceNudgeUseNewDACopy) 
 
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 local FFlagDebugSimulateConnectDisconnect = game:DefineFastFlag("DebugSimulateConnectDisconnect", false)
@@ -605,11 +607,19 @@ function VoiceChatServiceManager.new(
 	end)
 	self.coreVoiceManager:subscribe("OnVoiceToxicityModal", function()
 		log:debug("Showing Voice Toxicity Modal")
-		self:showPrompt(VoiceChatPromptType.VoiceToxicityModal)
+		if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() then
+			self:showPrompt(VoiceChatPromptType.VoiceToxicityModalV2)
+		else 
+			self:showPrompt(VoiceChatPromptType.VoiceToxicityModal)
+		end 
 	end)
 	self.coreVoiceManager:subscribe("OnVoiceToxicityToast", function()
-		log:debug("Showing Voice Toxicity Toast")
-		self:showPrompt(VoiceChatPromptType.VoiceToxicityToast)
+		log:debug("Showing Voice Toxicity Toast") 
+		if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() then 
+			self:showPrompt(VoiceChatPromptType.VoiceToxicityToastV2)
+		else 
+			self:showPrompt(VoiceChatPromptType.VoiceToxicityToast)
+		end  
 	end)
 	self.coreVoiceManager:subscribe("OnPermissionRequested", function()
 		if GetFFlagShowDevicePermissionsModal() then
@@ -976,8 +986,12 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 				else
 					self.bannedUntil = userSettings.bannedUntil
-					if userSettings.banReason == BAN_REASON.NUDGE_V3 then
-						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+					if userSettings.banReason == BAN_REASON.NUDGE_V3 then 
+						if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() then 
+							self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryBV2)
+						else 
+							self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+						end  
 					else
 						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 					end
@@ -1137,8 +1151,12 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boole
 			if informedOfBan then
 				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
 			else
-				if self.banReason == BAN_REASON.NUDGE_V3 then
-					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+				if self.banReason == BAN_REASON.NUDGE_V3 then  
+					if  GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() then 
+						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryBV2)
+					else 
+						self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+					end
 				else
 					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 				end
@@ -1234,7 +1252,10 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 		errorText = self.errorText
 	end
 
-	local isUpdatedBanModalB = promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryB
+	local isUpdatedBanModalB = promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryB 
+	if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() then 
+		isUpdatedBanModalB = isUpdatedBanModalB or promptType == VoiceChatPromptType.VoiceChatSuspendedTemporaryBV2 
+	end
 	local banEnd = ""
 	if self.bannedUntil ~= nil then
 		if isUpdatedBanModalB then
@@ -1249,6 +1270,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 	end
 	local isNudge = (
 		promptType == VoiceChatPromptType.VoiceToxicityModal or promptType == VoiceChatPromptType.VoiceToxicityToast
+		or (GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and (promptType == VoiceChatPromptType.VoiceToxicityModalV2 or promptType == VoiceChatPromptType.VoiceToxicityToastV2))
 	)
 	local isVoiceConsentModal = (
 			promptType == VoiceChatPromptType.VoiceConsentModalV1
@@ -1376,7 +1398,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					self:EnableVoice()
 				end
 				else nil,
-			onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
+			onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal or (GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and promptType == VoiceChatPromptType.VoiceToxicityModalV2)
 				then function()
 					self:ShowVoiceToxicityFeedbackToast()
 					self.Analytics:reportDeniedNudge(self:GetNudgeAnalyticsData())

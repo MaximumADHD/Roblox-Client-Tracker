@@ -10,6 +10,10 @@ local Signal = SignalLib.Signal
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
+local EnumReactPage = require(RobloxGui.Modules.Settings.EnumReactPage)
+type EnumReactPage = EnumReactPage.EnumReactPage
+local ReactPageSignal = require(RobloxGui.Modules.Settings.ReactPageSignal)
+
 local InGameMenuIntegrationUtils = {}
 
 function InGameMenuIntegrationUtils.createPageOpenSignal(pageKey: string): ChromeUtils.MappedSignal<boolean>
@@ -42,6 +46,24 @@ function InGameMenuIntegrationUtils.toggleIGMPage(pageKey: string, isPageOpen: b
 		end
 	else
 		SettingsHub:SetVisibility(true, false, page)
+	end
+end
+
+function InGameMenuIntegrationUtils.toggleReactPage(pageKey: string, isPageOpen: boolean, reactPage: EnumReactPage)
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	local page = SettingsHub.Instance[pageKey]
+	local reactPageSignal = ReactPageSignal()
+	if SettingsHub:GetVisibility() then
+		if isPageOpen then
+			SettingsHub:SetVisibility(false)
+			reactPageSignal.setCurrentReactPage(nil)
+		else
+			SettingsHub:SwitchToPage(page, true)
+			reactPageSignal.setCurrentReactPage(reactPage)
+		end
+	else
+		SettingsHub:SetVisibility(true, false, page)
+		reactPageSignal.setCurrentReactPage(reactPage)
 	end
 end
 

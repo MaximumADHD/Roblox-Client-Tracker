@@ -14,7 +14,7 @@ local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUG
 local RCC_MODERATION_REVIEWING = { ["MODERATION_STATE_REVIEWING"] = true, ["Reviewing"] = true }
 local RCC_MODERATION_APPROVED = { ["MODERATION_STATE_APPROVED"] = true, ["Approved"] = true }
 
-local function collectContentIdsArray(contentIdMap: Types.ContentIdMap): { string }
+local function collectContentIdsArray(contentIdMap: Types.ContentIdEntriesMap): { string }
 	local contentIds: { string } = {}
 	for assetId, _ in contentIdMap do
 		table.insert(contentIds, assetId)
@@ -22,7 +22,11 @@ local function collectContentIdsArray(contentIdMap: Types.ContentIdMap): { strin
 	return contentIds
 end
 
-local function runStudio(reporter: Types.ValidationReporter, rootInstance: Instance, contentIdMap: Types.ContentIdMap)
+local function runStudio(
+	reporter: Types.ValidationReporter,
+	rootInstance: Instance,
+	contentIdMap: Types.ContentIdEntriesMap
+)
 	local contentIds = collectContentIdsArray(contentIdMap)
 	if #contentIds == 0 then
 		return
@@ -45,9 +49,9 @@ local function runStudio(reporter: Types.ValidationReporter, rootInstance: Insta
 		end
 
 		local assetId = tostring(details.assetId)
-		local mapped = contentIdMap[assetId]
-		local message = if mapped
-			then string.format("%s.%s ( %s )", mapped.instance:GetFullName(), mapped.fieldName, assetId)
+		local entries = contentIdMap[assetId]
+		local message = if entries
+			then string.format("%s.%s ( %s )", entries[1].instance:GetFullName(), entries[1].fieldName, assetId)
 			else assetId
 
 		reporter:fail(ErrorSourceStrings.Keys.DescendantIdNotApproved, {
@@ -66,7 +70,7 @@ end
 
 local function runBackend(
 	reporter: Types.ValidationReporter,
-	contentIdMap: Types.ContentIdMap,
+	contentIdMap: Types.ContentIdEntriesMap,
 	backendConfigs: Types.BackendConfigs
 )
 	local restrictedUserIds = backendConfigs.restrictedUserIds
@@ -76,7 +80,8 @@ local function runBackend(
 
 	local ownerLookup = buildOwnerLookup(restrictedUserIds)
 
-	for assetId, entry in contentIdMap do
+	for assetId, entries in contentIdMap do
+		local firstEntry = entries[1]
 		local fetchSuccess, response = getAssetCreationDetailsRCC(assetId)
 		if not fetchSuccess then
 			-- Transient backend failure → escape so RCC reschedules.
@@ -89,8 +94,8 @@ local function runBackend(
 		if not ownerLookup[tonumber(creatorId) :: number] then
 			reporter:fail(ErrorSourceStrings.Keys.DescendantIdNotOwned, {
 				AssetId = assetId,
-				InstanceFullName = entry.instance:GetFullName(),
-				FieldName = entry.fieldName,
+				InstanceFullName = firstEntry.instance:GetFullName(),
+				FieldName = firstEntry.fieldName,
 			})
 		end
 
@@ -99,9 +104,9 @@ local function runBackend(
 			-- Review-in-progress: throw so RCC retries after moderation completes.
 			reporter:forceError(
 				"Failed to load asset "
-					.. entry.instance:GetFullName()
+					.. firstEntry.instance:GetFullName()
 					.. "."
-					.. entry.fieldName
+					.. firstEntry.fieldName
 					.. " ( "
 					.. assetId
 					.. " ) that is still going through the review process. Please, wait for a notification of completion from the review process and try again."
@@ -112,8 +117,8 @@ local function runBackend(
 			reporter:fail(ErrorSourceStrings.Keys.DescendantIdNotApproved, {
 				ModerationMessages = string.format(
 					"%s.%s ( %s )",
-					entry.instance:GetFullName(),
-					entry.fieldName,
+					firstEntry.instance:GetFullName(),
+					firstEntry.fieldName,
 					assetId
 				),
 			})
@@ -124,7 +129,7 @@ end
 local function runIEC(
 	reporter: Types.ValidationReporter,
 	rootInstance: Instance,
-	contentIdMap: Types.ContentIdMap,
+	contentIdMap: Types.ContentIdEntriesMap,
 	iecConfigs: Types.IECConfigs
 )
 	if not iecConfigs.token then

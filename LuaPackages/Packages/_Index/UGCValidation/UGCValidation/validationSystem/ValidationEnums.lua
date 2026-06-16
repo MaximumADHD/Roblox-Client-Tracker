@@ -70,11 +70,14 @@ ValidationEnums.ValidationModule = {
 	HSRAssetStructureValid = "HSRAssetStructureValid",
 	HSRMeshIdsMatch = "HSRMeshIdsMatch",
 	ThumbnailConfigValid = "ThumbnailConfigValid",
-	AssetCanLoad = "AssetCanLoad",
+	DescendantIdsNotMissing = "DescendantIdsNotMissing",
 
 	-- Facs exploits
 	NoFACSOverrideData = "NoFACSOverrideData",
 	FacsHeadConsistency = "FacsHeadConsistency",
+	DynamicHeadFacsPresent = "DynamicHeadFacsPresent",
+	DynamicHeadControlsActive = "DynamicHeadControlsActive",
+	FacsJointBoundsValid = "FacsJointBoundsValid",
 
 	-- HRD/DRD/Bone checks (introduced for R15+ launch)
 	HrdBonesFollowSchema = "HrdBonesFollowSchema",
@@ -90,8 +93,55 @@ ValidationEnums.ValidationModule = {
 	RigidSkinnedToSchema = "RigidSkinnedToSchema",
 	LCSkinnedToSchema = "LCSkinnedToSchema",
 
+	-- Texture & Transparency checks
+	TextureSizeBounded = "TextureSizeBounded",
+	SurfaceAppearanceTexturesBounded = "SurfaceAppearanceTexturesBounded",
+	AssetOpacityValid = "AssetOpacityValid",
+	SurfaceAppearanceOpacityValid = "SurfaceAppearanceOpacityValid",
+
+	-- Mesh geometry checks
+	MeshBoundsValid = "MeshBoundsValid",
+	TriangleCountBounded = "TriangleCountBounded",
+	SurfaceAreaBounded = "SurfaceAreaBounded",
+	VertexDensityBounded = "VertexDensityBounded",
+	TriangleAreaValid = "TriangleAreaValid",
+
+	-- Surface appearance & mesh quality checks
+	SurfaceAppearancePresent = "SurfaceAppearancePresent",
+	TexturePackConsistent = "TexturePackConsistent",
+	VertexColorsOpaque = "VertexColorsOpaque",
+	NoCoplanarTriangles = "NoCoplanarTriangles",
+
+	-- Body part geometry checks
+	PoseCorrect = "PoseCorrect",
+	LegsSeparated = "LegsSeparated",
+	BoundingBoxAccurate = "BoundingBoxAccurate",
+	BodyBlockingTestsPass = "BodyBlockingTestsPass",
+	-- Cage UV checks
+	CageUVCountValid = "CageUVCountValid",
+	CageUVValuesCorrect = "CageUVValuesCorrect",
+	CageUVAreaValid = "CageUVAreaValid",
+	CageUVNoDuplicates = "CageUVNoDuplicates",
+	CageModifiedAreaValid = "CageModifiedAreaValid",
+
+	-- Body part bounds & mesh consistency
+	AssetBoundsValid = "AssetBoundsValid",
+	BodyMeshSizesConsistent = "BodyMeshSizesConsistent",
+	ExtentsWithinParent = "ExtentsWithinParent",
+	MeshSizePropertyCorrect = "MeshSizePropertyCorrect",
+
 	-- Layered clothing exploits
 	LCDeformationWithinBounds = "LCDeformationWithinBounds",
+
+	-- Cage geometry checks
+	VerticesNotCoincident = "VerticesNotCoincident",
+	CageMeshDistanceBounded = "CageMeshDistanceBounded",
+	BodyPartCageDistanceValid = "BodyPartCageDistanceValid",
+	LCWithinRenderBounds = "LCWithinRenderBounds",
+
+	-- Makeup checks
+	WrapTextureValid = "WrapTextureValid",
+	MakeupDecalValid = "MakeupDecalValid",
 
 	-- Eyelash Tests
 	LeaderSkinnedVertsNearCageIslands = "LeaderSkinnedVertsNearCageIslands",
@@ -115,6 +165,13 @@ ValidationEnums.ValidationModule = {
 	CurveAnimRotationBounded = "CurveAnimRotationBounded",
 	CurveAnimJointRotationLimited = "CurveAnimJointRotationLimited",
 	AnimationWeightPositive = "AnimationWeightPositive",
+	CurveAnimBonesAllowed = "CurveAnimBonesAllowed",
+	CurveAnimBonesRotationOnly = "CurveAnimBonesRotationOnly",
+	CurveAnimBonesHaveValidNames = "CurveAnimBonesHaveValidNames",
+	CurveAnimBonesHaveValidParents = "CurveAnimBonesHaveValidParents",
+	CurveAnimBodyPartsWithBonesRotationOnly = "CurveAnimBodyPartsWithBonesRotationOnly",
+	CurveAnimBoneHierarchyValid = "CurveAnimBoneHierarchyValid",
+	CurveAnimLoopingRequired = "CurveAnimLoopingRequired",
 }
 
 ---- Camel case enums (module members) ----
@@ -148,6 +205,7 @@ ValidationEnums.SharedDataMember = {
 	curveAnimComputedFrames = "curveAnimComputedFrames",
 	contentIds = "contentIds",
 	hsrAssets = "hsrAssets",
+	curveAnimBoneData = "curveAnimBoneData",
 }
 finalizeEnumTable("SharedDataMember")
 
@@ -212,6 +270,14 @@ if getEngineFeatureEngineUGCValidationExpandReturnSchema() then
 		Measure_Cage_UV_Avatar = "Measure_Cage_UV_Avatar",
 		Measure_Cage_Relevancy = "Measure_Cage_Relevancy",
 		Measure_Mesh_Outside_OuterCage = "Measure_Mesh_Outside_OuterCage",
+		Measure_Degen_Triangles = "Measure_Degen_Triangles",
+		Measure_Mesh_Manifold = "Measure_Mesh_Manifold",
+		Measure_Triangle_Intersection = "Measure_Triangle_Intersection",
+		Measure_UV_Bound = "Measure_UV_Bound",
+		Measure_Vertex_Similarity = "Measure_Vertex_Similarity",
+		Measure_Joint_Number = "Measure_Joint_Number",
+		Measure_Texture_Complexity = "Measure_Texture_Complexity",
+		Measure_Texture_Resolution = "Measure_Texture_Resolution",
 	}
 	finalizeEnumTable("AssetQualityCheck")
 else

@@ -51,6 +51,8 @@ local FStringReactSchedulingContext = require(CorePackages.Workspace.Packages.Sh
 local FFlagLuaAppEnableToastNotificationsCoreScripts =
 	game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 
+local FFlagDisableLuobuWarningToast = game:DefineFastFlag("DisableLuobuWarningToast", false)
+
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
@@ -250,14 +252,16 @@ coroutine.wrap(function() -- this is the first place we call, which can yield so
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
 end)()
 
-coroutine.wrap(function()
-	if CachedPolicyService:IsSubjectToChinaPolicies() then
-		if not game:IsLoaded() then
-			game.Loaded:Wait()
+if not FFlagDisableLuobuWarningToast then
+	coroutine.wrap(function()
+		if CachedPolicyService:IsSubjectToChinaPolicies() then
+			if not game:IsLoaded() then
+				game.Loaded:Wait()
+			end
+			safeRequire(CoreGuiModules.LuobuWarningToast)
 		end
-		safeRequire(CoreGuiModules.LuobuWarningToast)
-	end
-end)()
+	end)()
+end
 
 -- Performance Stats Management
 ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", RobloxGui)

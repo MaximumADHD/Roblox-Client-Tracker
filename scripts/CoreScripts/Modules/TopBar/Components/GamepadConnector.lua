@@ -34,7 +34,6 @@ local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
 
 local FFlagAddTopBarScrim = require(TopBar.Flags.FFlagAddTopBarScrim)
-local FFlagSetUnibarShortcutOnTopBarFocus = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagSetUnibarShortcutOnTopBarFocus
 
 local isSpatial = AppCommonLib.isSpatial
 local TopBarTelemetry = require(TopBar:WaitForChild("Telemetry"))
@@ -254,9 +253,7 @@ function GamepadConnector:connectToTopbar()
 			end
 
 			if focused then
-				if FFlagSetUnibarShortcutOnTopBarFocus then
 					ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
-				end
 				self:_addDismissFocusConnections()
 			else
 				self:_removeDismissFocusConnections()

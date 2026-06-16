@@ -10,6 +10,14 @@ local Neck = Torso:WaitForChild("Neck")
 local Humanoid = Figure:WaitForChild("Humanoid")
 local pose = "Standing"
 
+local FFlagUserAnimateRemoveEmoteChatHook
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAnimateRemoveEmoteChatHook")
+	end)
+	FFlagUserAnimateRemoveEmoteChatHook = success and result
+end
+
 local EMOTE_TRANSITION_TIME = 0.1
 
 local function getRigScale()
@@ -529,22 +537,23 @@ Humanoid.Seated:connect(onSeated)
 Humanoid.PlatformStanding:connect(onPlatformStanding)
 Humanoid.Swimming:connect(onSwimming)
 
----- setup emote chat hook
-game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
-	local emote = ""
-	if msg == "/e dance" then
-		emote = dances[math.random(1, #dances)]
-	elseif (string.sub(msg, 1, 3) == "/e ") then
-		emote = string.sub(msg, 4)
-	elseif (string.sub(msg, 1, 7) == "/emote ") then
-		emote = string.sub(msg, 8)
-	end
-	
-	if (pose == "Standing" and emoteNames[emote] ~= nil) then
-		playAnimation(emote, 0.1, Humanoid)
-	end
-
-end)
+if not FFlagUserAnimateRemoveEmoteChatHook then
+	---- setup emote chat hook
+	game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
+		local emote = ""
+		if msg == "/e dance" then
+			emote = dances[math.random(1, #dances)]
+		elseif (string.sub(msg, 1, 3) == "/e ") then
+			emote = string.sub(msg, 4)
+		elseif (string.sub(msg, 1, 7) == "/emote ") then
+			emote = string.sub(msg, 8)
+		end
+		
+		if (pose == "Standing" and emoteNames[emote] ~= nil) then
+			playAnimation(emote, 0.1, Humanoid)
+		end
+	end)
+end
 
 -- emote bindable hook
 script:WaitForChild("PlayEmote").OnInvoke = function(emote)

@@ -36,6 +36,7 @@ local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagIEMFocusNavPeoplePageToButtons = SharedFlags.FFlagIEMFocusNavPeoplePageToButtons
+local FFlagIEMSettingsPageDisplaying = SharedFlags.FFlagIEMSettingsPageDisplaying
 
 local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
 
@@ -246,6 +247,10 @@ local function Initialize()
 
 	----------------- Events ------------------------
 
+	-- Fires when Display() starts the slide-in to this tab (before the tween completes).
+	this.Displaying = Instance.new("BindableEvent")
+	this.Displaying.Name = "Displaying"
+
 	this.Displayed = Instance.new("BindableEvent")
 	this.Displayed.Name = "Displayed"
 
@@ -329,6 +334,10 @@ local function Initialize()
 
 		this.Page.Parent = pageParent
 		this.Page.Visible = true
+
+		if FFlagIEMSettingsPageDisplaying then
+			this.Displaying:Fire()
+		end
 
 		local endPos = UDim2.new(0, 0, 0, 0)
 		local animationComplete = function()

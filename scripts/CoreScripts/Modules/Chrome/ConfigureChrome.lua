@@ -29,6 +29,10 @@ local FFlagSideSheetSwapGalleryOrder = SharedFlags.FFlagSideSheetSwapGalleryOrde
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 
 local FFlagReverseUnibar = require(Chrome.Flags.FFlagReverseUnibar)
+local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
+
+local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
+local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
@@ -140,6 +144,10 @@ local function configureUnibar()
 			end
 
 			table.insert(nineDot, "help")
+
+			if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet then
+				table.insert(nineDot, "traversal_history")
+			end
 		end
 		table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)
 		table.insert(nineDot, SideSheet.Enums.ActionBinding.Respawn)

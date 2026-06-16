@@ -6,6 +6,8 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local maxCageMeshDistanceThreshold = game:DefineFastInt("UGCValidationCageMeshDistanceMaxCageMeshDistanceAvatar", 60)
 local maxNegativeSDFThreshold = game:DefineFastInt("UGCValidationCageMeshDistanceMaxNegativeSDFThresholdAvatar", 30)
 
+local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidateAQScoreWarnings)
+
 local Measure_Cage_Mesh_Distance_Avatar = {}
 
 Measure_Cage_Mesh_Distance_Avatar.categories = { ValidationEnums.UploadCategory.FULL_BODY }
@@ -24,7 +26,14 @@ Measure_Cage_Mesh_Distance_Avatar.run = function(reporter: Types.ValidationRepor
 		end
 		if tonumber(summary.negative_sdf_percent) :: number * 100 > maxNegativeSDFThreshold then
 			reporter:fail(ErrorSourceStrings.Keys.MeasureCageMeshDistanceAvatar_CageInsideMesh, {
-				negtiveSDFPercent = tonumber(summary.negative_sdf_percent) :: number * 100,
+				negtiveSDFPercent = string.format("%.2f", tonumber(summary.negative_sdf_percent) :: number * 100),
+			})
+		end
+		if getFFlagUGCValidateAQScoreWarnings() and summary.score ~= nil and tonumber(summary.score) ~= 100 then
+			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_CageMeshDistanceAvatar, {
+				score = tostring(math.floor(tonumber(summary.score) or 0)),
+				max_distance = summary.max_distance or "unknown",
+				negative_sdf_percent = string.format("%.2f", (tonumber(summary.negative_sdf_percent) or 0) * 100),
 			})
 		end
 	end

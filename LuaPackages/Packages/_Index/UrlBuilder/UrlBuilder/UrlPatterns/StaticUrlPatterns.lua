@@ -37,6 +37,10 @@ return function(UrlBuilder)
 		redeem = UrlBuilder.fromString("www:redeem"),
 		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),
 		help = UrlBuilder.fromString(isQQ() and "corp:faq" or "www:help"),
+		safetyDashboard = {
+			main = UrlBuilder.fromString("www:safety-dashboard?t_source={source|app}"),
+			violation = UrlBuilder.fromString("www:safety-dashboard?vid={id}&t_source={source|app}"),
+		},
 		appealsPortal = {
 			-- link the Report & Appeals standalone portal (e.g. not part of settings)
 			main = UrlBuilder.fromString("www:report-appeals?t_source={source|app}"),

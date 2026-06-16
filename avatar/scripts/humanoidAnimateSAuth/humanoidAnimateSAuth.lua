@@ -1,5 +1,13 @@
 local module = {}
 
+local FFlagUserAnimateRemoveEmoteChatHook
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAnimateRemoveEmoteChatHook")
+	end)
+	FFlagUserAnimateRemoveEmoteChatHook = success and result
+end
+
 -- State stored in HumanoidRootPart/Humanoid for Server Authority rollback:
 export type AnimationStateAttributesType = {
 	-- Previous humanoid state to check for changes:
@@ -1059,31 +1067,33 @@ function module.setupAnimation(character)
 	--- Emotes
 	--------------------------------------------------------------------------------
 
-	-- setup emote chat hook
-	game:GetService("Players"):GetPlayerFromCharacter(character).Chatted:Connect(function(msg)
-		if chatState.pose ~= "Standing" and not chatState.currentlyPlayingEmote then
-			return
-		end
+	-- setup emote chat hook (RBXEmoteCommand now handles this)
+	if not FFlagUserAnimateRemoveEmoteChatHook then
+		game:GetService("Players"):GetPlayerFromCharacter(character).Chatted:Connect(function(msg)
+			if chatState.pose ~= "Standing" and not chatState.currentlyPlayingEmote then
+				return
+			end
 
-		local emote = ""
-		if msg:sub(1, 3) == "/e " then
-			emote = msg:sub(4)
-		elseif msg:sub(1, 7) == "/emote " then
-			emote = msg:sub(8)
-		end
+			local emote = ""
+			if msg:sub(1, 3) == "/e " then
+				emote = msg:sub(4)
+			elseif msg:sub(1, 7) == "/emote " then
+				emote = msg:sub(8)
+			end
 
-		if DEFAULT_EMOTE_LOOPING_OVERRIDES[emote] ~= nil then
-			debugPrint(time(), "Trying to play emote from chat: ", emote)
-			-- Runs outside stepAnimate — write to attributes directly so next GetAttributes() picks them up
-			humanoidRootPart:SetAttribute("queuedPose",               "EMOTE_"..emote)
-			humanoidRootPart:SetAttribute("queuedTransitionTime",     EMOTE_TRANSITION_TIME)
-			humanoidRootPart:SetAttribute("queuedAnimSpeed",          0)
-			humanoidRootPart:SetAttribute("currentAnimTimeRemaining", 0)
-		elseif emote ~= "" then
-			warn("Did not find emote matching chat command: ", emote)
-		end
-		-- No support for custom emotes yet.
-	end)
+			if DEFAULT_EMOTE_LOOPING_OVERRIDES[emote] ~= nil then
+				debugPrint(time(), "Trying to play emote from chat: ", emote)
+				-- Runs outside stepAnimate — write to attributes directly so next GetAttributes() picks them up
+				humanoidRootPart:SetAttribute("queuedPose",               "EMOTE_"..emote)
+				humanoidRootPart:SetAttribute("queuedTransitionTime",     EMOTE_TRANSITION_TIME)
+				humanoidRootPart:SetAttribute("queuedAnimSpeed",          0)
+				humanoidRootPart:SetAttribute("currentAnimTimeRemaining", 0)
+			elseif emote ~= "" then
+				warn("Did not find emote matching chat command: ", emote)
+			end
+			-- No support for custom emotes yet.
+		end)
+	end
 
 	------------------------------------------------------------------------------------------------------------
 	--- Finally, bind an update step to the simulation

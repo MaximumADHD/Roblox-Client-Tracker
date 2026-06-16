@@ -60,6 +60,10 @@ type _Messages =
 		TextSchema: _TextSchemaMessage,
 		TextSchema_Props: _TextSchema_PropsMessage,
 		TextSchema_WebProps: _TextSchema_WebPropsMessage,
+		RevealTextSchema: _RevealTextSchemaMessage,
+		RevealTextSchema_Props: _RevealTextSchema_PropsMessage,
+		ShimmerTextSchema: _ShimmerTextSchemaMessage,
+		ShimmerTextSchema_Props: _ShimmerTextSchema_PropsMessage,
 		ViewSchema: _ViewSchemaMessage,
 		ViewSchema_Props: _ViewSchema_PropsMessage,
 		DividerSchema: _DividerSchemaMessage,
@@ -95,6 +99,8 @@ type _Messages =
 		CollectionCarouselSchema_Props: _CollectionCarouselSchema_PropsMessage,
 		CollectionCarouselPlaceholderSchema: _CollectionCarouselPlaceholderSchemaMessage,
 		CollectionCarouselPlaceholderSchema_Props: _CollectionCarouselPlaceholderSchema_PropsMessage,
+		VariableItemWidthCarouselSchema: _VariableItemWidthCarouselSchemaMessage,
+		VariableItemWidthCarouselSchema_Props: _VariableItemWidthCarouselSchema_PropsMessage,
 		CollectionGridSchema: _CollectionGridSchemaMessage,
 		CollectionGridSchema_Props: _CollectionGridSchema_PropsMessage,
 		SingleItemCollectionSchema: _SingleItemCollectionSchemaMessage,
@@ -2071,6 +2077,178 @@ type _TextSchema_WebPropsPartialFields = {
 export type TextSchema_WebProps = typeof(setmetatable({} :: _TextSchema_WebPropsFields, {} :: _TextSchema_WebPropsImpl))
 type _TextSchema_WebPropsMessage = proto.Message<TextSchema_WebProps, _TextSchema_WebPropsPartialFields>
 
+type _RevealTextSchemaImpl = {
+	__index: _RevealTextSchemaImpl,
+	new: (fields: _RevealTextSchemaPartialFields?) -> RevealTextSchema,
+	encode: (self: RevealTextSchema) -> buffer,
+	decode: (input: buffer) -> RevealTextSchema,
+	jsonEncode: (self: RevealTextSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RevealTextSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _RevealTextSchemaFields = {
+	props: RevealTextSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _RevealTextSchemaPartialFields = {
+	props: RevealTextSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type RevealTextSchema = typeof(setmetatable({} :: _RevealTextSchemaFields, {} :: _RevealTextSchemaImpl))
+type _RevealTextSchemaMessage = proto.Message<RevealTextSchema, _RevealTextSchemaPartialFields>
+
+type _RevealTextSchema_PropsImpl = {
+	__index: _RevealTextSchema_PropsImpl,
+	new: (fields: _RevealTextSchema_PropsPartialFields?) -> RevealTextSchema_Props,
+	encode: (self: RevealTextSchema_Props) -> buffer,
+	decode: (input: buffer) -> RevealTextSchema_Props,
+	jsonEncode: (self: RevealTextSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RevealTextSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _RevealTextSchema_PropsFields = {
+	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
+	clips_descendants: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
+	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp?,
+	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	reveal_interval: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	delimiter: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RevealTextSchema_PropsPartialFields = {
+	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
+	clips_descendants: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
+	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp?,
+	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	reveal_interval: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	delimiter: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RevealTextSchema_Props = typeof(setmetatable(
+	{} :: _RevealTextSchema_PropsFields,
+	{} :: _RevealTextSchema_PropsImpl
+))
+type _RevealTextSchema_PropsMessage = proto.Message<RevealTextSchema_Props, _RevealTextSchema_PropsPartialFields>
+
+type _ShimmerTextSchemaImpl = {
+	__index: _ShimmerTextSchemaImpl,
+	new: (fields: _ShimmerTextSchemaPartialFields?) -> ShimmerTextSchema,
+	encode: (self: ShimmerTextSchema) -> buffer,
+	decode: (input: buffer) -> ShimmerTextSchema,
+	jsonEncode: (self: ShimmerTextSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShimmerTextSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _ShimmerTextSchemaFields = {
+	props: ShimmerTextSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _ShimmerTextSchemaPartialFields = {
+	props: ShimmerTextSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type ShimmerTextSchema = typeof(setmetatable({} :: _ShimmerTextSchemaFields, {} :: _ShimmerTextSchemaImpl))
+type _ShimmerTextSchemaMessage = proto.Message<ShimmerTextSchema, _ShimmerTextSchemaPartialFields>
+
+type _ShimmerTextSchema_PropsImpl = {
+	__index: _ShimmerTextSchema_PropsImpl,
+	new: (fields: _ShimmerTextSchema_PropsPartialFields?) -> ShimmerTextSchema_Props,
+	encode: (self: ShimmerTextSchema_Props) -> buffer,
+	decode: (input: buffer) -> ShimmerTextSchema_Props,
+	jsonEncode: (self: ShimmerTextSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShimmerTextSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _ShimmerTextSchema_PropsFields = {
+	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
+	clips_descendants: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
+	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp?,
+	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_shimmer_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	gradient_offset: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	animation_speed: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+type _ShimmerTextSchema_PropsPartialFields = {
+	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
+	clips_descendants: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop?,
+	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	text_wrapped: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp?,
+	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp?,
+	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp?,
+	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_shimmer_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	gradient_offset: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	animation_speed: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+export type ShimmerTextSchema_Props = typeof(setmetatable(
+	{} :: _ShimmerTextSchema_PropsFields,
+	{} :: _ShimmerTextSchema_PropsImpl
+))
+type _ShimmerTextSchema_PropsMessage = proto.Message<ShimmerTextSchema_Props, _ShimmerTextSchema_PropsPartialFields>
+
 type _ViewSchemaImpl = {
 	__index: _ViewSchemaImpl,
 	new: (fields: _ViewSchemaPartialFields?) -> ViewSchema,
@@ -3451,6 +3629,84 @@ type _CollectionCarouselPlaceholderSchema_PropsMessage = proto.Message<
 	_CollectionCarouselPlaceholderSchema_PropsPartialFields
 >
 
+type _VariableItemWidthCarouselSchemaImpl = {
+	__index: _VariableItemWidthCarouselSchemaImpl,
+	new: (fields: _VariableItemWidthCarouselSchemaPartialFields?) -> VariableItemWidthCarouselSchema,
+	encode: (self: VariableItemWidthCarouselSchema) -> buffer,
+	decode: (input: buffer) -> VariableItemWidthCarouselSchema,
+	jsonEncode: (self: VariableItemWidthCarouselSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VariableItemWidthCarouselSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _VariableItemWidthCarouselSchemaFields = {
+	props: VariableItemWidthCarouselSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _VariableItemWidthCarouselSchemaPartialFields = {
+	props: VariableItemWidthCarouselSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type VariableItemWidthCarouselSchema = typeof(setmetatable(
+	{} :: _VariableItemWidthCarouselSchemaFields,
+	{} :: _VariableItemWidthCarouselSchemaImpl
+))
+type _VariableItemWidthCarouselSchemaMessage = proto.Message<
+	VariableItemWidthCarouselSchema,
+	_VariableItemWidthCarouselSchemaPartialFields
+>
+
+type _VariableItemWidthCarouselSchema_PropsImpl = {
+	__index: _VariableItemWidthCarouselSchema_PropsImpl,
+	new: (fields: _VariableItemWidthCarouselSchema_PropsPartialFields?) -> VariableItemWidthCarouselSchema_Props,
+	encode: (self: VariableItemWidthCarouselSchema_Props) -> buffer,
+	decode: (input: buffer) -> VariableItemWidthCarouselSchema_Props,
+	jsonEncode: (self: VariableItemWidthCarouselSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VariableItemWidthCarouselSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _VariableItemWidthCarouselSchema_PropsFields = {
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	items: LazyNestedComponentListProp?,
+	item_height: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	item_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_buttons_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	scroll_speed: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	should_use_frame_bounds_for_impressions: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+type _VariableItemWidthCarouselSchema_PropsPartialFields = {
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	items: LazyNestedComponentListProp?,
+	item_height: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	item_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_buttons_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	scroll_speed: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	impression_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	skip_item_impressions_log: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	should_use_frame_bounds_for_impressions: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+export type VariableItemWidthCarouselSchema_Props = typeof(setmetatable(
+	{} :: _VariableItemWidthCarouselSchema_PropsFields,
+	{} :: _VariableItemWidthCarouselSchema_PropsImpl
+))
+type _VariableItemWidthCarouselSchema_PropsMessage = proto.Message<
+	VariableItemWidthCarouselSchema_Props,
+	_VariableItemWidthCarouselSchema_PropsPartialFields
+>
+
 type _CollectionGridSchemaImpl = {
 	__index: _CollectionGridSchemaImpl,
 	new: (fields: _CollectionGridSchemaPartialFields?) -> CollectionGridSchema,
@@ -3815,6 +4071,7 @@ type _VerticalFeedSchema_PropsFields = {
 	sticky_content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	initial_num_to_render: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_rate: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	progressive_fill_interval_ms: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -3838,6 +4095,7 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	sticky_content_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	initial_num_to_render: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	progressive_fill_rate: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	progressive_fill_interval_ms: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -9106,6 +9364,9 @@ type _UiComponentSchemaFields = {
 		| { type: "placeholder", value: PlaceholderSchema }
 		| { type: "placeholder_wrapper", value: PlaceholderWrapperSchema }
 		| { type: "collection_carousel_placeholder", value: CollectionCarouselPlaceholderSchema }
+		| { type: "reveal_text", value: RevealTextSchema }
+		| { type: "shimmer_text", value: ShimmerTextSchema }
+		| { type: "variable_item_width_carousel", value: VariableItemWidthCarouselSchema }
 	)?,
 }
 
@@ -9182,6 +9443,9 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "placeholder", value: PlaceholderSchema }
 		| { type: "placeholder_wrapper", value: PlaceholderWrapperSchema }
 		| { type: "collection_carousel_placeholder", value: CollectionCarouselPlaceholderSchema }
+		| { type: "reveal_text", value: RevealTextSchema }
+		| { type: "shimmer_text", value: ShimmerTextSchema }
+		| { type: "variable_item_width_carousel", value: VariableItemWidthCarouselSchema }
 	)?,
 }
 
@@ -20033,6 +20297,1430 @@ do
 end
 
 do
+	local _RevealTextSchemaImpl = {}
+	_RevealTextSchemaImpl.__index = _RevealTextSchemaImpl
+
+	function _RevealTextSchemaImpl.new(data: _RevealTextSchemaPartialFields?): RevealTextSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _RevealTextSchemaImpl :: _RevealTextSchemaImpl)
+	end
+
+	function _RevealTextSchemaImpl.encode(self: RevealTextSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RevealTextSchemaImpl.decode(input: buffer): RevealTextSchema
+		local self = _RevealTextSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.RevealTextSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RevealTextSchemaImpl.jsonEncode(self: RevealTextSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RevealTextSchemaImpl.jsonDecode(input: { [string]: any }): RevealTextSchema
+		local self = _RevealTextSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.RevealTextSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_RevealTextSchemaImpl.descriptor = {
+		name = "RevealTextSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RevealTextSchema",
+	}
+
+	messages.RevealTextSchema = _RevealTextSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RevealTextSchema)
+end
+
+do
+	local _RevealTextSchema_PropsImpl = {}
+	_RevealTextSchema_PropsImpl.__index = _RevealTextSchema_PropsImpl
+
+	function _RevealTextSchema_PropsImpl.new(data: _RevealTextSchema_PropsPartialFields?): RevealTextSchema_Props
+		return setmetatable({
+			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
+			clips_descendants = if data == nil or data.clips_descendants == nil then nil else data.clips_descendants,
+			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			position = if data == nil or data.position == nil then nil else data.position,
+			size = if data == nil or data.size == nil then nil else data.size,
+			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
+			text = if data == nil or data.text == nil then nil else data.text,
+			rich_text = if data == nil or data.rich_text == nil then nil else data.rich_text,
+			font_style = if data == nil or data.font_style == nil then nil else data.font_style,
+			text_style = if data == nil or data.text_style == nil then nil else data.text_style,
+			text_wrapped = if data == nil or data.text_wrapped == nil then nil else data.text_wrapped,
+			text_truncate = if data == nil or data.text_truncate == nil then nil else data.text_truncate,
+			text_direction = if data == nil or data.text_direction == nil then nil else data.text_direction,
+			text_x_alignment = if data == nil or data.text_x_alignment == nil then nil else data.text_x_alignment,
+			text_y_alignment = if data == nil or data.text_y_alignment == nil then nil else data.text_y_alignment,
+			text_scaled = if data == nil or data.text_scaled == nil then nil else data.text_scaled,
+			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
+			reveal_interval = if data == nil or data.reveal_interval == nil then nil else data.reveal_interval,
+			delimiter = if data == nil or data.delimiter == nil then nil else data.delimiter,
+		}, _RevealTextSchema_PropsImpl :: _RevealTextSchema_PropsImpl)
+	end
+
+	function _RevealTextSchema_PropsImpl.encode(self: RevealTextSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.anchor_point ~= nil then
+			local encoded = self.anchor_point:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.clips_descendants ~= nil then
+			local encoded = self.clips_descendants:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.layout_order ~= nil then
+			local encoded = self.layout_order:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.position ~= nil then
+			local encoded = self.position:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size ~= nil then
+			local encoded = self.size:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_activated ~= nil then
+			local encoded = self.on_activated:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text ~= nil then
+			local encoded = self.text:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.rich_text ~= nil then
+			local encoded = self.rich_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.font_style ~= nil then
+			local encoded = self.font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_style ~= nil then
+			local encoded = self.text_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_wrapped ~= nil then
+			local encoded = self.text_wrapped:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_truncate ~= nil then
+			local encoded = self.text_truncate:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_direction ~= nil then
+			local encoded = self.text_direction:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_x_alignment ~= nil then
+			local encoded = self.text_x_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_y_alignment ~= nil then
+			local encoded = self.text_y_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_scaled ~= nil then
+			local encoded = self.text_scaled:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.automatic_size ~= nil then
+			local encoded = self.automatic_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.reveal_interval ~= nil then
+			local encoded = self.reveal_interval:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.delimiter ~= nil then
+			local encoded = self.delimiter:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RevealTextSchema_PropsImpl.decode(input: buffer): RevealTextSchema_Props
+		local self = _RevealTextSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.anchor_point = _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.clips_descendants = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.font_style = _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_truncate =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_direction = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_x_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_y_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.automatic_size =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.reveal_interval = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.delimiter = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RevealTextSchema_PropsImpl.jsonEncode(self: RevealTextSchema_Props): any
+		local output = {}
+
+		if self.anchor_point ~= nil then
+			output.anchorPoint = self.anchor_point:jsonEncode()
+		end
+
+		if self.clips_descendants ~= nil then
+			output.clipsDescendants = self.clips_descendants:jsonEncode()
+		end
+
+		if self.layout_order ~= nil then
+			output.layoutOrder = self.layout_order:jsonEncode()
+		end
+
+		if self.position ~= nil then
+			output.position = self.position:jsonEncode()
+		end
+
+		if self.size ~= nil then
+			output.size = self.size:jsonEncode()
+		end
+
+		if self.on_activated ~= nil then
+			output.onActivated = self.on_activated:jsonEncode()
+		end
+
+		if self.text ~= nil then
+			output.text = self.text:jsonEncode()
+		end
+
+		if self.rich_text ~= nil then
+			output.richText = self.rich_text:jsonEncode()
+		end
+
+		if self.font_style ~= nil then
+			output.fontStyle = self.font_style:jsonEncode()
+		end
+
+		if self.text_style ~= nil then
+			output.textStyle = self.text_style:jsonEncode()
+		end
+
+		if self.text_wrapped ~= nil then
+			output.textWrapped = self.text_wrapped:jsonEncode()
+		end
+
+		if self.text_truncate ~= nil then
+			output.textTruncate = self.text_truncate:jsonEncode()
+		end
+
+		if self.text_direction ~= nil then
+			output.textDirection = self.text_direction:jsonEncode()
+		end
+
+		if self.text_x_alignment ~= nil then
+			output.textXAlignment = self.text_x_alignment:jsonEncode()
+		end
+
+		if self.text_y_alignment ~= nil then
+			output.textYAlignment = self.text_y_alignment:jsonEncode()
+		end
+
+		if self.text_scaled ~= nil then
+			output.textScaled = self.text_scaled:jsonEncode()
+		end
+
+		if self.automatic_size ~= nil then
+			output.automaticSize = self.automatic_size:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.reveal_interval ~= nil then
+			output.revealInterval = self.reveal_interval:jsonEncode()
+		end
+
+		if self.delimiter ~= nil then
+			output.delimiter = self.delimiter:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RevealTextSchema_PropsImpl.jsonDecode(input: { [string]: any }): RevealTextSchema_Props
+		local self = _RevealTextSchema_PropsImpl.new()
+
+		if input.anchor_point ~= nil then
+			self.anchor_point =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop.jsonDecode(input.anchor_point)
+		end
+
+		if input.anchorPoint ~= nil then
+			self.anchor_point =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop.jsonDecode(input.anchorPoint)
+		end
+
+		if input.clips_descendants ~= nil then
+			self.clips_descendants =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.clips_descendants)
+		end
+
+		if input.clipsDescendants ~= nil then
+			self.clips_descendants =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.clipsDescendants)
+		end
+
+		if input.layout_order ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layout_order)
+		end
+
+		if input.layoutOrder ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		if input.position ~= nil then
+			self.position =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.position)
+		end
+
+		if input.size ~= nil then
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.size)
+		end
+
+		if input.on_activated ~= nil then
+			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_activated)
+		end
+
+		if input.onActivated ~= nil then
+			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onActivated)
+		end
+
+		if input.text ~= nil then
+			self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text)
+		end
+
+		if input.rich_text ~= nil then
+			self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.rich_text)
+		end
+
+		if input.richText ~= nil then
+			self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.richText)
+		end
+
+		if input.font_style ~= nil then
+			self.font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.font_style)
+		end
+
+		if input.fontStyle ~= nil then
+			self.font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.fontStyle)
+		end
+
+		if input.text_style ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.text_style)
+		end
+
+		if input.textStyle ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.textStyle)
+		end
+
+		if input.text_wrapped ~= nil then
+			self.text_wrapped =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_wrapped)
+		end
+
+		if input.textWrapped ~= nil then
+			self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textWrapped)
+		end
+
+		if input.text_truncate ~= nil then
+			self.text_truncate = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(
+				input.text_truncate
+			)
+		end
+
+		if input.textTruncate ~= nil then
+			self.text_truncate =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(input.textTruncate)
+		end
+
+		if input.text_direction ~= nil then
+			self.text_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text_direction)
+		end
+
+		if input.textDirection ~= nil then
+			self.text_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.textDirection)
+		end
+
+		if input.text_x_alignment ~= nil then
+			self.text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.text_x_alignment
+				)
+		end
+
+		if input.textXAlignment ~= nil then
+			self.text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.textXAlignment
+				)
+		end
+
+		if input.text_y_alignment ~= nil then
+			self.text_y_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp.jsonDecode(
+					input.text_y_alignment
+				)
+		end
+
+		if input.textYAlignment ~= nil then
+			self.text_y_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp.jsonDecode(
+					input.textYAlignment
+				)
+		end
+
+		if input.text_scaled ~= nil then
+			self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_scaled)
+		end
+
+		if input.textScaled ~= nil then
+			self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textScaled)
+		end
+
+		if input.automatic_size ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automatic_size
+			)
+		end
+
+		if input.automaticSize ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automaticSize
+			)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.reveal_interval ~= nil then
+			self.reveal_interval =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.reveal_interval)
+		end
+
+		if input.revealInterval ~= nil then
+			self.reveal_interval =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.revealInterval)
+		end
+
+		if input.delimiter ~= nil then
+			self.delimiter = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.delimiter)
+		end
+
+		return self
+	end
+
+	_RevealTextSchema_PropsImpl.descriptor = {
+		name = "RevealTextSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.RevealTextSchema_Props = _RevealTextSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RevealTextSchema_Props)
+end
+
+do
+	local _ShimmerTextSchemaImpl = {}
+	_ShimmerTextSchemaImpl.__index = _ShimmerTextSchemaImpl
+
+	function _ShimmerTextSchemaImpl.new(data: _ShimmerTextSchemaPartialFields?): ShimmerTextSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _ShimmerTextSchemaImpl :: _ShimmerTextSchemaImpl)
+	end
+
+	function _ShimmerTextSchemaImpl.encode(self: ShimmerTextSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShimmerTextSchemaImpl.decode(input: buffer): ShimmerTextSchema
+		local self = _ShimmerTextSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.ShimmerTextSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShimmerTextSchemaImpl.jsonEncode(self: ShimmerTextSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShimmerTextSchemaImpl.jsonDecode(input: { [string]: any }): ShimmerTextSchema
+		local self = _ShimmerTextSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.ShimmerTextSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_ShimmerTextSchemaImpl.descriptor = {
+		name = "ShimmerTextSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShimmerTextSchema",
+	}
+
+	messages.ShimmerTextSchema = _ShimmerTextSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShimmerTextSchema)
+end
+
+do
+	local _ShimmerTextSchema_PropsImpl = {}
+	_ShimmerTextSchema_PropsImpl.__index = _ShimmerTextSchema_PropsImpl
+
+	function _ShimmerTextSchema_PropsImpl.new(data: _ShimmerTextSchema_PropsPartialFields?): ShimmerTextSchema_Props
+		return setmetatable({
+			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
+			clips_descendants = if data == nil or data.clips_descendants == nil then nil else data.clips_descendants,
+			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			position = if data == nil or data.position == nil then nil else data.position,
+			size = if data == nil or data.size == nil then nil else data.size,
+			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
+			text = if data == nil or data.text == nil then nil else data.text,
+			rich_text = if data == nil or data.rich_text == nil then nil else data.rich_text,
+			font_style = if data == nil or data.font_style == nil then nil else data.font_style,
+			text_style = if data == nil or data.text_style == nil then nil else data.text_style,
+			text_wrapped = if data == nil or data.text_wrapped == nil then nil else data.text_wrapped,
+			text_truncate = if data == nil or data.text_truncate == nil then nil else data.text_truncate,
+			text_direction = if data == nil or data.text_direction == nil then nil else data.text_direction,
+			text_x_alignment = if data == nil or data.text_x_alignment == nil then nil else data.text_x_alignment,
+			text_y_alignment = if data == nil or data.text_y_alignment == nil then nil else data.text_y_alignment,
+			text_scaled = if data == nil or data.text_scaled == nil then nil else data.text_scaled,
+			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
+			is_shimmer_enabled = if data == nil or data.is_shimmer_enabled == nil then nil else data.is_shimmer_enabled,
+			gradient_offset = if data == nil or data.gradient_offset == nil then nil else data.gradient_offset,
+			animation_speed = if data == nil or data.animation_speed == nil then nil else data.animation_speed,
+		}, _ShimmerTextSchema_PropsImpl :: _ShimmerTextSchema_PropsImpl)
+	end
+
+	function _ShimmerTextSchema_PropsImpl.encode(self: ShimmerTextSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.anchor_point ~= nil then
+			local encoded = self.anchor_point:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.clips_descendants ~= nil then
+			local encoded = self.clips_descendants:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.layout_order ~= nil then
+			local encoded = self.layout_order:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.position ~= nil then
+			local encoded = self.position:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size ~= nil then
+			local encoded = self.size:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_activated ~= nil then
+			local encoded = self.on_activated:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text ~= nil then
+			local encoded = self.text:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.rich_text ~= nil then
+			local encoded = self.rich_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.font_style ~= nil then
+			local encoded = self.font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_style ~= nil then
+			local encoded = self.text_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_wrapped ~= nil then
+			local encoded = self.text_wrapped:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_truncate ~= nil then
+			local encoded = self.text_truncate:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_direction ~= nil then
+			local encoded = self.text_direction:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_x_alignment ~= nil then
+			local encoded = self.text_x_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_y_alignment ~= nil then
+			local encoded = self.text_y_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_scaled ~= nil then
+			local encoded = self.text_scaled:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.automatic_size ~= nil then
+			local encoded = self.automatic_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_shimmer_enabled ~= nil then
+			local encoded = self.is_shimmer_enabled:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.gradient_offset ~= nil then
+			local encoded = self.gradient_offset:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.animation_speed ~= nil then
+			local encoded = self.animation_speed:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShimmerTextSchema_PropsImpl.decode(input: buffer): ShimmerTextSchema_Props
+		local self = _ShimmerTextSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.anchor_point = _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.clips_descendants = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.font_style = _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_truncate =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_direction = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_x_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_y_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.automatic_size =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_shimmer_enabled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gradient_offset = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.animation_speed = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShimmerTextSchema_PropsImpl.jsonEncode(self: ShimmerTextSchema_Props): any
+		local output = {}
+
+		if self.anchor_point ~= nil then
+			output.anchorPoint = self.anchor_point:jsonEncode()
+		end
+
+		if self.clips_descendants ~= nil then
+			output.clipsDescendants = self.clips_descendants:jsonEncode()
+		end
+
+		if self.layout_order ~= nil then
+			output.layoutOrder = self.layout_order:jsonEncode()
+		end
+
+		if self.position ~= nil then
+			output.position = self.position:jsonEncode()
+		end
+
+		if self.size ~= nil then
+			output.size = self.size:jsonEncode()
+		end
+
+		if self.on_activated ~= nil then
+			output.onActivated = self.on_activated:jsonEncode()
+		end
+
+		if self.text ~= nil then
+			output.text = self.text:jsonEncode()
+		end
+
+		if self.rich_text ~= nil then
+			output.richText = self.rich_text:jsonEncode()
+		end
+
+		if self.font_style ~= nil then
+			output.fontStyle = self.font_style:jsonEncode()
+		end
+
+		if self.text_style ~= nil then
+			output.textStyle = self.text_style:jsonEncode()
+		end
+
+		if self.text_wrapped ~= nil then
+			output.textWrapped = self.text_wrapped:jsonEncode()
+		end
+
+		if self.text_truncate ~= nil then
+			output.textTruncate = self.text_truncate:jsonEncode()
+		end
+
+		if self.text_direction ~= nil then
+			output.textDirection = self.text_direction:jsonEncode()
+		end
+
+		if self.text_x_alignment ~= nil then
+			output.textXAlignment = self.text_x_alignment:jsonEncode()
+		end
+
+		if self.text_y_alignment ~= nil then
+			output.textYAlignment = self.text_y_alignment:jsonEncode()
+		end
+
+		if self.text_scaled ~= nil then
+			output.textScaled = self.text_scaled:jsonEncode()
+		end
+
+		if self.automatic_size ~= nil then
+			output.automaticSize = self.automatic_size:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.is_shimmer_enabled ~= nil then
+			output.isShimmerEnabled = self.is_shimmer_enabled:jsonEncode()
+		end
+
+		if self.gradient_offset ~= nil then
+			output.gradientOffset = self.gradient_offset:jsonEncode()
+		end
+
+		if self.animation_speed ~= nil then
+			output.animationSpeed = self.animation_speed:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShimmerTextSchema_PropsImpl.jsonDecode(input: { [string]: any }): ShimmerTextSchema_Props
+		local self = _ShimmerTextSchema_PropsImpl.new()
+
+		if input.anchor_point ~= nil then
+			self.anchor_point =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop.jsonDecode(input.anchor_point)
+		end
+
+		if input.anchorPoint ~= nil then
+			self.anchor_point =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop.jsonDecode(input.anchorPoint)
+		end
+
+		if input.clips_descendants ~= nil then
+			self.clips_descendants =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.clips_descendants)
+		end
+
+		if input.clipsDescendants ~= nil then
+			self.clips_descendants =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.clipsDescendants)
+		end
+
+		if input.layout_order ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layout_order)
+		end
+
+		if input.layoutOrder ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		if input.position ~= nil then
+			self.position =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.position)
+		end
+
+		if input.size ~= nil then
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UiScaledUDim2Prop.jsonDecode(input.size)
+		end
+
+		if input.on_activated ~= nil then
+			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_activated)
+		end
+
+		if input.onActivated ~= nil then
+			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onActivated)
+		end
+
+		if input.text ~= nil then
+			self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text)
+		end
+
+		if input.rich_text ~= nil then
+			self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.rich_text)
+		end
+
+		if input.richText ~= nil then
+			self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.richText)
+		end
+
+		if input.font_style ~= nil then
+			self.font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.font_style)
+		end
+
+		if input.fontStyle ~= nil then
+			self.font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.fontStyle)
+		end
+
+		if input.text_style ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.text_style)
+		end
+
+		if input.textStyle ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.textStyle)
+		end
+
+		if input.text_wrapped ~= nil then
+			self.text_wrapped =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_wrapped)
+		end
+
+		if input.textWrapped ~= nil then
+			self.text_wrapped = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textWrapped)
+		end
+
+		if input.text_truncate ~= nil then
+			self.text_truncate = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(
+				input.text_truncate
+			)
+		end
+
+		if input.textTruncate ~= nil then
+			self.text_truncate =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextTruncateProp.jsonDecode(input.textTruncate)
+		end
+
+		if input.text_direction ~= nil then
+			self.text_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text_direction)
+		end
+
+		if input.textDirection ~= nil then
+			self.text_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.textDirection)
+		end
+
+		if input.text_x_alignment ~= nil then
+			self.text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.text_x_alignment
+				)
+		end
+
+		if input.textXAlignment ~= nil then
+			self.text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextXAlignmentProp.jsonDecode(
+					input.textXAlignment
+				)
+		end
+
+		if input.text_y_alignment ~= nil then
+			self.text_y_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp.jsonDecode(
+					input.text_y_alignment
+				)
+		end
+
+		if input.textYAlignment ~= nil then
+			self.text_y_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.TextYAlignmentProp.jsonDecode(
+					input.textYAlignment
+				)
+		end
+
+		if input.text_scaled ~= nil then
+			self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_scaled)
+		end
+
+		if input.textScaled ~= nil then
+			self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textScaled)
+		end
+
+		if input.automatic_size ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automatic_size
+			)
+		end
+
+		if input.automaticSize ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automaticSize
+			)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.is_shimmer_enabled ~= nil then
+			self.is_shimmer_enabled =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_shimmer_enabled)
+		end
+
+		if input.isShimmerEnabled ~= nil then
+			self.is_shimmer_enabled =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isShimmerEnabled)
+		end
+
+		if input.gradient_offset ~= nil then
+			self.gradient_offset =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.gradient_offset)
+		end
+
+		if input.gradientOffset ~= nil then
+			self.gradient_offset =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.gradientOffset)
+		end
+
+		if input.animation_speed ~= nil then
+			self.animation_speed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.animation_speed)
+		end
+
+		if input.animationSpeed ~= nil then
+			self.animation_speed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.animationSpeed)
+		end
+
+		return self
+	end
+
+	_ShimmerTextSchema_PropsImpl.descriptor = {
+		name = "ShimmerTextSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.ShimmerTextSchema_Props = _ShimmerTextSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShimmerTextSchema_Props)
+end
+
+do
 	local _ViewSchemaImpl = {}
 	_ViewSchemaImpl.__index = _ViewSchemaImpl
 
@@ -30384,6 +32072,512 @@ do
 end
 
 do
+	local _VariableItemWidthCarouselSchemaImpl = {}
+	_VariableItemWidthCarouselSchemaImpl.__index = _VariableItemWidthCarouselSchemaImpl
+
+	function _VariableItemWidthCarouselSchemaImpl.new(
+		data: _VariableItemWidthCarouselSchemaPartialFields?
+	): VariableItemWidthCarouselSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _VariableItemWidthCarouselSchemaImpl :: _VariableItemWidthCarouselSchemaImpl)
+	end
+
+	function _VariableItemWidthCarouselSchemaImpl.encode(self: VariableItemWidthCarouselSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VariableItemWidthCarouselSchemaImpl.decode(input: buffer): VariableItemWidthCarouselSchema
+		local self = _VariableItemWidthCarouselSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.VariableItemWidthCarouselSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VariableItemWidthCarouselSchemaImpl.jsonEncode(self: VariableItemWidthCarouselSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VariableItemWidthCarouselSchemaImpl.jsonDecode(input: { [string]: any }): VariableItemWidthCarouselSchema
+		local self = _VariableItemWidthCarouselSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.VariableItemWidthCarouselSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_VariableItemWidthCarouselSchemaImpl.descriptor = {
+		name = "VariableItemWidthCarouselSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VariableItemWidthCarouselSchema",
+	}
+
+	messages.VariableItemWidthCarouselSchema = _VariableItemWidthCarouselSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VariableItemWidthCarouselSchema)
+end
+
+do
+	local _VariableItemWidthCarouselSchema_PropsImpl = {}
+	_VariableItemWidthCarouselSchema_PropsImpl.__index = _VariableItemWidthCarouselSchema_PropsImpl
+
+	function _VariableItemWidthCarouselSchema_PropsImpl.new(
+		data: _VariableItemWidthCarouselSchema_PropsPartialFields?
+	): VariableItemWidthCarouselSchema_Props
+		return setmetatable({
+			title = if data == nil or data.title == nil then nil else data.title,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			items = if data == nil or data.items == nil then nil else data.items,
+			item_height = if data == nil or data.item_height == nil then nil else data.item_height,
+			item_padding = if data == nil or data.item_padding == nil then nil else data.item_padding,
+			scroll_buttons_enabled = if data == nil or data.scroll_buttons_enabled == nil
+				then nil
+				else data.scroll_buttons_enabled,
+			scroll_speed = if data == nil or data.scroll_speed == nil then nil else data.scroll_speed,
+			impression_event_name = if data == nil or data.impression_event_name == nil
+				then nil
+				else data.impression_event_name,
+			skip_item_impressions_log = if data == nil or data.skip_item_impressions_log == nil
+				then nil
+				else data.skip_item_impressions_log,
+			should_use_frame_bounds_for_impressions = if data == nil
+					or data.should_use_frame_bounds_for_impressions == nil
+				then nil
+				else data.should_use_frame_bounds_for_impressions,
+			position = if data == nil or data.position == nil then nil else data.position,
+			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+		}, _VariableItemWidthCarouselSchema_PropsImpl :: _VariableItemWidthCarouselSchema_PropsImpl)
+	end
+
+	function _VariableItemWidthCarouselSchema_PropsImpl.encode(self: VariableItemWidthCarouselSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil then
+			local encoded = self.title:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle ~= nil then
+			local encoded = self.subtitle:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.items ~= nil then
+			local encoded = self.items:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_height ~= nil then
+			local encoded = self.item_height:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_padding ~= nil then
+			local encoded = self.item_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scroll_buttons_enabled ~= nil then
+			local encoded = self.scroll_buttons_enabled:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scroll_speed ~= nil then
+			local encoded = self.scroll_speed:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.impression_event_name ~= nil then
+			local encoded = self.impression_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			local encoded = self.skip_item_impressions_log:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.should_use_frame_bounds_for_impressions ~= nil then
+			local encoded = self.should_use_frame_bounds_for_impressions:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.position ~= nil then
+			local encoded = self.position:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.layout_order ~= nil then
+			local encoded = self.layout_order:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VariableItemWidthCarouselSchema_PropsImpl.decode(input: buffer): VariableItemWidthCarouselSchema_Props
+		local self = _VariableItemWidthCarouselSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.items = messages.LazyNestedComponentListProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_height = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scroll_buttons_enabled =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scroll_speed = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.impression_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.skip_item_impressions_log =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.should_use_frame_bounds_for_impressions =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VariableItemWidthCarouselSchema_PropsImpl.jsonEncode(self: VariableItemWidthCarouselSchema_Props): any
+		local output = {}
+
+		if self.title ~= nil then
+			output.title = self.title:jsonEncode()
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle:jsonEncode()
+		end
+
+		if self.items ~= nil then
+			output.items = self.items:jsonEncode()
+		end
+
+		if self.item_height ~= nil then
+			output.itemHeight = self.item_height:jsonEncode()
+		end
+
+		if self.item_padding ~= nil then
+			output.itemPadding = self.item_padding:jsonEncode()
+		end
+
+		if self.scroll_buttons_enabled ~= nil then
+			output.scrollButtonsEnabled = self.scroll_buttons_enabled:jsonEncode()
+		end
+
+		if self.scroll_speed ~= nil then
+			output.scrollSpeed = self.scroll_speed:jsonEncode()
+		end
+
+		if self.impression_event_name ~= nil then
+			output.impressionEventName = self.impression_event_name:jsonEncode()
+		end
+
+		if self.skip_item_impressions_log ~= nil then
+			output.skipItemImpressionsLog = self.skip_item_impressions_log:jsonEncode()
+		end
+
+		if self.should_use_frame_bounds_for_impressions ~= nil then
+			output.shouldUseFrameBoundsForImpressions = self.should_use_frame_bounds_for_impressions:jsonEncode()
+		end
+
+		if self.position ~= nil then
+			output.position = self.position:jsonEncode()
+		end
+
+		if self.layout_order ~= nil then
+			output.layoutOrder = self.layout_order:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VariableItemWidthCarouselSchema_PropsImpl.jsonDecode(
+		input: { [string]: any }
+	): VariableItemWidthCarouselSchema_Props
+		local self = _VariableItemWidthCarouselSchema_PropsImpl.new()
+
+		if input.title ~= nil then
+			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle)
+		end
+
+		if input.items ~= nil then
+			self.items = messages.LazyNestedComponentListProp.jsonDecode(input.items)
+		end
+
+		if input.item_height ~= nil then
+			self.item_height = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.item_height)
+		end
+
+		if input.itemHeight ~= nil then
+			self.item_height = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.itemHeight)
+		end
+
+		if input.item_padding ~= nil then
+			self.item_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.item_padding)
+		end
+
+		if input.itemPadding ~= nil then
+			self.item_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.itemPadding)
+		end
+
+		if input.scroll_buttons_enabled ~= nil then
+			self.scroll_buttons_enabled =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.scroll_buttons_enabled)
+		end
+
+		if input.scrollButtonsEnabled ~= nil then
+			self.scroll_buttons_enabled =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.scrollButtonsEnabled)
+		end
+
+		if input.scroll_speed ~= nil then
+			self.scroll_speed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scroll_speed)
+		end
+
+		if input.scrollSpeed ~= nil then
+			self.scroll_speed =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.scrollSpeed)
+		end
+
+		if input.impression_event_name ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impression_event_name)
+		end
+
+		if input.impressionEventName ~= nil then
+			self.impression_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.impressionEventName)
+		end
+
+		if input.skip_item_impressions_log ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skip_item_impressions_log)
+		end
+
+		if input.skipItemImpressionsLog ~= nil then
+			self.skip_item_impressions_log =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.skipItemImpressionsLog)
+		end
+
+		if input.should_use_frame_bounds_for_impressions ~= nil then
+			self.should_use_frame_bounds_for_impressions =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.should_use_frame_bounds_for_impressions
+				)
+		end
+
+		if input.shouldUseFrameBoundsForImpressions ~= nil then
+			self.should_use_frame_bounds_for_impressions =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+					input.shouldUseFrameBoundsForImpressions
+				)
+		end
+
+		if input.position ~= nil then
+			self.position = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.position)
+		end
+
+		if input.layout_order ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layout_order)
+		end
+
+		if input.layoutOrder ~= nil then
+			self.layout_order =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		return self
+	end
+
+	_VariableItemWidthCarouselSchema_PropsImpl.descriptor = {
+		name = "VariableItemWidthCarouselSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.VariableItemWidthCarouselSchema_Props = _VariableItemWidthCarouselSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VariableItemWidthCarouselSchema_Props)
+end
+
+do
 	local _CollectionGridSchemaImpl = {}
 	_CollectionGridSchemaImpl.__index = _CollectionGridSchemaImpl
 
@@ -32381,6 +34575,9 @@ do
 			progressive_fill_rate = if data == nil or data.progressive_fill_rate == nil
 				then nil
 				else data.progressive_fill_rate,
+			progressive_fill_interval_ms = if data == nil or data.progressive_fill_interval_ms == nil
+				then nil
+				else data.progressive_fill_interval_ms,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -32505,6 +34702,12 @@ do
 		if self.progressive_fill_rate ~= nil then
 			local encoded = self.progressive_fill_rate:encode()
 			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.progressive_fill_interval_ms ~= nil then
+			local encoded = self.progressive_fill_interval_ms:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -32636,6 +34839,12 @@ do
 					self.progressive_fill_rate =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.progressive_fill_interval_ms =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -32741,6 +34950,10 @@ do
 
 		if self.progressive_fill_rate ~= nil then
 			output.progressiveFillRate = self.progressive_fill_rate:jsonEncode()
+		end
+
+		if self.progressive_fill_interval_ms ~= nil then
+			output.progressiveFillIntervalMs = self.progressive_fill_interval_ms:jsonEncode()
 		end
 
 		return output
@@ -32953,6 +35166,17 @@ do
 		if input.progressiveFillRate ~= nil then
 			self.progressive_fill_rate =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.progressiveFillRate)
+		end
+
+		if input.progressive_fill_interval_ms ~= nil then
+			self.progressive_fill_interval_ms = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(
+				input.progressive_fill_interval_ms
+			)
+		end
+
+		if input.progressiveFillIntervalMs ~= nil then
+			self.progressive_fill_interval_ms =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.progressiveFillIntervalMs)
 		end
 
 		return self
@@ -63084,6 +65308,18 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 71, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "reveal_text" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 72, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "shimmer_text" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 73, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "variable_item_width_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 74, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -63487,6 +65723,24 @@ do
 						value = messages.CollectionCarouselPlaceholderSchema.decode(value),
 					}
 					continue
+				elseif field == 72 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "reveal_text", value = messages.RevealTextSchema.decode(value) }
+					continue
+				elseif field == 73 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "shimmer_text", value = messages.ShimmerTextSchema.decode(value) }
+					continue
+				elseif field == 74 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "variable_item_width_carousel",
+						value = messages.VariableItemWidthCarouselSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -63657,6 +65911,12 @@ do
 				output.placeholderWrapper = self.kind.value:jsonEncode()
 			elseif self.kind.type == "collection_carousel_placeholder" then
 				output.collectionCarouselPlaceholder = self.kind.value:jsonEncode()
+			elseif self.kind.type == "reveal_text" then
+				output.revealText = self.kind.value:jsonEncode()
+			elseif self.kind.type == "shimmer_text" then
+				output.shimmerText = self.kind.value:jsonEncode()
+			elseif self.kind.type == "variable_item_width_carousel" then
+				output.variableItemWidthCarousel = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -64298,6 +66558,36 @@ do
 			}
 		end
 
+		if input.reveal_text ~= nil then
+			self.kind = { type = "reveal_text", value = messages.RevealTextSchema.jsonDecode(input.reveal_text) }
+		end
+
+		if input.revealText ~= nil then
+			self.kind = { type = "reveal_text", value = messages.RevealTextSchema.jsonDecode(input.revealText) }
+		end
+
+		if input.shimmer_text ~= nil then
+			self.kind = { type = "shimmer_text", value = messages.ShimmerTextSchema.jsonDecode(input.shimmer_text) }
+		end
+
+		if input.shimmerText ~= nil then
+			self.kind = { type = "shimmer_text", value = messages.ShimmerTextSchema.jsonDecode(input.shimmerText) }
+		end
+
+		if input.variable_item_width_carousel ~= nil then
+			self.kind = {
+				type = "variable_item_width_carousel",
+				value = messages.VariableItemWidthCarouselSchema.jsonDecode(input.variable_item_width_carousel),
+			}
+		end
+
+		if input.variableItemWidthCarousel ~= nil then
+			self.kind = {
+				type = "variable_item_width_carousel",
+				value = messages.VariableItemWidthCarouselSchema.jsonDecode(input.variableItemWidthCarousel),
+			}
+		end
+
 		return self
 	end
 
@@ -64358,6 +66648,10 @@ return {
 	TextSchema = messages.TextSchema,
 	TextSchema_Props = messages.TextSchema_Props,
 	TextSchema_WebProps = messages.TextSchema_WebProps,
+	RevealTextSchema = messages.RevealTextSchema,
+	RevealTextSchema_Props = messages.RevealTextSchema_Props,
+	ShimmerTextSchema = messages.ShimmerTextSchema,
+	ShimmerTextSchema_Props = messages.ShimmerTextSchema_Props,
 	ViewSchema = messages.ViewSchema,
 	ViewSchema_Props = messages.ViewSchema_Props,
 	DividerSchema = messages.DividerSchema,
@@ -64393,6 +66687,8 @@ return {
 	CollectionCarouselSchema_Props = messages.CollectionCarouselSchema_Props,
 	CollectionCarouselPlaceholderSchema = messages.CollectionCarouselPlaceholderSchema,
 	CollectionCarouselPlaceholderSchema_Props = messages.CollectionCarouselPlaceholderSchema_Props,
+	VariableItemWidthCarouselSchema = messages.VariableItemWidthCarouselSchema,
+	VariableItemWidthCarouselSchema_Props = messages.VariableItemWidthCarouselSchema_Props,
 	CollectionGridSchema = messages.CollectionGridSchema,
 	CollectionGridSchema_Props = messages.CollectionGridSchema_Props,
 	SingleItemCollectionSchema = messages.SingleItemCollectionSchema,

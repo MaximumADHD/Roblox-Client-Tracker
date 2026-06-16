@@ -7,4 +7,4 @@ local Roact = require(Packages.Roact)
 
 type AppStyle = StyleTypes.AppStyle
 
-return Roact.createContext(nil :: { style: AppStyle, useFoundationButton: boolean? }?)
+return Roact.createContext(nil :: { style: AppStyle }?)

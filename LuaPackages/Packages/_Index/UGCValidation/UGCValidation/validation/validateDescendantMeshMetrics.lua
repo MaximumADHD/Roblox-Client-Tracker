@@ -20,6 +20,8 @@ local validateCageUVValues = require(root.validation.validateCageUVValues)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
 local validateSkinningTransfer = require(root.validation.validateSkinningTransfer)
 
+local getFFlagUGCValidateMigrateCageUV = require(root.flags.getFFlagUGCValidateMigrateCageUV)
+
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshMinMax = require(root.util.getMeshMinMax)
@@ -31,6 +33,9 @@ local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCVal
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
 local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
 	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
+local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
+	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
+local getFFlagUGCValidateMigrateMeshGeometry = require(root.flags.getFFlagUGCValidateMigrateMeshGeometry)
 
 local function validateIsSkinned(
 	obj: MeshPart,
@@ -228,7 +233,9 @@ local function validateDescendantMeshMetrics(
 	local allMeshes = ParseContentIds.parse(rootInstance, Constants.MESH_CONTENT_ID_FIELDS, validationContext)
 
 	local startTime = tick()
-	reasonsAccumulator:updateReasons(validateTotalAssetTriangles(allMeshes, assetTypeEnum, validationContext))
+	if not getFFlagUGCValidateMigrateMeshGeometry() then
+		reasonsAccumulator:updateReasons(validateTotalAssetTriangles(allMeshes, assetTypeEnum, validationContext))
+	end
 	Analytics.recordScriptTime("validateTotalAssetTriangles", startTime, validationContext)
 
 	for _, data in allMeshes do
@@ -279,17 +286,25 @@ local function validateDescendantMeshMetrics(
 				else
 					local meshScale = getExpectedPartSize(data.instance, validationContext) / meshSize
 
-					reasonsAccumulator:updateReasons(validateTotalSurfaceArea(meshInfo, meshScale, validationContext))
-
-					if getFFlagUGCValidateCoplanarTriTestBody() then
+					if not getFFlagUGCValidateMigrateMeshGeometry() then
 						reasonsAccumulator:updateReasons(
-							validateCoplanarIntersection(meshInfo, meshScale, validationContext)
+							validateTotalSurfaceArea(meshInfo, meshScale, validationContext)
 						)
+					end
+
+					if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+						if getFFlagUGCValidateCoplanarTriTestBody() then
+							reasonsAccumulator:updateReasons(
+								validateCoplanarIntersection(meshInfo, meshScale, validationContext)
+							)
+						end
 					end
 				end
 			end
 
-			reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, true, validationContext))
+			if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+				reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, true, validationContext))
+			end
 
 			-- EditableMesh data currently does not support skinning, leave this check as-is for now
 			startTime = tick()
@@ -302,20 +317,32 @@ local function validateDescendantMeshMetrics(
 				reasonsAccumulator:updateReasons(validateSkinningTransfer(data.instance :: MeshPart, validationContext))
 			end
 
-			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
+			if not getFFlagUGCValidateMigrateMeshGeometry() then
+				reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
+			end
 		elseif data.instance.ClassName == "WrapTarget" then
 			assert(data.fieldName == "CageMeshId")
 			meshInfo.fullName = meshInfo.fullName .. "OuterCage"
 
-			reasonsAccumulator:updateReasons(validateCageUVs(meshInfo, data.instance :: WrapTarget, validationContext))
+			if not getFFlagUGCValidateMigrateCageUV() then
+				reasonsAccumulator:updateReasons(
+					validateCageUVs(meshInfo, data.instance :: WrapTarget, validationContext)
+				)
+			end
 
-			reasonsAccumulator:updateReasons(validateCageUVTriangleArea(meshInfo, validationContext))
+			if not getFFlagUGCValidateMigrateCageUV() then
+				reasonsAccumulator:updateReasons(validateCageUVTriangleArea(meshInfo, validationContext))
+			end
 
-			reasonsAccumulator:updateReasons(
-				validateCageUVValues(meshInfo, data.instance :: WrapTarget, validationContext)
-			)
+			if not getFFlagUGCValidateMigrateCageUV() then
+				reasonsAccumulator:updateReasons(
+					validateCageUVValues(meshInfo, data.instance :: WrapTarget, validationContext)
+				)
+			end
 
-			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
+			if not getFFlagUGCValidateMigrateMeshGeometry() then
+				reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
+			end
 		end
 	end
 

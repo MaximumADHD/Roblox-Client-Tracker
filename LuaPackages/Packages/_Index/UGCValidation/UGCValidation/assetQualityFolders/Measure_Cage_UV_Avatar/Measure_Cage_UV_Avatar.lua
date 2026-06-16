@@ -3,6 +3,8 @@ local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local Constants = require(root.Constants)
+local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidateAQScoreWarnings)
+
 local maxIncorrectUVBodyPartThreshold = game:DefineFastInt("UGCValidateLCCagingIncorrectUVThresholdBodyPart", 7)
 
 local Measure_Cage_UV_Avatar = {}
@@ -15,11 +17,24 @@ Measure_Cage_UV_Avatar.run = function(reporter: Types.ValidationReporter, data: 
 	for _, cagePartName in Constants.R15_CAGE_PARTS do
 		if summary[cagePartName] == nil or summary[cagePartName].incorrect_uv_count == nil then
 			reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
-		elseif tonumber(summary[cagePartName].incorrect_uv_count) > maxIncorrectUVBodyPartThreshold then
-			reporter:fail(ErrorSourceStrings.Keys.MeasureCageUV, {
-				cage_name = cagePartName,
-				incorrect_uv_count = tonumber(summary[cagePartName].incorrect_uv_count),
-			})
+		else
+			if tonumber(summary[cagePartName].incorrect_uv_count) > maxIncorrectUVBodyPartThreshold then
+				reporter:fail(ErrorSourceStrings.Keys.MeasureCageUV, {
+					cage_name = cagePartName,
+					incorrect_uv_count = tonumber(summary[cagePartName].incorrect_uv_count),
+				})
+			end
+			if
+				getFFlagUGCValidateAQScoreWarnings()
+				and summary[cagePartName].score ~= nil
+				and tonumber(summary[cagePartName].score) ~= 100
+			then
+				reporter:warn(ErrorSourceStrings.Keys.AQSWarn_CageUV, {
+					score = tostring(math.floor(tonumber(summary[cagePartName].score) or 0)),
+					cage_name = cagePartName,
+					incorrect_uv_count = summary[cagePartName].incorrect_uv_count or "0",
+				})
+			end
 		end
 	end
 end

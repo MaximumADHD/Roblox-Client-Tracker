@@ -12,7 +12,6 @@ local PlayerModuleEventBus = CommonUtils.get("PlayerModuleEventBus")
 
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayerScriptsTapToMoveUsesIAS2")
-local FFlagUserPlayerScriptsFixVehicleBindings = FlagUtil.getUserFlag("UserPlayerScriptsFixVehicleBindings")
 local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
@@ -41,12 +40,6 @@ if FFlagUserPlayerScriptsTapToMoveUsesIAS2 then
 	touchPositionBinding.Name = "TouchBinding"
 	touchPositionBinding.KeyCode = Enum.KeyCode.TouchPosition
 	touchPositionBinding.Parent = characterContext.ClickToMovePositionAction
-end
-
-if FFlagUserPlayerScriptsFixVehicleBindings then
-	local gamepadBinding = StarterPlayer.PlayerModule.InputContexts.VehicleContext.ThrottleAction.GamepadBinding
-	gamepadBinding.Down = Enum.KeyCode.ButtonL2
-	gamepadBinding.Up = Enum.KeyCode.ButtonR2
 end
 
 if FFlagUserPlayerScriptsCameraTouchUsesIAS then

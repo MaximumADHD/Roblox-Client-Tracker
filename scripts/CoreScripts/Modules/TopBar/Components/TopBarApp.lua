@@ -45,6 +45,8 @@ local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 
 local Presentation = script.Parent.Presentation
+local AssistantBuildButton = require(script.Parent.AssistantBuildButton)
+local canShowAssistantBuild = require(script.Parent.canShowAssistantBuild)
 local MenuIcon = require(Presentation.MenuIcon)
 local ChatIcon = require(Presentation.ChatIcon)
 local MoreMenu = require(Presentation.MoreMenu)
@@ -66,6 +68,7 @@ local FFlagEnableUISelector = CoreGuiCommon.Flags.FFlagEnableUISelector
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
+local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
@@ -517,7 +520,9 @@ function TopBarApp:renderWithStyle(style)
 	local topBarHeight = Constants.TopBarHeight * self.state.UiScale
 	local topBarTopMargin = Constants.TopBarTopMargin * self.state.UiScale
 	local topBarPadding = Constants.TopBarPadding * self.state.UiScale
-	local stackedElementsPaddingLeft = if FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
+	local stackedElementsPaddingLeft = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
+		then screenSideOffset
+		elseif FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
 		then 2 * ChromeConstants.UNIBAR_END_PADDING * self.state.UiScale
 		else topBarPadding
 	local legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize * self.state.UiScale
@@ -830,7 +835,6 @@ function TopBarApp:renderWithStyle(style)
 						UnibarFrame = self:renderUnibarFrame(chromeEnabled),
 					}),
 					Unibar = if not FFlagAddTraversalBackButton then self:renderUnibarFrame(chromeEnabled) else nil,
-					
 
 					HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,
 
@@ -850,10 +854,19 @@ function TopBarApp:renderWithStyle(style)
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
 
+						AssistantBuild = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
+							then React.createElement(AssistantBuildButton, {
+								layoutOrder = 5,
+								setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas
+									then self.keepOutAreasStore.setKeepOutArea
+									else self.props.setKeepOutArea,
+							})
+							else nil,
+
 						ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
 							then Roact.createElement(ShopGlobalIcon, {
 								buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
-								layoutOrder = 1,
+								layoutOrder = if FFlagAppNavMyStatsTab then 8 else 1,
 								leftGap = topBarPadding,
 								showStatusIndicator = self.state.shopGlobalStatusIndicatorEnabled,
 								onActivated = self.onShopGlobalIconActivated,

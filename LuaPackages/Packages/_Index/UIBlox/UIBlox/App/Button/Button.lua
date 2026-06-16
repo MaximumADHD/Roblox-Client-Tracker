@@ -20,8 +20,6 @@ local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
 local GenericButton = require(Core.Button.GenericButton)
 local ControlState = require(Core.Control.Enum.ControlState)
 
-local StyleContext = require(Core.Style.StyleContext)
-
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 
 local Images = require(App.ImageSet.Images)
@@ -235,10 +233,7 @@ local ButtonFunctionalWrapper = function(passedProps)
 end
 
 local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
-	local styleContainer = React.useContext(StyleContext)
-	local useFoundationButton = styleContainer and styleContainer.useFoundationButton
-
-	if (UIBloxConfig.useFoundationButton or useFoundationButton) and not buttonProps.DO_NOT_USE_useUIBloxButton then
+	if UIBloxConfig.useFoundationButton and not buttonProps.DO_NOT_USE_useUIBloxButton then
 		local tokens = Foundation.Hooks.useTokens()
 		local props = Cryo.Dictionary.join(Button.defaultProps, buttonProps)
 		local isRoactGamepadEnabled = props.isRoactGamepadEnabled

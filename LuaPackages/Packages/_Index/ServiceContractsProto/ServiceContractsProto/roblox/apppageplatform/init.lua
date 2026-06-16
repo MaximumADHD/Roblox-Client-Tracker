@@ -17,6 +17,7 @@ local marketplacecatalog = require(script.marketplacecatalog.v1beta1)
 local prompts = require(script.prompts.v1beta1)
 local search = require(script.search.v1beta1)
 local shared = require(script.shared.v1beta1)
+local spotlightcollection = require(script.spotlightcollection.v1beta1)
 
 -- Re-exported types from subdirectories
 -- From badges.v1beta1
@@ -467,8 +468,6 @@ export type OpenEventDetailsAction = shared.OpenEventDetailsAction
 export type OpenEventDetailsAction_Params = shared.OpenEventDetailsAction_Params
 export type OpenExperienceStoreSeeAllAction = shared.OpenExperienceStoreSeeAllAction
 export type OpenExperienceStoreSeeAllAction_Params = shared.OpenExperienceStoreSeeAllAction_Params
-export type OpenExperienceStoreSeeAllWebAction = shared.OpenExperienceStoreSeeAllWebAction
-export type OpenExperienceStoreSeeAllWebAction_Params = shared.OpenExperienceStoreSeeAllWebAction_Params
 export type OpenFacialAgeEstimationAction = shared.OpenFacialAgeEstimationAction
 export type OpenFacialAgeEstimationAction_Params = shared.OpenFacialAgeEstimationAction_Params
 export type OpenGameDetailsAction = shared.OpenGameDetailsAction
@@ -515,6 +514,7 @@ export type OpenSubscriptionPurchasePageAction = shared.OpenSubscriptionPurchase
 export type OpenSubscriptionPurchasePageAction_Params = shared.OpenSubscriptionPurchasePageAction_Params
 export type OpenTooltipAction = shared.OpenTooltipAction
 export type OpenTooltipAction_Params = shared.OpenTooltipAction_Params
+export type OptionSelectorCarouselInputData = shared.OptionSelectorCarouselInputData
 export type OrCondition = shared.OrCondition
 export type OverflowMenuSchema = shared.OverflowMenuSchema
 export type OverflowMenuSchema_Props = shared.OverflowMenuSchema_Props
@@ -540,9 +540,10 @@ export type PlayWithRewardSchema = shared.PlayWithRewardSchema
 export type PlayWithRewardSchema_Props = shared.PlayWithRewardSchema_Props
 export type PlayabilityData = shared.PlayabilityData
 export type PowerSearchAIOverviewInputData = shared.PowerSearchAIOverviewInputData
-export type PowerSearchAIOverviewInputData_FeedbackQuestion = shared.PowerSearchAIOverviewInputData_FeedbackQuestion
 export type PriceDiscountDetail = shared.PriceDiscountDetail
 export type PropCondition = shared.PropCondition
+export type RefreshDeveloperProductsAction = shared.RefreshDeveloperProductsAction
+export type RefreshDeveloperProductsAction_Params = shared.RefreshDeveloperProductsAction_Params
 export type RefreshFromApiAction = shared.RefreshFromApiAction
 export type RefreshFromApiAction_Params = shared.RefreshFromApiAction_Params
 export type RefreshGamePassesAction = shared.RefreshGamePassesAction
@@ -561,6 +562,8 @@ export type ResamplerModeProp_ConditionalOption = shared.ResamplerModeProp_Condi
 export type ResamplerModeProp_ConditionalOptions = shared.ResamplerModeProp_ConditionalOptions
 export type ResizeMarketplaceCatalog = shared.ResizeMarketplaceCatalog
 export type ResizeMarketplaceCatalog_Params = shared.ResizeMarketplaceCatalog_Params
+export type RevealTextSchema = shared.RevealTextSchema
+export type RevealTextSchema_Props = shared.RevealTextSchema_Props
 export type RsvpToEventAction = shared.RsvpToEventAction
 export type RsvpToEventAction_Params = shared.RsvpToEventAction_Params
 export type ScaleType = shared.ScaleType
@@ -581,6 +584,7 @@ export type SelectionBehavior = shared.SelectionBehavior
 export type SelectionBehaviorProp = shared.SelectionBehaviorProp
 export type SelectionBehaviorProp_ConditionalOption = shared.SelectionBehaviorProp_ConditionalOption
 export type SelectionBehaviorProp_ConditionalOptions = shared.SelectionBehaviorProp_ConditionalOptions
+export type SelectorOption = shared.SelectorOption
 export type ShareAction = shared.ShareAction
 export type ShareAction_Params = shared.ShareAction_Params
 export type ShareAction_ShareLinkData = shared.ShareAction_ShareLinkData
@@ -589,6 +593,8 @@ export type ShareLinkFetchData_ShareLinkFetchLiteralData = shared.ShareLinkFetch
 export type ShareLinkPayload = shared.ShareLinkPayload
 export type SheetFullBleedSchema = shared.SheetFullBleedSchema
 export type SheetFullBleedSchema_Props = shared.SheetFullBleedSchema_Props
+export type ShimmerTextSchema = shared.ShimmerTextSchema
+export type ShimmerTextSchema_Props = shared.ShimmerTextSchema_Props
 export type SingleItemCollectionSchema = shared.SingleItemCollectionSchema
 export type SingleItemCollectionSchema_Props = shared.SingleItemCollectionSchema_Props
 export type SizeConstraint = shared.SizeConstraint
@@ -738,6 +744,8 @@ export type UserListInputData_UserItem = shared.UserListInputData_UserItem
 export type UserListSchema = shared.UserListSchema
 export type UserListSchema_Props = shared.UserListSchema_Props
 export type UserProfileData = shared.UserProfileData
+export type VariableItemWidthCarouselSchema = shared.VariableItemWidthCarouselSchema
+export type VariableItemWidthCarouselSchema_Props = shared.VariableItemWidthCarouselSchema_Props
 export type Vector2Prop = shared.Vector2Prop
 export type Vector2Prop_ConditionalOption = shared.Vector2Prop_ConditionalOption
 export type Vector2Prop_ConditionalOptions = shared.Vector2Prop_ConditionalOptions
@@ -756,6 +764,9 @@ export type WidgetStyleData = shared.WidgetStyleData
 export type WidgetStyleProp = shared.WidgetStyleProp
 export type WidgetStyleProp_ConditionalOption = shared.WidgetStyleProp_ConditionalOption
 export type WidgetStyleProp_ConditionalOptions = shared.WidgetStyleProp_ConditionalOptions
+-- From spotlightcollection.v1beta1
+export type SpotlightCollectionPageRequest = spotlightcollection.SpotlightCollectionPageRequest
+export type SpotlightCollectionPageResponse = spotlightcollection.SpotlightCollectionPageResponse
 
 return {
 	badges = badges,
@@ -768,4 +779,5 @@ return {
 	prompts = prompts,
 	search = search,
 	shared = shared,
+	spotlightcollection = spotlightcollection,
 }

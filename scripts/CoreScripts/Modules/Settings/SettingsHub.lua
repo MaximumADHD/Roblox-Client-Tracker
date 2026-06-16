@@ -157,7 +157,6 @@ local Flags = {
 	FFlagAddIEMProfilePage = SharedFlags.FFlagAddIEMProfilePage,
 	FFlagFixSpatialUICaptures = SharedFlags.FFlagFixSpatialUICaptures,
 	FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry,
-	FFlagSetUnibarShortcutOnTopBarFocus = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagSetUnibarShortcutOnTopBarFocus,
 
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
@@ -177,6 +176,9 @@ local Flags = {
 
 	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
 	FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet,
+	FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet,
+	FFlagImprovePageTitleCloseButton = game:DefineFastFlag("ImprovePageTitleCloseButton", false),
+	FFlagIGMSelectionGroup = game:DefineFastFlag("IGMSelectionGroup", false),
 }
 
 --[[ SERVICES ]]
@@ -1636,16 +1638,18 @@ local function CreateSettingsHub()
 				Parent = this.PageTitleHeader,
 			}
 
-			this.PageTitleCloseButton = Create'ImageButton'
-			{
-				Name = 'PageTitleCloseButton',
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, 16, 0, 16),
-				AnchorPoint = Vector2.new(1, 0.5),
-				Position = UDim2.new(1, 0, 0.5, 0),
-				Image = "rbxasset://textures/ui/InspectMenu/x.png",
-				Parent = this.PageTitleHeader,
-			}
+			if not Flags.FFlagImprovePageTitleCloseButton then
+				this.PageTitleCloseButton = Create'ImageButton'
+				{
+					Name = 'PageTitleCloseButton',
+					BackgroundTransparency = 1,
+					Size = UDim2.new(0, 16, 0, 16),
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.new(1, 0, 0.5, 0),
+					Image = "rbxasset://textures/ui/InspectMenu/x.png",
+					Parent = this.PageTitleHeader,
+				}
+			end
 
 			this.PageTitleLabel = Create'TextLabel'
 			{
@@ -1817,8 +1821,13 @@ local function CreateSettingsHub()
 			ClipsDescendants = true,
 			LayoutOrder = 1,
 			Parent = menuParent,
+			SelectionGroup = if Flags.FFlagIGMSelectionGroup then true else nil,
+			SelectionBehaviorLeft = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorRight = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorDown = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Escape else nil,
+			SelectionBehaviorUp = if Flags.FFlagIGMSelectionGroup then Enum.SelectionBehavior.Escape else nil,
 
-			Create'ImageButton'{
+			if Flags.FFlagIGMSelectionGroup then nil else Create'ImageButton'{
 				Name = 'InputCapture',
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
@@ -1953,9 +1962,33 @@ local function CreateSettingsHub()
 		end
 
 		if Flags.FFlagEnableSideSheet then
-			this.PageTitleCloseButton.Activated:Connect(function()
-				resumeFunc(Constants.AnalyticsResumeXButtonSource)
-			end)
+			if Flags.FFlagImprovePageTitleCloseButton then
+				this.PageTitleCloseButton = utility:MakeStyledImageButton(
+					"PageTitleClose",
+					"rbxasset://textures/ui/InspectMenu/x.png",
+					UDim2.new(0, 40, 0, 40),
+					UDim2.new(0, 16, 0, 16),
+					function()
+						resumeFunc(Constants.AnalyticsResumeXButtonSource)
+					end,
+					nil,
+					this,
+					"DefaultButton"
+				)
+				this.PageTitleCloseButton.AnchorPoint = Vector2.new(1, 0.5)
+				this.PageTitleCloseButton.Position = UDim2.new(1, 0, 0.5, 0)
+				
+				local border = this.PageTitleCloseButton:FindFirstChild("Border")
+				if border then
+					border.Parent = nil
+				end
+
+				this.PageTitleCloseButton.Parent = this.PageTitleHeader
+			else
+				this.PageTitleCloseButton.Activated:Connect(function()
+					resumeFunc(Constants.AnalyticsResumeXButtonSource)
+				end)
+			end
 		end
 
 		if not Flags.FFlagMenuButtonsMountWithIEM then
@@ -3020,7 +3053,10 @@ local function CreateSettingsHub()
 			ExperienceMenuSessionManagerInstance:CloseOpenedMenuTab()
 		end
 
-
+		if Flags.FFlagAddIGMToSideSheet and Flags.FFlagAddTraversalHistory and Flags.FFlagIntegrateTraversalHistoryInSideSheet then
+			local reactPageSignal = ReactPageSignal(false)
+			reactPageSignal.setCurrentReactPage(nil)
+		end
 	end
 
 	function this:SetActive(active)
@@ -3445,12 +3481,7 @@ local function CreateSettingsHub()
 
 			if Flags.ChromeEnabled and Flags.FFlagEnableConsoleExpControls then
 				local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-				if Flags.FFlagSetUnibarShortcutOnTopBarFocus then
 					ChromeService:setShortcutBar(nil)
-				else
-					local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
-					ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
-				end
 			end
 
 			if Flags.GetFFlagEnableAppChatInExperience() and connectWasVisible then
@@ -3538,12 +3569,7 @@ local function CreateSettingsHub()
 				else
 					if Flags.ChromeEnabled and Flags.FFlagEnableConsoleExpControls then
 						local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-						if Flags.FFlagSetUnibarShortcutOnTopBarFocus then
 							ChromeService:setShortcutBar(nil)
-						else
-							local ChromeConstants = require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants)
-							ChromeService:setShortcutBar(ChromeConstants.UNIBAR_SHORTCUTBAR_ID)
-						end
 					end
 					if featureDeprecateOldGuiObjectProperties then
 						this.Shield:TweenPositionInternal(
@@ -4007,6 +4033,11 @@ local function CreateSettingsHub()
 		this.CapturesPage:ConnectHubToApp(this, this.PageViewClipper, this.CapturesApp)
 	end
 
+	if Flags.FFlagIntegrateTraversalHistoryInSideSheet then
+		this.TraversalHistoryPage = require(RobloxGui.Modules.Settings.Pages.TraversalHistoryWrapper)()
+		this.TraversalHistoryPage:SetHub(this)
+	end
+
 	-- page registration
 	if this.PlayersPage then
 		this:AddPage(this.PlayersPage)
@@ -4050,6 +4081,10 @@ local function CreateSettingsHub()
 
 	if this.LeaveGameToHomePage then
 		this:AddPage(this.LeaveGameToHomePage)
+	end
+
+	if this.TraversalHistoryPage then
+		this:AddPage(this.TraversalHistoryPage)
 	end
 
 	this:InitInPage(this:GetFirstPageWithTabHeader())

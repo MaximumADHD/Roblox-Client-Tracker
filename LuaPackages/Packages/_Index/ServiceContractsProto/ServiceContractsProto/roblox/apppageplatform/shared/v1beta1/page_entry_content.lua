@@ -90,7 +90,6 @@ type _Messages =
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
 		SearchResultsFeedInputData_EntryMapEntry: _SearchResultsFeedInputData_EntryMapEntryMessage,
 		PowerSearchAIOverviewInputData: _PowerSearchAIOverviewInputDataMessage,
-		PowerSearchAIOverviewInputData_FeedbackQuestion: _PowerSearchAIOverviewInputData_FeedbackQuestionMessage,
 		UserListInputData: _UserListInputDataMessage,
 		UserListInputData_UserItem: _UserListInputData_UserItemMessage,
 		CatalogItemListInputData: _CatalogItemListInputDataMessage,
@@ -104,6 +103,8 @@ type _Messages =
 		VerticalFeedInputData: _VerticalFeedInputDataMessage,
 		VerticalFeedInputData_EntryMapEntry: _VerticalFeedInputData_EntryMapEntryMessage,
 		PageHeaderInputData: _PageHeaderInputDataMessage,
+		OptionSelectorCarouselInputData: _OptionSelectorCarouselInputDataMessage,
+		SelectorOption: _SelectorOptionMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 	}
 local messages: _Messages = {} :: _Messages
@@ -277,6 +278,7 @@ type _PageEntryInputDataFields = {
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
+		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 	)?,
 }
 
@@ -338,6 +340,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
+		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 	)?,
 }
 
@@ -1182,6 +1185,9 @@ type _ExperienceCarouselInputDataFields = {
 	subtitle: string,
 	info_text: string,
 	subtitle_link_path: string,
+	is_placeholder: boolean?,
+	primary_sort_id: number?,
+	applied_filters: string?,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1194,6 +1200,9 @@ type _ExperienceCarouselInputDataPartialFields = {
 	subtitle: string?,
 	info_text: string?,
 	subtitle_link_path: string?,
+	is_placeholder: boolean?,
+	primary_sort_id: number?,
+	applied_filters: string?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -1269,6 +1278,9 @@ type _SongCarouselInputDataFields = {
 	subtitle: string,
 	info_text: string,
 	subtitle_link_path: string,
+	is_placeholder: boolean?,
+	primary_sort_id: number?,
+	applied_filters: string?,
 }
 
 type _SongCarouselInputDataPartialFields = {
@@ -1280,6 +1292,9 @@ type _SongCarouselInputDataPartialFields = {
 	subtitle: string?,
 	info_text: string?,
 	subtitle_link_path: string?,
+	is_placeholder: boolean?,
+	primary_sort_id: number?,
+	applied_filters: string?,
 }
 
 export type SongCarouselInputData = typeof(setmetatable(
@@ -2161,6 +2176,8 @@ type _FilterPillsInputDataFields = {
 	sort_id: string,
 	secondary_sort_id: number,
 	title: string,
+	primary_sort_id: number?,
+	applied_filters: string?,
 }
 
 type _FilterPillsInputDataPartialFields = {
@@ -2168,6 +2185,8 @@ type _FilterPillsInputDataPartialFields = {
 	sort_id: string?,
 	secondary_sort_id: number?,
 	title: string?,
+	primary_sort_id: number?,
+	applied_filters: string?,
 }
 
 export type FilterPillsInputData = typeof(setmetatable(
@@ -2623,14 +2642,16 @@ type _PowerSearchAIOverviewInputDataFields = {
 	overview_rich_text: string,
 	result_entry: FeedEntry?,
 	follow_up_queries: { string },
-	feedback_questions: { PowerSearchAIOverviewInputData_FeedbackQuestion },
+	show_loading: boolean,
+	title: string,
 }
 
 type _PowerSearchAIOverviewInputDataPartialFields = {
 	overview_rich_text: string?,
 	result_entry: FeedEntry?,
 	follow_up_queries: { string }?,
-	feedback_questions: { PowerSearchAIOverviewInputData_FeedbackQuestion }?,
+	show_loading: boolean?,
+	title: string?,
 }
 
 export type PowerSearchAIOverviewInputData = typeof(setmetatable(
@@ -2640,37 +2661,6 @@ export type PowerSearchAIOverviewInputData = typeof(setmetatable(
 type _PowerSearchAIOverviewInputDataMessage = proto.Message<
 	PowerSearchAIOverviewInputData,
 	_PowerSearchAIOverviewInputDataPartialFields
->
-
-type _PowerSearchAIOverviewInputData_FeedbackQuestionImpl = {
-	__index: _PowerSearchAIOverviewInputData_FeedbackQuestionImpl,
-	new: (
-		fields: _PowerSearchAIOverviewInputData_FeedbackQuestionPartialFields?
-	) -> PowerSearchAIOverviewInputData_FeedbackQuestion,
-	encode: (self: PowerSearchAIOverviewInputData_FeedbackQuestion) -> buffer,
-	decode: (input: buffer) -> PowerSearchAIOverviewInputData_FeedbackQuestion,
-	jsonEncode: (self: PowerSearchAIOverviewInputData_FeedbackQuestion) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> PowerSearchAIOverviewInputData_FeedbackQuestion,
-	descriptor: proto.Descriptor,
-}
-
-type _PowerSearchAIOverviewInputData_FeedbackQuestionFields = {
-	question_id: string,
-	question_text: string,
-}
-
-type _PowerSearchAIOverviewInputData_FeedbackQuestionPartialFields = {
-	question_id: string?,
-	question_text: string?,
-}
-
-export type PowerSearchAIOverviewInputData_FeedbackQuestion = typeof(setmetatable(
-	{} :: _PowerSearchAIOverviewInputData_FeedbackQuestionFields,
-	{} :: _PowerSearchAIOverviewInputData_FeedbackQuestionImpl
-))
-type _PowerSearchAIOverviewInputData_FeedbackQuestionMessage = proto.Message<
-	PowerSearchAIOverviewInputData_FeedbackQuestion,
-	_PowerSearchAIOverviewInputData_FeedbackQuestionPartialFields
 >
 
 type _UserListInputDataImpl = {
@@ -3021,6 +3011,64 @@ type _PageHeaderInputDataPartialFields = {
 
 export type PageHeaderInputData = typeof(setmetatable({} :: _PageHeaderInputDataFields, {} :: _PageHeaderInputDataImpl))
 type _PageHeaderInputDataMessage = proto.Message<PageHeaderInputData, _PageHeaderInputDataPartialFields>
+
+type _OptionSelectorCarouselInputDataImpl = {
+	__index: _OptionSelectorCarouselInputDataImpl,
+	new: (fields: _OptionSelectorCarouselInputDataPartialFields?) -> OptionSelectorCarouselInputData,
+	encode: (self: OptionSelectorCarouselInputData) -> buffer,
+	decode: (input: buffer) -> OptionSelectorCarouselInputData,
+	jsonEncode: (self: OptionSelectorCarouselInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OptionSelectorCarouselInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _OptionSelectorCarouselInputDataFields = {
+	selected_option: string,
+	sort_id: string,
+	options: { SelectorOption },
+	experience_carousel: ExperienceCarouselInputData?,
+}
+
+type _OptionSelectorCarouselInputDataPartialFields = {
+	selected_option: string?,
+	sort_id: string?,
+	options: { SelectorOption }?,
+	experience_carousel: ExperienceCarouselInputData?,
+}
+
+export type OptionSelectorCarouselInputData = typeof(setmetatable(
+	{} :: _OptionSelectorCarouselInputDataFields,
+	{} :: _OptionSelectorCarouselInputDataImpl
+))
+type _OptionSelectorCarouselInputDataMessage = proto.Message<
+	OptionSelectorCarouselInputData,
+	_OptionSelectorCarouselInputDataPartialFields
+>
+
+type _SelectorOptionImpl = {
+	__index: _SelectorOptionImpl,
+	new: (fields: _SelectorOptionPartialFields?) -> SelectorOption,
+	encode: (self: SelectorOption) -> buffer,
+	decode: (input: buffer) -> SelectorOption,
+	jsonEncode: (self: SelectorOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SelectorOption,
+	descriptor: proto.Descriptor,
+}
+
+type _SelectorOptionFields = {
+	id: string,
+	display_name: string,
+	is_selected: boolean,
+}
+
+type _SelectorOptionPartialFields = {
+	id: string?,
+	display_name: string?,
+	is_selected: boolean?,
+}
+
+export type SelectorOption = typeof(setmetatable({} :: _SelectorOptionFields, {} :: _SelectorOptionImpl))
+type _SelectorOptionMessage = proto.Message<SelectorOption, _SelectorOptionPartialFields>
 
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
 export type PageEntryFormat = "PAGE_ENTRY_FORMAT_INVALID" | "PAGE_ENTRY_FORMAT_UNIVERSAL" | number -- Unknown
@@ -3772,6 +3820,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1001, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "option_selector_carousel" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1100, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -4150,6 +4202,14 @@ do
 						value = messages.PowerSearchAIOverviewInputData.decode(value),
 					}
 					continue
+				elseif field == 1100 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "option_selector_carousel",
+						value = messages.OptionSelectorCarouselInputData.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -4290,6 +4350,8 @@ do
 				output.searchResultsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "power_search_ai_overview" then
 				output.powerSearchAiOverview = self.kind.value:jsonEncode()
+			elseif self.kind.type == "option_selector_carousel" then
+				output.optionSelectorCarousel = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -4964,6 +5026,20 @@ do
 			self.kind = {
 				type = "power_search_ai_overview",
 				value = messages.PowerSearchAIOverviewInputData.jsonDecode(input.powerSearchAiOverview),
+			}
+		end
+
+		if input.option_selector_carousel ~= nil then
+			self.kind = {
+				type = "option_selector_carousel",
+				value = messages.OptionSelectorCarouselInputData.jsonDecode(input.option_selector_carousel),
+			}
+		end
+
+		if input.optionSelectorCarousel ~= nil then
+			self.kind = {
+				type = "option_selector_carousel",
+				value = messages.OptionSelectorCarouselInputData.jsonDecode(input.optionSelectorCarousel),
 			}
 		end
 
@@ -8961,6 +9037,9 @@ do
 			subtitle = if data == nil or data.subtitle == nil then "" else data.subtitle,
 			info_text = if data == nil or data.info_text == nil then "" else data.info_text,
 			subtitle_link_path = if data == nil or data.subtitle_link_path == nil then "" else data.subtitle_link_path,
+			is_placeholder = if data == nil or data.is_placeholder == nil then nil else data.is_placeholder,
+			primary_sort_id = if data == nil or data.primary_sort_id == nil then nil else data.primary_sort_id,
+			applied_filters = if data == nil or data.applied_filters == nil then nil else data.applied_filters,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -9016,6 +9095,21 @@ do
 			output, cursor = proto.writeString(output, cursor, self.subtitle_link_path)
 		end
 
+		if self.is_placeholder ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_placeholder then 1 else 0)
+		end
+
+		if self.primary_sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.primary_sort_id)
+		end
+
+		if self.applied_filters ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.applied_filters)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -9039,6 +9133,16 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.max_visible_rows = value
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_placeholder = value ~= 0
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.primary_sort_id = value
 					continue
 				end
 
@@ -9079,6 +9183,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.subtitle_link_path = buffer.tostring(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.applied_filters = buffer.tostring(value)
 					continue
 				end
 
@@ -9145,6 +9254,18 @@ do
 
 		if self.subtitle_link_path ~= nil and self.subtitle_link_path ~= "" then
 			output.subtitleLinkPath = self.subtitle_link_path
+		end
+
+		if self.is_placeholder ~= nil then
+			output.isPlaceholder = self.is_placeholder
+		end
+
+		if self.primary_sort_id ~= nil then
+			output.primarySortId = self.primary_sort_id
+		end
+
+		if self.applied_filters ~= nil then
+			output.appliedFilters = self.applied_filters
 		end
 
 		return output
@@ -9225,6 +9346,30 @@ do
 
 		if input.subtitleLinkPath ~= nil then
 			self.subtitle_link_path = input.subtitleLinkPath
+		end
+
+		if input.is_placeholder ~= nil then
+			self.is_placeholder = input.is_placeholder
+		end
+
+		if input.isPlaceholder ~= nil then
+			self.is_placeholder = input.isPlaceholder
+		end
+
+		if input.primary_sort_id ~= nil then
+			self.primary_sort_id = input.primary_sort_id
+		end
+
+		if input.primarySortId ~= nil then
+			self.primary_sort_id = input.primarySortId
+		end
+
+		if input.applied_filters ~= nil then
+			self.applied_filters = input.applied_filters
+		end
+
+		if input.appliedFilters ~= nil then
+			self.applied_filters = input.appliedFilters
 		end
 
 		return self
@@ -9564,6 +9709,9 @@ do
 			subtitle = if data == nil or data.subtitle == nil then "" else data.subtitle,
 			info_text = if data == nil or data.info_text == nil then "" else data.info_text,
 			subtitle_link_path = if data == nil or data.subtitle_link_path == nil then "" else data.subtitle_link_path,
+			is_placeholder = if data == nil or data.is_placeholder == nil then nil else data.is_placeholder,
+			primary_sort_id = if data == nil or data.primary_sort_id == nil then nil else data.primary_sort_id,
+			applied_filters = if data == nil or data.applied_filters == nil then nil else data.applied_filters,
 		}, _SongCarouselInputDataImpl :: _SongCarouselInputDataImpl)
 	end
 
@@ -9614,6 +9762,21 @@ do
 			output, cursor = proto.writeString(output, cursor, self.subtitle_link_path)
 		end
 
+		if self.is_placeholder ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_placeholder then 1 else 0)
+		end
+
+		if self.primary_sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.primary_sort_id)
+		end
+
+		if self.applied_filters ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.applied_filters)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -9632,6 +9795,16 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.secondary_sort_id = value
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_placeholder = value ~= 0
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.primary_sort_id = value
 					continue
 				end
 
@@ -9672,6 +9845,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.subtitle_link_path = buffer.tostring(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.applied_filters = buffer.tostring(value)
 					continue
 				end
 
@@ -9734,6 +9912,18 @@ do
 
 		if self.subtitle_link_path ~= nil and self.subtitle_link_path ~= "" then
 			output.subtitleLinkPath = self.subtitle_link_path
+		end
+
+		if self.is_placeholder ~= nil then
+			output.isPlaceholder = self.is_placeholder
+		end
+
+		if self.primary_sort_id ~= nil then
+			output.primarySortId = self.primary_sort_id
+		end
+
+		if self.applied_filters ~= nil then
+			output.appliedFilters = self.applied_filters
 		end
 
 		return output
@@ -9806,6 +9996,30 @@ do
 
 		if input.subtitleLinkPath ~= nil then
 			self.subtitle_link_path = input.subtitleLinkPath
+		end
+
+		if input.is_placeholder ~= nil then
+			self.is_placeholder = input.is_placeholder
+		end
+
+		if input.isPlaceholder ~= nil then
+			self.is_placeholder = input.isPlaceholder
+		end
+
+		if input.primary_sort_id ~= nil then
+			self.primary_sort_id = input.primary_sort_id
+		end
+
+		if input.primarySortId ~= nil then
+			self.primary_sort_id = input.primarySortId
+		end
+
+		if input.applied_filters ~= nil then
+			self.applied_filters = input.applied_filters
+		end
+
+		if input.appliedFilters ~= nil then
+			self.applied_filters = input.appliedFilters
 		end
 
 		return self
@@ -14247,6 +14461,8 @@ do
 			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
 			secondary_sort_id = if data == nil or data.secondary_sort_id == nil then 0 else data.secondary_sort_id,
 			title = if data == nil or data.title == nil then "" else data.title,
+			primary_sort_id = if data == nil or data.primary_sort_id == nil then nil else data.primary_sort_id,
+			applied_filters = if data == nil or data.applied_filters == nil then nil else data.applied_filters,
 		}, _FilterPillsInputDataImpl :: _FilterPillsInputDataImpl)
 	end
 
@@ -14277,6 +14493,16 @@ do
 			output, cursor = proto.writeString(output, cursor, self.title)
 		end
 
+		if self.primary_sort_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.primary_sort_id)
+		end
+
+		if self.applied_filters ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.applied_filters)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -14295,6 +14521,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI32(input, cursor)
 					self.secondary_sort_id = value
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.primary_sort_id = value
 					continue
 				end
 
@@ -14315,6 +14546,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.title = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.applied_filters = buffer.tostring(value)
 					continue
 				end
 
@@ -14363,6 +14599,14 @@ do
 			output.title = self.title
 		end
 
+		if self.primary_sort_id ~= nil then
+			output.primarySortId = self.primary_sort_id
+		end
+
+		if self.applied_filters ~= nil then
+			output.appliedFilters = self.applied_filters
+		end
+
 		return output
 	end
 
@@ -14405,6 +14649,22 @@ do
 
 		if input.title ~= nil then
 			self.title = input.title
+		end
+
+		if input.primary_sort_id ~= nil then
+			self.primary_sort_id = input.primary_sort_id
+		end
+
+		if input.primarySortId ~= nil then
+			self.primary_sort_id = input.primarySortId
+		end
+
+		if input.applied_filters ~= nil then
+			self.applied_filters = input.applied_filters
+		end
+
+		if input.appliedFilters ~= nil then
+			self.applied_filters = input.appliedFilters
 		end
 
 		return self
@@ -16747,7 +17007,8 @@ do
 			overview_rich_text = if data == nil or data.overview_rich_text == nil then "" else data.overview_rich_text,
 			result_entry = if data == nil or data.result_entry == nil then nil else data.result_entry,
 			follow_up_queries = if data == nil or data.follow_up_queries == nil then {} else data.follow_up_queries,
-			feedback_questions = if data == nil or data.feedback_questions == nil then {} else data.feedback_questions,
+			show_loading = if data == nil or data.show_loading == nil then false else data.show_loading,
+			title = if data == nil or data.title == nil then "" else data.title,
 		}, _PowerSearchAIOverviewInputDataImpl :: _PowerSearchAIOverviewInputDataImpl)
 	end
 
@@ -16773,12 +17034,14 @@ do
 			end
 		end
 
-		if self.feedback_questions ~= nil and #self.feedback_questions > 0 then
-			for _, value in self.feedback_questions do
-				local encoded = value:encode()
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
+		if self.show_loading then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.show_loading then 1 else 0)
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -16795,7 +17058,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 4 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.show_loading = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -16815,13 +17083,10 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.follow_up_queries, buffer.tostring(value))
 					continue
-				elseif field == 4 then
+				elseif field == 5 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(
-						self.feedback_questions,
-						messages.PowerSearchAIOverviewInputData_FeedbackQuestion.decode(value)
-					)
+					self.title = buffer.tostring(value)
 					continue
 				end
 
@@ -16866,12 +17131,12 @@ do
 			output.followUpQueries = newOutput
 		end
 
-		if self.feedback_questions ~= nil and #self.feedback_questions > 0 then
-			local newOutput = {}
-			for _, value in self.feedback_questions do
-				table.insert(newOutput, value:jsonEncode())
-			end
-			output.feedbackQuestions = newOutput
+		if self.show_loading then
+			output.showLoading = self.show_loading
+		end
+
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
 		end
 
 		return output
@@ -16914,22 +17179,16 @@ do
 			self.follow_up_queries = newOutput
 		end
 
-		if input.feedback_questions ~= nil then
-			local newOutput: { PowerSearchAIOverviewInputData_FeedbackQuestion } = {}
-			for _, value in input.feedback_questions do
-				table.insert(newOutput, messages.PowerSearchAIOverviewInputData_FeedbackQuestion.jsonDecode(value))
-			end
-
-			self.feedback_questions = newOutput
+		if input.show_loading ~= nil then
+			self.show_loading = input.show_loading
 		end
 
-		if input.feedbackQuestions ~= nil then
-			local newOutput: { PowerSearchAIOverviewInputData_FeedbackQuestion } = {}
-			for _, value in input.feedbackQuestions do
-				table.insert(newOutput, messages.PowerSearchAIOverviewInputData_FeedbackQuestion.jsonDecode(value))
-			end
+		if input.showLoading ~= nil then
+			self.show_loading = input.showLoading
+		end
 
-			self.feedback_questions = newOutput
+		if input.title ~= nil then
+			self.title = input.title
 		end
 
 		return self
@@ -16943,141 +17202,6 @@ do
 	messages.PowerSearchAIOverviewInputData = _PowerSearchAIOverviewInputDataImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.PowerSearchAIOverviewInputData)
-end
-
-do
-	local _PowerSearchAIOverviewInputData_FeedbackQuestionImpl = {}
-	_PowerSearchAIOverviewInputData_FeedbackQuestionImpl.__index = _PowerSearchAIOverviewInputData_FeedbackQuestionImpl
-
-	function _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.new(
-		data: _PowerSearchAIOverviewInputData_FeedbackQuestionPartialFields?
-	): PowerSearchAIOverviewInputData_FeedbackQuestion
-		return setmetatable({
-			question_id = if data == nil or data.question_id == nil then "" else data.question_id,
-			question_text = if data == nil or data.question_text == nil then "" else data.question_text,
-		}, _PowerSearchAIOverviewInputData_FeedbackQuestionImpl :: _PowerSearchAIOverviewInputData_FeedbackQuestionImpl)
-	end
-
-	function _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.encode(
-		self: PowerSearchAIOverviewInputData_FeedbackQuestion
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.question_id ~= nil and self.question_id ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.question_id)
-		end
-
-		if self.question_text ~= nil and self.question_text ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.question_text)
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.decode(
-		input: buffer
-	): PowerSearchAIOverviewInputData_FeedbackQuestion
-		local self = _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.question_id = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.question_text = buffer.tostring(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.jsonEncode(
-		self: PowerSearchAIOverviewInputData_FeedbackQuestion
-	): any
-		local output = {}
-
-		if self.question_id ~= nil and self.question_id ~= "" then
-			output.questionId = self.question_id
-		end
-
-		if self.question_text ~= nil and self.question_text ~= "" then
-			output.questionText = self.question_text
-		end
-
-		return output
-	end
-
-	function _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.jsonDecode(
-		input: { [string]: any }
-	): PowerSearchAIOverviewInputData_FeedbackQuestion
-		local self = _PowerSearchAIOverviewInputData_FeedbackQuestionImpl.new()
-
-		if input.question_id ~= nil then
-			self.question_id = input.question_id
-		end
-
-		if input.questionId ~= nil then
-			self.question_id = input.questionId
-		end
-
-		if input.question_text ~= nil then
-			self.question_text = input.question_text
-		end
-
-		if input.questionText ~= nil then
-			self.question_text = input.questionText
-		end
-
-		return self
-	end
-
-	_PowerSearchAIOverviewInputData_FeedbackQuestionImpl.descriptor = {
-		name = "PowerSearchAIOverviewInputData_FeedbackQuestion",
-		fullName = "roblox.apppageplatform.shared.v1beta1.FeedbackQuestion",
-	}
-
-	messages.PowerSearchAIOverviewInputData_FeedbackQuestion =
-		_PowerSearchAIOverviewInputData_FeedbackQuestionImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.PowerSearchAIOverviewInputData_FeedbackQuestion)
 end
 
 do
@@ -18863,6 +18987,332 @@ do
 	typeRegistry.default:register(messages.PageHeaderInputData)
 end
 
+do
+	local _OptionSelectorCarouselInputDataImpl = {}
+	_OptionSelectorCarouselInputDataImpl.__index = _OptionSelectorCarouselInputDataImpl
+
+	function _OptionSelectorCarouselInputDataImpl.new(
+		data: _OptionSelectorCarouselInputDataPartialFields?
+	): OptionSelectorCarouselInputData
+		return setmetatable({
+			selected_option = if data == nil or data.selected_option == nil then "" else data.selected_option,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			options = if data == nil or data.options == nil then {} else data.options,
+			experience_carousel = if data == nil or data.experience_carousel == nil
+				then nil
+				else data.experience_carousel,
+		}, _OptionSelectorCarouselInputDataImpl :: _OptionSelectorCarouselInputDataImpl)
+	end
+
+	function _OptionSelectorCarouselInputDataImpl.encode(self: OptionSelectorCarouselInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.selected_option ~= nil and self.selected_option ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.selected_option)
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.experience_carousel ~= nil then
+			local encoded = self.experience_carousel:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OptionSelectorCarouselInputDataImpl.decode(input: buffer): OptionSelectorCarouselInputData
+		local self = _OptionSelectorCarouselInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.SelectorOption.decode(value))
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_carousel = messages.ExperienceCarouselInputData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OptionSelectorCarouselInputDataImpl.jsonEncode(self: OptionSelectorCarouselInputData): any
+		local output = {}
+
+		if self.selected_option ~= nil and self.selected_option ~= "" then
+			output.selectedOption = self.selected_option
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		if self.experience_carousel ~= nil then
+			output.experienceCarousel = self.experience_carousel:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OptionSelectorCarouselInputDataImpl.jsonDecode(input: { [string]: any }): OptionSelectorCarouselInputData
+		local self = _OptionSelectorCarouselInputDataImpl.new()
+
+		if input.selected_option ~= nil then
+			self.selected_option = input.selected_option
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option = input.selectedOption
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.options ~= nil then
+			local newOutput: { SelectorOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.SelectorOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		if input.experience_carousel ~= nil then
+			self.experience_carousel = messages.ExperienceCarouselInputData.jsonDecode(input.experience_carousel)
+		end
+
+		if input.experienceCarousel ~= nil then
+			self.experience_carousel = messages.ExperienceCarouselInputData.jsonDecode(input.experienceCarousel)
+		end
+
+		return self
+	end
+
+	_OptionSelectorCarouselInputDataImpl.descriptor = {
+		name = "OptionSelectorCarouselInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OptionSelectorCarouselInputData",
+	}
+
+	messages.OptionSelectorCarouselInputData = _OptionSelectorCarouselInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OptionSelectorCarouselInputData)
+end
+
+do
+	local _SelectorOptionImpl = {}
+	_SelectorOptionImpl.__index = _SelectorOptionImpl
+
+	function _SelectorOptionImpl.new(data: _SelectorOptionPartialFields?): SelectorOption
+		return setmetatable({
+			id = if data == nil or data.id == nil then "" else data.id,
+			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
+			is_selected = if data == nil or data.is_selected == nil then false else data.is_selected,
+		}, _SelectorOptionImpl :: _SelectorOptionImpl)
+	end
+
+	function _SelectorOptionImpl.encode(self: SelectorOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.id ~= nil and self.id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.id)
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.display_name)
+		end
+
+		if self.is_selected then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_selected then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SelectorOptionImpl.decode(input: buffer): SelectorOption
+		local self = _SelectorOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_selected = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SelectorOptionImpl.jsonEncode(self: SelectorOption): any
+		local output = {}
+
+		if self.id ~= nil and self.id ~= "" then
+			output.id = self.id
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output.displayName = self.display_name
+		end
+
+		if self.is_selected then
+			output.isSelected = self.is_selected
+		end
+
+		return output
+	end
+
+	function _SelectorOptionImpl.jsonDecode(input: { [string]: any }): SelectorOption
+		local self = _SelectorOptionImpl.new()
+
+		if input.id ~= nil then
+			self.id = input.id
+		end
+
+		if input.display_name ~= nil then
+			self.display_name = input.display_name
+		end
+
+		if input.displayName ~= nil then
+			self.display_name = input.displayName
+		end
+
+		if input.is_selected ~= nil then
+			self.is_selected = input.is_selected
+		end
+
+		if input.isSelected ~= nil then
+			self.is_selected = input.isSelected
+		end
+
+		return self
+	end
+
+	_SelectorOptionImpl.descriptor = {
+		name = "SelectorOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SelectorOption",
+	}
+
+	messages.SelectorOption = _SelectorOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SelectorOption)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -18971,7 +19421,6 @@ return {
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
 	PowerSearchAIOverviewInputData = messages.PowerSearchAIOverviewInputData,
-	PowerSearchAIOverviewInputData_FeedbackQuestion = messages.PowerSearchAIOverviewInputData_FeedbackQuestion,
 	UserListInputData = messages.UserListInputData,
 	UserListInputData_UserItem = messages.UserListInputData_UserItem,
 	CatalogItemListInputData = messages.CatalogItemListInputData,
@@ -18984,5 +19433,7 @@ return {
 	TextInputData = messages.TextInputData,
 	VerticalFeedInputData = messages.VerticalFeedInputData,
 	PageHeaderInputData = messages.PageHeaderInputData,
+	OptionSelectorCarouselInputData = messages.OptionSelectorCarouselInputData,
+	SelectorOption = messages.SelectorOption,
 	PageEntryFormat = messages.PageEntryFormat,
 }

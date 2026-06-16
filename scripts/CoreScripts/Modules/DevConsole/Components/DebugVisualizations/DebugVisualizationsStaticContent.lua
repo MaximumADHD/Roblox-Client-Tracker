@@ -4,7 +4,9 @@
 
 -- This can be replaced if we eventually overhaul the settings API to provide arbitrary metadata.
 
-return {
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
+
+local content = {
 	["AreCollisionCostsShown"] = {
 		name = "AreCollisionCostsShown",
 		description="Highlights assemblies in the world with color from green to red based on how costly the collision computation is.",
@@ -84,3 +86,18 @@ return {
 		type = "Box"
 	},
 }
+
+if FFlagSlimDevConsole then
+	content["SlimTintMode"] = {
+		name = "SlimTintMode",
+		description = "Controls the SLIM debug tint mode.",
+		tags = {"Performance"},
+		type = "Tint",
+		kind = "Dropdown",
+		getter = "GetTintMode",
+		setter = "SetTintMode",
+		service = "SlimDebugSettings",
+	}
+end
+
+return content

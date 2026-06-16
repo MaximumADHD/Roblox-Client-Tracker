@@ -45,6 +45,7 @@ type _GetChartsPageRequestFields = {
 	entry_page_token: string,
 	max_memory: string,
 	page_type: string,
+	include_placeholders: boolean?,
 }
 
 type _GetChartsPageRequestPartialFields = {
@@ -57,6 +58,7 @@ type _GetChartsPageRequestPartialFields = {
 	entry_page_token: string?,
 	max_memory: string?,
 	page_type: string?,
+	include_placeholders: boolean?,
 }
 
 export type GetChartsPageRequest = typeof(setmetatable(
@@ -308,6 +310,9 @@ do
 			entry_page_token = if data == nil or data.entry_page_token == nil then "" else data.entry_page_token,
 			max_memory = if data == nil or data.max_memory == nil then "" else data.max_memory,
 			page_type = if data == nil or data.page_type == nil then "" else data.page_type,
+			include_placeholders = if data == nil or data.include_placeholders == nil
+				then nil
+				else data.include_placeholders,
 		}, _GetChartsPageRequestImpl :: _GetChartsPageRequestImpl)
 	end
 
@@ -360,6 +365,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.page_type)
 		end
 
+		if self.include_placeholders ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.include_placeholders then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -374,7 +384,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 10 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.include_placeholders = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -487,6 +502,10 @@ do
 			output.pageType = self.page_type
 		end
 
+		if self.include_placeholders ~= nil then
+			output.includePlaceholders = self.include_placeholders
+		end
+
 		return output
 	end
 
@@ -555,6 +574,14 @@ do
 
 		if input.pageType ~= nil then
 			self.page_type = input.pageType
+		end
+
+		if input.include_placeholders ~= nil then
+			self.include_placeholders = input.include_placeholders
+		end
+
+		if input.includePlaceholders ~= nil then
+			self.include_placeholders = input.includePlaceholders
 		end
 
 		return self

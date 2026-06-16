@@ -19,6 +19,7 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getFFlagUGCValidateMigrateWrapAndMakeup = require(root.flags.getFFlagUGCValidateMigrateWrapAndMakeup)
 
 local function validateMakeupAsset(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances :: { Instance }
@@ -78,9 +79,13 @@ local function validateMakeupAsset(validationContext: Types.ValidationContext): 
 		reasonsAccumulator:updateReasons(validateModeration(instance, {}, validationContext))
 	end
 
-	reasonsAccumulator:updateReasons(validateMakeupDecal(instance :: Decal, validationContext))
+	if not getFFlagUGCValidateMigrateWrapAndMakeup() then
+		reasonsAccumulator:updateReasons(validateMakeupDecal(instance :: Decal, validationContext))
+	end
 
-	reasonsAccumulator:updateReasons(validateWrapTextureTransfer(instance :: Decal, validationContext))
+	if not getFFlagUGCValidateMigrateWrapAndMakeup() then
+		reasonsAccumulator:updateReasons(validateWrapTextureTransfer(instance :: Decal, validationContext))
+	end
 
 	return reasonsAccumulator:getFinalResults()
 end

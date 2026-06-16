@@ -21,6 +21,13 @@ end
 CurveAnimationHierarchyUtils.humanoidRootPartName = "HumanoidRootPart"
 CurveAnimationHierarchyUtils.FaceControlsName = "FaceControls"
 
+function CurveAnimationHierarchyUtils.folderHasAnimationTracks(folder: Instance): boolean
+	local pos = folder:FindFirstChild("Position")
+	local rot = folder:FindFirstChild("Rotation")
+	return (pos ~= nil and pos:IsA("Vector3Curve"))
+		or (rot ~= nil and (rot:IsA("EulerRotationCurve") or rot:IsA("RotationCurve")))
+end
+
 function CurveAnimationHierarchyUtils.isBodyPartFolderNameValid(name: string): boolean
 	return nil ~= CurveAnimationHierarchyUtils.getBodyPartToParentMap()[name]
 		or name == CurveAnimationHierarchyUtils.humanoidRootPartName

@@ -6,6 +6,7 @@ local getFIntUGCValidationDynamicHeadMinimumQualityPercent =
 	require(root.flags.getFIntUGCValidationDynamicHeadMinimumQualityPercent)
 
 local getFFlagUGCValidationAddGeometryToExports = require(root.flags.getFFlagUGCValidationAddGeometryToExports)
+local getFFlagUGCValidateAQScoreWarnings = require(root.flags.getFFlagUGCValidateAQScoreWarnings)
 
 local Measure_Dynamic_Head = {}
 
@@ -47,6 +48,15 @@ Measure_Dynamic_Head.run = function(reporter: Types.ValidationReporter, data: Ty
 			then
 				reporter:fail(error_enum)
 			end
+		end
+		if
+			getFFlagUGCValidateAQScoreWarnings()
+			and dynamicHeadScores.score ~= nil
+			and tonumber(dynamicHeadScores.score) ~= 100
+		then
+			reporter:warn(ErrorSourceStrings.Keys.AQSWarn_DynamicHead, {
+				score = tostring(math.floor(tonumber(dynamicHeadScores.score) or 0)),
+			})
 		end
 	end
 end

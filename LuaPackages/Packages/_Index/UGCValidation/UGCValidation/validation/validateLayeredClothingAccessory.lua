@@ -60,6 +60,8 @@ local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
 	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
+local getFFlagUGCValidateMigrateCageGeometry = require(root.flags.getFFlagUGCValidateMigrateCageGeometry)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -101,11 +103,9 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		then createEyebrowEyelashSchema(assetInfo.attachmentNames)
 		else createLayeredClothingSchema(assetInfo.attachmentNames)
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
-		success, reasons = validateInstanceTree(schema, instance, validationContext)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateInstanceTree(schema, instance, validationContext)
+	if not success then
+		return false, reasons
 	end
 
 	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
@@ -268,21 +268,23 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	local textureSizeLimit = nil
-	if getFFlagUGCValidateAccessoryAssetTextureLimit() then
-		textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, handle, textureInfo.fieldName)
-	end
-	success, failedReason = validateTextureSize(textureInfo, true, validationContext, textureSizeLimit)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
-	end
-
-	if getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits() then
-		success, failedReason = validateSurfaceAppearanceTextureSize(instance, validationContext)
+	if not getFFlagUGCValidateMigrateTextureTransparency() then
+		local textureSizeLimit = nil
+		if getFFlagUGCValidateAccessoryAssetTextureLimit() then
+			textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, handle, textureInfo.fieldName)
+		end
+		success, failedReason = validateTextureSize(textureInfo, true, validationContext, textureSizeLimit)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
+		end
+
+		if getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits() then
+			success, failedReason = validateSurfaceAppearanceTextureSize(instance, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 	end
 
@@ -426,10 +428,12 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		validationResult = false
 	end
 
-	success, failedReason = validateLCInRenderBounds(instance, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
+	if not getFFlagUGCValidateMigrateCageGeometry() then
+		success, failedReason = validateLCInRenderBounds(instance, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 	end
 
 	if getFFlagUGCValidateTexturePack() then

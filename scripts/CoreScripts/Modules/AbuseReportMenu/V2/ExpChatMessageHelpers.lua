@@ -92,6 +92,32 @@ function ExpChatMessageHelpers.formatMessageLabel(message): string
 	return if #prefix > 0 then prefix .. " " .. text else text
 end
 
+function ExpChatMessageHelpers.getMessageUsername(message): string?
+	local userId = tonumber(message.userId)
+	-- GetPlayerByUserId only returns players still in this server instance. It
+	-- returns nil when the sender left, was never in this instance (e.g. universe
+	-- chat), or has not finished loading. TextSource below may cover those; any
+	-- remaining gaps are filled async in inExpChatMessagesLoader via UserProfileStore.
+	if userId and userId ~= 0 then
+		local player = Players:GetPlayerByUserId(userId)
+		if player then
+			return player.Name
+		end
+	end
+
+	-- exp-chat only stores textChatMessageInstance when certain flags are enabled.
+	-- so not reliable.
+	local textChatMessageInstance = message.textChatMessageInstance
+	if textChatMessageInstance then
+		local textSource = textChatMessageInstance.TextSource
+		if textSource and textSource.Username and #textSource.Username > 0 then
+			return textSource.Username
+		end
+	end
+
+	return nil
+end
+
 -- Resolves an ordered list of message IDs into selectable list items,
 -- filtering out system messages that aren't reportable.
 function ExpChatMessageHelpers.collectItems(byMessageId, messageIds)
@@ -102,6 +128,13 @@ function ExpChatMessageHelpers.collectItems(byMessageId, messageIds)
 			table.insert(items, {
 				id = message.messageId,
 				label = ExpChatMessageHelpers.formatMessageLabel(message),
+				meta = {
+					textChannel = message.textChannel,
+					userId = tostring(message.userId),
+					presetId = message.presetId,
+					presetChatVersion = message.presetChatVersion,
+					username = ExpChatMessageHelpers.getMessageUsername(message),
+				},
 			})
 		end
 	end
@@ -111,7 +144,11 @@ end
 -- Prepends "[Sent privately]" to whisper message labels. Only needed when
 -- channel tabs are disabled and all messages appear in a single flat list;
 -- with tabs enabled, whispers are already in their own group.
-function ExpChatMessageHelpers.annotateWhisperItems(items, byMessageId)
+function ExpChatMessageHelpers.annotateWhisperItems(
+	items: { { id: any, label: string, meta: any? } },
+	byMessageId,
+	sentPrivatelyLabel: string
+)
 	for _, item in ipairs(items) do
 		local message = byMessageId[item.id]
 		if
@@ -120,8 +157,7 @@ function ExpChatMessageHelpers.annotateWhisperItems(items, byMessageId)
 			and typeof(message.textChannel.Name) == "string"
 			and string.sub(message.textChannel.Name, 1, #CHANNEL_WHISPER_PREFIX) == CHANNEL_WHISPER_PREFIX
 		then
-			-- TODO: [future] localization
-			item.label = "[Sent privately] " .. item.label
+			item.label = string.format("[%s] %s", sentPrivatelyLabel, item.label)
 		end
 	end
 end

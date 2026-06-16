@@ -52,19 +52,19 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
+local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
+	require(root.Flags.FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay)
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
+local IXPFieldWHAM1707 = require(root.Flags.FStringWHAM1707IXPField)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
 local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
-local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM1707")
 local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightModePreciseSelectionEnabled
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportTabClearCapturedScreenshotOnCloseFix =
 	game:DefineFastFlag("AbuseReportTabClearCapturedScreenshotOnCloseFix", false)
-local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
-	game:DefineFastInt("AbuseReportTabClearCapturedScreenshotOnCloseFixDelay", 500)
 local FFlagMigrateAllOsaMessagingToCentralService =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagMigrateAllOsaMessagingToCentralService
 local FFlagIEMReportScrollingFix = game:DefineFastFlag("IEMReportScrollingFix", false)

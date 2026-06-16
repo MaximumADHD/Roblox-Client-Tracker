@@ -43,6 +43,7 @@ local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
@@ -52,6 +53,8 @@ local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 local View = Foundation.View
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
+local AssistantBuildButton = require(Components.AssistantBuildButton)
+local canShowAssistantBuild = require(Components.canShowAssistantBuild)
 local GamepadConnector = require(Components.GamepadConnector)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HealthBar = CoreGuiCommon.Components.HealthBar
@@ -266,12 +269,17 @@ local function TopBarApp(props: TopBarProps)
 						menuRef = unibarMenuRef
 					}),
 				}),
+				AssistantBuild = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
+					then React.createElement(AssistantBuildButton, {
+						layoutOrder = 5,
+					})
+					else nil,
 				ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon
 						and shopGlobalIconEnabled
 						and ShopGlobalIcon ~= nil
 					then React.createElement(ShopGlobalIcon, {
 						buttonSize = topBarButtonHeight,
-						layoutOrder = 3,
+						layoutOrder = if FFlagAppNavMyStatsTab then 8 else 3,
 						showStatusIndicator = shopGlobalStatusIndicatorEnabled,
 						onActivated = onShopGlobalIconActivated,
 						isActive = shopGlobalIconIsActive,

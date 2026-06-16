@@ -60,6 +60,8 @@ local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
 
+local FFlagEmotesStayOpenWithChat = game:DefineFastFlag("EmotesStayOpenWithChat", false)
+
 local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
 
@@ -117,21 +119,25 @@ function EmotesMenuMaster:_connectCoreGuiListeners()
 		end)
 	end
 
-	Chat.VisibilityStateChanged:connect(function(isChatVisible)
-		if not isChatVisible then
-			return
-		end
+	if not FFlagEmotesStayOpenWithChat then
+		Chat.VisibilityStateChanged:connect(function(isChatVisible)
+			if not isChatVisible then
+				return
+			end
 
-		if self:isOpen() then
-			self:close()
-		end
-	end)
+			if self:isOpen() then
+				self:close()
+			end
+		end)
+	end
 
-	InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
-		if visible and self:isOpen() then
-			self:close()
-		end
-	end)
+	if not FFlagEmotesStayOpenWithChat then
+		InExperienceAppChatModal.default.visibilitySignal.Event:Connect(function(visible)
+			if visible and self:isOpen() then
+				self:close()
+			end
+		end)
+	end
 end
 
 function EmotesMenuMaster:_connectApiListeners()

@@ -25,6 +25,7 @@ local getFFlagDebugUGCValidationPrintNewStructureResults =
 local getEngineFeatureEngineUGCValidationExpandReturnSchema =
 	require(root.flags.getEngineFeatureEngineUGCValidationExpandReturnSchema)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
+local getFFlagUGCValidationFetchErrorMethod = require(root.flags.getFFlagUGCValidationFetchErrorMethod)
 local ValidateConstants = require(root.validationSystem.ValidationConstants)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local TelemetryService = game:GetService("TelemetryService")
@@ -200,6 +201,14 @@ local function ValidationTestWrapper(
 		-- forceError sentinel: re-raise so it escapes ValidationManager.
 		if getFFlagUGCValidateMigrateSchemaProperties() and type(issues) == "table" and issues.__forceError then
 			error(issues.message, 0)
+		end
+		-- fetchError sentinel: backend re-raises so RCC reschedules; Studio/IEC reports as err.
+		if getFFlagUGCValidationFetchErrorMethod() and type(issues) == "table" and issues.__fetchError then
+			if sharedData.consumerConfig.consumerEnv == ValidationEnums.ConsumerEnv.Backend then
+				error(issues.message, 0)
+			end
+			reporter:err(issues.message)
+			return complete(testEnum, sharedData, reporter)
 		end
 		if getFFlagDebugUGCValidationPrintNewStructureResults() then
 			print("Validation error:", issues)

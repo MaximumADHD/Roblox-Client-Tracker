@@ -17,6 +17,7 @@ local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienc
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagSideSheetSwapGalleryOrder = SharedFlags.FFlagSideSheetSwapGalleryOrder
+local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Flags)
@@ -25,7 +26,6 @@ local FFlagReverseUnibar = require(script.Parent.Parent.Parent.Flags.FFlagRevers
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-local FFlagFixSpatialSubMenuSizing = ChromeSharedFlags.FFlagFixSpatialSubMenuSizing
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
@@ -74,6 +74,11 @@ if isInExperienceUIVREnabled then
 	local Observable = require(CorePackages.Workspace.Packages.Observable)
 	SubMenuVisibilitySignal = Observable.ObservableValue.new(true)
 end
+
+local Traversal = if FFlagIntegrateTraversalHistoryInSideSheet
+	then require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
+	else nil
+local FFlagAddTraversalHistory = if Traversal then Traversal.Flags.FFlagAddTraversalHistory else false
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -179,6 +184,10 @@ if not GetFFlagChromeCentralizedConfiguration() then
 				end
 
 				table.insert(nineDot, "help")
+
+				if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet then
+					table.insert(nineDot, "traversal_history")
+				end
 			end
 			table.insert(nineDot, SideSheet.Enums.ActionBinding.Leave)
 			table.insert(nineDot, SideSheet.Enums.ActionBinding.Respawn)
@@ -845,7 +854,7 @@ local function SubMenuWrapper(props)
 	local renderFunc = React.useCallback(function(panelSize: Vector2)
 		return React.createElement(SubMenu, {
 			subMenuHostRef = props.subMenuHostRef,
-			panelSize = if FFlagFixSpatialSubMenuSizing then panelSize else nil,
+			panelSize = panelSize,
 		}) :: any
 	end, {
 		props.subMenuHostRef,

@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidateMigrateSchemaProperties", false)
+game:DefineFastFlag("UGCValidateMigrateSchemaProperties2", false)
 
 return function()
-	return game:GetFastFlag("UGCValidateMigrateSchemaProperties")
+	return game:GetFastFlag("UGCValidateMigrateSchemaProperties2")
 end

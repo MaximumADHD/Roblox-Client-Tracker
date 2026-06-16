@@ -3,9 +3,11 @@ local root = script.Parent.Parent.Parent
 local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local CurveAnimBoneHierarchyUtils = require(root.util.CurveAnimBoneHierarchyUtils)
 
 local getFFlagUGCValidateMigrateCurveAnim = require(root.flags.getFFlagUGCValidateMigrateCurveAnim)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 
 local CurveAnimRigDataPresent = {}
 
@@ -39,14 +41,19 @@ CurveAnimRigDataPresent.run = function(reporter: Types.ValidationReporter, data:
 			return
 		end
 
-		for _, child in curveAnim:GetChildren() do
-			if not child:IsA("AnimationRigData") then
-				continue
-			end
+		local skipRigDataCheck = getFFlagUGCValidateEmotesBonesAllowed()
+			and CurveAnimBoneHierarchyUtils.hasBoneFolders(curveAnim)
 
-			if not (child :: any):IsValidR15() then
-				reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidRigData)
-				return
+		if not skipRigDataCheck then
+			for _, child in curveAnim:GetChildren() do
+				if not child:IsA("AnimationRigData") then
+					continue
+				end
+
+				if not (child :: any):IsValidR15() then
+					reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidRigData)
+					return
+				end
 			end
 		end
 	end

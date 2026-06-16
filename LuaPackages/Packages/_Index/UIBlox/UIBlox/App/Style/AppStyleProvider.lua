@@ -29,7 +29,6 @@ local Object = LuauPolyfill.Object
 local getThemeFromName = require(Style.Themes.getThemeFromName)
 local getFontFromName = require(Style.Fonts.getFontFromName)
 local Constants = require(Style.Constants)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
@@ -65,7 +64,6 @@ export type Props = {
 		settings: Settings?,
 	},
 	children: { [string]: React.ReactElement? }?,
-	DO_NOT_USE_useFoundationButton: boolean?,
 }
 
 -- After join, there are no optional values
@@ -97,25 +95,19 @@ local function AppStyleProvider(props: Props)
 
 	-- Merge foundationTokens with contextTokens: contextTokens has Color/Config with overrides,
 	-- foundationTokens has Semantic/Global/Component that mapColorTokensToFoundation needs
-	local mergedTokens = if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
+	local mergedTokens = if foundationProviderPresent
 		then Cryo.Dictionary.join(foundationTokens, contextTokens)
 		else foundationTokens
 	baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, mergedTokens)
 
-	theme = TokensMappers.mapThemeToFoundation(
-		theme,
-		if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
-			then contextTokens
-			else foundationTokens
-	)
+	theme =
+		TokensMappers.mapThemeToFoundation(theme, if foundationProviderPresent then contextTokens else foundationTokens)
 	assert(validateTokens(baseTokens), "Invalid tokens!")
 	-- Use contextTokens (reactive with tokenOverrides) when FoundationProvider is present,
 	-- otherwise fall back to static foundationTokens
 	local tokens: Tokens = TokensMappers.addFoundationFlatKeys(
 		baseTokens,
-		if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
-			then contextTokens
-			else foundationTokens
+		if foundationProviderPresent then contextTokens else foundationTokens
 	)
 
 	local appStyle: AppStyle = {
@@ -174,11 +166,10 @@ local function AppStyleProvider(props: Props)
 			styleMetadata = {
 				ThemeName = themeNameConstant,
 				-- True when `Color.Surface` Surface_0/100/200/300 differ from static `getFoundationTokens`
-				HasSurfaceOverrides = if UIBloxConfig.useTokensToColorThemedAssets and foundationProviderPresent
+				HasSurfaceOverrides = if foundationProviderPresent
 					then foundationSurfaceTokensDiffer(foundationTokens, contextTokens)
 					else false,
 			},
-			useFoundationButton = props.DO_NOT_USE_useFoundationButton,
 		},
 	}, Roact.oneChild(props.children :: any))
 

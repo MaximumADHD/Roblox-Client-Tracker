@@ -16,6 +16,7 @@ local validateFacsJointBounds = require(root.validation.validateFacsJointBounds)
 
 local getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds =
 	require(root.flags.getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds)
+local getFFlagUGCValidateMigrateDynamicHeadData = require(root.flags.getFFlagUGCValidateMigrateDynamicHeadData)
 local UGCValidateFacialBoundsScale = game:DefineFastInt("UGCValidateFacialBoundsScale", 120) / 100
 local UGCValidateFacialExpressivenessThreshold = game:DefineFastInt("UGCValidateFacialExpressivenessThreshold", 10)
 	/ 100
@@ -164,89 +165,102 @@ local function validateDynamicHeadData(
 	local startTime = tick()
 	local isServer = validationContext.isServer
 
-	do
-		local retrievedMeshData, testsPassed = pcall(function()
-			local getEditableMeshSuccess, editableMesh =
-				getEditableMeshFromContext(meshPartHead, "MeshId", validationContext)
-			if not getEditableMeshSuccess then
-				error("Failed to retrieve MeshContent")
+	if not getFFlagUGCValidateMigrateDynamicHeadData() then
+		do
+			local retrievedMeshData, testsPassed = pcall(function()
+				local getEditableMeshSuccess, editableMesh =
+					getEditableMeshFromContext(meshPartHead, "MeshId", validationContext)
+				if not getEditableMeshSuccess then
+					error("Failed to retrieve MeshContent")
+				end
+				return UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh)
+			end)
+
+			if not retrievedMeshData then
+				return downloadFailure(isServer, meshPartHead.Name, validationContext)
 			end
-			return UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh)
-		end)
 
-		if not retrievedMeshData then
-			return downloadFailure(isServer, meshPartHead.Name, validationContext)
-		end
-
-		if not testsPassed then
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh,
-				nil,
-				validationContext
-			)
-			return false,
-				{
-					string.format(
-						"Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).",
-						meshPartHead.Name
-					),
-				}
+			if not testsPassed then
+				Analytics.reportFailure(
+					Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh,
+					nil,
+					validationContext
+				)
+				return false,
+					{
+						string.format(
+							"Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).",
+							meshPartHead.Name
+						),
+					}
+			end
 		end
 	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
-		local getEditableMeshSuccess, editableMesh =
-			getEditableMeshFromContext(meshPartHead, "MeshId", validationContext)
-		if not getEditableMeshSuccess then
-			error("Failed to retrieve MeshContent")
-		end
-		return UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh, requiredActiveFACSControls)
-	end)
+	if not getFFlagUGCValidateMigrateDynamicHeadData() then
+		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
+			local getEditableMeshSuccess, editableMesh =
+				getEditableMeshFromContext(meshPartHead, "MeshId", validationContext)
+			if not getEditableMeshSuccess then
+				error("Failed to retrieve MeshContent")
+			end
+			return UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(
+				editableMesh,
+				requiredActiveFACSControls
+			)
+		end)
 
-	if not commandExecuted then
-		local errorMessage = missingControlsOrErrorMessage
-		if string.find(errorMessage, "Download Error") == 1 then
-			return downloadFailure(isServer, meshPartHead.Name, validationContext)
+		if not commandExecuted then
+			local errorMessage = missingControlsOrErrorMessage
+			if string.find(errorMessage, "Download Error") == 1 then
+				return downloadFailure(isServer, meshPartHead.Name, validationContext)
+			end
+			assert(false, errorMessage) --any other error to download error is a code problem
 		end
-		assert(false, errorMessage) --any other error to download error is a code problem
+
+		local missingControls = missingControlsOrErrorMessage
+
+		local doAllControlsExist = #missingControls == 0
+		local areAllControlsActive = #inactiveControls == 0
+		if not doAllControlsExist or not areAllControlsActive then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls,
+				nil,
+				validationContext
+			)
+
+			reasonsAccumulator:updateReasons(doAllControlsExist, {
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(
+					missingControls,
+					", "
+				)}`,
+			})
+			reasonsAccumulator:updateReasons(areAllControlsActive, {
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(
+					inactiveControls,
+					", "
+				)}`,
+			})
+		end
 	end
 
-	local missingControls = missingControlsOrErrorMessage
-
-	local doAllControlsExist = #missingControls == 0
-	local areAllControlsActive = #inactiveControls == 0
-	if not doAllControlsExist or not areAllControlsActive then
-		Analytics.reportFailure(
-			Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls,
-			nil,
-			validationContext
-		)
-
-		reasonsAccumulator:updateReasons(doAllControlsExist, {
-			`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(
-				missingControls,
-				", "
-			)}`,
-		})
-		reasonsAccumulator:updateReasons(areAllControlsActive, {
-			`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(
-				inactiveControls,
-				", "
-			)}`,
-		})
+	-- validateFacialExpressiveness is intentionally dropped: superseded by the
+	-- AQS-based HeadIsDynamic module in the new system.
+	if not getFFlagUGCValidateMigrateDynamicHeadData() then
+		reasonsAccumulator:updateReasons(validateFacialExpressiveness(meshPartHead, validationContext))
 	end
-
-	reasonsAccumulator:updateReasons(validateFacialExpressiveness(meshPartHead, validationContext))
 
 	if not getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs() then
 		-- moved to new system
 		reasonsAccumulator:updateReasons(validateFacialBounds(meshPartHead, validationContext))
 	end
 
-	if getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds() then
-		reasonsAccumulator:updateReasons(validateFacsJointBounds(meshPartHead, validationContext))
+	if not getFFlagUGCValidateMigrateDynamicHeadData() then
+		if getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds() then
+			reasonsAccumulator:updateReasons(validateFacsJointBounds(meshPartHead, validationContext))
+		end
 	end
 
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)

@@ -43,11 +43,4 @@ return {
 
 	-- Disable token scaling so scale is always 1
 	disableTokenScaling = false,
-
-	-- Use Color tokens (Surface, Content) instead of Semantic.Color tokens for theme mapping
-	-- This enables surface color overrides to work through the theme system
-	useColorTokensForThemeMapping = false,
-
-	-- Use tokens to color themed assets baked into PlayerTile and ItemTile
-	useTokensToColorThemedAssets = false,
 }

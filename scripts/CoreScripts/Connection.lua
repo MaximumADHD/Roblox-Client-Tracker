@@ -91,7 +91,17 @@ local FFlagAddContextualPlayabilityConnectionErrors = game:DefineFastFlag("AddCo
 local FFlagAddVipOwnerNotPresentConnectionError = game:DefineFastFlag("AddVipOwnerNotPresentConnectionError", false)
 local FFlagVipOwnerNotPresentEnableReconnect = game:DefineFastFlag("VipOwnerNotPresentEnableReconnect", false)
 
-local FFlagRAKickLogic = game:DefineFastFlag("RAKickLogic", false)
+local FFlagRAKickLogic = game:DefineFastFlag("RAKickLogic2", false)
+local FIntRAMinEngineVersion = game:DefineFastInt("RAMinEngineVersion", 725)
+
+local supportsRemoteAttestationEnums = false
+if FFlagRAKickLogic then
+	local currentVersionStr = RunService:GetRobloxVersion()
+	local currentVersionMajorVersion = tonumber(string.match(currentVersionStr, "%.(%d+)%."))
+	if currentVersionMajorVersion and currentVersionMajorVersion >= FIntRAMinEngineVersion then
+		supportsRemoteAttestationEnums = true
+	end
+end
 
 local FFlagConnectionAmpUpsellOnLeave =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpUpsellOnLeave
@@ -378,7 +388,7 @@ if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCor
 	reconnectDisabledList[PlacelaunchCollaborationCoreGatedEnum] = true
 end
 
-if FFlagRAKickLogic then
+if FFlagRAKickLogic and supportsRemoteAttestationEnums then
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationUnsupported] = true
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationGeneralFailure] = true
 	reconnectDisabledList[Enum.ConnectionError.DisconnectRemoteAttestationOSOutOfDate] = true
@@ -995,7 +1005,7 @@ if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCor
 	enumToLocalizationKey[PlacelaunchCollaborationCoreGatedEnum] = "InGame.ConnectionError.Description.PlaytestAgeCheckRequired"
 end
 
-if FFlagRAKickLogic then
+if FFlagRAKickLogic and supportsRemoteAttestationEnums then
 	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationTimeout] = "InGame.ConnectionError.RemoteAttestationTimeout"
 	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationUnsupported] = "InGame.ConnectionError.RemoteAttestationUnsupported"
 	enumToLocalizationKey[Enum.ConnectionError.DisconnectRemoteAttestationGeneralFailure] = "InGame.ConnectionError.RemoteAttestationGeneralFailure"

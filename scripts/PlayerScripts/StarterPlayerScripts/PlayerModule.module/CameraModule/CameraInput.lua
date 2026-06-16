@@ -11,6 +11,7 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local FFlagUserPSSinkUnknownTouchEvents = FlagUtil.getUserFlag("UserPSSinkUnknownTouchEvents")
 local FFlagUserPSTextboxResetCameraInput = FlagUtil.getUserFlag("UserPSTextboxResetCameraInput")
+local FFlagUserFixVRCameraGamepadReset = FlagUtil.getUserFlag("UserFixVRCameraGamepadReset")
 
 local player = Players.LocalPlayer
 
@@ -164,9 +165,15 @@ do
 	local gamepadZoomPressBindable = Instance.new("BindableEvent")
 	CameraInput.gamepadZoomPress = gamepadZoomPressBindable.Event
 
-	local gamepadResetBindable = VRService.VREnabled and Instance.new("BindableEvent") or nil
-	if VRService.VREnabled then
+	local gamepadResetBindable
+	if FFlagUserFixVRCameraGamepadReset then
+		gamepadResetBindable = Instance.new("BindableEvent")
 		CameraInput.gamepadReset = gamepadResetBindable.Event
+	else
+		gamepadResetBindable = VRService.VREnabled and Instance.new("BindableEvent") or nil
+		if VRService.VREnabled then
+			CameraInput.gamepadReset = gamepadResetBindable.Event
+		end
 	end
 	
 	function CameraInput.getRotationActivated(): boolean

@@ -21,13 +21,10 @@ local API_URL = string.format("https://apis.%s", BASE_DOMAIN)
 local SERVER_URL = "packages-api/v1/rcc/canPublish"
 local CLIENT_URL = "packages-api/v1/canPublish"
 
-export type ContentIdEntry = { instance: Instance, fieldName: string }
-export type ContentIdMap = { [string]: ContentIdEntry }
-
 export type AssetVerdict = {
 	assetId: string,
 	allowed: boolean,
-	entry: ContentIdEntry,
+	entry: Types.ContentIdEntry,
 }
 
 export type CanPublishOutcome = {
@@ -87,7 +84,7 @@ local function createCanPublishPromise(
 end
 
 local function canPublishAssets(
-	contentIdMap: ContentIdMap,
+	contentIdMap: Types.ContentIdEntriesMap,
 	restrictedUserIds: Types.RestrictedUserIds,
 	token: string,
 	universeId: number?,
@@ -136,8 +133,8 @@ local function canPublishAssets(
 	local verdicts: { AssetVerdict } = {}
 	for _, response in responses do
 		for instanceId, allowed in response.result do
-			local entry = contentIdMap[instanceId]
-			if not entry then
+			local entries = contentIdMap[instanceId]
+			if not entries then
 				continue
 			end
 			local effectiveAllowed = allowed
@@ -147,7 +144,7 @@ local function canPublishAssets(
 			table.insert(verdicts, {
 				assetId = instanceId,
 				allowed = effectiveAllowed,
-				entry = entry,
+				entry = entries[1],
 			})
 		end
 	end

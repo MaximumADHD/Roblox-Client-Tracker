@@ -1,4 +1,5 @@
 local FFlagDevConsoleDownArrowIconFix = game:DefineFastFlag("DevConsoleDownArrowIconFix", false)
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
 
 local Constants = {
 	MainWindowInit = {
@@ -265,7 +266,7 @@ local Constants = {
 
 	DebugVisualizationsFormatting = {
 		ChartHeaderNames = {"Name", "Toggle", "Draw Type", "Tags"},
-		ChartCellWidths = {60, 80}, -- width of cells 2-4; cell 1 fills remainder
+		ChartCellWidths = {if FFlagSlimDevConsole then 170 else 60, 80}, -- width of cells 2-4; cell 1 fills remainder
 		CellPadding = 16,
 		ExpandArrowPadding = 12,
 		HeaderFrameHeight = 20,

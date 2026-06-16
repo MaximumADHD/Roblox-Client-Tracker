@@ -1,5 +1,13 @@
 -- humanoidR15AnimateLiveUpdates.lua
 
+local FFlagUserAnimateRemoveEmoteChatHook
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAnimateRemoveEmoteChatHook")
+	end)
+	FFlagUserAnimateRemoveEmoteChatHook = success and result
+end
+
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 local pose = "Standing"
@@ -889,19 +897,21 @@ Humanoid.Seated:connect(onSeated)
 Humanoid.PlatformStanding:connect(onPlatformStanding)
 Humanoid.Swimming:connect(onSwimming)
 
--- setup emote chat hook
-game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
-	local emote = ""
-	if (string.sub(msg, 1, 3) == "/e ") then
-		emote = string.sub(msg, 4)
-	elseif (string.sub(msg, 1, 7) == "/emote ") then
-		emote = string.sub(msg, 8)
-	end
+-- setup emote chat hook (RBXEmoteCommand now handles this)
+if not FFlagUserAnimateRemoveEmoteChatHook then
+	game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
+		local emote = ""
+		if (string.sub(msg, 1, 3) == "/e ") then
+			emote = string.sub(msg, 4)
+		elseif (string.sub(msg, 1, 7) == "/emote ") then
+			emote = string.sub(msg, 8)
+		end
 
-	if (pose == "Standing" and emoteNames[emote] ~= nil) then
-		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
-	end
-end)
+		if (pose == "Standing" and emoteNames[emote] ~= nil) then
+			playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
+		end
+	end)
+end
 
 -- emote bindable hook
 script:WaitForChild("PlayEmote").OnInvoke = function(emote)

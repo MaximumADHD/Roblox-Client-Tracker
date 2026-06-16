@@ -62,10 +62,12 @@ local showLoading = function(self)
 	VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 end
 
+local FFlagChangeToggleMicText = require(Chrome.Flags.FFlagChangeToggleMicText)
+
 muteSelf = ChromeService:register({
 	--initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "toggle_mic_mute",
-	label = "CoreScripts.TopBar.ToggleMic",
+	label = if FFlagChangeToggleMicText then "CoreScripts.TopBar.Mic" else "CoreScripts.TopBar.ToggleMic",
 	sideSheetPlacement = SideSheetPlacement.Unibar,
 	activated = toggleMic,
 	isActivated = if FFlagChromeActivatedMappedSignal then micActivatedSignal else nil,

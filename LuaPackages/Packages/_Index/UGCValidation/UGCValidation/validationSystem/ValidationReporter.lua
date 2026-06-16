@@ -92,6 +92,13 @@ function ValidationReporter:forceError(message: string)
 	error({ __forceError = true, message = message })
 end
 
+-- Throws to abort the current test. ValidationTestWrapper handles the sentinel:
+-- on Backend it re-raises so RCC reschedules (same as forceError); on Studio/IEC
+-- it lands as reporter:err (inconclusive, not creator-facing).
+function ValidationReporter:fetchError(message: string)
+	error({ __fetchError = true, message = message })
+end
+
 function ValidationReporter:err(logMessage: string)
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
 		print("Reporting:", self._testEnum, "has error:", logMessage)

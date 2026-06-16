@@ -9,6 +9,9 @@ local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
 local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
+local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
+local getFFlagUGCValidateMigrateCageGeometry = require(root.flags.getFFlagUGCValidateMigrateCageGeometry)
+local getFFlagUGCValidateMigratePoseBlocking = require(root.flags.getFFlagUGCValidateMigratePoseBlocking)
 
 local Types = require(root.util.Types)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -232,24 +235,37 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 		local allBodyParts: Types.AllBodyParts = createAllBodyPartsTable(folderName, fullBodyData)
 		assert(allBodyParts) -- if validateInstanceHierarchy() has passed, this should not have any problems
 
-		-- anything which would cause a crash later on, we check in here and exit early
-		if not ValidateBodyBlockingTests.validateAll(allBodyParts, validationContext) then
-			Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
-			-- don't need more detailed error, as this is a check which has been done for each individual asset
-			if getFFlagDebugAllowHRDUploadOnBundleBackend() then
-				R15plusUtils.setIsBackendBundleUpload(false)
+		if not getFFlagUGCValidateMigratePoseBlocking() then
+			-- anything which would cause a crash later on, we check in here and exit early
+			if not ValidateBodyBlockingTests.validateAll(allBodyParts, validationContext) then
+				Analytics.reportFailure(Analytics.ErrorType.validateFullBody_ZeroMeshSize, nil, validationContext)
+				-- don't need more detailed error, as this is a check which has been done for each individual asset
+				if getFFlagDebugAllowHRDUploadOnBundleBackend() then
+					R15plusUtils.setIsBackendBundleUpload(false)
+				end
+				return false,
+					{
+						"Unable to run full body validation due to previous errors detected while processing individual body parts.",
+					}
 			end
-			return false,
-				{
-					"Unable to run full body validation due to previous errors detected while processing individual body parts.",
-				}
 		end
 
-		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext))
-		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
+		if not getFFlagUGCValidateMigrateCageGeometry() then
+			reasonsAccumulator:updateReasons(
+				ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext)
+			)
+		end
 
-		if getFFlagUGCValidateLegFullBodySeparation() then
-			reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateFullBody(allBodyParts, validationContext))
+		if not getFFlagUGCValidateMigrateBodyPartBounds() then
+			reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
+		end
+
+		if not getFFlagUGCValidateMigratePoseBlocking() then
+			if getFFlagUGCValidateLegFullBodySeparation() then
+				reasonsAccumulator:updateReasons(
+					ValidateLegsSeparation.validateFullBody(allBodyParts, validationContext)
+				)
+			end
 		end
 	end
 

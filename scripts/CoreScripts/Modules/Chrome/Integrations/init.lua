@@ -7,6 +7,10 @@ local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienc
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
+local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
+
+local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
+local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
 
 return {
 	OverflowMenu = require(script.OverflowMenu),
@@ -31,6 +35,9 @@ return {
 	Settings = if FFlagAddIGMToSideSheet then require(script.Pages.Settings) else nil,
 	Gallery = if FFlagAddIGMToSideSheet then require(script.Pages.Gallery) else nil,
 	Help = if FFlagAddIGMToSideSheet then require(script.Pages.Help) else nil,
+	TraversalHistory = if FFlagAddTraversalHistory and FFlagIntegrateTraversalHistoryInSideSheet
+		then require(script.Pages.TraversalHistory)
+		else nil,
 	LeaveConfirmation = if FFlagEnableSideSheet then require(script.Pages.LeaveConfirmation) else nil,
 	RespawnConfirmation = if FFlagEnableSideSheet then require(script.Pages.RespawnConfirmation) else nil,
 	ShopEntrypoint = if FFlagEnableInExperienceShop then require(script.InExperienceShop.ShopEntrypoint) else nil,

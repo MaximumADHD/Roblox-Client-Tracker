@@ -39,6 +39,10 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
+local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
+	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
+local getFFlagUGCValidateMigrateMeshGeometry = require(root.flags.getFFlagUGCValidateMigrateMeshGeometry)
 
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
@@ -77,11 +81,9 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	local schema = createAccessorySchema(assetInfo.attachmentNames)
 
-	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
-		success, reasons = validateInstanceTree(schema, instance, validationContext)
-		if not success then
-			return false, reasons
-		end
+	success, reasons = validateInstanceTree(schema, instance, validationContext)
+	if not success then
+		return false, reasons
 	end
 
 	if getEngineFeatureEngineUGCValidatePropertiesSensible() then
@@ -194,14 +196,16 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		end
 	end
 
-	local textureSizeLimit = nil
-	if getFFlagUGCValidateAccessoryAssetTextureLimit() then
-		textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, mesh, textureInfo.fieldName)
-	end
-	success, failedReason = validateTextureSize(textureInfo, nil, validationContext, textureSizeLimit)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
+	if not getFFlagUGCValidateMigrateTextureTransparency() then
+		local textureSizeLimit = nil
+		if getFFlagUGCValidateAccessoryAssetTextureLimit() then
+			textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, mesh, textureInfo.fieldName)
+		end
+		success, failedReason = validateTextureSize(textureInfo, nil, validationContext, textureSizeLimit)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
 	end
 
 	local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
@@ -234,10 +238,12 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	end
 
 	if hasMeshContent then
-		success, failedReason = validateTotalSurfaceArea(meshInfo, meshScale, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+		if not getFFlagUGCValidateMigrateMeshGeometry() then
+			success, failedReason = validateTotalSurfaceArea(meshInfo, meshScale, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 
 		if FFlagLegacyAccessoryCheckAvatarPartScaleType and handle:FindFirstChild("AvatarPartScaleType") then
@@ -248,35 +254,43 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 			}
 		end
 
-		success, failedReason = validateMeshBounds(
-			handle,
-			attachment,
-			meshInfo,
-			meshScale,
-			boundsInfo,
-			assetTypeEnum.Name,
-			validationContext
-		)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+		if not getFFlagUGCValidateMigrateMeshGeometry() then
+			success, failedReason = validateMeshBounds(
+				handle,
+				attachment,
+				meshInfo,
+				meshScale,
+				boundsInfo,
+				assetTypeEnum.Name,
+				validationContext
+			)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 
-		success, failedReason = validateMeshTriangles(meshInfo, nil, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+		if not getFFlagUGCValidateMigrateMeshGeometry() then
+			success, failedReason = validateMeshTriangles(meshInfo, nil, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
-		success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+		if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 
-		success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)
-		if not success then
-			table.insert(reasons, table.concat(failedReason, "\n"))
-			validationResult = false
+		if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+			success, failedReason = validateCoplanarIntersection(meshInfo, meshScale, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 
 		if getEngineFeatureEngineUGCValidateRigidNonSkinned() then

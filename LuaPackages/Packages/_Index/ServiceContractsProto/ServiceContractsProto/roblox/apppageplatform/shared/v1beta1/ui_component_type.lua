@@ -19,6 +19,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_COLLECTION_GRID"
 	| "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION"
 	| "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
+	| "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL"
 	| "UI_COMPONENT_TYPE_TILE"
 	| "UI_COMPONENT_TYPE_GAME_TILE"
 	| "UI_COMPONENT_TYPE_SEE_ALL_TILE"
@@ -75,6 +76,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_SKELETON"
 	| "UI_COMPONENT_TYPE_PLACEHOLDER"
 	| "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
+	| "UI_COMPONENT_TYPE_REVEAL_TEXT"
+	| "UI_COMPONENT_TYPE_SHIMMER_TEXT"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -103,6 +106,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION"
 		elseif value == 13 then
 			return "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
+		elseif value == 14 then
+			return "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL"
 		elseif value == 100 then
 			return "UI_COMPONENT_TYPE_TILE"
 		elseif value == 101 then
@@ -215,6 +220,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLACEHOLDER"
 		elseif value == 249 then
 			return "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
+		elseif value == 250 then
+			return "UI_COMPONENT_TYPE_REVEAL_TEXT"
+		elseif value == 251 then
+			return "UI_COMPONENT_TYPE_SHIMMER_TEXT"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -257,6 +266,8 @@ messages.UiComponentType = {
 			return 12
 		elseif self == "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER" then
 			return 13
+		elseif self == "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL" then
+			return 14
 		elseif self == "UI_COMPONENT_TYPE_TILE" then
 			return 100
 		elseif self == "UI_COMPONENT_TYPE_GAME_TILE" then
@@ -369,6 +380,10 @@ messages.UiComponentType = {
 			return 248
 		elseif self == "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER" then
 			return 249
+		elseif self == "UI_COMPONENT_TYPE_REVEAL_TEXT" then
+			return 250
+		elseif self == "UI_COMPONENT_TYPE_SHIMMER_TEXT" then
+			return 251
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -411,6 +426,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SINGLE_ITEM_COLLECTION"
 		elseif name == "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER" then
 			return "UI_COMPONENT_TYPE_COLLECTION_CAROUSEL_PLACEHOLDER"
+		elseif name == "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL" then
+			return "UI_COMPONENT_TYPE_VARIABLE_ITEM_WIDTH_CAROUSEL"
 		elseif name == "UI_COMPONENT_TYPE_TILE" then
 			return "UI_COMPONENT_TYPE_TILE"
 		elseif name == "UI_COMPONENT_TYPE_GAME_TILE" then
@@ -523,6 +540,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLACEHOLDER"
 		elseif name == "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER" then
 			return "UI_COMPONENT_TYPE_PLACEHOLDER_WRAPPER"
+		elseif name == "UI_COMPONENT_TYPE_REVEAL_TEXT" then
+			return "UI_COMPONENT_TYPE_REVEAL_TEXT"
+		elseif name == "UI_COMPONENT_TYPE_SHIMMER_TEXT" then
+			return "UI_COMPONENT_TYPE_SHIMMER_TEXT"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

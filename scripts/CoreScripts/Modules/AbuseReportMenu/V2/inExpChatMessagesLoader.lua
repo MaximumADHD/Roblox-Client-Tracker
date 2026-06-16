@@ -7,6 +7,7 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local Promise = require(CorePackages.Packages.Promise)
 
 local helpers = require(script.Parent.ExpChatMessageHelpers)
+local enrichMissingUsernames = require(script.Parent.inExpChatMessagesLoaderUsernameEnrichment).enrichMissingUsernames
 local getChannelTabsStore = ExpChat.Stores.GetChannelTabsStore
 
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
@@ -52,7 +53,11 @@ return {
 			local result = {}
 
 			local generalItems = helpers.collectItems(byMessageId, generalMessageIds)
-			helpers.annotateWhisperItems(generalItems, byMessageId)
+			helpers.annotateWhisperItems(
+				generalItems,
+				byMessageId,
+				locales:Format("Feature.ReportAbuse.Label.SentPrivately")
+			)
 			if #generalItems > 0 then
 				table.insert(result, {
 					id = helpers.CHANNEL_GENERAL,
@@ -70,7 +75,7 @@ return {
 				})
 			end
 
-			return Promise.resolve(result)
+			return enrichMissingUsernames(result)
 		end
 
 		local tabIds = messagesState.windowMessagesInOrderByTabId or {}
@@ -123,6 +128,6 @@ return {
 			table.insert(result, groups[channelName])
 		end
 
-		return Promise.resolve(result)
+		return enrichMissingUsernames(result)
 	end,
 }

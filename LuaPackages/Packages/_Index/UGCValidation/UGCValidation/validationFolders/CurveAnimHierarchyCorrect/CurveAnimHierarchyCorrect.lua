@@ -9,6 +9,7 @@ local getFFlagUGCValidateMigrateCurveAnim = require(root.flags.getFFlagUGCValida
 local getFFlagUGCValidateDuplicatesInAnimation = require(root.flags.getFFlagUGCValidateDuplicatesInAnimation)
 local getFFlagUGCValidateMaxTotalInstances = require(root.flags.getFFlagUGCValidateMaxTotalInstances)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
+local getFFlagUGCValidateEmotesBonesAllowed = require(root.flags.getFFlagUGCValidateEmotesBonesAllowed)
 
 local CurveAnimHierarchyCorrect = {}
 
@@ -68,24 +69,30 @@ CurveAnimHierarchyCorrect.run = function(reporter: Types.ValidationReporter, dat
 			if child:IsA("Folder") then
 				if getFFlagUGCValidateDuplicatesInAnimation() then
 					if not CurveAnimationHierarchyUtils.isBodyPartFolderNameValid(child.Name) then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_UnexpectedChild, {
-							childName = child.Name,
-						})
-						return
+						if not getFFlagUGCValidateEmotesBonesAllowed() then
+							reporter:fail(ErrorSourceStrings.Keys.CurveAnim_UnexpectedChild, {
+								childName = child.Name,
+							})
+							return
+						end
 					end
 
-					if not CurveAnimationHierarchyUtils.validateCurveAnimationBodyPartFolder(child :: Folder) then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidBodyPartHierarchy, {
-							folderName = child.Name,
-						})
-						return
+					if not getFFlagUGCValidateEmotesBonesAllowed() then
+						if not CurveAnimationHierarchyUtils.validateCurveAnimationBodyPartFolder(child :: Folder) then
+							reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidBodyPartHierarchy, {
+								folderName = child.Name,
+							})
+							return
+						end
 					end
 				else
-					if not CurveAnimationHierarchyUtils.validateCurveAnimationBodyPartFolder(child :: Folder) then
-						reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidBodyPartHierarchy, {
-							folderName = child.Name,
-						})
-						return
+					if not getFFlagUGCValidateEmotesBonesAllowed() then
+						if not CurveAnimationHierarchyUtils.validateCurveAnimationBodyPartFolder(child :: Folder) then
+							reporter:fail(ErrorSourceStrings.Keys.CurveAnim_InvalidBodyPartHierarchy, {
+								folderName = child.Name,
+							})
+							return
+						end
 					end
 				end
 				continue

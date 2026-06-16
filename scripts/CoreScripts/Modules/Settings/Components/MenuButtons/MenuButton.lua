@@ -24,6 +24,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsUseKeyImages = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsUseKeyImages)
+local FFlagMenuButtonsIncreaseIconSize = game:DefineFastFlag("MenuButtonsIncreaseIconSize", false)
 local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 local FFlagIEMFocusNavSupportNewButtons = require(RobloxGui.Modules.Settings.Flags.FFlagIEMFocusNavSupportNewButtons)
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
@@ -78,6 +79,8 @@ local function Hint(props) : React.React_Node
 	if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then 
 		return nil
 	elseif FFlagMenuButtonsUseKeyImages and (props.lastInput == Responsive.Input.Pointer or props.lastInput == Responsive.Input.Directional) then
+		local shouldIncreaseIconSize = FFlagMenuButtonsIncreaseIconSize and props.lastInput ~= Responsive.Input.Directional
+
 		return React.createElement(Image, {
 			Image = if props.lastInput == Responsive.Input.Directional then props.gamepadButtonImageHint else props.keyboardButtonImageHint,
 			imageStyle = {
@@ -85,13 +88,15 @@ local function Hint(props) : React.React_Node
 				Transparency = if props.isDisabled then 0.5 else props.foregroundStyle.Transparency,
 			},
 			tag = {
-				["size-800"] = not props.isSmall,
-				["size-700"] = props.isSmall,
-			},
+				["size-700"] = not shouldIncreaseIconSize and props.isSmall,
+				["size-800"] = not shouldIncreaseIconSize and not props.isSmall,
+				["size-900"] = shouldIncreaseIconSize and props.isSmall,
+				["size-1000"] = shouldIncreaseIconSize and not props.isSmall,
+			}
 		})
-	elseif props.lastInput == Responsive.Input.Pointer then 
+	elseif props.lastInput == Responsive.Input.Pointer then
 		return KeyLabelIcon(props.keyboardHint, props.isDisabled)
-	elseif props.lastInput == Responsive.Input.Directional then 
+	elseif props.lastInput == Responsive.Input.Directional then
 		return React.createElement(Image, {
 			Image = props.gamepadButtonImageHint,
 			imageStyle = {
@@ -175,6 +180,8 @@ local function MenuButton(props: Props)
 		end
 	end, { props.gamepadButton, props.lastInput } :: { unknown })
 
+	local shouldIncreaseIconSize = FFlagMenuButtonsIncreaseIconSize and props.lastInput ~= Responsive.Input.Directional
+
 	return React.createElement(View, {
 		onActivated = props.onActivated,
 		isDisabled = props.isDisabled,
@@ -222,9 +229,11 @@ local function MenuButton(props: Props)
 					Transparency = if props.isDisabled then 0.5 else foregroundStyle.Transparency,
 				},
 				tag = {
-					["size-800"] = not props.isSmall,
-					["size-700"] = props.isSmall,
-				},
+					["size-700"] = not shouldIncreaseIconSize and props.isSmall,
+					["size-800"] = not shouldIncreaseIconSize and not props.isSmall,
+					["size-900"] = shouldIncreaseIconSize and props.isSmall,
+					["size-1000"] = shouldIncreaseIconSize and not props.isSmall,
+				}
 			})
 			-- TODO also here, Test in PR with both flags
 			elseif props.lastInput == Responsive.Input.Pointer then KeyLabelIcon(props.keyboardHint, props.isDisabled)

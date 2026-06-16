@@ -5,6 +5,7 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local HEADER_NAMES = Constants.DebugVisualizationsFormatting.ChartHeaderNames
 
 local DebugVisualizationsContent = require(script.Parent.DebugVisualizationsStaticContent)
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
 
 local SORT_COMPARATOR = {
 	[HEADER_NAMES[1]] = function(a, b) -- "Name"
@@ -96,6 +97,18 @@ function DebugVisualizationsData:isRunning()
 end
 
 function DebugVisualizationsData:_toggleValue(name, value)
+	if FFlagSlimDevConsole then
+		local info = self._visualizationsData[name]
+		if info and info["Kind"] == "Dropdown" then
+			local svc = (settings() :: any):GetService(info["Service"])
+			svc[info["Setter"]](svc, value)
+			info["Value"] = value
+			table.sort(self._sortedVisualizationData, SORT_COMPARATOR[self._sortType])
+			self._visualizationsUpdated:Fire(self._sortedVisualizationData)
+			return
+		end
+	end
+
 	-- bounding box draw types are mutually exlusive
 	local physicsSettings = settings().Physics
 	if physicsSettings[name] ~= nil then
@@ -117,24 +130,54 @@ function DebugVisualizationsData:_toggleValue(name, value)
 end
 
 function _constructInfo(name, info)
-	local physicsSettings = settings().Physics
-	local value = false
-	if physicsSettings[name] ~= nil then
-		value = physicsSettings[name]
+	local value
+	local dropDownList
+	local enumItems
+
+	if FFlagSlimDevConsole and info.kind == "Dropdown" then
+		local ok, svc = pcall(function()
+			return (settings() :: any):GetService(info.service)
+		end)
+		if ok and svc then
+			value = svc[info.getter](svc)
+			enumItems = value.EnumType:GetEnumItems()
+			dropDownList = {}
+			for i, item in ipairs(enumItems) do
+				dropDownList[i] = item.Name
+			end
+		end
+	else
+		local physicsSettings = settings().Physics
+		value = false
+		if physicsSettings[name] ~= nil then
+			value = physicsSettings[name]
+		end
 	end
+
 	local tagstring = ""
 	for index, value in ipairs(info.tags) do
 		tagstring = tagstring .. value
 		tagstring = tagstring .. if index ~= #info.tags then ", " else ""
 	end
-	return {
+
+	local result = {
 		Name = info.name,
 		Value = value,
 		Type = info.type,
+		Kind = if FFlagSlimDevConsole then info.kind else nil,
 		Tags = info.tags,
 		Tagstring = tagstring,
 		Description = info.description,
 	}
+
+	if FFlagSlimDevConsole and info.kind == "Dropdown" then
+		result.DropDownList = dropDownList
+		result.EnumItems = enumItems
+		result.Service = info.service
+		result.Setter = info.setter
+	end
+
+	return result
 end
 
 function DebugVisualizationsData:start()

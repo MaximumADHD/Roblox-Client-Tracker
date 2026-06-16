@@ -11,6 +11,8 @@ local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateC
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
 local getFFlagUGCValidationAnimationPackSupport = require(root.flags.getFFlagUGCValidationAnimationPackSupport)
 local FFlagUGCValidateMakeupDecalUVProperties = game:DefineFastFlag("UGCValidateMakeupDecalUVProperties", false)
+local getFFlagUGCValidationAllowEngineDefaultPartSurfaces =
+	require(root.flags.getFFlagUGCValidationAllowEngineDefaultPartSurfaces)
 
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
@@ -374,11 +376,19 @@ Constants.PROPERTIES = {
 		TopSurfaceInput = Enum.InputType.NoInput,
 
 		BackSurface = Enum.SurfaceType.Smooth,
-		BottomSurface = Enum.SurfaceType.Smooth,
+		BottomSurface = if getFFlagUGCValidationAllowEngineDefaultPartSurfaces()
+			then {
+				[Constants.COMPARISON_METHODS.FOUND_IN] = { Enum.SurfaceType.Smooth, Enum.SurfaceType.Inlet },
+			}
+			else Enum.SurfaceType.Smooth,
 		FrontSurface = Enum.SurfaceType.Smooth,
 		LeftSurface = Enum.SurfaceType.Smooth,
 		RightSurface = Enum.SurfaceType.Smooth,
-		TopSurface = Enum.SurfaceType.Smooth,
+		TopSurface = if getFFlagUGCValidationAllowEngineDefaultPartSurfaces()
+			then {
+				[Constants.COMPARISON_METHODS.FOUND_IN] = { Enum.SurfaceType.Smooth, Enum.SurfaceType.Studs },
+			}
+			else Enum.SurfaceType.Smooth,
 
 		-- ====== Extra Context checks ======
 		--Transparency = { [Constants.COMPARISON_METHODS.EXACT_EQ] = 0 },
@@ -503,6 +513,22 @@ Constants.CONTENT_ID_REQUIRED_FIELDS = {
 	MeshPart = { MeshId = true },
 	WrapTarget = { CageMeshId = true },
 	Animation = { AnimationId = true },
+}
+
+-- Content ID fields whose value can be supplied by an in-experience editable instead of an
+-- asset URL. The field is editable-backed when its paired Content property has
+-- SourceType == Object. Classes/fields omitted here (e.g. SpecialMesh, Animation) have no
+-- editable equivalent, so an empty value is always missing.
+Constants.CONTENT_ID_EDITABLE_PROPERTY = {
+	MeshPart = { MeshId = "MeshContent", TextureID = "TextureContent" },
+	WrapTarget = { CageMeshId = "CageMeshContent" },
+	WrapLayer = { CageMeshId = "CageMeshContent", ReferenceMeshId = "ReferenceMeshContent" },
+	SurfaceAppearance = {
+		ColorMap = "ColorMapContent",
+		MetalnessMap = "MetalnessMapContent",
+		NormalMap = "NormalMapContent",
+		RoughnessMap = "RoughnessMapContent",
+	},
 }
 
 Constants.MESH_CONTENT_ID_FIELDS = {

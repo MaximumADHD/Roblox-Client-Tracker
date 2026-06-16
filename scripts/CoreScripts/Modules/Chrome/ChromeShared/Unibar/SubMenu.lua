@@ -14,7 +14,6 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-local FFlagFixSpatialSubMenuSizing = ChromeSharedFlags.FFlagFixSpatialSubMenuSizing
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -325,7 +324,7 @@ function SubMenu(props: SubMenuProps)
 	local contentHeight = canvasSize * heightScale
 	local spatialViewportHeight = if props.panelSize then props.panelSize.Y else contentHeight
 	local isSpatialSubMenu = isInExperienceUIVREnabled and isSpatial()
-	local useSpatialSizing = FFlagFixSpatialSubMenuSizing and isSpatialSubMenu
+	local useSpatialSizing = isSpatialSubMenu
 	local minSize = if useSpatialSizing
 		then math.min(contentHeight, spatialViewportHeight)
 		else math.min(screenSize.Y - topBuffer, canvasSize)
@@ -507,13 +506,13 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 		children[currentSubMenu] = React.createElement(SubMenu, {
 			items = subMenuItems,
 			menuTransition = menuTransition,
-			panelSize = if FFlagFixSpatialSubMenuSizing then props.panelSize else nil,
+			panelSize = props.panelSize,
 		})
 	elseif #lastItemList > 0 then
 		children[lastSubMenu] = React.createElement(SubMenu, {
 			items = lastItemList,
 			menuTransition = menuTransition,
-			panelSize = if FFlagFixSpatialSubMenuSizing then props.panelSize else nil,
+			panelSize = props.panelSize,
 		})
 	end
 

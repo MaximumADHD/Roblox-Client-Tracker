@@ -47,6 +47,11 @@ local Types = require(root.util.Types)
 
 local getFFlagUGCValidateMigrateSchemaProperties = require(root.flags.getFFlagUGCValidateMigrateSchemaProperties)
 local getFFlagUGCValidationCombineEntrypointResults = require(root.flags.getFFlagUGCValidationCombineEntrypointResults)
+local getFFlagUGCValidateMigrateTextureTransparency = require(root.flags.getFFlagUGCValidateMigrateTextureTransparency)
+local getFFlagUGCValidateMigrateBodyPartBounds = require(root.flags.getFFlagUGCValidateMigrateBodyPartBounds)
+local getFFlagUGCValidateMigratePoseBlocking = require(root.flags.getFFlagUGCValidateMigratePoseBlocking)
+local getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality =
+	require(root.flags.getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality)
 
 type BodyAssetMasksRenderer = BodyAssetMasksRenderer.BodyAssetMasksRenderer
 
@@ -70,10 +75,12 @@ local function validateMeshPartBodyPart(
 			}
 	end
 
-	if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then
-		local result, failureReasons = validateSurfaceAppearances(inst, validationContext)
-		if not result then
-			return result, failureReasons
+	if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+		if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then
+			local result, failureReasons = validateSurfaceAppearances(inst, validationContext)
+			if not result then
+				return result, failureReasons
+			end
 		end
 	end
 
@@ -106,7 +113,7 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	do
+	if not getFFlagUGCValidateMigratePoseBlocking() then
 		-- anything which would cause a crash later on, we check in here and exit early
 		local successBlocking, errorMessageBlocking = ValidateBodyBlockingTests.validate(inst, validationContext)
 		if not successBlocking then
@@ -114,7 +121,7 @@ local function validateMeshPartBodyPart(
 		end
 	end
 
-	do
+	if not getFFlagUGCValidateMigrateBodyPartBounds() then
 		local successValidateMeshSizeProperty, errors =
 			ValidateMeshSizeProperty.validateBodyAsset(inst, validationContext)
 		if not successValidateMeshSizeProperty then
@@ -124,16 +131,22 @@ local function validateMeshPartBodyPart(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
+	if not getFFlagUGCValidateMigrateBodyPartBounds() then
+		reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
+	end
 
-	if getFFlagUGCValidateTexturePack() then
-		reasonsAccumulator:updateReasons(ValidateTexturePack.validate(inst, true, validationContext))
+	if not getFFlagUGCValidateMigrateSurfaceAppearanceMeshQuality() then
+		if getFFlagUGCValidateTexturePack() then
+			reasonsAccumulator:updateReasons(ValidateTexturePack.validate(inst, true, validationContext))
+		end
 	end
 
 	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
 		reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
 	end
-	reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
+	if not getFFlagUGCValidateMigrateBodyPartBounds() then
+		reasonsAccumulator:updateReasons(validateBodyPartExtentsRelativeToParent.runValidation(inst, validationContext))
+	end
 
 	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
 		reasonsAccumulator:updateReasons(
@@ -141,34 +154,47 @@ local function validateMeshPartBodyPart(
 		)
 	end
 
-	reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
+	if not getFFlagUGCValidateMigratePoseBlocking() then
+		reasonsAccumulator:updateReasons(validatePose(inst, validationContext))
+	end
 
-	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
-	reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateAsset(inst, validationContext))
-	local viewsForAsset = validateAccurateBoundingBoxRasterMethod.getBoundsViewsForAssetType(assetTypeEnum)
-	local result = nil
-	success, result = BodyAssetMasksRenderer.new(inst, viewsForAsset, validationContext)
-	if success then
-		local bodyAssetMasksWrapper = result :: BodyAssetMasksRenderer
-		reasonsAccumulator:updateReasons(
-			validateAccurateBoundingBoxRasterMethod.validate(inst, bodyAssetMasksWrapper, validationContext)
-		)
-	else
-		reasonsAccumulator:updateReasons(success, result)
+	if not getFFlagUGCValidateMigrateBodyPartBounds() then
+		reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
+	end
+
+	if not getFFlagUGCValidateMigratePoseBlocking() then
+		reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateAsset(inst, validationContext))
+	end
+
+	if not getFFlagUGCValidateMigratePoseBlocking() then
+		local viewsForAsset = validateAccurateBoundingBoxRasterMethod.getBoundsViewsForAssetType(assetTypeEnum)
+		local result = nil
+		success, result = BodyAssetMasksRenderer.new(inst, viewsForAsset, validationContext)
+		if success then
+			local bodyAssetMasksWrapper = result :: BodyAssetMasksRenderer
+			reasonsAccumulator:updateReasons(
+				validateAccurateBoundingBoxRasterMethod.validate(inst, bodyAssetMasksWrapper, validationContext)
+			)
+		else
+			reasonsAccumulator:updateReasons(success, result)
+		end
 	end
 
 	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
+	if not getFFlagUGCValidateMigrateTextureTransparency() then
+		reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
+	end
 
 	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
 		reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 	end
 
-	local startTime = tick()
-
-	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
-	Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
+	if not getFFlagUGCValidateMigrateTextureTransparency() then
+		local startTime = tick()
+		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, validationContext))
+		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
+	end
 
 	if not (getFFlagUGCValidateMigrateSchemaProperties() and getFFlagUGCValidationCombineEntrypointResults()) then
 		reasonsAccumulator:updateReasons(validateMaterials(inst, validationContext))

@@ -12,12 +12,17 @@ type _Messages = {
 local messages: _Messages = {} :: _Messages
 
 type _CapabilityMessage = proto.Enum<Capability>
-export type Capability = "CAPABILITY_INVALID" | number -- Unknown
+export type Capability =
+	"CAPABILITY_INVALID"
+	| "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION"
+	| number -- Unknown
 
 messages.Capability = {
 	fromNumber = function(value: number): Capability?
 		if value == 0 then
 			return "CAPABILITY_INVALID"
+		elseif value == 3000 then
+			return "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION"
 		else
 			return nil
 		end
@@ -26,6 +31,8 @@ messages.Capability = {
 	toNumber = function(self: Capability): number
 		if self == "CAPABILITY_INVALID" then
 			return 0
+		elseif self == "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION" then
+			return 3000
 		else
 			return self
 		end
@@ -34,6 +41,8 @@ messages.Capability = {
 	fromName = function(name: string): Capability?
 		if name == "CAPABILITY_INVALID" then
 			return "CAPABILITY_INVALID"
+		elseif name == "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION" then
+			return "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION"
 		else
 			return nil
 		end

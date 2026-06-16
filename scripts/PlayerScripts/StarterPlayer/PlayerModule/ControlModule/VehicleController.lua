@@ -16,7 +16,6 @@ local steerAction = vehicleContext:WaitForChild("SteerAction") :: InputAction
 
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
-local FFlagUserPlayerScriptsFixVehicleBindings = FlagUtil.getUserFlag("UserPlayerScriptsFixVehicleBindings")
 
 local VehicleController = {}
 VehicleController.__index = VehicleController
@@ -61,11 +60,7 @@ function VehicleController:Update(moveVector: Vector3, cameraRelative: boolean)
 		local throttle = throttleAction:GetState()
 		local steer = steerAction:GetState()
 
-		if FFlagUserPlayerScriptsFixVehicleBindings then
-			moveVector = moveVector + Vector3.new(steer, 0, -throttle)
-		else
-			moveVector = moveVector + Vector3.new(steer, 0, throttle)
-		end
+		moveVector = moveVector + Vector3.new(steer, 0, -throttle)
 
 		self.vehicleSeat.ThrottleFloat = -moveVector.Z
 		self.vehicleSeat.SteerFloat = moveVector.X

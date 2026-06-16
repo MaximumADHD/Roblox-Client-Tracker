@@ -1,5 +1,3 @@
--- humanoidAnimateR15Moods.lua
-
 local Character = script.Parent
 local Humanoid = Character:WaitForChild("Humanoid")
 local pose = "Standing"
@@ -10,6 +8,14 @@ end
 
 local AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
 local HumanoidHipHeight = 2
+
+local FFlagUserAnimateRemoveEmoteChatHook
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAnimateRemoveEmoteChatHook")
+	end)
+	FFlagUserAnimateRemoveEmoteChatHook = success and result
+end
 
 local EMOTE_TRANSITION_TIME = 0.1
 
@@ -25,72 +31,72 @@ local runAnimKeyframeHandler = nil
 local PreloadedAnims = {}
 
 local animTable = {}
-local animNames = { 
-	idle = 	{	
-				{ id = "http://www.roblox.com/asset/?id=507766666", weight = 1 },
-				{ id = "http://www.roblox.com/asset/?id=507766951", weight = 1 },
-				{ id = "http://www.roblox.com/asset/?id=507766388", weight = 9 }
-			},
-	walk = 	{ 	
-				{ id = "http://www.roblox.com/asset/?id=507777826", weight = 10 } 
-			}, 
-	run = 	{
-				{ id = "http://www.roblox.com/asset/?id=507767714", weight = 10 } 
-			}, 
-	swim = 	{
-				{ id = "http://www.roblox.com/asset/?id=507784897", weight = 10 } 
-			}, 
-	swimidle = 	{
-				{ id = "http://www.roblox.com/asset/?id=507785072", weight = 10 } 
-			}, 
-	jump = 	{
-				{ id = "http://www.roblox.com/asset/?id=507765000", weight = 10 } 
-			}, 
-	fall = 	{
-				{ id = "http://www.roblox.com/asset/?id=507767968", weight = 10 } 
-			}, 
+local animNames = {
+	idle =     {
+		{ id = "http://www.roblox.com/asset/?id=507766666", weight = 1 },
+		{ id = "http://www.roblox.com/asset/?id=507766951", weight = 1 },
+		{ id = "http://www.roblox.com/asset/?id=507766388", weight = 9 }
+	},
+	walk =     {
+		{ id = "http://www.roblox.com/asset/?id=507777826", weight = 10 }
+	},
+	run =     {
+		{ id = "http://www.roblox.com/asset/?id=507767714", weight = 10 }
+	},
+	swim =     {
+		{ id = "http://www.roblox.com/asset/?id=507784897", weight = 10 }
+	},
+	swimidle =     {
+		{ id = "http://www.roblox.com/asset/?id=507785072", weight = 10 }
+	},
+	jump =     {
+		{ id = "http://www.roblox.com/asset/?id=507765000", weight = 10 }
+	},
+	fall =     {
+		{ id = "http://www.roblox.com/asset/?id=507767968", weight = 10 }
+	},
 	climb = {
-				{ id = "http://www.roblox.com/asset/?id=507765644", weight = 10 } 
-			}, 
-	sit = 	{
-				{ id = "http://www.roblox.com/asset/?id=2506281703", weight = 10 } 
-			},	
+		{ id = "http://www.roblox.com/asset/?id=507765644", weight = 10 }
+	},
+	sit =     {
+		{ id = "http://www.roblox.com/asset/?id=2506281703", weight = 10 }
+	},
 	toolnone = {
-				{ id = "http://www.roblox.com/asset/?id=507768375", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507768375", weight = 10 }
+	},
 	toolslash = {
-				{ id = "http://www.roblox.com/asset/?id=522635514", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=522635514", weight = 10 }
+	},
 	toollunge = {
-				{ id = "http://www.roblox.com/asset/?id=522638767", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=522638767", weight = 10 }
+	},
 	wave = {
-				{ id = "http://www.roblox.com/asset/?id=507770239", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507770239", weight = 10 }
+	},
 	point = {
-				{ id = "http://www.roblox.com/asset/?id=507770453", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507770453", weight = 10 }
+	},
 	dance = {
-				{ id = "http://www.roblox.com/asset/?id=507771019", weight = 10 }, 
-				{ id = "http://www.roblox.com/asset/?id=507771955", weight = 10 }, 
-				{ id = "http://www.roblox.com/asset/?id=507772104", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507771019", weight = 10 },
+		{ id = "http://www.roblox.com/asset/?id=507771955", weight = 10 },
+		{ id = "http://www.roblox.com/asset/?id=507772104", weight = 10 }
+	},
 	dance2 = {
-				{ id = "http://www.roblox.com/asset/?id=507776043", weight = 10 }, 
-				{ id = "http://www.roblox.com/asset/?id=507776720", weight = 10 }, 
-				{ id = "http://www.roblox.com/asset/?id=507776879", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507776043", weight = 10 },
+		{ id = "http://www.roblox.com/asset/?id=507776720", weight = 10 },
+		{ id = "http://www.roblox.com/asset/?id=507776879", weight = 10 }
+	},
 	dance3 = {
-				{ id = "http://www.roblox.com/asset/?id=507777268", weight = 10 }, 
-				{ id = "http://www.roblox.com/asset/?id=507777451", weight = 10 }, 
-				{ id = "http://www.roblox.com/asset/?id=507777623", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507777268", weight = 10 },
+		{ id = "http://www.roblox.com/asset/?id=507777451", weight = 10 },
+		{ id = "http://www.roblox.com/asset/?id=507777623", weight = 10 }
+	},
 	laugh = {
-				{ id = "http://www.roblox.com/asset/?id=507770818", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507770818", weight = 10 }
+	},
 	cheer = {
-				{ id = "http://www.roblox.com/asset/?id=507770677", weight = 10 } 
-			},
+		{ id = "http://www.roblox.com/asset/?id=507770677", weight = 10 }
+	},
 }
 
 -- Existance in this list signifies that it is an emote, the value indicates if it is a looping emote
@@ -99,7 +105,7 @@ local emoteNames = { wave = false, point = false, dance = true, dance2 = true, d
 -- Variables used in tracking if the character is using a ControllerManager.
 -- This implementation assumes the common case of the ControllerManager being a
 -- child of the character, and that only one ControllerManager exists under a given
--- character. If a ControllerManager is not placed under its associated character, 
+-- character. If a ControllerManager is not placed under its associated character,
 -- then it will not be detected by this script.
 -- The basis for this decision is performance: A ChildAdded listener on the
 -- character is less of a performance hit than a ChildAdded listener on the
@@ -110,6 +116,14 @@ local managerRootChangedListener:RBXScriptSignal? = nil
 local managerParentChangedListener:RBXScriptSignal? = nil
 local charGroundSensor:ControllerPartSensor? = nil
 local charControllerManager:ControllerManager? = nil
+
+local CCLAnimationFixed
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserAnimationAbilityManagerFixed")
+	end)
+	CCLAnimationFixed = success and result
+end
 
 -- Clean up listeners associated with the character's ControllerManager
 function resetManagerListeners()
@@ -127,8 +141,16 @@ function resetManagerListeners()
 	end
 end
 
+-- Clean up all listeners and reset state.
+function teardownManager()
+	resetManagerListeners()
+	charGroundSensor = nil
+	charControllerManager = nil
+end
+
 -- Returns true if checkManager controls the character associated with this script
 -- If so, then checkManager is assigned to charControllerManager.
+-- TODO: Remove this method when UserAnimationAbilityManagerFixed is made permanently true.
 function processIfManagerBelongsToCharacter(checkManager:ControllerManager):boolean
 	if checkManager.RootPart == Character.PrimaryPart then
 		if charControllerManager ~= checkManager then
@@ -159,29 +181,80 @@ function processIfManagerBelongsToCharacter(checkManager:ControllerManager):bool
 	return false
 end
 
--- Looks for the first ControllerManager directly childed to the character. If such 
+-- Attach to a confirmed-valid manager: record it, read its current GroundSensor,
+-- and watch for GroundSensor changes, RootPart changes, and removal.
+function setupManager(manager:ControllerManager)
+	charControllerManager = manager
+	charGroundSensor = manager.GroundSensor
+
+	groundSensorChangedListener = manager:GetPropertyChangedSignal("GroundSensor"):Connect(function()
+		charGroundSensor = charControllerManager.GroundSensor
+	end)
+
+	managerRootChangedListener = manager:GetPropertyChangedSignal("RootPart"):Connect(function()
+		if manager.RootPart ~= Character.PrimaryPart then
+			teardownManager()
+			lookForControllerManager()
+		end
+	end)
+
+	managerParentChangedListener = manager.AncestryChanged:Connect(function(_, parent)
+		if parent == nil then
+			teardownManager()
+			lookForControllerManager()
+		end
+	end)
+end
+
+-- Looks for the first ControllerManager directly childed to the character. If such
 -- a controller does not exist or if it does not control that character, then a listener
 -- is set up to check if a controller is ever added.
 function lookForControllerManager()
-	charGroundSensor = nil
-	charControllerManager = nil
-
-	local child:ControllerManager? = Character:FindFirstChildOfClass("ControllerManager")
-	if child then
-		processIfManagerBelongsToCharacter(child)
-	end
-	-- The call to processIfManagerBelongsToCharacter above will have
-	-- assigned charControllerManager on success
-	if charControllerManager == nil then
-		local managerAddedListener:RBXScriptSignal
-		managerAddedListener = Character.ChildAdded:Connect(function(child)
-			if child:IsA("ControllerManager") then
-				if processIfManagerBelongsToCharacter(child) then
-					managerAddedListener:Disconnect()
-					managerAddedListener = nil
-				end
+	if CCLAnimationFixed then
+		local child:ControllerManager? = Character:FindFirstChildOfClass("ControllerManager")
+		if child then
+			if child.RootPart == Character.PrimaryPart then
+				setupManager(child)
+			else
+				-- Manager exists but RootPart not yet assigned; wait for it.
+				local rootPartListener:RBXScriptSignal
+				rootPartListener = child:GetPropertyChangedSignal("RootPart"):Connect(function()
+					if child.RootPart == Character.PrimaryPart then
+						rootPartListener:Disconnect()
+						setupManager(child)
+					end
+				end)
 			end
-		end)
+		else
+			local managerAddedListener:RBXScriptSignal
+			managerAddedListener = Character.ChildAdded:Connect(function(newChild)
+				if newChild:IsA("ControllerManager") then
+					managerAddedListener:Disconnect()
+					lookForControllerManager()
+				end
+			end)
+		end
+	else
+		charGroundSensor = nil
+		charControllerManager = nil
+
+		local child:ControllerManager? = Character:FindFirstChildOfClass("ControllerManager")
+		if child then
+			processIfManagerBelongsToCharacter(child)
+		end
+		-- The call to processIfManagerBelongsToCharacter above will have
+		-- assigned charControllerManager on success
+		if charControllerManager == nil then
+			local managerAddedListener:RBXScriptSignal
+			managerAddedListener = Character.ChildAdded:Connect(function(child)
+				if child:IsA("ControllerManager") then
+					if processIfManagerBelongsToCharacter(child) then
+						managerAddedListener:Disconnect()
+						managerAddedListener = nil
+					end
+				end
+			end)
+		end
 	end
 end
 lookForControllerManager()
@@ -192,13 +265,13 @@ function findExistingAnimationInSet(set, anim)
 	if set == nil or anim == nil then
 		return 0
 	end
-	
-	for idx = 1, set.count, 1 do 
+
+	for idx = 1, set.count, 1 do
 		if set[idx].anim.AnimationId == anim.AnimationId then
 			return idx
 		end
 	end
-	
+
 	return 0
 end
 
@@ -210,7 +283,7 @@ function configureAnimationSet(name, fileList)
 	end
 	animTable[name] = {}
 	animTable[name].count = 0
-	animTable[name].totalWeight = 0	
+	animTable[name].totalWeight = 0
 	animTable[name].connections = {}
 
 	local allowCustomAnimations = true
@@ -225,7 +298,7 @@ function configureAnimationSet(name, fileList)
 	if (allowCustomAnimations and config ~= nil) then
 		table.insert(animTable[name].connections, config.ChildAdded:connect(function(child) configureAnimationSet(name, fileList) end))
 		table.insert(animTable[name].connections, config.ChildRemoved:connect(function(child) configureAnimationSet(name, fileList) end))
-		
+
 		local idx = 0
 		for _, childPart in pairs(config:GetChildren()) do
 			if (childPart:IsA("Animation")) then
@@ -246,7 +319,7 @@ function configureAnimationSet(name, fileList)
 			end
 		end
 	end
-	
+
 	-- fallback to defaults
 	if (animTable[name].count <= 0) then
 		for idx, anim in pairs(fileList) do
@@ -259,14 +332,14 @@ function configureAnimationSet(name, fileList)
 			animTable[name].totalWeight = animTable[name].totalWeight + anim.weight
 		end
 	end
-	
+
 	-- preload anims
 	for i, animType in pairs(animTable) do
 		for idx = 1, animType.count, 1 do
 			if PreloadedAnims[animType[idx].anim.AnimationId] == nil then
 				Humanoid:LoadAnimation(animType[idx].anim)
 				PreloadedAnims[animType[idx].anim.AnimationId] = true
-			end				
+			end
 		end
 	end
 end
@@ -281,7 +354,7 @@ function configureAnimationSetOld(name, fileList)
 	end
 	animTable[name] = {}
 	animTable[name].count = 0
-	animTable[name].totalWeight = 0	
+	animTable[name].totalWeight = 0
 	animTable[name].connections = {}
 
 	local allowCustomAnimations = true
@@ -328,10 +401,10 @@ function configureAnimationSetOld(name, fileList)
 			-- print(name .. " [" .. idx .. "] " .. anim.id .. " (" .. anim.weight .. ")")
 		end
 	end
-	
+
 	-- preload anims
 	for i, animType in pairs(animTable) do
-		for idx = 1, animType.count, 1 do 
+		for idx = 1, animType.count, 1 do
 			Humanoid:LoadAnimation(animType[idx].anim)
 		end
 	end
@@ -342,7 +415,7 @@ function scriptChildModified(child)
 	local fileList = animNames[child.Name]
 	if (fileList ~= nil) then
 		configureAnimationSet(child.Name, fileList)
-	end	
+	end
 end
 
 script.ChildAdded:connect(scriptChildModified)
@@ -359,9 +432,9 @@ if animator then
 	end
 end
 
-for name, fileList in pairs(animNames) do 
+for name, fileList in pairs(animNames) do
 	configureAnimationSet(name, fileList)
-end	
+end
 
 -- ANIMATION
 
@@ -386,7 +459,7 @@ function stopAllAnimations()
 	if (emoteNames[oldAnim] ~= nil and emoteNames[oldAnim] == false) then
 		oldAnim = "idle"
 	end
-	
+
 	if currentlyPlayingEmote then
 		oldAnim = "idle"
 		currentlyPlayingEmote = false
@@ -408,13 +481,13 @@ function stopAllAnimations()
 	if (runAnimKeyframeHandler ~= nil) then
 		runAnimKeyframeHandler:disconnect()
 	end
-	
+
 	if (runAnimTrack ~= nil) then
 		runAnimTrack:Stop()
 		runAnimTrack:Destroy()
 		runAnimTrack = nil
 	end
-	
+
 	return oldAnim
 end
 
@@ -425,7 +498,7 @@ function getHeightScale()
 			-- a computed scale.
 			return getRigScale()
 		end
-		
+
 		local scale = Humanoid.HipHeight / HumanoidHipHeight
 		if AnimationSpeedDampeningObject == nil then
 			AnimationSpeedDampeningObject = script:FindFirstChild("ScaleDampeningPercent")
@@ -434,7 +507,7 @@ function getHeightScale()
 			scale = 1 + (Humanoid.HipHeight - HumanoidHipHeight) * AnimationSpeedDampeningObject.Value / HumanoidHipHeight
 		end
 		return scale
-	end	
+	end
 	return getRigScale()
 end
 
@@ -474,7 +547,7 @@ end
 
 function setAnimationSpeed(speed)
 	if currentAnim == "walk" then
-			setRunSpeed(speed)
+		setRunSpeed(speed)
 	else
 		if speed ~= currentAnimSpeed then
 			currentAnimSpeed = speed
@@ -498,17 +571,17 @@ function keyFrameReachedFunc(frameName)
 			if (emoteNames[repeatAnim] ~= nil and emoteNames[repeatAnim] == false) then
 				repeatAnim = "idle"
 			end
-			
+
 			if currentlyPlayingEmote then
 				if currentAnimTrack.Looped then
 					-- Allow the emote to loop
 					return
 				end
-				
+
 				repeatAnim = "idle"
 				currentlyPlayingEmote = false
 			end
-			
+
 			local animSpeed = currentAnimSpeed
 			playAnimation(repeatAnim, 0.15, Humanoid)
 			setAnimationSpeed(animSpeed)
@@ -517,7 +590,7 @@ function keyFrameReachedFunc(frameName)
 end
 
 function rollAnimation(animName)
-	local roll = math.random(1, animTable[animName].totalWeight) 
+	local roll = math.random(1, animTable[animName].totalWeight)
 	local origRoll = roll
 	local idx = 1
 	while (roll > animTable[animName][idx].weight) do
@@ -528,9 +601,9 @@ function rollAnimation(animName)
 end
 
 local function switchToAnim(anim, animName, transitionTime, humanoid)
-	-- switch animation		
+	-- switch animation
 	if (anim ~= currentAnimInstance) then
-		
+
 		if (currentAnimTrack ~= nil) then
 			currentAnimTrack:Stop(transitionTime)
 			currentAnimTrack:Destroy()
@@ -543,11 +616,11 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 		end
 
 		currentAnimSpeed = 1.0
-	
+
 		-- load it to the humanoid; get AnimationTrack
 		currentAnimTrack = humanoid:LoadAnimation(anim)
 		currentAnimTrack.Priority = Enum.AnimationPriority.Core
-		 
+
 		-- play the animation
 		currentAnimTrack:Play(transitionTime)
 		currentAnim = animName
@@ -558,7 +631,7 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 			currentAnimKeyframeHandler:disconnect()
 		end
 		currentAnimKeyframeHandler = currentAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)
-		
+
 		-- check to see if we need to blend a walk/run animation
 		if animName == "walk" then
 			local runAnimName = "run"
@@ -566,17 +639,17 @@ local function switchToAnim(anim, animName, transitionTime, humanoid)
 
 			runAnimTrack = humanoid:LoadAnimation(animTable[runAnimName][runIdx].anim)
 			runAnimTrack.Priority = Enum.AnimationPriority.Core
-			runAnimTrack:Play(transitionTime)		
-			
+			runAnimTrack:Play(transitionTime)
+
 			if (runAnimKeyframeHandler ~= nil) then
 				runAnimKeyframeHandler:disconnect()
 			end
-			runAnimKeyframeHandler = runAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)	
+			runAnimKeyframeHandler = runAnimTrack.KeyframeReached:connect(keyFrameReachedFunc)
 		end
 	end
 end
 
-function playAnimation(animName, transitionTime, humanoid) 	
+function playAnimation(animName, transitionTime, humanoid)
 	local idx = rollAnimation(animName)
 	local anim = animTable[animName][idx].anim
 
@@ -604,31 +677,31 @@ function toolKeyFrameReachedFunc(frameName)
 end
 
 
-function playToolAnimation(animName, transitionTime, humanoid, priority)	 		
-		local idx = rollAnimation(animName)
-		local anim = animTable[animName][idx].anim
+function playToolAnimation(animName, transitionTime, humanoid, priority)
+	local idx = rollAnimation(animName)
+	local anim = animTable[animName][idx].anim
 
-		if (toolAnimInstance ~= anim) then
-			
-			if (toolAnimTrack ~= nil) then
-				toolAnimTrack:Stop()
-				toolAnimTrack:Destroy()
-				transitionTime = 0
-			end
-					
-			-- load it to the humanoid; get AnimationTrack
-			toolAnimTrack = humanoid:LoadAnimation(anim)
-			if priority then
-				toolAnimTrack.Priority = priority
-			end
-			 
-			-- play the animation
-			toolAnimTrack:Play(transitionTime)
-			toolAnimName = animName
-			toolAnimInstance = anim
+	if (toolAnimInstance ~= anim) then
 
-			currentToolAnimKeyframeHandler = toolAnimTrack.KeyframeReached:connect(toolKeyFrameReachedFunc)
+		if (toolAnimTrack ~= nil) then
+			toolAnimTrack:Stop()
+			toolAnimTrack:Destroy()
+			transitionTime = 0
 		end
+
+		-- load it to the humanoid; get AnimationTrack
+		toolAnimTrack = humanoid:LoadAnimation(anim)
+		if priority then
+			toolAnimTrack.Priority = priority
+		end
+
+		-- play the animation
+		toolAnimTrack:Play(transitionTime)
+		toolAnimName = animName
+		toolAnimInstance = anim
+
+		currentToolAnimKeyframeHandler = toolAnimTrack.KeyframeReached:connect(toolKeyFrameReachedFunc)
+	end
 end
 
 function stopToolAnimations()
@@ -655,9 +728,9 @@ end
 
 function onRunning(speed)
 	local heightScale = getHeightScale()
-	
+
 	-- Adjust the walking speed if a ControllerManager is being used.
-	-- "speed" is world speed, whereas we want local speed. 
+	-- "speed" is world speed, whereas we want local speed.
 	-- IE, do not animate a walk if the character is stationary atop
 	-- a moving platform.
 	if charGroundSensor ~= nil and Humanoid.EvaluateStateMachine == false then
@@ -784,15 +857,15 @@ local lastTick = 0
 function stepAnimate(currentTime)
 	local amplitude = 1
 	local frequency = 1
-  	local deltaTime = currentTime - lastTick
-  	lastTick = currentTime
+	local deltaTime = currentTime - lastTick
+	lastTick = currentTime
 
 	local climbFudge = 0
 	local setAngles = false
 
-  	if (jumpAnimTime > 0) then
-  		jumpAnimTime = jumpAnimTime - deltaTime
-  	end
+	if (jumpAnimTime > 0) then
+		jumpAnimTime = jumpAnimTime - deltaTime
+	end
 
 	if (pose == "FreeFall" and jumpAnimTime <= 0) then
 		playAnimation("fall", fallTransitionTime, Humanoid)
@@ -825,7 +898,7 @@ function stepAnimate(currentTime)
 			toolAnim = "None"
 		end
 
-		animateTool()		
+		animateTool()
 	else
 		stopToolAnimations()
 		toolAnim = "None"
@@ -846,20 +919,22 @@ Humanoid.Seated:connect(onSeated)
 Humanoid.PlatformStanding:connect(onPlatformStanding)
 Humanoid.Swimming:connect(onSwimming)
 
--- setup emote chat hook
-game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
-	local emote = ""
-	if (string.sub(msg, 1, 3) == "/e ") then
-		emote = string.sub(msg, 4)
-	elseif (string.sub(msg, 1, 7) == "/emote ") then
-		emote = string.sub(msg, 8)
-	end
-	
-	if (pose == "Standing" and emoteNames[emote] ~= nil) then
-		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
-	end
-end)
+if not FFlagUserAnimateRemoveEmoteChatHook then
+	-- setup emote chat hook
+	game:GetService("Players").LocalPlayer.Chatted:connect(function(msg)
+		local emote = ""
+		if (string.sub(msg, 1, 3) == "/e ") then
+			emote = string.sub(msg, 4)
+		elseif (string.sub(msg, 1, 7) == "/emote ") then
+			emote = string.sub(msg, 8)
+		end
 
+		if (pose == "Standing" and emoteNames[emote] ~= nil) then
+			playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
+		end
+	end)
+end
+	
 -- emote bindable hook
 script:WaitForChild("PlayEmote").OnInvoke = function(emote)
 	-- Only play emotes when idling
@@ -870,7 +945,7 @@ script:WaitForChild("PlayEmote").OnInvoke = function(emote)
 	if emoteNames[emote] ~= nil then
 		-- Default emotes
 		playAnimation(emote, EMOTE_TRANSITION_TIME, Humanoid)
-		
+
 		return true, currentAnimTrack
 	elseif typeof(emote) == "Instance" and emote:IsA("Animation") then
 		-- Non-default emotes
@@ -878,7 +953,7 @@ script:WaitForChild("PlayEmote").OnInvoke = function(emote)
 
 		return true, currentAnimTrack
 	end
-	
+
 	-- Return false to indicate that the emote could not be played
 	return false
 end
@@ -894,4 +969,3 @@ while Character.Parent ~= nil do
 	local _, currentGameTime = wait(0.1)
 	stepAnimate(currentGameTime)
 end
-

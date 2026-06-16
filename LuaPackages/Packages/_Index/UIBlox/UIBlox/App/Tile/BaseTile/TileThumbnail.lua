@@ -13,7 +13,6 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local TileSelectionOverlay = require(BaseTile.TileSelectionOverlay)
 local TileUnselectedOverlay = require(BaseTile.TileUnselectedOverlay)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
@@ -96,7 +95,7 @@ function TileThumbnail:render()
 			}, {
 				BackgroundImage = Roact.createElement(ImageSetComponent.Label, {
 					Image = backgroundImage,
-					ImageColor3 = if UIBloxConfig.useTokensToColorThemedAssets and hasSurfaceOverrides
+					ImageColor3 = if hasSurfaceOverrides
 						then theme.BackgroundUIDefault.Color:Lerp(
 							theme.PlayerBackgroundDefault.Color,
 							theme.Overlay.Transparency
