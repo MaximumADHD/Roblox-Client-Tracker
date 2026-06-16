@@ -5726,6 +5726,16 @@ Studio.App.PropertyItems.AutoUpdateDisabledForNested,,,Auto Update disabled for 
 Studio.App.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
 Studio.App.PropertyItems.NoPermissionsAudio,,,Failed to load audio. User is not authorized to access asset.,Failed to load audio. User is not authorized to access asset.
 Studio.App.Property.EnableClientServerMDI,,,Enable Client/Server MDI for Play Solo,Enable Client/Server MDI for Play Solo
+Studio.App.RBXMainWindow.MDIClient,,,Client,Client
+Studio.App.RBXMainWindow.MDIClientActive,,,Client (Active),Client (Active)
+Studio.App.RBXMainWindow.MDIExplorerClient,,,Explorer (Client),Explorer (Client)
+Studio.App.RBXMainWindow.MDIExplorerServer,,,Explorer (Server),Explorer (Server)
+Studio.App.RBXMainWindow.MDIServer,,,Server,Server
+Studio.App.RBXMainWindow.MDIServerActive,,,Server (Active),Server (Active)
+Studio.App.RBXMainWindow.MDIShowServerViewport,,,Show Server Viewport,Show Server Viewport
+Studio.App.RBXMainWindow.MDIShowClientViewport,,,Show Client Viewport,Show Client Viewport
+Studio.App.RBXMainWindow.MDIShowHideServerViewport,,,Show / Hide Server Viewport,Show / Hide Server Viewport
+Studio.App.RobloxRibbonMainWindow.GroupsGuiObjectsIntoFrame,,,Group the selected GUI objects into a new Frame,Group the selected GUI objects into a new Frame
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8198,6 +8208,16 @@ Studio.Toolbox.AssetConfig.AvatarAnimationsBundleUploadAssetsStep,,,Uploading av
 Studio.Toolbox.AssetConfig.AvatarAnimationsBundlePartsUploadError,,,Error uploading all avatar animations.,Error uploading all avatar animations.
 Studio.Toolbox.AssetConfig.CreationContextBundleUploadQuotaExceeded,,,Error preparing bundle for upload. You can only upload {quota} {bundleType} bundles {quotaPeriod}.,Error preparing bundle for upload. You can only upload {quota} {bundleType} bundles {quotaPeriod}.
 Studio.Toolbox.AssetConfig.CreateAvatarAnimationsBundleInvalidAssetIds,,,Error creating bundle. Invalid avatar animations asset IDs.,Error creating bundle. Invalid avatar animations asset IDs.
+Studio.Toolbox.Subcategory.PluginsScripting,,,Scripting,Scripting
+Studio.Toolbox.Subcategory.PluginsAnimation,,,Animation,Animation
+Studio.Toolbox.Subcategory.PluginsAvatar,,,Avatar,Avatar
+Studio.Toolbox.Subcategory.PluginsUserInterface,,,User Interface,User Interface
+Studio.Toolbox.Subcategory.PluginsBuilding,,,Building,Building
+Studio.Toolbox.Subcategory.PluginsVisuals,,,Lighting & Atmosphere,Lighting & Atmosphere
+Studio.Toolbox.Subcategory.PluginsWorkflow,,,Workflow,Workflow
+Studio.Toolbox.Subcategory.PluginsAiTools,,,AI Tools,AI Tools
+Studio.Toolbox.AssetConfig.UploadDenied_MissingTwoStepVerification,,,Missing two step verification,Missing two step verification
+Studio.Toolbox.AssetConfig.CreationContextMissingTwoStepVerification,,,Two step verification is required to upload avatar items.,Two step verification is required to upload avatar items.
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -9019,6 +9039,10 @@ Studio.AnimationClipEditor.Dialog.ScaleUnit,,,Scale Unit,Scale Unit
 Studio.AnimationClipEditor.Dialog.ScaleFactor,,,Scale Factor,Scale Factor
 Studio.AnimationClipEditor.Dialog.CustomClip,,,Custom Clip,Custom Clip
 Studio.AnimationClipEditor.Dialog.ImportedRigZeroed,,,Imported Rig (Zeroed Rotations),Imported Rig (Zeroed Rotations)
+Studio.AnimationClipEditor.Dialog.RigType,,,Rig Type,Rig Type
+Studio.AnimationClipEditor.Dialog.RigTypeCustom,,,Custom,Custom
+Studio.AnimationClipEditor.Dialog.RigTypeCustomHumanoid,,,Custom Humanoid,Custom Humanoid
+Studio.AnimationClipEditor.Dialog.RigTypeR15,,,R15,R15
 Studio.ConvertToPackage.Meta.PluginName,,,Convert To Package,Convert To Package
 Studio.ConvertToPackage.General.Submit,,,Submit,Submit
 Studio.ConvertToPackage.General.Comments,,,Allow Comments,Allow Comments
@@ -9561,6 +9585,10 @@ Studio.AssetManager.FolderMove.MovingTooManyFolders,,,You can only move {maxFold
 Studio.AssetManager.Folders.GenericError,,,An error occurred while managing folders. Please try again.,An error occurred while managing folders. Please try again.
 Studio.AssetManager.Tooltip.CompactOptions,,,Options,Options
 Studio.AssetManager.AssetType.Places,,,Places,Places
+Studio.AssetManager.Dialogs.ConfirmBulkOpenBrowserHeading,,,You are about to open {count} assets in the browser. Each asset will open in its own tab. Are you sure you want to continue?,You are about to open {count} assets in the browser. Each asset will open in its own tab. Are you sure you want to continue?
+Studio.AssetManager.Toast.AddToExperienceSuccess,,,Added assets to game,Added assets to game
+Studio.AssetManager.Toast.AddToExperienceFailed,,,Failed to add some assets to game,Failed to add some assets to game
+Studio.AssetManager.ContextMenu.AddToExperience,,,Add to {gameName},Add to {gameName}
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11552,6 +11580,7 @@ Studio.RigGenerator.RigPresetLabel.BlockAvatar,,,Block Avatar (2012),Block Avata
 Studio.RigGenerator.RigPresetLabel.2016Avatar,,,Mesh Avatar (2016),Mesh Avatar (2016)
 Studio.RigGenerator.RigPresetLabel.2012Avatar,,,Mesh Avatar (2012),Mesh Avatar (2012)
 Studio.RigGenerator.RigPresetLabel.BlockAvatar2025,,,Block Avatar (2025),Block Avatar (2025)
+Studio.RigGenerator.RigPresetLabel.MannequinAvatar,,,Mannequin,Mannequin
 Studio.RobloxPropertiesWidget.Category.Accessories,,,Accessories,Accessories
 Studio.RobloxPropertiesWidget.Category.Advanced,,,Advanced,Advanced
 Studio.RobloxPropertiesWidget.Category.AlignOrientation,,,AlignOrientation,AlignOrientation
@@ -14022,6 +14051,7 @@ Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndCommunity,,,Experience avai
 Studio.StartPage.Plugin.Tooltip.LimitedPlaytestersAndFriends,,,Experience available to Playtesters and Friends,Experience available to Playtesters and Friends
 Studio.StartPage.TrustedConnectionRequestSnackbar.Message,,,Your request has been sent.,Your request has been sent.
 Studio.StartPage.TrustedConnectionLinkCopiedSnackbar.Message,,,Link copied. Share it with others to make a trusted friend request.,Link copied. Share it with others to make a trusted friend request.
+Studio.StartPage.Plugin.OpenACopy,,,Open a Copy,Open a Copy
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14086,6 +14116,11 @@ Studio.Assistant.Tools.ScriptInsertion,,,Script Insertion,Script Insertion
 Studio.Assistant.Tools.SwapAsset,,,Swap Asset,Swap Asset
 Studio.Assistant.Tools.MultiEdit,,,Multi Edit,Multi Edit
 Studio.Assistant.Tools.ReadFile,,,Read File,Read File
+Studio.Assistant.FileSearch.Pending,,,Searching for scripts,Searching for scripts
+Studio.Assistant.FileSearch.Complete,,,"Searched for scripts, found {count:int}","Searched for scripts, found {count:int}"
+Studio.Assistant.GrepSearch.Pending,,,Searching scripts for text pattern,Searching scripts for text pattern
+Studio.Assistant.GrepSearch.NoneFound,,,No matches found for search,No matches found for search
+Studio.Assistant.GrepSearch.MatchFound,,,Found script contents,Found script contents
 Studio.Assistant.CodeSafety.Destroy,,,"Warning: the above code uses :Destroy(), which is not an undoable action. Please review carefully before running.","Warning: the above code uses :Destroy(), which is not an undoable action. Please review carefully before running."
 Studio.Assistant.CodeSafety.ClearAllChildren,,,"Warning: the above code uses :ClearAllChildren(), which is not an undoable action. Please review carefully before running.","Warning: the above code uses :ClearAllChildren(), which is not an undoable action. Please review carefully before running."
 Studio.Assistant.CodeSafety.Camera,,,"Warning: the above code appears to modify the studio camera, which may not be undoable. Please review carefully before running.","Warning: the above code appears to modify the studio camera, which may not be undoable. Please review carefully before running."
@@ -14154,12 +14189,12 @@ Studio.Assistant.ScriptChangeConfirmation.ReviewEach,,,Review Each Script Change
 Studio.Assistant.ScriptChangeConfirmation.Warning,,,This prompt will make changes to your scripts,This prompt will make changes to your scripts
 Studio.Assistant.Subagent.Running,,,Running subagent...,Running subagent...
 Studio.Assistant.Subagent.Completed,,,Subagent complete,Subagent complete
-Studio.Assistant.FileSearch.SearchingFor,,,"Searching for ""{keywords}""","Searching for ""{keywords}"""
+Studio.Assistant.FileSearch.SearchingFor,,,Searching for '{keywords}',Searching for '{keywords}'
 Studio.Assistant.ReadFile.Read,,,Read {file},Read {file}
 Studio.Assistant.ReadFile.Reading,,,Reading {file},Reading {file}
 Studio.Assistant.InspectInstance.Inspected,,,Inspected {path},Inspected {path}
 Studio.Assistant.InspectInstance.Inspecting,,,Inspecting {path},Inspecting {path}
-Studio.Assistant.GrepSearch.SearchingFor,,,"Searching for ""{query}""","Searching for ""{query}"""
+Studio.Assistant.GrepSearch.SearchingFor,,,Searching for '{query}',Searching for '{query}'
 Studio.Assistant.InspectInstance.Pending,,,Inspecting...,Inspecting...
 Studio.Assistant.GameTree.Pending,,,Exploring game tree...,Exploring game tree...
 Studio.Assistant.GameTree.Found,,,Found {count:int} instances,Found {count:int} instances
@@ -14228,7 +14263,7 @@ Studio.Assistant.PrimitiveGen.GenerationErrorModerationFailed,,,Your request was
 Studio.Assistant.PrimitiveGen.InsertionFailedRetryPrompt,,,Insertion failed. <b>Insert again?</b>,Insertion failed. <b>Insert again?</b>
 Studio.Assistant.PrimitiveGen.RetryYes,,,Yes,Yes
 Studio.Assistant.PrimitiveGen.RetryNo,,,No,No
-Studio.Assistant.PrimitiveGen.GenerationCancelledPlayModeRetryPrompt,,,Generation cancelled (Studio left edit mode). <b>Try again?</b>,Generation cancelled (Studio left edit mode). <b>Try again?</b>
+Studio.Assistant.PrimitiveGen.GenerationCancelledPlayModeRetryPrompt,,,"Generation cancelled. You are currently running the game, but you must stop it to insert this generation. <b>Try again?</b>","Generation cancelled. You are currently running the game, but you must stop it to insert this generation. <b>Try again?</b>"
 Studio.Assistant.PrimitiveGen.InsertAgain,,,Insert again,Insert again
 Studio.Assistant.MeshGen.InputPartNamesTitle,,,Part Names,Part Names
 Studio.Assistant.HttpGet.Found,,,Found '{query}' in {url},Found '{query}' in {url}
@@ -14322,6 +14357,17 @@ Studio.Assistant.Skills.CreateNameInvalid,,,Name can only contain letters number
 Studio.Assistant.Skills.CreateNameTaken,,,A skill with this name already exists.,A skill with this name already exists.
 Studio.Assistant.Skills.Save,,,Save,Save
 Studio.Assistant.Segmentation.Suggesting,,,suggesting...,suggesting...
+Studio.Assistant.VersionMismatch.VersionMismatchWarning,,,Version mismatch detected. Please restart Roblox Studio.,Version mismatch detected. Please restart Roblox Studio.
+Studio.Assistant.PrimitiveGen.GenerationErrorEmptyPrompt,,,The prompt is empty. Please provide either text or an image input.,The prompt is empty. Please provide either text or an image input.
+Studio.Assistant.PrimitiveGen.GenerationErrorTooManyConcurrentJobs,,,"You can only run {maxConcurrentJobs} generation{s} simultaneously. Wait for one to finish, then try again.","You can only run {maxConcurrentJobs} generation{s} simultaneously. Wait for one to finish, then try again."
+Studio.Assistant.PrimitiveGen.GenerationErrorPluginVersionMismatch,,,"The Assistant plugin just got new patch, please restart RobloxStudio.","The Assistant plugin just got new patch, please restart RobloxStudio."
+Studio.Assistant.PrimitiveGen.GenerationErrorDmHealthChecking,,,"The DataModel is busy and not responding to take this tool call. Please check any breakpoint hitting or plugin or command bar script running blocks the DataModel, or try to restart RobloxStudio to run the tool","The DataModel is busy and not responding to take this tool call. Please check any breakpoint hitting or plugin or command bar script running blocks the DataModel, or try to restart RobloxStudio to run the tool"
+Studio.Assistant.Skill.UnknownSkillName,,,<unknown_skill>,<unknown_skill>
+Studio.Assistant.Skill.Failed,,,Failed when calling skill {name},Failed when calling skill {name}
+Studio.Assistant.FileSearch.Failed,,,Failed to search for '{keywords}',Failed to search for '{keywords}'
+Studio.Assistant.GameTree.Failed,,,Failed when exploring game tree,Failed when exploring game tree
+Studio.Assistant.GrepSearch.Failed,,,Search failed,Search failed
+Studio.Assistant.InspectInstance.Failed,,,Failed to inspect {path},Failed to inspect {path}
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14850,7 +14896,7 @@ Studio.BetaFeatures.VREmulatorDescription,,,"Enable this feature to simulate a V
 Studio.BetaFeatures.AssetManagerTitle,,,Asset Manager,Asset Manager
 Studio.BetaFeatures.LuauNativeCodegenDescription,,,Enable native code generation for Luau modules tagged with --!native.,Enable native code generation for Luau modules tagged with --!native.
 Studio.BetaFeatures.MultilayerWrapFixTitle,,,Multilayer Wrap Fix,Multilayer Wrap Fix
-Studio.BetaFeatures.NewCameraControlsTitle,,,New Studio Camera Controls,New Studio Camera Controls
+Studio.BetaFeatures.NewCameraControlsTitle,,,Studio Camera Controls (V1),Studio Camera Controls (V1)
 Studio.BetaFeatures.StudioNotifications,,,Notification Overhaul,Notification Overhaul
 Studio.BetaFeatures.ClarifiedIKDraggersDescription,,,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode
 Studio.BetaFeatures.NewExperiencesEnableTeamCreateDescNew,,,New experiences created in Studio are immediately saved to Roblox and have Team Create enabled by default.,New experiences created in Studio are immediately saved to Roblox and have Team Create enabled by default.
@@ -15003,6 +15049,8 @@ Studio.BetaFeatures.PackageOverridesTitle,,,Package Overrides,Package Overrides
 Studio.BetaFeatures.PackageOverridesDescription,,,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.,Update package links with overrides (local changes). The local changes will override any changes coming in from package updates.
 Studio.BetaFeatures.SegmentByPartsTitle,,,Segment by Parts,Segment by Parts
 Studio.BetaFeatures.SegmentByPartsDescription,,,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
+Studio.BetaFeatures.SecondAttemptCameraControlsTitle,,,Studio Camera Controls (V2),Studio Camera Controls (V2)
+Studio.BetaFeatures.SecondAttemptCameraControlsDescription,,,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15362,6 +15410,7 @@ Studio.SystemMenu.Tooltip.Performance,,,A basic performance overlay,A basic perf
 Studio.SystemMenu.Title.ReportIllegalContent,,,Report Illegal Content,Report Illegal Content
 Studio.SystemMenu.Tooltip.ReportIllegalContent,,,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
 Studio.SystemMenu.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
+Studio.SystemMenu.Title.GroupAsFrame,,,Group as Frame,Group as Frame
 Studio.PlaceUpload.ErrorMessage.BadRequest,,,Place save was rejected. Check your network and try again later.,Place save was rejected. Check your network and try again later.
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,,Search for a Behavior to bind to,Search for a Behavior to bind to
@@ -15520,9 +15569,9 @@ Studio.CreatorConfig.PublishAsDialog.PublishFailure,,,Failed to publish configs,
 Studio.CreatorConfig.PublishAsDialog.PublishInProgress,,,Publish in progress,Publish in progress
 Studio.CreatorConfig.PublishFailureReason.Unknown,,,An unknown error occurred.,An unknown error occurred.
 Studio.CreatorConfig.PublishFailureReason.Timeout,,,Request timed out.,Request timed out.
-Studio.CreatorConfig.PublishFailureReason.OngoingPublish,,,A publish is already in progress for this experience.,A publish is already in progress for this experience.
-Studio.CreatorConfig.PublishFailureReason.EmptyDraft,,,No publish needed. Configs are already up to date.,No publish needed. Configs are already up to date.
-Studio.CreatorConfig.PublishAsDialog.PublishToExperienceSuccess,,,Successfully published configs to {universeName}.,Successfully published configs to {universeName}.
+Studio.CreatorConfig.PublishFailureReason.OngoingPublish,,,A publish is already in progress for {universeName}.,A publish is already in progress for {universeName}.
+Studio.CreatorConfig.PublishFailureReason.EmptyDraft,,,Configs are already up to date for {universeName}.,Configs are already up to date for {universeName}.
+Studio.CreatorConfig.PublishAsDialog.PublishToExperienceSuccess,,,Changes have been published to {universeName}.,Changes have been published to {universeName}.
 Studio.PartyEmulator.Action.AddParty,,,Add Party,Add Party
 Studio.PartyEmulator.Action.Delete,,,Delete,Delete
 Studio.PartyEmulator.Label.PartyPlayersCount,,,{current}/{max} Users,{current}/{max} Users
@@ -15727,6 +15776,7 @@ Studio.TeamCreateCollaborators.VPCRequestSentDialog.GenericFailureSubtitle,,,Ple
 Studio.TeamCreateCollaborators.PCRequestSentDialog.NotFriendsBannerMessage,,,Unable to send request to {count:int} users,Unable to send request to {count:int} users
 Studio.TeamCreateCollaborators.VPCRequestSentDialog.NotFriendsBannerMessage,,,Unable to send request to {count:int} users,Unable to send request to {count:int} users
 Studio.TeamCreateCollaborators.VPCRequestSentDialog.NotFriendsSubtitle,,,Make sure you are friends first before you send a trusted friend request.,Make sure you are friends first before you send a trusted friend request.
+Studio.TeamCreateCollaborators.MainView.RequiresTrustedConnectionTitle,,,Some collaborators require trusted friends to collaborate,Some collaborators require trusted friends to collaborate
 Studio.AssetPicker.OptionMenu.Layout,,,Display,Display
 Studio.AssetPicker.OptionMenu.Sort,,,Sort by,Sort by
 Studio.AssetPicker.OptionMenuItem.List,,,List,List

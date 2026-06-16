@@ -5970,6 +5970,8 @@ Studio.BetaFeatures.CsgStudioButtonsDescription,Description for the studio beta 
 Studio.BetaFeatures.CsgStudioButtonsTitle,Title for the studio beta for the updated solid modeling buttons.,Improved Studio Solid Modeling Controls,Improved Studio Solid Modeling Controls
 Studio.BetaFeatures.CustomVideoUploadDescription,,Enables video uploads through the Asset Manager for eligible users.,Enables video uploads through the Asset Manager for eligible users.
 Studio.BetaFeatures.CustomVideoUploadTitle,,Video Uploads,Video Uploads
+Studio.BetaFeatures.DebuggerLuauAPIDescription,Description of the Debugger Luau API beta feature,Enables the Debugger Luau API (ScriptDebuggerService) for programmatic control over the Roblox Studio debugger.,Enables the Debugger Luau API (ScriptDebuggerService) for programmatic control over the Roblox Studio debugger.
+Studio.BetaFeatures.DebuggerLuauAPITitle,Title of Debugger Luau API beta feature,Debugger Luau API,Debugger Luau API
 Studio.BetaFeatures.DefaultInstancesDescription,Description of a beta feature which allows Instance defaults to be configured.,"Allows customization of Instance defaults. Introduce an action ""Edit > Save as Default _"" which updates the default properties of inserted Instances of the selected type.","Allows customization of Instance defaults. Introduce an action ""Edit > Save as Default _"" which updates the default properties of inserted Instances of the selected type."
 Studio.BetaFeatures.DefaultInstancesTitle,Title of a beta feature which allows users to configure how newly inserted Instances act.,User Provided Default Instances,User Provided Default Instances
 Studio.BetaFeatures.DetachedAttachmentsDescription,note that Attachment refers to the class name https://create.roblox.com/docs/reference/engine/classes/Attachment,"Loosens restrictions, allowing Attachments as children of anything.","Loosens restrictions, allowing Attachments as children of anything."
@@ -6822,6 +6824,39 @@ Studio.GlobalWind.Plugin.Description,,Toggles the Template plugin window.,Toggle
 Studio.GlobalWind.Plugin.Name,,GlobalWind,GlobalWind
 Studio.GlobalWind.Plugin.Toolbar,,GlobalWind,GlobalWind
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,"Shows under the CornerRadius property when one of TopLeftRadius, TopRightRadius, BottomRightRadius, or BottomLeftRadius don't match the value shown in CornerRadius.",Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
+Studio.InputActionManager.Binding.Backward,Used to define the backward direction for composite bindings.,Backward,Backward
+Studio.InputActionManager.Binding.Composite,Used to label composite directions when there are multiple bindings per schema.,Composite,Composite
+Studio.InputActionManager.Binding.Down,Used to define the down direction for composite bindings.,Down,Down
+Studio.InputActionManager.Binding.Forward,Used to define the forward direction for composite bindings.,Forward,Forward
+Studio.InputActionManager.Binding.Keycode,Used to label standard keycodes when there are multiple bindings per schema.,Keycode,Keycode
+Studio.InputActionManager.Binding.Left,Used to define the left direction for composite bindings.,Left,Left
+Studio.InputActionManager.Binding.PrimaryModifier,"Primary modifier for an action, usually a button like control or shift.",Primary Modifier,Primary Modifier
+Studio.InputActionManager.Binding.Right,Used to define the right direction for composite bindings.,Right,Right
+Studio.InputActionManager.Binding.SecondaryModifier,"Secondary modifier for an action, usually a button like control or shift.",Secondary Modifier,Secondary Modifier
+Studio.InputActionManager.Binding.Up,Used to define the up direction for composite bindings.,Up,Up
+Studio.InputActionManager.Header.Context,Labels the context column within the header.,Context,Context
+Studio.InputActionManager.Header.Search,Defines the placeholder for searching.,Search,Search
+Studio.InputActionManager.Menu.AddPrimaryModifier,Defines a menu option for adding a primary modifier.,Add Primary Modifier,Add Primary Modifier
+Studio.InputActionManager.Menu.AddSecondaryModifier,Defines a menu option for adding a secondary modifier..,Add Secondary Modifier,Add Secondary Modifier
+Studio.InputActionManager.Menu.ChangeActionType,"Defines a menu option that lets you change the type property of an InputAction into Bool, Direction1D, Direction2D, or Direction3D.",Change Action Type,Change Action Type
+Studio.InputActionManager.Menu.Delete,Defines a menu option that lets you delete a context or action.,Delete,Delete
+Studio.InputActionManager.Menu.Rename,Defines a menu option that lets you rename a context or action.,Rename,Rename
+Studio.InputActionManager.Menu.UseComposite,Defines a menu option that lets you alter an action row to use a composite direction instead of a keycode.,Use Composite,Use Composite
+Studio.InputActionManager.Menu.UseKeycode,Defines a menu option that lets you alter an action row to use a keycode instead of a composite direction.,Use Keycode,Use Keycode
+Studio.InputActionManager.Plugin.Button,This is the name that will be displayed with the button in the Ribbon Bar.,Actions,Actions
+Studio.InputActionManager.Plugin.Description,Defines whats shown in the tooltip when hovering over the Ribbon Bar button.,"Set up contexts, actions, and bindings","Set up contexts, actions, and bindings"
+Studio.InputActionManager.Plugin.Name,The full plugin name for Input Action Manager.,Input Action Manager,Input Action Manager
+Studio.InputActionManager.Schema.Gamepad,Defines a schema that bindings can be grouped into.,Gamepad,Gamepad
+Studio.InputActionManager.Schema.KeyboardAndMouse,Defines a schema that bindings can be grouped into.,Keyboard and Mouse,Keyboard and Mouse
+Studio.InputActionManager.Schema.Touch,Defines a schema that bindings can be grouped into.,Touch,Touch
+Studio.InputActionManager.Schema.VR,Defines a schema that bindings can be grouped into.,VR,VR
+Studio.InputActionManager.Status.DuplicateKeycodeDescription,Title for the status that says the keycode is duplicated within the same context.,{keycode} is used elsewhere: {actions},{keycode} is used elsewhere: {actions}
+Studio.InputActionManager.Status.DuplicateKeycodeTitle,Title for the status that says the keycode is duplicated within the same context.,Duplicate Keycode,Duplicate Keycode
+Studio.InputActionManager.Status.MissingCompositeKeycodeDescription,Title for the status that tells the user that the composite direction is missing keycodes.,This composite binding is missing a directional keycode.,This composite binding is missing a directional keycode.
+Studio.InputActionManager.Status.MissingCompositeKeycodeTitle,Title for the status that tells the user that the composite direction is missing keycodes.,Missing Keycode,Missing Keycode
+Studio.InputActionManager.Status.MissingKeycodeDescription,Description for the status that lets the user know they are missing a keybind.,This action is missing a keycode binding for this schema.,This action is missing a keycode binding for this schema.
+Studio.InputActionManager.Status.MissingKeycodeTitle,Title for the status that tells the user that no keycode is defined for the action.,Missing Keycode,Missing Keycode
+Studio.InputActionManager.Status.ModifierKeycodeTitle,Title for the status that says the modifier keycode overlaps with the another keycode in the binding.,Modifier Keycode,Modifier Keycode
 Studio.LayeredClothingEditor.Actions.Redo,,Redo,Redo
 Studio.LayeredClothingEditor.Actions.SelectLattice,,Select Lattice,Select Lattice
 Studio.LayeredClothingEditor.Actions.ToggleTransform,,Toggle Transform,Toggle Transform
@@ -7844,6 +7879,7 @@ Studio.SystemMenu.Title.FourStuds,"When we toggle the 3d grid, this is the 4 stu
 Studio.SystemMenu.Title.Group,Menu that contains the Group as Model and Group as Folder actions that perform grouping of instances in Studio,Group,Group
 Studio.SystemMenu.Title.GroupAsFolder,Group the selected Instances under a new Folder,Group as Folder,Group as Folder
 Studio.SystemMenu.Title.GroupAsModel,Group the selected Instances under a new Model,Group as Model,Group as Model
+Studio.SystemMenu.Title.Input,Defines the system submenu for windows related to input.,Input,Input
 Studio.SystemMenu.Title.LiveCollaborators,"Plugin that allows users to view collaborators currently active (""live"") in their Team Create session.",Live Collaborators,Live Collaborators
 Studio.SystemMenu.Title.Localization,Menu that contains localization related studio plugins,Localization,Localization
 Studio.SystemMenu.Title.LocalizationTool,Name of the action to display the Localization Tools plugin,Localization Tools,Localization Tools
