@@ -9203,7 +9203,7 @@ RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,class std::sh
 RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,class std::string __cdecl(class std::string)const __ptr64,0,1>
 RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,int __cdecl(void)const __ptr64,0,0>
 RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,void __cdecl(__int64),0,1>
-RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,void __cdecl(__int64,__int64,bool,bool),0,4>
+RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,void __cdecl(__int64,__int64,bool,bool,bool),0,5>
 RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,void __cdecl(bool),0,1>
 RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,void __cdecl(class std::string),0,1>
 RBX::Reflection::BoundFuncDesc<class RBX::Studio::StartPageService,void __cdecl(void),0,0>
@@ -20077,6 +20077,7 @@ std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LMS::Recipe>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LMS::Report>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LMS::Runner>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LMS::Target>,0>
+std::_Ebco_base<class RSL::Detail::Allocator<class RBX::Localization::Expression>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LocalizationServiceStatReporter>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LocalStorage::FlushBatch>,0>
 std::_Ebco_base<class RSL::Detail::Allocator<class RBX::LoggingProtocolCore>,0>
@@ -24486,6 +24487,7 @@ std::_Ref_count_obj_alloc3<class RBX::LMS::Recipe,class RSL::Detail::Allocator<c
 std::_Ref_count_obj_alloc3<class RBX::LMS::Report,class RSL::Detail::Allocator<class RBX::LMS::Report> >
 std::_Ref_count_obj_alloc3<class RBX::LMS::Runner,class RSL::Detail::Allocator<class RBX::LMS::Runner> >
 std::_Ref_count_obj_alloc3<class RBX::LMS::Target,class RSL::Detail::Allocator<class RBX::LMS::Target> >
+std::_Ref_count_obj_alloc3<class RBX::Localization::Expression,class RSL::Detail::Allocator<class RBX::Localization::Expression> >
 std::_Ref_count_obj_alloc3<class RBX::LocalizationServiceStatReporter,class RSL::Detail::Allocator<class RBX::LocalizationServiceStatReporter> >
 std::_Ref_count_obj_alloc3<class RBX::LocalStorage::FlushBatch,class RSL::Detail::Allocator<class RBX::LocalStorage::FlushBatch> >
 std::_Ref_count_obj_alloc3<class RBX::LoggingProtocolCore,class RSL::Detail::Allocator<class RBX::LoggingProtocolCore> >
@@ -26074,6 +26076,7 @@ std::_Ref_count_obj2<class RBX::LMS::Recipe>
 std::_Ref_count_obj2<class RBX::LMS::Report>
 std::_Ref_count_obj2<class RBX::LMS::Runner>
 std::_Ref_count_obj2<class RBX::LMS::Target>
+std::_Ref_count_obj2<class RBX::Localization::Expression>
 std::_Ref_count_obj2<class RBX::LocalizationServiceStatReporter>
 std::_Ref_count_obj2<class RBX::LocalStorage::FlushBatch>
 std::_Ref_count_obj2<class RBX::LocalStorageHandler::PlatformCallReceiver>

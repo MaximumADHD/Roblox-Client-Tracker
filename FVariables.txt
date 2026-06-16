@@ -9892,6 +9892,7 @@
 [C++] FFlagFixSplitHashBitmapCorruption2
 [C++] FFlagFixStalePublishingToNewSlotFlag
 [C++] FFlagFixStartPageOpenedInEditMode
+[C++] FFlagFixStudioEndSessionForTeamTest
 [C++] FFlagFixStudioUnsavedScriptChangesDialog
 [C++] FFlagFixStudioWebView2LinkNotOpen
 [C++] FFlagFixStyleRulePriorityUnderFolder
@@ -11175,6 +11176,7 @@
 [C++] FFlagScrollingFrameFixCrossAxisCanvasPosition2
 [C++] FFlagSDLFixDirectInputEnumHang
 [C++] FFlagSDLFixDirectInputHapticsInit
+[C++] FFlagSDLFixHIDEnumHangMac
 [C++] FFlagSDLUseNewGameControllerDb
 [C++] FFlagSecondAttemptCameraControlsBetaFeature
 [C++] FFlagSecretTransformationEnabled
@@ -11554,7 +11556,9 @@
 [C++] FFlagStudioAddAttributeComboBoxBackground
 [C++] FFlagStudioAdditionalFontHangInfo
 [C++] FFlagStudioAddMaterialPickerNewRibbon
+[C++] FFlagStudioAddSafetyBlockedOpenPlaceTelemetryResult
 [C++] FFlagStudioAddStandaloneNameToContextInfo
+[C++] FFlagStudioAllowForceLocalOpen
 [C++] FFlagStudioAlwaysOnTopHighlightFix
 [C++] FFlagStudioAssetManagerAddRecentlyImportedView
 [C++] FFlagStudioAssistantApplicationImageDecodeRefactor

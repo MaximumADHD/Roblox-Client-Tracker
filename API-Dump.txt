@@ -7070,7 +7070,7 @@ Class StartPageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [N
 	Function StartPageService:isTutorialPopupClosed() -> boolean {🔒RobloxScript}
 	Function StartPageService:openLink(link: string) -> () {🔒RobloxScript}
 	Function StartPageService:openLocalFile(filePath: string) -> () {🔒RobloxScript}
-	Function StartPageService:openPlace(placeId: number, universeId: number, launchTutorial: boolean, shouldSkipSafetyChecks: boolean? = false) -> () {🔒RobloxScript}
+	Function StartPageService:openPlace(placeId: number, universeId: number, launchTutorial: boolean, shouldSkipSafetyChecks: boolean? = false, openAsLocalCopy: boolean? = false) -> () {🔒RobloxScript}
 	Function StartPageService:removeAPIGameFromRegistry(gameId: number) -> () {🔒RobloxScript}
 	Function StartPageService:removeLocalFileFromRegistry(fileName: string) -> () {🔒RobloxScript}
 	Function StartPageService:setTutorialBannerClosed(closed: boolean) -> () {🔒RobloxScript}

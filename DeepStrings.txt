@@ -65,7 +65,7 @@ ABCDEFGIJKLMNOPQRSTVWXYZ
 ABCDEFlibpng
 ABCDEFUnknown
 ABCDEILMNORSTVYZ
-ABD436AA31CB7A52BB5E424
+ABD436AA31CB7A52BB5E424pd
 AbdmDefaultBaseRetryTimeMs
 AbdmDefaultCleanupThreshold
 AbdmDefaultMaxBackoffTimeMs
@@ -2873,6 +2873,7 @@ AskClientProcessToGracefullyShutdown
 AskIfOverwrite
 AskQuestion
 AskServerToCleanupChildProcess
+AsLocalCopy
 ASN1_BIT_STRING
 ASN1_BMPSTRING
 ASN1_BOOLEAN
@@ -3472,7 +3473,7 @@ ATAUAVAWIc
 ATAUAVAWLc
 ATAUAVAWLcl
 ATAUAVAWMc
-ATexturePacksFallbackReferenceManaged
+ATexTraceLog
 Atildesmall
 AtlasInsert
 AtlasOverflowFrameCountThreshold
@@ -20640,7 +20641,6 @@ CrashUploadToBacktraceWindowsStudioToken
 CrashUploadToBacktraceXboxPlayerToken
 CrashWhenNoFontGetsLoaded
 CratersAndDebris
-CRbxQtSingleton
 CREATE_FAILED
 CREATE_SOLID_PRIMITIVE
 CreateAccelerationStructureKHR
@@ -21563,6 +21563,7 @@ CSObject.In
 CSObject.Out
 CSObject.Size
 CST.TranslationVariant
+CStudio.App.DmDiffUI.DescendantChangesToolTip1
 CStudioFeatureActivityTrackerLog
 CStudioHardwareSleepListenerLog
 CSVwithCRLF
@@ -24482,6 +24483,7 @@ DEPRECATED_FindReplaceOpenAndLockScriptsController_0
 DEPRECATED_FindReplaceOpenAndLockScriptsController_1
 DEPRECATED_forceReloadImagesInternal
 DEPRECATED_foundItemsIncreased
+DEPRECATED_getAndCloseRunningTeamTestServers
 DEPRECATED_GetProductInfoSubscriptionCacheSecs
 DEPRECATED_HACDConvexDecomp_Dynamic
 DEPRECATED_handleActionGroupSelected
@@ -24646,7 +24648,6 @@ DescendentsTable
 DescendGrid
 Descending
 DescribedBase
-DescribedCre
 DescribedCreatable
 Description
 DESCRIPTION
@@ -31002,6 +31003,7 @@ FixStaleServerEquipToolWeld
 FixStartPageOpenedInEditMode
 FixStringCheckInNS
 FixStudioClientRepStats
+FixStudioEndSessionForTeamTest
 FixStudioUnsavedScriptChangesDialog
 FixStudioWebView2LinkNotOpen
 FixStyleRulePriorityUnderFolder
@@ -36909,7 +36911,7 @@ IKUsedLimits
 ILegacyStudioBridge
 IllegalAndRegulatedGoodsAndActivities
 IllegalContentAction
-IllegalMessageTop7
+IllegalMessageTop
 IllegalOperation
 IllegalValue
 ILocalFileSaveManager
@@ -54194,6 +54196,7 @@ ReadLockSpinLockBudgetUSec
 ReadMarker
 ReadMemoryRequest
 ReadOnlyH9
+ReadOnlyScriptD
 ReadOnlyScriptDocuments
 ReadOnlySharedBuffer
 ReadOnlySharedBufferImpl
@@ -58287,6 +58290,7 @@ SafeResetOnRouteChange
 SaferLogsServiced
 SafeThisCapturer
 SafetyAgeGatingManager
+SafetyBlocked
 SafetyChecks
 SafetyContext
 SafetyDialog
@@ -58831,7 +58835,7 @@ ScriptDrafts
 ScriptEditor
 ScriptEditor.MultiCursor.EditsCount
 ScriptEditor.MultiCursor.KeystrokesSaved
-ScriptEditor_Wai
+ScriptEditor_WaiXV
 ScriptEditorActionTooltipSelectionLimit
 ScriptEditorAdded
 ScriptEditorAutoCompleteAcceptedThrottleHundredthPercent
@@ -59364,6 +59368,7 @@ SDLEventsBufferMutex
 SDLFixDirectInputEnumHang
 SDLFixDirectInputHapticsInit
 SDLFixedUpdateStatesMutex
+SDLFixHIDEnumHangMac
 SDLGameControllerAxisDriftDeadZoneHundredth
 SDLUseNewGameControllerDb
 SDP_SYNTAX_ERROR
@@ -64816,7 +64821,6 @@ Studio.App.DirtyPublishWarningDialog.WarningText
 Studio.App.DmDiffUI.Added1
 Studio.App.DmDiffUI.Compare
 Studio.App.DmDiffUI.Deleted1
-Studio.App.DmDiffUI.DescendantChangesToolTip1
 Studio.App.DmDiffUI.Properties
 Studio.App.DmDiffUI.Title1
 Studio.App.DmDiffUI.Version.Error
@@ -67758,9 +67762,11 @@ StudioAddAccount
 StudioAddAttributeComboBoxBackground
 StudioAdditionalFontHangInfo
 StudioAddMaterialPickerNewRibbon
+StudioAddSafetyBlockedOpenPlaceTelemetryResult
 StudioAddStandaloneNameToContextInfo
 StudioAeroMeshProcessing
 StudioAllowedLegacyLockUsageList
+StudioAllowForceLocalOpen
 StudioAlwaysOnTopHighlightFix
 StudioAnalytics
 StudioAnalyticsDiskInfo
@@ -70686,7 +70692,6 @@ TextMeasureTemporaryPatch
 TextModeration
 TextOption
 TextPrompt
-TexTraceLog
 TextRemovedFromPrev
 TextRemovedSincePreviousRequest
 TextRender
@@ -70854,6 +70859,7 @@ TexturePackPreviewTelemetry
 TexturePackPropset
 TexturePackRetryFetchCount
 TexturePackRetryPriorityOffset
+TexturePacksFallbackReferenceManaged
 TexturePackSpec
 TexturePackSpecPixelated
 TexturePacksStreamableContent
@@ -77505,6 +77511,7 @@ VExponentialDecaySmoothing
 VExportPlaceAction
 VExportSelectionAction
 VExportTraceServiceResponse
+VExpression
 VExternalContentSharingProtocol
 VExternalStateWatcher
 VExtractor
