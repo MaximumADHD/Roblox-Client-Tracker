@@ -4327,6 +4327,91 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RaycastResult#Normal",
     "code_sample": ""
   },
+  "@roblox/global/User": {
+    "documentation": "Represents a user's domain-scoped identity within a specific domain.",
+    "keys": {
+      "fromId": "@roblox/global/User.fromId",
+      "fromString": "@roblox/global/User.fromString"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User",
+    "code_sample": ""
+  },
+  "@roblox/global/User.fromId/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/User.fromId": {
+    "documentation": "Creates a <code>User</code> from a domain user ID within the current experience.",
+    "params": [
+      {
+        "name": "domainUserId",
+        "documentation": "@roblox/global/User.fromId/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#fromId",
+    "code_sample": ""
+  },
+  "@roblox/global/User.fromString/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/User.fromString": {
+    "documentation": "Creates a <code>User</code> from its serialized string form.",
+    "params": [
+      {
+        "name": "userString",
+        "documentation": "@roblox/global/User.fromString/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#fromString",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/User": {
+    "documentation": "Represents a user's domain-scoped identity within a specific domain.",
+    "keys": {
+      "Id": "@roblox/globaltype/User.Id",
+      "DomainType": "@roblox/globaltype/User.DomainType",
+      "DomainId": "@roblox/globaltype/User.DomainId",
+      "ToString": "@roblox/globaltype/User.ToString"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/User.Id": {
+    "documentation": "The domain user ID, unique within this domain.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#Id",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/User.DomainType": {
+    "documentation": "The type of domain that this domain user ID belongs to.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#DomainType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/User.DomainId": {
+    "documentation": "The identifier of the specific domain instance.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#DomainId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/User.ToString/param/0": {
+    "documentation": "Represents a user's domain-scoped identity within a specific domain."
+  },
+  "@roblox/globaltype/User.ToString/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/User.ToString": {
+    "documentation": "Serializes this <code>User</code> into a stable string representation.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/User.ToString/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/User.ToString/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/User#ToString",
+    "code_sample": ""
+  },
   "@roblox/global/Ray": {
     "documentation": "Belirli bir yönde sonsuz şekilde uzanan bir başlangıç noktasına sahip bir hattı temsil eder.",
     "keys": {
@@ -17944,13 +18029,13 @@
     "documentation": "Fiziksel olarak etkileşime giren dünyadaki nesneler için soyut temel sınıf."
   },
   "@roblox/globaltype/BasePart.GetClosestPointOnSurface/param/1": {
-    "documentation": ""
+    "documentation": "En yakın yüzey noktasını bulmak için dünya uzayındaki nokta."
   },
   "@roblox/globaltype/BasePart.GetClosestPointOnSurface/return/0": {
-    "documentation": ""
+    "documentation": "Dünya uzayında kısmın yüzeyindeki en yakın nokta."
   },
   "@roblox/globaltype/BasePart.GetClosestPointOnSurface": {
-    "documentation": "",
+    "documentation": "Verilen noktaya en yakın kısmın yüzeyindeki noktayı döner.",
     "params": [
       {
         "name": "self",
@@ -29783,7 +29868,8 @@
       "Offset": "@roblox/globaltype/UIShadow.Offset",
       "Spread": "@roblox/globaltype/UIShadow.Spread",
       "Transparency": "@roblox/globaltype/UIShadow.Transparency",
-      "ZIndex": "@roblox/globaltype/UIShadow.ZIndex"
+      "ZIndex": "@roblox/globaltype/UIShadow.ZIndex",
+      "Enabled": "@roblox/globaltype/UIShadow.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow",
     "code_sample": ""
@@ -29816,6 +29902,11 @@
   "@roblox/globaltype/UIShadow.ZIndex": {
     "documentation": "Kardeş <code>UIShadow</code> örneklerine göre gölgenin render sırasını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#ZIndex",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/UIShadow.Enabled": {
+    "documentation": "<code>UIShadow</code>'ın görünür olup olmadığını belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UIShadow#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/EncodingService": {
@@ -33924,7 +34015,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector": {
-    "documentation": "<code>GuiObjects</code>'ı katmanlar halinde render eden 2D UI konteynerlerinin temel sınıfıdır.",
+    "documentation": "2D UI konteynerlerinin temel sınıfı, <code>GuiObjects</code>'u katmanlar halinde render eder.",
     "keys": {
       "Enabled": "@roblox/globaltype/LayerCollector.Enabled",
       "ResetOnSpawn": "@roblox/globaltype/LayerCollector.ResetOnSpawn",
@@ -33941,7 +34032,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.ResetOnSpawn": {
-    "documentation": "Oyuncunun karakteri her yeniden doğduğunda <code>LayerCollector</code>'ın sıfırlanıp sıfırlanmayacağını (kendini silip oyuncunun <code>PlayerGui</code>'sine yeniden klonlanmasını) belirler.",
+    "documentation": "Oyuncunun karakteri her yeniden doğduğunda <code>LayerCollector</code>'ın sıfırlanıp sıfırlanmayacağını (kendini silip oyuncunun <code>PlayerGui</code>'sine yeniden kopyalanmasını) belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LayerCollector#ResetOnSpawn",
     "code_sample": ""
   },
@@ -33951,18 +34042,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.ZIndexBehavior": {
-    "documentation": "<code>GuiObject.ZIndex</code>'in tüm alt nesnelerde nasıl davrandığını kontrol eder bu <code>LayerCollector</code>.",
+    "documentation": "Bu <code>LayerCollector</code>'ın tüm alt nesnelerinde <code>GuiObject.ZIndex</code>'in nasıl davrandığını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LayerCollector#ZIndexBehavior",
     "code_sample": ""
   },
   "@roblox/globaltype/LayerCollector.GetLayoutNodeTree/param/0": {
-    "documentation": "<code>GuiObjects</code>'ı katmanlar halinde render eden 2D UI konteynerlerinin temel sınıfıdır."
+    "documentation": "2D UI konteynerlerinin temel sınıfı, <code>GuiObjects</code>'u katmanlar halinde render eder."
   },
   "@roblox/globaltype/LayerCollector.GetLayoutNodeTree/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/LayerCollector.GetLayoutNodeTree": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem yeni işler için kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem yeni çalışmalar için kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -47027,6 +47118,7 @@
       "userId": "@roblox/globaltype/Player.userId",
       "AddReplicationFocus": "@roblox/globaltype/Player.AddReplicationFocus",
       "ClearCharacterAppearance": "@roblox/globaltype/Player.ClearCharacterAppearance",
+      "ClearCachedAvatarAppearance": "@roblox/globaltype/Player.ClearCachedAvatarAppearance",
       "DistanceFromCharacter": "@roblox/globaltype/Player.DistanceFromCharacter",
       "GetFriendsOnline": "@roblox/globaltype/Player.GetFriendsOnline",
       "GetFriendsOnlineAsync": "@roblox/globaltype/Player.GetFriendsOnlineAsync",
@@ -47301,6 +47393,21 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ClearCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal function onChildRemoved(child)\n\tprint(child.ClassName, \"karakterden kaldırıldı\")\nend\n\ncharacter.ChildRemoved:Connect(onChildRemoved)\n\nplayer:ClearCharacterAppearance()\n--> BodyColors karakterden kaldırıldı\n--> ShirtGraphic karakterden kaldırıldı\n--> Shirt karakterden kaldırıldı\n--> Pants karakterden kaldırıldı\n--> CharacterMesh karakterden kaldırıldı\n--> Hat karakterden kaldırıldı\n--> Shirt karakterden kaldırıldı"
   },
+  "@roblox/globaltype/Player.ClearCachedAvatarAppearance/param/0": {
+    "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
+  },
+  "@roblox/globaltype/Player.ClearCachedAvatarAppearance": {
+    "documentation": "Oyuncunun önbelleğe alınmış avatar görünümünü temizler, sonraki yeniden doğuşta arka uçtan yeni bir alım yapar.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.ClearCachedAvatarAppearance/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#ClearCachedAvatarAppearance",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Player.DistanceFromCharacter/param/0": {
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
@@ -47308,10 +47415,10 @@
     "documentation": "Oyuncunun mesafesinin ölçüldüğü konum."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter/return/0": {
-    "documentation": "Oyuncu ile konum arasındaki gidim birimindeki mesafe."
+    "documentation": "Oyuncu ile konum arasındaki stud cinsinden mesafe."
   },
   "@roblox/globaltype/Player.DistanceFromCharacter": {
-    "documentation": "Karakterin başı ile verilen <code>Vector3</code> arasındaki mesafeyi iade eder, yoksa 0 değerini döndürür.",
+    "documentation": "Karakterin başı ile verilen <code>Vector3</code> arasındaki mesafeyi  döner, veya oyuncunun karakteri yoksa <code>0</code> döner.",
     "params": [
       {
         "name": "self",
@@ -47338,7 +47445,7 @@
     "documentation": "Çevrimiçi arkadaşların bir sözlüğü (yukarıdaki tabloya bakın)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetFriendsOnlineAsync()</code> ile devralınmıştır.<br>Çevrimiçi arkadaşların bir sözlüğünü döndürür. Varlığın varlık ID'sini kullanarak varlık bilgilerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetFriendsOnlineAsync()</code> ile devralınmıştır.<br>Çevrimiçi arkadaşların bir sözlüğünü döner. Varlığın varlık kimliğini  kullanarak ürün bilgilerini döner.",
     "params": [
       {
         "name": "self",
@@ -47362,10 +47469,10 @@
     "documentation": "Döndürülecek maksimum çevrimiçi arkadaş sayısı."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0": {
-    "documentation": "Çevrimiçi arkadaşların bir sözlüğü (yukarıdaki tabloya bakın)."
+    "documentation": "Çevrimiçi arkadaşların bir sözlüğü (yukarıdaki tabloya bakınız)."
   },
   "@roblox/globaltype/Player.GetFriendsOnlineAsync": {
-    "documentation": "Çevrimiçi arkadaşların bir sözlüğünü döndürür.",
+    "documentation": "Çevrimiçi arkadaşların bir sözlüğünü döner.",
     "params": [
       {
         "name": "self",
@@ -47386,7 +47493,7 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/return/0": {
-    "documentation": "Bir dizi kullanıcı ID'si."
+    "documentation": "Kullanıcı kimliklerinin bir dizisi."
   },
   "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync": {
     "documentation": "",
@@ -47406,10 +47513,10 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
-    "documentation": "PlaceId ve UserId değerlerini içeren bir sözlük (açıklama tablosuna bakın)."
+    "documentation": "PlaceId ve UserId değerlerini içeren bir sözlük (açıklamadaki tabloya bakınız)."
   },
   "@roblox/globaltype/Player.GetJoinData": {
-    "documentation": "Oyuncunun deneyime nasıl katıldığını açıklayan bilgileri içeren bir sözlük döndürür.",
+    "documentation": "Oyuncunun deneyime nasıl katıldığını tanımlayan bilgileri içeren bir sözlük döner.",
     "params": [
       {
         "name": "self",
@@ -47429,7 +47536,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetMouse": {
-    "documentation": "İstemci tarafından kullanılan mouse'u döndürür.",
+    "documentation": "İstemci tarafından kullanılan farenin örneğini döner.",
     "params": [
       {
         "name": "self",
@@ -47449,7 +47556,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "Yineleme, yalnızca delimitasyon, ağ gecikmesini saniye cinsinden döndürür.",
+    "documentation": "Dönüş yolculuğu, izole ağ gecikmesini saniye cinsinden döner.",
     "params": [
       {
         "name": "self",
@@ -47466,13 +47573,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/1": {
-    "documentation": "Belirtilen grubun <code>groupId</code>'si."
+    "documentation": "Belirtilen grubun <code>groupId</code>'sidir."
   },
   "@roblox/globaltype/Player.GetRankInGroup/return/0": {
     "documentation": "Oyuncunun gruptaki sıralaması."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>Grup içinde oyuncunun sıralamasını bir tam sayı olarak döner.",
+    "documentation": "<strong>Deprecated:</strong> <br>Oyuncunun gruptaki sıralamasını tam sayı olarak döndürür.",
     "params": [
       {
         "name": "self",
@@ -47493,13 +47600,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/param/1": {
-    "documentation": "Belirtilen grubun <code>groupId</code>'sidir."
+    "documentation": "Belirtilen grubun <code>groupId</code> değeri."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync/return/0": {
-    "documentation": "Oyuncunun gruptaki sıralaması."
+    "documentation": "Oyuncunun gruptaki rütbesi."
   },
   "@roblox/globaltype/Player.GetRankInGroupAsync": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem yalnızca tek bir rol sıralaması döndürür ve bir kullanıcının birden fazla rolde olması durumunda rasgele sonuçlar üretebilir. Bunun yerine <code>GroupService:GetRolesInGroupAsync()</code> kullanın, bu yöntem tüm rolleri döndürür.<br>Oyuncunun gruptaki sıralamasını tam sayı olarak döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem yalnızca tek bir rolün rütbesini döner ve bir kullanıcının birden fazla rolü olduğunda keyfi sonuçlar üretebilir. Bunun yerine <code>GroupService:GetRolesInGroupAsync()</code> kullanılmalıdır; bu tüm rolleri döner.<br>Oyuncunun gruptaki sırasını tam sayı cinsinden döner.",
     "params": [
       {
         "name": "self",
@@ -47520,13 +47627,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/1": {
-    "documentation": "Belirtilen grubun grup ID'si."
+    "documentation": "Belirtilen grubun grup ID'sidir."
   },
   "@roblox/globaltype/Player.GetRoleInGroup/return/0": {
-    "documentation": "Belirtilen gruptaki oyuncunun rolü ya da grup üyesi değilse <code>Guest</code>."
+    "documentation": "Belirtilen grubun oyuncunun rolü veya oyuncu bir grup üyesi değilse <code>Guest</code>."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>GetRoleInGroup()</code> ile geçersiz kılınmıştır.<br>Oyuncunun grup içindeki rolünü bir dize olarak döner ya da grup üyesi değilse <code>Guest</code>.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetRoleInGroup()</code> ile  devralınmıştır.<br>Oyuncunun gruptaki rolünü bir dize olarak döndürür veya oyuncu grup üyesi değilse <code>Guest</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -47547,13 +47654,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/1": {
-    "documentation": "Belirtilen grubun grup ID'sidir."
+    "documentation": "Belirtilen grubun grup kimliği."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0": {
-    "documentation": "Belirtilen grubun oyuncunun rolü veya oyuncu bir grup üyesi değilse <code>Guest</code>."
+    "documentation": "Belirtilen gruptaki oyuncunun rolü veya oyuncu üye değilse  <code>Guest</code>."
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem yalnızca tek bir rol adını döndürür ve bir kullanıcının birden fazla rolde olması durumunda rasgele sonuçlar üretebilir. Bunun yerine <code>GroupService:GetRolesInGroupAsync()</code> kullanın, bu yöntem tüm rolleri döndürür.<br>Oyuncunun gruptaki rolünü bir dize olarak döndürür veya oyuncu grup üyesi değilse <code>Guest</code> döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem yalnızca tek bir rol adını döner ve bir kullanıcının birden fazla rolü olduğunda keyfi sonuçlar üretebilir. Bunun yerine <code>GroupService:GetRolesInGroupAsync()</code> kullanılmalıdır; bu tüm rolleri döner.<br>Oyuncunun gruptaki rolünü dize olarak döner, veya oyuncu grupta değilse  <code>Guest</code> döner.",
     "params": [
       {
         "name": "self",
@@ -47574,10 +47681,10 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/return/0": {
-    "documentation": "Oyuncunun karakterinin görünümünün yüklenip yüklenmediğine dair bir boolean."
+    "documentation": "Oyuncunun karakterinin görünümünün yüklenip yüklenmediğini gösteren bir boolean."
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded": {
-    "documentation": "Oyuncunun karakterinin görünümünün yüklenip yüklenmediğini döndürür.",
+    "documentation": "Oyuncunun karakterinin görünümünün yüklenip yüklenmediğini döner.",
     "params": [
       {
         "name": "self",
@@ -47600,7 +47707,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, \"en iyi arkadaşlar\" özelliği kaldırıldığı için kullanımdan kalkmıştır. Bunun yerine <code>Player:IsFriendsWithAsync()</code> kullanın.<br>Belirtilen kullanıcı ile oyuncunun arkadaş olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, \"en iyi arkadaşlar\" özelliği kaldırıldığı için eskidir.  Bunun yerine <code>Player:IsFriendsWithAsync()</code> kullanın.<br>Bir oyuncunun belirtilen kullanıcıyla arkadaş olup olmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -47621,13 +47728,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/1": {
-    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code> değeridir."
+    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code> değeri."
   },
   "@roblox/globaltype/Player.IsFriendsWith/return/0": {
-    "documentation": "Belirtilen kullanıcının arkadaş olup olmadığına dair bir boolean."
+    "documentation": "Belirtilen kullanıcının arkadaşı olup olmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yeni çalışmalar için kullanılacak <code>Player:IsFriendsWithAsync()</code> ile değiştirilmiştir.<br>Belirtilen <code>Player.UserId</code>'ye sahip kullanıcının arkadaş olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>Player:IsFriendsWithAsync()</code> metoduyla geçersiz kılınmıştır, bu metodu yeni çalışmalar için kullanmalısınız.<br>Bir oyuncunun belirtilen <code>Player.UserId</code> ile kullanıcının arkadaşı olup  olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47654,7 +47761,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>Player:IsFriendsWithAsync()</code> metoduyla geçersiz kılınmıştır, bu metodu yeni çalışmalar için kullanmalısınız.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yeni çalışmalar için kullanılacak <code>Player:IsFriendsWithAsync()</code>  yöntemi ile devredilmiştir.",
     "params": [
       {
         "name": "self",
@@ -47675,13 +47782,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/param/1": {
-    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code> değeridir."
+    "documentation": "Belirtilen oyuncunun <code>Player.UserId</code> değeri."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync/return/0": {
-    "documentation": "Belirtilen kullanıcının arkadaş olup olmadığına dair bir boolean."
+    "documentation": "Belirtilen kullanıcının arkadaşı olup olmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsFriendsWithAsync": {
-    "documentation": "Belirtilen <code>Player.UserId</code>'ye sahip kullanıcının arkadaş olup olmadığını kontrol eder.",
+    "documentation": "Bir oyuncunun belirtilen <code>Player.UserId</code> ile kullanıcının arkadaşı olup  olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47702,13 +47809,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsInGroup/param/1": {
-    "documentation": "Belirtilen grubun grup ID'si."
+    "documentation": "Belirtilen grubun grup ID'sidir."
   },
   "@roblox/globaltype/Player.IsInGroup/return/0": {
-    "documentation": "Belirtilen gruptaki oyuncunun olup olmadığını belirten bir boolean."
+    "documentation": "Belirtilen grupta oyuncunun olup olmadığına dair bir boolean."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>IsInGroupAsync()</code> ile geçersiz kılınmıştır.<br>Belirtilen ID'li bir grubun oyuncu tarafından üyeliği olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>IsInGroupAsync()</code> ile devralınmıştır.<br>Belirtilen ID'ye sahip bir grupta oyuncunun üye olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47729,13 +47836,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/param/1": {
-    "documentation": "Belirtilen grubun grup ID'sidir."
+    "documentation": "Belirtilen grubun grup kimliği."
   },
   "@roblox/globaltype/Player.IsInGroupAsync/return/0": {
-    "documentation": "Belirtilen grupta oyuncunun olup olmadığına dair bir boolean."
+    "documentation": "Belirtilen grupta olup olmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsInGroupAsync": {
-    "documentation": "Belirtilen ID'ye sahip bir grupta oyuncunun üye olup olmadığını kontrol eder.",
+    "documentation": "Verilen ID'ye sahip bir gruba oyuncunun üye olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -47759,7 +47866,7 @@
     "documentation": "Oyuncunun doğrulanıp doğrulanmadığını gösteren bir boolean."
   },
   "@roblox/globaltype/Player.IsVerified": {
-    "documentation": "Oyuncunun gerçek dünyada somut sinyallere göre doğrulanıp doğrulanmadığını döndürür.",
+    "documentation": "Oyuncunun somut, gerçek dünya sinyalleri ile doğrulanıp doğrulanmadığını döner.",
     "params": [
       {
         "name": "self",
@@ -47776,10 +47883,10 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.Kick/param/1": {
-    "documentation": "Oyuncuya çıkarırken gösterilecek mesaj."
+    "documentation": "Kicking sırasında kullanıcıya gösterilecek mesaj."
   },
   "@roblox/globaltype/Player.Kick": {
-    "documentation": "Bir oyuncuyu deneyimden zorla çıkarır, isteğe bağlı olarak bir mesaj verir.",
+    "documentation": "Bir oyuncuyu deneyimden zorla çıkarır, isteğe bağlı bir mesaj sağlar.",
     "params": [
       {
         "name": "self",
@@ -47804,7 +47911,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> kullanarak kaydedin ve yükleyin.<br>Daha önce aynı anahtar ile oyuncuya kaydedilmiş Boolean değerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımda  olabileceğinden. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> bilgisini kullanarak kaydedin ve yükleyin.<br>Daha önce <code>Player:SaveBoolean()</code> ile aynı anahtarla oyuncuya kaydedilen bir boolean değeri döner.",
     "params": [
       {
         "name": "self",
@@ -47831,7 +47938,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu, <code>Player:LoadBoolean()</code>'nin kullanılmaktan kaldırılan bir varyantıdır, ikisi de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski yöntem, <code>Player:LoadBoolean()</code> ile birlikte kullanımdan kaldırılmıştır.  Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -47852,7 +47959,7 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>LoadCharacterAsync()</code> ile geçersiz kılınmıştır.<br>Oyuncu için yeni bir karakter oluşturur, eski karakteri kaldırır. Ayrıca oyuncunun <code>Backpack</code> ve <code>PlayerGui</code>'sini temizler.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>LoadCharacterAsync()</code> ile devralınmıştır.<br>Oyuncu için yeni bir karakter oluşturur, eskiyi kaldırır. Ayrıca oyuncunun  <code>Backpack</code> ve <code>PlayerGui</code>'sinin içeriğini temizler.",
     "params": [
       {
         "name": "self",
@@ -47867,10 +47974,10 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/1": {
-    "documentation": "Yüklenen varlığın bir örneğidir;  <code>InsertService:LoadAsset()</code> fonksiyonunu kullanarak elde edilebilir."
+    "documentation": "Yüklenen varlığın örneği, <code>InsertService:LoadAsset()</code> işlevi ile  elde edilebilir."
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance": {
-    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen durumu (nesneyi) oyuncunun karakterine, başına veya StarterGear'a yerleştirir.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen örneği oyuncunun karakterinde, başında veya sınırlayıcı donanımda  yerleştirir.",
     "params": [
       {
         "name": "self",
@@ -47889,7 +47996,7 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterAsync": {
-    "documentation": "Oyuncu için yeni bir karakter oluşturur, eski karakteri kaldırır. Ayrıca oyuncunun <code>Backpack</code> ve <code>PlayerGui</code>'sini temizler.",
+    "documentation": "Oyuncu için yeni bir karakter oluşturur, eskiyi kaldırır. Ayrıca oyuncunun  <code>Backpack</code> ve <code>PlayerGui</code>'sinin içeriğini temizler.",
     "params": [
       {
         "name": "self",
@@ -47904,13 +48011,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/1": {
-    "documentation": "Yüklenen karaktere donatılacak, vücut parçaları/rengi, beden ölçeklendirmeleri, aksesuarlar, giysiler ve animasyonlar gibi özellikleri içeren bir <code>HumanoidDescription</code>."
+    "documentation": "Yüklenen karaktere eklenecek, beden kısımları/rengi, beden ölçeklendirmesi, aksesuarlar, giysiler ve animasyonlar gibi özellikleri içeren bir <code>HumanoidDescription</code>'dır."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/2": {
-    "documentation": "Varlık türü doğrulama modudur."
+    "documentation": "Varlık türü doğrulama modu."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> Bu metod, <code>LoadCharacterWithHumanoidDescriptionAsync()</code> ile geçersiz kılınmıştır.<br>Geçerli <code>HumanoidDescription</code> içindeki her şeyi donatılmış bir oyuncu karakteri oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>LoadCharacterWithHumanoidDescriptionAsync()</code> ile devralınmıştır.<br>Bir oyuncu karakterini, geçirilecek <code>HumanoidDescription</code> içeriğini ve her şeyi başlatır.",
     "params": [
       {
         "name": "self",
@@ -47933,13 +48040,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
-    "documentation": "Yüklenen karaktere eklenecek, beden kısımları/rengi, beden ölçeklendirmesi, aksesuarlar, giysiler ve animasyonlar gibi özellikleri içeren bir <code>HumanoidDescription</code>'dır."
+    "documentation": "Giydirilecek vücut parçaları/renkleri, vücut ölçeklendirmeleri, aksesuarlar,  giyimler ve animasyonlar gibi özellikleri içeren bir <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/2": {
     "documentation": "Varlık türü doğrulama modu."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
-    "documentation": "Bir oyuncu karakterini, geçirilecek <code>HumanoidDescription</code> içeriğini ve her şeyi başlatır.",
+    "documentation": "Belirtilen <code>HumanoidDescription</code> içinde bulunan her şeyle birlikte bir oyuncu karakteri oluşturur.",
     "params": [
       {
         "name": "self",
@@ -47968,7 +48075,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabileceğinden, kullanılmaktan kaldırılmıştır. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Belirli bir anahtar ile oyuncuya daha önce kaydedilmiş bir örneği döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımda  olabileceğinden. Lütfen yeni çalışmalar için oyuncu verilerini  <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce <code>Player:SaveInstance()</code> ile aynı anahtarla oyuncuya  kaydedilen bir örneği döner.",
     "params": [
       {
         "name": "self",
@@ -47995,7 +48102,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı fonksiyon, <code>Player:LoadInstance()</code>'nin kullanılmaktan kaldırılan bir varyantıdır, her ikisi de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski yöntem, <code>Player:LoadInstance()</code> ile birlikte kullanılmaktan  kaldırılmıştır. Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48022,7 +48129,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce oyuncuya kaydedilmiş bir sayı değerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımda  olabileceğinden. Lütfen yeni çalışmalar için oyuncu verilerini  <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce oyuncuya kaydedilmiş bir sayı değerini döner.",
     "params": [
       {
         "name": "self",
@@ -48049,7 +48156,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış işlev, <code>Player:LoadNumber()</code> işlevinin bir varyantıdır ve bu da kaldırılmıştır. İkisi de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski yöntem, <code>Player:LoadNumber()</code> ile benzer şekilde  kullanımdan kaldırılmıştır. Her iki işlem de yeni çalışmalarda  kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48076,7 +48183,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.LoadString": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce oyuncuya kaydedilen bir dize değerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımda  olabileceğinden. Lütfen yeni çalışmalar için oyuncu verilerini  <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Daha önce oyuncuya kaydedilmiş bir dize değerini döner.",
     "params": [
       {
         "name": "self",
@@ -48103,7 +48210,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.loadString": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, <code>Player:LoadString()</code> fonksiyonunun kullanılmaktan kaldırılan bir varyantıdır. Her ikisi de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:LoadString()</code> ile benzer şekilde  kullanımdan kaldırılmıştır. Her iki işlem de yeni çalışmalarda  kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48124,13 +48231,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.Move/param/1": {
-    "documentation": "Oyuncunun hareket etmesi gereken Vector3 yöndeki yön."
+    "documentation": "Oyuncunun hareket etmesi gereken Vector3 yönü."
   },
   "@roblox/globaltype/Player.Move/param/2": {
-    "documentation": "Oyuncunun kendi kamerasına göre hareket edip etmeyeceğini gösteren bir boolean."
+    "documentation": "Oyuncunun kendi kamerasına göre hareket etmesi gerektiğini belirten bir boolean."
   },
   "@roblox/globaltype/Player.Move": {
-    "documentation": "Oyuncunun karakterini belirtilen yönde yürütür, durdurana veya oyuncunun (kendi kontrolleriyle) kesmesine kadar devam eder.",
+    "documentation": "Oyuncunun karakterinin belirtilen yönde yürümesini sağlar, durana kadar  veya oyuncu tarafından (kendi kontrollerini kullanarak) kesintiye uğratılana kadar.",
     "params": [
       {
         "name": "self",
@@ -48153,10 +48260,10 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus/param/1": {
-    "documentation": "Bir çoğaltma odağı olarak kaldırılacak <code>BasePart</code>."
+    "documentation": "Bir replikasyon odaklanması olarak kaldırılacak <code>BasePart</code>."
   },
   "@roblox/globaltype/Player.RemoveReplicationFocus": {
-    "documentation": "Önceden eklenmiş çoğaltma odaklarını kaldırır.",
+    "documentation": "Önceki bir ekleme replikasyon odaklanmasını kaldırır.",
     "params": [
       {
         "name": "self",
@@ -48175,13 +48282,13 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/1": {
-    "documentation": "Streaming'in talep edildiği dünya konumu."
+    "documentation": "Akışın talep edildiği dünya konumu."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync/param/2": {
-    "documentation": "İsteğe bağlı istek zaman aşımı, akışın <code>position</code> parametresinin çevresindeki bölgeleri akışa alma işinin durdurulmadan önce sürdürülmesi gereken maksimum süre. Eğer bir değer belirtmezseniz, zaman aşımı sınırsızdır. Ancak eğer istemci düşük bellek seviyesindeyse, motor, zaman aşımı süresi içinde olan tüm akış isteklerini bırakır."
+    "documentation": "Talep için isteğe bağlı zaman aşımı, motorun <code>position</code> parametresinin etrafındaki  bölgeleri yayınlamak için deneyeceği maksimum süre, isteği terk etmeden önce.  If you don't specify a value, the timeout is effectively infinite. However, if the client is low on memory, the engine abandons all streaming requests, even those that are still within the timeout duration."
   },
   "@roblox/globaltype/Player.RequestStreamAroundAsync": {
-    "documentation": "Sunucunun oyuncuya belirtilen konumda akış yapmasını talep eder.",
+    "documentation": "Sunucunun, belirtilen konum etrafında oyuncuya içerik yayılmasını talep eder.",
     "params": [
       {
         "name": "self",
@@ -48210,7 +48317,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılabilir. Lütfen oyuncu verilerini yeni çalışmalar için <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yüklenebilir, daha sonra tekrar yüklenebilecek bir boolean değeri kaydetmek için kullanılır.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanılabilir.  Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Boole değerini kaydeder ve daha sonra <code>Player:LoadBoolean()</code> ile yüklenebilir.",
     "params": [
       {
         "name": "self",
@@ -48239,7 +48346,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveBoolean": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveBoolean()</code>'nin kullanımdan kaldırılan bir varyantıdır. Her iki işlev de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveBoolean()</code> ile birlikte kullanımdan kaldırılmıştır.  Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48268,7 +48375,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen oyuncu verilerini yeni çalışmalar için <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yüklenebilir bir nesneyi kaydeder, daha sonra tekrar yüklenebilecek şekilde.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımdadır.  Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Bir örneği kaydeder, daha sonra tekrar yüklenebilir.",
     "params": [
       {
         "name": "self",
@@ -48297,7 +48404,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveInstance": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveInstance()</code>'nin kullanılmaktan kaldırılan bir varyantıdır. Her iki işlev de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveInstance()</code> ile birlikte kullanımdan kaldırılmıştır.  Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48326,7 +48433,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen oyuncu verilerini yeni çalışmalar için <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yüklenebilir, daha sonra tekrar yüklenebilecek bir sayı değerini kaydeder.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımdadır.  Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Bir sayı değerini kaydeder, daha sonra tekrar yüklenebilir.",
     "params": [
       {
         "name": "self",
@@ -48355,7 +48462,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveNumber": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveNumber()</code>'nin kullanımdan kaldırılan bir varyantıdır. Her iki işlev de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveNumber()</code> ile birlikte kullanımdan kaldırılmıştır.  Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48384,7 +48491,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.SaveString": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen oyuncu verilerini yeni çalışmalar için <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Yüklenebilir, daha sonra tekrar yüklenebilecek bir dize değerini kaydeder.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanımdadır.  Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Bir dize değerini kaydeder, daha sonra tekrar yüklenebilir.",
     "params": [
       {
         "name": "self",
@@ -48413,7 +48520,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.saveString": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveString()</code>'nin kullanımdan kaldırılan bir varyantıdır. Her iki işlev de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:SaveString()</code> ile birlikte kullanımdan kaldırılmıştır.  Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -48436,7 +48543,7 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SetAccountAge/param/1": {
-    "documentation": "Hesabın yaşı günler olarak."
+    "documentation": "Hesabın yaşı (gün cinsinden)."
   },
   "@roblox/globaltype/Player.SetAccountAge": {
     "documentation": "Oyuncunun <code>AccountAge</code> değerini ayarlar.",
@@ -48458,10 +48565,10 @@
     "documentation": "Bir deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat/param/1": {
-    "documentation": "Oyuncunun filtrelenmiş sohbeti görüp görmeyeceğini gösteren bir boolean."
+    "documentation": "Oyuncunun filtrelenmiş sohbetleri görüp göremediğini belirten bir boolean."
   },
   "@roblox/globaltype/Player.SetSuperSafeChat": {
-    "documentation": "Oyuncunun normal sohbet yerine filtrelenmiş sohbetler görüp görmeyeceğini ayarlar.",
+    "documentation": "Oyuncunun normal sohbetler yerine filtrelenmiş sohbetleri görüp göremediğini ayarlar.",
     "params": [
       {
         "name": "self",
@@ -48483,7 +48590,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.WaitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe kullanılmaktan kaldırılmıştır, çünkü artık kullanılmayan bir veri kalıcılığı yöntemi için kullanılmış olabilir. Lütfen oyuncu verilerini yeni çalışmalar için <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Oyuncunun verileri kullanılabilir olana kadar veya belirli bir süre geçmişse beklemesi için kullanılır.",
+    "documentation": "<strong>Deprecated:</strong> Bu nesne eskidir, çünkü eski bir veri sürekliliği yöntemi için kullanılabilir.  Lütfen yeni çalışmalar için oyuncu verilerini <code>DataStoreService</code> ile kaydedin ve yükleyin.<br>Oyuncunun verilerine müdahale edebilmesi için, ya da belirli bir  süre boyunca oyuncunun verilerini alıp almadan işlemi beklemek için kullanılır.",
     "params": [
       {
         "name": "self",
@@ -48503,7 +48610,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.waitForDataReady": {
-    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:WaitForDataReady()</code>'nin kullanımdan kaldırılan bir varyantıdır. Her iki işlev de yeni çalışmalarda kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu işlev, <code>Player:WaitForDataReady()</code> ile birlikte kullanımdan kaldırılmıştır.  Her iki işlem de yeni çalışmalarda kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -54054,17 +54161,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "<code>Instance</code> ve onun alt nesnelerinin <code>Instance:Clone()</code> ile çoğaltılıp çoğaltılamayacağını belirler ve kaydedilebilecek/yayımlanabilecektir.",
+    "documentation": "<code>Instance</code> ve onun soylarının <code>Instance:Clone()</code> kullanarak kopyalanıp kopyalanamayacağını belirler ve kaydedilebilir/yayım yapılabilir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski özellik, bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan özellik, bunun yerine kullanılacak olan <code>Instance.Archivable</code>'ın bir varyantıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Capabilities": {
-    "documentation": "Bu kapsayıcı içinde kullanılmasına izin verilen yetenekler.",
+    "documentation": "Bu konteynır içindeki scriptler için kullanılmasına izin verilen yeteneklerin seti.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Capabilities",
     "code_sample": ""
   },
@@ -54074,7 +54181,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Parent": {
-    "documentation": "<code>Instance</code>'in hiyerarşik ebeveynini belirler.",
+    "documentation": "<code>Instance</code>'nin hiyerarşik ebeveynini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
     "code_sample": ""
   },
@@ -54084,12 +54191,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
-    "documentation": "<code>CoreGui</code> nesnelerini korumak amacıyla kullanılmış eski bir özellik.",
+    "documentation": "<code>CoreGui</code> nesnelerini korumak için kullanılmış bir kullanımdan kaldırılmış özelliktir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#RobloxLocked",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "Etkinleştirildiğinde, nesne yalnızca kendi <code>Capabilities</code> listesinde bulunan yeteneklere erişebilir.",
+    "documentation": "Etkinleştirildiğinde, nesne yalnızca <code>Capabilities</code> listeleme yeteneklerine erişebilir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
@@ -54124,10 +54231,10 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.children/return/0": {
-    "documentation": "Çocuk nesne/örneklerinin dizisi."
+    "documentation": "Çocuk nesneleri/örnekleri dizisi."
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> Bu maddesinin yerine <code>Instance:GetChildren()</code> kullanılmalıdır.<br>Nesnenin çocuklarının bir dizisini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, tüm yeni çalışmalarda kullanılacak olan <code>Instance:GetChildren()</code> ile değiştirilmiştir.<br>Nesnenin çocuklarının bir dizisini döndürür.",
     "params": [
       {
         "name": "self",
@@ -54144,7 +54251,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "Bu yöntem, bir nesnenin çocuklarının hepsini yok eder.",
+    "documentation": "Bu yöntem, bir nesnenin tüm çocuklarını yok eder.",
     "params": [
       {
         "name": "self",
@@ -54162,7 +54269,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.Clone": {
-    "documentation": "Bir nesnenin ve tüm torunlarının bir kopyasını oluşturur, <code>Archivable</code> olmayan nesneleri göz ardı eder.",
+    "documentation": "Bir nesnenin ve tüm soylarının bir kopyasını oluşturur; <code>Archivable</code> olmayan nesneleri yok sayar.",
     "params": [
       {
         "name": "self",
@@ -54182,7 +54289,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.clone": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski işlem, bunun yerine kullanılmalıdır <code>Instance:Clone()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan işlev, bunun yerine kullanılacak olan <code>Instance:Clone()</code>'ın bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -54199,7 +54306,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.Destroy": {
-    "documentation": "<code>Instance.Parent</code> değerini <code>nil</code> ayarlar, <code>Instance.Parent</code> özelliğini kilitler, tüm bağlantıları koparır ve tüm çocukları üzerinde <code>Destroy()</code> çağrısında bulunur.",
+    "documentation": "<code>Instance.Parent</code> özelliğini <code>nil</code> olarak ayarlar, <code>Instance.Parent</code> özelliğini kilitler, tüm bağlantıları koparır ve tüm çocuklara <code>Destroy()</code> çağrısı yapar.",
     "params": [
       {
         "name": "self",
@@ -54214,7 +54321,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.destroy": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski işlem, bunun yerine kullanılmalıdır <code>Instance:Destroy()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan işlev, bunun yerine kullanılacak olan <code>Instance:Destroy()</code>'ın bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -54229,13 +54336,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
-    "documentation": "Aranacak <code>Instance.Name</code>."
+    "documentation": "Aranacak <code>Instance.Name</code> adı."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/return/0": {
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestor": {
-    "documentation": "<code>Instance.Name</code> değeri verilen adıyla eşleşen <code>Instance</code>'in ilk atasını döndürür.",
+    "documentation": "Verilen isme eşit olan <code>Instance</code>'nin ilk atasını döndürür.",
     "params": [
       {
         "name": "self",
@@ -54262,7 +54369,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "<code>Object.ClassName</code> değeri ile eşleşen <code>Instance</code>'in ilk atasını döndürür.",
+    "documentation": "Verilen className'e eşit olan <code>Object.ClassName</code>'in ilk atasını döndürür.",
     "params": [
       {
         "name": "self",
@@ -54289,7 +54396,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "<code>Instance</code>'in ilk atasını döndürür, <code>Object:IsA()</code> belirli <code>className</code> için doğru olursa.",
+    "documentation": "Verilen className için, <code>Object:IsA()</code> değerinin true döndürdüğü <code>Instance</code>'nin ilk atalarını döndürür.",
     "params": [
       {
         "name": "self",
@@ -54313,13 +54420,13 @@
     "documentation": "Aranacak <code>Instance.Name</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/2": {
-    "documentation": "Aramanın yinelemeli olup olmaması."
+    "documentation": "Aramanın yeniden işleme tabi olup olmayacağı."
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "Verilen adla bulunan <code>Instance</code>'in ilk çocuğunu döndürür.",
+    "documentation": "Verilen isme sahip olan <code>Instance</code> çocuklarından ilki döndürülür.",
     "params": [
       {
         "name": "self",
@@ -54353,7 +54460,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.findFirstChild": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski işlem, bunun yerine kullanılmalıdır <code>Instance:FindFirstChild()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan işlev, bunun yerine kullanılacak olan <code>Instance:FindFirstChild()</code>'ın bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -54384,7 +54491,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "Verilen <code>className</code> ile eşleşen <code>Instance</code>'in ilk çocuğunu döndürür.",
+    "documentation": "Verilen <code>className</code>'e eşit olan <code>Instance</code>'nin ilk çocuğunu döndürür.",
     "params": [
       {
         "name": "self",
@@ -54408,13 +54515,13 @@
     "documentation": "Aranacak <code>Object.ClassName</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
-    "documentation": "Aramanın yinelemeli olup olmaması."
+    "documentation": "Aramanın yeniden işleme tabi olup olmayacağı."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "Verilen sınıf adında <code>true</code> döndüren <code>Instance</code>'in ilk çocuğunu döndürür.",
+    "documentation": "Verilen <code>className</code> için <code>Object:IsA()</code> değerinin true döndürdüğü ilk <code>Instance</code> çocuğunu döndürür.",
     "params": [
       {
         "name": "self",
@@ -54445,7 +54552,7 @@
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "Verilen <code>Instance.Name</code> ile bulunan ilk torununu döndürür.",
+    "documentation": "Verilen <code>Instance.Name</code>'e sahip ilk soy döndürülür.",
     "params": [
       {
         "name": "self",
@@ -54469,7 +54576,7 @@
     "documentation": "Bulunan <code>Actor</code>."
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "<code>Instance</code> ile ilişkili <code>Actor</code>'ı döndürür, varsa.",
+    "documentation": "Nesneyle ilişkili <code>Actor</code>'ı döndürür; varsa.",
     "params": [
       {
         "name": "self",
@@ -54486,13 +54593,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
-    "documentation": "Alınacak özelliğin adı."
+    "documentation": "Alınacak özelliğin ismi."
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "Verilen özellik adı atanmış değer; eğer hiç bir özellik atanmadıysa, <code>nil</code> döner."
+    "documentation": "Verilen özelliğin ismine atanmış değer. Eğer hiçbir özelliğe atanmadıysa, <code>nil</code> döner."
   },
   "@roblox/globaltype/Instance.GetAttribute": {
-    "documentation": "Verilen özellik adında atanmış değeri döndürür.",
+    "documentation": "Verilen özellik adı için atanan değeri döndürür.",
     "params": [
       {
         "name": "self",
@@ -54513,13 +54620,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "Değişiklik sinyalinin döndürüleceği belirli özelliğin adı."
+    "documentation": "Değişiklik sinyalinin döndürüldüğü belirli özelliğin ismi."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
-    "documentation": "Verilen özelliğin değiştiğinde ateşlenecek bir olay."
+    "documentation": "Verilen özelliğin değiştiğinde tetiklenen bir olay."
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal": {
-    "documentation": "Verilen özelliğin değiştiğinde ateşlenecek bir olayı döndürür.",
+    "documentation": "Verilen özelliğin değiştiğinde tetiklenen bir olayı döndürür.",
     "params": [
       {
         "name": "self",
@@ -54540,7 +54647,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "Özniteliği olan bir sözlük başına → değişken çiftleri."
+    "documentation": "Her bir özellik için <code>string → variant</code> çiftlerinden oluşan bir sözlük; burada string özelliklerin ismini ve variant sıfır olmayan bir değerdir."
   },
   "@roblox/globaltype/Instance.GetAttributes": {
     "documentation": "Nesnenin özelliklerinin bir sözlüğünü döndürür.",
@@ -54583,7 +54690,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.getChildren": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski işlem, bunun yerine kullanılmalıdır <code>Instance:GetChildren()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan işlev, bunun yerine kullanılacak <code>Instance:GetChildren()</code>'ın bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -54600,13 +54707,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
-    "documentation": "Kapsam uzunluğu."
+    "documentation": "Kapsama uzunluğu."
   },
   "@roblox/globaltype/Instance.GetDebugId/return/0": {
-    "documentation": "Hata Ayıklama ID dizesi."
+    "documentation": "Hata Ayıklama ID şifresi."
   },
   "@roblox/globaltype/Instance.GetDebugId": {
-    "documentation": "Roblox tarafından dahili olarak kullanılan hata ayıklama ID'sinin kodlanmış bir dizesini döndürür.",
+    "documentation": "Roblox tarafından dahili olarak kullanılan hata ayıklama kimliğinin şifrelendiği bir dizi döndürür.",
     "params": [
       {
         "name": "self",
@@ -54627,10 +54734,10 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
-    "documentation": "Nesnenin torunlarını içeren bir dizi."
+    "documentation": "Nesnenin soylarını içeren bir dizi."
   },
   "@roblox/globaltype/Instance.GetDescendants": {
-    "documentation": "Nesnenin tüm torunlarını içeren bir dizi döndürür.",
+    "documentation": "Nesnenin tüm soylarını içeren bir dizi döndürür.",
     "params": [
       {
         "name": "self",
@@ -54647,10 +54754,10 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
-    "documentation": "<code>Instance</code>'in tam adı."
+    "documentation": "Tam <code>Instance</code> adıdır."
   },
   "@roblox/globaltype/Instance.GetFullName": {
-    "documentation": "Nesnenin soyunu tanımlayan bir dizeyi döndürür.",
+    "documentation": "Nesnenin soylarını anlatan bir dizi döndürür.",
     "params": [
       {
         "name": "self",
@@ -54667,16 +54774,16 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
-    "documentation": "Sorgulamak için özelliğin adı."
+    "documentation": "Sorgulanacak özelliğin ismi."
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "Nispeten özelliğiniz için hedeflediğiniz seçenek."
+    "documentation": "Özellikte hedef alındığınız isteğe bağlı seçim."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "Belirtilen özelliğin stilize edilmiş veya açıkça değiştirilmiş değeri, yoksa, değiştirilmemiş varsayılan değer."
+    "documentation": "Belirtilen özelliğin stilize edilmiş veya açıkça değiştirilmiş değeri; yoksa, stilize/ değiştirilmemiş varsayılan özellik değeridir."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Belirtilen özelliğin stilize edilmiş veya açıkça değiştirilmiş değerini döndürür, yoksa değiştirilmemiş varsayılan özellik değerini döndürür.",
+    "documentation": "Belirtilen özelliğin stillendirilmiş veya açıkça değiştirilmiş değerini döndürür; yoksa varsayılan özellik değeridir.",
     "params": [
       {
         "name": "self",
@@ -54701,10 +54808,10 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
-    "documentation": "Dinlemek için stil özelliğinin adı."
+    "documentation": "Dinlenecek stil özelliğinin ismi."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/return/0": {
-    "documentation": "Verilen stil özelliği değiştiğinde ateşlenecek olay."
+    "documentation": "Verilen stil özelliği değiştiğinde tetiklenecek olay."
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
     "documentation": "",
@@ -54731,7 +54838,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.GetTags": {
-    "documentation": "Nesneye uygulanan tüm etiketleri alır.",
+    "documentation": "Nesneye uygulanan tüm etiketlerin bir dizisini alır.",
     "params": [
       {
         "name": "self",
@@ -54775,13 +54882,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
-    "documentation": "Torun <code>Instance</code>."
+    "documentation": "Soy <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
-    "documentation": "Eğer <code>Instance</code> belirtilen torununun atasıysa <code>true</code> döner."
+    "documentation": "Eğer <code>Instance</code> verilen soyun bir atasıysa true döndürür."
   },
   "@roblox/globaltype/Instance.IsAncestorOf": {
-    "documentation": "Bir <code>Instance</code>'nin belirtilen torununun atası olup olmadığını kontrol eder.",
+    "documentation": "Verilen soyun <code>Instance</code>'nin bir atası olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -54805,10 +54912,10 @@
     "documentation": "Ata <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
-    "documentation": "Eğer <code>Instance</code> belirtilen atasının torunuysa <code>true</code> döner."
+    "documentation": "Eğer <code>Instance</code> verilen atanın bir soyuyse true döndürür."
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
-    "documentation": "Bir <code>Instance</code>'nin belirtilen atasının torunu olup olmadığını kontrol eder.",
+    "documentation": "Eğer <code>Instance</code> verilen atanın bir soyuyse true döndürür.",
     "params": [
       {
         "name": "self",
@@ -54835,7 +54942,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski işlem, bunun yerine kullanılmalıdır <code>Instance:IsDescendantOf()</code>.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan işlev, bunun yerine kullanılacak olan <code>Instance:IsDescendantOf()</code>'ın bir varyantıdır.",
     "params": [
       {
         "name": "self",
@@ -54856,13 +54963,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
-    "documentation": "Name of the property to query."
+    "documentation": "Sorgulanacak özelliğin ismi."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean indicating whether the property is modified from its code‑instantiated default."
+    "documentation": "Özelliğin kodla oluşturulmuş varsayılandan değiştirilip değiştirilmediğini belirten bir boolean."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Belirtilen özelliğin sakladığı değerin, kod yoluyla oluşturulmuş varsayılan değerle eşit olmadığını döndürür.",
+    "documentation": "Verilen özellikteki değerin kodla oluşturulmuş varsayılandır eşit olmadığını belirten bir değer döndürür.",
     "params": [
       {
         "name": "self",
@@ -54883,10 +54990,10 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
-    "documentation": "Elementleri filtrelemek için kullanılan seçim dizesi."
+    "documentation": "Öğeleri filtrelemek için kullanılan seçici dizgesi."
   },
   "@roblox/globaltype/Instance.QueryDescendants/return/0": {
-    "documentation": "Eşleşen örneklerin dizisi (hiçbir şey eşleşmiyorsa boş)."
+    "documentation": "Eşleşen nesnelerin dizisi (hiçbiri eşleşmediyse boş)."
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
     "documentation": "",
@@ -54910,7 +55017,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> Bu öğe, <code>Instance:Destroy()</code> ve <code>Instance:ClearAllChildren()</code>'ın yerine geçmek üzere kullanılmaktadır. Bir nesneden kaldırılmak zorundaysanız ve nesneyi daha sonra kullanmayı istiyorsanız, bunun yerine <code>Parent</code> değerini <code>nil</code> yapmayı deneyin.<br>Nesnenin <code>Parent</code> değerini <code>nil</code> yapar ve bununla ilgili tüm torunların da <code>nil</code> olmasını sağlar.",
+    "documentation": "<strong>Deprecated:</strong> Bu öğe, <code>Instance:Destroy()</code> ve <code>Instance:ClearAllChildren()</code> yerine kullanımdan kaldırılmıştır. Eğer bir nesneyi oyundan kaldırmanız gerekiyorsa ve daha sonra nesneyi kullanmak istiyorsanız, bu yöntemi kullanmak yerine <code>Parent</code> özelliğini <code>nil</code> olarak ayarlayın.<br>Nesnenin <code>Parent</code>'ını <code>nil</code> olarak ayarlar, ve tüm soylarının da aynı şekilde olmasını sağlar.",
     "params": [
       {
         "name": "self",
@@ -54925,7 +55032,7 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> Bu eski işlem, <code>Instance:Remove()</code>' ile eşleniği olan ve de eski haline gelmiştir. Yeni çalışmalarda ikisi de kullanılmamalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan işlev, bunun yerine kullanılacak olan <code>Instance:Remove()</code>'ın bir varyantıdır. Yeni çalışmalarda her iki işlev de kullanılmamalıdır.",
     "params": [
       {
         "name": "self",
@@ -54984,13 +55091,13 @@
     "documentation": "<code>Instance</code>, Roblox sınıf hiyerarşisindeki tüm sınıflar için temel sınıftır <code>DataModel</code> ağacının bir parçası olabilir."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
-    "documentation": "Ayar yapılan niteliğin adı."
+    "documentation": "Ayarlanan özelliğin adı."
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
-    "documentation": "Belirtilen niteliği ayarlamak için değer."
+    "documentation": "Belirtilen özelliği ayarlamak için değer."
   },
   "@roblox/globaltype/Instance.SetAttribute": {
-    "documentation": "Verilen isme sahip olan niteliği, verilen değere ayarlar.",
+    "documentation": "Verilen adı verilen değere ayarlar.",
     "params": [
       {
         "name": "self",
@@ -55016,13 +55123,13 @@
     "documentation": "Aranacak <code>Instance.Name</code>."
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
-    "documentation": "İsteğe bağlı zaman aşımı parametresi."
+    "documentation": "İsteğe bağlı bir zaman aşımı parametresi."
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
     "documentation": "Bulunan <code>Instance</code>."
   },
   "@roblox/globaltype/Instance.WaitForChild": {
-    "documentation": "<code>Instance</code> içindeki verilen isimle çocuğu döner. Eğer çocuk mevcut değilse, mevcut iş parçacığını mevcut durumda tutar.",
+    "documentation": "<code>Instance</code>'in belirtilen adıyla olan çocuğunu döner. Eğer çocuk yoksa, mevcut iş parçacığını çocuk mevcut olana kadar bekletir.",
     "params": [
       {
         "name": "self",
@@ -55121,7 +55228,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "Bu nesnenin veya bir atalarının <code>Instance.Parent</code> özelliği değiştiğinde tetiklenir.",
+    "documentation": "Bu nesnenin veya birinin atalarının <code>Instance.Parent</code> özelliği değiştiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -55297,7 +55404,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "Bu <code>Instance</code>'e bir nesne eklendikten sonra tetiklenir.",
+    "documentation": "Bir nesne bu <code>Instance</code>'ye ebeveynlendikten sonra tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -55385,7 +55492,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı olay, yerine kullanılacak <code>Instance.ChildAdded</code>'nın bir varyantıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu geçersiz kılınmış olay, onun yerine kullanılacak <code>Instance.ChildAdded</code>'ın bir varyantıdır.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -55561,7 +55668,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "Bu <code>Instance</code>'e bir torun eklenildiğinde tetiklenir.",
+    "documentation": "Bir alt nesne <code>Instance</code>'ye eklendikten sonra tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -55649,7 +55756,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantRemoving": {
-    "documentation": "Bir torun <code>Instance</code>'den kaldırılmadan <strong>hemen önce</strong> tetiklenir.",
+    "documentation": "Bir <code>Instance</code>'nin alt nesnesi kaldırılmadan hemen önce tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantRemoving.ConnectParallel",
@@ -55737,7 +55844,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "<code>Instance:Destroy()</code> aracılığıyla örneğin yok edilmesinden önce (ya da sonraya ertelendiğinde) tetiklenir.",
+    "documentation": "Örnek, <code>Instance:Destroy()</code> aracılığıyla yok edilmeden hemen önce (veya sonrasına ertelenerek) tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -55825,7 +55932,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "Örnekte hangi stil özelliğinin değiştiği, <code>nil</code> olarak ayarlandığında tetiklenir.",
+    "documentation": "Herhangi bir stil özelliği değiştirildiğinde tetiklenir, özellikle bir özellik <code>nil</code> olarak ayarlandığında.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -57028,7 +57135,7 @@
     "code_sample": "local GeometryService = game:GetService(\"GeometryService\")\n\nlocal mainPart = Instance.new(\"Part\")\nlocal otherPart = Instance.new(\"Part\")\notherPart.Position = Vector3.new(1, 0.5, 1)\n\nlocal success, newParts = pcall(function()\n\treturn GeometryService:UnionAsync(mainPart, {otherPart})\nend)\nif success and newParts then\n\tfor _, newPart in pairs(newParts) do\n\t\tnewPart.Parent = workspace\n\tend\nend"
   },
   "@roblox/globaltype/SoundService": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler.",
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler.",
     "keys": {
       "AcousticSimulationEnabled": "@roblox/globaltype/SoundService.AcousticSimulationEnabled",
       "AmbientReverb": "@roblox/globaltype/SoundService.AmbientReverb",
@@ -57050,58 +57157,58 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.AcousticSimulationEnabled": {
-    "documentation": "Gelişmiş ses sisteminde akustik simülasyonun global olarak etkin olup olmadığını belirler.",
+    "documentation": "Akustik simülasyonun gelişmiş ses sisteminde global olarak etkin olup olmadığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#AcousticSimulationEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.AmbientReverb": {
-    "documentation": "Tüm <code>Sounds</code> için uygulanan ortam ses ortamı ön ayarı.",
+    "documentation": "Tüm <code>Seslere</code> uygulanan ortam ses ortamı ön ayarı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#AmbientReverb",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.CharacterSoundsUseNewApi": {
-    "documentation": "Varsayılan karakter seslerinin gelişmiş ses sistemi ve <code>Sounds</code> dan mı kullanılacağını belirler.",
+    "documentation": "Varsayılan karakter seslerinin gelişmiş ses sistemindeki örnekleri mi yoksa <code>Sesleri</code> mi kullanacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#CharacterSoundsUseNewApi",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.DefaultListenerLocation": {
-    "documentation": "<code>AudioListener</code> için varsayılan olarak nerede (varsa) yerleştirileceğini belirler.",
+    "documentation": "Varsayılan olarak bir <code>AudioListener</code>'ın (Ses Dinleyicisi) yerini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#DefaultListenerLocation",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.DistanceFactor": {
-    "documentation": "<code>Sounds</code> için Doppler etkisini simüle ederken <code>SoundService</code> tarafından bir metre olarak kabul edilen stud sayısı.",
+    "documentation": "<code>SoundService</code> tarafından <code>Sesler</code> için Doppler etkisini simüle ederken metre olarak kabul edilen stud sayısı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#DistanceFactor",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.DopplerScale": {
-    "documentation": "Doppler etkisi nedeniyle <code>Sound</code>'ın frekansının ne ölçüde değiştiği.",
+    "documentation": "Doppler etkisi nedeniyle bir <code>Sound</code>'un frekansının ne kadar değişeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#DopplerScale",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.RespectFilteringEnabled": {
-    "documentation": "<code>Sound</code> oynatımının istemciden sunucuya çoğaltılıp çoğaltılmayacağını ayarlar.",
+    "documentation": "Bir istemciden <code>Sound</code> çalma işleminin sunucuya çoğaltılıp çoğaltılmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#RespectFilteringEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.RolloffScale": {
-    "documentation": "<code>Sound.RollOffMinDistance</code>'in ötesinde bir <code>Sound</code>'un hacminin ne kadar hızlı zayıfladığını belirler.",
+    "documentation": "<code>Sound</code>'un <code>Sound.RollOffMinDistance</code>'in ötesinde ne kadar hızlı azaldığını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#RolloffScale",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.VolumetricAudio": {
-    "documentation": "Belirli uzamsal <code>Sounds</code>'un ebeveyn nesnelerinin alanında hacimsel olarak yayılıp yayılmadığını belirler.",
+    "documentation": "Belirli uzamsal <code>Seslerin</code> ana nesnelerinin alanı boyunca hacimsel bir şekilde yayılıp yayılmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#VolumetricAudio",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.GetListener/param/0": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler."
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler."
   },
   "@roblox/globaltype/SoundService.GetListener/return/0": {
-    "documentation": "İki sonuç içeren bir tablo. İlk sonuç, dinleyicinin <code>ListenerType</code>'ıdır ve ikinci sonuç, o türe bağlıdır: <table>       <thead>       <tr>           <th>Dinleyici Tipi</th>           <th>Açıklama</th>       </tr>       </thead>       <tbody>       <tr>           <td><code>Enum.ListenerType.Camera</code></td>           <td>Dinleyici nesnesini dönmez çünkü <code>Class.Workspace.CurrentCamera|CurrentCamera</code> her zaman kullanılır.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.CFrame</code></td>           <td><code>Class.SoundService:SetListener()|SetListener()</code> içinde kullanılan <code>Datatype.CFrame</code>'ı döndürür.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.ObjectPosition</code></td>           <td><code>Class.SoundService:SetListener()|SetListener()</code> içinde kullanılan <code>Class.BasePart</code>'ı döndürür.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.ObjectCFrame</code></td>           <td><code>Class.SoundService:SetListener()|SetListener()</code> içinde kullanılan <code>Class.BasePart</code>'ı döndürür.</td>       </tr>       </tbody> </table>"
+    "documentation": "İki sonucu içeren bir tablo. İlk sonuç dinleyicinin <code>ListenerType</code>'ıdır, ve ikinci sonuç bu tipe bağlıdır: <table>       <thead>       <tr>           <th>Dinleyici Türü</th>           <th>Açıklama</th>       </tr>       </thead>       <tbody>       <tr>           <td><code>Enum.ListenerType.Camera</code></td>           <td>Dinleyici nesnesi döndürmez çünkü <code>Class.Workspace.CurrentCamera|CurrentCamera</code> her zaman kullanılır.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.CFrame</code></td>           <td><code>Class.SoundService:SetListener()|SetListener()</code> işlemi için kullanılan <code>Datatype.CFrame</code>'ı döner.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.ObjectPosition</code></td>           <td><code>Class.SoundService:SetListener()|SetListener()</code> işlemi için kullanılan <code>Class.BasePart</code>'ı döner.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.ObjectCFrame</code></td>           <td><code>Class.SoundService:SetListener()|SetListener()</code> işlemi için kullanılan <code>Class.BasePart</code>'ı döner.</td>       </tr>       </tbody> </table>"
   },
   "@roblox/globaltype/SoundService.GetListener": {
-    "documentation": "<code>Sounds</code> tarafından kullanılan mevcut dinleyici tipini ve o dinleyicinin şu anda neye ayarlandığını döndürür.",
+    "documentation": "<code>Seslerin</code> mevcut dinleyici türünü, ayrıca o dinleyicinin hangi eşyaya veya konuma ayarlandığını döner.",
     "params": [
       {
         "name": "self",
@@ -57115,13 +57222,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.GetMixerTime/param/0": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler."
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler."
   },
   "@roblox/globaltype/SoundService.GetMixerTime/return/0": {
-    "documentation": "Ses müzik motorunun karıştırmaya başladığı zamandan itibaren geçen saniye sayısı. Bu değer stabil, örnek-öngörülebilir ve monotonik-artan – işitilebilir değişiklikleri kesin zamanlarda planlamak için kullanılmak üzere tasarlanmıştır."
+    "documentation": "Ses motorunun karıştırmaya başladığı andan itibaren geçen saniye sayısı. Bu değer stabil, örnek doğruluğuna sahip ve monotonik artan bir değere sahiptir – bu, sesli değişimleri belirli zamanlarda planlamak için kullanılmak üzere tasarlanmıştır."
   },
   "@roblox/globaltype/SoundService.GetMixerTime": {
-    "documentation": "Ses müzik motorunun karıştırmaya başladığı zamandan itibaren geçen saniye sayısını döndürür.",
+    "documentation": "Ses motorunun karıştırmaya başladığı andan itibaren geçen saniye sayısını döner.",
     "params": [
       {
         "name": "self",
@@ -57135,13 +57242,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor/param/0": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler."
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler."
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor/param/1": {
-    "documentation": "<code>AudioEmitters</code> veya <code>AudioListeners</code> listesi."
+    "documentation": "<code>Ses Yayıcıları</code> veya <code>Ses Dinleyicileri</code> listesi."
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor": {
-    "documentation": "Verilen <code>AudioEmitter</code> veya <code>AudioListener</code> örnekleri için Studio'da zayıflatma eğrisi düzenleyicisini açar.",
+    "documentation": "Sağlanan <code>AudioEmitter</code> veya <code>AudioListener</code> örnekleri için Stüdyo'da azaltma eğrisi editörünü açar.",
     "params": [
       {
         "name": "self",
@@ -57157,13 +57264,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor/param/0": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler."
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler."
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor/param/1": {
-    "documentation": "Bir <code>AudioEmitters</code> veya <code>AudioListeners</code> listesi."
+    "documentation": "<code>Ses Yayıcıları</code> veya <code>Ses Dinleyicileri</code> listesi."
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor": {
-    "documentation": "Verilen <code>AudioEmitter</code> veya <code>AudioListener</code> örnekleri için Studio'da yönlendirilmiş eğri düzenleyicisini açar.",
+    "documentation": "Sağlanan <code>AudioEmitter</code> veya <code>AudioListener</code> örnekleri için Stüdyo'da yönlü eğri editörünü açar.",
     "params": [
       {
         "name": "self",
@@ -57179,13 +57286,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.PlayLocalSound/param/0": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler."
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler."
   },
   "@roblox/globaltype/SoundService.PlayLocalSound/param/1": {
     "documentation": "Çalınacak <code>Sound</code>."
   },
   "@roblox/globaltype/SoundService.PlayLocalSound": {
-    "documentation": "<code>Sound</code>'ın bir kopyasını yerel olarak çalar, böylece yalnızca bu yöntemi çağıran istemci tarafından duyulacaktır.",
+    "documentation": "Bir <code>Sound</code>'un bir kopyasını yerel olarak çalar, böylece yalnızca bu yöntemi çağıran istemci tarafından duyulur.",
     "params": [
       {
         "name": "self",
@@ -57201,16 +57308,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.SetListener/param/0": {
-    "documentation": "Ses motorunun nasıl çalıştığıyla ilgili çeşitli yönleri belirleyen bir hizmettir. Çoğu özelliği, <code>Sounds</code>'un deneyimde nasıl çaldığını etkiler."
+    "documentation": "Ses motorunun nasıl çalıştığına dair çeşitli yönleri belirleyen bir hizmet. Çoğu özelliği, <code>Seslerin</code> deneyimde nasıl çaldığını etkiler."
   },
   "@roblox/globaltype/SoundService.SetListener/param/1": {
     "documentation": "Dinleyicinin <code>ListenerType</code>'ı."
   },
   "@roblox/globaltype/SoundService.SetListener/param/2": {
-    "documentation": "<code>ListenerType</code>'a bağlıdır. <code>ListenerType.ObjectPosition</code> veya <code>ListenerType.ObjectCFrame</code> için bir <code>BasePart</code> kullanın, <code>ListenerType.CFrame</code> için bir <code>CFrame</code>, veya <code>ListenerType.Camera</code>  için <code>nil</code> kullanın."
+    "documentation": "<code>ListenerType</code>'a bağlıdır. <code>ListenerType.ObjectPosition</code> veya <code>ListenerType.ObjectCFrame</code> için bir <code>BasePart</code> kullanın, <code>ListenerType.CFrame</code>  için bir <code>CFrame</code>, veya <code>ListenerType.Camera</code> için <code>nil</code>."
   },
   "@roblox/globaltype/SoundService.SetListener": {
-    "documentation": "<code>Sounds</code> tarafından kullanılan dinleyiciyi ayarlar.",
+    "documentation": "<code>Sesler</code> için dinleyiciyi ayarlar.",
     "params": [
       {
         "name": "self",
@@ -63443,7 +63550,7 @@
     "code_sample": "local Selection = game:GetService(\"Selection\")\n\nfor _, object in pairs(Selection:Get()) do\n\tif object:IsA(\"BasePart\") then\n\t\tobject.CFrame = object.CFrame * CFrame.Angles(0, math.pi / 2, 0)\n\tend\nend"
   },
   "@roblox/globaltype/Selection.SelectionThickness": {
-    "documentation": "",
+    "documentation": "Seçili <code>Instances</code> etrafında çizilen seçim vurgulama kenarlığının kalınlığı Roblox Studio'nun görünümünde.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Selection#SelectionThickness",
     "code_sample": ""
   },
@@ -63451,10 +63558,10 @@
     "documentation": "Seçim hizmeti, Roblox Studio'da seçilen <code>Instances</code>'ı kontrol eder."
   },
   "@roblox/globaltype/Selection.Add/param/1": {
-    "documentation": ""
+    "documentation": "Mevcut seçime eklemek için bir dizi <code>Instances</code>."
   },
   "@roblox/globaltype/Selection.Add": {
-    "documentation": "",
+    "documentation": "Verilen <code>Instances</code> öğelerini Roblox Studio'daki mevcut seçime ekler.",
     "params": [
       {
         "name": "self",
@@ -63493,10 +63600,10 @@
     "documentation": "Seçim hizmeti, Roblox Studio'da seçilen <code>Instances</code>'ı kontrol eder."
   },
   "@roblox/globaltype/Selection.Remove/param/1": {
-    "documentation": ""
+    "documentation": "Mevcut seçimden kaldırmak için bir dizi <code>Instances</code>."
   },
   "@roblox/globaltype/Selection.Remove": {
-    "documentation": "",
+    "documentation": "Verilen <code>Instances</code> öğelerini Roblox Studio'daki mevcut seçimden kaldırır.",
     "params": [
       {
         "name": "self",
@@ -79073,7 +79180,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation": {
-    "documentation": "Tüm katı modelleme tabanlı parçaların türediği soyut bir sınıf.",
+    "documentation": "Katı modelleme üzerine kurulu tüm parçaların türediği soyut bir sınıf.",
     "keys": {
       "RenderFidelity": "@roblox/globaltype/PartOperation.RenderFidelity",
       "SmoothingAngle": "@roblox/globaltype/PartOperation.SmoothingAngle",
@@ -79085,12 +79192,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.RenderFidelity": {
-    "documentation": "Katı modelleme parçasının görüntülenmesi için kullanılan detay seviyesi.",
+    "documentation": "Katı modeli olan parçanın render edilmesinde kullanılan detay seviyesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#RenderFidelity",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SmoothingAngle": {
-    "documentation": "Katı modelleme parçasının pürüzsüz gölgelendirmesini etkileyen bir açı (derece olarak).",
+    "documentation": "Katı модел bir parçanın düzgün gölgelendirmesini etkileyen derece cinsinden bir açıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#SmoothingAngle",
     "code_sample": ""
   },
@@ -79100,18 +79207,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.UsePartColor": {
-    "documentation": "<code>PartOperation</code>'ın miras alınan renk özellikleriyle yeniden renklendirilebilir olup olmadığını ayarlar.",
+    "documentation": "<code>PartOperation</code>'ın miras alınan renk özelliklerini kullanarak renklendirilebilip ebilmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PartOperation#UsePartColor",
     "code_sample": ""
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/0": {
-    "documentation": "Tüm katı modelleme tabanlı parçaların türediği soyut bir sınıf."
+    "documentation": "Katı modelleme üzerine kurulu tüm parçaların türediği soyut bir sınıf."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry/param/1": {
-    "documentation": "Bu <code>PartOperation</code>'ın geometrisini değiştiren <code>PartOperation</code>."
+    "documentation": "Bu <code>PartOperation</code>'ın geometrisinin yerini alacak <code>PartOperation</code>."
   },
   "@roblox/globaltype/PartOperation.SubstituteGeometry": {
-    "documentation": "Bu <code>PartOperation</code>'ın geometrisini başka bir <code>PartOperation</code>'ın geometrisiyle değiştirir.",
+    "documentation": "Bu <code>PartOperation</code>'ın geometrisini başka bir <code>PartOperation</code>'un geometrisi ile değiştirilir.",
     "params": [
       {
         "name": "self",
@@ -81903,7 +82010,7 @@
     "documentation": "Anahtarları kullanıcı ID'leri (dizeler) ve değerleri karşılık gelen fiyat seviyeleri (1 ile 1000 arasında tam sayılar) olan bir dizi <code>PriceLevelInfo</code> nesneleri döndürür."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Kullanıcının bölgelere göre fiyat seviyesini döndürür; bu, kendi bölgesel pazarında bir ürün için önerilen fiyatı temsil eder.",
+    "documentation": "Kullanıcıların bölgeselleştirilmiş fiyat seviyelerini döndürür; her kullanıcının bölgesel pazarında bir ürün için önerilen fiyatı temsil eder.",
     "params": [
       {
         "name": "self",
@@ -87401,7 +87508,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet.",
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet.",
     "keys": {
       "CheckApplyDefaultClothing": "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing",
       "CheckApplyDefaultClothingAsync": "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync",
@@ -87441,16 +87548,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing/param/1": {
-    "documentation": "Varsayılan kıyafetin gerekli olup olmadığını kontrol etmek için HumanoidDescription."
+    "documentation": "Varsayılan giysilerin gerekli olup olmadığını kontrol etmek için kullanılır <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing/return/0": {
-    "documentation": "Varsayılan kıyafet gerekli ise bir HumanoidDescription döndürür. Aksi takdirde <code>nil</code> döndürür."
+    "documentation": "Varsayılan giysiler gerekli ise <code>HumanoidDescription</code> döner. Aksi takdirde <code>nil</code> döner."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing": {
-    "documentation": "<strong>Deprecated:</strong> <br>Gerekli olduğunda <code>HumanoidDescription</code> için varsayılan kıyafet uygulamak için kullanılır.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>HumanoidDescription</code> için varsayılan giysileri uygulamak için kullanılır, duruma bağlı olarak.",
     "params": [
       {
         "name": "self",
@@ -87468,16 +87575,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/param/1": {
-    "documentation": "Varsayılan kıyafetin gerekli olup olmadığını kontrol etmek için HumanoidDescription."
+    "documentation": "Varsayılan giysilerin gerekli olup olmadığını kontrol etmek için kullanılır <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/return/0": {
-    "documentation": "Varsayılan kıyafet gerekli ise bir HumanoidDescription döndürür. Aksi takdirde <code>nil</code> döndürür."
+    "documentation": "Varsayılan giysiler gerekli ise <code>HumanoidDescription</code> döner. Aksi takdirde <code>nil</code> döner."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync": {
-    "documentation": "Gerekli olduğunda <code>HumanoidDescription</code> için varsayılan kıyafet uygulamak için kullanılır.",
+    "documentation": "<code>HumanoidDescription</code> için varsayılan giysileri uygulamak için kullanılır, duruma bağlı olarak.",
     "params": [
       {
         "name": "self",
@@ -87495,7 +87602,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRules/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRules/param/1": {
     "documentation": ""
@@ -87522,16 +87629,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/1": {
-    "documentation": "<code>Conform edilecek</code>HumanoidDescription` ."
+    "documentation": "Uyması gereken <code>HumanoidDescription</code> nesnesi."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/return/0": {
-    "documentation": "Platform Avatar kurallarına uygun yeni bir <code>HumanoidDescription</code> döner."
+    "documentation": "Platform Avatar kurallarına uyan yeni bir <code>HumanoidDescription</code> döner."
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync": {
-    "documentation": "Verilen <code>HumanoidDescription</code>'ın platform Avatar kurallarına uygun bir kopyasını döndürür.",
+    "documentation": "Verilen <code>HumanoidDescription</code> nesnesinin platform Avatar kurallarına uymayan bir kopyasını döner.",
     "params": [
       {
         "name": "self",
@@ -87549,7 +87656,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetAccessoryType/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetAccessoryType/param/1": {
     "documentation": ""
@@ -87576,13 +87683,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRules/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRules/return/0": {
-    "documentation": "Ölçeklendirme, varsayılan gömlekler ve pantolonlar, giyilebilir varlıkların sayısı gibi şeyler için platform Avatar kurallarını içeren bir sözlük. Yukarıdaki ana açıklamadaki örnek dönüşe bakınız."
+    "documentation": "Ölçeklendirme, varsayılan tişört ve pantolon, giyilebilir varlık sayısı gibi şeyler için platform Avatar kurallarını içeren bir sözlük döner. Yukarıdaki ana açıklamada örnek yanıtı görebilirsiniz."
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRules": {
-    "documentation": "<strong>Deprecated:</strong> <br>Ölçeklendirme, varsayılan gömlekler ve pantolonlar, giyilebilir varlıkların sayısı gibi şeyler için platform Avatar kurallarını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Platform Avatar kurallarını döner; ölçeklendirme, varsayılan tişört ve pantolon, giyilebilir varlık sayısı gibi şeyler için.",
     "params": [
       {
         "name": "self",
@@ -87596,13 +87703,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync/return/0": {
-    "documentation": "Ölçeklendirme, varsayılan gömlekler ve pantolonlar, giyilebilir varlıkların sayısı gibi şeyler için platform Avatar kurallarını içeren bir sözlük. Yukarıdaki ana açıklamadaki örnek dönüşe bakınız."
+    "documentation": "Ölçeklendirme, varsayılan tişört ve pantolon, giyilebilir varlık sayısı gibi şeyler için platform Avatar kurallarını içeren bir sözlük döner. Yukarıdaki ana açıklamada örnek yanıtı görebilirsiniz."
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync": {
-    "documentation": "Ölçeklendirme, varsayılan gömlekler ve pantolonlar, giyilebilir varlıkların sayısı gibi şeyler için platform Avatar kurallarını döndürür.",
+    "documentation": "Platform Avatar kurallarını döner; ölçeklendirme, varsayılan tişört ve pantolon, giyilebilir varlık sayısı gibi şeyler için.",
     "params": [
       {
         "name": "self",
@@ -87616,19 +87723,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/param/1": {
-    "documentation": "Detaylarını almak için öğe kimlikleri listesi."
+    "documentation": "Ayrıntılarını alacak ürün ID'lerinin listesi."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/param/2": {
-    "documentation": "Verilen öğe kimliklerinin türü."
+    "documentation": "Verilen ürün ID'lerinin tipi."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/return/0": {
-    "documentation": "Bir dizi öğe detayını döndürür. Yanıt formatı için <code>AvatarEditorService:GetBatchItemDetailsAsync()</code> bakın."
+    "documentation": "Ürün ayrıntılarının bir dizisini döner. Yanıt formatı için  <code>AvatarEditorService:GetBatchItemDetailsAsync()</code> yöntemine bakın."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
-    "documentation": "<strong>Deprecated:</strong> <br>Bir liste öğenin detaylarını aynı anda alır.",
+    "documentation": "<strong>Deprecated:</strong> <br>Bir seferde bir dizi ürün için ayrıntıları alır.",
     "params": [
       {
         "name": "self",
@@ -87650,19 +87757,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/1": {
-    "documentation": "Detaylarını almak için öğe kimlikleri listesi."
+    "documentation": "Ayrıntılarını alacak ürün ID'lerinin listesi."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/2": {
-    "documentation": "Verilen öğe kimliklerinin türü."
+    "documentation": "Verilen ürün ID'lerinin tipi."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
-    "documentation": "Bir dizi öğe detayını döndürür."
+    "documentation": "Bir dizi ürün ayrıntıları döner."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
-    "documentation": "Bir liste öğenin detaylarını aynı anda alır.",
+    "documentation": "Bir seferde bir dizi ürün için ayrıntıları alır.",
     "params": [
       {
         "name": "self",
@@ -87684,19 +87791,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/1": {
-    "documentation": "Belirtilen varlık veya paketin kimliği."
+    "documentation": "Belirtilen varlık veya paketin ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/2": {
-    "documentation": "Belirtilen varlık veya paketin <code>AvatarItemType</code>'ı."
+    "documentation": "Belirtilen varlık veya paketin <code>AvatarItemType</code> değeri."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/return/0": {
-    "documentation": "<code>LocalPlayer</code>'ın belirtilen paketi veya varlığı favorilere ekleyip eklemediği."
+    "documentation": "Verilen paket veya varlığın <code>LocalPlayer</code> tarafından favorilendiğini belirtir."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>Players.LocalPlayer</code>'ın belirtilen paketi veya varlığı favorilere ekleyip eklemediğini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen paket veya varlığın <code>Players.LocalPlayer</code> tarafından favorilendiğini döner.",
     "params": [
       {
         "name": "self",
@@ -87718,19 +87825,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/1": {
-    "documentation": "Belirtilen varlık veya paketin kimliği."
+    "documentation": "Belirtilen varlık veya paketin ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/2": {
-    "documentation": "Belirtilen varlık veya paketin <code>AvatarItemType</code>'ı."
+    "documentation": "Belirtilen varlık veya paketin <code>AvatarItemType</code> değeri."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/return/0": {
-    "documentation": "<code>LocalPlayer</code>'ın belirtilen paketi veya varlığı favorilere ekleyip eklemediği."
+    "documentation": "Verilen paket veya varlığın <code>LocalPlayer</code> tarafından favorilendiğini belirtir."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync": {
-    "documentation": "<code>Players.LocalPlayer</code>'ın belirtilen paketi veya varlığı favorilere ekleyip eklemediğini döndürür.",
+    "documentation": "Verilen paket veya varlığın <code>Players.LocalPlayer</code> tarafından favorilendiğini döner.",
     "params": [
       {
         "name": "self",
@@ -87752,13 +87859,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync/return/0": {
-    "documentation": "<code>Players.LocalPlayer</code> tarafından sahip olunan her bir baş şekli tanımlayan bir dizidir. Olası değerler şunları içerir: <code>\"RobloxClassic\"</code>, <code>\"Blockhead\"</code>, <code>\"Cheeks\"</code>, <code>\"Chiseled\"</code>, <code>\"CoolThing\"</code>, <code>\"EraserHead\"</code>, <code>\"FatHead\"</code>, <code>\"FlatTop\"</code>, <code>\"GoldenKorbloxGeneral\"</code>, <code>\"GoldenMrRobot\"</code>, <code>\"KnightOfChivalry\"</code>, <code>\"KnightOfCourage\"</code>, <code>\"ManHead\"</code>, <code>\"MercilessNinja\"</code>, <code>\"Narrow\"</code>, <code>\"Paragon\"</code>, <code>\"Peabrain\"</code>, <code>\"Perfection\"</code>, <code>\"Roll\"</code>, <code>\"Roundy\"</code>, <code>\"RoxBox\"</code>, <code>\"TheEngineer\"</code>, <code>\"Trim\"</code>, <code>\"WomanHead\"</code>."
+    "documentation": "<code>Players.LocalPlayer</code> tarafından sahip olunan her bir kafa şeklini tanımlayan bir dizi döner. Olası değerler: <code>\"RobloxClassic\"</code>, <code>\"Blockhead\"</code>, <code>\"Cheeks\"</code>, <code>\"Chiseled\"</code>, <code>\"CoolThing\"</code>, <code>\"EraserHead\"</code>, <code>\"FatHead\"</code>, <code>\"FlatTop\"</code>, <code>\"GoldenKorbloxGeneral\"</code>, <code>\"GoldenMrRobot\"</code>, <code>\"KnightOfChivalry\"</code>, <code>\"KnightOfCourage\"</code>, <code>\"ManHead\"</code>, <code>\"MercilessNinja\"</code>, <code>\"Narrow\"</code>, <code>\"Paragon\"</code>, <code>\"Peabrain\"</code>, <code>\"Perfection\"</code>, <code>\"Roll\"</code>, <code>\"Roundy\"</code>, <code>\"RoxBox\"</code>, <code>\"TheEngineer\"</code>, <code>\"Trim\"</code>, <code>\"WomanHead\"</code>."
   },
   "@roblox/globaltype/AvatarEditorService.GetHeadShapesAsync": {
-    "documentation": "<code>Players.LocalPlayer</code> tarafından sahip olunan baş şekil adlarının bir dizisini döndürür.",
+    "documentation": "<code>Players.LocalPlayer</code> tarafından sahip olunan kafa şekillerinin adlarını içeren bir dizi döner.",
     "params": [
       {
         "name": "self",
@@ -87772,7 +87879,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventory/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetInventory/param/1": {
     "documentation": "Oyuncunun envanterinde kontrol edilecek <code>AvatarAssetType</code>."
@@ -87781,7 +87888,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventory": {
-    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen AvatarAssetTypes ile kullanıcıların envanterindeki sahip olunan öğeler hakkında bilgi içeren bir <code>InventoryPages</code> nesnesi döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen AvatarAssetType'lara sahip kullanıcıların envanterindeki öğeler hakkında bilgi içeren bir <code>InventoryPages</code> nesnesi döner.",
     "params": [
       {
         "name": "self",
@@ -87799,16 +87906,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/1": {
-    "documentation": "Oyuncunun envanterinde kontrol edilecek <code>AvatarAssetType</code> ."
+    "documentation": "Oyuncunun envanterinde kontrol edilecek <code>AvatarAssetType</code>."
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventoryAsync": {
-    "documentation": "Kullanıcıların envanterindeki sahip olunan öğeler hakkında bilgi içeren bir <code>InventoryPages</code> nesnesi döndürür.",
+    "documentation": "Belirtilen AvatarAssetType'lara sahip kullanıcıların envanterindeki öğeler hakkında bilgi içeren bir <code>InventoryPages</code> nesnesi döner.",
     "params": [
       {
         "name": "self",
@@ -87826,19 +87933,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails/param/1": {
-    "documentation": "Detaylarının getirileceği öğenin kimliği."
+    "documentation": "Ayrıntıları alınacak ürünün ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails/param/2": {
-    "documentation": "Detaylarının getirileceği öğenin türünü belirten bir enum değeri."
+    "documentation": "Ayrıntıları alınacak ürün için bir enum değeri."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails/return/0": {
-    "documentation": "Alınan ürün için bilgileri içeren bir tablo. Yukarıda örnek tablo için bakın."
+    "documentation": "Alınan ürün için ürün bilgilerini içeren bir tablo döner. Üstteki bir örnek tabloya bakın."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen öğenin detaylarını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen ürün için ürün ayrıntılarını döner.",
     "params": [
       {
         "name": "self",
@@ -87860,19 +87967,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/1": {
-    "documentation": "Detaylarının alınacağı ürünün kimliği."
+    "documentation": "Ayrıntıları alınacak ürünün ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/2": {
-    "documentation": "Detaylarının alınacağı ürünün türünü belirten bir enum değeri."
+    "documentation": "Ayrıntıları alınacak ürün için bir enum değeri."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "Alınan ürün için bilgileri içeren bir tablo."
+    "documentation": "Alınan ürün için ürün bilgilerini içeren bir tablo döner."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
-    "documentation": "Verilen öğenin detaylarını döndürür.",
+    "documentation": "Verilen ürün için ürün ayrıntılarını döner.",
     "params": [
       {
         "name": "self",
@@ -87894,16 +88001,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetails/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetails/param/1": {
-    "documentation": "Detaylarının getirileceği kıyafetin kimliği."
+    "documentation": "Detayları alınacak kostümün ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetails/return/0": {
-    "documentation": "Alınan kıyafet için kıyafet bilgilerini içeren bir tablo. Yukarıda bir örnek tablo için bakınız."
+    "documentation": "Alınan kostüm için kostüm bilgilerini içeren bir tablo döner. Üstteki bir örnek tabloya bakın."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetails": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen kıyafet için kıyafet detaylarını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen kostümün detaylarını döner.",
     "params": [
       {
         "name": "self",
@@ -87921,16 +88028,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/1": {
-    "documentation": "Detaylarının alınacağı kıyafetin kimliği."
+    "documentation": "Detayları alınacak kostümün ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/return/0": {
-    "documentation": "Alınan kıyafet için bilgileri içeren bir tablo. Yukarıda örnek tablo için bakın."
+    "documentation": "Alınan kostüm için kostüm bilgilerini içeren bir tablo döner. Üstteki bir örnek tabloya bakın."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync": {
-    "documentation": "Verilen kıyafetin detaylarını döndürür.",
+    "documentation": "Verilen kostümün detaylarını döner.",
     "params": [
       {
         "name": "self",
@@ -87948,7 +88055,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfits/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfits/param/1": {
     "documentation": ""
@@ -87960,7 +88067,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfits": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>Players.LocalPlayer</code> için kıyafet verilerini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>Players.LocalPlayer</code> için kostüm verilerini döner.",
     "params": [
       {
         "name": "self",
@@ -87982,7 +88089,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/1": {
     "documentation": ""
@@ -87994,7 +88101,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync": {
-    "documentation": "<code>Players.LocalPlayer</code> için kıyafet verilerini döndürür.",
+    "documentation": "<code>Players.LocalPlayer</code> için kostüm verilerini döner.",
     "params": [
       {
         "name": "self",
@@ -88016,19 +88123,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/param/1": {
-    "documentation": "Öneriler için alınacak varlık türü. Sadece, öğe bazlı önerilerin mevcut olmadığı durumlarda yanıttan etkiler."
+    "documentation": "Önerileri almak için varlık türü. Sadece belirtilen <code>contextAssetId</code> için öğeye dayalı öneriler mevcut değilse yanıtı etkiler."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/param/2": {
-    "documentation": "Öneriler almak için bağlamda kullanılacak belirtilmiş varlık türüne eşit olan varlığın kimliği."
+    "documentation": "Önerilerin alınmasında bağlam olarak kullanılan, sağlanan <code>assetType</code> ile eşleşen bir varlığın ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/return/0": {
-    "documentation": "Verilen <code>AssetType</code> temelinde öneriler listesini döndürür."
+    "documentation": "Verilen <code>AssetType</code>'a dayalı önerilerin bir listesini döner."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen <code>AssetType</code> ve varlık ID'si temelinde önerilen varlıkların bir listesini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen <code>AssetType</code> ve varlık ID'sine dayalı önerilen varlıkların bir listesini döner.",
     "params": [
       {
         "name": "self",
@@ -88050,19 +88157,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/1": {
-    "documentation": "Önerilen varlıkların alınacağı varlık öneri türü. Yalnızca belirtilen <code>contextAssetId</code> için öğeye dayanan öneriler mevcut değilse yanıtı etkiler."
+    "documentation": "Önerileri almak için varlık türü. Sadece belirtilen <code>contextAssetId</code> için öğeye dayalı öneriler mevcut değilse yanıtı etkiler."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/2": {
-    "documentation": "Önerilerin alınmasında bağlam olarak kullanılacak, sağlanan assetType ile eşleşen bir varlığın kimliği."
+    "documentation": "Önerilerin alınmasında bağlam olarak kullanılan, sağlanan <code>assetType</code> ile eşleşen bir varlığın ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/return/0": {
-    "documentation": "Verilen <code>AssetType</code>'a dayalı öneriler listesidir."
+    "documentation": "Verilen <code>AssetType</code>'a dayalı önerilerin bir listesini döner."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync": {
-    "documentation": "Verilen bir <code>AssetType</code> ve varlık ID'sine dayalı önerilen varlıkların bir listesini döndürür.",
+    "documentation": "Belirtilen <code>AssetType</code> ve varlık ID'sine dayalı önerilen varlıkların bir listesini döner.",
     "params": [
       {
         "name": "self",
@@ -88084,16 +88191,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles/param/1": {
-    "documentation": "Önerilen paketlerin listesi."
+    "documentation": "Önerilen paketlerin bir listesi."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles/return/0": {
-    "documentation": "Önerilen paketlerin döndürüleceği paket kimliği."
+    "documentation": "Önerilen paketlerin döneceği paket ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen bir paket kimliği için önerilen paketlerin bir listesini döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen paket ID'sine dayalı önerilen paketlerin bir listesini döner.",
     "params": [
       {
         "name": "self",
@@ -88111,16 +88218,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/1": {
-    "documentation": "Önerilen paketler için bir liste."
+    "documentation": "Önerilen paketlerin bir listesi."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/return/0": {
-    "documentation": "Önerilen paketlerin döndürüleceği paket kimliği."
+    "documentation": "Önerilen paketlerin döneceği paket ID'si."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync": {
-    "documentation": "Verilen bir paket kimliği için önerilen paketlerin bir listesini döndürür.",
+    "documentation": "Belirtilen paket ID'sine dayalı önerilen paketlerin bir listesini döner.",
     "params": [
       {
         "name": "self",
@@ -88138,10 +88245,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccess/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccess": {
-    "documentation": "<code>Players.LocalPlayer</code>'ın, geliştiricinin kullanıcıların envanterinde ne tür ürünler olduğunu ve diğer avatar editörü ile ilgili bilgileri okuyabilmesini sağlamak için bir talimat verir.",
+    "documentation": "<code>Players.LocalPlayer</code>'dan geliştiricinin envanterdeki öğeleri okuması için onay istemektedir ve diğer avatar editörü ile ilgili bilgileri.",
     "params": [
       {
         "name": "self",
@@ -88153,22 +88260,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/1": {
-    "documentation": "Oyuncuya oluşturması için istenen <code>Outfit</code> ."
+    "documentation": "Oyuncunun oluşturulması istenen <code>Outfit</code>."
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/2": {
-    "documentation": "Oyuncunun talebi onaylaması durumunda kıyafetin yaratılacağı <code>RigType</code>."
+    "documentation": "Oyuncunun onaylaması durumunda, kostüm oluşturulacak <code>RigType</code>."
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/3": {
-    "documentation": "Gelecek seçenekler için ayrılmıştır. Boş olmalı veya atlanmalıdır."
+    "documentation": "Gelecek seçenekler için ayrılmıştır. Boş veya atlanmış olmalıdır."
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit/param/4": {
-    "documentation": "İsteğe bağlı <code>OutfitType</code>. Sadece <code>Avatar</code> ve <code>Makeup</code> değerleri kabul edilir. Atlandığında, tür açıklamadan çıkarılır."
+    "documentation": "Opsiyonel <code>OutfitType</code>. Sadece <code>Avatar</code> ve <code>Makeup</code> değerleri kabul edilir. Atlandığında, tür açıklamadan çıkarılır."
   },
   "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit": {
-    "documentation": "Verilen <code>HumanoidDescription</code> öğesini bir kıyafet olarak kaydedebilmesi için <code>Players.LocalPlayer</code>'a bir talimat verir.",
+    "documentation": "<code>Players.LocalPlayer</code>'dan verilen <code>HumanoidDescription</code>'ı bir kostüm olarak kaydetmesini istemektedir.",
     "params": [
       {
         "name": "self",
@@ -88196,13 +88303,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptDeleteOutfit/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptDeleteOutfit/param/1": {
-    "documentation": "Silinecek kıyafet kimliği."
+    "documentation": "Silinecek kostümün outfitId'si."
   },
   "@roblox/globaltype/AvatarEditorService.PromptDeleteOutfit": {
-    "documentation": "Verilen kıyafeti silmesi için <code>Players.LocalPlayer</code>'a bir talimat verir.",
+    "documentation": "Verilen kostümün silinmesini istemektedir <code>Players.LocalPlayer</code>'dan.",
     "params": [
       {
         "name": "self",
@@ -88218,13 +88325,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptRenameOutfit/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptRenameOutfit/param/1": {
-    "documentation": "Yeniden adlandırılacak kıyafet kimliği."
+    "documentation": "Yeniden adlandırılacak kostümün outfitId'si."
   },
   "@roblox/globaltype/AvatarEditorService.PromptRenameOutfit": {
-    "documentation": "Verilen kıyafeti yeniden adlandırması için <code>Players.LocalPlayer</code>'a bir talimat verir.",
+    "documentation": "Verilen kostümün yeniden adlandırılmasını istemektedir <code>Players.LocalPlayer</code>'dan.",
     "params": [
       {
         "name": "self",
@@ -88240,16 +88347,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar/param/1": {
-    "documentation": "Kaydedilmesi istenen <code>HumanoidDescription</code> ."
+    "documentation": "Kaydedilmesi istenen <code>HumanoidDescription</code>."
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar/param/2": {
-    "documentation": "Oyuncunun onaylaması durumunda kaydedilecek <code>RigType</code> ."
+    "documentation": "Oyuncunun onaylaması durumunda kaydedilecek <code>RigType</code>."
   },
   "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar": {
-    "documentation": "<code>Players.LocalPlayer</code>'dan, verilen <code>HumanoidDescription</code> ve <code>RigType</code> (R6 veya R15) kullanarak avatarını güncellemesini ister.",
+    "documentation": "Verilen <code>HumanoidDescription</code> ve R6 veya R15 <code>RigType</code>'ine göre oyuncunun avatarını güncellemeleri istiyor.",
     "params": [
       {
         "name": "self",
@@ -88269,19 +88376,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/1": {
-    "documentation": "Favori için istenen ürünün ItemId'si."
+    "documentation": "Favori yapılması istenen öğenin ItemId'si."
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/2": {
-    "documentation": "Favori olmasını istenen ürünün türü."
+    "documentation": "Favori yapılması istenen öğenin tipi."
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite/param/3": {
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptSetFavorite": {
-    "documentation": "<code>Players.LocalPlayer</code>'dan, belirtilen varlık veya paketi favori olarak işaretlemesi veya kaldırması için bir talep yapar.",
+    "documentation": "Verilen varlık veya paketi favori veya favorilerinden çıkarma isteği.",
     "params": [
       {
         "name": "self",
@@ -88305,19 +88412,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit/param/1": {
-    "documentation": "Güncellenecek kıyafet kimliği."
+    "documentation": "Güncellenecek kostümün outfitId'si."
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit/param/2": {
-    "documentation": "Yeni kıyafet verilerini temsil eden HumanoidDescription ."
+    "documentation": "Yeni kostüm verilerini temsil eden bir HumanoidDescription."
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit/param/3": {
-    "documentation": "Kıyafetin güncelleneceği HumanoidRigType'ı."
+    "documentation": "Kostümü güncellenecek HumanoidRigType."
   },
   "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit": {
-    "documentation": "<code>Players.LocalPlayer</code>'ı verilen kıyafeti güncellemeye yönlendirir.",
+    "documentation": "Verilen kostümün güncellenmesi için <code>Players.LocalPlayer</code>'dan istek yapılır.",
     "params": [
       {
         "name": "self",
@@ -88341,7 +88448,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalog/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalog/param/1": {
     "documentation": "Arama için kullanılan parametreleri içeren bir nesne."
@@ -88350,7 +88457,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalog": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen aramanın sonucunu içeren bir <code>CatalogPages</code> nesnesi döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen arama sonucunu içeren bir <code>CatalogPages</code> nesnesi döner.",
     "params": [
       {
         "name": "self",
@@ -88368,16 +88475,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/0": {
-    "documentation": "Geliştirici Avatar Düzenleyicilerini destekleyen bir hizmet."
+    "documentation": "Geliştirici Avatar Editörlerini destekleyen bir hizmet."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/1": {
     "documentation": "Arama için kullanılan parametreleri içeren bir nesne."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": "Arama sonuçlarını içeren bir <code>CatalogPages</code> nesnesidir."
+    "documentation": "Arama sonuçlarını içeren bir <code>CatalogPages</code> nesnesi döner."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
-    "documentation": "Verilen arama sonucunu içeren bir <code>CatalogPages</code> nesnesi döndürür.",
+    "documentation": "Verilen arama sonucunu içeren bir <code>CatalogPages</code> nesnesi döner.",
     "params": [
       {
         "name": "self",
@@ -88472,7 +88579,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccessCompleted": {
-    "documentation": "<code>AvatarEditorService:PromptAllowInventoryReadAccess()</code> isteğiyle kullanıcı tarafından yanıtlandığında tetiklenir.",
+    "documentation": "<code>AvatarEditorService:PromptAllowInventoryReadAccess()</code> istemine yanıt verildiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccessCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccessCompleted.ConnectParallel",
@@ -99572,7 +99679,7 @@
     "documentation": "Şu anda bağlı olan <code>Player</code> nesnelerini içeren bir hizmet."
   },
   "@roblox/globaltype/Players.BanAsync/param/1": {
-    "documentation": "<ul> <li> <code>UserIds</code> (gerekli; dizi) — Yasaklanacak oyuncuların <code>UserIds</code> dizisi. Maksimum boyut <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (isteğe bağlı; boolean) — Yasaklamanın deneyim evrenindeki tüm yerlere yayılıp yayılmayacağı. Varsayılan <code>true</code> </li> <li> <code>Duration</code> (gerekli; tam sayı) — Yasaklamanın süresi, saniye cinsinden. Kalıcı yasaklar <code>-1</code> değerine sahip olmalıdır. <code>0</code> ve diğer tüm negatif değerler geçersizdir. </li> <li> <code>DisplayReason</code> (gerekli; dize) — Kullanıcıların deneyime katılmaya çalışırken gösterilecek mesaj. Maksimum dize uzunluğu <code>400</code>. </li> <li> <code>PrivateReason</code> (gerekli; dize) — Kullanıcının yasaklama geçmişini sorgularken döndürülecek dahili mesajlaşma. Maksimum dize uzunluğu <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (isteğe bağlı; boolean) — <code>true</code> olduğunda, Roblox alternatif hesapları yasaklamaya çalışmaz. Varsayılan <code>false</code>dır. </li> </ul>"
+    "documentation": "<ul> <li> <code>UserIds</code> (gerekli; dizi) — Yasaklanacak oyuncuların <code>UserIds</code> dizisi. Maksimum boyut <code>50</code>. </li> <li> <code>ApplyToUniverse</code> (isteğe bağlı; boolean) — Yasaklamanın, deneyim evrenindeki tüm yerlere yayılıp yayılmayacağı. Varsayılan <code>true</code>. </li> <li> <code>Duration</code> (gerekli; tamsayı) — Yasak süresi, saniye cinsinden. Süresiz yasaklar için değer <code>-1</code> olmalıdır. <code>0</code> ve tüm diğer negatif değerler geçersizdir. </li> <li> <code>DisplayReason</code> (gerekli; dize) — Kullanıcıların bir deneyime katılmaya çalıştıklarında ve başarısız olduklarında gösterilecek mesaj. Maksimum dize uzunluğu <code>400</code>. </li> <li> <code>PrivateReason</code> (gerekli; dize) — Kullanıcının yasak geçmişini sorgularken döndürülecek iç ileti. Maksimum dize uzunluğu <code>1000</code>. </li> <li> <code>ExcludeAltAccounts</code> (isteğe bağlı; boolean) — <code>true</code> olduğunda, Roblox alternatif hesapları yasaklama girişiminde bulunmaz. Varsayılan <code>false</code>. </li> <li> <code>ApplyDeviceBlock</code> (isteğe bağlı; boolean) — <code>true</code> olduğunda, Roblox yasaklanan kullanıcıların cihazlarını yasak uygulandıktan sonra 24 saat boyunca deneyime tekrar katılmaktan engeller. Varsayılan <code>false</code>. </li> </ul>"
   },
   "@roblox/globaltype/Players.BanAsync": {
     "documentation": "Kullanıcıları deneyiminizden yasaklar, süresini, nedenini, yasaklamanın tüm evrene mi yoksa yalnızca mevcut yere mi uygulanacağını seçme seçenekleri ile birlikte. Bu metod, <code>Players.BanningEnabled</code> özelliği tarafından etkinleştirilir ve devre dışı bırakılır, bunu Studio'da açıp kapatabilirsiniz.",
@@ -120675,7 +120782,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReceiptType.RobuxTransferSender": {
-    "documentation": "Bir Robux transferi başlatan kullanıcının makbuzlarını işlemek için kullanılır. Makbuzun <code>PlayerId</code>'si gönderenin kullanıcı kimliğidir ve bir <code>TransferRequestId</code> alanı içerir. Eğer alıcı onayı gerekiyorsa, hemen teslim edilir, aksi takdirde göndericinin bir sonraki oturum katılımına ertelenir.",
+    "documentation": "Bir Robux transferini başlatan kullanıcı için makbuzları işlemek amacıyla kullanılır. Makbuzun <code>PlayerId</code>'si gönderenin kullanıcı kimliği ve ayrıca bir <code>TransferRequestId</code> alanı içerir. Eğer transfer senkronize bir şekilde onaylanırsa, anında teslim edilir. Alıcı onayı gerekiyorsa, alıcının kabul etmesi durumunda gönderenin şu anda bulunduğu sunucuya veya gönderen offline ise, gönderenin bir sonraki oturum katılımında teslim edilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -120685,7 +120792,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReceiptType.RobuxTransferReceiver": {
-    "documentation": "Bir transfer aracılığıyla Robux alan kullanıcının makbuzlarını işlemek için kullanılır. Makbuzun <code>PlayerId</code>'si alıcının kullanıcı kimliğidir ve bir <code>TransferRequestId</code> alanı içerir. Her zaman alıcının bir sonraki oturum katılımına ertelenir.",
+    "documentation": "Bir transfer aracılığıyla Robux alan kullanıcı için makbuzları işlemek amacıyla kullanılır. Makbuzun <code>PlayerId</code>'si alıcının kullanıcı kimliği ve ayrıca bir <code>TransferRequestId</code> alanı içerir. Transfer onaylandığında alıcının şu anda bulunduğu sunucuya veya offline iseler, bir sonraki oturum katılımında teslim edilir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121193,6 +121300,35 @@
       "Enabled": "@roblox/enum/ClientAnimatorThrottlingMode.Enabled"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/ClientAnimatorThrottlingMode",
+    "code_sample": ""
+  },
+  "@roblox/enum/DomainType.EXPERIENCE": {
+    "documentation": "The user ID is scoped to a specific experience (universe).",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DomainType#EXPERIENCE",
+    "code_sample": ""
+  },
+  "@roblox/enum/DomainType.OAUTH": {
+    "documentation": "The user ID is scoped to a specific OAuth application.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DomainType#OAUTH",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.DomainType": {
+    "documentation": "Specifies the type of domain that a <code>User</code> is scoped to.",
+    "keys": {
+      "EXPERIENCE": "@roblox/enum/DomainType.EXPERIENCE",
+      "OAUTH": "@roblox/enum/DomainType.OAUTH"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DomainType",
     "code_sample": ""
   },
   "@roblox/enum/ResamplerMode.Default": {
@@ -129553,7 +129689,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReceiptDecision.NotProcessedYet": {
-    "documentation": "Makbuz henüz işlenmedi. Bu değeri döndürmek, makbuzu çözümsüz hale getirir, böylece bir sonraki fırsatta tekrar teslim edilecektir, bunun gibi, kullanıcı bir sunucuya yeniden katıldığında.",
+    "documentation": "Fatura henüz işlenmedi. Bu değeri döndürmek, faturayı çözümsüz bırakır, böylece kullanıcıdan gelen işleyiciye daha sonra, mevcut oturumları sırasında veya bir sunucuya yeniden katıldıklarında, eğer bağlantıları kesilmişse yeniden gönderilecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
