@@ -5727,15 +5727,19 @@ Studio.App.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
 Studio.App.PropertyItems.NoPermissionsAudio,,,Failed to load audio. User is not authorized to access asset.,Failed to load audio. User is not authorized to access asset.
 Studio.App.Property.EnableClientServerMDI,,,Enable Client/Server MDI for Play Solo,Enable Client/Server MDI for Play Solo
 Studio.App.RBXMainWindow.MDIClient,,,Client,Client
-Studio.App.RBXMainWindow.MDIClientActive,,,Client (Active),Client (Active)
-Studio.App.RBXMainWindow.MDIExplorerClient,,,Explorer (Client),Explorer (Client)
-Studio.App.RBXMainWindow.MDIExplorerServer,,,Explorer (Server),Explorer (Server)
+Studio.App.RBXMainWindow.MDIClientActive,,,Client,Client
+Studio.App.RBXMainWindow.MDIExplorerClient,,,Explorer / Client,Explorer / Client
+Studio.App.RBXMainWindow.MDIExplorerServer,,,Explorer / Server,Explorer / Server
 Studio.App.RBXMainWindow.MDIServer,,,Server,Server
-Studio.App.RBXMainWindow.MDIServerActive,,,Server (Active),Server (Active)
+Studio.App.RBXMainWindow.MDIServerActive,,,Server,Server
 Studio.App.RBXMainWindow.MDIShowServerViewport,,,Show Server Viewport,Show Server Viewport
 Studio.App.RBXMainWindow.MDIShowClientViewport,,,Show Client Viewport,Show Client Viewport
 Studio.App.RBXMainWindow.MDIShowHideServerViewport,,,Show / Hide Server Viewport,Show / Hide Server Viewport
 Studio.App.RobloxRibbonMainWindow.GroupsGuiObjectsIntoFrame,,,Group the selected GUI objects into a new Frame,Group the selected GUI objects into a new Frame
+Studio.App.RBXMainWindow.MDIPropertiesClient,,,Properties / Client,Properties / Client
+Studio.App.RBXMainWindow.MDIPropertiesServer,,,Properties / Server,Properties / Server
+Studio.App.Properties.MDITitleFmt1Client,,,Properties / Client - %1,Properties / Client - %1
+Studio.App.Properties.MDITitleFmt1Server,,,Properties / Server - %1,Properties / Server - %1
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -13884,6 +13888,7 @@ Studio.ExplorerPlugin.ReimportCategory,,,Reimport,Reimport
 Studio.ExplorerPlugin.ContextMenu.Reimport,,,Reimport,Reimport
 Studio.ExplorerPlugin.ContextMenu.stream,,,Stream,Stream
 Studio.ExplorerPlugin.NegateSelection.PartIsNegated,,,Part is negated,Part is negated
+Studio.ExplorerPlugin.ContextMenu.package,,,Package,Package
 Studio.StartPage.Plugin.Name,,,StartPage,StartPage
 Studio.StartPage.Plugin.AgeRestrictionDialog.Body,,,This experience is not accessible due to age restrictions.,This experience is not accessible due to age restrictions.
 Studio.StartPage.Plugin.LastModified,,,Modified {lastModified},Modified {lastModified}
@@ -14357,6 +14362,7 @@ Studio.Assistant.Skills.CreateNameInvalid,,,Name can only contain letters number
 Studio.Assistant.Skills.CreateNameTaken,,,A skill with this name already exists.,A skill with this name already exists.
 Studio.Assistant.Skills.Save,,,Save,Save
 Studio.Assistant.Segmentation.Suggesting,,,suggesting...,suggesting...
+Studio.Assistant.Segmentation.TextPrompt,,,Describe your model...,Describe your model...
 Studio.Assistant.VersionMismatch.VersionMismatchWarning,,,Version mismatch detected. Please restart Roblox Studio.,Version mismatch detected. Please restart Roblox Studio.
 Studio.Assistant.PrimitiveGen.GenerationErrorEmptyPrompt,,,The prompt is empty. Please provide either text or an image input.,The prompt is empty. Please provide either text or an image input.
 Studio.Assistant.PrimitiveGen.GenerationErrorTooManyConcurrentJobs,,,"You can only run {maxConcurrentJobs} generation{s} simultaneously. Wait for one to finish, then try again.","You can only run {maxConcurrentJobs} generation{s} simultaneously. Wait for one to finish, then try again."
@@ -14896,7 +14902,7 @@ Studio.BetaFeatures.VREmulatorDescription,,,"Enable this feature to simulate a V
 Studio.BetaFeatures.AssetManagerTitle,,,Asset Manager,Asset Manager
 Studio.BetaFeatures.LuauNativeCodegenDescription,,,Enable native code generation for Luau modules tagged with --!native.,Enable native code generation for Luau modules tagged with --!native.
 Studio.BetaFeatures.MultilayerWrapFixTitle,,,Multilayer Wrap Fix,Multilayer Wrap Fix
-Studio.BetaFeatures.NewCameraControlsTitle,,,Studio Camera Controls (V1),Studio Camera Controls (V1)
+Studio.BetaFeatures.NewCameraControlsTitle,,,New Studio Camera Controls (Updated),New Studio Camera Controls (Updated)
 Studio.BetaFeatures.StudioNotifications,,,Notification Overhaul,Notification Overhaul
 Studio.BetaFeatures.ClarifiedIKDraggersDescription,,,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode,Enables a new clarified UI for IK/Constraint/Physical draggers and adds a new behavior to the select dragger when in Physical mode
 Studio.BetaFeatures.NewExperiencesEnableTeamCreateDescNew,,,New experiences created in Studio are immediately saved to Roblox and have Team Create enabled by default.,New experiences created in Studio are immediately saved to Roblox and have Team Create enabled by default.
@@ -15051,6 +15057,8 @@ Studio.BetaFeatures.SegmentByPartsTitle,,,Segment by Parts,Segment by Parts
 Studio.BetaFeatures.SegmentByPartsDescription,,,Enables Assistant to segment generated meshes and procedural models by parts.,Enables Assistant to segment generated meshes and procedural models by parts.
 Studio.BetaFeatures.SecondAttemptCameraControlsTitle,,,Studio Camera Controls (V2),Studio Camera Controls (V2)
 Studio.BetaFeatures.SecondAttemptCameraControlsDescription,,,Improved camera navigation with a standard navigation model.,Improved camera navigation with a standard navigation model.
+Studio.BetaFeatures.InputActionManagerTitle,,,Input Action Manager,Input Action Manager
+Studio.BetaFeatures.InputActionManagerDescription,,,Provides a new editor for working with Input Action System.,Provides a new editor for working with Input Action System.
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -15411,6 +15419,7 @@ Studio.SystemMenu.Title.ReportIllegalContent,,,Report Illegal Content,Report Ill
 Studio.SystemMenu.Tooltip.ReportIllegalContent,,,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
 Studio.SystemMenu.Help.OpenLogsFolder,,,Open Logs Folder,Open Logs Folder
 Studio.SystemMenu.Title.GroupAsFrame,,,Group as Frame,Group as Frame
+Studio.SystemMenu.Title.UserInputPlayback,,,User Input Playback,User Input Playback
 Studio.PlaceUpload.ErrorMessage.BadRequest,,,Place save was rejected. Check your network and try again later.,Place save was rejected. Check your network and try again later.
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,,Search for a Behavior to bind to,Search for a Behavior to bind to
@@ -15592,6 +15601,8 @@ Studio.Reimport.Actions.Reimport,,,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,,,Reimport relative to this,Reimport relative to this
 Studio.Reimport.Actions.Configure,,,Configure...,Configure...
 Studio.Reimport.Tooltips.Configure,,,Configure reimport settings,Configure reimport settings
+Studio.Reimport.Actions.WatchInstanceFile,,,Auto-Reimport,Auto-Reimport
+Studio.Reimport.Tooltips.WatchInstanceFile,,,Toggle whether this instance should be automatically reimported when the local file changes,Toggle whether this instance should be automatically reimported when the local file changes
 Studio.Reimport.Actions.ClearReimportConfig,,,Remove reimport config,Remove reimport config
 Studio.Reimport.Tooltips.ClearReimportConfig,,,Clears the association between an instance and a reimport config. Will not affect duplicates.,Clears the association between an instance and a reimport config. Will not affect duplicates.
 Studio.Reimport.ConfigDialog.Creator,,,Creator,Creator
@@ -15806,6 +15817,34 @@ Studio.DialogPlugin.ScriptSyncConflictDialog.InstanceNounPlural,,,instances,inst
 Studio.DialogPlugin.ScriptSyncConflictDialog.AddTitle,,,Add {count:int} {noun},Add {count:int} {noun}
 Studio.DialogPlugin.ScriptSyncConflictDialog.ModifyTitle,,,Modify {count:int} {noun},Modify {count:int} {noun}
 Studio.DialogPlugin.ScriptSyncConflictDialog.DeleteTitle,,,Delete {count:int} {noun},Delete {count:int} {noun}
+Studio.DialogPlugin.Safety.EnforcementDateAcknowledgement,,,"I understand I'll lose access on June 25, 2026 if I don't take action.","I understand I'll lose access on June 25, 2026 if I don't take action."
+Studio.DialogPlugin.SafetyAgeCheckDialog.Body,,,Let's check your age so you can create with others.,Let's check your age so you can create with others.
+Studio.DialogPlugin.SafetyAgeCheckDialog.Title,,,Complete an age check,Complete an age check
+Studio.DialogPlugin.DialogButton.Add,,,Add,Add
+Studio.DialogPlugin.DialogButton.AddTF,,,Add trusted friends,Add trusted friends
+Studio.DialogPlugin.DialogButton.AskAgain,,,Ask again,Ask again
+Studio.DialogPlugin.DialogButton.AskParent,,,Ask Parent,Ask Parent
+Studio.DialogPlugin.DialogButton.Cancel,,,Cancel,Cancel
+Studio.DialogPlugin.DialogButton.Continue,,,Continue,Continue
+Studio.DialogPlugin.DialogButton.GetPermission,,,Get Permission,Get Permission
+Studio.DialogPlugin.DialogButton.RemindMeLater,,,Remind me later,Remind me later
+Studio.DialogPlugin.SafetyEstablishTrustDialog.Body,,,"Roblox requires you to either add your collaborators as trusted friends, or get permission in Parental Controls to collaborate with all age groups.","Roblox requires you to either add your collaborators as trusted friends, or get permission in Parental Controls to collaborate with all age groups."
+Studio.DialogPlugin.SafetyEstablishTrustDialog.Title,,,Your age settings are blocking collaboration,Your age settings are blocking collaboration
+Studio.DialogPlugin.SafetyGroupTooLargeDialog.Body,,,"Due to group size, you'll need to get permission from your parent to collaborate","Due to group size, you'll need to get permission from your parent to collaborate"
+Studio.DialogPlugin.DialogButton.OK,,,OK,OK
+Studio.DialogPlugin.DialogButton.Close,,,Close,Close
+Studio.DialogPlugin.DialogButton.ViewDetails,,,View details,View details
+Studio.DialogPlugin.SafetyCountryAgeCheckBlocked.Title,,,Live collaboration in Studio is temporarily suspended in your country.,Live collaboration in Studio is temporarily suspended in your country.
+Studio.DialogPlugin.SafetyCountryAgeCheckBlocked.Body,,,We'll notify you when collaboration becomes available.,We'll notify you when collaboration becomes available.
+Studio.DialogPlugin.SafetyDefaultBlockedDialog.Title,,,You've lost access to this Experience,You've lost access to this Experience
+Studio.DialogPlugin.SafetyDefaultBlockedDialog.Body,,,Contact the owner to restore your permissions.,Contact the owner to restore your permissions.
+Studio.DialogPlugin.Safety.NonBlockingAddendum,,,"After June 25th, you won't be able to access this Experience without permission.","After June 25th, you won't be able to access this Experience without permission."
+Studio.DialogPlugin.SafetyEstablishTrustDialog.Over16.Title,,,Add trusted friends to work across age groups.,Add trusted friends to work across age groups.
+Studio.DialogPlugin.SafetyEstablishTrustDialog.Over16.Body,,,"You can no longer access this Experience due to age restrictions. To collaborate with someone outside your age group, you'll first need to add them as trusted friends.","You can no longer access this Experience due to age restrictions. To collaborate with someone outside your age group, you'll first need to add them as trusted friends."
+Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Under16.Title,,,Ask your parent to work with others outside of similar age groups,Ask your parent to work with others outside of similar age groups
+Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Under16.Body,,,Options for trusted relationships are limited in your country.,Options for trusted relationships are limited in your country.
+Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Over16.Title,,,Collaborators outside your similar age groups need parent permission to use live collaboration in Studio,Collaborators outside your similar age groups need parent permission to use live collaboration in Studio
+Studio.DialogPlugin.SafetyAddTFRestrictedDialog.Over16.Body,,,Some collaborators of this experience still need to request permission in Parental Controls and get approval from their parent.,Some collaborators of this experience still need to request permission in Parental Controls and get approval from their parent.
 Studio.IndividuallyRoundedCorners.CornerRadiusWarning,,,Overridden by some or all Individual Corners,Overridden by some or all Individual Corners
 Studio.LoginPage.Label.SignUp1,,,Don't have an account?,Don't have an account?
 Studio.LoginPage.Label.SignUp2,,,Create one,Create one
@@ -15816,6 +15855,38 @@ Studio.LoginPage.Heading.QuickSignIn,,,Use another device,Use another device
 Studio.LoginPage.Label.QuickSignInInstructions,,,"Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code.","Scan this QR code on another device to quickly sign in. Or on your signed in device, go to More > Quick sign in and enter the code."
 Studio.LoginPage.Button.Terms,,,Terms,Terms
 Studio.LoginPage.Button.Privacy,,,Privacy,Privacy
+Studio.InputActionManager.Binding.Backward,,,Backward,Backward
+Studio.InputActionManager.Header.Search,,,Search,Search
 Studio.InputActionManager.Plugin.Name,,,Input Action Manager,Input Action Manager
 Studio.InputActionManager.Plugin.Button,,,Actions,Actions
 Studio.InputActionManager.Plugin.Description,,,"Set up contexts, actions, and bindings","Set up contexts, actions, and bindings"
+Studio.InputActionManager.Binding.Composite,,,Composite,Composite
+Studio.InputActionManager.Binding.Keycode,,,Keycode,Keycode
+Studio.InputActionManager.Binding.PrimaryModifier,,,Primary Modifier,Primary Modifier
+Studio.InputActionManager.Binding.SecondaryModifier,,,Secondary Modifier,Secondary Modifier
+Studio.InputActionManager.Binding.Up,,,Up,Up
+Studio.InputActionManager.Binding.Down,,,Down,Down
+Studio.InputActionManager.Binding.Left,,,Left,Left
+Studio.InputActionManager.Binding.Right,,,Right,Right
+Studio.InputActionManager.Binding.Forward,,,Forward,Forward
+Studio.InputActionManager.Schema.KeyboardAndMouse,,,Keyboard and Mouse,Keyboard and Mouse
+Studio.InputActionManager.Schema.Touch,,,Touch,Touch
+Studio.InputActionManager.Schema.Gamepad,,,Gamepad,Gamepad
+Studio.InputActionManager.Schema.VR,,,VR,VR
+Studio.InputActionManager.Header.Context,,,Context,Context
+Studio.InputActionManager.Menu.Rename,,,Rename,Rename
+Studio.InputActionManager.Menu.Delete,,,Delete,Delete
+Studio.InputActionManager.Menu.ChangeActionType,,,Change Action Type,Change Action Type
+Studio.InputActionManager.Menu.UseComposite,,,Use Composite,Use Composite
+Studio.InputActionManager.Menu.UseKeycode,,,Use Keycode,Use Keycode
+Studio.InputActionManager.Menu.AddPrimaryModifier,,,Add Primary Modifier,Add Primary Modifier
+Studio.InputActionManager.Menu.AddSecondaryModifier,,,Add Secondary Modifier,Add Secondary Modifier
+Studio.InputActionManager.Status.DuplicateKeycodeTitle,,,Duplicate Keycode,Duplicate Keycode
+Studio.InputActionManager.Status.DuplicateKeycodeDescription,,,{keycode} is used elsewhere: {actions},{keycode} is used elsewhere: {actions}
+Studio.InputActionManager.Status.ModifierKeycodeTitle,,,Modifier Keycode,Modifier Keycode
+Studio.InputActionManager.Status.ModifierKeycodeDescription,,,The primary and secondary modifiers must have different values from each other and the binding's keycode.,The primary and secondary modifiers must have different values from each other and the binding's keycode.
+Studio.InputActionManager.Status.MissingKeycodeTitle,,,Missing Keycode,Missing Keycode
+Studio.InputActionManager.Status.MissingKeycodeDescription,,,This action is missing a keycode binding for this schema.,This action is missing a keycode binding for this schema.
+Studio.InputActionManager.Status.MissingCompositeKeycodeTitle,,,Missing Keycode,Missing Keycode
+Studio.InputActionManager.Status.MissingCompositeKeycodeDescription,,,This composite binding is missing a directional keycode.,This composite binding is missing a directional keycode.
+Studio.InputActionManager.Menu.Cancel,,,Cancel,Cancel

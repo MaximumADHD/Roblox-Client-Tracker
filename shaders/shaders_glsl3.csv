@@ -249,7 +249,6 @@ FastConvolutionPS,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
-GenTileBorderRadialFS,Fragment
 HeightmapDebugShadowPS,Fragment
 HeightmapDebugShadowVS,Vertex
 HighlightDispatchPostprocessFS_00000000,Fragment
@@ -277,10 +276,10 @@ ParticleCurveModulateFS,Fragment
 ParticleCurveVS,Vertex
 ParticleCustomFS,Fragment
 ParticleCustomVS,Vertex
+ParticleCustomVS_noZeroVel,Vertex
 ParticleCustomVS_old,Vertex
 ParticleLightingFS,Fragment
 ParticleLightingVS,Vertex
-PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughClampedFS,Fragment
 PassThroughFS,Fragment
@@ -342,13 +341,6 @@ SkyRGBELinearFS,Fragment
 SkyRGBELinearVColorFS,Fragment
 SkyVS,Vertex
 SmoothClusterDepthFS,Fragment
-SmoothClusterFeedbackDebugFS,Fragment
-SmoothClusterFeedbackFS,Fragment
-SmoothClusterFeedbackVS,Vertex
-SmoothClusterVTDepthFS,Fragment
-SmoothClusterVTDepthVS,Vertex
-SmoothClusterVTTranslationFS,Fragment
-SmoothClusterVTTranslationVS,Vertex
 SmootherStepFS,Fragment
 SpecularConvFS,Fragment
 SpecularConvVS,Vertex

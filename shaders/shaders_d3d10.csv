@@ -262,9 +262,12 @@ ParticleCurveVS_Soft_NoFadeFix,Vertex
 ParticleCustomFS,Fragment
 ParticleCustomFS_Soft,Fragment
 ParticleCustomVS,Vertex
+ParticleCustomVS_noZeroVel,Vertex
 ParticleCustomVS_old,Vertex
 ParticleCustomVS_Soft,Vertex
 ParticleCustomVS_Soft_NoFadeFix,Vertex
+ParticleCustomVS_Soft_NoFadeFix_noZeroVel,Vertex
+ParticleCustomVS_Soft_noZeroVel,Vertex
 ParticleCustomVS_Soft_old,Vertex
 ParticleCustomVS_Soft_old_NoFadeFix,Vertex
 ParticleLightingFS,Fragment
