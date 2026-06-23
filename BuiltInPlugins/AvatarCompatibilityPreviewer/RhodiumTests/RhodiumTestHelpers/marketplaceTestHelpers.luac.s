@@ -185,10 +185,10 @@ PROTO_11:
 PROTO_12:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["fireEvent"]
-        3 GETUPVAL                         R1 1
-        4 LOADK                            R2 K1 ["clickWithoutValidation"]
-        5 CALL                             R0 2 0
-        6 RETURN                           R0 0
+        3 GETTABLEKS                       R0 R0 K1 ["click"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R1 0

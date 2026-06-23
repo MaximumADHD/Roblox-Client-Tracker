@@ -37,7 +37,7 @@ PROTO_2:
        22 CAPTURE                          UPVAL U0
        23 CAPTURE                          VAL R0
        24 CALL                             R2 1 2
-       25 JUMPIFNOT                        R2 ; [+49]
+       25 JUMPIFNOT                        R2 ; [+34]
        26 GETIMPORT                        R4 K8 [pairs]
        28 MOVE                             R5 R3
        29 CALL                             R4 1 3
@@ -51,32 +51,20 @@ PROTO_2:
        39 MOVE                             R1 R9
        40 FORGLOOP                         R4 2 ; [-10]
        42 RETURN                           R1 1
-       43 GETUPVAL                         R2 2
-       44 JUMPIFNOT                        R2 ; [+18]
-       45 LOADK                            R4 K10 ["StyleRule"]
-       46 NAMECALL                         R2 R0 K4 ["IsA"]
-       48 CALL                             R2 2 1
-       49 JUMPIF                           R2 ; [+5]
-       50 LOADK                            R4 K11 ["Folder"]
-       51 NAMECALL                         R2 R0 K4 ["IsA"]
-       53 CALL                             R2 2 1
-       54 JUMPIFNOT                        R2 ; [+20]
-       55 GETUPVAL                         R2 3
-       56 GETTABLEKS                       R2 R2 K12 ["getDerivedAttributes"]
-       58 GETTABLEKS                       R3 R0 K13 ["Parent"]
-       60 CALL                             R2 1 1
-       61 MOVE                             R1 R2
-       62 RETURN                           R1 1
-       63 LOADK                            R4 K10 ["StyleRule"]
-       64 NAMECALL                         R2 R0 K4 ["IsA"]
-       66 CALL                             R2 2 1
-       67 JUMPIFNOT                        R2 ; [+7]
-       68 GETUPVAL                         R2 3
-       69 GETTABLEKS                       R2 R2 K12 ["getDerivedAttributes"]
-       71 GETTABLEKS                       R3 R0 K13 ["Parent"]
-       73 CALL                             R2 1 1
-       74 MOVE                             R1 R2
-       75 RETURN                           R1 1
+       43 LOADK                            R4 K10 ["StyleRule"]
+       44 NAMECALL                         R2 R0 K4 ["IsA"]
+       46 CALL                             R2 2 1
+       47 JUMPIF                           R2 ; [+5]
+       48 LOADK                            R4 K11 ["Folder"]
+       49 NAMECALL                         R2 R0 K4 ["IsA"]
+       51 CALL                             R2 2 1
+       52 JUMPIFNOT                        R2 ; [+7]
+       53 GETUPVAL                         R2 2
+       54 GETTABLEKS                       R2 R2 K12 ["getDerivedAttributes"]
+       56 GETTABLEKS                       R3 R0 K13 ["Parent"]
+       58 CALL                             R2 1 1
+       59 MOVE                             R1 R2
+       60 RETURN                           R1 1
 
 PROTO_3:
         0 JUMPIF                           R0 ; [+3]
@@ -292,59 +280,52 @@ MAIN:
        11 GETTABLEKS                       R1 R1 K6 ["Parent"]
        13 GETTABLEKS                       R1 R1 K6 ["Parent"]
        15 GETIMPORT                        R2 K8 [require]
-       17 GETTABLEKS                       R3 R1 K9 ["Src"]
-       19 GETTABLEKS                       R3 R3 K10 ["Flags"]
-       21 GETTABLEKS                       R3 R3 K11 ["getFFlagStyleEditorFixFolderTokens"]
-       23 CALL                             R2 1 1
-       24 CALL                             R2 0 1
-       25 GETIMPORT                        R3 K8 [require]
-       27 GETTABLEKS                       R4 R1 K12 ["Packages"]
-       29 GETTABLEKS                       R4 R4 K13 ["Dash"]
-       31 CALL                             R3 1 1
-       32 GETTABLEKS                       R4 R3 K14 ["assign"]
-       34 GETTABLEKS                       R5 R3 K15 ["includes"]
-       36 GETTABLEKS                       R6 R3 K16 ["omit"]
-       38 GETTABLEKS                       R7 R3 K17 ["reverse"]
-       40 GETIMPORT                        R8 K8 [require]
-       42 GETTABLEKS                       R9 R1 K9 ["Src"]
-       44 GETTABLEKS                       R9 R9 K18 ["Enums"]
-       46 GETTABLEKS                       R9 R9 K19 ["TokenValidationError"]
-       48 CALL                             R8 1 1
-       49 GETIMPORT                        R9 K8 [require]
-       51 GETTABLEKS                       R10 R1 K9 ["Src"]
-       53 GETTABLEKS                       R10 R10 K20 ["Types"]
-       55 CALL                             R9 1 1
-       56 NEWTABLE                         R10 8 0
-       58 DUPCLOSURE                       R11 K21 [PROTO_0]
-       59 CAPTURE                          VAL R10
-       60 SETTABLEKS                       R11 R10 K22 ["getTokenValue"]
-       62 DUPCLOSURE                       R11 K23 [PROTO_2]
-       63 CAPTURE                          VAL R0
-       64 CAPTURE                          VAL R4
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R10
-       67 SETTABLEKS                       R11 R10 K24 ["getDerivedAttributes"]
-       69 DUPCLOSURE                       R11 K25 [PROTO_3]
-       70 CAPTURE                          VAL R10
-       71 CAPTURE                          VAL R4
-       72 SETTABLEKS                       R11 R10 K26 ["getAllAttributes"]
-       74 DUPCLOSURE                       R11 K27 [PROTO_5]
-       75 CAPTURE                          VAL R10
-       76 CAPTURE                          VAL R7
-       77 CAPTURE                          VAL R0
-       78 SETTABLEKS                       R11 R10 K28 ["getTokenSourceStyleSheet"]
-       80 DUPCLOSURE                       R11 K29 [PROTO_6]
-       81 SETTABLEKS                       R11 R10 K30 ["parseAttributeName"]
-       83 DUPCLOSURE                       R11 K31 [PROTO_7]
-       84 CAPTURE                          VAL R10
-       85 CAPTURE                          VAL R8
-       86 SETTABLEKS                       R11 R10 K32 ["evaluateToken"]
-       88 DUPCLOSURE                       R11 K33 [PROTO_8]
-       89 CAPTURE                          VAL R10
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R5
-       92 SETTABLEKS                       R11 R10 K34 ["validateToken"]
-       94 DUPCLOSURE                       R11 K35 [PROTO_9]
-       95 CAPTURE                          VAL R6
-       96 SETTABLEKS                       R11 R10 K36 ["stripStyleEditorMetaAttributes"]
-       98 RETURN                           R10 1
+       17 GETTABLEKS                       R3 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R3 K10 ["Dash"]
+       21 CALL                             R2 1 1
+       22 GETTABLEKS                       R3 R2 K11 ["assign"]
+       24 GETTABLEKS                       R4 R2 K12 ["includes"]
+       26 GETTABLEKS                       R5 R2 K13 ["omit"]
+       28 GETTABLEKS                       R6 R2 K14 ["reverse"]
+       30 GETIMPORT                        R7 K8 [require]
+       32 GETTABLEKS                       R8 R1 K15 ["Src"]
+       34 GETTABLEKS                       R8 R8 K16 ["Enums"]
+       36 GETTABLEKS                       R8 R8 K17 ["TokenValidationError"]
+       38 CALL                             R7 1 1
+       39 GETIMPORT                        R8 K8 [require]
+       41 GETTABLEKS                       R9 R1 K15 ["Src"]
+       43 GETTABLEKS                       R9 R9 K18 ["Types"]
+       45 CALL                             R8 1 1
+       46 NEWTABLE                         R9 8 0
+       48 DUPCLOSURE                       R10 K19 [PROTO_0]
+       49 CAPTURE                          VAL R9
+       50 SETTABLEKS                       R10 R9 K20 ["getTokenValue"]
+       52 DUPCLOSURE                       R10 K21 [PROTO_2]
+       53 CAPTURE                          VAL R0
+       54 CAPTURE                          VAL R3
+       55 CAPTURE                          VAL R9
+       56 SETTABLEKS                       R10 R9 K22 ["getDerivedAttributes"]
+       58 DUPCLOSURE                       R10 K23 [PROTO_3]
+       59 CAPTURE                          VAL R9
+       60 CAPTURE                          VAL R3
+       61 SETTABLEKS                       R10 R9 K24 ["getAllAttributes"]
+       63 DUPCLOSURE                       R10 K25 [PROTO_5]
+       64 CAPTURE                          VAL R9
+       65 CAPTURE                          VAL R6
+       66 CAPTURE                          VAL R0
+       67 SETTABLEKS                       R10 R9 K26 ["getTokenSourceStyleSheet"]
+       69 DUPCLOSURE                       R10 K27 [PROTO_6]
+       70 SETTABLEKS                       R10 R9 K28 ["parseAttributeName"]
+       72 DUPCLOSURE                       R10 K29 [PROTO_7]
+       73 CAPTURE                          VAL R9
+       74 CAPTURE                          VAL R7
+       75 SETTABLEKS                       R10 R9 K30 ["evaluateToken"]
+       77 DUPCLOSURE                       R10 K31 [PROTO_8]
+       78 CAPTURE                          VAL R9
+       79 CAPTURE                          VAL R7
+       80 CAPTURE                          VAL R4
+       81 SETTABLEKS                       R10 R9 K32 ["validateToken"]
+       83 DUPCLOSURE                       R10 K33 [PROTO_9]
+       84 CAPTURE                          VAL R5
+       85 SETTABLEKS                       R10 R9 K34 ["stripStyleEditorMetaAttributes"]
+       87 RETURN                           R9 1

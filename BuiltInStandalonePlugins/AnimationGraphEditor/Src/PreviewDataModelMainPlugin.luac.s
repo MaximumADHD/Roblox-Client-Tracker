@@ -24,46 +24,78 @@ PROTO_0:
        36 GETUPVAL                         R5 2
        37 GETTABLEKS                       R5 R5 K6 ["ContextStack"]
        39 DUPTABLE                         R6 K10 [{"providers"}]
-       40 NEWTABLE                         R7 0 4
-       42 GETUPVAL                         R8 1
-       43 GETTABLEKS                       R8 R8 K8 ["createElement"]
-       45 GETUPVAL                         R9 3
-       46 GETTABLEKS                       R9 R9 K11 ["NetworkingContext"]
-       48 GETTABLEKS                       R9 R9 K12 ["EditableDataModelProvider"]
-       50 CALL                             R8 1 1
-       51 GETUPVAL                         R9 1
-       52 GETTABLEKS                       R9 R9 K8 ["createElement"]
-       54 GETUPVAL                         R10 3
-       55 GETTABLEKS                       R10 R10 K13 ["NativeGraphContext"]
-       57 GETTABLEKS                       R10 R10 K14 ["PreviewDataModelProvider"]
-       59 CALL                             R9 1 1
-       60 GETUPVAL                         R11 4
-       61 CALL                             R11 0 1
-       62 JUMPIFNOT                        R11 ; [+10]
-       63 GETUPVAL                         R10 1
-       64 GETTABLEKS                       R10 R10 K8 ["createElement"]
-       66 GETUPVAL                         R11 3
-       67 GETTABLEKS                       R11 R11 K15 ["GraphDebugDataContext"]
-       69 GETTABLEKS                       R11 R11 K12 ["EditableDataModelProvider"]
-       71 CALL                             R10 1 1
-       72 JUMP                             ; [+7]
-       73 GETUPVAL                         R10 1
-       74 GETTABLEKS                       R10 R10 K8 ["createElement"]
-       76 GETUPVAL                         R11 1
-       77 GETTABLEKS                       R11 R11 K16 ["Fragment"]
-       79 CALL                             R10 1 1
-       80 GETUPVAL                         R11 1
-       81 GETTABLEKS                       R11 R11 K8 ["createElement"]
-       83 GETUPVAL                         R12 3
-       84 GETTABLEKS                       R12 R12 K17 ["GraphPlayedContext"]
-       86 GETTABLEKS                       R12 R12 K14 ["PreviewDataModelProvider"]
-       88 CALL                             R11 1 -1
-       89 SETLIST                          R7 R8 -1 [1]
-       91 SETTABLEKS                       R7 R6 K9 ["providers"]
-       93 CALL                             R4 2 1
-       94 SETTABLEKS                       R4 R3 K6 ["ContextStack"]
-       96 CALL                             R1 2 -1
-       97 RETURN                           R1 -1
+       40 NEWTABLE                         R7 0 5
+       42 GETUPVAL                         R9 3
+       43 CALL                             R9 0 1
+       44 JUMPIFNOT                        R9 ; [+10]
+       45 GETUPVAL                         R8 1
+       46 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       48 GETUPVAL                         R9 4
+       49 GETTABLEKS                       R9 R9 K11 ["InstanceRegistryContext"]
+       51 GETTABLEKS                       R9 R9 K12 ["Provider"]
+       53 CALL                             R8 1 1
+       54 JUMP                             ; [+7]
+       55 GETUPVAL                         R8 1
+       56 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       58 GETUPVAL                         R9 1
+       59 GETTABLEKS                       R9 R9 K13 ["Fragment"]
+       61 CALL                             R8 1 1
+       62 GETUPVAL                         R9 1
+       63 GETTABLEKS                       R9 R9 K8 ["createElement"]
+       65 GETUPVAL                         R10 4
+       66 GETTABLEKS                       R10 R10 K14 ["NetworkingContext"]
+       68 GETTABLEKS                       R10 R10 K15 ["EditableDataModelProvider"]
+       70 CALL                             R9 1 1
+       71 GETUPVAL                         R11 3
+       72 CALL                             R11 0 1
+       73 JUMPIFNOT                        R11 ; [+8]
+       74 GETUPVAL                         R10 1
+       75 GETTABLEKS                       R10 R10 K8 ["createElement"]
+       77 GETUPVAL                         R11 1
+       78 GETTABLEKS                       R11 R11 K13 ["Fragment"]
+       80 CALL                             R10 1 1
+       81 JUMP                             ; [+9]
+       82 GETUPVAL                         R10 1
+       83 GETTABLEKS                       R10 R10 K8 ["createElement"]
+       85 GETUPVAL                         R11 4
+       86 GETTABLEKS                       R11 R11 K16 ["NativeGraphContext"]
+       88 GETTABLEKS                       R11 R11 K17 ["PreviewDataModelProvider"]
+       90 CALL                             R10 1 1
+       91 GETUPVAL                         R12 3
+       92 CALL                             R12 0 1
+       93 JUMPIFNOT                        R12 ; [+8]
+       94 GETUPVAL                         R11 1
+       95 GETTABLEKS                       R11 R11 K8 ["createElement"]
+       97 GETUPVAL                         R12 4
+       98 GETTABLEKS                       R12 R12 K18 ["PreviewDataModelContexts"]
+      100 CALL                             R11 1 1
+      101 JUMP                             ; [+7]
+      102 GETUPVAL                         R11 1
+      103 GETTABLEKS                       R11 R11 K8 ["createElement"]
+      105 GETUPVAL                         R12 1
+      106 GETTABLEKS                       R12 R12 K13 ["Fragment"]
+      108 CALL                             R11 1 1
+      109 GETUPVAL                         R13 3
+      110 CALL                             R13 0 1
+      111 JUMPIFNOT                        R13 ; [+8]
+      112 GETUPVAL                         R12 1
+      113 GETTABLEKS                       R12 R12 K8 ["createElement"]
+      115 GETUPVAL                         R13 1
+      116 GETTABLEKS                       R13 R13 K13 ["Fragment"]
+      118 CALL                             R12 1 1
+      119 JUMP                             ; [+9]
+      120 GETUPVAL                         R12 1
+      121 GETTABLEKS                       R12 R12 K8 ["createElement"]
+      123 GETUPVAL                         R13 4
+      124 GETTABLEKS                       R13 R13 K19 ["GraphPlayedContext"]
+      126 GETTABLEKS                       R13 R13 K17 ["PreviewDataModelProvider"]
+      128 CALL                             R12 1 1
+      129 SETLIST                          R7 R8 5 [1]
+      131 SETTABLEKS                       R7 R6 K9 ["providers"]
+      133 CALL                             R4 2 1
+      134 SETTABLEKS                       R4 R3 K6 ["ContextStack"]
+      136 CALL                             R1 2 -1
+      137 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -96,6 +128,6 @@ MAIN:
        45 CAPTURE                          VAL R2
        46 CAPTURE                          VAL R3
        47 CAPTURE                          VAL R4
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R1
        50 RETURN                           R6 1

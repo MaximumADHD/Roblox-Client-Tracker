@@ -79,44 +79,40 @@ PROTO_2:
        65 DUPTABLE                         R14 K38 [{"Tabs", "SelectedTab", "OnTabSelected"}]
        66 GETTABLEKS                       R15 R1 K34 ["Tabs"]
        68 SETTABLEKS                       R15 R14 K34 ["Tabs"]
-       70 GETUPVAL                         R16 3
-       71 JUMPIFNOT                        R16 ; [+5]
-       72 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
-       74 GETTABLEKS                       R15 R15 K40 ["Key"]
-       76 JUMP                             ; [+2]
-       77 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
-       79 SETTABLEKS                       R15 R14 K36 ["SelectedTab"]
-       81 GETTABLEKS                       R15 R0 K41 ["onTabSelected"]
-       83 SETTABLEKS                       R15 R14 K37 ["OnTabSelected"]
-       85 CALL                             R12 2 1
-       86 SETTABLEKS                       R12 R11 K34 ["Tabs"]
-       88 CALL                             R8 3 1
-       89 SETTABLEKS                       R8 R7 K21 ["TabBar"]
-       91 GETUPVAL                         R8 0
-       92 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       94 GETUPVAL                         R9 1
-       95 GETTABLEKS                       R9 R9 K4 ["Pane"]
-       97 DUPTABLE                         R10 K43 [{"Size", "BackgroundColor3"}]
-       98 GETIMPORT                        R11 K12 [UDim2.new]
-      100 LOADN                            R12 1
-      101 LOADN                            R13 0
-      102 LOADN                            R14 1
-      103 LOADN                            R15 0
-      104 CALL                             R11 4 1
-      105 SETTABLEKS                       R11 R10 K5 ["Size"]
-      107 GETTABLEKS                       R11 R3 K44 ["ForegroundTabColor"]
-      109 SETTABLEKS                       R11 R10 K42 ["BackgroundColor3"]
-      111 DUPTABLE                         R11 K46 [{"TabView"}]
-      112 GETUPVAL                         R12 0
-      113 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      115 GETTABLEKS                       R13 R2 K39 ["selectedTab"]
-      117 GETTABLEKS                       R13 R13 K47 ["ContentComponent"]
-      119 CALL                             R12 1 1
-      120 SETTABLEKS                       R12 R11 K45 ["TabView"]
-      122 CALL                             R8 3 1
-      123 SETTABLEKS                       R8 R7 K22 ["TabContent"]
-      125 CALL                             R4 3 -1
-      126 RETURN                           R4 -1
+       70 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
+       72 GETTABLEKS                       R15 R15 K40 ["Key"]
+       74 SETTABLEKS                       R15 R14 K36 ["SelectedTab"]
+       76 GETTABLEKS                       R15 R0 K41 ["onTabSelected"]
+       78 SETTABLEKS                       R15 R14 K37 ["OnTabSelected"]
+       80 CALL                             R12 2 1
+       81 SETTABLEKS                       R12 R11 K34 ["Tabs"]
+       83 CALL                             R8 3 1
+       84 SETTABLEKS                       R8 R7 K21 ["TabBar"]
+       86 GETUPVAL                         R8 0
+       87 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       89 GETUPVAL                         R9 1
+       90 GETTABLEKS                       R9 R9 K4 ["Pane"]
+       92 DUPTABLE                         R10 K43 [{"Size", "BackgroundColor3"}]
+       93 GETIMPORT                        R11 K12 [UDim2.new]
+       95 LOADN                            R12 1
+       96 LOADN                            R13 0
+       97 LOADN                            R14 1
+       98 LOADN                            R15 0
+       99 CALL                             R11 4 1
+      100 SETTABLEKS                       R11 R10 K5 ["Size"]
+      102 GETTABLEKS                       R11 R3 K44 ["ForegroundTabColor"]
+      104 SETTABLEKS                       R11 R10 K42 ["BackgroundColor3"]
+      106 DUPTABLE                         R11 K46 [{"TabView"}]
+      107 GETUPVAL                         R12 0
+      108 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      110 GETTABLEKS                       R13 R2 K39 ["selectedTab"]
+      112 GETTABLEKS                       R13 R13 K47 ["ContentComponent"]
+      114 CALL                             R12 1 1
+      115 SETTABLEKS                       R12 R11 K45 ["TabView"]
+      117 CALL                             R8 3 1
+      118 SETTABLEKS                       R8 R7 K22 ["TabContent"]
+      120 CALL                             R4 3 -1
+      121 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -133,30 +129,25 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Framework"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
-       25 GETIMPORT                        R4 K10 [game]
-       27 LOADK                            R6 K11 ["UserInputPlaybackPluginFixTabInitiallySelected"]
-       28 NAMECALL                         R4 R4 K12 ["GetFastFlag"]
-       30 CALL                             R4 2 1
-       31 GETTABLEKS                       R5 R2 K13 ["UI"]
-       33 GETTABLEKS                       R6 R5 K14 ["Tabs"]
-       35 GETTABLEKS                       R7 R1 K15 ["PureComponent"]
-       37 LOADK                            R9 K16 ["TabbedView"]
-       38 NAMECALL                         R7 R7 K17 ["extend"]
-       40 CALL                             R7 2 1
-       41 DUPCLOSURE                       R8 K18 [PROTO_1]
-       42 SETTABLEKS                       R8 R7 K19 ["init"]
-       44 DUPCLOSURE                       R8 K20 [PROTO_2]
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R5
-       47 CAPTURE                          VAL R6
-       48 CAPTURE                          VAL R4
-       49 SETTABLEKS                       R8 R7 K21 ["render"]
-       51 GETTABLEKS                       R8 R3 K22 ["withContext"]
-       53 DUPTABLE                         R9 K24 [{"Stylizer"}]
-       54 GETTABLEKS                       R10 R3 K23 ["Stylizer"]
-       56 SETTABLEKS                       R10 R9 K23 ["Stylizer"]
-       58 CALL                             R8 1 1
-       59 MOVE                             R9 R7
-       60 CALL                             R8 1 1
-       61 MOVE                             R7 R8
-       62 RETURN                           R7 1
+       25 GETTABLEKS                       R4 R2 K9 ["UI"]
+       27 GETTABLEKS                       R5 R4 K10 ["Tabs"]
+       29 GETTABLEKS                       R6 R1 K11 ["PureComponent"]
+       31 LOADK                            R8 K12 ["TabbedView"]
+       32 NAMECALL                         R6 R6 K13 ["extend"]
+       34 CALL                             R6 2 1
+       35 DUPCLOSURE                       R7 K14 [PROTO_1]
+       36 SETTABLEKS                       R7 R6 K15 ["init"]
+       38 DUPCLOSURE                       R7 K16 [PROTO_2]
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R4
+       41 CAPTURE                          VAL R5
+       42 SETTABLEKS                       R7 R6 K17 ["render"]
+       44 GETTABLEKS                       R7 R3 K18 ["withContext"]
+       46 DUPTABLE                         R8 K20 [{"Stylizer"}]
+       47 GETTABLEKS                       R9 R3 K19 ["Stylizer"]
+       49 SETTABLEKS                       R9 R8 K19 ["Stylizer"]
+       51 CALL                             R7 1 1
+       52 MOVE                             R8 R6
+       53 CALL                             R7 1 1
+       54 MOVE                             R6 R7
+       55 RETURN                           R6 1

@@ -96,22 +96,24 @@ MAIN:
       164 LOADNIL                          R18
       165 SETTABLEKS                       R18 R17 K26 ["SearchItemLogs"]
       167 GETTABLEKS                       R19 R2 K29 ["fflagManageCollaboratorsActionNeededLabel"]
-      169 JUMPIF                           R19 ; [+9]
+      169 JUMPIF                           R19 ; [+12]
       170 GETTABLEKS                       R19 R2 K30 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-      172 JUMPIF                           R19 ; [+6]
+      172 JUMPIF                           R19 ; [+9]
       173 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      175 JUMPIF                           R19 ; [+3]
+      175 JUMPIF                           R19 ; [+6]
       176 GETTABLEKS                       R19 R2 K32 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      178 JUMPIFNOT                        R19 ; [+2]
-      179 MOVE                             R18 R12
-      180 JUMP                             ; [+1]
-      181 LOADNIL                          R18
-      182 SETTABLEKS                       R18 R17 K20 ["CanCollaborateResponses"]
-      184 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      186 JUMPIFNOT                        R19 ; [+2]
-      187 MOVE                             R18 R13
-      188 JUMP                             ; [+1]
-      189 LOADNIL                          R18
-      190 SETTABLEKS                       R18 R17 K21 ["RequiresTrustedConnectionData"]
-      192 CALL                             R16 1 1
-      193 RETURN                           R16 1
+      178 JUMPIF                           R19 ; [+3]
+      179 GETTABLEKS                       R19 R2 K33 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      181 JUMPIFNOT                        R19 ; [+2]
+      182 MOVE                             R18 R12
+      183 JUMP                             ; [+1]
+      184 LOADNIL                          R18
+      185 SETTABLEKS                       R18 R17 K20 ["CanCollaborateResponses"]
+      187 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      189 JUMPIFNOT                        R19 ; [+2]
+      190 MOVE                             R18 R13
+      191 JUMP                             ; [+1]
+      192 LOADNIL                          R18
+      193 SETTABLEKS                       R18 R17 K21 ["RequiresTrustedConnectionData"]
+      195 CALL                             R16 1 1
+      196 RETURN                           R16 1

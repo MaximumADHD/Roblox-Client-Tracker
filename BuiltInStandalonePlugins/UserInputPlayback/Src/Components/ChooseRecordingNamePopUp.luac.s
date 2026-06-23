@@ -135,7 +135,7 @@ PROTO_3:
       129 GETTABLEKS                       R12 R12 K3 ["createElement"]
       131 GETUPVAL                         R13 4
       132 GETTABLEKS                       R13 R13 K54 ["TextInput"]
-      134 DUPTABLE                         R14 K57 [{"Size", "Text", "OnTextChanged", "Style", "PlaceholderText", "LayoutOrder"}]
+      134 DUPTABLE                         R14 K57 [{"Size", "Text", "OnTextChanged", "PlaceholderText", "LayoutOrder"}]
       135 GETTABLEKS                       R15 R3 K58 ["TextInputSize"]
       137 SETTABLEKS                       R15 R14 K26 ["Size"]
       139 GETTABLEKS                       R15 R0 K59 ["state"]
@@ -143,22 +143,16 @@ PROTO_3:
       143 SETTABLEKS                       R15 R14 K14 ["Text"]
       145 GETTABLEKS                       R15 R0 K61 ["onTextInputChanged"]
       147 SETTABLEKS                       R15 R14 K55 ["OnTextChanged"]
-      149 GETUPVAL                         R16 5
-      150 JUMPIFNOT                        R16 ; [+2]
-      151 LOADNIL                          R15
-      152 JUMP                             ; [+1]
-      153 LOADK                            R15 K62 ["RoundedBorder"]
-      154 SETTABLEKS                       R15 R14 K15 ["Style"]
-      156 LOADK                            R15 K63 [""]
-      157 SETTABLEKS                       R15 R14 K56 ["PlaceholderText"]
-      159 LOADN                            R15 2
-      160 SETTABLEKS                       R15 R14 K46 ["LayoutOrder"]
-      162 CALL                             R12 2 1
-      163 SETTABLEKS                       R12 R11 K42 ["Input"]
-      165 CALL                             R8 3 1
-      166 SETTABLEKS                       R8 R7 K24 ["Container"]
-      168 CALL                             R4 3 -1
-      169 RETURN                           R4 -1
+      149 LOADK                            R15 K62 [""]
+      150 SETTABLEKS                       R15 R14 K56 ["PlaceholderText"]
+      152 LOADN                            R15 2
+      153 SETTABLEKS                       R15 R14 K46 ["LayoutOrder"]
+      155 CALL                             R12 2 1
+      156 SETTABLEKS                       R12 R11 K42 ["Input"]
+      158 CALL                             R8 3 1
+      159 SETTABLEKS                       R8 R7 K24 ["Container"]
+      161 CALL                             R4 3 -1
+      162 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -179,32 +173,27 @@ MAIN:
        27 GETTABLEKS                       R5 R4 K10 ["Pane"]
        29 GETTABLEKS                       R6 R4 K11 ["TextLabel"]
        31 GETTABLEKS                       R7 R4 K12 ["StyledDialog"]
-       33 GETIMPORT                        R8 K14 [game]
-       35 LOADK                            R10 K15 ["UserInputPlaybackPluginChooseRecordingNamePopUpFixStyle"]
-       36 NAMECALL                         R8 R8 K16 ["GetFastFlag"]
+       33 GETTABLEKS                       R8 R1 K13 ["PureComponent"]
+       35 LOADK                            R10 K14 ["ChooseRecordingNamePopUp"]
+       36 NAMECALL                         R8 R8 K15 ["extend"]
        38 CALL                             R8 2 1
-       39 GETTABLEKS                       R9 R1 K17 ["PureComponent"]
-       41 LOADK                            R11 K18 ["ChooseRecordingNamePopUp"]
-       42 NAMECALL                         R9 R9 K19 ["extend"]
-       44 CALL                             R9 2 1
-       45 DUPCLOSURE                       R10 K20 [PROTO_1]
-       46 SETTABLEKS                       R10 R9 K21 ["init"]
-       48 DUPCLOSURE                       R10 K22 [PROTO_3]
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R7
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          VAL R6
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R8
-       55 SETTABLEKS                       R10 R9 K23 ["render"]
-       57 GETTABLEKS                       R10 R3 K24 ["withContext"]
-       59 DUPTABLE                         R11 K27 [{"Stylizer", "Localization"}]
-       60 GETTABLEKS                       R12 R3 K25 ["Stylizer"]
-       62 SETTABLEKS                       R12 R11 K25 ["Stylizer"]
-       64 GETTABLEKS                       R12 R3 K26 ["Localization"]
-       66 SETTABLEKS                       R12 R11 K26 ["Localization"]
-       68 CALL                             R10 1 1
-       69 MOVE                             R11 R9
-       70 CALL                             R10 1 1
-       71 MOVE                             R9 R10
-       72 RETURN                           R9 1
+       39 DUPCLOSURE                       R9 K16 [PROTO_1]
+       40 SETTABLEKS                       R9 R8 K17 ["init"]
+       42 DUPCLOSURE                       R9 K18 [PROTO_3]
+       43 CAPTURE                          VAL R1
+       44 CAPTURE                          VAL R7
+       45 CAPTURE                          VAL R5
+       46 CAPTURE                          VAL R6
+       47 CAPTURE                          VAL R4
+       48 SETTABLEKS                       R9 R8 K19 ["render"]
+       50 GETTABLEKS                       R9 R3 K20 ["withContext"]
+       52 DUPTABLE                         R10 K23 [{"Stylizer", "Localization"}]
+       53 GETTABLEKS                       R11 R3 K21 ["Stylizer"]
+       55 SETTABLEKS                       R11 R10 K21 ["Stylizer"]
+       57 GETTABLEKS                       R11 R3 K22 ["Localization"]
+       59 SETTABLEKS                       R11 R10 K22 ["Localization"]
+       61 CALL                             R9 1 1
+       62 MOVE                             R10 R8
+       63 CALL                             R9 1 1
+       64 MOVE                             R8 R9
+       65 RETURN                           R8 1

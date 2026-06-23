@@ -38,36 +38,32 @@ PROTO_2:
        18 LOADNIL                          R2
        19 GETUPVAL                         R3 3
        20 GETTABLEKS                       R3 R3 K5 ["getUserDesignSheets"]
-       22 GETUPVAL                         R6 4
-       23 JUMPIFNOT                        R6 ; [+3]
-       24 GETTABLEKS                       R4 R0 K6 ["Source"]
-       26 JUMP                             ; [+1]
-       27 LOADNIL                          R4
-       28 CALL                             R3 1 3
-       29 FORGPREP                         R3
-       30 GETUPVAL                         R8 5
-       31 NAMECALL                         R9 R7 K7 ["GetDerives"]
-       33 CALL                             R9 1 1
-       34 NEWCLOSURE                       R10 P1
-       35 CAPTURE                          UPVAL U6
-       36 CAPTURE                          UPVAL U7
-       37 CAPTURE                          VAL R1
-       38 CALL                             R8 2 1
-       39 MOVE                             R2 R8
-       40 JUMPIF                           R2 ; [+2]
-       41 FORGLOOP                         R3 2 ; [-12]
-       43 GETUPVAL                         R3 0
-       44 DUPTABLE                         R5 K10 [{"Themes_DEPRECATED", "SelectedTheme"}]
-       45 GETUPVAL                         R7 1
-       46 JUMPIFNOT                        R7 ; [+2]
-       47 LOADNIL                          R6
-       48 JUMP                             ; [+1]
-       49 MOVE                             R6 R1
-       50 SETTABLEKS                       R6 R5 K8 ["Themes_DEPRECATED"]
-       52 SETTABLEKS                       R2 R5 K9 ["SelectedTheme"]
-       54 NAMECALL                         R3 R3 K11 ["setState"]
-       56 CALL                             R3 2 0
-       57 RETURN                           R0 0
+       22 GETTABLEKS                       R4 R0 K6 ["Source"]
+       24 CALL                             R3 1 3
+       25 FORGPREP                         R3
+       26 GETUPVAL                         R8 4
+       27 NAMECALL                         R9 R7 K7 ["GetDerives"]
+       29 CALL                             R9 1 1
+       30 NEWCLOSURE                       R10 P1
+       31 CAPTURE                          UPVAL U5
+       32 CAPTURE                          UPVAL U6
+       33 CAPTURE                          VAL R1
+       34 CALL                             R8 2 1
+       35 MOVE                             R2 R8
+       36 JUMPIF                           R2 ; [+2]
+       37 FORGLOOP                         R3 2 ; [-12]
+       39 GETUPVAL                         R3 0
+       40 DUPTABLE                         R5 K10 [{"Themes_DEPRECATED", "SelectedTheme"}]
+       41 GETUPVAL                         R7 1
+       42 JUMPIFNOT                        R7 ; [+2]
+       43 LOADNIL                          R6
+       44 JUMP                             ; [+1]
+       45 MOVE                             R6 R1
+       46 SETTABLEKS                       R6 R5 K8 ["Themes_DEPRECATED"]
+       48 SETTABLEKS                       R2 R5 K9 ["SelectedTheme"]
+       50 NAMECALL                         R3 R3 K11 ["setState"]
+       52 CALL                             R3 2 0
+       53 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -83,28 +79,23 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["props"]
-        3 GETUPVAL                         R2 1
-        4 JUMPIFNOT                        R2 ; [+3]
-        5 GETTABLEKS                       R1 R0 K1 ["Source"]
-        7 JUMP                             ; [+1]
-        8 LOADNIL                          R1
-        9 GETUPVAL                         R2 2
-       10 GETTABLEKS                       R2 R2 K2 ["getUserDesignSheets"]
-       12 MOVE                             R3 R1
-       13 CALL                             R2 1 3
-       14 FORGPREP                         R2
-       15 GETUPVAL                         R7 3
-       16 NAMECALL                         R8 R6 K3 ["GetDerives"]
-       18 CALL                             R8 1 1
-       19 NEWCLOSURE                       R9 P0
-       20 CAPTURE                          UPVAL U4
-       21 CAPTURE                          VAL R0
-       22 CALL                             R7 2 1
-       23 JUMPIFNOT                        R7 ; [+1]
-       24 RETURN                           R7 1
-       25 FORGLOOP                         R2 2 ; [-11]
-       27 LOADNIL                          R2
-       28 RETURN                           R2 1
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R1 R1 K1 ["getUserDesignSheets"]
+        6 GETTABLEKS                       R2 R0 K2 ["Source"]
+        8 CALL                             R1 1 3
+        9 FORGPREP                         R1
+       10 GETUPVAL                         R6 2
+       11 NAMECALL                         R7 R5 K3 ["GetDerives"]
+       13 CALL                             R7 1 1
+       14 NEWCLOSURE                       R8 P0
+       15 CAPTURE                          UPVAL U3
+       16 CAPTURE                          VAL R0
+       17 CALL                             R6 2 1
+       18 JUMPIFNOT                        R6 ; [+1]
+       19 RETURN                           R6 1
+       20 FORGLOOP                         R1 2 ; [-11]
+       22 LOADNIL                          R1
+       23 RETURN                           R1 1
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -178,25 +169,23 @@ PROTO_7:
        14 CAPTURE                          UPVAL U3
        15 CAPTURE                          UPVAL U4
        16 CAPTURE                          UPVAL U5
-       17 CAPTURE                          UPVAL U6
-       18 SETTABLEKS                       R1 R0 K4 ["updateThemes"]
-       20 NEWCLOSURE                       R1 P1
-       21 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K4 ["updateThemes"]
+       19 NEWCLOSURE                       R1 P1
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U2
        22 CAPTURE                          UPVAL U3
-       23 CAPTURE                          UPVAL U2
-       24 CAPTURE                          UPVAL U4
-       25 CAPTURE                          UPVAL U6
-       26 SETTABLEKS                       R1 R0 K5 ["findActiveThemeInFolder"]
-       28 NEWCLOSURE                       R1 P2
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          UPVAL U0
-       31 CAPTURE                          UPVAL U7
-       32 CAPTURE                          UPVAL U8
-       33 CAPTURE                          UPVAL U9
-       34 SETTABLEKS                       R1 R0 K6 ["toggleThemes"]
-       36 GETTABLEKS                       R1 R0 K4 ["updateThemes"]
-       38 CALL                             R1 0 0
-       39 RETURN                           R0 0
+       23 CAPTURE                          UPVAL U5
+       24 SETTABLEKS                       R1 R0 K5 ["findActiveThemeInFolder"]
+       26 NEWCLOSURE                       R1 P2
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U0
+       29 CAPTURE                          UPVAL U6
+       30 CAPTURE                          UPVAL U7
+       31 CAPTURE                          UPVAL U8
+       32 SETTABLEKS                       R1 R0 K6 ["toggleThemes"]
+       34 GETTABLEKS                       R1 R0 K4 ["updateThemes"]
+       36 CALL                             R1 0 0
+       37 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
@@ -321,14 +310,10 @@ PROTO_10:
         1 GETTABLEKS                       R2 R0 K3 ["Window"]
         3 GETTABLEKS                       R2 R2 K0 ["IsDirty"]
         5 SETTABLEKS                       R2 R1 K0 ["IsDirty"]
-        7 GETUPVAL                         R3 0
-        8 JUMPIFNOT                        R3 ; [+5]
-        9 GETTABLEKS                       R2 R0 K3 ["Window"]
-       11 GETTABLEKS                       R2 R2 K1 ["Source"]
-       13 JUMP                             ; [+1]
-       14 LOADNIL                          R2
-       15 SETTABLEKS                       R2 R1 K1 ["Source"]
-       17 RETURN                           R1 1
+        7 GETTABLEKS                       R2 R0 K3 ["Window"]
+        9 GETTABLEKS                       R2 R2 K1 ["Source"]
+       11 SETTABLEKS                       R2 R1 K1 ["Source"]
+       13 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -409,62 +394,54 @@ MAIN:
       135 GETIMPORT                        R25 K4 [require]
       137 GETTABLEKS                       R26 R0 K22 ["Src"]
       139 GETTABLEKS                       R26 R26 K34 ["Flags"]
-      141 GETTABLEKS                       R26 R26 K37 ["getFFlagStyleEditorPluginStyleSheets"]
+      141 GETTABLEKS                       R26 R26 K37 ["getFFlagStyleEditorFixThemeFolderActivation"]
       143 CALL                             R25 1 1
       144 CALL                             R25 0 1
-      145 GETIMPORT                        R26 K4 [require]
-      147 GETTABLEKS                       R27 R0 K22 ["Src"]
-      149 GETTABLEKS                       R27 R27 K34 ["Flags"]
-      151 GETTABLEKS                       R27 R27 K38 ["getFFlagStyleEditorFixThemeFolderActivation"]
-      153 CALL                             R26 1 1
-      154 CALL                             R26 0 1
-      155 GETTABLEKS                       R27 R1 K39 ["PureComponent"]
-      157 LOADK                            R29 K40 ["ThemesView"]
-      158 NAMECALL                         R27 R27 K41 ["extend"]
-      160 CALL                             R27 2 1
-      161 DUPTABLE                         R28 K44 [{"Title", "ThemeSheets"}]
-      162 LOADK                            R29 K45 [""]
-      163 SETTABLEKS                       R29 R28 K42 ["Title"]
-      165 NEWTABLE                         R29 0 0
-      167 SETTABLEKS                       R29 R28 K43 ["ThemeSheets"]
-      169 SETTABLEKS                       R28 R27 K46 ["defaultProps"]
-      171 DUPCLOSURE                       R28 K47 [PROTO_7]
-      172 CAPTURE                          VAL R23
-      173 CAPTURE                          VAL R8
-      174 CAPTURE                          VAL R19
-      175 CAPTURE                          VAL R25
-      176 CAPTURE                          VAL R11
-      177 CAPTURE                          VAL R12
-      178 CAPTURE                          VAL R10
-      179 CAPTURE                          VAL R9
-      180 CAPTURE                          VAL R26
-      181 CAPTURE                          VAL R22
-      182 SETTABLEKS                       R28 R27 K48 ["init"]
-      184 DUPCLOSURE                       R28 K49 [PROTO_8]
-      185 CAPTURE                          VAL R24
-      186 CAPTURE                          VAL R23
-      187 CAPTURE                          VAL R26
-      188 SETTABLEKS                       R28 R27 K50 ["didUpdate"]
-      190 DUPCLOSURE                       R28 K51 [PROTO_9]
-      191 CAPTURE                          VAL R23
-      192 CAPTURE                          VAL R1
-      193 CAPTURE                          VAL R20
-      194 CAPTURE                          VAL R16
-      195 CAPTURE                          VAL R15
-      196 CAPTURE                          VAL R14
-      197 SETTABLEKS                       R28 R27 K52 ["render"]
-      199 MOVE                             R28 R5
-      200 DUPTABLE                         R29 K53 [{"Localization"}]
-      201 SETTABLEKS                       R6 R29 K11 ["Localization"]
-      203 CALL                             R28 1 1
-      204 MOVE                             R29 R27
-      205 CALL                             R28 1 1
-      206 MOVE                             R27 R28
-      207 GETTABLEKS                       R28 R2 K54 ["connect"]
-      209 DUPCLOSURE                       R29 K55 [PROTO_10]
-      210 CAPTURE                          VAL R25
-      211 MOVE                             R30 R21
-      212 CALL                             R28 2 1
-      213 MOVE                             R29 R27
-      214 CALL                             R28 1 -1
-      215 RETURN                           R28 -1
+      145 GETTABLEKS                       R26 R1 K38 ["PureComponent"]
+      147 LOADK                            R28 K39 ["ThemesView"]
+      148 NAMECALL                         R26 R26 K40 ["extend"]
+      150 CALL                             R26 2 1
+      151 DUPTABLE                         R27 K43 [{"Title", "ThemeSheets"}]
+      152 LOADK                            R28 K44 [""]
+      153 SETTABLEKS                       R28 R27 K41 ["Title"]
+      155 NEWTABLE                         R28 0 0
+      157 SETTABLEKS                       R28 R27 K42 ["ThemeSheets"]
+      159 SETTABLEKS                       R27 R26 K45 ["defaultProps"]
+      161 DUPCLOSURE                       R27 K46 [PROTO_7]
+      162 CAPTURE                          VAL R23
+      163 CAPTURE                          VAL R8
+      164 CAPTURE                          VAL R19
+      165 CAPTURE                          VAL R11
+      166 CAPTURE                          VAL R12
+      167 CAPTURE                          VAL R10
+      168 CAPTURE                          VAL R9
+      169 CAPTURE                          VAL R25
+      170 CAPTURE                          VAL R22
+      171 SETTABLEKS                       R27 R26 K47 ["init"]
+      173 DUPCLOSURE                       R27 K48 [PROTO_8]
+      174 CAPTURE                          VAL R24
+      175 CAPTURE                          VAL R23
+      176 CAPTURE                          VAL R25
+      177 SETTABLEKS                       R27 R26 K49 ["didUpdate"]
+      179 DUPCLOSURE                       R27 K50 [PROTO_9]
+      180 CAPTURE                          VAL R23
+      181 CAPTURE                          VAL R1
+      182 CAPTURE                          VAL R20
+      183 CAPTURE                          VAL R16
+      184 CAPTURE                          VAL R15
+      185 CAPTURE                          VAL R14
+      186 SETTABLEKS                       R27 R26 K51 ["render"]
+      188 MOVE                             R27 R5
+      189 DUPTABLE                         R28 K52 [{"Localization"}]
+      190 SETTABLEKS                       R6 R28 K11 ["Localization"]
+      192 CALL                             R27 1 1
+      193 MOVE                             R28 R26
+      194 CALL                             R27 1 1
+      195 MOVE                             R26 R27
+      196 GETTABLEKS                       R27 R2 K53 ["connect"]
+      198 DUPCLOSURE                       R28 K54 [PROTO_10]
+      199 MOVE                             R29 R21
+      200 CALL                             R27 2 1
+      201 MOVE                             R28 R26
+      202 CALL                             R27 1 -1
+      203 RETURN                           R27 -1

@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 GETTABLEKS                       R0 R0 K0 ["reimportInstance"]
+        1 GETTABLEKS                       R0 R0 K0 ["reimportInstanceDebounced"]
         3 GETUPVAL                         R1 1
         4 CALL                             R0 1 0
         5 RETURN                           R0 0
@@ -161,62 +161,59 @@ PROTO_6:
        28 MOVE                             R5 R0
        29 MOVE                             R6 R3
        30 CALL                             R4 2 0
-       31 GETUPVAL                         R4 3
-       32 CALL                             R4 0 1
-       33 JUMPIFNOT                        R4 ; [+38]
-       34 LOADK                            R6 K7 ["SurfaceAppearance"]
-       35 NAMECALL                         R4 R0 K8 ["IsA"]
-       37 CALL                             R4 2 1
-       38 JUMPIF                           R4 ; [+5]
-       39 LOADK                            R6 K9 ["Decal"]
-       40 NAMECALL                         R4 R0 K8 ["IsA"]
-       42 CALL                             R4 2 1
-       43 JUMPIFNOT                        R4 ; [+28]
-       44 GETUPVAL                         R4 4
-       45 MOVE                             R6 R3
-       46 NAMECALL                         R4 R4 K10 ["GetFilesInDirAsync"]
-       48 CALL                             R4 2 1
-       49 GETUPVAL                         R5 5
-       50 GETTABLEKS                       R5 R5 K11 ["findMaps"]
-       52 MOVE                             R6 R3
-       53 MOVE                             R7 R4
-       54 CALL                             R5 2 1
-       55 MOVE                             R6 R5
-       56 LOADNIL                          R7
-       57 LOADNIL                          R8
-       58 FORGPREP                         R6
-       59 JUMPIFEQ                         R10 R3 ; [+10]
-       61 GETUPVAL                         R11 1
-       62 GETTABLEKS                       R11 R11 K2 ["normalize"]
-       64 MOVE                             R12 R10
-       65 CALL                             R11 1 1
-       66 GETUPVAL                         R12 2
-       67 MOVE                             R13 R0
-       68 MOVE                             R14 R11
-       69 CALL                             R12 2 0
-       70 FORGLOOP                         R6 2 ; [-12]
-       72 GETUPVAL                         R4 6
-       73 CALL                             R4 0 0
-       74 GETUPVAL                         R4 7
-       75 CALL                             R4 0 1
-       76 JUMPIFNOT                        R4 ; [+17]
-       77 DUPTABLE                         R4 K13 [{"isWatched"}]
-       78 LOADB                            R5 1
-       79 SETTABLEKS                       R5 R4 K12 ["isWatched"]
-       81 GETUPVAL                         R5 8
-       82 GETUPVAL                         R7 9
-       83 GETTABLEKS                       R7 R7 K14 ["REIMPORT"]
-       85 GETTABLEKS                       R7 R7 K15 ["CPC_EVENTS"]
-       87 GETTABLEKS                       R7 R7 K16 ["WATCH_STATUS_CHANGED"]
-       89 MOVE                             R8 R0
-       90 MOVE                             R9 R4
-       91 NAMECALL                         R5 R5 K17 ["Fire"]
-       93 CALL                             R5 4 0
-       94 GETUPVAL                         R4 10
-       95 GETTABLEKS                       R4 R4 K18 ["reimportInstance"]
-       97 MOVE                             R5 R0
-       98 CALL                             R4 1 0
-       99 RETURN                           R0 0
+       31 LOADK                            R6 K7 ["SurfaceAppearance"]
+       32 NAMECALL                         R4 R0 K8 ["IsA"]
+       34 CALL                             R4 2 1
+       35 JUMPIF                           R4 ; [+5]
+       36 LOADK                            R6 K9 ["Decal"]
+       37 NAMECALL                         R4 R0 K8 ["IsA"]
+       39 CALL                             R4 2 1
+       40 JUMPIFNOT                        R4 ; [+28]
+       41 GETUPVAL                         R4 3
+       42 MOVE                             R6 R3
+       43 NAMECALL                         R4 R4 K10 ["GetFilesInDirAsync"]
+       45 CALL                             R4 2 1
+       46 GETUPVAL                         R5 4
+       47 GETTABLEKS                       R5 R5 K11 ["findMaps"]
+       49 MOVE                             R6 R3
+       50 MOVE                             R7 R4
+       51 CALL                             R5 2 1
+       52 MOVE                             R6 R5
+       53 LOADNIL                          R7
+       54 LOADNIL                          R8
+       55 FORGPREP                         R6
+       56 JUMPIFEQ                         R10 R3 ; [+10]
+       58 GETUPVAL                         R11 1
+       59 GETTABLEKS                       R11 R11 K2 ["normalize"]
+       61 MOVE                             R12 R10
+       62 CALL                             R11 1 1
+       63 GETUPVAL                         R12 2
+       64 MOVE                             R13 R0
+       65 MOVE                             R14 R11
+       66 CALL                             R12 2 0
+       67 FORGLOOP                         R6 2 ; [-12]
+       69 GETUPVAL                         R4 5
+       70 CALL                             R4 0 0
+       71 GETUPVAL                         R4 6
+       72 CALL                             R4 0 1
+       73 JUMPIFNOT                        R4 ; [+17]
+       74 DUPTABLE                         R4 K13 [{"isWatched"}]
+       75 LOADB                            R5 1
+       76 SETTABLEKS                       R5 R4 K12 ["isWatched"]
+       78 GETUPVAL                         R5 7
+       79 GETUPVAL                         R7 8
+       80 GETTABLEKS                       R7 R7 K14 ["REIMPORT"]
+       82 GETTABLEKS                       R7 R7 K15 ["CPC_EVENTS"]
+       84 GETTABLEKS                       R7 R7 K16 ["WATCH_STATUS_CHANGED"]
+       86 MOVE                             R8 R0
+       87 MOVE                             R9 R4
+       88 NAMECALL                         R5 R5 K17 ["Fire"]
+       90 CALL                             R5 4 0
+       91 GETUPVAL                         R4 9
+       92 GETTABLEKS                       R4 R4 K18 ["reimportInstanceDebounced"]
+       94 MOVE                             R5 R0
+       95 CALL                             R4 1 0
+       96 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -265,70 +262,67 @@ PROTO_8:
        27 MOVE                             R4 R1
        28 NAMECALL                         R2 R2 K6 ["StopSingleFileWatch"]
        30 CALL                             R2 2 0
-       31 GETUPVAL                         R2 2
-       32 CALL                             R2 0 1
-       33 JUMPIFNOT                        R2 ; [+52]
-       34 LOADK                            R4 K7 ["SurfaceAppearance"]
-       35 NAMECALL                         R2 R0 K8 ["IsA"]
-       37 CALL                             R2 2 1
-       38 JUMPIF                           R2 ; [+5]
-       39 LOADK                            R4 K9 ["Decal"]
-       40 NAMECALL                         R2 R0 K8 ["IsA"]
-       42 CALL                             R2 2 1
-       43 JUMPIFNOT                        R2 ; [+42]
-       44 GETUPVAL                         R2 1
-       45 MOVE                             R4 R1
-       46 NAMECALL                         R2 R2 K10 ["GetFilesInDirAsync"]
-       48 CALL                             R2 2 1
-       49 GETUPVAL                         R3 3
-       50 GETTABLEKS                       R3 R3 K11 ["findMaps"]
-       52 MOVE                             R4 R1
-       53 MOVE                             R5 R2
-       54 CALL                             R3 2 1
-       55 MOVE                             R4 R3
-       56 LOADNIL                          R5
-       57 LOADNIL                          R6
-       58 FORGPREP                         R4
-       59 JUMPIFEQ                         R8 R1 ; [+24]
-       61 GETUPVAL                         R9 4
-       62 GETTABLEKS                       R9 R9 K12 ["normalize"]
-       64 MOVE                             R10 R8
-       65 CALL                             R9 1 1
-       66 GETUPVAL                         R11 0
-       67 GETTABLE                         R10 R11 R9
-       68 LOADNIL                          R11
-       69 SETTABLE                         R11 R10 R0
-       70 GETIMPORT                        R10 K5 [next]
-       72 GETUPVAL                         R12 0
-       73 GETTABLE                         R11 R12 R9
-       74 CALL                             R10 1 1
-       75 JUMPIF                           R10 ; [+8]
-       76 GETUPVAL                         R10 0
-       77 LOADNIL                          R11
-       78 SETTABLE                         R11 R10 R9
-       79 GETUPVAL                         R10 1
-       80 MOVE                             R12 R9
-       81 NAMECALL                         R10 R10 K6 ["StopSingleFileWatch"]
-       83 CALL                             R10 2 0
-       84 FORGLOOP                         R4 2 ; [-26]
-       86 GETUPVAL                         R2 5
-       87 CALL                             R2 0 1
-       88 JUMPIFNOT                        R2 ; [+17]
-       89 DUPTABLE                         R2 K14 [{"isWatched"}]
-       90 LOADB                            R3 0
-       91 SETTABLEKS                       R3 R2 K13 ["isWatched"]
-       93 GETUPVAL                         R3 6
-       94 GETUPVAL                         R5 7
-       95 GETTABLEKS                       R5 R5 K15 ["REIMPORT"]
-       97 GETTABLEKS                       R5 R5 K16 ["CPC_EVENTS"]
-       99 GETTABLEKS                       R5 R5 K17 ["WATCH_STATUS_CHANGED"]
-      101 MOVE                             R6 R0
-      102 MOVE                             R7 R2
-      103 NAMECALL                         R3 R3 K18 ["Fire"]
-      105 CALL                             R3 4 0
-      106 GETUPVAL                         R2 8
-      107 CALL                             R2 0 0
-      108 RETURN                           R0 0
+       31 LOADK                            R4 K7 ["SurfaceAppearance"]
+       32 NAMECALL                         R2 R0 K8 ["IsA"]
+       34 CALL                             R2 2 1
+       35 JUMPIF                           R2 ; [+5]
+       36 LOADK                            R4 K9 ["Decal"]
+       37 NAMECALL                         R2 R0 K8 ["IsA"]
+       39 CALL                             R2 2 1
+       40 JUMPIFNOT                        R2 ; [+42]
+       41 GETUPVAL                         R2 1
+       42 MOVE                             R4 R1
+       43 NAMECALL                         R2 R2 K10 ["GetFilesInDirAsync"]
+       45 CALL                             R2 2 1
+       46 GETUPVAL                         R3 2
+       47 GETTABLEKS                       R3 R3 K11 ["findMaps"]
+       49 MOVE                             R4 R1
+       50 MOVE                             R5 R2
+       51 CALL                             R3 2 1
+       52 MOVE                             R4 R3
+       53 LOADNIL                          R5
+       54 LOADNIL                          R6
+       55 FORGPREP                         R4
+       56 JUMPIFEQ                         R8 R1 ; [+24]
+       58 GETUPVAL                         R9 3
+       59 GETTABLEKS                       R9 R9 K12 ["normalize"]
+       61 MOVE                             R10 R8
+       62 CALL                             R9 1 1
+       63 GETUPVAL                         R11 0
+       64 GETTABLE                         R10 R11 R9
+       65 LOADNIL                          R11
+       66 SETTABLE                         R11 R10 R0
+       67 GETIMPORT                        R10 K5 [next]
+       69 GETUPVAL                         R12 0
+       70 GETTABLE                         R11 R12 R9
+       71 CALL                             R10 1 1
+       72 JUMPIF                           R10 ; [+8]
+       73 GETUPVAL                         R10 0
+       74 LOADNIL                          R11
+       75 SETTABLE                         R11 R10 R9
+       76 GETUPVAL                         R10 1
+       77 MOVE                             R12 R9
+       78 NAMECALL                         R10 R10 K6 ["StopSingleFileWatch"]
+       80 CALL                             R10 2 0
+       81 FORGLOOP                         R4 2 ; [-26]
+       83 GETUPVAL                         R2 4
+       84 CALL                             R2 0 1
+       85 JUMPIFNOT                        R2 ; [+17]
+       86 DUPTABLE                         R2 K14 [{"isWatched"}]
+       87 LOADB                            R3 0
+       88 SETTABLEKS                       R3 R2 K13 ["isWatched"]
+       90 GETUPVAL                         R3 5
+       91 GETUPVAL                         R5 6
+       92 GETTABLEKS                       R5 R5 K15 ["REIMPORT"]
+       94 GETTABLEKS                       R5 R5 K16 ["CPC_EVENTS"]
+       96 GETTABLEKS                       R5 R5 K17 ["WATCH_STATUS_CHANGED"]
+       98 MOVE                             R6 R0
+       99 MOVE                             R7 R2
+      100 NAMECALL                         R3 R3 K18 ["Fire"]
+      102 CALL                             R3 4 0
+      103 GETUPVAL                         R2 7
+      104 CALL                             R2 0 0
+      105 RETURN                           R0 0
 
 PROTO_9:
         0 JUMPIFNOT                        R1 ; [+10]
@@ -425,17 +419,28 @@ PROTO_11:
        32 RETURN                           R0 0
 
 PROTO_12:
-        0 GETTABLEKS                       R1 R0 K0 ["MultipleDocumentInterfaceInstance"]
-        2 GETTABLEKS                       R1 R1 K1 ["FocusedDataModelSession"]
-        4 GETTABLEKS                       R2 R1 K2 ["CurrentDataModelTypeChanged"]
-        6 NEWCLOSURE                       R4 P0
-        7 CAPTURE                          VAL R1
-        8 CAPTURE                          UPVAL U0
-        9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 NAMECALL                         R2 R2 K3 ["Connect"]
-       13 CALL                             R2 2 0
-       14 RETURN                           R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["MultipleDocumentInterfaceInstance"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+4]
+        4 LOADK                            R3 K1 ["Reimport Error: missing plugin context"]
+        5 GETIMPORT                        R1 K3 [assert]
+        7 CALL                             R1 2 0
+        8 GETTABLEKS                       R2 R0 K0 ["MultipleDocumentInterfaceInstance"]
+       10 GETTABLEKS                       R2 R2 K4 ["FocusedDataModelSession"]
+       12 FASTCALL2K                       ASSERT R2 K1 ; [+4]
+       14 LOADK                            R3 K1 ["Reimport Error: missing plugin context"]
+       15 GETIMPORT                        R1 K3 [assert]
+       17 CALL                             R1 2 0
+       18 GETTABLEKS                       R1 R0 K0 ["MultipleDocumentInterfaceInstance"]
+       20 GETTABLEKS                       R1 R1 K4 ["FocusedDataModelSession"]
+       22 GETTABLEKS                       R2 R1 K5 ["CurrentDataModelTypeChanged"]
+       24 NEWCLOSURE                       R4 P0
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          UPVAL U1
+       28 CAPTURE                          UPVAL U2
+       29 NAMECALL                         R2 R2 K6 ["Connect"]
+       31 CALL                             R2 2 0
+       32 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R1 0
@@ -456,21 +461,32 @@ PROTO_13:
        21 CALL                             R1 1 0
        22 GETUPVAL                         R1 4
        23 CALL                             R1 0 0
-       24 GETTABLEKS                       R1 R0 K4 ["MultipleDocumentInterfaceInstance"]
-       26 GETTABLEKS                       R1 R1 K5 ["FocusedDataModelSession"]
-       28 GETTABLEKS                       R2 R1 K6 ["CurrentDataModelTypeChanged"]
-       30 NEWCLOSURE                       R4 P0
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          UPVAL U7
-       33 CAPTURE                          UPVAL U8
-       34 CAPTURE                          UPVAL U4
-       35 NAMECALL                         R2 R2 K1 ["Connect"]
-       37 CALL                             R2 2 0
-       38 GETTABLEKS                       R1 R0 K7 ["Unloading"]
-       40 GETUPVAL                         R3 9
-       41 NAMECALL                         R1 R1 K1 ["Connect"]
-       43 CALL                             R1 2 0
-       44 RETURN                           R0 0
+       24 GETTABLEKS                       R2 R0 K4 ["MultipleDocumentInterfaceInstance"]
+       26 FASTCALL2K                       ASSERT R2 K5 ; [+4]
+       28 LOADK                            R3 K5 ["Reimport Error: missing plugin context"]
+       29 GETIMPORT                        R1 K7 [assert]
+       31 CALL                             R1 2 0
+       32 GETTABLEKS                       R2 R0 K4 ["MultipleDocumentInterfaceInstance"]
+       34 GETTABLEKS                       R2 R2 K8 ["FocusedDataModelSession"]
+       36 FASTCALL2K                       ASSERT R2 K5 ; [+4]
+       38 LOADK                            R3 K5 ["Reimport Error: missing plugin context"]
+       39 GETIMPORT                        R1 K7 [assert]
+       41 CALL                             R1 2 0
+       42 GETTABLEKS                       R1 R0 K4 ["MultipleDocumentInterfaceInstance"]
+       44 GETTABLEKS                       R1 R1 K8 ["FocusedDataModelSession"]
+       46 GETTABLEKS                       R2 R1 K9 ["CurrentDataModelTypeChanged"]
+       48 NEWCLOSURE                       R4 P0
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          UPVAL U7
+       51 CAPTURE                          UPVAL U8
+       52 CAPTURE                          UPVAL U4
+       53 NAMECALL                         R2 R2 K1 ["Connect"]
+       55 CALL                             R2 2 0
+       56 GETTABLEKS                       R1 R0 K10 ["Unloading"]
+       58 GETUPVAL                         R3 9
+       59 NAMECALL                         R1 R1 K1 ["Connect"]
+       61 CALL                             R1 2 0
+       62 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R1 0
@@ -559,60 +575,59 @@ MAIN:
        90 GETTABLEKS                       R11 R11 K10 ["External"]
        92 GETTABLEKS                       R11 R11 K20 ["CrossPluginCommunication"]
        94 CALL                             R10 1 1
-       95 GETTABLEKS                       R11 R10 K21 ["new"]
-       97 GETTABLEKS                       R12 R6 K22 ["REIMPORT"]
-       99 GETTABLEKS                       R12 R12 K23 ["CPC_ID"]
-      101 CALL                             R11 1 1
-      102 GETTABLEKS                       R12 R6 K22 ["REIMPORT"]
-      104 GETTABLEKS                       R12 R12 K24 ["getFFlagReimportFileWatchIcon"]
-      106 GETIMPORT                        R13 K5 [require]
-      108 GETTABLEKS                       R14 R0 K25 ["Flags"]
-      110 GETTABLEKS                       R14 R14 K26 ["GetFFlagReimportWatchOtherMaps"]
-      112 CALL                             R13 1 1
-      113 NEWTABLE                         R14 0 0
-      115 NEWTABLE                         R15 4 0
-      117 NEWCLOSURE                       R16 P0
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          REF R14
-      120 CAPTURE                          VAL R5
-      121 NEWCLOSURE                       R17 P1
-      122 CAPTURE                          VAL R8
-      123 CAPTURE                          VAL R9
-      124 CAPTURE                          REF R14
-      125 DUPCLOSURE                       R18 K27 [PROTO_3]
-      126 CAPTURE                          VAL R11
-      127 CAPTURE                          VAL R6
-      128 DUPCLOSURE                       R19 K28 [PROTO_4]
-      129 CAPTURE                          VAL R4
-      130 CAPTURE                          VAL R17
-      131 CAPTURE                          VAL R7
-      132 CAPTURE                          VAL R6
-      133 NEWCLOSURE                       R20 P4
-      134 CAPTURE                          REF R14
-      135 CAPTURE                          VAL R2
-      136 DUPCLOSURE                       R21 K29 [PROTO_6]
-      137 CAPTURE                          VAL R8
-      138 CAPTURE                          VAL R9
-      139 CAPTURE                          VAL R20
-      140 CAPTURE                          VAL R13
-      141 CAPTURE                          VAL R2
-      142 CAPTURE                          VAL R1
-      143 CAPTURE                          VAL R19
-      144 CAPTURE                          VAL R12
-      145 CAPTURE                          VAL R11
-      146 CAPTURE                          VAL R6
-      147 CAPTURE                          VAL R5
-      148 NEWCLOSURE                       R22 P6
-      149 CAPTURE                          REF R14
-      150 CAPTURE                          VAL R2
-      151 NEWCLOSURE                       R23 P7
-      152 CAPTURE                          REF R14
-      153 CAPTURE                          VAL R2
-      154 CAPTURE                          VAL R13
+       95 GETIMPORT                        R11 K5 [require]
+       97 GETTABLEKS                       R12 R0 K9 ["Lib"]
+       99 GETTABLEKS                       R12 R12 K7 ["Reimport"]
+      101 GETTABLEKS                       R12 R12 K21 ["Types"]
+      103 CALL                             R11 1 1
+      104 GETTABLEKS                       R12 R10 K22 ["new"]
+      106 GETTABLEKS                       R13 R6 K23 ["REIMPORT"]
+      108 GETTABLEKS                       R13 R13 K24 ["CPC_ID"]
+      110 CALL                             R12 1 1
+      111 GETTABLEKS                       R13 R6 K23 ["REIMPORT"]
+      113 GETTABLEKS                       R13 R13 K25 ["getFFlagReimportFileWatchIcon"]
+      115 NEWTABLE                         R14 0 0
+      117 NEWTABLE                         R15 4 0
+      119 NEWCLOSURE                       R16 P0
+      120 CAPTURE                          VAL R9
+      121 CAPTURE                          REF R14
+      122 CAPTURE                          VAL R5
+      123 NEWCLOSURE                       R17 P1
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R9
+      126 CAPTURE                          REF R14
+      127 DUPCLOSURE                       R18 K26 [PROTO_3]
+      128 CAPTURE                          VAL R12
+      129 CAPTURE                          VAL R6
+      130 DUPCLOSURE                       R19 K27 [PROTO_4]
+      131 CAPTURE                          VAL R4
+      132 CAPTURE                          VAL R17
+      133 CAPTURE                          VAL R7
+      134 CAPTURE                          VAL R6
+      135 NEWCLOSURE                       R20 P4
+      136 CAPTURE                          REF R14
+      137 CAPTURE                          VAL R2
+      138 DUPCLOSURE                       R21 K28 [PROTO_6]
+      139 CAPTURE                          VAL R8
+      140 CAPTURE                          VAL R9
+      141 CAPTURE                          VAL R20
+      142 CAPTURE                          VAL R2
+      143 CAPTURE                          VAL R1
+      144 CAPTURE                          VAL R19
+      145 CAPTURE                          VAL R13
+      146 CAPTURE                          VAL R12
+      147 CAPTURE                          VAL R6
+      148 CAPTURE                          VAL R5
+      149 NEWCLOSURE                       R22 P6
+      150 CAPTURE                          REF R14
+      151 CAPTURE                          VAL R2
+      152 NEWCLOSURE                       R23 P7
+      153 CAPTURE                          REF R14
+      154 CAPTURE                          VAL R2
       155 CAPTURE                          VAL R1
       156 CAPTURE                          VAL R9
-      157 CAPTURE                          VAL R12
-      158 CAPTURE                          VAL R11
+      157 CAPTURE                          VAL R13
+      158 CAPTURE                          VAL R12
       159 CAPTURE                          VAL R6
       160 CAPTURE                          VAL R19
       161 NEWCLOSURE                       R24 P8
@@ -625,7 +640,7 @@ MAIN:
       168 NEWCLOSURE                       R25 P9
       169 CAPTURE                          REF R14
       170 CAPTURE                          VAL R2
-      171 DUPCLOSURE                       R26 K30 [PROTO_12]
+      171 DUPCLOSURE                       R26 K29 [PROTO_12]
       172 CAPTURE                          VAL R7
       173 CAPTURE                          VAL R6
       174 CAPTURE                          VAL R19
@@ -640,23 +655,23 @@ MAIN:
       183 CAPTURE                          VAL R7
       184 CAPTURE                          VAL R6
       185 CAPTURE                          VAL R25
-      186 SETTABLEKS                       R27 R15 K31 ["init"]
-      188 DUPCLOSURE                       R27 K32 [PROTO_14]
+      186 SETTABLEKS                       R27 R15 K30 ["init"]
+      188 DUPCLOSURE                       R27 K31 [PROTO_14]
       189 CAPTURE                          VAL R17
-      190 SETTABLEKS                       R27 R15 K33 ["isWatching"]
-      192 GETTABLEKS                       R29 R6 K22 ["REIMPORT"]
-      194 GETTABLEKS                       R29 R29 K34 ["CPC_CALLBACKS"]
-      196 GETTABLEKS                       R29 R29 K35 ["GET_WATCH_STATUS"]
-      198 DUPCLOSURE                       R30 K36 [PROTO_15]
+      190 SETTABLEKS                       R27 R15 K32 ["isWatching"]
+      192 GETTABLEKS                       R29 R6 K23 ["REIMPORT"]
+      194 GETTABLEKS                       R29 R29 K33 ["CPC_CALLBACKS"]
+      196 GETTABLEKS                       R29 R29 K34 ["GET_WATCH_STATUS"]
+      198 DUPCLOSURE                       R30 K35 [PROTO_15]
       199 CAPTURE                          VAL R15
-      200 NAMECALL                         R27 R11 K37 ["OnInvoke"]
+      200 NAMECALL                         R27 R12 K36 ["OnInvoke"]
       202 CALL                             R27 3 0
-      203 DUPCLOSURE                       R27 K38 [PROTO_16]
+      203 DUPCLOSURE                       R27 K37 [PROTO_16]
       204 CAPTURE                          VAL R21
-      205 SETTABLEKS                       R27 R15 K39 ["start"]
-      207 DUPCLOSURE                       R27 K40 [PROTO_17]
+      205 SETTABLEKS                       R27 R15 K38 ["start"]
+      207 DUPCLOSURE                       R27 K39 [PROTO_17]
       208 CAPTURE                          VAL R17
       209 CAPTURE                          VAL R23
-      210 SETTABLEKS                       R27 R15 K41 ["stop"]
+      210 SETTABLEKS                       R27 R15 K40 ["stop"]
       212 CLOSEUPVALS                      R14
       213 RETURN                           R15 1

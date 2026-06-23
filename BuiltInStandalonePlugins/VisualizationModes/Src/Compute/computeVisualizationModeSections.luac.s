@@ -64,64 +64,78 @@ PROTO_1:
        75 RETURN                           R2 -1
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["FuzzySearch"]
-        3 GETTABLEKS                       R2 R2 K1 ["includeEntry"]
-        5 GETTABLEKS                       R3 R0 K2 ["title"]
-        7 CALL                             R2 1 2
-        8 GETUPVAL                         R4 1
-        9 DUPTABLE                         R5 K5 [{"OnVisualizationModeToggle", "ForceVisible", "FuzzySearch"}]
-       10 GETUPVAL                         R6 0
-       11 GETTABLEKS                       R6 R6 K3 ["OnVisualizationModeToggle"]
-       13 SETTABLEKS                       R6 R5 K3 ["OnVisualizationModeToggle"]
-       15 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       17 LOADB                            R6 0 +1
-       18 LOADB                            R6 1
-       19 SETTABLEKS                       R6 R5 K4 ["ForceVisible"]
-       21 GETUPVAL                         R6 0
-       22 GETTABLEKS                       R6 R6 K0 ["FuzzySearch"]
-       24 SETTABLEKS                       R6 R5 K0 ["FuzzySearch"]
-       26 CALL                             R4 1 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R3 R3 K0 ["FuzzySearch"]
+        3 GETTABLEKS                       R3 R3 K1 ["includeEntry"]
+        5 GETTABLEKS                       R4 R0 K2 ["title"]
+        7 CALL                             R3 1 2
+        8 GETUPVAL                         R5 1
+        9 DUPTABLE                         R6 K5 [{"OnVisualizationModeToggle", "ForceVisible", "FuzzySearch"}]
+       10 GETUPVAL                         R7 0
+       11 GETTABLEKS                       R7 R7 K3 ["OnVisualizationModeToggle"]
+       13 SETTABLEKS                       R7 R6 K3 ["OnVisualizationModeToggle"]
+       15 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       17 LOADB                            R7 0 +1
+       18 LOADB                            R7 1
+       19 SETTABLEKS                       R7 R6 K4 ["ForceVisible"]
+       21 GETUPVAL                         R7 0
+       22 GETTABLEKS                       R7 R7 K0 ["FuzzySearch"]
+       24 SETTABLEKS                       R7 R6 K0 ["FuzzySearch"]
+       26 CALL                             R5 1 1
        27 JUMPIFNOT                        R1 ; [+18]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R5 R5 K0 ["FuzzySearch"]
-       31 GETTABLEKS                       R5 R5 K6 ["incrementEntryCount"]
-       33 CALL                             R5 0 0
-       34 JUMPIFNOT                        R2 ; [+5]
-       35 GETTABLEKS                       R5 R4 K7 ["addCustomEntry"]
-       37 MOVE                             R6 R1
-       38 CALL                             R5 1 0
+       28 GETUPVAL                         R6 0
+       29 GETTABLEKS                       R6 R6 K0 ["FuzzySearch"]
+       31 GETTABLEKS                       R6 R6 K6 ["incrementEntryCount"]
+       33 CALL                             R6 0 0
+       34 JUMPIFNOT                        R3 ; [+5]
+       35 GETTABLEKS                       R6 R5 K7 ["addCustomEntry"]
+       37 MOVE                             R7 R1
+       38 CALL                             R6 1 0
        39 JUMP                             ; [+6]
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R5 R5 K0 ["FuzzySearch"]
-       43 GETTABLEKS                       R5 R5 K8 ["incrementFilteredCount"]
-       45 CALL                             R5 0 0
-       46 GETTABLEKS                       R5 R0 K9 ["visualizationModeList"]
-       48 LOADNIL                          R6
-       49 LOADNIL                          R7
-       50 FORGPREP                         R5
-       51 GETTABLEKS                       R10 R4 K10 ["addVisualizationModeEntry"]
-       53 MOVE                             R11 R0
-       54 MOVE                             R12 R9
-       55 CALL                             R10 2 0
-       56 FORGLOOP                         R5 2 ; [-6]
-       58 DUPTABLE                         R5 K14 [{"key", "visible", "renderContent"}]
-       59 LOADK                            R7 K15 ["User_"]
-       60 GETTABLEKS                       R8 R0 K16 ["name"]
-       62 CONCAT                           R6 R7 R8
-       63 SETTABLEKS                       R6 R5 K11 ["key"]
-       65 GETTABLEKS                       R6 R4 K17 ["hasVisibleEntries"]
-       67 CALL                             R6 0 1
-       68 SETTABLEKS                       R6 R5 K12 ["visible"]
-       70 NEWCLOSURE                       R6 P0
-       71 CAPTURE                          UPVAL U2
-       72 CAPTURE                          UPVAL U3
-       73 CAPTURE                          VAL R0
-       74 CAPTURE                          VAL R4
-       75 CAPTURE                          VAL R3
-       76 CAPTURE                          UPVAL U0
-       77 SETTABLEKS                       R6 R5 K13 ["renderContent"]
-       79 RETURN                           R5 1
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K0 ["FuzzySearch"]
+       43 GETTABLEKS                       R6 R6 K8 ["incrementFilteredCount"]
+       45 CALL                             R6 0 0
+       46 GETTABLEKS                       R6 R0 K9 ["visualizationModeList"]
+       48 LOADNIL                          R7
+       49 LOADNIL                          R8
+       50 FORGPREP                         R6
+       51 GETTABLEKS                       R11 R5 K10 ["addVisualizationModeEntry"]
+       53 MOVE                             R12 R0
+       54 MOVE                             R13 R10
+       55 CALL                             R11 2 0
+       56 FORGLOOP                         R6 2 ; [-6]
+       58 JUMPIFNOT                        R2 ; [+18]
+       59 GETUPVAL                         R6 0
+       60 GETTABLEKS                       R6 R6 K0 ["FuzzySearch"]
+       62 GETTABLEKS                       R6 R6 K6 ["incrementEntryCount"]
+       64 CALL                             R6 0 0
+       65 JUMPIFNOT                        R3 ; [+5]
+       66 GETTABLEKS                       R6 R5 K7 ["addCustomEntry"]
+       68 MOVE                             R7 R2
+       69 CALL                             R6 1 0
+       70 JUMP                             ; [+6]
+       71 GETUPVAL                         R6 0
+       72 GETTABLEKS                       R6 R6 K0 ["FuzzySearch"]
+       74 GETTABLEKS                       R6 R6 K8 ["incrementFilteredCount"]
+       76 CALL                             R6 0 0
+       77 DUPTABLE                         R6 K14 [{"key", "visible", "renderContent"}]
+       78 LOADK                            R8 K15 ["User_"]
+       79 GETTABLEKS                       R9 R0 K16 ["name"]
+       81 CONCAT                           R7 R8 R9
+       82 SETTABLEKS                       R7 R6 K11 ["key"]
+       84 GETTABLEKS                       R7 R5 K17 ["hasVisibleEntries"]
+       86 CALL                             R7 0 1
+       87 SETTABLEKS                       R7 R6 K12 ["visible"]
+       89 NEWCLOSURE                       R7 P0
+       90 CAPTURE                          UPVAL U2
+       91 CAPTURE                          UPVAL U3
+       92 CAPTURE                          VAL R0
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R4
+       95 CAPTURE                          UPVAL U0
+       96 SETTABLEKS                       R7 R6 K13 ["renderContent"]
+       98 RETURN                           R6 1
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0

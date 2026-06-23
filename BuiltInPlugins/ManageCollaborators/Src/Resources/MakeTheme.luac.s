@@ -466,519 +466,525 @@ MAIN:
       564 SETTABLEKS                       R32 R31 K140 ["Height"]
       566 SETTABLEKS                       R31 R30 K136 ["ageWarning"]
       568 SETTABLEKS                       R30 R29 K142 ["searchWidget"]
-      570 DUPTABLE                         R30 K163 [{"border", "borderHover", "borderSelected", "placeholderText", "backgroundColor", "collabTypeTextPosition", "friendsAccessTextPosition", "searchIcon", "friendIcon", "clearButton", "headerHeight", "itemHeight", "ribbonWidth", "thumbnailSize", "thumbnailPaddingLeft", "renderItemTextPadding", "searchBarHeight", "clearButtonIconSize", "textPadding", "nameLabelWidth", "nameHeight", "dropDown"}]
+      570 DUPTABLE                         R30 K164 [{"border", "borderHover", "borderSelected", "borderError", "placeholderText", "backgroundColor", "collabTypeTextPosition", "friendsAccessTextPosition", "searchIcon", "friendIcon", "clearButton", "headerHeight", "itemHeight", "ribbonWidth", "thumbnailSize", "thumbnailPaddingLeft", "renderItemTextPadding", "searchBarHeight", "clearButtonIconSize", "textPadding", "nameLabelWidth", "nameHeight", "dropDown"}]
       571 GETTABLEKS                       R31 R18 K73 ["Border"]
       573 SETTABLEKS                       R31 R30 K71 ["border"]
-      575 GETTABLEKS                       R31 R18 K164 ["DialogMainButton"]
+      575 GETTABLEKS                       R31 R18 K165 ["DialogMainButton"]
       577 SETTABLEKS                       R31 R30 K143 ["borderHover"]
-      579 GETTABLEKS                       R31 R18 K164 ["DialogMainButton"]
+      579 GETTABLEKS                       R31 R18 K165 ["DialogMainButton"]
       581 SETTABLEKS                       R31 R30 K144 ["borderSelected"]
-      583 GETTABLEKS                       R31 R18 K64 ["DimmedText"]
-      585 SETTABLEKS                       R31 R30 K145 ["placeholderText"]
-      587 GETTABLEKS                       R31 R18 K165 ["SubBackground2"]
-      589 SETTABLEKS                       R31 R30 K94 ["backgroundColor"]
-      591 GETIMPORT                        R31 K114 [UDim2.new]
-      593 LOADN                            R32 0
-      594 LOADN                            R33 26
-      595 LOADN                            R34 0
-      596 LOADN                            R35 14
-      597 CALL                             R31 4 1
-      598 SETTABLEKS                       R31 R30 K146 ["collabTypeTextPosition"]
-      600 GETIMPORT                        R31 K114 [UDim2.new]
-      602 LOADN                            R32 1
-      603 LOADN                            R33 228
-      604 LOADN                            R34 0
-      605 LOADN                            R35 14
-      606 CALL                             R31 4 1
-      607 SETTABLEKS                       R31 R30 K147 ["friendsAccessTextPosition"]
-      609 GETTABLEKS                       R31 R18 K101 ["SubText"]
-      611 SETTABLEKS                       R31 R30 K148 ["searchIcon"]
-      613 DUPTABLE                         R31 K171 [{"Image", "LabelWidth", "LabelHeight", "FrameWidth", "Width", "Height"}]
-      614 GETTABLEKS                       R32 R18 K172 ["FriendIcon"]
-      616 SETTABLEKS                       R32 R31 K166 ["Image"]
-      618 LOADN                            R32 20
-      619 SETTABLEKS                       R32 R31 K167 ["LabelWidth"]
-      621 LOADN                            R32 13
-      622 SETTABLEKS                       R32 R31 K168 ["LabelHeight"]
-      624 LOADN                            R32 37
-      625 SETTABLEKS                       R32 R31 K169 ["FrameWidth"]
-      627 LOADN                            R32 17
-      628 SETTABLEKS                       R32 R31 K170 ["Width"]
-      630 LOADN                            R32 10
-      631 SETTABLEKS                       R32 R31 K140 ["Height"]
-      633 SETTABLEKS                       R31 R30 K149 ["friendIcon"]
-      635 DUPTABLE                         R31 K175 [{"imageSelected", "image"}]
-      636 GETTABLEKS                       R32 R18 K101 ["SubText"]
-      638 SETTABLEKS                       R32 R31 K173 ["imageSelected"]
-      640 GETTABLEKS                       R32 R18 K101 ["SubText"]
-      642 SETTABLEKS                       R32 R31 K174 ["image"]
-      644 SETTABLEKS                       R31 R30 K150 ["clearButton"]
-      646 LOADN                            R31 25
-      647 SETTABLEKS                       R31 R30 K151 ["headerHeight"]
-      649 LOADN                            R31 75
-      650 SETTABLEKS                       R31 R30 K152 ["itemHeight"]
-      652 LOADN                            R31 5
-      653 SETTABLEKS                       R31 R30 K153 ["ribbonWidth"]
-      655 LOADN                            R31 48
-      656 SETTABLEKS                       R31 R30 K154 ["thumbnailSize"]
-      658 LOADN                            R31 40
-      659 SETTABLEKS                       R31 R30 K155 ["thumbnailPaddingLeft"]
-      661 LOADN                            R31 19
-      662 SETTABLEKS                       R31 R30 K156 ["renderItemTextPadding"]
-      664 LOADN                            R31 40
-      665 SETTABLEKS                       R31 R30 K157 ["searchBarHeight"]
-      667 LOADN                            R31 32
-      668 SETTABLEKS                       R31 R30 K158 ["clearButtonIconSize"]
-      670 LOADN                            R31 16
-      671 SETTABLEKS                       R31 R30 K159 ["textPadding"]
-      673 LOADN                            R31 204
-      674 SETTABLEKS                       R31 R30 K160 ["nameLabelWidth"]
-      676 LOADN                            R31 55
-      677 SETTABLEKS                       R31 R30 K161 ["nameHeight"]
-      679 DUPTABLE                         R31 K184 [{"collaboratorTypeText", "backgroundColor", "itemText", "headerText", "hovered", "item", "selected", "maxHeight", "eligibilityLabelWidth"}]
-      680 DUPTABLE                         R32 K100 [{"Font", "TextSize", "TextColor3"}]
-      681 SETTABLEKS                       R27 R32 K37 ["Font"]
-      683 LOADN                            R33 16
-      684 SETTABLEKS                       R33 R32 K66 ["TextSize"]
-      686 GETTABLEKS                       R33 R18 K122 ["MainText"]
-      688 SETTABLEKS                       R33 R32 K99 ["TextColor3"]
-      690 SETTABLEKS                       R32 R31 K176 ["collaboratorTypeText"]
-      692 GETTABLEKS                       R32 R18 K185 ["InputFieldBackground"]
-      694 SETTABLEKS                       R32 R31 K94 ["backgroundColor"]
-      696 GETTABLEKS                       R32 R18 K122 ["MainText"]
-      698 SETTABLEKS                       R32 R31 K177 ["itemText"]
-      700 GETTABLEKS                       R32 R18 K101 ["SubText"]
-      702 SETTABLEKS                       R32 R31 K178 ["headerText"]
-      704 DUPTABLE                         R32 K186 [{"backgroundColor", "itemText"}]
-      705 GETTABLEKS                       R33 R18 K187 ["Dropdown"]
-      707 SETTABLEKS                       R33 R32 K94 ["backgroundColor"]
-      709 GETTABLEKS                       R33 R18 K122 ["MainText"]
-      711 SETTABLEKS                       R33 R32 K177 ["itemText"]
-      713 SETTABLEKS                       R32 R31 K179 ["hovered"]
-      715 DUPTABLE                         R32 K188 [{"offset"}]
-      716 LOADN                            R33 2
-      717 SETTABLEKS                       R33 R32 K123 ["offset"]
-      719 SETTABLEKS                       R32 R31 K180 ["item"]
-      721 DUPTABLE                         R32 K189 [{"backgroundColor"}]
-      722 GETTABLEKS                       R33 R18 K190 ["ButtonHover"]
-      724 SETTABLEKS                       R33 R32 K94 ["backgroundColor"]
-      726 SETTABLEKS                       R32 R31 K181 ["selected"]
-      728 LOADN                            R32 169
-      729 SETTABLEKS                       R32 R31 K182 ["maxHeight"]
-      731 LOADN                            R32 100
-      732 SETTABLEKS                       R32 R31 K183 ["eligibilityLabelWidth"]
-      734 SETTABLEKS                       R31 R30 K162 ["dropDown"]
-      736 SETTABLEKS                       R30 R29 K191 ["searchBar"]
-      738 DUPTABLE                         R30 K194 [{"loadingImage", "loadFailureImage"}]
-      739 LOADK                            R31 K195 ["rbxasset://textures/StudioSharedUI/default_group.png"]
-      740 SETTABLEKS                       R31 R30 K192 ["loadingImage"]
-      742 LOADK                            R31 K196 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-      743 SETTABLEKS                       R31 R30 K193 ["loadFailureImage"]
-      745 SETTABLEKS                       R30 R29 K197 ["groupThumbnail"]
-      747 DUPTABLE                         R30 K200 [{"background", "maskImage", "loadingImage", "loadFailureImage"}]
-      748 GETTABLEKS                       R31 R18 K201 ["TableItem"]
-      750 SETTABLEKS                       R31 R30 K198 ["background"]
-      752 LOADK                            R31 K202 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
-      753 SETTABLEKS                       R31 R30 K199 ["maskImage"]
-      755 LOADK                            R31 K203 ["rbxasset://textures/StudioSharedUI/default_user.png"]
-      756 SETTABLEKS                       R31 R30 K192 ["loadingImage"]
-      758 LOADK                            R31 K196 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-      759 SETTABLEKS                       R31 R30 K193 ["loadFailureImage"]
-      761 SETTABLEKS                       R30 R29 K204 ["subjectThumbnail"]
-      763 DUPTABLE                         R30 K205 [{"Image"}]
-      764 LOADK                            R31 K206 ["rbxasset://textures/ManageCollaborators/OrgRoleIcon_mask.png"]
-      765 SETTABLEKS                       R31 R30 K166 ["Image"]
-      767 SETTABLEKS                       R30 R29 K207 ["orgRoleThumbnail"]
-      769 DUPTABLE                         R30 K210 [{"button", "padding", "width"}]
-      770 DUPTABLE                         R31 K212 [{"height"}]
-      771 LOADN                            R32 50
-      772 SETTABLEKS                       R32 R31 K211 ["height"]
-      774 SETTABLEKS                       R31 R30 K208 ["button"]
-      776 LOADN                            R31 10
-      777 SETTABLEKS                       R31 R30 K103 ["padding"]
-      779 JUMPIFNOT                        R23 ; [+2]
-      780 LOADN                            R31 210
-      781 JUMP                             ; [+1]
-      782 LOADN                            R31 8
-      783 SETTABLEKS                       R31 R30 K209 ["width"]
-      785 SETTABLEKS                       R30 R29 K213 ["selectInput"]
-      787 DUPTABLE                         R30 K217 [{"yPadding", "xPadding", "yPaddingNonOwner"}]
-      788 JUMPIFNOT                        R23 ; [+2]
-      789 LOADN                            R31 20
-      790 JUMP                             ; [+1]
-      791 LOADN                            R31 47
-      792 SETTABLEKS                       R31 R30 K214 ["yPadding"]
-      794 LOADN                            R31 25
-      795 SETTABLEKS                       R31 R30 K215 ["xPadding"]
-      797 LOADN                            R31 35
-      798 SETTABLEKS                       R31 R30 K216 ["yPaddingNonOwner"]
-      800 SETTABLEKS                       R30 R29 K218 ["scrollingFrame"]
-      802 DUPTABLE                         R30 K222 [{"boxHeight", "textStyle", "InnerTextPosition"}]
-      803 LOADN                            R31 45
-      804 SETTABLEKS                       R31 R30 K219 ["boxHeight"]
-      806 DUPTABLE                         R31 K100 [{"Font", "TextSize", "TextColor3"}]
-      807 SETTABLEKS                       R27 R31 K37 ["Font"]
-      809 LOADN                            R32 16
-      810 SETTABLEKS                       R32 R31 K66 ["TextSize"]
-      812 GETTABLEKS                       R32 R18 K62 ["TitlebarText"]
-      814 SETTABLEKS                       R32 R31 K99 ["TextColor3"]
-      816 SETTABLEKS                       R31 R30 K220 ["textStyle"]
-      818 GETIMPORT                        R31 K114 [UDim2.new]
-      820 LOADN                            R32 0
-      821 LOADN                            R33 67
-      822 LOADK                            R34 K115 [0.5]
-      823 LOADN                            R35 0
-      824 CALL                             R31 4 1
-      825 SETTABLEKS                       R31 R30 K221 ["InnerTextPosition"]
-      827 SETTABLEKS                       R30 R29 K223 ["saveMessage"]
-      829 DUPTABLE                         R30 K226 [{"height", "paddingTop", "paddingLeft", "paddingRight"}]
-      830 JUMPIFNOT                        R23 ; [+2]
-      831 LOADN                            R31 50
-      832 JUMP                             ; [+1]
-      833 LOADN                            R31 98
-      834 SETTABLEKS                       R31 R30 K211 ["height"]
-      836 JUMPIFNOT                        R23 ; [+6]
-      837 GETIMPORT                        R31 K139 [UDim.new]
-      839 LOADN                            R32 0
-      840 LOADN                            R33 20
-      841 CALL                             R31 2 1
-      842 JUMP                             ; [+5]
-      843 GETIMPORT                        R31 K139 [UDim.new]
-      845 LOADN                            R32 0
-      846 LOADN                            R33 26
-      847 CALL                             R31 2 1
-      848 SETTABLEKS                       R31 R30 K134 ["paddingTop"]
-      850 GETIMPORT                        R31 K139 [UDim.new]
-      852 LOADN                            R32 0
-      853 LOADN                            R33 67
-      854 CALL                             R31 2 1
-      855 SETTABLEKS                       R31 R30 K224 ["paddingLeft"]
-      857 JUMPIFNOT                        R23 ; [+6]
+      583 GETIMPORT                        R31 K168 [Color3.fromRGB]
+      585 LOADN                            R32 223
+      586 LOADN                            R33 40
+      587 LOADN                            R34 31
+      588 CALL                             R31 3 1
+      589 SETTABLEKS                       R31 R30 K145 ["borderError"]
+      591 GETTABLEKS                       R31 R18 K64 ["DimmedText"]
+      593 SETTABLEKS                       R31 R30 K146 ["placeholderText"]
+      595 GETTABLEKS                       R31 R18 K169 ["SubBackground2"]
+      597 SETTABLEKS                       R31 R30 K94 ["backgroundColor"]
+      599 GETIMPORT                        R31 K114 [UDim2.new]
+      601 LOADN                            R32 0
+      602 LOADN                            R33 26
+      603 LOADN                            R34 0
+      604 LOADN                            R35 14
+      605 CALL                             R31 4 1
+      606 SETTABLEKS                       R31 R30 K147 ["collabTypeTextPosition"]
+      608 GETIMPORT                        R31 K114 [UDim2.new]
+      610 LOADN                            R32 1
+      611 LOADN                            R33 228
+      612 LOADN                            R34 0
+      613 LOADN                            R35 14
+      614 CALL                             R31 4 1
+      615 SETTABLEKS                       R31 R30 K148 ["friendsAccessTextPosition"]
+      617 GETTABLEKS                       R31 R18 K101 ["SubText"]
+      619 SETTABLEKS                       R31 R30 K149 ["searchIcon"]
+      621 DUPTABLE                         R31 K175 [{"Image", "LabelWidth", "LabelHeight", "FrameWidth", "Width", "Height"}]
+      622 GETTABLEKS                       R32 R18 K176 ["FriendIcon"]
+      624 SETTABLEKS                       R32 R31 K170 ["Image"]
+      626 LOADN                            R32 20
+      627 SETTABLEKS                       R32 R31 K171 ["LabelWidth"]
+      629 LOADN                            R32 13
+      630 SETTABLEKS                       R32 R31 K172 ["LabelHeight"]
+      632 LOADN                            R32 37
+      633 SETTABLEKS                       R32 R31 K173 ["FrameWidth"]
+      635 LOADN                            R32 17
+      636 SETTABLEKS                       R32 R31 K174 ["Width"]
+      638 LOADN                            R32 10
+      639 SETTABLEKS                       R32 R31 K140 ["Height"]
+      641 SETTABLEKS                       R31 R30 K150 ["friendIcon"]
+      643 DUPTABLE                         R31 K179 [{"imageSelected", "image"}]
+      644 GETTABLEKS                       R32 R18 K101 ["SubText"]
+      646 SETTABLEKS                       R32 R31 K177 ["imageSelected"]
+      648 GETTABLEKS                       R32 R18 K101 ["SubText"]
+      650 SETTABLEKS                       R32 R31 K178 ["image"]
+      652 SETTABLEKS                       R31 R30 K151 ["clearButton"]
+      654 LOADN                            R31 25
+      655 SETTABLEKS                       R31 R30 K152 ["headerHeight"]
+      657 LOADN                            R31 75
+      658 SETTABLEKS                       R31 R30 K153 ["itemHeight"]
+      660 LOADN                            R31 5
+      661 SETTABLEKS                       R31 R30 K154 ["ribbonWidth"]
+      663 LOADN                            R31 48
+      664 SETTABLEKS                       R31 R30 K155 ["thumbnailSize"]
+      666 LOADN                            R31 40
+      667 SETTABLEKS                       R31 R30 K156 ["thumbnailPaddingLeft"]
+      669 LOADN                            R31 19
+      670 SETTABLEKS                       R31 R30 K157 ["renderItemTextPadding"]
+      672 LOADN                            R31 40
+      673 SETTABLEKS                       R31 R30 K158 ["searchBarHeight"]
+      675 LOADN                            R31 32
+      676 SETTABLEKS                       R31 R30 K159 ["clearButtonIconSize"]
+      678 LOADN                            R31 16
+      679 SETTABLEKS                       R31 R30 K160 ["textPadding"]
+      681 LOADN                            R31 204
+      682 SETTABLEKS                       R31 R30 K161 ["nameLabelWidth"]
+      684 LOADN                            R31 55
+      685 SETTABLEKS                       R31 R30 K162 ["nameHeight"]
+      687 DUPTABLE                         R31 K188 [{"collaboratorTypeText", "backgroundColor", "itemText", "headerText", "hovered", "item", "selected", "maxHeight", "eligibilityLabelWidth"}]
+      688 DUPTABLE                         R32 K100 [{"Font", "TextSize", "TextColor3"}]
+      689 SETTABLEKS                       R27 R32 K37 ["Font"]
+      691 LOADN                            R33 16
+      692 SETTABLEKS                       R33 R32 K66 ["TextSize"]
+      694 GETTABLEKS                       R33 R18 K122 ["MainText"]
+      696 SETTABLEKS                       R33 R32 K99 ["TextColor3"]
+      698 SETTABLEKS                       R32 R31 K180 ["collaboratorTypeText"]
+      700 GETTABLEKS                       R32 R18 K189 ["InputFieldBackground"]
+      702 SETTABLEKS                       R32 R31 K94 ["backgroundColor"]
+      704 GETTABLEKS                       R32 R18 K122 ["MainText"]
+      706 SETTABLEKS                       R32 R31 K181 ["itemText"]
+      708 GETTABLEKS                       R32 R18 K101 ["SubText"]
+      710 SETTABLEKS                       R32 R31 K182 ["headerText"]
+      712 DUPTABLE                         R32 K190 [{"backgroundColor", "itemText"}]
+      713 GETTABLEKS                       R33 R18 K191 ["Dropdown"]
+      715 SETTABLEKS                       R33 R32 K94 ["backgroundColor"]
+      717 GETTABLEKS                       R33 R18 K122 ["MainText"]
+      719 SETTABLEKS                       R33 R32 K181 ["itemText"]
+      721 SETTABLEKS                       R32 R31 K183 ["hovered"]
+      723 DUPTABLE                         R32 K192 [{"offset"}]
+      724 LOADN                            R33 2
+      725 SETTABLEKS                       R33 R32 K123 ["offset"]
+      727 SETTABLEKS                       R32 R31 K184 ["item"]
+      729 DUPTABLE                         R32 K193 [{"backgroundColor"}]
+      730 GETTABLEKS                       R33 R18 K194 ["ButtonHover"]
+      732 SETTABLEKS                       R33 R32 K94 ["backgroundColor"]
+      734 SETTABLEKS                       R32 R31 K185 ["selected"]
+      736 LOADN                            R32 169
+      737 SETTABLEKS                       R32 R31 K186 ["maxHeight"]
+      739 LOADN                            R32 100
+      740 SETTABLEKS                       R32 R31 K187 ["eligibilityLabelWidth"]
+      742 SETTABLEKS                       R31 R30 K163 ["dropDown"]
+      744 SETTABLEKS                       R30 R29 K195 ["searchBar"]
+      746 DUPTABLE                         R30 K198 [{"loadingImage", "loadFailureImage"}]
+      747 LOADK                            R31 K199 ["rbxasset://textures/StudioSharedUI/default_group.png"]
+      748 SETTABLEKS                       R31 R30 K196 ["loadingImage"]
+      750 LOADK                            R31 K200 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+      751 SETTABLEKS                       R31 R30 K197 ["loadFailureImage"]
+      753 SETTABLEKS                       R30 R29 K201 ["groupThumbnail"]
+      755 DUPTABLE                         R30 K204 [{"background", "maskImage", "loadingImage", "loadFailureImage"}]
+      756 GETTABLEKS                       R31 R18 K205 ["TableItem"]
+      758 SETTABLEKS                       R31 R30 K202 ["background"]
+      760 LOADK                            R31 K206 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
+      761 SETTABLEKS                       R31 R30 K203 ["maskImage"]
+      763 LOADK                            R31 K207 ["rbxasset://textures/StudioSharedUI/default_user.png"]
+      764 SETTABLEKS                       R31 R30 K196 ["loadingImage"]
+      766 LOADK                            R31 K200 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+      767 SETTABLEKS                       R31 R30 K197 ["loadFailureImage"]
+      769 SETTABLEKS                       R30 R29 K208 ["subjectThumbnail"]
+      771 DUPTABLE                         R30 K209 [{"Image"}]
+      772 LOADK                            R31 K210 ["rbxasset://textures/ManageCollaborators/OrgRoleIcon_mask.png"]
+      773 SETTABLEKS                       R31 R30 K170 ["Image"]
+      775 SETTABLEKS                       R30 R29 K211 ["orgRoleThumbnail"]
+      777 DUPTABLE                         R30 K214 [{"button", "padding", "width"}]
+      778 DUPTABLE                         R31 K216 [{"height"}]
+      779 LOADN                            R32 50
+      780 SETTABLEKS                       R32 R31 K215 ["height"]
+      782 SETTABLEKS                       R31 R30 K212 ["button"]
+      784 LOADN                            R31 10
+      785 SETTABLEKS                       R31 R30 K103 ["padding"]
+      787 JUMPIFNOT                        R23 ; [+2]
+      788 LOADN                            R31 210
+      789 JUMP                             ; [+1]
+      790 LOADN                            R31 8
+      791 SETTABLEKS                       R31 R30 K213 ["width"]
+      793 SETTABLEKS                       R30 R29 K217 ["selectInput"]
+      795 DUPTABLE                         R30 K221 [{"yPadding", "xPadding", "yPaddingNonOwner"}]
+      796 JUMPIFNOT                        R23 ; [+2]
+      797 LOADN                            R31 20
+      798 JUMP                             ; [+1]
+      799 LOADN                            R31 47
+      800 SETTABLEKS                       R31 R30 K218 ["yPadding"]
+      802 LOADN                            R31 25
+      803 SETTABLEKS                       R31 R30 K219 ["xPadding"]
+      805 LOADN                            R31 35
+      806 SETTABLEKS                       R31 R30 K220 ["yPaddingNonOwner"]
+      808 SETTABLEKS                       R30 R29 K222 ["scrollingFrame"]
+      810 DUPTABLE                         R30 K226 [{"boxHeight", "textStyle", "InnerTextPosition"}]
+      811 LOADN                            R31 45
+      812 SETTABLEKS                       R31 R30 K223 ["boxHeight"]
+      814 DUPTABLE                         R31 K100 [{"Font", "TextSize", "TextColor3"}]
+      815 SETTABLEKS                       R27 R31 K37 ["Font"]
+      817 LOADN                            R32 16
+      818 SETTABLEKS                       R32 R31 K66 ["TextSize"]
+      820 GETTABLEKS                       R32 R18 K62 ["TitlebarText"]
+      822 SETTABLEKS                       R32 R31 K99 ["TextColor3"]
+      824 SETTABLEKS                       R31 R30 K224 ["textStyle"]
+      826 GETIMPORT                        R31 K114 [UDim2.new]
+      828 LOADN                            R32 0
+      829 LOADN                            R33 67
+      830 LOADK                            R34 K115 [0.5]
+      831 LOADN                            R35 0
+      832 CALL                             R31 4 1
+      833 SETTABLEKS                       R31 R30 K225 ["InnerTextPosition"]
+      835 SETTABLEKS                       R30 R29 K227 ["saveMessage"]
+      837 DUPTABLE                         R30 K230 [{"height", "paddingTop", "paddingLeft", "paddingRight"}]
+      838 JUMPIFNOT                        R23 ; [+2]
+      839 LOADN                            R31 50
+      840 JUMP                             ; [+1]
+      841 LOADN                            R31 98
+      842 SETTABLEKS                       R31 R30 K215 ["height"]
+      844 JUMPIFNOT                        R23 ; [+6]
+      845 GETIMPORT                        R31 K139 [UDim.new]
+      847 LOADN                            R32 0
+      848 LOADN                            R33 20
+      849 CALL                             R31 2 1
+      850 JUMP                             ; [+5]
+      851 GETIMPORT                        R31 K139 [UDim.new]
+      853 LOADN                            R32 0
+      854 LOADN                            R33 26
+      855 CALL                             R31 2 1
+      856 SETTABLEKS                       R31 R30 K134 ["paddingTop"]
       858 GETIMPORT                        R31 K139 [UDim.new]
       860 LOADN                            R32 0
-      861 LOADN                            R33 22
+      861 LOADN                            R33 67
       862 CALL                             R31 2 1
-      863 JUMP                             ; [+5]
-      864 GETIMPORT                        R31 K139 [UDim.new]
-      866 LOADN                            R32 0
-      867 LOADN                            R33 75
-      868 CALL                             R31 2 1
-      869 SETTABLEKS                       R31 R30 K225 ["paddingRight"]
-      871 SETTABLEKS                       R30 R29 K227 ["header"]
-      873 DUPTABLE                         R30 K231 [{"font", "textSize", "textColor3"}]
-      874 SETTABLEKS                       R27 R30 K228 ["font"]
-      876 LOADN                            R31 40
-      877 SETTABLEKS                       R31 R30 K229 ["textSize"]
-      879 GETTABLEKS                       R31 R18 K62 ["TitlebarText"]
-      881 SETTABLEKS                       R31 R30 K230 ["textColor3"]
-      883 SETTABLEKS                       R30 R29 K232 ["title"]
-      885 DUPTABLE                         R30 K233 [{"font", "textSize", "textColor3", "width"}]
-      886 SETTABLEKS                       R27 R30 K228 ["font"]
-      888 LOADN                            R31 24
-      889 SETTABLEKS                       R31 R30 K229 ["textSize"]
-      891 GETTABLEKS                       R31 R18 K62 ["TitlebarText"]
-      893 SETTABLEKS                       R31 R30 K230 ["textColor3"]
-      895 LOADN                            R31 175
-      896 SETTABLEKS                       R31 R30 K209 ["width"]
-      898 SETTABLEKS                       R30 R29 K234 ["copyLinkButton"]
-      900 DUPTABLE                         R30 K237 [{"height", "gradientSize", "gradientTransparency", "border"}]
-      901 JUMPIFNOT                        R23 ; [+2]
-      902 LOADN                            R31 60
-      903 JUMP                             ; [+1]
-      904 LOADN                            R31 65
-      905 SETTABLEKS                       R31 R30 K211 ["height"]
-      907 LOADN                            R31 3
-      908 SETTABLEKS                       R31 R30 K235 ["gradientSize"]
-      910 LOADK                            R31 K238 [0.9]
-      911 SETTABLEKS                       R31 R30 K236 ["gradientTransparency"]
-      913 JUMPIFNOT                        R23 ; [+3]
-      914 GETTABLEKS                       R31 R18 K73 ["Border"]
-      916 JUMP                             ; [+2]
-      917 GETTABLEKS                       R31 R18 K239 ["FooterBorder"]
-      919 SETTABLEKS                       R31 R30 K71 ["border"]
-      921 SETTABLEKS                       R30 R29 K240 ["footer"]
-      923 DUPTABLE                         R30 K243 [{"paddingHorizontal", "paddingTop", "size", "pills"}]
-      924 JUMPIFNOT                        R23 ; [+13]
-      925 JUMPIFNOT                        R26 ; [+6]
-      926 GETIMPORT                        R31 K139 [UDim.new]
-      928 LOADN                            R32 0
-      929 LOADN                            R33 15
-      930 CALL                             R31 2 1
-      931 JUMP                             ; [+11]
-      932 GETIMPORT                        R31 K139 [UDim.new]
-      934 LOADN                            R32 0
-      935 LOADN                            R33 20
-      936 CALL                             R31 2 1
-      937 JUMP                             ; [+5]
-      938 GETIMPORT                        R31 K139 [UDim.new]
-      940 LOADN                            R32 0
-      941 LOADN                            R33 67
-      942 CALL                             R31 2 1
-      943 SETTABLEKS                       R31 R30 K135 ["paddingHorizontal"]
-      945 JUMPIFNOT                        R24 ; [+7]
-      946 JUMPIFNOT                        R25 ; [+6]
-      947 GETIMPORT                        R31 K139 [UDim.new]
-      949 LOADN                            R32 0
-      950 LOADN                            R33 12
-      951 CALL                             R31 2 1
-      952 JUMP                             ; [+1]
-      953 LOADNIL                          R31
-      954 SETTABLEKS                       R31 R30 K134 ["paddingTop"]
-      956 GETIMPORT                        R31 K114 [UDim2.new]
-      958 LOADN                            R32 1
-      959 LOADN                            R33 0
-      960 LOADN                            R34 0
-      961 JUMPIFNOT                        R24 ; [+3]
-      962 JUMPIFNOT                        R25 ; [+2]
-      963 LOADN                            R35 42
-      964 JUMP                             ; [+1]
-      965 LOADN                            R35 30
-      966 CALL                             R31 4 1
-      967 SETTABLEKS                       R31 R30 K241 ["size"]
-      969 DUPTABLE                         R31 K244 [{"paddingHorizontal", "size"}]
-      970 GETIMPORT                        R32 K139 [UDim.new]
-      972 LOADN                            R33 0
-      973 LOADN                            R34 8
-      974 CALL                             R32 2 1
-      975 SETTABLEKS                       R32 R31 K135 ["paddingHorizontal"]
-      977 GETIMPORT                        R32 K114 [UDim2.new]
-      979 LOADN                            R33 0
-      980 LOADN                            R34 100
-      981 LOADN                            R35 1
-      982 LOADN                            R36 0
-      983 CALL                             R32 4 1
-      984 SETTABLEKS                       R32 R31 K241 ["size"]
-      986 SETTABLEKS                       R31 R30 K242 ["pills"]
-      988 SETTABLEKS                       R30 R29 K245 ["collaboratorFilter"]
-      990 DUPTABLE                         R30 K256 [{"FadeTransparency", "groupCollaboratorItem", "deleteButton", "permissionEditor", "collaboratorName", "collaboratorSubText", "ownerLabel", "iconContainerSize", "nonRolesetFrame", "rolesetFrame"}]
-      991 LOADK                            R31 K1 [script]
-      992 SETTABLEKS                       R31 R30 K246 ["FadeTransparency"]
-      994 DUPTABLE                         R31 K262 [{"ExpandTextSize", "size", "collaboratorItemOffset", "expandablePaneSize", "headerComponent"}]
-      995 LOADN                            R32 14
-      996 SETTABLEKS                       R32 R31 K258 ["ExpandTextSize"]
-      998 JUMPIFNOT                        R23 ; [+8]
-      999 GETIMPORT                        R32 K114 [UDim2.new]
-     1001 LOADN                            R33 0
-     1002 LOADN                            R34 238
-     1003 LOADN                            R35 0
-     1004 LOADN                            R36 60
-     1005 CALL                             R32 4 1
-     1006 JUMP                             ; [+7]
+      863 SETTABLEKS                       R31 R30 K228 ["paddingLeft"]
+      865 JUMPIFNOT                        R23 ; [+6]
+      866 GETIMPORT                        R31 K139 [UDim.new]
+      868 LOADN                            R32 0
+      869 LOADN                            R33 22
+      870 CALL                             R31 2 1
+      871 JUMP                             ; [+5]
+      872 GETIMPORT                        R31 K139 [UDim.new]
+      874 LOADN                            R32 0
+      875 LOADN                            R33 75
+      876 CALL                             R31 2 1
+      877 SETTABLEKS                       R31 R30 K229 ["paddingRight"]
+      879 SETTABLEKS                       R30 R29 K231 ["header"]
+      881 DUPTABLE                         R30 K235 [{"font", "textSize", "textColor3"}]
+      882 SETTABLEKS                       R27 R30 K232 ["font"]
+      884 LOADN                            R31 40
+      885 SETTABLEKS                       R31 R30 K233 ["textSize"]
+      887 GETTABLEKS                       R31 R18 K62 ["TitlebarText"]
+      889 SETTABLEKS                       R31 R30 K234 ["textColor3"]
+      891 SETTABLEKS                       R30 R29 K236 ["title"]
+      893 DUPTABLE                         R30 K237 [{"font", "textSize", "textColor3", "width"}]
+      894 SETTABLEKS                       R27 R30 K232 ["font"]
+      896 LOADN                            R31 24
+      897 SETTABLEKS                       R31 R30 K233 ["textSize"]
+      899 GETTABLEKS                       R31 R18 K62 ["TitlebarText"]
+      901 SETTABLEKS                       R31 R30 K234 ["textColor3"]
+      903 LOADN                            R31 175
+      904 SETTABLEKS                       R31 R30 K213 ["width"]
+      906 SETTABLEKS                       R30 R29 K238 ["copyLinkButton"]
+      908 DUPTABLE                         R30 K241 [{"height", "gradientSize", "gradientTransparency", "border"}]
+      909 JUMPIFNOT                        R23 ; [+2]
+      910 LOADN                            R31 60
+      911 JUMP                             ; [+1]
+      912 LOADN                            R31 65
+      913 SETTABLEKS                       R31 R30 K215 ["height"]
+      915 LOADN                            R31 3
+      916 SETTABLEKS                       R31 R30 K239 ["gradientSize"]
+      918 LOADK                            R31 K242 [0.9]
+      919 SETTABLEKS                       R31 R30 K240 ["gradientTransparency"]
+      921 JUMPIFNOT                        R23 ; [+3]
+      922 GETTABLEKS                       R31 R18 K73 ["Border"]
+      924 JUMP                             ; [+2]
+      925 GETTABLEKS                       R31 R18 K243 ["FooterBorder"]
+      927 SETTABLEKS                       R31 R30 K71 ["border"]
+      929 SETTABLEKS                       R30 R29 K244 ["footer"]
+      931 DUPTABLE                         R30 K247 [{"paddingHorizontal", "paddingTop", "size", "pills"}]
+      932 JUMPIFNOT                        R23 ; [+13]
+      933 JUMPIFNOT                        R26 ; [+6]
+      934 GETIMPORT                        R31 K139 [UDim.new]
+      936 LOADN                            R32 0
+      937 LOADN                            R33 15
+      938 CALL                             R31 2 1
+      939 JUMP                             ; [+11]
+      940 GETIMPORT                        R31 K139 [UDim.new]
+      942 LOADN                            R32 0
+      943 LOADN                            R33 20
+      944 CALL                             R31 2 1
+      945 JUMP                             ; [+5]
+      946 GETIMPORT                        R31 K139 [UDim.new]
+      948 LOADN                            R32 0
+      949 LOADN                            R33 67
+      950 CALL                             R31 2 1
+      951 SETTABLEKS                       R31 R30 K135 ["paddingHorizontal"]
+      953 JUMPIFNOT                        R24 ; [+7]
+      954 JUMPIFNOT                        R25 ; [+6]
+      955 GETIMPORT                        R31 K139 [UDim.new]
+      957 LOADN                            R32 0
+      958 LOADN                            R33 12
+      959 CALL                             R31 2 1
+      960 JUMP                             ; [+1]
+      961 LOADNIL                          R31
+      962 SETTABLEKS                       R31 R30 K134 ["paddingTop"]
+      964 GETIMPORT                        R31 K114 [UDim2.new]
+      966 LOADN                            R32 1
+      967 LOADN                            R33 0
+      968 LOADN                            R34 0
+      969 JUMPIFNOT                        R24 ; [+3]
+      970 JUMPIFNOT                        R25 ; [+2]
+      971 LOADN                            R35 42
+      972 JUMP                             ; [+1]
+      973 LOADN                            R35 30
+      974 CALL                             R31 4 1
+      975 SETTABLEKS                       R31 R30 K245 ["size"]
+      977 DUPTABLE                         R31 K248 [{"paddingHorizontal", "size"}]
+      978 GETIMPORT                        R32 K139 [UDim.new]
+      980 LOADN                            R33 0
+      981 LOADN                            R34 8
+      982 CALL                             R32 2 1
+      983 SETTABLEKS                       R32 R31 K135 ["paddingHorizontal"]
+      985 GETIMPORT                        R32 K114 [UDim2.new]
+      987 LOADN                            R33 0
+      988 LOADN                            R34 100
+      989 LOADN                            R35 1
+      990 LOADN                            R36 0
+      991 CALL                             R32 4 1
+      992 SETTABLEKS                       R32 R31 K245 ["size"]
+      994 SETTABLEKS                       R31 R30 K246 ["pills"]
+      996 SETTABLEKS                       R30 R29 K249 ["collaboratorFilter"]
+      998 DUPTABLE                         R30 K260 [{"FadeTransparency", "groupCollaboratorItem", "deleteButton", "permissionEditor", "collaboratorName", "collaboratorSubText", "ownerLabel", "iconContainerSize", "nonRolesetFrame", "rolesetFrame"}]
+      999 LOADK                            R31 K5 ["Packages"]
+     1000 SETTABLEKS                       R31 R30 K250 ["FadeTransparency"]
+     1002 DUPTABLE                         R31 K266 [{"ExpandTextSize", "size", "collaboratorItemOffset", "expandablePaneSize", "headerComponent"}]
+     1003 LOADN                            R32 14
+     1004 SETTABLEKS                       R32 R31 K262 ["ExpandTextSize"]
+     1006 JUMPIFNOT                        R23 ; [+8]
      1007 GETIMPORT                        R32 K114 [UDim2.new]
      1009 LOADN                            R33 0
-     1010 LOADN                            R34 153
+     1010 LOADN                            R34 238
      1011 LOADN                            R35 0
-     1012 LOADN                            R36 74
+     1012 LOADN                            R36 60
      1013 CALL                             R32 4 1
-     1014 SETTABLEKS                       R32 R31 K241 ["size"]
-     1016 LOADN                            R32 16
-     1017 SETTABLEKS                       R32 R31 K259 ["collaboratorItemOffset"]
-     1019 GETIMPORT                        R32 K114 [UDim2.new]
-     1021 LOADN                            R33 1
-     1022 LOADN                            R34 0
-     1023 LOADN                            R35 0
-     1024 LOADN                            R36 34
-     1025 CALL                             R32 4 1
-     1026 SETTABLEKS                       R32 R31 K260 ["expandablePaneSize"]
-     1028 DUPTABLE                         R32 K265 [{"size", "arrowLabel", "textLabel"}]
-     1029 GETIMPORT                        R33 K114 [UDim2.new]
-     1031 LOADN                            R34 0
-     1032 LOADN                            R35 96
-     1033 LOADN                            R36 0
-     1034 LOADN                            R37 34
-     1035 CALL                             R33 4 1
-     1036 SETTABLEKS                       R33 R32 K241 ["size"]
-     1038 DUPTABLE                         R33 K267 [{"position", "size"}]
-     1039 GETIMPORT                        R34 K114 [UDim2.new]
-     1041 LOADN                            R35 0
-     1042 LOADN                            R36 42
-     1043 LOADK                            R37 K115 [0.5]
-     1044 LOADN                            R38 0
-     1045 CALL                             R34 4 1
-     1046 SETTABLEKS                       R34 R33 K266 ["position"]
-     1048 GETIMPORT                        R34 K114 [UDim2.new]
-     1050 LOADN                            R35 0
-     1051 LOADN                            R36 17
-     1052 LOADN                            R37 0
-     1053 LOADN                            R38 17
-     1054 CALL                             R34 4 1
-     1055 SETTABLEKS                       R34 R33 K241 ["size"]
-     1057 SETTABLEKS                       R33 R32 K263 ["arrowLabel"]
-     1059 DUPTABLE                         R33 K268 [{"position"}]
-     1060 GETIMPORT                        R34 K114 [UDim2.new]
-     1062 LOADN                            R35 0
-     1063 LOADN                            R36 60
-     1064 LOADK                            R37 K115 [0.5]
-     1065 LOADN                            R38 0
-     1066 CALL                             R34 4 1
-     1067 SETTABLEKS                       R34 R33 K266 ["position"]
-     1069 SETTABLEKS                       R33 R32 K264 ["textLabel"]
-     1071 SETTABLEKS                       R32 R31 K261 ["headerComponent"]
-     1073 SETTABLEKS                       R31 R30 K247 ["groupCollaboratorItem"]
-     1075 DUPTABLE                         R31 K270 [{"size", "xOffset", "hovered"}]
-     1076 LOADN                            R32 16
-     1077 SETTABLEKS                       R32 R31 K241 ["size"]
-     1079 LOADN                            R32 6
-     1080 SETTABLEKS                       R32 R31 K269 ["xOffset"]
-     1082 GETTABLEKS                       R32 R18 K187 ["Dropdown"]
-     1084 SETTABLEKS                       R32 R31 K179 ["hovered"]
-     1086 SETTABLEKS                       R31 R30 K248 ["deleteButton"]
-     1088 DUPTABLE                         R31 K273 [{"heightOffset", "yOffset"}]
-     1089 LOADN                            R32 54
-     1090 SETTABLEKS                       R32 R31 K271 ["heightOffset"]
-     1092 LOADN                            R32 11
-     1093 SETTABLEKS                       R32 R31 K272 ["yOffset"]
-     1095 SETTABLEKS                       R31 R30 K249 ["permissionEditor"]
-     1097 DUPTABLE                         R31 K278 [{"withIcon", "withoutIcon", "withSubtext", "withoutSubtext"}]
-     1098 DUPTABLE                         R32 K280 [{"withSubText", "size", "xOffset"}]
-     1099 DUPTABLE                         R33 K281 [{"size"}]
-     1100 GETIMPORT                        R34 K114 [UDim2.new]
-     1102 LOADN                            R35 1
-     1103 LOADN                            R36 248
-     1104 LOADN                            R37 0
-     1105 LOADN                            R38 30
-     1106 CALL                             R34 4 1
-     1107 SETTABLEKS                       R34 R33 K241 ["size"]
-     1109 SETTABLEKS                       R33 R32 K279 ["withSubText"]
-     1111 GETIMPORT                        R33 K114 [UDim2.new]
-     1113 LOADN                            R34 1
-     1114 LOADN                            R35 248
-     1115 LOADN                            R36 0
-     1116 LOADN                            R37 54
-     1117 CALL                             R33 4 1
-     1118 SETTABLEKS                       R33 R32 K241 ["size"]
-     1120 LOADN                            R33 50
-     1121 SETTABLEKS                       R33 R32 K269 ["xOffset"]
-     1123 SETTABLEKS                       R32 R31 K274 ["withIcon"]
-     1125 NEWTABLE                         R32 2 1
-     1127 DUPTABLE                         R34 K281 [{"size"}]
-     1128 GETIMPORT                        R35 K114 [UDim2.new]
-     1130 LOADN                            R36 1
-     1131 LOADN                            R37 248
-     1132 LOADN                            R38 0
-     1133 LOADN                            R39 30
-     1134 CALL                             R35 4 1
-     1135 SETTABLEKS                       R35 R34 K241 ["size"]
-     1137 SETTABLEKS                       R34 R32 K279 ["withSubText"]
-     1139 GETIMPORT                        R33 K114 [UDim2.new]
-     1141 LOADN                            R34 1
-     1142 LOADN                            R35 130
-     1143 LOADN                            R36 0
-     1144 LOADN                            R37 54
-     1145 CALL                             R33 4 1
-     1146 SETLIST                          R32 R33 1 [1]
-     1148 LOADN                            R34 28
-     1149 SETTABLEKS                       R34 R32 K269 ["xOffset"]
-     1151 SETTABLEKS                       R32 R31 K275 ["withoutIcon"]
-     1153 DUPTABLE                         R32 K282 [{"yOffset"}]
-     1154 LOADN                            R33 246
-     1155 SETTABLEKS                       R33 R32 K272 ["yOffset"]
-     1157 SETTABLEKS                       R32 R31 K276 ["withSubtext"]
-     1159 DUPTABLE                         R32 K282 [{"yOffset"}]
-     1160 LOADN                            R33 0
-     1161 SETTABLEKS                       R33 R32 K272 ["yOffset"]
-     1163 SETTABLEKS                       R32 R31 K277 ["withoutSubtext"]
-     1165 SETTABLEKS                       R31 R30 K250 ["collaboratorName"]
-     1167 DUPTABLE                         R31 K283 [{"withIcon", "withoutIcon", "yOffset"}]
-     1168 DUPTABLE                         R32 K284 [{"size", "xOffset"}]
-     1169 GETIMPORT                        R33 K114 [UDim2.new]
-     1171 LOADN                            R34 1
-     1172 LOADN                            R35 248
-     1173 LOADN                            R36 0
-     1174 LOADN                            R37 24
-     1175 CALL                             R33 4 1
-     1176 SETTABLEKS                       R33 R32 K241 ["size"]
-     1178 LOADN                            R33 50
-     1179 SETTABLEKS                       R33 R32 K269 ["xOffset"]
-     1181 SETTABLEKS                       R32 R31 K274 ["withIcon"]
-     1183 NEWTABLE                         R32 1 1
-     1185 GETIMPORT                        R33 K114 [UDim2.new]
-     1187 LOADN                            R34 1
-     1188 LOADN                            R35 130
-     1189 LOADN                            R36 0
-     1190 LOADN                            R37 24
-     1191 CALL                             R33 4 1
-     1192 SETLIST                          R32 R33 1 [1]
-     1194 LOADN                            R34 28
-     1195 SETTABLEKS                       R34 R32 K269 ["xOffset"]
-     1197 SETTABLEKS                       R32 R31 K275 ["withoutIcon"]
-     1199 LOADN                            R32 10
-     1200 SETTABLEKS                       R32 R31 K272 ["yOffset"]
-     1202 SETTABLEKS                       R31 R30 K251 ["collaboratorSubText"]
-     1204 DUPTABLE                         R31 K287 [{"withIconSize", "withoutIconSize", "position"}]
-     1205 GETIMPORT                        R32 K114 [UDim2.new]
-     1207 LOADN                            R33 1
-     1208 LOADN                            R34 248
-     1209 LOADN                            R35 0
-     1210 LOADN                            R36 54
-     1211 CALL                             R32 4 1
-     1212 SETTABLEKS                       R32 R31 K285 ["withIconSize"]
-     1214 GETIMPORT                        R32 K114 [UDim2.new]
-     1216 LOADN                            R33 1
-     1217 LOADN                            R34 130
-     1218 LOADN                            R35 0
-     1219 LOADN                            R36 54
-     1220 CALL                             R32 4 1
-     1221 SETTABLEKS                       R32 R31 K286 ["withoutIconSize"]
-     1223 GETIMPORT                        R32 K114 [UDim2.new]
-     1225 LOADN                            R33 1
-     1226 LOADN                            R34 249
-     1227 LOADK                            R35 K115 [0.5]
-     1228 LOADN                            R36 0
-     1229 CALL                             R32 4 1
-     1230 SETTABLEKS                       R32 R31 K266 ["position"]
-     1232 SETTABLEKS                       R31 R30 K252 ["ownerLabel"]
-     1234 LOADN                            R31 40
-     1235 SETTABLEKS                       R31 R30 K253 ["iconContainerSize"]
-     1237 DUPTABLE                         R31 K289 [{"width", "height", "position", "anchorPoint"}]
-     1238 JUMPIFNOT                        R23 ; [+2]
-     1239 LOADN                            R32 238
-     1240 JUMP                             ; [+1]
-     1241 LOADN                            R32 153
-     1242 SETTABLEKS                       R32 R31 K209 ["width"]
-     1244 LOADN                            R32 74
-     1245 SETTABLEKS                       R32 R31 K211 ["height"]
-     1247 LOADNIL                          R32
-     1248 SETTABLEKS                       R32 R31 K266 ["position"]
-     1250 LOADNIL                          R32
-     1251 SETTABLEKS                       R32 R31 K288 ["anchorPoint"]
-     1253 SETTABLEKS                       R31 R30 K254 ["nonRolesetFrame"]
-     1255 DUPTABLE                         R31 K291 [{"width", "height", "position", "anchorPont"}]
-     1256 JUMPIFNOT                        R23 ; [+2]
-     1257 LOADN                            R32 238
-     1258 JUMP                             ; [+1]
-     1259 LOADN                            R32 96
-     1260 SETTABLEKS                       R32 R31 K209 ["width"]
-     1262 LOADN                            R32 54
-     1263 SETTABLEKS                       R32 R31 K211 ["height"]
-     1265 GETIMPORT                        R32 K114 [UDim2.new]
-     1267 LOADK                            R33 K36 ["Enum"]
-     1268 LOADN                            R34 200
-     1269 LOADN                            R35 0
-     1270 LOADN                            R36 20
-     1271 CALL                             R32 4 1
-     1272 SETTABLEKS                       R32 R31 K266 ["position"]
-     1274 GETIMPORT                        R32 K91 [Vector2.new]
-     1276 LOADN                            R33 1
-     1277 LOADN                            R34 0
-     1278 CALL                             R32 2 1
-     1279 SETTABLEKS                       R32 R31 K290 ["anchorPont"]
-     1281 SETTABLEKS                       R31 R30 K255 ["rolesetFrame"]
-     1283 SETTABLEKS                       R30 R29 K293 ["collaboratorItem"]
-     1285 GETTABLEKS                       R30 R18 K294 ["CloseWidget"]
-     1287 SETTABLEKS                       R30 R29 K295 ["deleteIcon"]
-     1289 DUPTABLE                         R30 K298 [{"right", "down"}]
-     1290 GETTABLEKS                       R31 R18 K299 ["RightArrow"]
-     1292 SETTABLEKS                       R31 R30 K296 ["right"]
-     1294 GETTABLEKS                       R31 R18 K300 ["DownArrow"]
-     1296 SETTABLEKS                       R31 R30 K297 ["down"]
-     1298 SETTABLEKS                       R30 R29 K301 ["arrows"]
-     1300 DUPCLOSURE                       R30 K302 [PROTO_0]
-     1301 CAPTURE                          VAL R21
-     1302 CAPTURE                          VAL R16
-     1303 CAPTURE                          VAL R18
-     1304 CAPTURE                          VAL R19
-     1305 CAPTURE                          VAL R17
-     1306 CAPTURE                          VAL R15
-     1307 CAPTURE                          VAL R29
-     1308 RETURN                           R30 1
+     1014 JUMP                             ; [+7]
+     1015 GETIMPORT                        R32 K114 [UDim2.new]
+     1017 LOADN                            R33 0
+     1018 LOADN                            R34 153
+     1019 LOADN                            R35 0
+     1020 LOADN                            R36 74
+     1021 CALL                             R32 4 1
+     1022 SETTABLEKS                       R32 R31 K245 ["size"]
+     1024 LOADN                            R32 16
+     1025 SETTABLEKS                       R32 R31 K263 ["collaboratorItemOffset"]
+     1027 GETIMPORT                        R32 K114 [UDim2.new]
+     1029 LOADN                            R33 1
+     1030 LOADN                            R34 0
+     1031 LOADN                            R35 0
+     1032 LOADN                            R36 34
+     1033 CALL                             R32 4 1
+     1034 SETTABLEKS                       R32 R31 K264 ["expandablePaneSize"]
+     1036 DUPTABLE                         R32 K269 [{"size", "arrowLabel", "textLabel"}]
+     1037 GETIMPORT                        R33 K114 [UDim2.new]
+     1039 LOADN                            R34 0
+     1040 LOADN                            R35 96
+     1041 LOADN                            R36 0
+     1042 LOADN                            R37 34
+     1043 CALL                             R33 4 1
+     1044 SETTABLEKS                       R33 R32 K245 ["size"]
+     1046 DUPTABLE                         R33 K271 [{"position", "size"}]
+     1047 GETIMPORT                        R34 K114 [UDim2.new]
+     1049 LOADN                            R35 0
+     1050 LOADN                            R36 42
+     1051 LOADK                            R37 K115 [0.5]
+     1052 LOADN                            R38 0
+     1053 CALL                             R34 4 1
+     1054 SETTABLEKS                       R34 R33 K270 ["position"]
+     1056 GETIMPORT                        R34 K114 [UDim2.new]
+     1058 LOADN                            R35 0
+     1059 LOADN                            R36 17
+     1060 LOADN                            R37 0
+     1061 LOADN                            R38 17
+     1062 CALL                             R34 4 1
+     1063 SETTABLEKS                       R34 R33 K245 ["size"]
+     1065 SETTABLEKS                       R33 R32 K267 ["arrowLabel"]
+     1067 DUPTABLE                         R33 K272 [{"position"}]
+     1068 GETIMPORT                        R34 K114 [UDim2.new]
+     1070 LOADN                            R35 0
+     1071 LOADN                            R36 60
+     1072 LOADK                            R37 K115 [0.5]
+     1073 LOADN                            R38 0
+     1074 CALL                             R34 4 1
+     1075 SETTABLEKS                       R34 R33 K270 ["position"]
+     1077 SETTABLEKS                       R33 R32 K268 ["textLabel"]
+     1079 SETTABLEKS                       R32 R31 K265 ["headerComponent"]
+     1081 SETTABLEKS                       R31 R30 K251 ["groupCollaboratorItem"]
+     1083 DUPTABLE                         R31 K274 [{"size", "xOffset", "hovered"}]
+     1084 LOADN                            R32 16
+     1085 SETTABLEKS                       R32 R31 K245 ["size"]
+     1087 LOADN                            R32 6
+     1088 SETTABLEKS                       R32 R31 K273 ["xOffset"]
+     1090 GETTABLEKS                       R32 R18 K191 ["Dropdown"]
+     1092 SETTABLEKS                       R32 R31 K183 ["hovered"]
+     1094 SETTABLEKS                       R31 R30 K252 ["deleteButton"]
+     1096 DUPTABLE                         R31 K277 [{"heightOffset", "yOffset"}]
+     1097 LOADN                            R32 54
+     1098 SETTABLEKS                       R32 R31 K275 ["heightOffset"]
+     1100 LOADN                            R32 11
+     1101 SETTABLEKS                       R32 R31 K276 ["yOffset"]
+     1103 SETTABLEKS                       R31 R30 K253 ["permissionEditor"]
+     1105 DUPTABLE                         R31 K282 [{"withIcon", "withoutIcon", "withSubtext", "withoutSubtext"}]
+     1106 DUPTABLE                         R32 K284 [{"withSubText", "size", "xOffset"}]
+     1107 DUPTABLE                         R33 K285 [{"size"}]
+     1108 GETIMPORT                        R34 K114 [UDim2.new]
+     1110 LOADN                            R35 1
+     1111 LOADN                            R36 248
+     1112 LOADN                            R37 0
+     1113 LOADN                            R38 30
+     1114 CALL                             R34 4 1
+     1115 SETTABLEKS                       R34 R33 K245 ["size"]
+     1117 SETTABLEKS                       R33 R32 K283 ["withSubText"]
+     1119 GETIMPORT                        R33 K114 [UDim2.new]
+     1121 LOADN                            R34 1
+     1122 LOADN                            R35 248
+     1123 LOADN                            R36 0
+     1124 LOADN                            R37 54
+     1125 CALL                             R33 4 1
+     1126 SETTABLEKS                       R33 R32 K245 ["size"]
+     1128 LOADN                            R33 50
+     1129 SETTABLEKS                       R33 R32 K273 ["xOffset"]
+     1131 SETTABLEKS                       R32 R31 K278 ["withIcon"]
+     1133 NEWTABLE                         R32 2 1
+     1135 DUPTABLE                         R34 K285 [{"size"}]
+     1136 GETIMPORT                        R35 K114 [UDim2.new]
+     1138 LOADN                            R36 1
+     1139 LOADN                            R37 248
+     1140 LOADN                            R38 0
+     1141 LOADN                            R39 30
+     1142 CALL                             R35 4 1
+     1143 SETTABLEKS                       R35 R34 K245 ["size"]
+     1145 SETTABLEKS                       R34 R32 K283 ["withSubText"]
+     1147 GETIMPORT                        R33 K114 [UDim2.new]
+     1149 LOADN                            R34 1
+     1150 LOADN                            R35 130
+     1151 LOADN                            R36 0
+     1152 LOADN                            R37 54
+     1153 CALL                             R33 4 1
+     1154 SETLIST                          R32 R33 1 [1]
+     1156 LOADN                            R34 28
+     1157 SETTABLEKS                       R34 R32 K273 ["xOffset"]
+     1159 SETTABLEKS                       R32 R31 K279 ["withoutIcon"]
+     1161 DUPTABLE                         R32 K286 [{"yOffset"}]
+     1162 LOADN                            R33 246
+     1163 SETTABLEKS                       R33 R32 K276 ["yOffset"]
+     1165 SETTABLEKS                       R32 R31 K280 ["withSubtext"]
+     1167 DUPTABLE                         R32 K286 [{"yOffset"}]
+     1168 LOADN                            R33 0
+     1169 SETTABLEKS                       R33 R32 K276 ["yOffset"]
+     1171 SETTABLEKS                       R32 R31 K281 ["withoutSubtext"]
+     1173 SETTABLEKS                       R31 R30 K254 ["collaboratorName"]
+     1175 DUPTABLE                         R31 K287 [{"withIcon", "withoutIcon", "yOffset"}]
+     1176 DUPTABLE                         R32 K288 [{"size", "xOffset"}]
+     1177 GETIMPORT                        R33 K114 [UDim2.new]
+     1179 LOADN                            R34 1
+     1180 LOADN                            R35 248
+     1181 LOADN                            R36 0
+     1182 LOADN                            R37 24
+     1183 CALL                             R33 4 1
+     1184 SETTABLEKS                       R33 R32 K245 ["size"]
+     1186 LOADN                            R33 50
+     1187 SETTABLEKS                       R33 R32 K273 ["xOffset"]
+     1189 SETTABLEKS                       R32 R31 K278 ["withIcon"]
+     1191 NEWTABLE                         R32 1 1
+     1193 GETIMPORT                        R33 K114 [UDim2.new]
+     1195 LOADN                            R34 1
+     1196 LOADN                            R35 130
+     1197 LOADN                            R36 0
+     1198 LOADN                            R37 24
+     1199 CALL                             R33 4 1
+     1200 SETLIST                          R32 R33 1 [1]
+     1202 LOADN                            R34 28
+     1203 SETTABLEKS                       R34 R32 K273 ["xOffset"]
+     1205 SETTABLEKS                       R32 R31 K279 ["withoutIcon"]
+     1207 LOADN                            R32 10
+     1208 SETTABLEKS                       R32 R31 K276 ["yOffset"]
+     1210 SETTABLEKS                       R31 R30 K255 ["collaboratorSubText"]
+     1212 DUPTABLE                         R31 K291 [{"withIconSize", "withoutIconSize", "position"}]
+     1213 GETIMPORT                        R32 K114 [UDim2.new]
+     1215 LOADN                            R33 1
+     1216 LOADN                            R34 248
+     1217 LOADN                            R35 0
+     1218 LOADN                            R36 54
+     1219 CALL                             R32 4 1
+     1220 SETTABLEKS                       R32 R31 K289 ["withIconSize"]
+     1222 GETIMPORT                        R32 K114 [UDim2.new]
+     1224 LOADN                            R33 1
+     1225 LOADN                            R34 130
+     1226 LOADN                            R35 0
+     1227 LOADN                            R36 54
+     1228 CALL                             R32 4 1
+     1229 SETTABLEKS                       R32 R31 K290 ["withoutIconSize"]
+     1231 GETIMPORT                        R32 K114 [UDim2.new]
+     1233 LOADN                            R33 1
+     1234 LOADN                            R34 249
+     1235 LOADK                            R35 K115 [0.5]
+     1236 LOADN                            R36 0
+     1237 CALL                             R32 4 1
+     1238 SETTABLEKS                       R32 R31 K270 ["position"]
+     1240 SETTABLEKS                       R31 R30 K256 ["ownerLabel"]
+     1242 LOADN                            R31 40
+     1243 SETTABLEKS                       R31 R30 K257 ["iconContainerSize"]
+     1245 DUPTABLE                         R31 K293 [{"width", "height", "position", "anchorPoint"}]
+     1246 JUMPIFNOT                        R23 ; [+2]
+     1247 LOADN                            R32 238
+     1248 JUMP                             ; [+1]
+     1249 LOADN                            R32 153
+     1250 SETTABLEKS                       R32 R31 K213 ["width"]
+     1252 LOADN                            R32 74
+     1253 SETTABLEKS                       R32 R31 K215 ["height"]
+     1255 LOADNIL                          R32
+     1256 SETTABLEKS                       R32 R31 K270 ["position"]
+     1258 LOADNIL                          R32
+     1259 SETTABLEKS                       R32 R31 K292 ["anchorPoint"]
+     1261 SETTABLEKS                       R31 R30 K258 ["nonRolesetFrame"]
+     1263 DUPTABLE                         R31 K295 [{"width", "height", "position", "anchorPont"}]
+     1264 JUMPIFNOT                        R23 ; [+2]
+     1265 LOADN                            R32 238
+     1266 JUMP                             ; [+1]
+     1267 LOADN                            R32 96
+     1268 SETTABLEKS                       R32 R31 K213 ["width"]
+     1270 LOADN                            R32 54
+     1271 SETTABLEKS                       R32 R31 K215 ["height"]
+     1273 GETIMPORT                        R32 K114 [UDim2.new]
+     1275 LOADK                            R33 K40 ["SourceSans"]
+     1276 LOADN                            R34 200
+     1277 LOADN                            R35 0
+     1278 LOADN                            R36 20
+     1279 CALL                             R32 4 1
+     1280 SETTABLEKS                       R32 R31 K270 ["position"]
+     1282 GETIMPORT                        R32 K91 [Vector2.new]
+     1284 LOADN                            R33 1
+     1285 LOADN                            R34 0
+     1286 CALL                             R32 2 1
+     1287 SETTABLEKS                       R32 R31 K294 ["anchorPont"]
+     1289 SETTABLEKS                       R31 R30 K259 ["rolesetFrame"]
+     1291 SETTABLEKS                       R30 R29 K297 ["collaboratorItem"]
+     1293 GETTABLEKS                       R30 R18 K298 ["CloseWidget"]
+     1295 SETTABLEKS                       R30 R29 K299 ["deleteIcon"]
+     1297 DUPTABLE                         R30 K302 [{"right", "down"}]
+     1298 GETTABLEKS                       R31 R18 K303 ["RightArrow"]
+     1300 SETTABLEKS                       R31 R30 K300 ["right"]
+     1302 GETTABLEKS                       R31 R18 K304 ["DownArrow"]
+     1304 SETTABLEKS                       R31 R30 K301 ["down"]
+     1306 SETTABLEKS                       R30 R29 K305 ["arrows"]
+     1308 DUPCLOSURE                       R30 K306 [PROTO_0]
+     1309 CAPTURE                          VAL R21
+     1310 CAPTURE                          VAL R16
+     1311 CAPTURE                          VAL R18
+     1312 CAPTURE                          VAL R19
+     1313 CAPTURE                          VAL R17
+     1314 CAPTURE                          VAL R15
+     1315 CAPTURE                          VAL R29
+     1316 RETURN                           R30 1

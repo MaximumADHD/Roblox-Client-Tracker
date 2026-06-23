@@ -10,6 +10,14 @@ PROTO_1:
         3 CALL                             R0 0 0
         4 RETURN                           R0 0
 
+PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 MOVE                             R4 R1
+        3 GETUPVAL                         R5 1
+        4 CALL                             R2 3 -1
+        5 RETURN                           R2 -1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [plugin]
@@ -229,42 +237,44 @@ MAIN:
       353 MOVE                             R19 R18
       354 GETIMPORT                        R20 K1 [plugin]
       356 MOVE                             R21 R17
-      357 CALL                             R19 2 0
-      358 MOVE                             R19 R13
-      359 CALL                             R19 0 1
-      360 JUMPIFNOT                        R19 ; [+32]
-      361 GETTABLEKS                       R19 R8 K51 ["Types"]
-      363 GETTABLEKS                       R19 R19 K64 ["Edit"]
-      365 JUMPIFNOTEQ                      R10 R19 ; [+27]
-      367 GETIMPORT                        R19 K7 [require]
-      369 GETTABLEKS                       R20 R0 K11 ["Src"]
-      371 GETTABLEKS                       R20 R20 K59 ["EvalDriver"]
-      373 GETTABLEKS                       R20 R20 K60 ["EvalUtils"]
-      375 CALL                             R19 1 1
-      376 GETTABLEKS                       R20 R19 K50 ["init"]
-      378 GETIMPORT                        R21 K1 [plugin]
-      380 CALL                             R20 1 0
-      381 GETTABLEKS                       R20 R14 K50 ["init"]
-      383 CALL                             R20 0 0
-      384 GETIMPORT                        R20 K1 [plugin]
-      386 GETTABLEKS                       R20 R20 K54 ["Unloading"]
-      388 DUPCLOSURE                       R22 K67 [PROTO_1]
+      357 CALL                             R19 2 1
+      358 MOVE                             R20 R13
+      359 CALL                             R20 0 1
+      360 JUMPIFNOT                        R20 ; [+32]
+      361 GETTABLEKS                       R20 R8 K51 ["Types"]
+      363 GETTABLEKS                       R20 R20 K64 ["Edit"]
+      365 JUMPIFNOTEQ                      R10 R20 ; [+27]
+      367 GETIMPORT                        R20 K7 [require]
+      369 GETTABLEKS                       R21 R0 K11 ["Src"]
+      371 GETTABLEKS                       R21 R21 K59 ["EvalDriver"]
+      373 GETTABLEKS                       R21 R21 K60 ["EvalUtils"]
+      375 CALL                             R20 1 1
+      376 GETTABLEKS                       R21 R20 K50 ["init"]
+      378 GETIMPORT                        R22 K1 [plugin]
+      380 CALL                             R21 1 0
+      381 GETTABLEKS                       R21 R14 K50 ["init"]
+      383 CALL                             R21 0 0
+      384 GETIMPORT                        R21 K1 [plugin]
+      386 GETTABLEKS                       R21 R21 K54 ["Unloading"]
+      388 DUPCLOSURE                       R23 K67 [PROTO_1]
       389 CAPTURE                          VAL R14
-      390 NAMECALL                         R20 R20 K56 ["Connect"]
-      392 CALL                             R20 2 0
-      393 JUMPIFNOT                        R5 ; [+23]
-      394 GETIMPORT                        R19 K7 [require]
-      396 GETTABLEKS                       R20 R0 K19 ["Bin"]
-      398 GETTABLEKS                       R20 R20 K20 ["Common"]
-      400 GETTABLEKS                       R20 R20 K68 ["setup"]
-      402 CALL                             R19 1 1
-      403 GETIMPORT                        R20 K7 [require]
-      405 GETTABLEKS                       R21 R0 K19 ["Bin"]
-      407 GETTABLEKS                       R21 R21 K20 ["Common"]
-      409 GETTABLEKS                       R21 R21 K69 ["setupMain"]
-      411 CALL                             R20 1 1
-      412 MOVE                             R21 R19
-      413 GETIMPORT                        R22 K1 [plugin]
-      415 MOVE                             R23 R20
-      416 CALL                             R21 2 0
-      417 RETURN                           R0 0
+      390 NAMECALL                         R21 R21 K56 ["Connect"]
+      392 CALL                             R21 2 0
+      393 JUMPIFNOT                        R5 ; [+25]
+      394 GETIMPORT                        R20 K7 [require]
+      396 GETTABLEKS                       R21 R0 K19 ["Bin"]
+      398 GETTABLEKS                       R21 R21 K20 ["Common"]
+      400 GETTABLEKS                       R21 R21 K68 ["setup"]
+      402 CALL                             R20 1 1
+      403 GETIMPORT                        R21 K7 [require]
+      405 GETTABLEKS                       R22 R0 K19 ["Bin"]
+      407 GETTABLEKS                       R22 R22 K20 ["Common"]
+      409 GETTABLEKS                       R22 R22 K69 ["setupMain"]
+      411 CALL                             R21 1 1
+      412 MOVE                             R22 R20
+      413 GETIMPORT                        R23 K1 [plugin]
+      415 DUPCLOSURE                       R24 K70 [PROTO_2]
+      416 CAPTURE                          VAL R21
+      417 CAPTURE                          VAL R19
+      418 CALL                             R22 2 0
+      419 RETURN                           R0 0

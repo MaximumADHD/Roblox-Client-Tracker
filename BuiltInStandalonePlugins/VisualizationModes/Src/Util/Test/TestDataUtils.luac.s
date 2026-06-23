@@ -11,28 +11,32 @@ PROTO_0:
        13 RETURN                           R0 1
 
 PROTO_1:
-        0 DUPTABLE                         R0 K4 [{"title", "name", "toolTip", "enabled"}]
-        1 LOADK                            R1 K5 ["Light Guides"]
+        0 DUPTABLE                         R0 K5 [{"title", "name", "toolTip", "enabled", "sortOrder"}]
+        1 LOADK                            R1 K6 ["Light Guides"]
         2 SETTABLEKS                       R1 R0 K0 ["title"]
-        4 LOADK                            R1 K6 ["LightGuides"]
+        4 LOADK                            R1 K7 ["LightGuides"]
         5 SETTABLEKS                       R1 R0 K1 ["name"]
-        7 LOADK                            R1 K7 ["Light Guides ToolTip"]
+        7 LOADK                            R1 K8 ["Light Guides ToolTip"]
         8 SETTABLEKS                       R1 R0 K2 ["toolTip"]
        10 LOADB                            R1 0
        11 SETTABLEKS                       R1 R0 K3 ["enabled"]
-       13 RETURN                           R0 1
+       13 LOADN                            R1 0
+       14 SETTABLEKS                       R1 R0 K4 ["sortOrder"]
+       16 RETURN                           R0 1
 
 PROTO_2:
-        0 DUPTABLE                         R0 K4 [{"title", "name", "toolTip", "enabled"}]
-        1 LOADK                            R1 K5 ["No Tool Tip Mode"]
+        0 DUPTABLE                         R0 K5 [{"title", "name", "toolTip", "enabled", "sortOrder"}]
+        1 LOADK                            R1 K6 ["No Tool Tip Mode"]
         2 SETTABLEKS                       R1 R0 K0 ["title"]
-        4 LOADK                            R1 K6 ["NoToolTip"]
+        4 LOADK                            R1 K7 ["NoToolTip"]
         5 SETTABLEKS                       R1 R0 K1 ["name"]
-        7 LOADK                            R1 K7 [""]
+        7 LOADK                            R1 K8 [""]
         8 SETTABLEKS                       R1 R0 K2 ["toolTip"]
        10 LOADB                            R1 1
        11 SETTABLEKS                       R1 R0 K3 ["enabled"]
-       13 RETURN                           R0 1
+       13 LOADN                            R1 0
+       14 SETTABLEKS                       R1 R0 K4 ["sortOrder"]
+       16 RETURN                           R0 1
 
 PROTO_3:
         0 DUPTABLE                         R0 K5 [{"title", "name", "enabled", "lastUpdateTimeUnixTimeStamp", "visualizationModeList"}]
@@ -77,31 +81,35 @@ PROTO_5:
        10 LOADK                            R5 K10 ["Test Category"]
        11 SETTABLEKS                       R5 R4 K5 ["title"]
        13 NEWTABLE                         R5 0 2
-       15 DUPTABLE                         R6 K12 [{"name", "title", "enabled", "toolTip"}]
-       16 LOADK                            R7 K13 ["TestMode1"]
+       15 DUPTABLE                         R6 K13 [{"name", "title", "enabled", "toolTip", "sortOrder"}]
+       16 LOADK                            R7 K14 ["TestMode1"]
        17 SETTABLEKS                       R7 R6 K3 ["name"]
-       19 LOADK                            R7 K13 ["TestMode1"]
+       19 LOADK                            R7 K14 ["TestMode1"]
        20 SETTABLEKS                       R7 R6 K5 ["title"]
        22 SETTABLEKS                       R1 R6 K4 ["enabled"]
-       24 LOADK                            R7 K13 ["TestMode1"]
+       24 LOADK                            R7 K14 ["TestMode1"]
        25 SETTABLEKS                       R7 R6 K11 ["toolTip"]
-       27 DUPTABLE                         R7 K12 [{"name", "title", "enabled", "toolTip"}]
-       28 LOADK                            R8 K14 ["TestMode2"]
-       29 SETTABLEKS                       R8 R7 K3 ["name"]
-       31 LOADK                            R8 K14 ["TestMode2"]
-       32 SETTABLEKS                       R8 R7 K5 ["title"]
-       34 LOADB                            R8 0
-       35 SETTABLEKS                       R8 R7 K4 ["enabled"]
-       37 LOADK                            R8 K14 ["TestMode2"]
-       38 SETTABLEKS                       R8 R7 K11 ["toolTip"]
-       40 SETLIST                          R5 R6 2 [1]
-       42 SETTABLEKS                       R5 R4 K6 ["visualizationModeList"]
-       44 LOADN                            R5 0
-       45 SETTABLEKS                       R5 R4 K7 ["lastUpdateTimeUnixTimeStamp"]
-       47 SETLIST                          R3 R4 1 [1]
-       49 SETTABLEKS                       R3 R2 K0 ["visualizationModeServiceState"]
-       51 SETTABLEKS                       R0 R2 K1 ["hostDataModelType"]
-       53 RETURN                           R2 1
+       27 LOADN                            R7 0
+       28 SETTABLEKS                       R7 R6 K12 ["sortOrder"]
+       30 DUPTABLE                         R7 K13 [{"name", "title", "enabled", "toolTip", "sortOrder"}]
+       31 LOADK                            R8 K15 ["TestMode2"]
+       32 SETTABLEKS                       R8 R7 K3 ["name"]
+       34 LOADK                            R8 K15 ["TestMode2"]
+       35 SETTABLEKS                       R8 R7 K5 ["title"]
+       37 LOADB                            R8 0
+       38 SETTABLEKS                       R8 R7 K4 ["enabled"]
+       40 LOADK                            R8 K15 ["TestMode2"]
+       41 SETTABLEKS                       R8 R7 K11 ["toolTip"]
+       43 LOADN                            R8 0
+       44 SETTABLEKS                       R8 R7 K12 ["sortOrder"]
+       46 SETLIST                          R5 R6 2 [1]
+       48 SETTABLEKS                       R5 R4 K6 ["visualizationModeList"]
+       50 LOADN                            R5 0
+       51 SETTABLEKS                       R5 R4 K7 ["lastUpdateTimeUnixTimeStamp"]
+       53 SETLIST                          R3 R4 1 [1]
+       55 SETTABLEKS                       R3 R2 K0 ["visualizationModeServiceState"]
+       57 SETTABLEKS                       R0 R2 K1 ["hostDataModelType"]
+       59 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

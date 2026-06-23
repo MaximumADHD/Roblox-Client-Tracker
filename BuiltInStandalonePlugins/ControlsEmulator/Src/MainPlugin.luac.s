@@ -111,6 +111,16 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["EmulatedGamepadEvent"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 NAMECALL                         R0 R0 K1 ["Connect"]
+        8 CALL                             R0 2 0
+        9 RETURN                           R0 0
+
+PROTO_9:
+        0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R0 R0 K1 ["PluginLoaderContext"]
         5 GETTABLEKS                       R0 R0 K2 ["mainButtonClickedSignal"]
@@ -127,24 +137,23 @@ PROTO_8:
        23 GETTABLEKS                       R2 R2 K7 ["enabled"]
        25 NAMECALL                         R0 R0 K8 ["SetActive"]
        27 CALL                             R0 2 0
-       28 GETUPVAL                         R0 1
-       29 GETTABLEKS                       R0 R0 K9 ["EmulatedGamepadEvent"]
-       31 NEWCLOSURE                       R2 P0
+       28 GETIMPORT                        R0 K10 [pcall]
+       30 NEWCLOSURE                       R1 P0
+       31 CAPTURE                          UPVAL U1
        32 CAPTURE                          UPVAL U0
        33 CAPTURE                          UPVAL U2
-       34 NAMECALL                         R0 R0 K4 ["Connect"]
-       36 CALL                             R0 2 0
-       37 RETURN                           R0 0
+       34 CALL                             R0 1 0
+       35 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["GetCurrentlyEmulatedDeviceAsync"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_10:
+PROTO_11:
         0 GETIMPORT                        R0 K1 [pcall]
-        2 DUPCLOSURE                       R1 K2 [PROTO_9]
+        2 DUPCLOSURE                       R1 K2 [PROTO_10]
         3 CAPTURE                          UPVAL U0
         4 CALL                             R0 1 2
         5 JUMPIF                           R0 ; [+5]
@@ -175,7 +184,7 @@ PROTO_10:
        38 CALL                             R3 2 0
        39 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETUPVAL                         R0 0
         1 DUPTABLE                         R2 K1 [{"uiDmLoaded"}]
         2 LOADB                            R3 0
@@ -184,7 +193,7 @@ PROTO_11:
         7 CALL                             R0 2 0
         8 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["state"]
@@ -209,7 +218,7 @@ PROTO_12:
        31 CALL                             R0 2 0
        32 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -218,7 +227,7 @@ PROTO_13:
         6 CALL                             R0 1 0
         7 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["state"]
@@ -231,7 +240,7 @@ PROTO_14:
        13 CALL                             R0 2 0
        14 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -239,11 +248,11 @@ PROTO_15:
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 NEWTABLE                         R0 0 0
         2 RETURN                           R0 1
 
-PROTO_17:
+PROTO_18:
         0 GETTABLEKS                       R2 R1 K0 ["Plugin"]
         2 GETUPVAL                         R6 0
         3 GETTABLEKS                       R6 R6 K2 ["TOOLTIP_SHOWN_COUNT_SETTING"]
@@ -333,7 +342,7 @@ PROTO_17:
       122 GETUPVAL                         R6 6
       123 GETTABLEKS                       R6 R6 K39 ["Analytics"]
       125 GETTABLEKS                       R6 R6 K40 ["new"]
-      127 DUPCLOSURE                       R7 K41 [PROTO_16]
+      127 DUPCLOSURE                       R7 K41 [PROTO_17]
       128 NEWTABLE                         R8 0 0
       130 CALL                             R6 2 1
       131 SETTABLEKS                       R6 R0 K42 ["analytics"]
@@ -347,7 +356,7 @@ PROTO_17:
       143 SETTABLEKS                       R6 R0 K44 ["design"]
       145 RETURN                           R0 0
 
-PROTO_18:
+PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["isVRConnected"]
         2 JUMPIFNOT                        R1 ; [+25]
         3 GETTABLEKS                       R1 R0 K1 ["shouldShowTooltip"]
@@ -372,7 +381,7 @@ PROTO_18:
        31 SETTABLEKS                       R2 R1 K1 ["shouldShowTooltip"]
        33 RETURN                           R1 1
 
-PROTO_19:
+PROTO_20:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R3 K1 ["PluginLoaderContext"]
         4 GETTABLEKS                       R3 R3 K2 ["mainButton"]
@@ -405,19 +414,19 @@ PROTO_19:
        46 CALL                             R3 2 0
        47 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["IsPlaceDocumentOpen"]
         3 CALL                             R0 1 -1
         4 RETURN                           R0 -1
 
-PROTO_21:
+PROTO_22:
         0 DUPTABLE                         R0 K1 [{"inPlayClient"}]
         1 GETUPVAL                         R1 0
         2 SETTABLEKS                       R1 R0 K0 ["inPlayClient"]
         4 RETURN                           R0 1
 
-PROTO_22:
+PROTO_23:
         0 LOADB                            R1 0
         1 GETIMPORT                        R2 K3 [Enum.StudioDataModelType.PlayClient]
         3 JUMPIFNOTEQ                      R0 R2 ; [+13]
@@ -441,7 +450,7 @@ PROTO_22:
        28 CLOSEUPVALS                      R1
        29 RETURN                           R0 0
 
-PROTO_23:
+PROTO_24:
         0 GETIMPORT                        R1 K3 [Enum.StudioDataModelType.PlayClient]
         2 JUMPIFNOTEQ                      R0 R1 ; [+5]
         4 GETUPVAL                         R1 0
@@ -449,7 +458,7 @@ PROTO_23:
         7 CALL                             R1 0 0
         8 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R2 R0 K0 ["platform"]
         3 GETTABLEKS                       R3 R0 K1 ["deviceId"]
@@ -486,7 +495,7 @@ PROTO_24:
        48 CALL                             R2 2 0
        49 RETURN                           R0 0
 
-PROTO_25:
+PROTO_26:
         0 DUPTABLE                         R1 K1 [{"activeVRUserCFrames"}]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K2 ["Dictionary"]
@@ -500,7 +509,7 @@ PROTO_25:
        14 SETTABLEKS                       R2 R1 K0 ["activeVRUserCFrames"]
        16 RETURN                           R1 1
 
-PROTO_26:
+PROTO_27:
         0 GETUPVAL                         R2 0
         1 NEWCLOSURE                       R4 P0
         2 CAPTURE                          UPVAL U1
@@ -530,7 +539,7 @@ PROTO_26:
        36 CALL                             R2 3 0
        37 RETURN                           R0 0
 
-PROTO_27:
+PROTO_28:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["state"]
@@ -539,7 +548,7 @@ PROTO_27:
         8 CALL                             R0 2 0
         9 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -547,7 +556,7 @@ PROTO_28:
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_29:
+PROTO_30:
         0 GETIMPORT                        R0 K1 [pairs]
         2 GETUPVAL                         R1 0
         3 GETTABLEKS                       R1 R1 K2 ["state"]
@@ -568,7 +577,7 @@ PROTO_29:
        25 CALL                             R0 2 0
        26 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 GETIMPORT                        R0 K1 [pcall]
         2 NEWCLOSURE                       R1 P0
         3 CAPTURE                          UPVAL U0
@@ -576,7 +585,7 @@ PROTO_30:
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_31:
+PROTO_32:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 LOADK                            R5 K2 ["PlaceManager"]
@@ -653,7 +662,7 @@ PROTO_31:
       105 SETTABLEKS                       R7 R6 K21 ["VREmulatorStartUp"]
       107 RETURN                           R0 0
 
-PROTO_32:
+PROTO_33:
         0 GETTABLEKS                       R1 R0 K0 ["connections"]
         2 LOADNIL                          R2
         3 LOADNIL                          R3
@@ -663,7 +672,7 @@ PROTO_32:
         8 FORGLOOP                         R1 2 ; [-4]
        10 RETURN                           R0 0
 
-PROTO_33:
+PROTO_34:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["callbacksRef"]
         3 GETTABLEKS                       R0 R0 K1 ["current"]
@@ -672,7 +681,7 @@ PROTO_33:
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
 
-PROTO_34:
+PROTO_35:
         0 GETIMPORT                        R0 K2 [task.delay]
         2 LOADN                            R1 0
         3 NEWCLOSURE                       R2 P0
@@ -680,7 +689,7 @@ PROTO_34:
         5 CALL                             R0 2 0
         6 RETURN                           R0 0
 
-PROTO_35:
+PROTO_36:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["setIsMappingsDialogOpen"]
         3 GETUPVAL                         R2 1
@@ -689,7 +698,7 @@ PROTO_35:
         7 CALL                             R0 1 0
         8 RETURN                           R0 0
 
-PROTO_36:
+PROTO_37:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["callbacksRef"]
         3 GETUPVAL                         R2 1
@@ -1034,7 +1043,7 @@ PROTO_36:
       493 CALL                             R2 2 -1
       494 RETURN                           R2 -1
 
-PROTO_37:
+PROTO_38:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -1067,7 +1076,7 @@ PROTO_37:
        31 CALL                             R1 3 -1
        32 RETURN                           R1 -1
 
-PROTO_38:
+PROTO_39:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -1107,7 +1116,7 @@ PROTO_38:
        44 CALL                             R6 3 -1
        45 RETURN                           R6 -1
 
-PROTO_39:
+PROTO_40:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
@@ -1257,7 +1266,7 @@ MAIN:
       228 CAPTURE                          VAL R16
       229 CAPTURE                          VAL R17
       230 SETGLOBAL                        R36 K53 ["getLocalization"]
-      232 DUPCLOSURE                       R36 K54 [PROTO_17]
+      232 DUPCLOSURE                       R36 K54 [PROTO_18]
       233 CAPTURE                          VAL R22
       234 CAPTURE                          VAL R1
       235 CAPTURE                          VAL R27
@@ -1268,19 +1277,19 @@ MAIN:
       240 CAPTURE                          VAL R13
       241 CAPTURE                          VAL R14
       242 SETTABLEKS                       R36 R33 K55 ["init"]
-      244 DUPCLOSURE                       R36 K56 [PROTO_19]
+      244 DUPCLOSURE                       R36 K56 [PROTO_20]
       245 CAPTURE                          VAL R22
       246 SETTABLEKS                       R36 R33 K57 ["didUpdate"]
-      248 DUPCLOSURE                       R36 K58 [PROTO_31]
+      248 DUPCLOSURE                       R36 K58 [PROTO_32]
       249 CAPTURE                          VAL R34
       250 CAPTURE                          VAL R27
       251 CAPTURE                          VAL R32
       252 CAPTURE                          VAL R4
       253 CAPTURE                          VAL R3
       254 SETTABLEKS                       R36 R33 K59 ["didMount"]
-      256 DUPCLOSURE                       R36 K60 [PROTO_32]
+      256 DUPCLOSURE                       R36 K60 [PROTO_33]
       257 SETTABLEKS                       R36 R33 K61 ["willUnmount"]
-      259 DUPCLOSURE                       R36 K62 [PROTO_38]
+      259 DUPCLOSURE                       R36 K62 [PROTO_39]
       260 CAPTURE                          VAL R1
       261 CAPTURE                          VAL R26
       262 CAPTURE                          VAL R25
@@ -1300,7 +1309,7 @@ MAIN:
       276 CAPTURE                          VAL R6
       277 CAPTURE                          VAL R28
       278 SETTABLEKS                       R36 R33 K63 ["render"]
-      280 DUPCLOSURE                       R36 K64 [PROTO_39]
+      280 DUPCLOSURE                       R36 K64 [PROTO_40]
       281 CAPTURE                          VAL R1
       282 CAPTURE                          VAL R24
       283 CAPTURE                          VAL R33

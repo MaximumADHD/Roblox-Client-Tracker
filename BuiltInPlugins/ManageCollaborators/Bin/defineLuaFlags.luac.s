@@ -161,7 +161,7 @@ MAIN:
       222 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       224 CALL                             R0 3 0
       225 GETIMPORT                        R0 K1 [game]
-      227 LOADK                            R2 K35 ["ManageCollaboratorsActionNeededLabel2"]
+      227 LOADK                            R2 K35 ["ManageCollaboratorsActionNeededLabel3"]
       228 LOADB                            R3 0
       229 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       231 CALL                             R0 3 0
@@ -176,109 +176,144 @@ MAIN:
       243 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       245 CALL                             R0 3 0
       246 GETIMPORT                        R0 K1 [game]
-      248 LOADK                            R2 K38 ["ManageCollaboratorsOwnerAgeVerificationBanner"]
+      248 LOADK                            R2 K38 ["ManageCollaboratorsOwnerAgeVerificationBanner2"]
       249 LOADB                            R3 0
       250 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       252 CALL                             R0 3 0
       253 GETIMPORT                        R0 K1 [game]
-      255 LOADK                            R2 K39 ["CreatorHubOwnersViewLinkFormatStr"]
-      256 LOADK                            R3 K40 ["https://create.roblox.com/dashboard/creations/experiences/%s/safety/collaborators"]
-      257 NAMECALL                         R0 R0 K41 ["DefineFastString"]
+      255 LOADK                            R2 K39 ["ManageCollaboratorsOwnerCountryBlocked"]
+      256 LOADB                            R3 0
+      257 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       259 CALL                             R0 3 0
       260 GETIMPORT                        R0 K1 [game]
-      262 LOADK                            R2 K42 ["CreatorHubImpactedExperiencesLink"]
-      263 LOADK                            R3 K43 ["https://create.roblox.com/dashboard/creations"]
-      264 NAMECALL                         R0 R0 K41 ["DefineFastString"]
+      262 LOADK                            R2 K40 ["CreatorHubOwnersViewLinkFormatStr"]
+      263 LOADK                            R3 K41 ["https://create.roblox.com/dashboard/creations/experiences/%s/safety/collaborators"]
+      264 NAMECALL                         R0 R0 K42 ["DefineFastString"]
       266 CALL                             R0 3 0
       267 GETIMPORT                        R0 K1 [game]
-      269 LOADK                            R2 K44 ["UpsellCollabTrustedConnectionShowUpsellDialog"]
-      270 LOADB                            R3 0
-      271 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
+      269 LOADK                            R2 K43 ["CreatorHubImpactedExperiencesLink"]
+      270 LOADK                            R3 K44 ["https://create.roblox.com/dashboard/creations"]
+      271 NAMECALL                         R0 R0 K42 ["DefineFastString"]
       273 CALL                             R0 3 0
       274 GETIMPORT                        R0 K1 [game]
-      276 LOADK                            R2 K45 ["GRPS3112_OwnerRolesetDeprecation2"]
+      276 LOADK                            R2 K45 ["UpsellCollabTrustedConnectionShowUpsellDialog"]
       277 LOADB                            R3 0
       278 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
       280 CALL                             R0 3 0
-      281 DUPTABLE                         R0 K57 [{"fflagManageCollaboratorsVerifyAgeDialog", "fflagUpsellMCCollabReverification", "fflagRemoveHeaderWithUpsellBanner2", "fflagManageCollaboratorsActionNeededLabel", "fflagManageCollaboratorsOutsideAgeBucketAlert", "fflagManageCollaboratorsEditorBlockingBanner", "fstringCreatorHubOwnersViewLinkFormatStr", "fstringCreatorHubImpactedExperiencesLink", "fflagUpsellCollabTrustedConnectionShowUpsellDialog", "fflagOwnerRolesetDeprecation2", "fflagManageCollaboratorsOwnerAgeVerificationBanner"}]
-      282 GETIMPORT                        R1 K1 [game]
-      284 LOADK                            R3 K32 ["ManageCollaboratorsVerifyAgeDialog"]
-      285 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      287 CALL                             R1 2 1
-      288 SETTABLEKS                       R1 R0 K46 ["fflagManageCollaboratorsVerifyAgeDialog"]
-      290 GETIMPORT                        R1 K1 [game]
-      292 LOADK                            R3 K33 ["UpsellMCCollabReverification"]
-      293 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      295 CALL                             R1 2 1
-      296 SETTABLEKS                       R1 R0 K47 ["fflagUpsellMCCollabReverification"]
-      298 GETIMPORT                        R1 K1 [game]
-      300 LOADK                            R3 K34 ["RemoveHeaderWithUpsellBanner2"]
-      301 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      303 CALL                             R1 2 1
-      304 SETTABLEKS                       R1 R0 K48 ["fflagRemoveHeaderWithUpsellBanner2"]
-      306 GETIMPORT                        R1 K1 [game]
-      308 LOADK                            R3 K59 ["MultiGetCanCollaborateCollabServiceFeature"]
-      309 NAMECALL                         R1 R1 K60 ["GetEngineFeature"]
-      311 CALL                             R1 2 1
-      312 JUMPIFNOT                        R1 ; [+6]
-      313 GETIMPORT                        R1 K1 [game]
-      315 LOADK                            R3 K35 ["ManageCollaboratorsActionNeededLabel2"]
-      316 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      318 CALL                             R1 2 1
-      319 SETTABLEKS                       R1 R0 K49 ["fflagManageCollaboratorsActionNeededLabel"]
-      321 GETIMPORT                        R1 K1 [game]
-      323 LOADK                            R3 K59 ["MultiGetCanCollaborateCollabServiceFeature"]
-      324 NAMECALL                         R1 R1 K60 ["GetEngineFeature"]
-      326 CALL                             R1 2 1
-      327 JUMPIFNOT                        R1 ; [+13]
-      328 GETIMPORT                        R1 K1 [game]
-      330 LOADK                            R3 K61 ["CollaboratorsServiceUpdatesForMCBannersFeature"]
-      331 NAMECALL                         R1 R1 K60 ["GetEngineFeature"]
-      333 CALL                             R1 2 1
-      334 JUMPIFNOT                        R1 ; [+6]
+      281 GETIMPORT                        R0 K1 [game]
+      283 LOADK                            R2 K46 ["GRPS3112_OwnerRolesetDeprecation2"]
+      284 LOADB                            R3 0
+      285 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
+      287 CALL                             R0 3 0
+      288 GETIMPORT                        R0 K1 [game]
+      290 LOADK                            R2 K47 ["ManageCollaboratorsAgeGatingTelemetry"]
+      291 LOADB                            R3 0
+      292 NAMECALL                         R0 R0 K5 ["DefineFastFlag"]
+      294 CALL                             R0 3 0
+      295 DUPTABLE                         R0 K62 [{"fflagManageCollaboratorsVerifyAgeDialog", "fflagUpsellMCCollabReverification", "fflagRemoveHeaderWithUpsellBanner2", "fflagManageCollaboratorsActionNeededLabel", "fflagManageCollaboratorsOutsideAgeBucketAlert", "fflagManageCollaboratorsEditorBlockingBanner", "fstringCreatorHubOwnersViewLinkFormatStr", "fstringCreatorHubImpactedExperiencesLink", "fflagUpsellCollabTrustedConnectionShowUpsellDialog", "fflagOwnerRolesetDeprecation2", "fflagManageCollaboratorsOwnerAgeVerificationBanner", "fflagManageCollaboratorsOwnerCountryBlocked", "engineFeatureCollaboratorsServiceUpdatesForMCBannersFeature", "fflagManageCollaboratorsAgeGatingTelemetry"}]
+      296 GETIMPORT                        R1 K1 [game]
+      298 LOADK                            R3 K32 ["ManageCollaboratorsVerifyAgeDialog"]
+      299 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      301 CALL                             R1 2 1
+      302 SETTABLEKS                       R1 R0 K48 ["fflagManageCollaboratorsVerifyAgeDialog"]
+      304 GETIMPORT                        R1 K1 [game]
+      306 LOADK                            R3 K33 ["UpsellMCCollabReverification"]
+      307 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      309 CALL                             R1 2 1
+      310 SETTABLEKS                       R1 R0 K49 ["fflagUpsellMCCollabReverification"]
+      312 GETIMPORT                        R1 K1 [game]
+      314 LOADK                            R3 K34 ["RemoveHeaderWithUpsellBanner2"]
+      315 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      317 CALL                             R1 2 1
+      318 SETTABLEKS                       R1 R0 K50 ["fflagRemoveHeaderWithUpsellBanner2"]
+      320 GETIMPORT                        R1 K1 [game]
+      322 LOADK                            R3 K64 ["MultiGetCanCollaborateCollabServiceFeature"]
+      323 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
+      325 CALL                             R1 2 1
+      326 JUMPIFNOT                        R1 ; [+6]
+      327 GETIMPORT                        R1 K1 [game]
+      329 LOADK                            R3 K35 ["ManageCollaboratorsActionNeededLabel3"]
+      330 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      332 CALL                             R1 2 1
+      333 SETTABLEKS                       R1 R0 K51 ["fflagManageCollaboratorsActionNeededLabel"]
       335 GETIMPORT                        R1 K1 [game]
-      337 LOADK                            R3 K36 ["ManageCollaboratorsOutsideAgeBucketAlert"]
-      338 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
+      337 LOADK                            R3 K64 ["MultiGetCanCollaborateCollabServiceFeature"]
+      338 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
       340 CALL                             R1 2 1
-      341 SETTABLEKS                       R1 R0 K50 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-      343 GETIMPORT                        R1 K1 [game]
-      345 LOADK                            R3 K59 ["MultiGetCanCollaborateCollabServiceFeature"]
-      346 NAMECALL                         R1 R1 K60 ["GetEngineFeature"]
-      348 CALL                             R1 2 1
-      349 JUMPIFNOT                        R1 ; [+13]
-      350 GETIMPORT                        R1 K1 [game]
-      352 LOADK                            R3 K61 ["CollaboratorsServiceUpdatesForMCBannersFeature"]
-      353 NAMECALL                         R1 R1 K60 ["GetEngineFeature"]
-      355 CALL                             R1 2 1
-      356 JUMPIFNOT                        R1 ; [+6]
+      341 JUMPIFNOT                        R1 ; [+13]
+      342 GETIMPORT                        R1 K1 [game]
+      344 LOADK                            R3 K66 ["CollaboratorsServiceUpdatesForMCBannersFeature2"]
+      345 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
+      347 CALL                             R1 2 1
+      348 JUMPIFNOT                        R1 ; [+6]
+      349 GETIMPORT                        R1 K1 [game]
+      351 LOADK                            R3 K36 ["ManageCollaboratorsOutsideAgeBucketAlert"]
+      352 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      354 CALL                             R1 2 1
+      355 SETTABLEKS                       R1 R0 K52 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
       357 GETIMPORT                        R1 K1 [game]
-      359 LOADK                            R3 K37 ["ManageCollaboratorsEditorBlockingBanner"]
-      360 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
+      359 LOADK                            R3 K64 ["MultiGetCanCollaborateCollabServiceFeature"]
+      360 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
       362 CALL                             R1 2 1
-      363 SETTABLEKS                       R1 R0 K51 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      365 GETIMPORT                        R1 K1 [game]
-      367 LOADK                            R3 K39 ["CreatorHubOwnersViewLinkFormatStr"]
-      368 NAMECALL                         R1 R1 K62 ["GetFastString"]
-      370 CALL                             R1 2 1
-      371 SETTABLEKS                       R1 R0 K52 ["fstringCreatorHubOwnersViewLinkFormatStr"]
-      373 GETIMPORT                        R1 K1 [game]
-      375 LOADK                            R3 K42 ["CreatorHubImpactedExperiencesLink"]
-      376 NAMECALL                         R1 R1 K62 ["GetFastString"]
-      378 CALL                             R1 2 1
-      379 SETTABLEKS                       R1 R0 K53 ["fstringCreatorHubImpactedExperiencesLink"]
-      381 GETIMPORT                        R1 K1 [game]
-      383 LOADK                            R3 K44 ["UpsellCollabTrustedConnectionShowUpsellDialog"]
-      384 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      386 CALL                             R1 2 1
-      387 SETTABLEKS                       R1 R0 K54 ["fflagUpsellCollabTrustedConnectionShowUpsellDialog"]
-      389 GETIMPORT                        R1 K1 [game]
-      391 LOADK                            R3 K45 ["GRPS3112_OwnerRolesetDeprecation2"]
-      392 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      394 CALL                             R1 2 1
-      395 SETTABLEKS                       R1 R0 K55 ["fflagOwnerRolesetDeprecation2"]
-      397 GETIMPORT                        R1 K1 [game]
-      399 LOADK                            R3 K38 ["ManageCollaboratorsOwnerAgeVerificationBanner"]
-      400 NAMECALL                         R1 R1 K58 ["GetFastFlag"]
-      402 CALL                             R1 2 1
-      403 SETTABLEKS                       R1 R0 K56 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      405 RETURN                           R0 1
+      363 JUMPIFNOT                        R1 ; [+13]
+      364 GETIMPORT                        R1 K1 [game]
+      366 LOADK                            R3 K66 ["CollaboratorsServiceUpdatesForMCBannersFeature2"]
+      367 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
+      369 CALL                             R1 2 1
+      370 JUMPIFNOT                        R1 ; [+6]
+      371 GETIMPORT                        R1 K1 [game]
+      373 LOADK                            R3 K37 ["ManageCollaboratorsEditorBlockingBanner"]
+      374 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      376 CALL                             R1 2 1
+      377 SETTABLEKS                       R1 R0 K53 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      379 GETIMPORT                        R1 K1 [game]
+      381 LOADK                            R3 K40 ["CreatorHubOwnersViewLinkFormatStr"]
+      382 NAMECALL                         R1 R1 K67 ["GetFastString"]
+      384 CALL                             R1 2 1
+      385 SETTABLEKS                       R1 R0 K54 ["fstringCreatorHubOwnersViewLinkFormatStr"]
+      387 GETIMPORT                        R1 K1 [game]
+      389 LOADK                            R3 K43 ["CreatorHubImpactedExperiencesLink"]
+      390 NAMECALL                         R1 R1 K67 ["GetFastString"]
+      392 CALL                             R1 2 1
+      393 SETTABLEKS                       R1 R0 K55 ["fstringCreatorHubImpactedExperiencesLink"]
+      395 GETIMPORT                        R1 K1 [game]
+      397 LOADK                            R3 K45 ["UpsellCollabTrustedConnectionShowUpsellDialog"]
+      398 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      400 CALL                             R1 2 1
+      401 SETTABLEKS                       R1 R0 K56 ["fflagUpsellCollabTrustedConnectionShowUpsellDialog"]
+      403 GETIMPORT                        R1 K1 [game]
+      405 LOADK                            R3 K46 ["GRPS3112_OwnerRolesetDeprecation2"]
+      406 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      408 CALL                             R1 2 1
+      409 SETTABLEKS                       R1 R0 K57 ["fflagOwnerRolesetDeprecation2"]
+      411 GETIMPORT                        R1 K1 [game]
+      413 LOADK                            R3 K38 ["ManageCollaboratorsOwnerAgeVerificationBanner2"]
+      414 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      416 CALL                             R1 2 1
+      417 SETTABLEKS                       R1 R0 K58 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      419 GETIMPORT                        R1 K1 [game]
+      421 LOADK                            R3 K64 ["MultiGetCanCollaborateCollabServiceFeature"]
+      422 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
+      424 CALL                             R1 2 1
+      425 JUMPIFNOT                        R1 ; [+13]
+      426 GETIMPORT                        R1 K1 [game]
+      428 LOADK                            R3 K66 ["CollaboratorsServiceUpdatesForMCBannersFeature2"]
+      429 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
+      431 CALL                             R1 2 1
+      432 JUMPIFNOT                        R1 ; [+6]
+      433 GETIMPORT                        R1 K1 [game]
+      435 LOADK                            R3 K39 ["ManageCollaboratorsOwnerCountryBlocked"]
+      436 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      438 CALL                             R1 2 1
+      439 SETTABLEKS                       R1 R0 K59 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      441 GETIMPORT                        R1 K1 [game]
+      443 LOADK                            R3 K66 ["CollaboratorsServiceUpdatesForMCBannersFeature2"]
+      444 NAMECALL                         R1 R1 K65 ["GetEngineFeature"]
+      446 CALL                             R1 2 1
+      447 SETTABLEKS                       R1 R0 K60 ["engineFeatureCollaboratorsServiceUpdatesForMCBannersFeature"]
+      449 GETIMPORT                        R1 K1 [game]
+      451 LOADK                            R3 K47 ["ManageCollaboratorsAgeGatingTelemetry"]
+      452 NAMECALL                         R1 R1 K63 ["GetFastFlag"]
+      454 CALL                             R1 2 1
+      455 SETTABLEKS                       R1 R0 K61 ["fflagManageCollaboratorsAgeGatingTelemetry"]
+      457 RETURN                           R0 1

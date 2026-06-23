@@ -1,21 +1,15 @@
 PROTO_0:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["should be using DEPRECATED_registerPluginStyles when FFlagPreviewToolbar is disabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 FASTCALL2K                       ASSERT R0 K3 ; [+5]
-       10 MOVE                             R2 R0
-       11 LOADK                            R3 K3 ["Plugin must be provided to non-testing registerPluginStyles"]
-       12 GETIMPORT                        R1 K2 [assert]
-       14 CALL                             R1 2 0
-       15 GETUPVAL                         R1 1
-       16 GETTABLEKS                       R1 R1 K4 ["Styling"]
-       18 GETTABLEKS                       R1 R1 K5 ["registerPluginStyles"]
-       20 MOVE                             R2 R0
-       21 CALL                             R1 1 -1
-       22 RETURN                           R1 -1
+        0 FASTCALL2K                       ASSERT R0 K0 ; [+5]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K0 ["Plugin must be provided to non-testing registerPluginStyles"]
+        4 GETIMPORT                        R1 K2 [assert]
+        6 CALL                             R1 2 0
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K3 ["Styling"]
+       10 GETTABLEKS                       R1 R1 K4 ["registerPluginStyles"]
+       12 MOVE                             R2 R0
+       13 CALL                             R1 1 -1
+       14 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -33,17 +27,8 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K10 ["Interfaces"]
        22 GETTABLEKS                       R3 R3 K11 ["InterfaceTypes"]
        24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R4 R0 K8 ["Src"]
-       29 GETTABLEKS                       R4 R4 K12 ["Flags"]
-       31 GETTABLEKS                       R4 R4 K13 ["getFFlagPreviewToolbar"]
-       33 CALL                             R3 1 1
-       34 DUPTABLE                         R4 K16 [{"DEPRECATED_registerPluginStyles", "registerPluginStyles"}]
-       35 GETTABLEKS                       R5 R1 K17 ["Styling"]
-       37 GETTABLEKS                       R5 R5 K15 ["registerPluginStyles"]
-       39 SETTABLEKS                       R5 R4 K14 ["DEPRECATED_registerPluginStyles"]
-       41 DUPCLOSURE                       R5 K18 [PROTO_0]
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R1
-       44 SETTABLEKS                       R5 R4 K15 ["registerPluginStyles"]
-       46 RETURN                           R4 1
+       25 DUPTABLE                         R3 K13 [{"registerPluginStyles"}]
+       26 DUPCLOSURE                       R4 K14 [PROTO_0]
+       27 CAPTURE                          VAL R1
+       28 SETTABLEKS                       R4 R3 K12 ["registerPluginStyles"]
+       30 RETURN                           R3 1

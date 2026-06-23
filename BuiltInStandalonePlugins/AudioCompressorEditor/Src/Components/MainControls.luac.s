@@ -1,10 +1,28 @@
 PROTO_0:
-        0 FASTCALL1                        MATH_LOG R0 ; [+3]
-        1 MOVE                             R3 R0
-        2 GETIMPORT                        R2 K3 [math.log]
-        4 CALL                             R2 1 1
-        5 DIVK                             R1 R2 K0 [2.30258509299405]
-        6 RETURN                           R1 1
+        0 GETUPVAL                         R2 0
+        1 JUMPIFNOT                        R2 ; [+21]
+        2 ORK                              R1 R1 K0 [1E-05]
+        3 FASTCALL2K                       ASSERT R1 K1 ; [+5]
+        5 MOVE                             R3 R1
+        6 LOADK                            R4 K1 ["min was nil"]
+        7 GETIMPORT                        R2 K3 [assert]
+        9 CALL                             R2 2 0
+       10 FASTCALL2                        MATH_MAX R0 R1 ; [+5]
+       12 MOVE                             R5 R0
+       13 MOVE                             R6 R1
+       14 GETIMPORT                        R4 K7 [math.max]
+       16 CALL                             R4 2 1
+       17 FASTCALL1                        MATH_LOG R4 ; [+2]
+       18 GETIMPORT                        R3 K9 [math.log]
+       20 CALL                             R3 1 1
+       21 DIVK                             R2 R3 K4 [2.30258509299405]
+       22 RETURN                           R2 1
+       23 FASTCALL1                        MATH_LOG R0 ; [+3]
+       24 MOVE                             R4 R0
+       25 GETIMPORT                        R3 K9 [math.log]
+       27 CALL                             R3 1 1
+       28 DIVK                             R2 R3 K4 [2.30258509299405]
+       29 RETURN                           R2 1
 
 PROTO_1:
         0 LOADN                            R2 10
@@ -15,12 +33,31 @@ PROTO_1:
         7 RETURN                           R1 1
 
 PROTO_2:
-        0 FASTCALL1                        MATH_LOG R0 ; [+3]
-        1 MOVE                             R3 R0
-        2 GETIMPORT                        R2 K3 [math.log]
-        4 CALL                             R2 1 1
-        5 DIVK                             R1 R2 K0 [2.30258509299405]
-        6 RETURN                           R1 1
+        0 LOADNIL                          R2
+        1 GETUPVAL                         R3 0
+        2 JUMPIFNOT                        R3 ; [+21]
+        3 ORK                              R2 R2 K0 [1E-05]
+        4 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        6 MOVE                             R4 R2
+        7 LOADK                            R5 K1 ["min was nil"]
+        8 GETIMPORT                        R3 K3 [assert]
+       10 CALL                             R3 2 0
+       11 FASTCALL2                        MATH_MAX R0 R2 ; [+5]
+       13 MOVE                             R5 R0
+       14 MOVE                             R6 R2
+       15 GETIMPORT                        R4 K7 [math.max]
+       17 CALL                             R4 2 1
+       18 FASTCALL1                        MATH_LOG R4 ; [+2]
+       19 GETIMPORT                        R3 K9 [math.log]
+       21 CALL                             R3 1 1
+       22 DIVK                             R1 R3 K4 [2.30258509299405]
+       23 RETURN                           R1 1
+       24 FASTCALL1                        MATH_LOG R0 ; [+3]
+       25 MOVE                             R4 R0
+       26 GETIMPORT                        R3 K9 [math.log]
+       28 CALL                             R3 1 1
+       29 DIVK                             R1 R3 K4 [2.30258509299405]
+       30 RETURN                           R1 1
 
 PROTO_3:
         0 LOADN                            R2 10
@@ -32,12 +69,31 @@ PROTO_3:
 
 PROTO_4:
         0 ADDK                             R2 R0 K0 [0.1]
-        1 FASTCALL1                        MATH_LOG R2 ; [+3]
-        2 MOVE                             R4 R2
-        3 GETIMPORT                        R3 K4 [math.log]
-        5 CALL                             R3 1 1
-        6 DIVK                             R1 R3 K1 [2.30258509299405]
-        7 RETURN                           R1 1
+        1 LOADNIL                          R3
+        2 GETUPVAL                         R4 0
+        3 JUMPIFNOT                        R4 ; [+21]
+        4 ORK                              R3 R3 K1 [1E-05]
+        5 FASTCALL2K                       ASSERT R3 K2 ; [+5]
+        7 MOVE                             R5 R3
+        8 LOADK                            R6 K2 ["min was nil"]
+        9 GETIMPORT                        R4 K4 [assert]
+       11 CALL                             R4 2 0
+       12 FASTCALL2                        MATH_MAX R2 R3 ; [+5]
+       14 MOVE                             R6 R2
+       15 MOVE                             R7 R3
+       16 GETIMPORT                        R5 K8 [math.max]
+       18 CALL                             R5 2 1
+       19 FASTCALL1                        MATH_LOG R5 ; [+2]
+       20 GETIMPORT                        R4 K10 [math.log]
+       22 CALL                             R4 1 1
+       23 DIVK                             R1 R4 K5 [2.30258509299405]
+       24 RETURN                           R1 1
+       25 FASTCALL1                        MATH_LOG R2 ; [+3]
+       26 MOVE                             R5 R2
+       27 GETIMPORT                        R4 K10 [math.log]
+       29 CALL                             R4 1 1
+       30 DIVK                             R1 R4 K5 [2.30258509299405]
+       31 RETURN                           R1 1
 
 PROTO_5:
         0 LOADN                            R3 10
@@ -50,12 +106,31 @@ PROTO_5:
 
 PROTO_6:
         0 ADDK                             R2 R0 K0 [1]
-        1 FASTCALL1                        MATH_LOG R2 ; [+3]
-        2 MOVE                             R4 R2
-        3 GETIMPORT                        R3 K4 [math.log]
-        5 CALL                             R3 1 1
-        6 DIVK                             R1 R3 K1 [2.30258509299405]
-        7 RETURN                           R1 1
+        1 LOADNIL                          R3
+        2 GETUPVAL                         R4 0
+        3 JUMPIFNOT                        R4 ; [+21]
+        4 ORK                              R3 R3 K1 [1E-05]
+        5 FASTCALL2K                       ASSERT R3 K2 ; [+5]
+        7 MOVE                             R5 R3
+        8 LOADK                            R6 K2 ["min was nil"]
+        9 GETIMPORT                        R4 K4 [assert]
+       11 CALL                             R4 2 0
+       12 FASTCALL2                        MATH_MAX R2 R3 ; [+5]
+       14 MOVE                             R6 R2
+       15 MOVE                             R7 R3
+       16 GETIMPORT                        R5 K8 [math.max]
+       18 CALL                             R5 2 1
+       19 FASTCALL1                        MATH_LOG R5 ; [+2]
+       20 GETIMPORT                        R4 K10 [math.log]
+       22 CALL                             R4 1 1
+       23 DIVK                             R1 R4 K5 [2.30258509299405]
+       24 RETURN                           R1 1
+       25 FASTCALL1                        MATH_LOG R2 ; [+3]
+       26 MOVE                             R5 R2
+       27 GETIMPORT                        R4 K10 [math.log]
+       29 CALL                             R4 1 1
+       30 DIVK                             R1 R4 K5 [2.30258509299405]
+       31 RETURN                           R1 1
 
 PROTO_7:
         0 LOADN                            R3 10
@@ -393,26 +468,37 @@ MAIN:
        47 GETTABLEKS                       R12 R1 K19 ["Src"]
        49 GETTABLEKS                       R12 R12 K20 ["Types"]
        51 CALL                             R11 1 1
-       52 DUPCLOSURE                       R12 K21 [PROTO_0]
-       53 DUPCLOSURE                       R13 K22 [PROTO_1]
-       54 DUPCLOSURE                       R14 K23 [PROTO_2]
-       55 DUPCLOSURE                       R15 K24 [PROTO_3]
-       56 DUPCLOSURE                       R16 K25 [PROTO_4]
-       57 DUPCLOSURE                       R17 K26 [PROTO_5]
-       58 DUPCLOSURE                       R18 K27 [PROTO_6]
-       59 DUPCLOSURE                       R19 K28 [PROTO_7]
-       60 DUPCLOSURE                       R20 K29 [PROTO_10]
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R3
-       64 CAPTURE                          VAL R2
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R10
-       67 CAPTURE                          VAL R9
-       68 CAPTURE                          VAL R14
-       69 CAPTURE                          VAL R15
-       70 CAPTURE                          VAL R16
-       71 CAPTURE                          VAL R17
-       72 CAPTURE                          VAL R18
-       73 CAPTURE                          VAL R19
-       74 RETURN                           R20 1
+       52 GETIMPORT                        R12 K6 [require]
+       54 GETTABLEKS                       R13 R1 K21 ["Bin"]
+       56 GETTABLEKS                       R13 R13 K22 ["Common"]
+       58 GETTABLEKS                       R13 R13 K23 ["defineLuaFlags"]
+       60 CALL                             R12 1 1
+       61 GETTABLEKS                       R13 R12 K24 ["getFFlagAudioCompressorEditorFixLogCurveInf"]
+       63 CALL                             R13 0 1
+       64 DUPCLOSURE                       R14 K25 [PROTO_0]
+       65 CAPTURE                          VAL R13
+       66 DUPCLOSURE                       R15 K26 [PROTO_1]
+       67 DUPCLOSURE                       R16 K27 [PROTO_2]
+       68 CAPTURE                          VAL R13
+       69 DUPCLOSURE                       R17 K28 [PROTO_3]
+       70 DUPCLOSURE                       R18 K29 [PROTO_4]
+       71 CAPTURE                          VAL R13
+       72 DUPCLOSURE                       R19 K30 [PROTO_5]
+       73 DUPCLOSURE                       R20 K31 [PROTO_6]
+       74 CAPTURE                          VAL R13
+       75 DUPCLOSURE                       R21 K32 [PROTO_7]
+       76 DUPCLOSURE                       R22 K33 [PROTO_10]
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R6
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R2
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R10
+       83 CAPTURE                          VAL R9
+       84 CAPTURE                          VAL R16
+       85 CAPTURE                          VAL R17
+       86 CAPTURE                          VAL R18
+       87 CAPTURE                          VAL R19
+       88 CAPTURE                          VAL R20
+       89 CAPTURE                          VAL R21
+       90 RETURN                           R22 1

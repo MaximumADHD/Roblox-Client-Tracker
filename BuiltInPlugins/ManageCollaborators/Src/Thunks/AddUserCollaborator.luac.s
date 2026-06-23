@@ -50,16 +50,19 @@ PROTO_1:
        51 JUMPIF                           R5 ; [+4]
        52 GETUPVAL                         R5 6
        53 GETTABLEKS                       R5 R5 K10 ["fflagManageCollaboratorsEditorBlockingBanner"]
-       55 JUMPIFNOT                        R5 ; [+9]
-       56 GETIMPORT                        R5 K13 [coroutine.wrap]
-       58 NEWCLOSURE                       R6 P0
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          UPVAL U7
-       61 CAPTURE                          UPVAL U2
-       62 CALL                             R5 1 1
-       63 MOVE                             R6 R5
-       64 CALL                             R6 0 0
-       65 RETURN                           R0 0
+       55 JUMPIFNOT                        R5 ; [+13]
+       56 GETUPVAL                         R5 6
+       57 GETTABLEKS                       R5 R5 K11 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+       59 JUMPIF                           R5 ; [+9]
+       60 GETIMPORT                        R5 K14 [coroutine.wrap]
+       62 NEWCLOSURE                       R6 P0
+       63 CAPTURE                          VAL R0
+       64 CAPTURE                          UPVAL U7
+       65 CAPTURE                          UPVAL U2
+       66 CALL                             R5 1 1
+       67 MOVE                             R6 R5
+       68 CALL                             R6 0 0
+       69 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R3 P0

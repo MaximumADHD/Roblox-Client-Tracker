@@ -61,7 +61,7 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R3 0
         1 MOVE                             R4 R0
-        2 LOADK                            R6 K0 ["binding-cell-%*-%*-cell"]
+        2 LOADK                            R6 K0 ["%*-%*-cell"]
         3 MOVE                             R8 R1
         4 MOVE                             R9 R2
         5 NAMECALL                         R6 R6 K1 ["format"]

@@ -82,107 +82,101 @@ PROTO_5:
        16 RETURN                           R0 0
 
 PROTO_6:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["PreviewToolbar should only be used when FFlagPreviewToolbar is enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 LOADB                            R2 1
-       10 CALL                             R1 1 1
-       11 GETUPVAL                         R2 1
-       12 LOADB                            R3 0
-       13 CALL                             R2 1 1
-       14 GETUPVAL                         R3 2
-       15 GETTABLEKS                       R3 R3 K3 ["useEffect"]
-       17 NEWCLOSURE                       R4 P0
-       18 CAPTURE                          UPVAL U3
-       19 CAPTURE                          VAL R2
-       20 CAPTURE                          UPVAL U4
-       21 NEWTABLE                         R5 0 0
-       23 CALL                             R3 2 0
-       24 GETUPVAL                         R3 5
-       25 GETTABLEKS                       R3 R3 K4 ["createLocalization"]
-       27 GETUPVAL                         R4 6
-       28 GETUPVAL                         R5 7
-       29 LOADK                            R6 K5 ["AvatarSettings"]
-       30 CALL                             R3 3 1
-       31 GETUPVAL                         R4 8
-       32 GETUPVAL                         R5 9
-       33 DUPTABLE                         R6 K7 [{"HorizontalItems"}]
-       34 NEWTABLE                         R7 0 3
-       36 DUPTABLE                         R8 K12 [{"Type", "Tooltip", "Icon", "OnClick"}]
-       37 LOADK                            R9 K13 ["Button"]
-       38 SETTABLEKS                       R9 R8 K8 ["Type"]
-       40 GETTABLEKS                       R9 R3 K14 ["getText"]
-       42 LOADK                            R10 K15 ["PreviewToolbar"]
-       43 LOADK                            R11 K16 ["ResetAvatarsToCamera"]
+        0 GETUPVAL                         R1 0
+        1 LOADB                            R2 1
+        2 CALL                             R1 1 1
+        3 GETUPVAL                         R2 0
+        4 LOADB                            R3 0
+        5 CALL                             R2 1 1
+        6 GETUPVAL                         R3 1
+        7 GETTABLEKS                       R3 R3 K0 ["useEffect"]
+        9 NEWCLOSURE                       R4 P0
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          VAL R2
+       12 CAPTURE                          UPVAL U3
+       13 NEWTABLE                         R5 0 0
+       15 CALL                             R3 2 0
+       16 GETUPVAL                         R3 4
+       17 GETTABLEKS                       R3 R3 K1 ["createLocalization"]
+       19 GETUPVAL                         R4 5
+       20 GETUPVAL                         R5 6
+       21 LOADK                            R6 K2 ["AvatarSettings"]
+       22 CALL                             R3 3 1
+       23 GETUPVAL                         R4 7
+       24 GETUPVAL                         R5 8
+       25 DUPTABLE                         R6 K4 [{"HorizontalItems"}]
+       26 NEWTABLE                         R7 0 3
+       28 DUPTABLE                         R8 K9 [{"Type", "Tooltip", "Icon", "OnClick"}]
+       29 LOADK                            R9 K10 ["Button"]
+       30 SETTABLEKS                       R9 R8 K5 ["Type"]
+       32 GETTABLEKS                       R9 R3 K11 ["getText"]
+       34 LOADK                            R10 K12 ["PreviewToolbar"]
+       35 LOADK                            R11 K13 ["ResetAvatarsToCamera"]
+       36 CALL                             R9 2 1
+       37 SETTABLEKS                       R9 R8 K6 ["Tooltip"]
+       39 GETTABLEKS                       R9 R0 K14 ["theme"]
+       41 LOADK                            R11 K15 ["PreviewTooltipResetAvatarsToCameraImage"]
+       42 NAMECALL                         R9 R9 K16 ["GetAttribute"]
        44 CALL                             R9 2 1
-       45 SETTABLEKS                       R9 R8 K9 ["Tooltip"]
-       47 GETTABLEKS                       R9 R0 K17 ["theme"]
-       49 LOADK                            R11 K18 ["PreviewTooltipResetAvatarsToCameraImage"]
-       50 NAMECALL                         R9 R9 K19 ["GetAttribute"]
-       52 CALL                             R9 2 1
-       53 SETTABLEKS                       R9 R8 K10 ["Icon"]
-       55 NEWCLOSURE                       R9 P1
-       56 CAPTURE                          UPVAL U10
-       57 CAPTURE                          VAL R0
-       58 SETTABLEKS                       R9 R8 K11 ["OnClick"]
-       60 DUPTABLE                         R9 K21 [{"Type", "Tooltip", "Selected", "Icon", "OnClick"}]
-       61 LOADK                            R10 K13 ["Button"]
-       62 SETTABLEKS                       R10 R9 K8 ["Type"]
-       64 GETTABLEKS                       R10 R3 K14 ["getText"]
-       66 LOADK                            R11 K15 ["PreviewToolbar"]
-       67 LOADK                            R12 K22 ["SettingsVisibility"]
-       68 CALL                             R10 2 1
-       69 SETTABLEKS                       R10 R9 K9 ["Tooltip"]
-       71 GETTABLEKS                       R11 R1 K23 ["enabled"]
-       73 NOT                              R10 R11
-       74 SETTABLEKS                       R10 R9 K20 ["Selected"]
-       76 GETTABLEKS                       R10 R0 K17 ["theme"]
-       78 GETTABLEKS                       R13 R1 K23 ["enabled"]
-       80 JUMPIFNOT                        R13 ; [+2]
-       81 LOADK                            R12 K24 ["PreviewTooltipSettingInvisibleImage"]
-       82 JUMP                             ; [+1]
-       83 LOADK                            R12 K25 ["PreviewTooltipSettingVisibleImage"]
-       84 NAMECALL                         R10 R10 K19 ["GetAttribute"]
-       86 CALL                             R10 2 1
-       87 SETTABLEKS                       R10 R9 K10 ["Icon"]
-       89 NEWCLOSURE                       R10 P2
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          VAL R1
-       92 SETTABLEKS                       R10 R9 K11 ["OnClick"]
-       94 DUPTABLE                         R10 K12 [{"Type", "Tooltip", "Icon", "OnClick"}]
-       95 LOADK                            R11 K13 ["Button"]
-       96 SETTABLEKS                       R11 R10 K8 ["Type"]
-       98 GETTABLEKS                       R11 R3 K14 ["getText"]
-      100 LOADK                            R12 K15 ["PreviewToolbar"]
-      101 GETTABLEKS                       R14 R2 K23 ["enabled"]
-      103 JUMPIFNOT                        R14 ; [+2]
-      104 LOADK                            R13 K26 ["TestAsAvatar"]
-      105 JUMP                             ; [+1]
-      106 LOADK                            R13 K27 ["TestAsAvatarDisabled"]
-      107 CALL                             R11 2 1
-      108 SETTABLEKS                       R11 R10 K9 ["Tooltip"]
-      110 GETTABLEKS                       R11 R0 K17 ["theme"]
-      112 GETTABLEKS                       R14 R2 K23 ["enabled"]
-      114 JUMPIFNOT                        R14 ; [+2]
-      115 LOADK                            R13 K28 ["PreviewTooltipPlayImage"]
-      116 JUMP                             ; [+1]
-      117 LOADK                            R13 K29 ["PreviewTooltipPlayDisabledImage"]
-      118 NAMECALL                         R11 R11 K19 ["GetAttribute"]
-      120 CALL                             R11 2 1
-      121 SETTABLEKS                       R11 R10 K10 ["Icon"]
-      123 NEWCLOSURE                       R11 P3
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          UPVAL U3
-      126 CAPTURE                          VAL R0
-      127 SETTABLEKS                       R11 R10 K11 ["OnClick"]
-      129 SETLIST                          R7 R8 3 [1]
-      131 SETTABLEKS                       R7 R6 K6 ["HorizontalItems"]
-      133 CALL                             R4 2 -1
-      134 RETURN                           R4 -1
+       45 SETTABLEKS                       R9 R8 K7 ["Icon"]
+       47 NEWCLOSURE                       R9 P1
+       48 CAPTURE                          UPVAL U9
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R9 R8 K8 ["OnClick"]
+       52 DUPTABLE                         R9 K18 [{"Type", "Tooltip", "Selected", "Icon", "OnClick"}]
+       53 LOADK                            R10 K10 ["Button"]
+       54 SETTABLEKS                       R10 R9 K5 ["Type"]
+       56 GETTABLEKS                       R10 R3 K11 ["getText"]
+       58 LOADK                            R11 K12 ["PreviewToolbar"]
+       59 LOADK                            R12 K19 ["SettingsVisibility"]
+       60 CALL                             R10 2 1
+       61 SETTABLEKS                       R10 R9 K6 ["Tooltip"]
+       63 GETTABLEKS                       R11 R1 K20 ["enabled"]
+       65 NOT                              R10 R11
+       66 SETTABLEKS                       R10 R9 K17 ["Selected"]
+       68 GETTABLEKS                       R10 R0 K14 ["theme"]
+       70 GETTABLEKS                       R13 R1 K20 ["enabled"]
+       72 JUMPIFNOT                        R13 ; [+2]
+       73 LOADK                            R12 K21 ["PreviewTooltipSettingInvisibleImage"]
+       74 JUMP                             ; [+1]
+       75 LOADK                            R12 K22 ["PreviewTooltipSettingVisibleImage"]
+       76 NAMECALL                         R10 R10 K16 ["GetAttribute"]
+       78 CALL                             R10 2 1
+       79 SETTABLEKS                       R10 R9 K7 ["Icon"]
+       81 NEWCLOSURE                       R10 P2
+       82 CAPTURE                          VAL R0
+       83 CAPTURE                          VAL R1
+       84 SETTABLEKS                       R10 R9 K8 ["OnClick"]
+       86 DUPTABLE                         R10 K9 [{"Type", "Tooltip", "Icon", "OnClick"}]
+       87 LOADK                            R11 K10 ["Button"]
+       88 SETTABLEKS                       R11 R10 K5 ["Type"]
+       90 GETTABLEKS                       R11 R3 K11 ["getText"]
+       92 LOADK                            R12 K12 ["PreviewToolbar"]
+       93 GETTABLEKS                       R14 R2 K20 ["enabled"]
+       95 JUMPIFNOT                        R14 ; [+2]
+       96 LOADK                            R13 K23 ["TestAsAvatar"]
+       97 JUMP                             ; [+1]
+       98 LOADK                            R13 K24 ["TestAsAvatarDisabled"]
+       99 CALL                             R11 2 1
+      100 SETTABLEKS                       R11 R10 K6 ["Tooltip"]
+      102 GETTABLEKS                       R11 R0 K14 ["theme"]
+      104 GETTABLEKS                       R14 R2 K20 ["enabled"]
+      106 JUMPIFNOT                        R14 ; [+2]
+      107 LOADK                            R13 K25 ["PreviewTooltipPlayImage"]
+      108 JUMP                             ; [+1]
+      109 LOADK                            R13 K26 ["PreviewTooltipPlayDisabledImage"]
+      110 NAMECALL                         R11 R11 K16 ["GetAttribute"]
+      112 CALL                             R11 2 1
+      113 SETTABLEKS                       R11 R10 K7 ["Icon"]
+      115 NEWCLOSURE                       R11 P3
+      116 CAPTURE                          VAL R2
+      117 CAPTURE                          UPVAL U2
+      118 CAPTURE                          VAL R0
+      119 SETTABLEKS                       R11 R10 K8 ["OnClick"]
+      121 SETLIST                          R7 R8 3 [1]
+      123 SETTABLEKS                       R7 R6 K3 ["HorizontalItems"]
+      125 CALL                             R4 2 -1
+      126 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -226,31 +220,25 @@ MAIN:
        66 GETTABLEKS                       R8 R8 K21 ["Hooks"]
        68 GETTABLEKS                       R8 R8 K22 ["useToggleState"]
        70 CALL                             R7 1 1
-       71 GETIMPORT                        R8 K9 [require]
-       73 GETTABLEKS                       R9 R0 K10 ["Src"]
-       75 GETTABLEKS                       R9 R9 K23 ["Flags"]
-       77 GETTABLEKS                       R9 R9 K24 ["getFFlagPreviewToolbar"]
-       79 CALL                             R8 1 1
-       80 GETTABLEKS                       R9 R0 K10 ["Src"]
-       82 GETTABLEKS                       R9 R9 K25 ["Resources"]
-       84 GETTABLEKS                       R9 R9 K26 ["Localization"]
-       86 GETTABLEKS                       R9 R9 K27 ["SourceStrings"]
-       88 GETTABLEKS                       R10 R0 K10 ["Src"]
-       90 GETTABLEKS                       R10 R10 K25 ["Resources"]
-       92 GETTABLEKS                       R10 R10 K26 ["Localization"]
-       94 GETTABLEKS                       R10 R10 K28 ["LocalizedStrings"]
-       96 GETTABLEKS                       R11 R5 K29 ["Toolbar"]
-       98 GETTABLEKS                       R12 R3 K30 ["createElement"]
-      100 DUPCLOSURE                       R13 K31 [PROTO_6]
-      101 CAPTURE                          VAL R8
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          VAL R4
-      105 CAPTURE                          VAL R1
-      106 CAPTURE                          VAL R2
-      107 CAPTURE                          VAL R9
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R12
-      110 CAPTURE                          VAL R11
-      111 CAPTURE                          VAL R6
-      112 RETURN                           R13 1
+       71 GETTABLEKS                       R8 R0 K10 ["Src"]
+       73 GETTABLEKS                       R8 R8 K23 ["Resources"]
+       75 GETTABLEKS                       R8 R8 K24 ["Localization"]
+       77 GETTABLEKS                       R8 R8 K25 ["SourceStrings"]
+       79 GETTABLEKS                       R9 R0 K10 ["Src"]
+       81 GETTABLEKS                       R9 R9 K23 ["Resources"]
+       83 GETTABLEKS                       R9 R9 K24 ["Localization"]
+       85 GETTABLEKS                       R9 R9 K26 ["LocalizedStrings"]
+       87 GETTABLEKS                       R10 R5 K27 ["Toolbar"]
+       89 GETTABLEKS                       R11 R3 K28 ["createElement"]
+       91 DUPCLOSURE                       R12 K29 [PROTO_6]
+       92 CAPTURE                          VAL R7
+       93 CAPTURE                          VAL R3
+       94 CAPTURE                          VAL R4
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R8
+       98 CAPTURE                          VAL R9
+       99 CAPTURE                          VAL R11
+      100 CAPTURE                          VAL R10
+      101 CAPTURE                          VAL R6
+      102 RETURN                           R12 1

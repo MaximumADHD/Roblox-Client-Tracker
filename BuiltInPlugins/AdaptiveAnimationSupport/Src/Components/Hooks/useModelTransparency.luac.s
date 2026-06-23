@@ -71,7 +71,7 @@ MAIN:
        23 GETIMPORT                        R3 K5 [require]
        25 GETTABLEKS                       R4 R0 K8 ["Src"]
        27 GETTABLEKS                       R4 R4 K11 ["Flags"]
-       29 GETTABLEKS                       R4 R4 K12 ["getFFlagAdaptiveAnimationSolidBones"]
+       29 GETTABLEKS                       R4 R4 K12 ["getFFlagAdaptiveAnimationHandRigQoL"]
        31 CALL                             R3 1 1
        32 DUPCLOSURE                       R4 K13 [PROTO_2]
        33 CAPTURE                          VAL R1

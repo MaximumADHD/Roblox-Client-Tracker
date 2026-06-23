@@ -1,23 +1,29 @@
 PROTO_0:
-        0 NEWTABLE                         R0 0 2
-        2 DUPTABLE                         R1 K3 [{"icon", "id", "text"}]
-        3 LOADK                            R2 K4 ["pencil"]
-        4 SETTABLEKS                       R2 R1 K0 ["icon"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K5 ["RENAME"]
-        9 SETTABLEKS                       R2 R1 K1 ["id"]
-       11 LOADK                            R2 K6 ["Rename"]
-       12 SETTABLEKS                       R2 R1 K2 ["text"]
-       14 DUPTABLE                         R2 K3 [{"icon", "id", "text"}]
-       15 LOADK                            R3 K7 ["trash-can"]
-       16 SETTABLEKS                       R3 R2 K0 ["icon"]
-       18 GETUPVAL                         R3 0
-       19 GETTABLEKS                       R3 R3 K8 ["DELETE"]
-       21 SETTABLEKS                       R3 R2 K1 ["id"]
-       23 LOADK                            R3 K9 ["Delete"]
-       24 SETTABLEKS                       R3 R2 K2 ["text"]
-       26 SETLIST                          R0 R1 2 [1]
-       28 RETURN                           R0 1
+        0 NEWTABLE                         R1 0 2
+        2 DUPTABLE                         R2 K3 [{"icon", "id", "text"}]
+        3 LOADK                            R3 K4 ["pencil"]
+        4 SETTABLEKS                       R3 R2 K0 ["icon"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K5 ["RENAME"]
+        9 SETTABLEKS                       R3 R2 K1 ["id"]
+       11 LOADK                            R5 K6 ["Menu"]
+       12 LOADK                            R6 K7 ["Rename"]
+       13 NAMECALL                         R3 R0 K8 ["getText"]
+       15 CALL                             R3 3 1
+       16 SETTABLEKS                       R3 R2 K2 ["text"]
+       18 DUPTABLE                         R3 K3 [{"icon", "id", "text"}]
+       19 LOADK                            R4 K9 ["trash-can"]
+       20 SETTABLEKS                       R4 R3 K0 ["icon"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K10 ["DELETE"]
+       25 SETTABLEKS                       R4 R3 K1 ["id"]
+       27 LOADK                            R6 K6 ["Menu"]
+       28 LOADK                            R7 K11 ["Delete"]
+       29 NAMECALL                         R4 R0 K8 ["getText"]
+       31 CALL                             R4 3 1
+       32 SETTABLEKS                       R4 R3 K2 ["text"]
+       34 SETLIST                          R1 R2 2 [1]
+       36 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -31,10 +37,14 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
        16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Util"]
-       20 GETTABLEKS                       R3 R3 K10 ["Constants"]
-       22 GETTABLEKS                       R3 R3 K11 ["MenuIdentifiers"]
-       24 CALL                             R2 1 1
-       25 DUPCLOSURE                       R3 K12 [PROTO_0]
-       26 CAPTURE                          VAL R2
-       27 RETURN                           R3 1
+       18 GETTABLEKS                       R3 R3 K9 ["Types"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K8 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Util"]
+       27 GETTABLEKS                       R4 R4 K11 ["Constants"]
+       29 GETTABLEKS                       R4 R4 K12 ["MenuIdentifiers"]
+       31 CALL                             R3 1 1
+       32 DUPCLOSURE                       R4 K13 [PROTO_0]
+       33 CAPTURE                          VAL R3
+       34 RETURN                           R4 1

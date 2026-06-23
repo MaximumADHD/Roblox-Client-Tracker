@@ -30,38 +30,33 @@ PROTO_0:
        35 RETURN                           R0 1
 
 PROTO_1:
-        0 LOADNIL                          R2
-        1 GETUPVAL                         R3 0
-        2 JUMPIFNOT                        R3 ; [+7]
-        3 NAMECALL                         R3 R0 K0 ["getState"]
-        5 CALL                             R3 1 1
-        6 GETTABLEKS                       R4 R3 K1 ["Window"]
-        8 GETTABLEKS                       R2 R4 K2 ["Source"]
-       10 GETTABLEKS                       R3 R1 K3 ["recordChange"]
-       12 DUPTABLE                         R4 K7 [{"Name", "DisplayName", "DoChange"}]
-       13 LOADK                            R5 K8 ["StyleEditor/SetStyleSheetCategory"]
-       14 SETTABLEKS                       R5 R4 K4 ["Name"]
-       16 LOADK                            R5 K9 ["StyleEditor - Set StyleSheet Category"]
-       17 SETTABLEKS                       R5 R4 K5 ["DisplayName"]
-       19 NEWCLOSURE                       R5 P0
-       20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          UPVAL U2
-       22 CAPTURE                          UPVAL U3
-       23 CAPTURE                          REF R2
-       24 CAPTURE                          UPVAL U4
-       25 SETTABLEKS                       R5 R4 K6 ["DoChange"]
-       27 CALL                             R3 1 0
-       28 CLOSEUPVALS                      R2
-       29 RETURN                           R0 0
+        0 NAMECALL                         R2 R0 K0 ["getState"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R3 R2 K1 ["Window"]
+        5 GETTABLEKS                       R3 R3 K2 ["Source"]
+        7 GETTABLEKS                       R4 R1 K3 ["recordChange"]
+        9 DUPTABLE                         R5 K7 [{"Name", "DisplayName", "DoChange"}]
+       10 LOADK                            R6 K8 ["StyleEditor/SetStyleSheetCategory"]
+       11 SETTABLEKS                       R6 R5 K4 ["Name"]
+       13 LOADK                            R6 K9 ["StyleEditor - Set StyleSheet Category"]
+       14 SETTABLEKS                       R6 R5 K5 ["DisplayName"]
+       16 NEWCLOSURE                       R6 P0
+       17 CAPTURE                          UPVAL U0
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          UPVAL U2
+       20 CAPTURE                          VAL R3
+       21 CAPTURE                          UPVAL U3
+       22 SETTABLEKS                       R6 R5 K6 ["DoChange"]
+       24 CALL                             R4 1 0
+       25 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          VAL R1
-        3 CAPTURE                          UPVAL U1
-        4 CAPTURE                          VAL R0
-        5 CAPTURE                          UPVAL U2
-        6 RETURN                           R2 1
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          UPVAL U1
+        5 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -73,32 +68,25 @@ MAIN:
        11 GETIMPORT                        R1 K4 [require]
        13 GETTABLEKS                       R2 R0 K5 ["Src"]
        15 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStyleEditorPluginStyleSheets"]
+       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStyleEditorFixDerivesOrdering"]
        19 CALL                             R1 1 1
        20 CALL                             R1 0 1
        21 GETIMPORT                        R2 K4 [require]
        23 GETTABLEKS                       R3 R0 K5 ["Src"]
-       25 GETTABLEKS                       R3 R3 K6 ["Flags"]
-       27 GETTABLEKS                       R3 R3 K8 ["getFFlagStyleEditorFixDerivesOrdering"]
+       25 GETTABLEKS                       R3 R3 K8 ["Util"]
+       27 GETTABLEKS                       R3 R3 K9 ["DesignHelpers"]
        29 CALL                             R2 1 1
-       30 CALL                             R2 0 1
-       31 GETIMPORT                        R3 K4 [require]
-       33 GETTABLEKS                       R4 R0 K5 ["Src"]
-       35 GETTABLEKS                       R4 R4 K9 ["Util"]
-       37 GETTABLEKS                       R4 R4 K10 ["DesignHelpers"]
-       39 CALL                             R3 1 1
-       40 GETIMPORT                        R4 K4 [require]
-       42 GETTABLEKS                       R5 R0 K5 ["Src"]
-       44 GETTABLEKS                       R5 R5 K11 ["Reducers"]
-       46 GETTABLEKS                       R5 R5 K12 ["RootReducer"]
-       48 CALL                             R4 1 1
-       49 GETIMPORT                        R5 K4 [require]
-       51 GETTABLEKS                       R6 R0 K5 ["Src"]
-       53 GETTABLEKS                       R6 R6 K13 ["Thunks"]
-       55 GETTABLEKS                       R6 R6 K14 ["Types"]
-       57 CALL                             R5 1 1
-       58 DUPCLOSURE                       R6 K15 [PROTO_2]
-       59 CAPTURE                          VAL R1
-       60 CAPTURE                          VAL R3
-       61 CAPTURE                          VAL R2
-       62 RETURN                           R6 1
+       30 GETIMPORT                        R3 K4 [require]
+       32 GETTABLEKS                       R4 R0 K5 ["Src"]
+       34 GETTABLEKS                       R4 R4 K10 ["Reducers"]
+       36 GETTABLEKS                       R4 R4 K11 ["RootReducer"]
+       38 CALL                             R3 1 1
+       39 GETIMPORT                        R4 K4 [require]
+       41 GETTABLEKS                       R5 R0 K5 ["Src"]
+       43 GETTABLEKS                       R5 R5 K12 ["Thunks"]
+       45 GETTABLEKS                       R5 R5 K13 ["Types"]
+       47 CALL                             R4 1 1
+       48 DUPCLOSURE                       R5 K14 [PROTO_2]
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R1
+       51 RETURN                           R5 1

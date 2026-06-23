@@ -8,46 +8,42 @@ PROTO_0:
         8 RETURN                           R0 1
 
 PROTO_1:
-        0 LOADNIL                          R2
-        1 GETUPVAL                         R3 0
-        2 JUMPIFNOT                        R3 ; [+7]
-        3 NAMECALL                         R3 R0 K0 ["getState"]
-        5 CALL                             R3 1 1
-        6 GETTABLEKS                       R4 R3 K1 ["Window"]
-        8 GETTABLEKS                       R2 R4 K2 ["Source"]
-       10 LOADNIL                          R3
-       11 GETTABLEKS                       R4 R1 K3 ["recordChange"]
-       13 DUPTABLE                         R5 K7 [{"Name", "DisplayName", "DoChange"}]
-       14 LOADK                            R6 K8 ["StyleEditor/CreateDesignSheet"]
-       15 SETTABLEKS                       R6 R5 K4 ["Name"]
-       17 LOADK                            R6 K9 ["StyleEditor - Create Design Sheet"]
-       18 SETTABLEKS                       R6 R5 K5 ["DisplayName"]
-       20 NEWCLOSURE                       R6 P0
-       21 CAPTURE                          REF R3
-       22 CAPTURE                          UPVAL U1
-       23 CAPTURE                          REF R2
-       24 SETTABLEKS                       R6 R5 K6 ["DoChange"]
-       26 CALL                             R4 1 0
-       27 JUMPIFNOT                        R3 ; [+11]
-       28 GETUPVAL                         R4 2
-       29 GETTABLEKS                       R4 R4 K10 ["createItemId"]
-       31 MOVE                             R5 R3
-       32 CALL                             R4 1 1
-       33 GETUPVAL                         R7 3
-       34 MOVE                             R8 R4
-       35 CALL                             R7 1 -1
-       36 NAMECALL                         R5 R0 K11 ["dispatch"]
-       38 CALL                             R5 -1 0
-       39 CLOSEUPVALS                      R2
-       40 RETURN                           R3 1
+        0 NAMECALL                         R2 R0 K0 ["getState"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R3 R2 K1 ["Window"]
+        5 GETTABLEKS                       R3 R3 K2 ["Source"]
+        7 LOADNIL                          R4
+        8 GETTABLEKS                       R5 R1 K3 ["recordChange"]
+       10 DUPTABLE                         R6 K7 [{"Name", "DisplayName", "DoChange"}]
+       11 LOADK                            R7 K8 ["StyleEditor/CreateDesignSheet"]
+       12 SETTABLEKS                       R7 R6 K4 ["Name"]
+       14 LOADK                            R7 K9 ["StyleEditor - Create Design Sheet"]
+       15 SETTABLEKS                       R7 R6 K5 ["DisplayName"]
+       17 NEWCLOSURE                       R7 P0
+       18 CAPTURE                          REF R4
+       19 CAPTURE                          UPVAL U0
+       20 CAPTURE                          VAL R3
+       21 SETTABLEKS                       R7 R6 K6 ["DoChange"]
+       23 CALL                             R5 1 0
+       24 JUMPIFNOT                        R4 ; [+11]
+       25 GETUPVAL                         R5 1
+       26 GETTABLEKS                       R5 R5 K10 ["createItemId"]
+       28 MOVE                             R6 R4
+       29 CALL                             R5 1 1
+       30 GETUPVAL                         R8 2
+       31 MOVE                             R9 R5
+       32 CALL                             R8 1 -1
+       33 NAMECALL                         R6 R0 K11 ["dispatch"]
+       35 CALL                             R6 -1 0
+       36 CLOSEUPVALS                      R4
+       37 RETURN                           R4 1
 
 PROTO_2:
         0 DUPCLOSURE                       R0 K0 [PROTO_1]
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
-        4 CAPTURE                          UPVAL U3
-        5 RETURN                           R0 1
+        4 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -58,39 +54,32 @@ MAIN:
         9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
        13 GETTABLEKS                       R2 R0 K5 ["Src"]
-       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStyleEditorPluginStyleSheets"]
+       15 GETTABLEKS                       R2 R2 K6 ["Util"]
+       17 GETTABLEKS                       R2 R2 K7 ["DesignHelpers"]
        19 CALL                             R1 1 1
-       20 CALL                             R1 0 1
-       21 GETIMPORT                        R2 K4 [require]
-       23 GETTABLEKS                       R3 R0 K5 ["Src"]
-       25 GETTABLEKS                       R3 R3 K8 ["Util"]
-       27 GETTABLEKS                       R3 R3 K9 ["DesignHelpers"]
-       29 CALL                             R2 1 1
-       30 GETIMPORT                        R3 K4 [require]
-       32 GETTABLEKS                       R4 R0 K5 ["Src"]
-       34 GETTABLEKS                       R4 R4 K8 ["Util"]
-       36 GETTABLEKS                       R4 R4 K10 ["TreeTableHelpers"]
-       38 CALL                             R3 1 1
-       39 GETTABLEKS                       R4 R0 K5 ["Src"]
-       41 GETTABLEKS                       R4 R4 K11 ["Actions"]
-       43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R6 R4 K12 ["Window"]
-       47 GETTABLEKS                       R6 R6 K13 ["SelectItem"]
-       49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K4 [require]
-       52 GETTABLEKS                       R7 R0 K5 ["Src"]
-       54 GETTABLEKS                       R7 R7 K14 ["Reducers"]
-       56 GETTABLEKS                       R7 R7 K15 ["RootReducer"]
-       58 CALL                             R6 1 1
-       59 GETIMPORT                        R7 K4 [require]
-       61 GETTABLEKS                       R8 R0 K5 ["Src"]
-       63 GETTABLEKS                       R8 R8 K16 ["Thunks"]
-       65 GETTABLEKS                       R8 R8 K17 ["Types"]
-       67 CALL                             R7 1 1
-       68 DUPCLOSURE                       R8 K18 [PROTO_2]
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R3
-       72 CAPTURE                          VAL R5
-       73 RETURN                           R8 1
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Util"]
+       26 GETTABLEKS                       R3 R3 K8 ["TreeTableHelpers"]
+       28 CALL                             R2 1 1
+       29 GETTABLEKS                       R3 R0 K5 ["Src"]
+       31 GETTABLEKS                       R3 R3 K9 ["Actions"]
+       33 GETIMPORT                        R4 K4 [require]
+       35 GETTABLEKS                       R5 R3 K10 ["Window"]
+       37 GETTABLEKS                       R5 R5 K11 ["SelectItem"]
+       39 CALL                             R4 1 1
+       40 GETIMPORT                        R5 K4 [require]
+       42 GETTABLEKS                       R6 R0 K5 ["Src"]
+       44 GETTABLEKS                       R6 R6 K12 ["Reducers"]
+       46 GETTABLEKS                       R6 R6 K13 ["RootReducer"]
+       48 CALL                             R5 1 1
+       49 GETIMPORT                        R6 K4 [require]
+       51 GETTABLEKS                       R7 R0 K5 ["Src"]
+       53 GETTABLEKS                       R7 R7 K14 ["Thunks"]
+       55 GETTABLEKS                       R7 R7 K15 ["Types"]
+       57 CALL                             R6 1 1
+       58 DUPCLOSURE                       R7 K16 [PROTO_2]
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R2
+       61 CAPTURE                          VAL R4
+       62 RETURN                           R7 1

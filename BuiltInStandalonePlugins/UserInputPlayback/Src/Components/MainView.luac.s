@@ -58,32 +58,24 @@ PROTO_1:
        55 SETTABLEKS                       R11 R10 K10 ["ContentComponent"]
        57 OR                               R11 R3 R5
        58 SETTABLEKS                       R11 R10 K3 ["Disabled"]
-       60 GETUPVAL                         R12 4
-       61 JUMPIFNOT                        R12 ; [+2]
-       62 LOADK                            R11 K16 ["Recording Tab"]
-       63 JUMP                             ; [+1]
-       64 LOADNIL                          R11
-       65 SETTABLEKS                       R11 R10 K11 ["Key"]
-       67 DUPTABLE                         R11 K12 [{"Label", "ContentComponent", "Disabled", "Key"}]
-       68 LOADK                            R14 K13 ["Plugin"]
-       69 LOADK                            R15 K17 ["PlaybackTabTitle"]
-       70 NAMECALL                         R12 R2 K15 ["getText"]
-       72 CALL                             R12 3 1
-       73 SETTABLEKS                       R12 R11 K9 ["Label"]
-       75 GETUPVAL                         R12 5
-       76 SETTABLEKS                       R12 R11 K10 ["ContentComponent"]
-       78 OR                               R12 R3 R4
-       79 SETTABLEKS                       R12 R11 K3 ["Disabled"]
-       81 GETUPVAL                         R13 4
-       82 JUMPIFNOT                        R13 ; [+2]
-       83 LOADK                            R12 K18 ["Playback Tab"]
-       84 JUMP                             ; [+1]
-       85 LOADNIL                          R12
-       86 SETTABLEKS                       R12 R11 K11 ["Key"]
-       88 SETLIST                          R9 R10 2 [1]
-       90 SETTABLEKS                       R9 R8 K7 ["Tabs"]
-       92 CALL                             R6 2 -1
-       93 RETURN                           R6 -1
+       60 LOADK                            R11 K16 ["Recording Tab"]
+       61 SETTABLEKS                       R11 R10 K11 ["Key"]
+       63 DUPTABLE                         R11 K12 [{"Label", "ContentComponent", "Disabled", "Key"}]
+       64 LOADK                            R14 K13 ["Plugin"]
+       65 LOADK                            R15 K17 ["PlaybackTabTitle"]
+       66 NAMECALL                         R12 R2 K15 ["getText"]
+       68 CALL                             R12 3 1
+       69 SETTABLEKS                       R12 R11 K9 ["Label"]
+       71 GETUPVAL                         R12 4
+       72 SETTABLEKS                       R12 R11 K10 ["ContentComponent"]
+       74 OR                               R12 R3 R4
+       75 SETTABLEKS                       R12 R11 K3 ["Disabled"]
+       77 LOADK                            R12 K18 ["Playback Tab"]
+       78 SETTABLEKS                       R12 R11 K11 ["Key"]
+       80 SETLIST                          R9 R10 2 [1]
+       82 SETTABLEKS                       R9 R8 K7 ["Tabs"]
+       84 CALL                             R6 2 -1
+       85 RETURN                           R6 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K1 [{"PluginState"}]
@@ -154,42 +146,37 @@ MAIN:
        75 GETTABLEKS                       R12 R12 K19 ["Common"]
        77 GETTABLEKS                       R12 R12 K20 ["SetPluginState"]
        79 CALL                             R11 1 1
-       80 GETIMPORT                        R12 K22 [game]
-       82 LOADK                            R14 K23 ["UserInputPlaybackPluginFixTabInitiallySelected"]
-       83 NAMECALL                         R12 R12 K24 ["GetFastFlag"]
+       80 GETTABLEKS                       R12 R1 K21 ["PureComponent"]
+       82 LOADK                            R14 K22 ["MainView"]
+       83 NAMECALL                         R12 R12 K23 ["extend"]
        85 CALL                             R12 2 1
-       86 GETTABLEKS                       R13 R1 K25 ["PureComponent"]
-       88 LOADK                            R15 K26 ["MainView"]
-       89 NAMECALL                         R13 R13 K27 ["extend"]
-       91 CALL                             R13 2 1
-       92 DUPCLOSURE                       R14 K28 [PROTO_0]
-       93 CAPTURE                          VAL R10
-       94 SETTABLEKS                       R14 R13 K29 ["didMount"]
-       96 DUPCLOSURE                       R14 K30 [PROTO_1]
-       97 CAPTURE                          VAL R9
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R6
-      100 CAPTURE                          VAL R8
-      101 CAPTURE                          VAL R12
-      102 CAPTURE                          VAL R7
-      103 SETTABLEKS                       R14 R13 K31 ["render"]
-      105 GETTABLEKS                       R14 R4 K32 ["withContext"]
-      107 DUPTABLE                         R15 K35 [{"Plugin", "Localization"}]
-      108 GETTABLEKS                       R16 R4 K33 ["Plugin"]
-      110 SETTABLEKS                       R16 R15 K33 ["Plugin"]
-      112 GETTABLEKS                       R16 R4 K34 ["Localization"]
-      114 SETTABLEKS                       R16 R15 K34 ["Localization"]
-      116 CALL                             R14 1 1
-      117 MOVE                             R15 R13
-      118 CALL                             R14 1 1
-      119 MOVE                             R13 R14
-      120 DUPCLOSURE                       R14 K36 [PROTO_2]
-      121 DUPCLOSURE                       R15 K37 [PROTO_4]
-      122 CAPTURE                          VAL R11
-      123 GETTABLEKS                       R16 R2 K38 ["connect"]
-      125 MOVE                             R17 R14
-      126 MOVE                             R18 R15
-      127 CALL                             R16 2 1
-      128 MOVE                             R17 R13
-      129 CALL                             R16 1 -1
-      130 RETURN                           R16 -1
+       86 DUPCLOSURE                       R13 K24 [PROTO_0]
+       87 CAPTURE                          VAL R10
+       88 SETTABLEKS                       R13 R12 K25 ["didMount"]
+       90 DUPCLOSURE                       R13 K26 [PROTO_1]
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R6
+       94 CAPTURE                          VAL R8
+       95 CAPTURE                          VAL R7
+       96 SETTABLEKS                       R13 R12 K27 ["render"]
+       98 GETTABLEKS                       R13 R4 K28 ["withContext"]
+      100 DUPTABLE                         R14 K31 [{"Plugin", "Localization"}]
+      101 GETTABLEKS                       R15 R4 K29 ["Plugin"]
+      103 SETTABLEKS                       R15 R14 K29 ["Plugin"]
+      105 GETTABLEKS                       R15 R4 K30 ["Localization"]
+      107 SETTABLEKS                       R15 R14 K30 ["Localization"]
+      109 CALL                             R13 1 1
+      110 MOVE                             R14 R12
+      111 CALL                             R13 1 1
+      112 MOVE                             R12 R13
+      113 DUPCLOSURE                       R13 K32 [PROTO_2]
+      114 DUPCLOSURE                       R14 K33 [PROTO_4]
+      115 CAPTURE                          VAL R11
+      116 GETTABLEKS                       R15 R2 K34 ["connect"]
+      118 MOVE                             R16 R13
+      119 MOVE                             R17 R14
+      120 CALL                             R15 2 1
+      121 MOVE                             R16 R12
+      122 CALL                             R15 1 -1
+      123 RETURN                           R15 -1

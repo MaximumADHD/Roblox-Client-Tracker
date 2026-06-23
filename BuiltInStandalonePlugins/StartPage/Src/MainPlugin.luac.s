@@ -116,6 +116,22 @@ PROTO_3:
         4 RETURN                           R0 0
 
 PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["props"]
+        3 GETTABLEKS                       R0 R0 K1 ["Plugin"]
+        5 LOADK                            R2 K2 ["PlaceManager"]
+        6 NAMECALL                         R0 R0 K3 ["GetPluginComponent"]
+        8 CALL                             R0 2 1
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R2 R0 K4 ["PlaceDocPanelClosed"]
+       12 DUPCLOSURE                       R4 K5 [PROTO_3]
+       13 CAPTURE                          UPVAL U1
+       14 NAMECALL                         R2 R2 K6 ["Connect"]
+       16 CALL                             R2 2 1
+       17 SETTABLEKS                       R2 R1 K7 ["placeClosedConnection"]
+       19 RETURN                           R0 0
+
+PROTO_5:
         0 GETIMPORT                        R1 K1 [game]
         2 LOADK                            R3 K2 ["StudioUserService"]
         3 NAMECALL                         R1 R1 K3 ["GetService"]
@@ -130,24 +146,18 @@ PROTO_4:
        15 CALL                             R2 2 1
        16 SETTABLEKS                       R2 R0 K7 ["loggedInConnection"]
        18 GETUPVAL                         R2 0
-       19 JUMPIFNOT                        R2 ; [+17]
-       20 GETTABLEKS                       R2 R0 K8 ["props"]
-       22 GETTABLEKS                       R2 R2 K9 ["Plugin"]
-       24 LOADK                            R4 K10 ["PlaceManager"]
-       25 NAMECALL                         R2 R2 K11 ["GetPluginComponent"]
-       27 CALL                             R2 2 1
-       28 GETTABLEKS                       R3 R2 K12 ["PlaceDocPanelClosed"]
-       30 DUPCLOSURE                       R5 K13 [PROTO_3]
-       31 CAPTURE                          UPVAL U1
-       32 NAMECALL                         R3 R3 K6 ["Connect"]
-       34 CALL                             R3 2 1
-       35 SETTABLEKS                       R3 R0 K14 ["placeClosedConnection"]
-       37 GETUPVAL                         R2 1
-       38 GETTABLEKS                       R2 R2 K15 ["load"]
-       40 CALL                             R2 0 0
-       41 RETURN                           R0 0
+       19 JUMPIFNOT                        R2 ; [+6]
+       20 GETIMPORT                        R2 K10 [task.defer]
+       22 NEWCLOSURE                       R3 P1
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U1
+       25 CALL                             R2 1 0
+       26 GETUPVAL                         R2 1
+       27 GETTABLEKS                       R2 R2 K11 ["load"]
+       29 CALL                             R2 0 0
+       30 RETURN                           R0 0
 
-PROTO_5:
+PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["unload"]
         3 CALL                             R1 0 0
@@ -155,27 +165,29 @@ PROTO_5:
         6 NAMECALL                         R1 R1 K2 ["Disconnect"]
         8 CALL                             R1 1 0
         9 GETUPVAL                         R1 1
-       10 JUMPIFNOT                        R1 ; [+5]
+       10 JUMPIFNOT                        R1 ; [+8]
        11 GETTABLEKS                       R1 R0 K3 ["placeClosedConnection"]
-       13 NAMECALL                         R1 R1 K2 ["Disconnect"]
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
+       13 JUMPIFNOT                        R1 ; [+5]
+       14 GETTABLEKS                       R1 R0 K3 ["placeClosedConnection"]
+       16 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       18 CALL                             R1 1 0
+       19 RETURN                           R0 0
 
-PROTO_6:
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["startPageBridge"]
         3 NAMECALL                         R0 R0 K1 ["OpenLoadingPageAsync"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["startPageBridge"]
         3 NAMECALL                         R0 R0 K1 ["CloseLoadingPageAsync"]
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Plugin"]
         4 GETTABLEKS                       R3 R0 K2 ["state"]
@@ -399,15 +411,15 @@ MAIN:
       197 CAPTURE                          VAL R27
       198 CAPTURE                          VAL R6
       199 SETTABLEKS                       R29 R28 K49 ["init"]
-      201 DUPCLOSURE                       R29 K50 [PROTO_4]
+      201 DUPCLOSURE                       R29 K50 [PROTO_5]
       202 CAPTURE                          VAL R8
       203 CAPTURE                          VAL R5
       204 SETTABLEKS                       R29 R28 K51 ["didMount"]
-      206 DUPCLOSURE                       R29 K52 [PROTO_5]
+      206 DUPCLOSURE                       R29 K52 [PROTO_6]
       207 CAPTURE                          VAL R5
       208 CAPTURE                          VAL R8
       209 SETTABLEKS                       R29 R28 K53 ["willUnmount"]
-      211 DUPCLOSURE                       R29 K54 [PROTO_8]
+      211 DUPCLOSURE                       R29 K54 [PROTO_9]
       212 CAPTURE                          VAL R20
       213 CAPTURE                          VAL R11
       214 CAPTURE                          VAL R12

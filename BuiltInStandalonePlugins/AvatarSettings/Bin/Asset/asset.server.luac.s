@@ -5,17 +5,14 @@ PROTO_0:
         4 GETTABLEKS                       R3 R3 K3 ["CurrentDataModelType"]
         6 NAMECALL                         R0 R0 K4 ["Invoke"]
         8 CALL                             R0 3 0
-        9 GETUPVAL                         R0 1
-       10 CALL                             R0 0 1
-       11 JUMPIFNOT                        R0 ; [+11]
-       12 GETUPVAL                         R0 0
-       13 GETTABLEKS                       R0 R0 K3 ["CurrentDataModelType"]
-       15 GETIMPORT                        R1 K8 [Enum.StudioDataModelType.Edit]
-       17 JUMPIFNOTEQ                      R0 R1 ; [+5]
-       19 GETUPVAL                         R0 2
-       20 GETTABLEKS                       R0 R0 K9 ["reset"]
-       22 CALL                             R0 0 0
-       23 RETURN                           R0 0
+        9 GETUPVAL                         R0 0
+       10 GETTABLEKS                       R0 R0 K3 ["CurrentDataModelType"]
+       12 GETIMPORT                        R1 K8 [Enum.StudioDataModelType.Edit]
+       14 JUMPIFNOTEQ                      R0 R1 ; [+5]
+       16 GETUPVAL                         R0 1
+       17 GETTABLEKS                       R0 R0 K9 ["reset"]
+       19 CALL                             R0 0 0
+       20 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 1
@@ -62,73 +59,64 @@ MAIN:
        34 RETURN                           R0 0
        35 GETIMPORT                        R3 K11 [require]
        37 GETTABLEKS                       R4 R1 K15 ["Src"]
-       39 GETTABLEKS                       R4 R4 K17 ["Flags"]
-       41 GETTABLEKS                       R4 R4 K18 ["getFFlagPreviewToolbar"]
-       43 CALL                             R3 1 1
-       44 GETIMPORT                        R4 K11 [require]
-       46 GETTABLEKS                       R5 R1 K15 ["Src"]
-       48 GETTABLEKS                       R5 R5 K19 ["Util"]
-       50 GETTABLEKS                       R5 R5 K20 ["AvatarPreview"]
-       52 GETTABLEKS                       R5 R5 K21 ["TestInExperienceUtil"]
-       54 CALL                             R4 1 1
-       55 GETIMPORT                        R5 K5 [plugin]
-       57 GETTABLEKS                       R5 R5 K22 ["MultipleDocumentInterfaceInstance"]
-       59 GETTABLEKS                       R6 R5 K23 ["FocusedDataModelSession"]
-       61 GETTABLEKS                       R7 R6 K24 ["CurrentDataModelTypeChanged"]
-       63 NEWCLOSURE                       R9 P0
-       64 CAPTURE                          REF R6
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R4
-       67 NAMECALL                         R7 R7 K25 ["Connect"]
-       69 CALL                             R7 2 0
-       70 GETTABLEKS                       R7 R5 K26 ["DataModelSessionStarted"]
-       72 NEWCLOSURE                       R9 P1
-       73 CAPTURE                          REF R6
-       74 CAPTURE                          VAL R5
-       75 NAMECALL                         R7 R7 K25 ["Connect"]
-       77 CALL                             R7 2 0
-       78 GETIMPORT                        R7 K11 [require]
-       80 GETTABLEKS                       R8 R1 K27 ["Bin"]
-       82 GETTABLEKS                       R8 R8 K28 ["Common"]
-       84 GETTABLEKS                       R8 R8 K29 ["pluginType"]
-       86 CALL                             R7 1 1
-       87 GETIMPORT                        R8 K11 [require]
-       89 GETTABLEKS                       R9 R1 K15 ["Src"]
-       91 GETTABLEKS                       R9 R9 K19 ["Util"]
-       93 GETTABLEKS                       R9 R9 K30 ["BridgingFiles"]
-       95 GETTABLEKS                       R9 R9 K31 ["AssetDmFiles"]
-       97 GETTABLEKS                       R9 R9 K32 ["assetDmSetup"]
-       99 CALL                             R8 1 1
-      100 MOVE                             R9 R3
-      101 CALL                             R9 0 1
-      102 JUMPIFNOT                        R9 ; [+7]
-      103 NAMECALL                         R9 R0 K33 ["IsRunning"]
-      105 CALL                             R9 1 1
-      106 JUMPIF                           R9 ; [+3]
-      107 GETTABLEKS                       R9 R4 K34 ["reset"]
-      109 CALL                             R9 0 0
-      110 MOVE                             R9 R8
-      111 GETIMPORT                        R10 K5 [plugin]
-      113 CALL                             R9 1 0
-      114 GETTABLEKS                       R9 R7 K35 ["get"]
-      116 CALL                             R9 0 1
-      117 GETTABLEKS                       R10 R7 K36 ["Asset"]
-      119 JUMPIFEQ                         R9 R10 ; [+3]
-      121 CLOSEUPVALS                      R6
-      122 RETURN                           R0 0
-      123 GETIMPORT                        R9 K11 [require]
-      125 GETTABLEKS                       R10 R1 K27 ["Bin"]
-      127 GETTABLEKS                       R10 R10 K28 ["Common"]
-      129 GETTABLEKS                       R10 R10 K37 ["setup"]
-      131 CALL                             R9 1 1
-      132 GETIMPORT                        R10 K11 [require]
-      134 GETTABLEKS                       R11 R1 K27 ["Bin"]
-      136 GETTABLEKS                       R11 R11 K28 ["Common"]
-      138 GETTABLEKS                       R11 R11 K38 ["setupMain"]
-      140 CALL                             R10 1 1
-      141 MOVE                             R11 R9
-      142 GETIMPORT                        R12 K5 [plugin]
-      144 MOVE                             R13 R10
-      145 CALL                             R11 2 0
-      146 CLOSEUPVALS                      R6
-      147 RETURN                           R0 0
+       39 GETTABLEKS                       R4 R4 K17 ["Util"]
+       41 GETTABLEKS                       R4 R4 K18 ["AvatarPreview"]
+       43 GETTABLEKS                       R4 R4 K19 ["TestInExperienceUtil"]
+       45 CALL                             R3 1 1
+       46 GETIMPORT                        R4 K5 [plugin]
+       48 GETTABLEKS                       R4 R4 K20 ["MultipleDocumentInterfaceInstance"]
+       50 GETTABLEKS                       R5 R4 K21 ["FocusedDataModelSession"]
+       52 GETTABLEKS                       R6 R5 K22 ["CurrentDataModelTypeChanged"]
+       54 NEWCLOSURE                       R8 P0
+       55 CAPTURE                          REF R5
+       56 CAPTURE                          VAL R3
+       57 NAMECALL                         R6 R6 K23 ["Connect"]
+       59 CALL                             R6 2 0
+       60 GETTABLEKS                       R6 R4 K24 ["DataModelSessionStarted"]
+       62 NEWCLOSURE                       R8 P1
+       63 CAPTURE                          REF R5
+       64 CAPTURE                          VAL R4
+       65 NAMECALL                         R6 R6 K23 ["Connect"]
+       67 CALL                             R6 2 0
+       68 GETIMPORT                        R6 K11 [require]
+       70 GETTABLEKS                       R7 R1 K25 ["Bin"]
+       72 GETTABLEKS                       R7 R7 K26 ["Common"]
+       74 GETTABLEKS                       R7 R7 K27 ["pluginType"]
+       76 CALL                             R6 1 1
+       77 GETIMPORT                        R7 K11 [require]
+       79 GETTABLEKS                       R8 R1 K15 ["Src"]
+       81 GETTABLEKS                       R8 R8 K17 ["Util"]
+       83 GETTABLEKS                       R8 R8 K28 ["BridgingFiles"]
+       85 GETTABLEKS                       R8 R8 K29 ["AssetDmFiles"]
+       87 GETTABLEKS                       R8 R8 K30 ["assetDmSetup"]
+       89 CALL                             R7 1 1
+       90 NAMECALL                         R8 R0 K31 ["IsRunning"]
+       92 CALL                             R8 1 1
+       93 JUMPIF                           R8 ; [+3]
+       94 GETTABLEKS                       R8 R3 K32 ["reset"]
+       96 CALL                             R8 0 0
+       97 MOVE                             R8 R7
+       98 GETIMPORT                        R9 K5 [plugin]
+      100 CALL                             R8 1 0
+      101 GETTABLEKS                       R8 R6 K33 ["get"]
+      103 CALL                             R8 0 1
+      104 GETTABLEKS                       R9 R6 K34 ["Asset"]
+      106 JUMPIFEQ                         R8 R9 ; [+3]
+      108 CLOSEUPVALS                      R5
+      109 RETURN                           R0 0
+      110 GETIMPORT                        R8 K11 [require]
+      112 GETTABLEKS                       R9 R1 K25 ["Bin"]
+      114 GETTABLEKS                       R9 R9 K26 ["Common"]
+      116 GETTABLEKS                       R9 R9 K35 ["setup"]
+      118 CALL                             R8 1 1
+      119 GETIMPORT                        R9 K11 [require]
+      121 GETTABLEKS                       R10 R1 K25 ["Bin"]
+      123 GETTABLEKS                       R10 R10 K26 ["Common"]
+      125 GETTABLEKS                       R10 R10 K36 ["setupMain"]
+      127 CALL                             R9 1 1
+      128 MOVE                             R10 R8
+      129 GETIMPORT                        R11 K5 [plugin]
+      131 MOVE                             R12 R9
+      132 CALL                             R10 2 0
+      133 CLOSEUPVALS                      R5
+      134 RETURN                           R0 0

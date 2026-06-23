@@ -43,27 +43,27 @@ PROTO_1:
        46 GETUPVAL                         R4 0
        47 GETTABLEKS                       R4 R4 K15 ["createElement"]
        49 GETUPVAL                         R5 1
-       50 DUPTABLE                         R6 K27 [{"LayoutOrder", "Name", "Icon", "Writable", "Loading", "HideSeparator", "Removable", "SubText", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
+       50 DUPTABLE                         R6 K28 [{"LayoutOrder", "Name", "Icon", "Writable", "Loading", "HideSeparator", "Removable", "SubText", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged", "DisableEditPermission"}]
        51 GETTABLEKS                       R7 R1 K16 ["LayoutOrder"]
        53 SETTABLEKS                       R7 R6 K16 ["LayoutOrder"]
-       55 GETTABLEKS                       R7 R1 K28 ["RoleName"]
+       55 GETTABLEKS                       R7 R1 K29 ["RoleName"]
        57 SETTABLEKS                       R7 R6 K17 ["Name"]
        59 GETUPVAL                         R7 0
        60 GETTABLEKS                       R7 R7 K15 ["createElement"]
        62 GETUPVAL                         R8 2
-       63 DUPTABLE                         R9 K32 [{"Id", "Color", "Size"}]
-       64 GETTABLEKS                       R10 R1 K29 ["Id"]
-       66 SETTABLEKS                       R10 R9 K29 ["Id"]
-       68 GETTABLEKS                       R10 R1 K30 ["Color"]
-       70 SETTABLEKS                       R10 R9 K30 ["Color"]
-       72 GETIMPORT                        R10 K35 [UDim2.fromScale]
+       63 DUPTABLE                         R9 K33 [{"Id", "Color", "Size"}]
+       64 GETTABLEKS                       R10 R1 K30 ["Id"]
+       66 SETTABLEKS                       R10 R9 K30 ["Id"]
+       68 GETTABLEKS                       R10 R1 K31 ["Color"]
+       70 SETTABLEKS                       R10 R9 K31 ["Color"]
+       72 GETIMPORT                        R10 K36 [UDim2.fromScale]
        74 LOADN                            R11 1
        75 LOADN                            R12 1
        76 CALL                             R10 2 1
-       77 SETTABLEKS                       R10 R9 K31 ["Size"]
+       77 SETTABLEKS                       R10 R9 K32 ["Size"]
        79 CALL                             R7 2 1
        80 SETTABLEKS                       R7 R6 K18 ["Icon"]
-       82 GETTABLEKS                       R7 R1 K36 ["IsEditable"]
+       82 GETTABLEKS                       R7 R1 K37 ["IsEditable"]
        84 SETTABLEKS                       R7 R6 K19 ["Writable"]
        86 LOADB                            R7 0
        87 SETTABLEKS                       R7 R6 K20 ["Loading"]
@@ -71,16 +71,18 @@ PROTO_1:
        91 SETTABLEKS                       R7 R6 K21 ["HideSeparator"]
        93 LOADB                            R7 0
        94 SETTABLEKS                       R7 R6 K22 ["Removable"]
-       96 GETTABLEKS                       R7 R1 K37 ["OrgName"]
+       96 GETTABLEKS                       R7 R1 K38 ["OrgName"]
        98 SETTABLEKS                       R7 R6 K23 ["SubText"]
-      100 GETTABLEKS                       R7 R1 K38 ["SelectedAction"]
+      100 GETTABLEKS                       R7 R1 K39 ["SelectedAction"]
       102 SETTABLEKS                       R7 R6 K24 ["CurrentPermission"]
       104 SETTABLEKS                       R3 R6 K25 ["AvailablePermissions"]
       106 NEWCLOSURE                       R7 P0
       107 CAPTURE                          VAL R1
       108 SETTABLEKS                       R7 R6 K26 ["OnPermissionChanged"]
-      110 CALL                             R4 2 -1
-      111 RETURN                           R4 -1
+      110 GETTABLEKS                       R7 R1 K27 ["DisableEditPermission"]
+      112 SETTABLEKS                       R7 R6 K27 ["DisableEditPermission"]
+      114 CALL                             R4 2 -1
+      115 RETURN                           R4 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K6 [{"RoleName", "OrgName", "SelectedAction", "AvailableActions", "Color", "IsEditable"}]

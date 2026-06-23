@@ -373,22 +373,24 @@ PROTO_17:
       112 DUPTABLE                         R12 K50 [{"App"}]
       113 GETUPVAL                         R13 3
       114 GETUPVAL                         R14 6
-      115 DUPTABLE                         R15 K55 [{"dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle", "textBoxRef"}]
-      116 GETTABLEKS                       R16 R1 K37 ["PluginLoaderContext"]
-      118 GETTABLEKS                       R16 R16 K38 ["mainDockWidget"]
-      120 SETTABLEKS                       R16 R15 K51 ["dockWidget"]
-      122 GETTABLEKS                       R16 R0 K52 ["onFoundationStyleSheetChange"]
-      124 SETTABLEKS                       R16 R15 K52 ["onFoundationStyleSheetChange"]
-      126 GETTABLEKS                       R16 R0 K53 ["setDockWidgetTitle"]
-      128 SETTABLEKS                       R16 R15 K53 ["setDockWidgetTitle"]
-      130 GETTABLEKS                       R16 R0 K54 ["textBoxRef"]
-      132 SETTABLEKS                       R16 R15 K54 ["textBoxRef"]
-      134 CALL                             R13 2 1
-      135 SETTABLEKS                       R13 R12 K49 ["App"]
-      137 CALL                             R9 3 1
-      138 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
-      140 CALL                             R6 2 -1
-      141 RETURN                           R6 -1
+      115 DUPTABLE                         R15 K56 [{"args", "dockWidget", "onFoundationStyleSheetChange", "setDockWidgetTitle", "textBoxRef"}]
+      116 GETTABLEKS                       R16 R1 K57 ["Args"]
+      118 SETTABLEKS                       R16 R15 K51 ["args"]
+      120 GETTABLEKS                       R16 R1 K37 ["PluginLoaderContext"]
+      122 GETTABLEKS                       R16 R16 K38 ["mainDockWidget"]
+      124 SETTABLEKS                       R16 R15 K52 ["dockWidget"]
+      126 GETTABLEKS                       R16 R0 K53 ["onFoundationStyleSheetChange"]
+      128 SETTABLEKS                       R16 R15 K53 ["onFoundationStyleSheetChange"]
+      130 GETTABLEKS                       R16 R0 K54 ["setDockWidgetTitle"]
+      132 SETTABLEKS                       R16 R15 K54 ["setDockWidgetTitle"]
+      134 GETTABLEKS                       R16 R0 K55 ["textBoxRef"]
+      136 SETTABLEKS                       R16 R15 K55 ["textBoxRef"]
+      138 CALL                             R13 2 1
+      139 SETTABLEKS                       R13 R12 K49 ["App"]
+      141 CALL                             R9 3 1
+      142 SETTABLEKS                       R9 R8 K18 ["MainWidget"]
+      144 CALL                             R6 2 -1
+      145 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

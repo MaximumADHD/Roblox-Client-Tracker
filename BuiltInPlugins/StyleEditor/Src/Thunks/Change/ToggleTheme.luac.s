@@ -29,28 +29,24 @@ PROTO_1:
        15 CALL                             R4 -1 -1
        16 NAMECALL                         R2 R0 K6 ["dispatch"]
        18 CALL                             R2 -1 0
-       19 LOADNIL                          R2
-       20 GETUPVAL                         R3 3
-       21 JUMPIFNOT                        R3 ; [+7]
-       22 NAMECALL                         R3 R0 K7 ["getState"]
-       24 CALL                             R3 1 1
-       25 GETTABLEKS                       R4 R3 K8 ["Window"]
-       27 GETTABLEKS                       R2 R4 K9 ["Source"]
-       29 GETTABLEKS                       R3 R1 K10 ["recordChange"]
-       31 DUPTABLE                         R4 K14 [{"Name", "DisplayName", "DoChange"}]
-       32 LOADK                            R5 K15 ["StyleEditor.SetDerives"]
-       33 SETTABLEKS                       R5 R4 K11 ["Name"]
-       35 LOADK                            R5 K16 ["Style Editor - Set Derives"]
-       36 SETTABLEKS                       R5 R4 K12 ["DisplayName"]
-       38 NEWCLOSURE                       R5 P0
-       39 CAPTURE                          UPVAL U4
-       40 CAPTURE                          REF R2
-       41 CAPTURE                          UPVAL U5
-       42 CAPTURE                          UPVAL U6
-       43 SETTABLEKS                       R5 R4 K13 ["DoChange"]
-       45 CALL                             R3 1 0
-       46 CLOSEUPVALS                      R2
-       47 RETURN                           R0 0
+       19 NAMECALL                         R2 R0 K7 ["getState"]
+       21 CALL                             R2 1 1
+       22 GETTABLEKS                       R3 R2 K8 ["Window"]
+       24 GETTABLEKS                       R3 R3 K9 ["Source"]
+       26 GETTABLEKS                       R4 R1 K10 ["recordChange"]
+       28 DUPTABLE                         R5 K14 [{"Name", "DisplayName", "DoChange"}]
+       29 LOADK                            R6 K15 ["StyleEditor.SetDerives"]
+       30 SETTABLEKS                       R6 R5 K11 ["Name"]
+       32 LOADK                            R6 K16 ["Style Editor - Set Derives"]
+       33 SETTABLEKS                       R6 R5 K12 ["DisplayName"]
+       35 NEWCLOSURE                       R6 P0
+       36 CAPTURE                          UPVAL U3
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          UPVAL U4
+       39 CAPTURE                          UPVAL U5
+       40 SETTABLEKS                       R6 R5 K13 ["DoChange"]
+       42 CALL                             R4 1 0
+       43 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0
@@ -58,10 +54,9 @@ PROTO_2:
         2 CAPTURE                          UPVAL U1
         3 CAPTURE                          UPVAL U2
         4 CAPTURE                          UPVAL U3
-        5 CAPTURE                          UPVAL U4
-        6 CAPTURE                          VAL R0
-        7 CAPTURE                          VAL R1
-        8 RETURN                           R2 1
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          VAL R1
+        7 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -72,46 +67,39 @@ MAIN:
         9 GETTABLEKS                       R0 R0 K2 ["Parent"]
        11 GETIMPORT                        R1 K4 [require]
        13 GETTABLEKS                       R2 R0 K5 ["Src"]
-       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R2 K7 ["getFFlagStyleEditorPluginStyleSheets"]
+       15 GETTABLEKS                       R2 R2 K6 ["Reducers"]
+       17 GETTABLEKS                       R2 R2 K7 ["RootReducer"]
        19 CALL                             R1 1 1
-       20 CALL                             R1 0 1
-       21 GETIMPORT                        R2 K4 [require]
-       23 GETTABLEKS                       R3 R0 K5 ["Src"]
-       25 GETTABLEKS                       R3 R3 K8 ["Reducers"]
-       27 GETTABLEKS                       R3 R3 K9 ["RootReducer"]
-       29 CALL                             R2 1 1
-       30 GETIMPORT                        R3 K4 [require]
-       32 GETTABLEKS                       R4 R0 K5 ["Src"]
-       34 GETTABLEKS                       R4 R4 K10 ["Util"]
-       36 GETTABLEKS                       R4 R4 K11 ["DesignHelpers"]
-       38 CALL                             R3 1 1
-       39 GETIMPORT                        R4 K4 [require]
-       41 GETTABLEKS                       R5 R0 K5 ["Src"]
-       43 GETTABLEKS                       R5 R5 K12 ["Resources"]
-       45 GETTABLEKS                       R5 R5 K13 ["Telemetry"]
-       47 GETTABLEKS                       R5 R5 K14 ["ActionClickedEvent"]
-       49 CALL                             R4 1 1
-       50 GETIMPORT                        R5 K4 [require]
-       52 GETTABLEKS                       R6 R0 K5 ["Src"]
-       54 GETTABLEKS                       R6 R6 K15 ["Enums"]
-       56 GETTABLEKS                       R6 R6 K16 ["ActionClickedEventType"]
-       58 CALL                             R5 1 1
-       59 GETIMPORT                        R6 K4 [require]
-       61 GETTABLEKS                       R7 R0 K5 ["Src"]
-       63 GETTABLEKS                       R7 R7 K17 ["Thunks"]
-       65 GETTABLEKS                       R7 R7 K13 ["Telemetry"]
-       67 GETTABLEKS                       R7 R7 K18 ["SendTelemetryEvent"]
-       69 CALL                             R6 1 1
-       70 GETIMPORT                        R7 K4 [require]
-       72 GETTABLEKS                       R8 R0 K5 ["Src"]
-       74 GETTABLEKS                       R8 R8 K17 ["Thunks"]
-       76 GETTABLEKS                       R8 R8 K19 ["Types"]
-       78 CALL                             R7 1 1
-       79 DUPCLOSURE                       R8 K20 [PROTO_2]
-       80 CAPTURE                          VAL R6
-       81 CAPTURE                          VAL R4
-       82 CAPTURE                          VAL R5
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R3
-       85 RETURN                           R8 1
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K8 ["Util"]
+       26 GETTABLEKS                       R3 R3 K9 ["DesignHelpers"]
+       28 CALL                             R2 1 1
+       29 GETIMPORT                        R3 K4 [require]
+       31 GETTABLEKS                       R4 R0 K5 ["Src"]
+       33 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       35 GETTABLEKS                       R4 R4 K11 ["Telemetry"]
+       37 GETTABLEKS                       R4 R4 K12 ["ActionClickedEvent"]
+       39 CALL                             R3 1 1
+       40 GETIMPORT                        R4 K4 [require]
+       42 GETTABLEKS                       R5 R0 K5 ["Src"]
+       44 GETTABLEKS                       R5 R5 K13 ["Enums"]
+       46 GETTABLEKS                       R5 R5 K14 ["ActionClickedEventType"]
+       48 CALL                             R4 1 1
+       49 GETIMPORT                        R5 K4 [require]
+       51 GETTABLEKS                       R6 R0 K5 ["Src"]
+       53 GETTABLEKS                       R6 R6 K15 ["Thunks"]
+       55 GETTABLEKS                       R6 R6 K11 ["Telemetry"]
+       57 GETTABLEKS                       R6 R6 K16 ["SendTelemetryEvent"]
+       59 CALL                             R5 1 1
+       60 GETIMPORT                        R6 K4 [require]
+       62 GETTABLEKS                       R7 R0 K5 ["Src"]
+       64 GETTABLEKS                       R7 R7 K15 ["Thunks"]
+       66 GETTABLEKS                       R7 R7 K17 ["Types"]
+       68 CALL                             R6 1 1
+       69 DUPCLOSURE                       R7 K18 [PROTO_2]
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R4
+       73 CAPTURE                          VAL R2
+       74 RETURN                           R7 1

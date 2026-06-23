@@ -85,45 +85,86 @@ PROTO_1:
        83 GETTABLEN                        R3 R7 1
        84 JUMPIFNOTEQKNIL                  R3 ; [+2]
        86 RETURN                           R0 0
-       87 GETUPVAL                         R5 1
-       88 MOVE                             R7 R3
-       89 NAMECALL                         R5 R5 K18 ["Insert"]
-       91 CALL                             R5 2 0
-       92 GETTABLEKS                       R5 R1 K19 ["InsertWithScenePosition"]
-       94 JUMPIF                           R5 ; [+19]
-       95 GETUPVAL                         R5 2
-       96 CALL                             R5 0 1
-       97 LOADK                            R8 K20 ["Model"]
-       98 NAMECALL                         R6 R3 K21 ["IsA"]
-      100 CALL                             R6 2 1
-      101 JUMPIFNOT                        R6 ; [+5]
-      102 MOVE                             R8 R5
-      103 NAMECALL                         R6 R3 K22 ["MoveTo"]
-      105 CALL                             R6 2 0
-      106 JUMP                             ; [+7]
-      107 LOADK                            R8 K23 ["MeshPart"]
-      108 NAMECALL                         R6 R3 K21 ["IsA"]
-      110 CALL                             R6 2 1
-      111 JUMPIFNOT                        R6 ; [+2]
-      112 SETTABLEKS                       R5 R3 K24 ["Position"]
-      114 GETUPVAL                         R5 3
-      115 LOADK                            R7 K25 ["Insert imported asset"]
-      116 NAMECALL                         R5 R5 K26 ["SetWaypoint"]
-      118 CALL                             R5 2 0
+       87 GETUPVAL                         R5 2
+       88 CALL                             R5 0 1
+       89 JUMPIFNOT                        R5 ; [+49]
+       90 GETUPVAL                         R5 3
+       91 CALL                             R5 0 1
+       92 JUMPIFNOT                        R5 ; [+46]
+       93 GETUPVAL                         R5 4
+       94 GETTABLEKS                       R5 R5 K18 ["IsAvatarModel"]
+       96 MOVE                             R6 R3
+       97 CALL                             R5 1 1
+       98 JUMPIFNOT                        R5 ; [+40]
+       99 GETUPVAL                         R5 4
+      100 GETTABLEKS                       R5 R5 K19 ["CreateImportedFbxModel"]
+      102 MOVE                             R6 R3
+      103 CALL                             R5 1 1
+      104 GETUPVAL                         R6 4
+      105 GETTABLEKS                       R6 R6 K20 ["MakeExportVersion"]
+      107 MOVE                             R7 R5
+      108 CALL                             R6 1 0
+      109 GETUPVAL                         R6 4
+      110 GETTABLEKS                       R6 R6 K21 ["WatchForChanges"]
+      112 MOVE                             R7 R5
+      113 CALL                             R6 1 0
+      114 GETUPVAL                         R6 5
+      115 LOADK                            R8 K22 ["Insert imported avatar"]
+      116 NAMECALL                         R6 R6 K23 ["SetWaypoint"]
+      118 CALL                             R6 2 0
       119 JUMPIFNOT                        R2 ; [+18]
-      120 GETUPVAL                         R5 4
-      121 NEWTABLE                         R7 0 1
-      123 MOVE                             R8 R3
-      124 SETLIST                          R7 R8 1 [1]
-      126 NAMECALL                         R5 R5 K27 ["Set"]
-      128 CALL                             R5 2 0
-      129 GETUPVAL                         R5 5
-      130 GETIMPORT                        R6 K29 [game]
-      132 GETTABLEKS                       R6 R6 K30 ["Workspace"]
-      134 GETTABLEKS                       R6 R6 K31 ["CurrentCamera"]
-      136 MOVE                             R7 R3
-      137 CALL                             R5 2 0
+      120 GETUPVAL                         R6 6
+      121 NEWTABLE                         R8 0 1
+      123 MOVE                             R9 R5
+      124 SETLIST                          R8 R9 1 [1]
+      126 NAMECALL                         R6 R6 K24 ["Set"]
+      128 CALL                             R6 2 0
+      129 GETUPVAL                         R6 7
+      130 GETIMPORT                        R7 K26 [game]
+      132 GETTABLEKS                       R7 R7 K27 ["Workspace"]
+      134 GETTABLEKS                       R7 R7 K28 ["CurrentCamera"]
+      136 MOVE                             R8 R5
+      137 CALL                             R6 2 0
       138 RETURN                           R0 0
+      139 GETUPVAL                         R5 1
+      140 MOVE                             R7 R3
+      141 NAMECALL                         R5 R5 K29 ["Insert"]
+      143 CALL                             R5 2 0
+      144 GETTABLEKS                       R5 R1 K30 ["InsertWithScenePosition"]
+      146 JUMPIF                           R5 ; [+19]
+      147 GETUPVAL                         R5 8
+      148 CALL                             R5 0 1
+      149 LOADK                            R8 K31 ["Model"]
+      150 NAMECALL                         R6 R3 K32 ["IsA"]
+      152 CALL                             R6 2 1
+      153 JUMPIFNOT                        R6 ; [+5]
+      154 MOVE                             R8 R5
+      155 NAMECALL                         R6 R3 K33 ["MoveTo"]
+      157 CALL                             R6 2 0
+      158 JUMP                             ; [+7]
+      159 LOADK                            R8 K34 ["MeshPart"]
+      160 NAMECALL                         R6 R3 K32 ["IsA"]
+      162 CALL                             R6 2 1
+      163 JUMPIFNOT                        R6 ; [+2]
+      164 SETTABLEKS                       R5 R3 K35 ["Position"]
+      166 GETUPVAL                         R5 5
+      167 LOADK                            R7 K36 ["Insert imported asset"]
+      168 NAMECALL                         R5 R5 K23 ["SetWaypoint"]
+      170 CALL                             R5 2 0
+      171 JUMPIFNOT                        R2 ; [+18]
+      172 GETUPVAL                         R5 6
+      173 NEWTABLE                         R7 0 1
+      175 MOVE                             R8 R3
+      176 SETLIST                          R7 R8 1 [1]
+      178 NAMECALL                         R5 R5 K24 ["Set"]
+      180 CALL                             R5 2 0
+      181 GETUPVAL                         R5 7
+      182 GETIMPORT                        R6 K26 [game]
+      184 GETTABLEKS                       R6 R6 K27 ["Workspace"]
+      186 GETTABLEKS                       R6 R6 K28 ["CurrentCamera"]
+      188 MOVE                             R7 R3
+      189 CALL                             R5 2 0
+      190 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -171,14 +212,33 @@ MAIN:
        41 GETTABLEKS                       R7 R7 K14 ["Flags"]
        43 GETTABLEKS                       R7 R7 K15 ["getFFlagCinFixUploadResults"]
        45 CALL                             R6 1 1
-       46 DUPCLOSURE                       R7 K16 [PROTO_0]
-       47 DUPCLOSURE                       R8 K17 [PROTO_1]
-       48 CAPTURE                          VAL R6
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          VAL R3
-       53 CAPTURE                          VAL R7
-       54 DUPCLOSURE                       R9 K18 [PROTO_3]
-       55 CAPTURE                          VAL R8
-       56 RETURN                           R9 1
+       46 GETIMPORT                        R7 K5 [require]
+       48 GETTABLEKS                       R8 R0 K6 ["Src"]
+       50 GETTABLEKS                       R8 R8 K14 ["Flags"]
+       52 GETTABLEKS                       R8 R8 K16 ["getFFlagInternalAvatarImportTools"]
+       54 CALL                             R7 1 1
+       55 GETIMPORT                        R8 K5 [require]
+       57 GETTABLEKS                       R9 R0 K6 ["Src"]
+       59 GETTABLEKS                       R9 R9 K7 ["Utility"]
+       61 GETTABLEKS                       R9 R9 K17 ["hasInternalPermission"]
+       63 CALL                             R8 1 1
+       64 GETIMPORT                        R9 K5 [require]
+       66 GETTABLEKS                       R10 R0 K6 ["Src"]
+       68 GETTABLEKS                       R10 R10 K7 ["Utility"]
+       70 GETTABLEKS                       R10 R10 K18 ["RigSetup"]
+       72 GETTABLEKS                       R10 R10 K18 ["RigSetup"]
+       74 CALL                             R9 1 1
+       75 DUPCLOSURE                       R10 K19 [PROTO_0]
+       76 DUPCLOSURE                       R11 K20 [PROTO_1]
+       77 CAPTURE                          VAL R6
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          VAL R7
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R9
+       82 CAPTURE                          VAL R4
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          VAL R10
+       85 CAPTURE                          VAL R5
+       86 DUPCLOSURE                       R12 K21 [PROTO_3]
+       87 CAPTURE                          VAL R11
+       88 RETURN                           R12 1

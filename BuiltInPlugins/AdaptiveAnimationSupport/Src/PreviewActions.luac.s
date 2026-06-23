@@ -8,34 +8,17 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R2 0
-        1 GETTABLEKS                       R2 R2 K0 ["autoMap"]
+        1 GETTABLEKS                       R2 R2 K0 ["autoAll"]
         3 MOVE                             R3 R1
         4 MOVE                             R4 R0
-        5 CALL                             R2 2 0
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K1 ["enforceTpose"]
-        9 MOVE                             R3 R1
-       10 MOVE                             R4 R0
-       11 CALL                             R2 2 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R2 R2 K2 ["sampleTposeAdjustment"]
-       15 MOVE                             R3 R1
-       16 MOVE                             R4 R0
-       17 CALL                             R2 2 0
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R2 R2 K3 ["SIZE_ENABLED"]
-       21 JUMPIFNOT                        R2 ; [+7]
-       22 JUMPIFNOT                        R0 ; [+6]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K4 ["autoSize"]
-       26 MOVE                             R3 R1
-       27 MOVE                             R4 R0
-       28 CALL                             R2 2 0
-       29 GETUPVAL                         R2 2
-       30 GETTABLEKS                       R2 R2 K5 ["addTPoseWaypoint"]
-       32 LOADK                            R3 K6 ["Auto All"]
-       33 CALL                             R2 1 0
-       34 RETURN                           R0 0
+        5 GETUPVAL                         R5 1
+        6 CALL                             R5 0 -1
+        7 CALL                             R2 -1 0
+        8 GETUPVAL                         R2 2
+        9 GETTABLEKS                       R2 R2 K1 ["addTPoseWaypoint"]
+       11 LOADK                            R3 K2 ["Auto All"]
+       12 CALL                             R2 1 0
+       13 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -48,21 +31,39 @@ PROTO_2:
         9 MOVE                             R3 R1
        10 MOVE                             R4 R0
        11 CALL                             R2 2 0
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R2 R2 K2 ["clearTransforms"]
-       15 MOVE                             R3 R1
-       16 MOVE                             R4 R0
-       17 CALL                             R2 2 0
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R2 R2 K3 ["clearSize"]
-       21 MOVE                             R3 R1
-       22 MOVE                             R4 R0
-       23 CALL                             R2 2 0
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R2 R2 K4 ["addTPoseWaypoint"]
-       27 LOADK                            R3 K5 ["Reset All"]
-       28 CALL                             R2 1 0
-       29 RETURN                           R0 0
+       12 GETUPVAL                         R2 1
+       13 CALL                             R2 0 1
+       14 JUMPIFNOT                        R2 ; [+20]
+       15 LOADK                            R4 K2 ["> DigitsRigDescription"]
+       16 NAMECALL                         R2 R1 K3 ["QueryDescendants"]
+       18 CALL                             R2 2 3
+       19 FORGPREP                         R2
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K4 ["handRigLabels"]
+       23 LOADNIL                          R8
+       24 LOADNIL                          R9
+       25 FORGPREP                         R7
+       26 MOVE                             R14 R11
+       27 LOADNIL                          R15
+       28 NAMECALL                         R12 R6 K5 ["SetJoint"]
+       30 CALL                             R12 3 0
+       31 FORGLOOP                         R7 2 ; [-6]
+       33 FORGLOOP                         R2 2 ; [-14]
+       35 GETUPVAL                         R2 0
+       36 GETTABLEKS                       R2 R2 K6 ["clearTransforms"]
+       38 MOVE                             R3 R1
+       39 MOVE                             R4 R0
+       40 CALL                             R2 2 0
+       41 GETUPVAL                         R2 0
+       42 GETTABLEKS                       R2 R2 K7 ["clearSize"]
+       44 MOVE                             R3 R1
+       45 MOVE                             R4 R0
+       46 CALL                             R2 2 0
+       47 GETUPVAL                         R2 2
+       48 GETTABLEKS                       R2 R2 K8 ["addTPoseWaypoint"]
+       50 LOADK                            R3 K9 ["Reset All"]
+       51 CALL                             R2 1 0
+       52 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R4 0
@@ -99,8 +100,8 @@ MAIN:
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K5 [require]
        25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K11 ["Resources"]
-       29 GETTABLEKS                       R4 R4 K12 ["Constants"]
+       27 GETTABLEKS                       R4 R4 K11 ["Flags"]
+       29 GETTABLEKS                       R4 R4 K12 ["getFFlagAdaptiveAnimationHandRigQoL"]
        31 CALL                             R3 1 1
        32 NEWTABLE                         R4 4 0
        34 DUPCLOSURE                       R5 K13 [PROTO_0]
@@ -113,9 +114,10 @@ MAIN:
        42 SETTABLEKS                       R5 R4 K16 ["autoAll"]
        44 DUPCLOSURE                       R5 K17 [PROTO_2]
        45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R2
-       47 SETTABLEKS                       R5 R4 K18 ["resetAll"]
-       49 DUPCLOSURE                       R5 K19 [PROTO_3]
-       50 CAPTURE                          VAL R1
-       51 SETTABLEKS                       R5 R4 K20 ["onPlaybackStopped"]
-       53 RETURN                           R4 1
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R2
+       48 SETTABLEKS                       R5 R4 K18 ["resetAll"]
+       50 DUPCLOSURE                       R5 K19 [PROTO_3]
+       51 CAPTURE                          VAL R1
+       52 SETTABLEKS                       R5 R4 K20 ["onPlaybackStopped"]
+       54 RETURN                           R4 1

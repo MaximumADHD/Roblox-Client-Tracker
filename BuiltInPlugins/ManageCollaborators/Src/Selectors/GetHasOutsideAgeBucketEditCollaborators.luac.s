@@ -26,23 +26,26 @@ PROTO_0:
        35 CALL                             R5 1 3
        36 FORGPREP_NEXT                    R5
        37 GETTABLE                         R10 R1 R8
-       38 GETUPVAL                         R11 4
-       39 GETTABLEKS                       R11 R11 K7 ["OutsideAgeBucket"]
-       41 JUMPIFEQ                         R10 R11 ; [+6]
-       43 GETUPVAL                         R11 4
-       44 GETTABLEKS                       R11 R11 K8 ["OutsideAgeBucketTcPc"]
-       46 JUMPIFNOTEQ                      R10 R11 ; [+12]
-       48 GETUPVAL                         R12 0
-       49 GETTABLEKS                       R12 R12 K9 ["ActionKey"]
-       51 GETTABLE                         R11 R9 R12
-       52 GETUPVAL                         R12 0
-       53 GETTABLEKS                       R12 R12 K10 ["EditKey"]
-       55 JUMPIFNOTEQ                      R11 R12 ; [+3]
-       57 LOADB                            R4 1
-       58 JUMP                             ; [+2]
-       59 FORGLOOP                         R5 2 ; [-23]
-       61 SETUPVAL                         R4 3
-       62 RETURN                           R4 1
+       38 JUMPIFEQKNIL                     R10 ; [+26]
+       40 GETTABLEKS                       R11 R10 K7 ["error"]
+       42 GETUPVAL                         R12 4
+       43 GETTABLEKS                       R12 R12 K8 ["OutsideAgeBucket"]
+       45 JUMPIFEQ                         R11 R12 ; [+8]
+       47 GETTABLEKS                       R11 R10 K7 ["error"]
+       49 GETUPVAL                         R12 4
+       50 GETTABLEKS                       R12 R12 K9 ["OutsideAgeBucketTcPc"]
+       52 JUMPIFNOTEQ                      R11 R12 ; [+12]
+       54 GETUPVAL                         R12 0
+       55 GETTABLEKS                       R12 R12 K10 ["ActionKey"]
+       57 GETTABLE                         R11 R9 R12
+       58 GETUPVAL                         R12 0
+       59 GETTABLEKS                       R12 R12 K11 ["EditKey"]
+       61 JUMPIFNOTEQ                      R11 R12 ; [+3]
+       63 LOADB                            R4 1
+       64 JUMP                             ; [+2]
+       65 FORGLOOP                         R5 2 ; [-29]
+       67 SETUPVAL                         R4 3
+       68 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

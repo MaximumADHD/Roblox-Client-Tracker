@@ -200,19 +200,19 @@ PROTO_5:
       109 GETUPVAL                         R17 3
       110 GETTABLEKS                       R17 R17 K20 ["createElement"]
       112 GETUPVAL                         R18 4
-      113 DUPTABLE                         R19 K31 [{"LayoutOrder", "Name", "Icon", "Writable", "Loading", "IsOwner", "CanCollaborateResponse", "HideSeparator", "Removable", "OnRemoved", "TooltipText", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
+      113 DUPTABLE                         R19 K33 [{"LayoutOrder", "Name", "Icon", "Writable", "Loading", "IsOwner", "CanCollaborateResponse", "CanCollaborateErrorEnum", "DisableEditPermission", "HideSeparator", "Removable", "OnRemoved", "TooltipText", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
       114 SETTABLEKS                       R2 R19 K1 ["LayoutOrder"]
       116 SETTABLEKS                       R6 R19 K21 ["Name"]
       118 GETUPVAL                         R20 3
       119 GETTABLEKS                       R20 R20 K20 ["createElement"]
       121 GETUPVAL                         R21 5
-      122 DUPTABLE                         R22 K33 [{"Id", "Size"}]
+      122 DUPTABLE                         R22 K35 [{"Id", "Size"}]
       123 SETTABLEKS                       R4 R22 K3 ["Id"]
-      125 GETIMPORT                        R23 K36 [UDim2.fromScale]
+      125 GETIMPORT                        R23 K38 [UDim2.fromScale]
       127 LOADN                            R24 1
       128 LOADN                            R25 1
       129 CALL                             R23 2 1
-      130 SETTABLEKS                       R23 R22 K32 ["Size"]
+      130 SETTABLEKS                       R23 R22 K34 ["Size"]
       132 CALL                             R20 2 1
       133 SETTABLEKS                       R20 R19 K22 ["Icon"]
       135 SETTABLEKS                       R15 R19 K4 ["Writable"]
@@ -225,32 +225,49 @@ PROTO_5:
       144 LOADNIL                          R20
       145 SETTABLEKS                       R20 R19 K6 ["IsOwner"]
       147 GETUPVAL                         R21 6
-      148 GETTABLEKS                       R21 R21 K37 ["fflagManageCollaboratorsActionNeededLabel"]
+      148 GETTABLEKS                       R21 R21 K39 ["fflagManageCollaboratorsActionNeededLabel"]
       150 JUMPIFNOT                        R21 ; [+3]
       151 GETTABLEKS                       R20 R1 K24 ["CanCollaborateResponse"]
       153 JUMP                             ; [+1]
       154 LOADNIL                          R20
       155 SETTABLEKS                       R20 R19 K24 ["CanCollaborateResponse"]
-      157 SETTABLEKS                       R8 R19 K7 ["HideSeparator"]
-      159 SETTABLEKS                       R16 R19 K25 ["Removable"]
-      161 NEWCLOSURE                       R20 P0
-      162 CAPTURE                          VAL R10
-      163 CAPTURE                          VAL R4
-      164 CAPTURE                          UPVAL U1
-      165 CAPTURE                          VAL R11
-      166 CAPTURE                          UPVAL U7
-      167 SETTABLEKS                       R20 R19 K26 ["OnRemoved"]
-      169 SETTABLEKS                       R14 R19 K27 ["TooltipText"]
-      171 NAMECALL                         R20 R0 K38 ["getCurrentPermission"]
-      173 CALL                             R20 1 1
-      174 SETTABLEKS                       R20 R19 K28 ["CurrentPermission"]
-      176 SETTABLEKS                       R13 R19 K29 ["AvailablePermissions"]
-      178 NEWCLOSURE                       R20 P1
-      179 CAPTURE                          VAL R9
-      180 CAPTURE                          VAL R4
-      181 SETTABLEKS                       R20 R19 K30 ["OnPermissionChanged"]
-      183 CALL                             R17 2 -1
-      184 RETURN                           R17 -1
+      157 GETUPVAL                         R21 6
+      158 GETTABLEKS                       R21 R21 K40 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      160 JUMPIFNOT                        R21 ; [+3]
+      161 GETTABLEKS                       R20 R1 K25 ["CanCollaborateErrorEnum"]
+      163 JUMP                             ; [+1]
+      164 LOADNIL                          R20
+      165 SETTABLEKS                       R20 R19 K25 ["CanCollaborateErrorEnum"]
+      167 GETUPVAL                         R21 6
+      168 GETTABLEKS                       R21 R21 K40 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      170 JUMPIF                           R21 ; [+4]
+      171 GETUPVAL                         R21 6
+      172 GETTABLEKS                       R21 R21 K41 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      174 JUMPIFNOT                        R21 ; [+3]
+      175 GETTABLEKS                       R20 R1 K26 ["DisableEditPermission"]
+      177 JUMP                             ; [+1]
+      178 LOADNIL                          R20
+      179 SETTABLEKS                       R20 R19 K26 ["DisableEditPermission"]
+      181 SETTABLEKS                       R8 R19 K7 ["HideSeparator"]
+      183 SETTABLEKS                       R16 R19 K27 ["Removable"]
+      185 NEWCLOSURE                       R20 P0
+      186 CAPTURE                          VAL R10
+      187 CAPTURE                          VAL R4
+      188 CAPTURE                          UPVAL U1
+      189 CAPTURE                          VAL R11
+      190 CAPTURE                          UPVAL U7
+      191 SETTABLEKS                       R20 R19 K28 ["OnRemoved"]
+      193 SETTABLEKS                       R14 R19 K29 ["TooltipText"]
+      195 NAMECALL                         R20 R0 K42 ["getCurrentPermission"]
+      197 CALL                             R20 1 1
+      198 SETTABLEKS                       R20 R19 K30 ["CurrentPermission"]
+      200 SETTABLEKS                       R13 R19 K31 ["AvailablePermissions"]
+      202 NEWCLOSURE                       R20 P1
+      203 CAPTURE                          VAL R9
+      204 CAPTURE                          VAL R4
+      205 SETTABLEKS                       R20 R19 K32 ["OnPermissionChanged"]
+      207 CALL                             R17 2 -1
+      208 RETURN                           R17 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K5 [{"OwnerType", "IsOwner", "IsOwnerFriend", "UserName", "CurrentPermission"}]

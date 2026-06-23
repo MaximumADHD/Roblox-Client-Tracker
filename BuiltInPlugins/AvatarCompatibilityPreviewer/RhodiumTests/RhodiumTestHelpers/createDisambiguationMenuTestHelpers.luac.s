@@ -203,7 +203,7 @@ PROTO_6:
        27 GETTABLEKS                       R3 R1 K2 ["Text"]
        29 ORK                              R2 R3 K6 [""]
        30 RETURN                           R2 1
-       31 NAMECALL                         R2 R0 K7 ["GetChildren"]
+       31 NAMECALL                         R2 R0 K7 ["GetDescendants"]
        33 CALL                             R2 1 3
        34 FORGPREP                         R2
        35 LOADK                            R9 K5 ["TextLabel"]

@@ -114,50 +114,50 @@ MAIN:
        26 GETTABLEKS                       R4 R4 K11 ["Constants"]
        28 CALL                             R3 1 1
        29 GETIMPORT                        R4 K7 [require]
-       31 GETTABLEKS                       R5 R0 K12 ["Src"]
-       33 GETTABLEKS                       R5 R5 K13 ["Dialogs"]
-       35 GETTABLEKS                       R5 R5 K14 ["ModelConfigDialog"]
-       37 CALL                             R4 1 1
-       38 GETIMPORT                        R5 K7 [require]
-       40 GETTABLEKS                       R6 R0 K8 ["Lib"]
-       42 GETTABLEKS                       R6 R6 K15 ["Reimport"]
+       31 GETTABLEKS                       R5 R0 K8 ["Lib"]
+       33 GETTABLEKS                       R5 R5 K12 ["Reimport"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K7 [require]
+       38 GETTABLEKS                       R6 R0 K8 ["Lib"]
+       40 GETTABLEKS                       R6 R6 K12 ["Reimport"]
+       42 GETTABLEKS                       R6 R6 K13 ["ReimportConfigs"]
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K7 [require]
        47 GETTABLEKS                       R7 R0 K8 ["Lib"]
-       49 GETTABLEKS                       R7 R7 K15 ["Reimport"]
-       51 GETTABLEKS                       R7 R7 K16 ["ReimportConfigs"]
-       53 CALL                             R6 1 1
-       54 GETIMPORT                        R7 K7 [require]
-       56 GETTABLEKS                       R8 R0 K8 ["Lib"]
-       58 GETTABLEKS                       R8 R8 K17 ["DialogRegistry"]
+       49 GETTABLEKS                       R7 R7 K14 ["DialogRegistry"]
+       51 CALL                             R6 1 1
+       52 GETIMPORT                        R7 K7 [require]
+       54 GETTABLEKS                       R8 R0 K8 ["Lib"]
+       56 GETTABLEKS                       R8 R8 K14 ["DialogRegistry"]
+       58 GETTABLEKS                       R8 R8 K15 ["Types"]
        60 CALL                             R7 1 1
        61 GETIMPORT                        R8 K7 [require]
-       63 GETTABLEKS                       R9 R0 K8 ["Lib"]
-       65 GETTABLEKS                       R9 R9 K17 ["DialogRegistry"]
-       67 GETTABLEKS                       R9 R9 K18 ["Types"]
+       63 GETTABLEKS                       R9 R0 K16 ["Src"]
+       65 GETTABLEKS                       R9 R9 K17 ["Dialogs"]
+       67 GETTABLEKS                       R9 R9 K15 ["Types"]
        69 CALL                             R8 1 1
        70 GETIMPORT                        R9 K7 [require]
-       72 GETTABLEKS                       R10 R0 K19 ["Bin"]
-       74 GETTABLEKS                       R10 R10 K20 ["Common"]
-       76 GETTABLEKS                       R10 R10 K21 ["RenderUi"]
+       72 GETTABLEKS                       R10 R0 K18 ["Bin"]
+       74 GETTABLEKS                       R10 R10 K19 ["Common"]
+       76 GETTABLEKS                       R10 R10 K20 ["RenderUi"]
        78 CALL                             R9 1 1
-       79 DUPCLOSURE                       R10 K22 [PROTO_0]
+       79 DUPCLOSURE                       R10 K21 [PROTO_0]
        80 CAPTURE                          VAL R2
        81 CAPTURE                          VAL R3
        82 NEWTABLE                         R11 2 0
-       84 DUPCLOSURE                       R12 K23 [PROTO_1]
+       84 DUPCLOSURE                       R12 K22 [PROTO_1]
        85 CAPTURE                          VAL R9
        86 CAPTURE                          VAL R1
-       87 SETTABLEKS                       R12 R11 K24 ["fromProps"]
-       89 DUPCLOSURE                       R12 K25 [PROTO_4]
-       90 CAPTURE                          VAL R6
+       87 SETTABLEKS                       R12 R11 K23 ["fromProps"]
+       89 DUPCLOSURE                       R12 K24 [PROTO_4]
+       90 CAPTURE                          VAL R5
        91 CAPTURE                          VAL R2
        92 CAPTURE                          VAL R3
        93 CAPTURE                          VAL R11
-       94 CAPTURE                          VAL R5
-       95 SETTABLEKS                       R12 R11 K26 ["fromInstance"]
-       97 GETTABLEKS                       R13 R7 K27 ["configure"]
-       99 GETTABLEKS                       R13 R13 K28 ["register"]
-      101 GETTABLEKS                       R14 R11 K26 ["fromInstance"]
+       94 CAPTURE                          VAL R4
+       95 SETTABLEKS                       R12 R11 K25 ["fromInstance"]
+       97 GETTABLEKS                       R13 R6 K26 ["configure"]
+       99 GETTABLEKS                       R13 R13 K27 ["register"]
+      101 GETTABLEKS                       R14 R11 K25 ["fromInstance"]
       103 CALL                             R13 1 0
       104 RETURN                           R11 1

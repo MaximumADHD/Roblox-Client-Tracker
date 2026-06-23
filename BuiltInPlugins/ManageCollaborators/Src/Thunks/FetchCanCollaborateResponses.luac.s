@@ -76,83 +76,92 @@ PROTO_5:
        11 JUMPIF                           R1 ; [+2]
        12 NEWTABLE                         R1 0 0
        14 NEWTABLE                         R2 0 0
-       16 GETIMPORT                        R3 K3 [ipairs]
-       18 GETUPVAL                         R4 0
-       19 CALL                             R3 1 3
-       20 FORGPREP_INEXT                   R3
-       21 GETTABLE                         R8 R1 R7
-       22 JUMPIFNOTEQKNIL                  R8 ; [+8]
-       24 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
-       26 MOVE                             R9 R2
-       27 MOVE                             R10 R7
-       28 GETIMPORT                        R8 K6 [table.insert]
-       30 CALL                             R8 2 0
-       31 FORGLOOP                         R3 2 [inext] ; [-11]
-       33 LENGTH                           R3 R2
-       34 LOADN                            R4 0
-       35 JUMPIFNOTLE                      R3 R4 ; [+2]
-       37 RETURN                           R0 0
-       38 GETUPVAL                         R3 1
-       39 JUMPIFNOT                        R3 ; [+1]
-       40 RETURN                           R0 0
-       41 LOADB                            R3 1
-       42 SETUPVAL                         R3 1
-       43 GETIMPORT                        R3 K8 [table.concat]
-       45 MOVE                             R4 R2
-       46 LOADK                            R5 K9 [","]
-       47 CALL                             R3 2 1
-       48 NEWCLOSURE                       R4 P0
-       49 CAPTURE                          UPVAL U2
-       50 CAPTURE                          UPVAL U3
-       51 CAPTURE                          VAL R3
-       52 GETIMPORT                        R5 K11 [pcall]
-       54 NEWCLOSURE                       R6 P1
+       16 NEWTABLE                         R3 0 0
+       18 GETIMPORT                        R4 K3 [ipairs]
+       20 GETUPVAL                         R5 0
+       21 CALL                             R4 1 3
+       22 FORGPREP_INEXT                   R4
+       23 GETTABLE                         R9 R1 R8
+       24 JUMPIFNOTEQKNIL                  R9 ; [+12]
+       26 GETTABLE                         R9 R2 R8
+       27 JUMPIF                           R9 ; [+9]
+       28 LOADB                            R9 1
+       29 SETTABLE                         R9 R2 R8
+       30 FASTCALL2                        TABLE_INSERT R3 R8 ; [+5]
+       32 MOVE                             R10 R3
+       33 MOVE                             R11 R8
+       34 GETIMPORT                        R9 K6 [table.insert]
+       36 CALL                             R9 2 0
+       37 FORGLOOP                         R4 2 [inext] ; [-15]
+       39 LENGTH                           R4 R3
+       40 LOADN                            R5 0
+       41 JUMPIFNOTLE                      R4 R5 ; [+2]
+       43 RETURN                           R0 0
+       44 GETUPVAL                         R4 1
+       45 JUMPIFNOT                        R4 ; [+1]
+       46 RETURN                           R0 0
+       47 LOADB                            R4 1
+       48 SETUPVAL                         R4 1
+       49 GETIMPORT                        R4 K8 [table.concat]
+       51 MOVE                             R5 R3
+       52 LOADK                            R6 K9 [","]
+       53 CALL                             R4 2 1
+       54 NEWCLOSURE                       R5 P0
        55 CAPTURE                          UPVAL U2
        56 CAPTURE                          UPVAL U3
-       57 CAPTURE                          VAL R3
-       58 CALL                             R5 1 2
-       59 LOADB                            R7 0
-       60 SETUPVAL                         R7 1
-       61 JUMPIFNOT                        R5 ; [+1]
-       62 JUMPIF                           R6 ; [+1]
-       63 RETURN                           R0 0
-       64 NEWTABLE                         R7 0 0
-       66 NEWTABLE                         R8 0 0
-       68 GETIMPORT                        R9 K13 [pairs]
-       70 MOVE                             R10 R6
-       71 CALL                             R9 1 3
-       72 FORGPREP_NEXT                    R9
-       73 JUMPIFNOT                        R13 ; [+23]
-       74 GETTABLEKS                       R14 R13 K14 ["UserId"]
-       76 JUMPIFNOT                        R14 ; [+20]
-       77 GETTABLEKS                       R14 R13 K15 ["Error"]
-       79 JUMPIFNOT                        R14 ; [+5]
-       80 GETTABLEKS                       R14 R13 K14 ["UserId"]
-       82 GETTABLEKS                       R15 R13 K15 ["Error"]
-       84 SETTABLE                         R15 R7 R14
-       85 GETUPVAL                         R14 4
-       86 GETTABLEKS                       R14 R14 K16 ["fflagManageCollaboratorsEditorBlockingBanner"]
-       88 JUMPIFNOT                        R14 ; [+8]
-       89 GETTABLEKS                       R14 R13 K17 ["RequiresTrustedConnection"]
-       91 JUMPIFNOT                        R14 ; [+5]
-       92 GETTABLEKS                       R14 R13 K14 ["UserId"]
-       94 GETTABLEKS                       R15 R13 K17 ["RequiresTrustedConnection"]
-       96 SETTABLE                         R15 R8 R14
-       97 FORGLOOP                         R9 2 ; [-25]
-       99 GETUPVAL                         R11 5
-      100 MOVE                             R12 R7
-      101 CALL                             R11 1 -1
-      102 NAMECALL                         R9 R0 K18 ["dispatch"]
-      104 CALL                             R9 -1 0
-      105 GETUPVAL                         R9 4
-      106 GETTABLEKS                       R9 R9 K16 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      108 JUMPIFNOT                        R9 ; [+6]
-      109 GETUPVAL                         R11 6
-      110 MOVE                             R12 R8
-      111 CALL                             R11 1 -1
-      112 NAMECALL                         R9 R0 K18 ["dispatch"]
-      114 CALL                             R9 -1 0
-      115 RETURN                           R0 0
+       57 CAPTURE                          VAL R4
+       58 GETIMPORT                        R6 K11 [pcall]
+       60 NEWCLOSURE                       R7 P1
+       61 CAPTURE                          UPVAL U2
+       62 CAPTURE                          UPVAL U3
+       63 CAPTURE                          VAL R4
+       64 CALL                             R6 1 2
+       65 LOADB                            R8 0
+       66 SETUPVAL                         R8 1
+       67 JUMPIFNOT                        R6 ; [+1]
+       68 JUMPIF                           R7 ; [+1]
+       69 RETURN                           R0 0
+       70 NEWTABLE                         R8 0 0
+       72 NEWTABLE                         R9 0 0
+       74 GETIMPORT                        R10 K13 [pairs]
+       76 MOVE                             R11 R7
+       77 CALL                             R10 1 3
+       78 FORGPREP_NEXT                    R10
+       79 JUMPIFNOT                        R14 ; [+30]
+       80 GETTABLEKS                       R15 R14 K14 ["UserId"]
+       82 JUMPIFNOT                        R15 ; [+27]
+       83 GETTABLEKS                       R15 R14 K15 ["Error"]
+       85 JUMPIFNOT                        R15 ; [+12]
+       86 GETTABLEKS                       R15 R14 K14 ["UserId"]
+       88 DUPTABLE                         R16 K18 [{"canCollaborate", "error"}]
+       89 GETTABLEKS                       R17 R14 K19 ["CanCollaborate"]
+       91 SETTABLEKS                       R17 R16 K16 ["canCollaborate"]
+       93 GETTABLEKS                       R17 R14 K15 ["Error"]
+       95 SETTABLEKS                       R17 R16 K17 ["error"]
+       97 SETTABLE                         R16 R8 R15
+       98 GETUPVAL                         R15 4
+       99 GETTABLEKS                       R15 R15 K20 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      101 JUMPIFNOT                        R15 ; [+8]
+      102 GETTABLEKS                       R15 R14 K21 ["RequiresTrustedConnection"]
+      104 JUMPIFNOT                        R15 ; [+5]
+      105 GETTABLEKS                       R15 R14 K14 ["UserId"]
+      107 GETTABLEKS                       R16 R14 K21 ["RequiresTrustedConnection"]
+      109 SETTABLE                         R16 R9 R15
+      110 FORGLOOP                         R10 2 ; [-32]
+      112 GETUPVAL                         R12 5
+      113 MOVE                             R13 R8
+      114 CALL                             R12 1 -1
+      115 NAMECALL                         R10 R0 K22 ["dispatch"]
+      117 CALL                             R10 -1 0
+      118 GETUPVAL                         R10 4
+      119 GETTABLEKS                       R10 R10 K20 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      121 JUMPIFNOT                        R10 ; [+6]
+      122 GETUPVAL                         R12 6
+      123 MOVE                             R13 R9
+      124 CALL                             R12 1 -1
+      125 NAMECALL                         R10 R0 K22 ["dispatch"]
+      127 CALL                             R10 -1 0
+      128 RETURN                           R0 0
 
 PROTO_6:
         0 NEWCLOSURE                       R1 P0

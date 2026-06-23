@@ -187,46 +187,48 @@ MAIN:
        45 CALL                             R7 1 1
        46 GETIMPORT                        R8 K5 [require]
        48 GETIMPORT                        R9 K1 [script]
-       50 GETTABLEKS                       R9 R9 K15 ["ScopeSelector"]
+       50 GETTABLEKS                       R9 R9 K15 ["SearchFilters"]
        52 CALL                             R8 1 1
        53 GETIMPORT                        R9 K5 [require]
-       55 GETIMPORT                        R10 K1 [script]
-       57 GETTABLEKS                       R10 R10 K16 ["SearchFilters"]
-       59 CALL                             R9 1 1
-       60 GETIMPORT                        R10 K5 [require]
-       62 GETTABLEKS                       R11 R0 K6 ["Src"]
-       64 GETTABLEKS                       R11 R11 K17 ["Components"]
-       66 GETTABLEKS                       R11 R11 K18 ["App"]
-       68 GETTABLEKS                       R11 R11 K19 ["MainView"]
-       70 GETTABLEKS                       R11 R11 K20 ["SearchInput"]
-       72 CALL                             R10 1 1
-       73 GETIMPORT                        R11 K5 [require]
-       75 GETTABLEKS                       R12 R0 K6 ["Src"]
-       77 GETTABLEKS                       R12 R12 K17 ["Components"]
-       79 GETTABLEKS                       R12 R12 K18 ["App"]
-       81 GETTABLEKS                       R12 R12 K19 ["MainView"]
-       83 GETTABLEKS                       R12 R12 K21 ["NavigationButtons"]
-       85 CALL                             R11 1 1
-       86 GETIMPORT                        R12 K5 [require]
-       88 GETTABLEKS                       R13 R0 K6 ["Src"]
-       90 GETTABLEKS                       R13 R13 K22 ["Hooks"]
-       92 GETTABLEKS                       R13 R13 K23 ["useSearchInfo"]
-       94 CALL                             R12 1 1
-       95 GETIMPORT                        R13 K5 [require]
-       97 GETTABLEKS                       R14 R0 K6 ["Src"]
-       99 GETTABLEKS                       R14 R14 K22 ["Hooks"]
-      101 GETTABLEKS                       R14 R14 K24 ["useCurrentScope"]
-      103 CALL                             R13 1 1
-      104 DUPCLOSURE                       R14 K25 [PROTO_0]
-      105 CAPTURE                          VAL R6
-      106 CAPTURE                          VAL R12
-      107 CAPTURE                          VAL R13
-      108 CAPTURE                          VAL R1
-      109 CAPTURE                          VAL R2
-      110 CAPTURE                          VAL R3
-      111 CAPTURE                          VAL R11
-      112 CAPTURE                          VAL R8
-      113 CAPTURE                          VAL R7
-      114 CAPTURE                          VAL R10
-      115 CAPTURE                          VAL R9
-      116 RETURN                           R14 1
+       55 GETTABLEKS                       R10 R0 K6 ["Src"]
+       57 GETTABLEKS                       R10 R10 K16 ["Components"]
+       59 GETTABLEKS                       R10 R10 K17 ["Shared"]
+       61 GETTABLEKS                       R10 R10 K18 ["ScopeSelector"]
+       63 CALL                             R9 1 1
+       64 GETIMPORT                        R10 K5 [require]
+       66 GETTABLEKS                       R11 R0 K6 ["Src"]
+       68 GETTABLEKS                       R11 R11 K16 ["Components"]
+       70 GETTABLEKS                       R11 R11 K19 ["App"]
+       72 GETTABLEKS                       R11 R11 K20 ["MainView"]
+       74 GETTABLEKS                       R11 R11 K21 ["SearchInput"]
+       76 CALL                             R10 1 1
+       77 GETIMPORT                        R11 K5 [require]
+       79 GETTABLEKS                       R12 R0 K6 ["Src"]
+       81 GETTABLEKS                       R12 R12 K16 ["Components"]
+       83 GETTABLEKS                       R12 R12 K19 ["App"]
+       85 GETTABLEKS                       R12 R12 K20 ["MainView"]
+       87 GETTABLEKS                       R12 R12 K22 ["NavigationButtons"]
+       89 CALL                             R11 1 1
+       90 GETIMPORT                        R12 K5 [require]
+       92 GETTABLEKS                       R13 R0 K6 ["Src"]
+       94 GETTABLEKS                       R13 R13 K23 ["Hooks"]
+       96 GETTABLEKS                       R13 R13 K24 ["useSearchInfo"]
+       98 CALL                             R12 1 1
+       99 GETIMPORT                        R13 K5 [require]
+      101 GETTABLEKS                       R14 R0 K6 ["Src"]
+      103 GETTABLEKS                       R14 R14 K23 ["Hooks"]
+      105 GETTABLEKS                       R14 R14 K25 ["useCurrentScope"]
+      107 CALL                             R13 1 1
+      108 DUPCLOSURE                       R14 K26 [PROTO_0]
+      109 CAPTURE                          VAL R6
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R13
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R2
+      114 CAPTURE                          VAL R3
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R7
+      118 CAPTURE                          VAL R10
+      119 CAPTURE                          VAL R8
+      120 RETURN                           R14 1

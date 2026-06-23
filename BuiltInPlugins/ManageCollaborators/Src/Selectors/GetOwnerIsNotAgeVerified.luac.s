@@ -5,13 +5,16 @@ PROTO_0:
         5 GETUPVAL                         R2 0
         6 NAMECALL                         R2 R2 K1 ["GetUserId"]
         8 CALL                             R2 1 1
-        9 GETTABLE                         R4 R1 R2
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R5 R5 K2 ["NotAgeVerified"]
-       13 JUMPIFEQ                         R4 R5 ; [+2]
-       15 LOADB                            R3 0 +1
-       16 LOADB                            R3 1
-       17 RETURN                           R3 1
+        9 GETTABLE                         R3 R1 R2
+       10 LOADB                            R4 0
+       11 JUMPIFEQKNIL                     R3 ; [+10]
+       13 GETTABLEKS                       R5 R3 K2 ["error"]
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R6 R6 K3 ["NotAgeVerified"]
+       18 JUMPIFEQ                         R5 R6 ; [+2]
+       20 LOADB                            R4 0 +1
+       21 LOADB                            R4 1
+       22 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

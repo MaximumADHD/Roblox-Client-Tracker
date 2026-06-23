@@ -82,15 +82,19 @@ PROTO_1:
       104 GETTABLEKS                       R18 R18 K6 ["createElement"]
       106 GETUPVAL                         R19 4
       107 GETTABLEKS                       R19 R19 K27 ["OverlayProvider"]
-      109 DUPTABLE                         R20 K29 [{"gui"}]
-      110 SETTABLEKS                       R1 R20 K28 ["gui"]
-      112 MOVE                             R21 R7
-      113 CALL                             R18 3 -1
-      114 CALL                             R15 -1 -1
-      115 CALL                             R12 -1 -1
-      116 SETLIST                          R11 R12 -1 [1]
-      118 CALL                             R8 3 -1
-      119 RETURN                           R8 -1
+      109 DUPTABLE                         R20 K30 [{"key", "gui"}]
+      110 JUMPIFNOTEQKNIL                  R1 ; [+2]
+      112 LOADB                            R21 0 +1
+      113 LOADB                            R21 1
+      114 SETTABLEKS                       R21 R20 K28 ["key"]
+      116 SETTABLEKS                       R1 R20 K29 ["gui"]
+      118 MOVE                             R21 R7
+      119 CALL                             R18 3 -1
+      120 CALL                             R15 -1 -1
+      121 CALL                             R12 -1 -1
+      122 SETLIST                          R11 R12 -1 [1]
+      124 CALL                             R8 3 -1
+      125 RETURN                           R8 -1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

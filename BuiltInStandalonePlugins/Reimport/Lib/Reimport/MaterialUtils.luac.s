@@ -28,11 +28,12 @@ PROTO_0:
        33 JUMPIFNOTEQKNIL                  R2 ; [+2]
        35 LOADB                            R1 0 +1
        36 LOADB                            R1 1
-       37 FASTCALL1                        ASSERT R1 ; [+2]
-       38 GETIMPORT                        R0 K2 [assert]
-       40 CALL                             R0 1 0
-       41 GETUPVAL                         R0 0
-       42 RETURN                           R0 1
+       37 FASTCALL2K                       ASSERT R1 K1 ; [+4]
+       39 LOADK                            R2 K1 ["suffix lookup should be initialized"]
+       40 GETIMPORT                        R0 K3 [assert]
+       42 CALL                             R0 2 0
+       43 GETUPVAL                         R0 0
+       44 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -75,42 +76,37 @@ PROTO_2:
         9 MOVE                             R3 R0
        10 CALL                             R2 1 2
        11 JUMPIFEQKNIL                     R2 ; [+3]
-       13 JUMPIFNOTEQKNIL                  R3 ; [+10]
-       15 GETUPVAL                         R4 2
-       16 CALL                             R4 0 1
-       17 JUMPIFNOT                        R4 ; [+4]
-       18 DUPTABLE                         R4 K3 [{"Color"}]
-       19 SETTABLEKS                       R0 R4 K2 ["Color"]
-       21 RETURN                           R4 1
-       22 LOADNIL                          R4
-       23 RETURN                           R4 1
-       24 NEWTABLE                         R4 0 0
-       26 MOVE                             R5 R1
-       27 LOADNIL                          R6
-       28 LOADNIL                          R7
-       29 FORGPREP                         R5
-       30 GETUPVAL                         R10 0
-       31 GETTABLEKS                       R10 R10 K0 ["normalize"]
-       33 MOVE                             R11 R9
-       34 CALL                             R10 1 1
-       35 MOVE                             R9 R10
-       36 JUMPIFEQ                         R9 R0 ; [+18]
-       38 LOADN                            R12 1
-       39 LENGTH                           R13 R3
-       40 FASTCALL3                        STRING_SUB R9 R12 R13
-       42 MOVE                             R11 R9
-       43 GETIMPORT                        R10 K6 [string.sub]
-       45 CALL                             R10 3 1
-       46 JUMPIFNOTEQ                      R10 R3 ; [+8]
-       48 GETUPVAL                         R10 1
-       49 GETTABLEKS                       R10 R10 K1 ["matchSuffix"]
-       51 MOVE                             R11 R9
-       52 CALL                             R10 1 2
-       53 JUMPIFNOT                        R10 ; [+1]
-       54 SETTABLE                         R9 R4 R10
-       55 FORGLOOP                         R5 2 ; [-26]
-       57 SETTABLE                         R0 R4 R2
-       58 RETURN                           R4 1
+       13 JUMPIFNOTEQKNIL                  R3 ; [+5]
+       15 DUPTABLE                         R4 K3 [{"Color"}]
+       16 SETTABLEKS                       R0 R4 K2 ["Color"]
+       18 RETURN                           R4 1
+       19 NEWTABLE                         R4 0 0
+       21 MOVE                             R5 R1
+       22 LOADNIL                          R6
+       23 LOADNIL                          R7
+       24 FORGPREP                         R5
+       25 GETUPVAL                         R10 0
+       26 GETTABLEKS                       R10 R10 K0 ["normalize"]
+       28 MOVE                             R11 R9
+       29 CALL                             R10 1 1
+       30 MOVE                             R9 R10
+       31 JUMPIFEQ                         R9 R0 ; [+18]
+       33 LOADN                            R12 1
+       34 LENGTH                           R13 R3
+       35 FASTCALL3                        STRING_SUB R9 R12 R13
+       37 MOVE                             R11 R9
+       38 GETIMPORT                        R10 K6 [string.sub]
+       40 CALL                             R10 3 1
+       41 JUMPIFNOTEQ                      R10 R3 ; [+8]
+       43 GETUPVAL                         R10 1
+       44 GETTABLEKS                       R10 R10 K1 ["matchSuffix"]
+       46 MOVE                             R11 R9
+       47 CALL                             R10 1 2
+       48 JUMPIFNOT                        R10 ; [+1]
+       49 SETTABLE                         R9 R4 R10
+       50 FORGLOOP                         R5 2 ; [-26]
+       52 SETTABLE                         R0 R4 R2
+       53 RETURN                           R4 1
 
 PROTO_3:
         0 MOVE                             R2 R1
@@ -183,75 +179,70 @@ MAIN:
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K5 [require]
        18 GETTABLEKS                       R3 R0 K9 ["Flags"]
-       20 GETTABLEKS                       R3 R3 K10 ["GetFFlagReimportNoSuffixIsColorMap"]
+       20 GETTABLEKS                       R3 R3 K10 ["GetFFlagReimportEmissiveMaps"]
        22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K5 [require]
-       25 GETTABLEKS                       R4 R0 K9 ["Flags"]
-       27 GETTABLEKS                       R4 R4 K11 ["GetFFlagReimportEmissiveMaps"]
-       29 CALL                             R3 1 1
-       30 NEWTABLE                         R4 4 0
-       32 DUPTABLE                         R5 K17 [{"Color", "Metal", "Rough", "Normal", "Emissive"}]
-       33 NEWTABLE                         R6 0 7
-       35 LOADK                            R7 K18 ["diffuse"]
-       36 LOADK                            R8 K19 ["diff"]
-       37 LOADK                            R9 K20 ["albedo"]
-       38 LOADK                            R10 K21 ["base"]
-       39 LOADK                            R11 K22 ["col"]
-       40 LOADK                            R12 K23 ["color"]
-       41 LOADK                            R13 K24 ["alb"]
-       42 SETLIST                          R6 R7 7 [1]
-       44 SETTABLEKS                       R6 R5 K12 ["Color"]
-       46 NEWTABLE                         R6 0 5
-       48 LOADK                            R7 K25 ["metallic"]
-       49 LOADK                            R8 K26 ["metalness"]
-       50 LOADK                            R9 K27 ["metal"]
-       51 LOADK                            R10 K28 ["mtl"]
-       52 LOADK                            R11 K29 ["met"]
-       53 SETLIST                          R6 R7 5 [1]
-       55 SETTABLEKS                       R6 R5 K13 ["Metal"]
-       57 NEWTABLE                         R6 0 3
-       59 LOADK                            R7 K30 ["roughness"]
-       60 LOADK                            R8 K31 ["rough"]
-       61 LOADK                            R9 K32 ["rgh"]
-       62 SETLIST                          R6 R7 3 [1]
-       64 SETTABLEKS                       R6 R5 K14 ["Rough"]
-       66 NEWTABLE                         R6 0 5
-       68 LOADK                            R7 K33 ["normal"]
-       69 LOADK                            R8 K34 ["nor"]
-       70 LOADK                            R9 K35 ["nrm"]
-       71 LOADK                            R10 K36 ["nrml"]
-       72 LOADK                            R11 K37 ["norm"]
-       73 SETLIST                          R6 R7 5 [1]
-       75 SETTABLEKS                       R6 R5 K15 ["Normal"]
-       77 NEWTABLE                         R6 0 10
-       79 LOADK                            R7 K38 ["emissive"]
-       80 LOADK                            R8 K39 ["emission"]
-       81 LOADK                            R9 K40 ["emiss"]
-       82 LOADK                            R10 K41 ["emit"]
-       83 LOADK                            R11 K42 ["glow"]
-       84 LOADK                            R12 K43 ["illum"]
-       85 LOADK                            R13 K44 ["selfillum"]
-       86 LOADK                            R14 K45 ["light"]
-       87 LOADK                            R15 K46 ["luminance"]
-       88 LOADK                            R16 K47 ["emissivemask"]
-       89 SETLIST                          R6 R7 10 [1]
-       91 SETTABLEKS                       R6 R5 K16 ["Emissive"]
-       93 LOADNIL                          R6
-       94 NEWCLOSURE                       R7 P0
-       95 CAPTURE                          REF R6
-       96 CAPTURE                          VAL R5
-       97 CAPTURE                          VAL R3
-       98 DUPCLOSURE                       R8 K48 [PROTO_1]
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R7
-      101 SETTABLEKS                       R8 R4 K49 ["matchSuffix"]
-      103 DUPCLOSURE                       R8 K50 [PROTO_2]
-      104 CAPTURE                          VAL R1
-      105 CAPTURE                          VAL R4
-      106 CAPTURE                          VAL R2
-      107 SETTABLEKS                       R8 R4 K51 ["findMaps"]
-      109 DUPCLOSURE                       R8 K52 [PROTO_3]
-      110 CAPTURE                          VAL R3
-      111 SETTABLEKS                       R8 R4 K53 ["setMaps"]
-      113 CLOSEUPVALS                      R6
-      114 RETURN                           R4 1
+       23 NEWTABLE                         R3 4 0
+       25 DUPTABLE                         R4 K16 [{"Color", "Metal", "Rough", "Normal", "Emissive"}]
+       26 NEWTABLE                         R5 0 7
+       28 LOADK                            R6 K17 ["diffuse"]
+       29 LOADK                            R7 K18 ["diff"]
+       30 LOADK                            R8 K19 ["albedo"]
+       31 LOADK                            R9 K20 ["base"]
+       32 LOADK                            R10 K21 ["col"]
+       33 LOADK                            R11 K22 ["color"]
+       34 LOADK                            R12 K23 ["alb"]
+       35 SETLIST                          R5 R6 7 [1]
+       37 SETTABLEKS                       R5 R4 K11 ["Color"]
+       39 NEWTABLE                         R5 0 5
+       41 LOADK                            R6 K24 ["metallic"]
+       42 LOADK                            R7 K25 ["metalness"]
+       43 LOADK                            R8 K26 ["metal"]
+       44 LOADK                            R9 K27 ["mtl"]
+       45 LOADK                            R10 K28 ["met"]
+       46 SETLIST                          R5 R6 5 [1]
+       48 SETTABLEKS                       R5 R4 K12 ["Metal"]
+       50 NEWTABLE                         R5 0 3
+       52 LOADK                            R6 K29 ["roughness"]
+       53 LOADK                            R7 K30 ["rough"]
+       54 LOADK                            R8 K31 ["rgh"]
+       55 SETLIST                          R5 R6 3 [1]
+       57 SETTABLEKS                       R5 R4 K13 ["Rough"]
+       59 NEWTABLE                         R5 0 5
+       61 LOADK                            R6 K32 ["normal"]
+       62 LOADK                            R7 K33 ["nor"]
+       63 LOADK                            R8 K34 ["nrm"]
+       64 LOADK                            R9 K35 ["nrml"]
+       65 LOADK                            R10 K36 ["norm"]
+       66 SETLIST                          R5 R6 5 [1]
+       68 SETTABLEKS                       R5 R4 K14 ["Normal"]
+       70 NEWTABLE                         R5 0 10
+       72 LOADK                            R6 K37 ["emissive"]
+       73 LOADK                            R7 K38 ["emission"]
+       74 LOADK                            R8 K39 ["emiss"]
+       75 LOADK                            R9 K40 ["emit"]
+       76 LOADK                            R10 K41 ["glow"]
+       77 LOADK                            R11 K42 ["illum"]
+       78 LOADK                            R12 K43 ["selfillum"]
+       79 LOADK                            R13 K44 ["light"]
+       80 LOADK                            R14 K45 ["luminance"]
+       81 LOADK                            R15 K46 ["emissivemask"]
+       82 SETLIST                          R5 R6 10 [1]
+       84 SETTABLEKS                       R5 R4 K15 ["Emissive"]
+       86 LOADNIL                          R5
+       87 NEWCLOSURE                       R6 P0
+       88 CAPTURE                          REF R5
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          VAL R2
+       91 DUPCLOSURE                       R7 K47 [PROTO_1]
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R6
+       94 SETTABLEKS                       R7 R3 K48 ["matchSuffix"]
+       96 DUPCLOSURE                       R7 K49 [PROTO_2]
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          VAL R3
+       99 SETTABLEKS                       R7 R3 K50 ["findMaps"]
+      101 DUPCLOSURE                       R7 K51 [PROTO_3]
+      102 CAPTURE                          VAL R2
+      103 SETTABLEKS                       R7 R3 K52 ["setMaps"]
+      105 CLOSEUPVALS                      R5
+      106 RETURN                           R3 1

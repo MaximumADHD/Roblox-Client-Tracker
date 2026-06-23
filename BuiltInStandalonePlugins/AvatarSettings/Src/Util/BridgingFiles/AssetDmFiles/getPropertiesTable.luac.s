@@ -472,29 +472,24 @@ PROTO_9:
        40 GETTABLEKS                       R3 R2 K19 ["SingleColliderSize"]
        42 SETTABLEKS                       R3 R1 K19 ["SingleColliderSize"]
        44 SETTABLEKS                       R1 R0 K2 ["AvatarCollisionRules"]
-       46 GETUPVAL                         R2 2
-       47 CALL                             R2 0 1
-       48 JUMPIFNOT                        R2 ; [+3]
-       49 GETUPVAL                         R1 3
-       50 CALL                             R1 0 1
-       51 JUMP                             ; [+1]
-       52 LOADNIL                          R1
-       53 SETTABLEKS                       R1 R0 K3 ["AvatarAbilityRules"]
-       55 GETUPVAL                         R1 4
-       56 CALL                             R1 0 1
-       57 SETTABLEKS                       R1 R0 K4 ["AvatarAnimationRules"]
-       59 GETUPVAL                         R1 5
-       60 CALL                             R1 0 1
-       61 SETTABLEKS                       R1 R0 K5 ["AvatarAccessoryRules"]
-       63 GETUPVAL                         R1 6
-       64 CALL                             R1 0 1
-       65 SETTABLEKS                       R1 R0 K6 ["AvatarClothingRules"]
-       67 DUPTABLE                         R1 K23 [{"Gravity"}]
-       68 GETUPVAL                         R2 7
-       69 GETTABLEKS                       R2 R2 K22 ["Gravity"]
-       71 SETTABLEKS                       R2 R1 K22 ["Gravity"]
-       73 SETTABLEKS                       R1 R0 K7 ["OtherProperties"]
-       75 RETURN                           R0 1
+       46 GETUPVAL                         R1 2
+       47 CALL                             R1 0 1
+       48 SETTABLEKS                       R1 R0 K3 ["AvatarAbilityRules"]
+       50 GETUPVAL                         R1 3
+       51 CALL                             R1 0 1
+       52 SETTABLEKS                       R1 R0 K4 ["AvatarAnimationRules"]
+       54 GETUPVAL                         R1 4
+       55 CALL                             R1 0 1
+       56 SETTABLEKS                       R1 R0 K5 ["AvatarAccessoryRules"]
+       58 GETUPVAL                         R1 5
+       59 CALL                             R1 0 1
+       60 SETTABLEKS                       R1 R0 K6 ["AvatarClothingRules"]
+       62 DUPTABLE                         R1 K23 [{"Gravity"}]
+       63 GETUPVAL                         R2 6
+       64 GETTABLEKS                       R2 R2 K22 ["Gravity"]
+       66 SETTABLEKS                       R2 R1 K22 ["Gravity"]
+       68 SETTABLEKS                       R1 R0 K7 ["OtherProperties"]
+       70 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -548,18 +543,12 @@ MAIN:
        72 CAPTURE                          VAL R4
        73 DUPCLOSURE                       R14 K27 [PROTO_8]
        74 CAPTURE                          VAL R1
-       75 GETIMPORT                        R15 K9 [require]
-       77 GETTABLEKS                       R16 R0 K10 ["Src"]
-       79 GETTABLEKS                       R16 R16 K17 ["Flags"]
-       81 GETTABLEKS                       R16 R16 K28 ["getFFlagAvatarSettingsEnableAbilities"]
-       83 CALL                             R15 1 1
-       84 DUPCLOSURE                       R16 K29 [PROTO_9]
-       85 CAPTURE                          VAL R4
-       86 CAPTURE                          VAL R8
-       87 CAPTURE                          VAL R15
-       88 CAPTURE                          VAL R10
-       89 CAPTURE                          VAL R11
-       90 CAPTURE                          VAL R12
-       91 CAPTURE                          VAL R13
-       92 CAPTURE                          VAL R1
-       93 RETURN                           R16 1
+       75 DUPCLOSURE                       R15 K28 [PROTO_9]
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R8
+       78 CAPTURE                          VAL R10
+       79 CAPTURE                          VAL R11
+       80 CAPTURE                          VAL R12
+       81 CAPTURE                          VAL R13
+       82 CAPTURE                          VAL R1
+       83 RETURN                           R15 1

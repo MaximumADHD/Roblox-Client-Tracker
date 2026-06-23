@@ -1773,272 +1773,282 @@ MAIN:
       309 GETIMPORT                        R41 K5 [require]
       311 GETTABLEKS                       R42 R0 K23 ["Src"]
       313 GETTABLEKS                       R42 R42 K44 ["SharedFlags"]
-      315 GETTABLEKS                       R42 R42 K55 ["getFStringAgeRestrictedLink"]
+      315 GETTABLEKS                       R42 R42 K55 ["getFFlagStartPageAllowDisableTeamCreate"]
       317 CALL                             R41 1 1
-      318 GETIMPORT                        R42 K5 [require]
-      320 GETTABLEKS                       R43 R0 K23 ["Src"]
-      322 GETTABLEKS                       R43 R43 K44 ["SharedFlags"]
-      324 GETTABLEKS                       R43 R43 K56 ["getFStringUnratedExperiencesLink"]
-      326 CALL                             R42 1 1
-      327 GETIMPORT                        R43 K5 [require]
-      329 GETTABLEKS                       R44 R0 K23 ["Src"]
-      331 GETTABLEKS                       R44 R44 K44 ["SharedFlags"]
-      333 GETTABLEKS                       R44 R44 K57 ["getFStringLuaStartPageVerifyAgeLink"]
-      335 CALL                             R43 1 1
-      336 GETIMPORT                        R44 K5 [require]
-      338 GETTABLEKS                       R45 R0 K23 ["Src"]
-      340 GETTABLEKS                       R45 R45 K44 ["SharedFlags"]
-      342 GETTABLEKS                       R45 R45 K58 ["getFStringLuaStartPageCAEDevForumLink"]
-      344 CALL                             R44 1 1
-      345 GETIMPORT                        R45 K5 [require]
-      347 GETTABLEKS                       R46 R0 K23 ["Src"]
-      349 GETTABLEKS                       R46 R46 K44 ["SharedFlags"]
-      351 GETTABLEKS                       R46 R46 K59 ["getFStringReVerifyAgeLink"]
-      353 CALL                             R45 1 1
-      354 GETIMPORT                        R46 K5 [require]
-      356 GETTABLEKS                       R47 R0 K23 ["Src"]
-      358 GETTABLEKS                       R47 R47 K44 ["SharedFlags"]
-      360 GETTABLEKS                       R47 R47 K60 ["getFStringLuaStartPageFAEDevForumLink"]
-      362 CALL                             R46 1 1
-      363 GETIMPORT                        R47 K5 [require]
-      365 GETTABLEKS                       R48 R0 K23 ["Src"]
-      367 GETTABLEKS                       R48 R48 K44 ["SharedFlags"]
-      369 GETTABLEKS                       R48 R48 K61 ["getFStringStartPageEstablishTrustDevForumLink"]
-      371 CALL                             R47 1 1
-      372 GETIMPORT                        R48 K5 [require]
-      374 GETTABLEKS                       R49 R0 K23 ["Src"]
-      376 GETTABLEKS                       R49 R49 K44 ["SharedFlags"]
-      378 GETTABLEKS                       R49 R49 K62 ["getFStringStartPageImpactedExperiencesLink"]
-      380 CALL                             R48 1 1
-      381 GETIMPORT                        R49 K5 [require]
-      383 GETTABLEKS                       R50 R0 K23 ["Src"]
-      385 GETTABLEKS                       R50 R50 K44 ["SharedFlags"]
-      387 GETTABLEKS                       R50 R50 K63 ["safeGetFastFlag"]
-      389 CALL                             R49 1 1
-      390 GETIMPORT                        R50 K5 [require]
-      392 GETTABLEKS                       R51 R0 K23 ["Src"]
-      394 GETTABLEKS                       R51 R51 K44 ["SharedFlags"]
-      396 GETTABLEKS                       R51 R51 K64 ["getFFlagLuaStartPagePublishEligibilityBanner"]
-      398 CALL                             R50 1 1
-      399 CALL                             R50 0 1
+      318 CALL                             R41 0 1
+      319 GETIMPORT                        R42 K5 [require]
+      321 GETTABLEKS                       R43 R0 K23 ["Src"]
+      323 GETTABLEKS                       R43 R43 K44 ["SharedFlags"]
+      325 GETTABLEKS                       R43 R43 K56 ["getFStringAgeRestrictedLink"]
+      327 CALL                             R42 1 1
+      328 GETIMPORT                        R43 K5 [require]
+      330 GETTABLEKS                       R44 R0 K23 ["Src"]
+      332 GETTABLEKS                       R44 R44 K44 ["SharedFlags"]
+      334 GETTABLEKS                       R44 R44 K57 ["getFStringUnratedExperiencesLink"]
+      336 CALL                             R43 1 1
+      337 GETIMPORT                        R44 K5 [require]
+      339 GETTABLEKS                       R45 R0 K23 ["Src"]
+      341 GETTABLEKS                       R45 R45 K44 ["SharedFlags"]
+      343 GETTABLEKS                       R45 R45 K58 ["getFStringLuaStartPageVerifyAgeLink"]
+      345 CALL                             R44 1 1
+      346 GETIMPORT                        R45 K5 [require]
+      348 GETTABLEKS                       R46 R0 K23 ["Src"]
+      350 GETTABLEKS                       R46 R46 K44 ["SharedFlags"]
+      352 GETTABLEKS                       R46 R46 K59 ["getFStringLuaStartPageCAEDevForumLink"]
+      354 CALL                             R45 1 1
+      355 GETIMPORT                        R46 K5 [require]
+      357 GETTABLEKS                       R47 R0 K23 ["Src"]
+      359 GETTABLEKS                       R47 R47 K44 ["SharedFlags"]
+      361 GETTABLEKS                       R47 R47 K60 ["getFStringReVerifyAgeLink"]
+      363 CALL                             R46 1 1
+      364 GETIMPORT                        R47 K5 [require]
+      366 GETTABLEKS                       R48 R0 K23 ["Src"]
+      368 GETTABLEKS                       R48 R48 K44 ["SharedFlags"]
+      370 GETTABLEKS                       R48 R48 K61 ["getFStringLuaStartPageFAEDevForumLink"]
+      372 CALL                             R47 1 1
+      373 GETIMPORT                        R48 K5 [require]
+      375 GETTABLEKS                       R49 R0 K23 ["Src"]
+      377 GETTABLEKS                       R49 R49 K44 ["SharedFlags"]
+      379 GETTABLEKS                       R49 R49 K62 ["getFStringStartPageEstablishTrustDevForumLink"]
+      381 CALL                             R48 1 1
+      382 GETIMPORT                        R49 K5 [require]
+      384 GETTABLEKS                       R50 R0 K23 ["Src"]
+      386 GETTABLEKS                       R50 R50 K44 ["SharedFlags"]
+      388 GETTABLEKS                       R50 R50 K63 ["getFStringStartPageImpactedExperiencesLink"]
+      390 CALL                             R49 1 1
+      391 GETIMPORT                        R50 K5 [require]
+      393 GETTABLEKS                       R51 R0 K23 ["Src"]
+      395 GETTABLEKS                       R51 R51 K44 ["SharedFlags"]
+      397 GETTABLEKS                       R51 R51 K64 ["safeGetFastFlag"]
+      399 CALL                             R50 1 1
       400 GETIMPORT                        R51 K5 [require]
       402 GETTABLEKS                       R52 R0 K23 ["Src"]
-      404 GETTABLEKS                       R52 R52 K16 ["Util"]
-      406 GETTABLEKS                       R52 R52 K65 ["Services"]
+      404 GETTABLEKS                       R52 R52 K44 ["SharedFlags"]
+      406 GETTABLEKS                       R52 R52 K65 ["getFFlagLuaStartPagePublishEligibilityBanner"]
       408 CALL                             R51 1 1
-      409 GETTABLEKS                       R52 R51 K66 ["StartPageManager"]
-      411 GETIMPORT                        R53 K5 [require]
-      413 GETTABLEKS                       R54 R0 K23 ["Src"]
-      415 GETTABLEKS                       R54 R54 K16 ["Util"]
-      417 GETTABLEKS                       R54 R54 K67 ["Telemetry"]
-      419 GETTABLEKS                       R54 R54 K68 ["TelemetryContext"]
-      421 CALL                             R53 1 1
-      422 GETIMPORT                        R54 K5 [require]
-      424 GETTABLEKS                       R55 R0 K23 ["Src"]
-      426 GETTABLEKS                       R55 R55 K16 ["Util"]
-      428 GETTABLEKS                       R55 R55 K67 ["Telemetry"]
-      430 GETTABLEKS                       R55 R55 K69 ["StartPageTelemetryEvent"]
-      432 CALL                             R54 1 1
-      433 GETIMPORT                        R55 K5 [require]
-      435 GETTABLEKS                       R56 R0 K23 ["Src"]
-      437 GETTABLEKS                       R56 R56 K16 ["Util"]
-      439 GETTABLEKS                       R56 R56 K67 ["Telemetry"]
-      441 GETTABLEKS                       R56 R56 K70 ["StudioSafetyUpsellClickedEvent"]
-      443 CALL                             R55 1 1
-      444 GETIMPORT                        R56 K5 [require]
-      446 GETTABLEKS                       R57 R0 K23 ["Src"]
-      448 GETTABLEKS                       R57 R57 K71 ["Contexts"]
-      450 GETTABLEKS                       R57 R57 K72 ["ContextMenuActions"]
-      452 CALL                             R56 1 1
-      453 GETTABLEKS                       R57 R51 K73 ["StudioService"]
-      455 GETTABLEKS                       R58 R51 K74 ["RbxAnalyticsService"]
-      457 GETIMPORT                        R59 K5 [require]
-      459 GETTABLEKS                       R60 R0 K23 ["Src"]
-      461 GETTABLEKS                       R60 R60 K16 ["Util"]
-      463 GETTABLEKS                       R60 R60 K75 ["Dialogs"]
-      465 CALL                             R59 1 1
-      466 GETIMPORT                        R60 K5 [require]
-      468 GETTABLEKS                       R61 R0 K23 ["Src"]
-      470 GETTABLEKS                       R61 R61 K76 ["Hooks"]
-      472 GETTABLEKS                       R61 R61 K77 ["useUsername"]
-      474 CALL                             R60 1 1
-      475 GETIMPORT                        R61 K5 [require]
-      477 GETTABLEKS                       R62 R0 K23 ["Src"]
-      479 GETTABLEKS                       R62 R62 K76 ["Hooks"]
-      481 GETTABLEKS                       R62 R62 K78 ["useShowVerifyAgeBanner"]
-      483 CALL                             R61 1 1
-      484 GETIMPORT                        R62 K5 [require]
-      486 GETTABLEKS                       R63 R0 K23 ["Src"]
-      488 GETTABLEKS                       R63 R63 K76 ["Hooks"]
-      490 GETTABLEKS                       R63 R63 K79 ["useEstablishTrustDialog"]
-      492 CALL                             R62 1 1
-      493 GETIMPORT                        R63 K5 [require]
-      495 GETTABLEKS                       R64 R0 K23 ["Src"]
-      497 GETTABLEKS                       R64 R64 K44 ["SharedFlags"]
-      499 GETTABLEKS                       R64 R64 K80 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
-      501 CALL                             R63 1 1
-      502 CALL                             R63 0 1
+      409 CALL                             R51 0 1
+      410 GETIMPORT                        R52 K5 [require]
+      412 GETTABLEKS                       R53 R0 K23 ["Src"]
+      414 GETTABLEKS                       R53 R53 K16 ["Util"]
+      416 GETTABLEKS                       R53 R53 K66 ["Services"]
+      418 CALL                             R52 1 1
+      419 GETTABLEKS                       R53 R52 K67 ["StartPageManager"]
+      421 GETIMPORT                        R54 K5 [require]
+      423 GETTABLEKS                       R55 R0 K23 ["Src"]
+      425 GETTABLEKS                       R55 R55 K16 ["Util"]
+      427 GETTABLEKS                       R55 R55 K68 ["Telemetry"]
+      429 GETTABLEKS                       R55 R55 K69 ["TelemetryContext"]
+      431 CALL                             R54 1 1
+      432 GETIMPORT                        R55 K5 [require]
+      434 GETTABLEKS                       R56 R0 K23 ["Src"]
+      436 GETTABLEKS                       R56 R56 K16 ["Util"]
+      438 GETTABLEKS                       R56 R56 K68 ["Telemetry"]
+      440 GETTABLEKS                       R56 R56 K70 ["StartPageTelemetryEvent"]
+      442 CALL                             R55 1 1
+      443 GETIMPORT                        R56 K5 [require]
+      445 GETTABLEKS                       R57 R0 K23 ["Src"]
+      447 GETTABLEKS                       R57 R57 K16 ["Util"]
+      449 GETTABLEKS                       R57 R57 K68 ["Telemetry"]
+      451 GETTABLEKS                       R57 R57 K71 ["StudioSafetyUpsellClickedEvent"]
+      453 CALL                             R56 1 1
+      454 GETIMPORT                        R57 K5 [require]
+      456 GETTABLEKS                       R58 R0 K23 ["Src"]
+      458 GETTABLEKS                       R58 R58 K72 ["Contexts"]
+      460 GETTABLEKS                       R58 R58 K73 ["ContextMenuActions"]
+      462 CALL                             R57 1 1
+      463 GETTABLEKS                       R58 R52 K74 ["StudioService"]
+      465 GETTABLEKS                       R59 R52 K75 ["RbxAnalyticsService"]
+      467 GETIMPORT                        R60 K5 [require]
+      469 GETTABLEKS                       R61 R0 K23 ["Src"]
+      471 GETTABLEKS                       R61 R61 K16 ["Util"]
+      473 GETTABLEKS                       R61 R61 K76 ["Dialogs"]
+      475 CALL                             R60 1 1
+      476 GETIMPORT                        R61 K5 [require]
+      478 GETTABLEKS                       R62 R0 K23 ["Src"]
+      480 GETTABLEKS                       R62 R62 K77 ["Hooks"]
+      482 GETTABLEKS                       R62 R62 K78 ["useUsername"]
+      484 CALL                             R61 1 1
+      485 GETIMPORT                        R62 K5 [require]
+      487 GETTABLEKS                       R63 R0 K23 ["Src"]
+      489 GETTABLEKS                       R63 R63 K77 ["Hooks"]
+      491 GETTABLEKS                       R63 R63 K79 ["useShowVerifyAgeBanner"]
+      493 CALL                             R62 1 1
+      494 GETIMPORT                        R63 K5 [require]
+      496 GETTABLEKS                       R64 R0 K23 ["Src"]
+      498 GETTABLEKS                       R64 R64 K77 ["Hooks"]
+      500 GETTABLEKS                       R64 R64 K80 ["useEstablishTrustDialog"]
+      502 CALL                             R63 1 1
       503 GETIMPORT                        R64 K5 [require]
       505 GETTABLEKS                       R65 R0 K23 ["Src"]
       507 GETTABLEKS                       R65 R65 K44 ["SharedFlags"]
-      509 GETTABLEKS                       R65 R65 K81 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+      509 GETTABLEKS                       R65 R65 K81 ["getFFlagLuaStartPagePlaceOpenAttributionTelemetry"]
       511 CALL                             R64 1 1
       512 CALL                             R64 0 1
       513 GETIMPORT                        R65 K5 [require]
-      515 GETTABLEKS                       R66 R0 K6 ["Packages"]
-      517 GETTABLEKS                       R66 R66 K24 ["Foundation"]
-      519 CALL                             R65 1 1
-      520 GETTABLEKS                       R66 R65 K76 ["Hooks"]
-      522 GETTABLEKS                       R66 R66 K82 ["useStyleTags"]
-      524 GETTABLEKS                       R67 R65 K83 ["View"]
-      526 GETTABLEKS                       R68 R65 K84 ["SystemBanner"]
-      528 GETTABLEKS                       R69 R65 K85 ["Enums"]
-      530 GETTABLEKS                       R69 R69 K86 ["AlertVariant"]
-      532 GETTABLEKS                       R70 R65 K85 ["Enums"]
-      534 GETTABLEKS                       R70 R70 K87 ["AlertSeverity"]
-      536 GETTABLEKS                       R71 R65 K85 ["Enums"]
-      538 GETTABLEKS                       R71 R71 K88 ["ButtonVariant"]
-      540 MOVE                             R72 R41
-      541 CALL                             R72 0 1
-      542 MOVE                             R73 R42
-      543 CALL                             R73 0 1
-      544 DUPCLOSURE                       R74 K89 [PROTO_0]
-      545 CAPTURE                          VAL R57
-      546 DUPTABLE                         R75 K94 [{"searchKey", "search", "isTemplates", "pageSize"}]
-      547 LOADK                            R76 K95 ["Templates"]
-      548 SETTABLEKS                       R76 R75 K90 ["searchKey"]
-      550 LOADK                            R76 K96 ["All"]
-      551 SETTABLEKS                       R76 R75 K91 ["search"]
-      553 LOADB                            R76 1
-      554 SETTABLEKS                       R76 R75 K92 ["isTemplates"]
-      556 LOADN                            R76 30
-      557 SETTABLEKS                       R76 R75 K93 ["pageSize"]
-      559 DUPTABLE                         R76 K97 [{"searchKey", "pageSize"}]
-      560 LOADK                            R77 K34 ["Network"]
-      561 SETTABLEKS                       R77 R76 K90 ["searchKey"]
-      563 LOADN                            R77 30
-      564 SETTABLEKS                       R77 R76 K93 ["pageSize"]
-      566 NEWTABLE                         R77 0 7
-      568 LOADK                            R78 K98 ["ConfigureExperience"]
-      569 LOADK                            R79 K99 ["ConfigurePlace"]
-      570 LOADK                            R80 K100 ["OpenPlace"]
-      571 LOADK                            R81 K101 ["OpenACopy"]
-      572 JUMPIF                           R64 ; [+2]
-      573 LOADK                            R82 K102 ["PublicPrivateToggle"]
-      574 JUMP                             ; [+1]
-      575 LOADK                            R82 K103 [""]
-      576 LOADK                            R83 K104 ["Archive"]
-      577 LOADK                            R84 K105 ["RemoveRecent"]
-      578 SETLIST                          R77 R78 7 [1]
-      580 DUPCLOSURE                       R78 K106 [PROTO_2]
-      581 CAPTURE                          VAL R53
-      582 CAPTURE                          VAL R5
-      583 CAPTURE                          VAL R59
-      584 CAPTURE                          VAL R37
-      585 CAPTURE                          VAL R36
-      586 CAPTURE                          VAL R51
-      587 CAPTURE                          VAL R11
-      588 CAPTURE                          VAL R1
-      589 CAPTURE                          VAL R17
-      590 CAPTURE                          VAL R9
-      591 CAPTURE                          VAL R28
-      592 CAPTURE                          VAL R57
-      593 CAPTURE                          VAL R27
-      594 CAPTURE                          VAL R52
-      595 CAPTURE                          VAL R63
-      596 CAPTURE                          VAL R54
-      597 CAPTURE                          VAL R77
-      598 DUPCLOSURE                       R79 K107 [PROTO_8]
-      599 CAPTURE                          VAL R53
-      600 CAPTURE                          VAL R37
-      601 CAPTURE                          VAL R36
-      602 CAPTURE                          VAL R51
-      603 CAPTURE                          VAL R11
-      604 CAPTURE                          VAL R1
-      605 CAPTURE                          VAL R17
-      606 CAPTURE                          VAL R9
-      607 CAPTURE                          VAL R28
-      608 CAPTURE                          VAL R57
-      609 CAPTURE                          VAL R27
-      610 CAPTURE                          VAL R63
-      611 CAPTURE                          VAL R54
-      612 DUPCLOSURE                       R80 K108 [PROTO_14]
-      613 CAPTURE                          VAL R53
+      515 GETTABLEKS                       R66 R0 K23 ["Src"]
+      517 GETTABLEKS                       R66 R66 K44 ["SharedFlags"]
+      519 GETTABLEKS                       R66 R66 K82 ["getFFlagLuaStartPageHidePublicPrivateToggle"]
+      521 CALL                             R65 1 1
+      522 CALL                             R65 0 1
+      523 GETIMPORT                        R66 K5 [require]
+      525 GETTABLEKS                       R67 R0 K6 ["Packages"]
+      527 GETTABLEKS                       R67 R67 K24 ["Foundation"]
+      529 CALL                             R66 1 1
+      530 GETTABLEKS                       R67 R66 K77 ["Hooks"]
+      532 GETTABLEKS                       R67 R67 K83 ["useStyleTags"]
+      534 GETTABLEKS                       R68 R66 K84 ["View"]
+      536 GETTABLEKS                       R69 R66 K85 ["SystemBanner"]
+      538 GETTABLEKS                       R70 R66 K86 ["Enums"]
+      540 GETTABLEKS                       R70 R70 K87 ["AlertVariant"]
+      542 GETTABLEKS                       R71 R66 K86 ["Enums"]
+      544 GETTABLEKS                       R71 R71 K88 ["AlertSeverity"]
+      546 GETTABLEKS                       R72 R66 K86 ["Enums"]
+      548 GETTABLEKS                       R72 R72 K89 ["ButtonVariant"]
+      550 MOVE                             R73 R42
+      551 CALL                             R73 0 1
+      552 MOVE                             R74 R43
+      553 CALL                             R74 0 1
+      554 DUPCLOSURE                       R75 K90 [PROTO_0]
+      555 CAPTURE                          VAL R58
+      556 DUPTABLE                         R76 K95 [{"searchKey", "search", "isTemplates", "pageSize"}]
+      557 LOADK                            R77 K96 ["Templates"]
+      558 SETTABLEKS                       R77 R76 K91 ["searchKey"]
+      560 LOADK                            R77 K97 ["All"]
+      561 SETTABLEKS                       R77 R76 K92 ["search"]
+      563 LOADB                            R77 1
+      564 SETTABLEKS                       R77 R76 K93 ["isTemplates"]
+      566 LOADN                            R77 30
+      567 SETTABLEKS                       R77 R76 K94 ["pageSize"]
+      569 DUPTABLE                         R77 K98 [{"searchKey", "pageSize"}]
+      570 LOADK                            R78 K34 ["Network"]
+      571 SETTABLEKS                       R78 R77 K91 ["searchKey"]
+      573 LOADN                            R78 30
+      574 SETTABLEKS                       R78 R77 K94 ["pageSize"]
+      576 NEWTABLE                         R78 0 8
+      578 LOADK                            R79 K99 ["ConfigureExperience"]
+      579 LOADK                            R80 K100 ["ConfigurePlace"]
+      580 LOADK                            R81 K101 ["OpenPlace"]
+      581 LOADK                            R82 K102 ["OpenACopy"]
+      582 JUMPIF                           R65 ; [+2]
+      583 LOADK                            R83 K103 ["PublicPrivateToggle"]
+      584 JUMP                             ; [+1]
+      585 LOADK                            R83 K104 [""]
+      586 LOADK                            R84 K105 ["Archive"]
+      587 JUMPIFNOT                        R41 ; [+2]
+      588 LOADK                            R85 K106 ["DisableTeamCreate"]
+      589 JUMP                             ; [+1]
+      590 LOADK                            R85 K104 [""]
+      591 LOADK                            R86 K107 ["RemoveRecent"]
+      592 SETLIST                          R78 R79 8 [1]
+      594 DUPCLOSURE                       R79 K108 [PROTO_2]
+      595 CAPTURE                          VAL R54
+      596 CAPTURE                          VAL R5
+      597 CAPTURE                          VAL R60
+      598 CAPTURE                          VAL R37
+      599 CAPTURE                          VAL R36
+      600 CAPTURE                          VAL R52
+      601 CAPTURE                          VAL R11
+      602 CAPTURE                          VAL R1
+      603 CAPTURE                          VAL R17
+      604 CAPTURE                          VAL R9
+      605 CAPTURE                          VAL R28
+      606 CAPTURE                          VAL R58
+      607 CAPTURE                          VAL R27
+      608 CAPTURE                          VAL R53
+      609 CAPTURE                          VAL R64
+      610 CAPTURE                          VAL R55
+      611 CAPTURE                          VAL R78
+      612 DUPCLOSURE                       R80 K109 [PROTO_8]
+      613 CAPTURE                          VAL R54
       614 CAPTURE                          VAL R37
       615 CAPTURE                          VAL R36
-      616 CAPTURE                          VAL R51
+      616 CAPTURE                          VAL R52
       617 CAPTURE                          VAL R11
       618 CAPTURE                          VAL R1
       619 CAPTURE                          VAL R17
       620 CAPTURE                          VAL R9
-      621 CAPTURE                          VAL R32
-      622 CAPTURE                          VAL R54
-      623 CAPTURE                          VAL R52
-      624 CAPTURE                          VAL R28
-      625 CAPTURE                          VAL R57
-      626 CAPTURE                          VAL R31
-      627 CAPTURE                          VAL R27
-      628 DUPCLOSURE                       R81 K109 [PROTO_36]
-      629 CAPTURE                          VAL R12
-      630 CAPTURE                          VAL R2
-      631 CAPTURE                          VAL R66
-      632 CAPTURE                          VAL R4
-      633 CAPTURE                          VAL R3
-      634 CAPTURE                          VAL R40
-      635 CAPTURE                          VAL R57
-      636 CAPTURE                          VAL R29
+      621 CAPTURE                          VAL R28
+      622 CAPTURE                          VAL R58
+      623 CAPTURE                          VAL R27
+      624 CAPTURE                          VAL R64
+      625 CAPTURE                          VAL R55
+      626 DUPCLOSURE                       R81 K110 [PROTO_14]
+      627 CAPTURE                          VAL R54
+      628 CAPTURE                          VAL R37
+      629 CAPTURE                          VAL R36
+      630 CAPTURE                          VAL R52
+      631 CAPTURE                          VAL R11
+      632 CAPTURE                          VAL R1
+      633 CAPTURE                          VAL R17
+      634 CAPTURE                          VAL R9
+      635 CAPTURE                          VAL R32
+      636 CAPTURE                          VAL R55
       637 CAPTURE                          VAL R53
-      638 CAPTURE                          VAL R11
-      639 CAPTURE                          VAL R51
-      640 CAPTURE                          VAL R52
-      641 CAPTURE                          VAL R49
-      642 CAPTURE                          VAL R34
-      643 CAPTURE                          VAL R35
-      644 CAPTURE                          VAL R62
-      645 CAPTURE                          VAL R7
-      646 CAPTURE                          VAL R54
-      647 CAPTURE                          VAL R10
-      648 CAPTURE                          VAL R60
-      649 CAPTURE                          VAL R61
-      650 CAPTURE                          VAL R55
-      651 CAPTURE                          VAL R58
-      652 CAPTURE                          VAL R30
-      653 CAPTURE                          VAL R32
-      654 CAPTURE                          VAL R25
-      655 CAPTURE                          VAL R26
-      656 CAPTURE                          VAL R33
-      657 CAPTURE                          VAL R1
-      658 CAPTURE                          VAL R14
-      659 CAPTURE                          VAL R68
-      660 CAPTURE                          VAL R69
-      661 CAPTURE                          VAL R70
-      662 CAPTURE                          VAL R71
-      663 CAPTURE                          VAL R46
-      664 CAPTURE                          VAL R43
-      665 CAPTURE                          VAL R47
-      666 CAPTURE                          VAL R39
-      667 CAPTURE                          VAL R48
-      668 CAPTURE                          VAL R38
-      669 CAPTURE                          VAL R44
-      670 CAPTURE                          VAL R45
-      671 CAPTURE                          VAL R22
-      672 CAPTURE                          VAL R72
-      673 CAPTURE                          VAL R73
-      674 CAPTURE                          VAL R16
-      675 CAPTURE                          VAL R50
-      676 CAPTURE                          VAL R21
-      677 CAPTURE                          VAL R20
-      678 CAPTURE                          VAL R67
-      679 CAPTURE                          VAL R15
-      680 CAPTURE                          VAL R56
-      681 CAPTURE                          VAL R77
-      682 CAPTURE                          VAL R18
-      683 CAPTURE                          VAL R19
-      684 CAPTURE                          VAL R78
-      685 CAPTURE                          VAL R24
-      686 CAPTURE                          VAL R79
-      687 CAPTURE                          VAL R75
-      688 CAPTURE                          VAL R23
-      689 CAPTURE                          VAL R80
-      690 CAPTURE                          VAL R76
-      691 RETURN                           R81 1
+      638 CAPTURE                          VAL R28
+      639 CAPTURE                          VAL R58
+      640 CAPTURE                          VAL R31
+      641 CAPTURE                          VAL R27
+      642 DUPCLOSURE                       R82 K111 [PROTO_36]
+      643 CAPTURE                          VAL R12
+      644 CAPTURE                          VAL R2
+      645 CAPTURE                          VAL R67
+      646 CAPTURE                          VAL R4
+      647 CAPTURE                          VAL R3
+      648 CAPTURE                          VAL R40
+      649 CAPTURE                          VAL R58
+      650 CAPTURE                          VAL R29
+      651 CAPTURE                          VAL R54
+      652 CAPTURE                          VAL R11
+      653 CAPTURE                          VAL R52
+      654 CAPTURE                          VAL R53
+      655 CAPTURE                          VAL R50
+      656 CAPTURE                          VAL R34
+      657 CAPTURE                          VAL R35
+      658 CAPTURE                          VAL R63
+      659 CAPTURE                          VAL R7
+      660 CAPTURE                          VAL R55
+      661 CAPTURE                          VAL R10
+      662 CAPTURE                          VAL R61
+      663 CAPTURE                          VAL R62
+      664 CAPTURE                          VAL R56
+      665 CAPTURE                          VAL R59
+      666 CAPTURE                          VAL R30
+      667 CAPTURE                          VAL R32
+      668 CAPTURE                          VAL R25
+      669 CAPTURE                          VAL R26
+      670 CAPTURE                          VAL R33
+      671 CAPTURE                          VAL R1
+      672 CAPTURE                          VAL R14
+      673 CAPTURE                          VAL R69
+      674 CAPTURE                          VAL R70
+      675 CAPTURE                          VAL R71
+      676 CAPTURE                          VAL R72
+      677 CAPTURE                          VAL R47
+      678 CAPTURE                          VAL R44
+      679 CAPTURE                          VAL R48
+      680 CAPTURE                          VAL R39
+      681 CAPTURE                          VAL R49
+      682 CAPTURE                          VAL R38
+      683 CAPTURE                          VAL R45
+      684 CAPTURE                          VAL R46
+      685 CAPTURE                          VAL R22
+      686 CAPTURE                          VAL R73
+      687 CAPTURE                          VAL R74
+      688 CAPTURE                          VAL R16
+      689 CAPTURE                          VAL R51
+      690 CAPTURE                          VAL R21
+      691 CAPTURE                          VAL R20
+      692 CAPTURE                          VAL R68
+      693 CAPTURE                          VAL R15
+      694 CAPTURE                          VAL R57
+      695 CAPTURE                          VAL R78
+      696 CAPTURE                          VAL R18
+      697 CAPTURE                          VAL R19
+      698 CAPTURE                          VAL R79
+      699 CAPTURE                          VAL R24
+      700 CAPTURE                          VAL R80
+      701 CAPTURE                          VAL R76
+      702 CAPTURE                          VAL R23
+      703 CAPTURE                          VAL R81
+      704 CAPTURE                          VAL R77
+      705 RETURN                           R82 1

@@ -75,6 +75,12 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["_updateState"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["_maid"]
         2 GETTABLEKS                       R3 R0 K1 ["_visualizationMode"]
         4 LOADK                            R5 K2 ["Name"]
@@ -119,36 +125,53 @@ PROTO_7:
        60 CALL                             R3 2 -1
        61 NAMECALL                         R1 R1 K5 ["giveTask"]
        63 CALL                             R1 -1 0
-       64 NAMECALL                         R1 R0 K9 ["_updateState"]
-       66 CALL                             R1 1 0
-       67 RETURN                           R0 0
+       64 GETTABLEKS                       R1 R0 K0 ["_maid"]
+       66 GETTABLEKS                       R3 R0 K1 ["_visualizationMode"]
+       68 LOADK                            R5 K9 ["SortOrder"]
+       69 NAMECALL                         R3 R3 K10 ["GetAttributeChangedSignal"]
+       71 CALL                             R3 2 1
+       72 NEWCLOSURE                       R5 P4
+       73 CAPTURE                          VAL R0
+       74 NAMECALL                         R3 R3 K4 ["Connect"]
+       76 CALL                             R3 2 -1
+       77 NAMECALL                         R1 R1 K5 ["giveTask"]
+       79 CALL                             R1 -1 0
+       80 NAMECALL                         R1 R0 K11 ["_updateState"]
+       82 CALL                             R1 1 0
+       83 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETTABLEKS                       R2 R0 K0 ["_visualizationMode"]
         2 SETTABLEKS                       R1 R2 K1 ["Enabled"]
         4 RETURN                           R0 0
 
-PROTO_9:
-        0 GETIMPORT                        R3 K2 [table.freeze]
-        2 DUPTABLE                         R4 K7 [{"name", "title", "enabled", "toolTip"}]
-        3 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
-        5 GETTABLEKS                       R5 R5 K9 ["Name"]
-        7 SETTABLEKS                       R5 R4 K3 ["name"]
-        9 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
-       11 GETTABLEKS                       R5 R5 K10 ["Title"]
-       13 SETTABLEKS                       R5 R4 K4 ["title"]
-       15 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
-       17 GETTABLEKS                       R5 R5 K11 ["Enabled"]
-       19 SETTABLEKS                       R5 R4 K5 ["enabled"]
-       21 GETTABLEKS                       R5 R0 K8 ["_visualizationMode"]
-       23 GETTABLEKS                       R5 R5 K12 ["ToolTip"]
-       25 SETTABLEKS                       R5 R4 K6 ["toolTip"]
-       27 CALL                             R3 1 -1
-       28 NAMECALL                         R1 R0 K13 ["_setState"]
-       30 CALL                             R1 -1 0
-       31 RETURN                           R0 0
-
 PROTO_10:
+        0 GETIMPORT                        R3 K2 [table.freeze]
+        2 DUPTABLE                         R4 K8 [{"name", "title", "enabled", "toolTip", "sortOrder"}]
+        3 GETTABLEKS                       R5 R0 K9 ["_visualizationMode"]
+        5 GETTABLEKS                       R5 R5 K10 ["Name"]
+        7 SETTABLEKS                       R5 R4 K3 ["name"]
+        9 GETTABLEKS                       R5 R0 K9 ["_visualizationMode"]
+       11 GETTABLEKS                       R5 R5 K11 ["Title"]
+       13 SETTABLEKS                       R5 R4 K4 ["title"]
+       15 GETTABLEKS                       R5 R0 K9 ["_visualizationMode"]
+       17 GETTABLEKS                       R5 R5 K12 ["Enabled"]
+       19 SETTABLEKS                       R5 R4 K5 ["enabled"]
+       21 GETTABLEKS                       R5 R0 K9 ["_visualizationMode"]
+       23 GETTABLEKS                       R5 R5 K13 ["ToolTip"]
+       25 SETTABLEKS                       R5 R4 K6 ["toolTip"]
+       27 GETTABLEKS                       R6 R0 K9 ["_visualizationMode"]
+       29 LOADK                            R8 K15 ["SortOrder"]
+       30 NAMECALL                         R6 R6 K16 ["GetAttribute"]
+       32 CALL                             R6 2 1
+       33 ORK                              R5 R6 K14 [0]
+       34 SETTABLEKS                       R5 R4 K7 ["sortOrder"]
+       36 CALL                             R3 1 -1
+       37 NAMECALL                         R1 R0 K17 ["_setState"]
+       39 CALL                             R1 -1 0
+       40 RETURN                           R0 0
+
+PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["_maid"]
         2 NAMECALL                         R1 R1 K1 ["destroy"]
         4 CALL                             R1 1 0
@@ -185,12 +208,12 @@ MAIN:
        43 SETTABLEKS                       R5 R4 K15 ["getState"]
        45 DUPCLOSURE                       R5 K16 [PROTO_2]
        46 SETTABLEKS                       R5 R4 K17 ["_setState"]
-       48 DUPCLOSURE                       R5 K18 [PROTO_7]
+       48 DUPCLOSURE                       R5 K18 [PROTO_8]
        49 SETTABLEKS                       R5 R4 K19 ["_startTracking"]
-       51 DUPCLOSURE                       R5 K20 [PROTO_8]
+       51 DUPCLOSURE                       R5 K20 [PROTO_9]
        52 SETTABLEKS                       R5 R4 K21 ["updateVisualizationModeIsEnabled"]
-       54 DUPCLOSURE                       R5 K22 [PROTO_9]
+       54 DUPCLOSURE                       R5 K22 [PROTO_10]
        55 SETTABLEKS                       R5 R4 K23 ["_updateState"]
-       57 DUPCLOSURE                       R5 K24 [PROTO_10]
+       57 DUPCLOSURE                       R5 K24 [PROTO_11]
        58 SETTABLEKS                       R5 R4 K25 ["destroy"]
        60 RETURN                           R4 1

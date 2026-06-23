@@ -1,4 +1,91 @@
 PROTO_0:
+        0 GETIMPORT                        R0 K1 [settings]
+        2 CALL                             R0 0 1
+        3 GETTABLEKS                       R0 R0 K2 ["Studio"]
+        5 RETURN                           R0 1
+
+PROTO_1:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 DUPCLOSURE                       R1 K2 [PROTO_0]
+        3 CALL                             R0 1 2
+        4 JUMPIFNOT                        R0 ; [+1]
+        5 JUMPIF                           R1 ; [+2]
+        6 LOADK                            R2 K3 ["Dark"]
+        7 RETURN                           R2 1
+        8 GETTABLEKS                       R2 R1 K4 ["Theme"]
+       10 JUMPIFNOT                        R2 ; [+3]
+       11 GETTABLEKS                       R3 R2 K5 ["Name"]
+       13 RETURN                           R3 1
+       14 LOADK                            R3 K3 ["Dark"]
+       15 RETURN                           R3 1
+
+PROTO_2:
+        0 GETIMPORT                        R0 K1 [settings]
+        2 CALL                             R0 0 1
+        3 GETTABLEKS                       R0 R0 K2 ["Studio"]
+        5 RETURN                           R0 1
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 GETIMPORT                        R2 K1 [pcall]
+        3 DUPCLOSURE                       R3 K2 [PROTO_0]
+        4 CALL                             R2 1 2
+        5 JUMPIFNOT                        R2 ; [+1]
+        6 JUMPIF                           R3 ; [+2]
+        7 LOADK                            R1 K3 ["Dark"]
+        8 JUMP                             ; [+7]
+        9 GETTABLEKS                       R4 R3 K4 ["Theme"]
+       11 JUMPIFNOT                        R4 ; [+3]
+       12 GETTABLEKS                       R1 R4 K5 ["Name"]
+       14 JUMP                             ; [+1]
+       15 LOADK                            R1 K3 ["Dark"]
+       16 CALL                             R0 1 0
+       17 RETURN                           R0 0
+
+PROTO_4:
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
+
+PROTO_5:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 DUPCLOSURE                       R1 K2 [PROTO_2]
+        3 CALL                             R0 1 2
+        4 JUMPIFNOT                        R0 ; [+1]
+        5 JUMPIF                           R1 ; [+1]
+        6 RETURN                           R0 0
+        7 GETTABLEKS                       R2 R1 K3 ["ThemeChanged"]
+        9 NEWCLOSURE                       R4 P1
+       10 CAPTURE                          UPVAL U0
+       11 NAMECALL                         R2 R2 K4 ["Connect"]
+       13 CALL                             R2 2 1
+       14 NEWCLOSURE                       R3 P2
+       15 CAPTURE                          VAL R2
+       16 RETURN                           R3 1
+
+PROTO_6:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["useState"]
+        3 GETUPVAL                         R2 1
+        4 CALL                             R1 1 2
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K1 ["useEffect"]
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          VAL R2
+       10 NEWTABLE                         R5 0 0
+       12 CALL                             R3 2 0
+       13 GETUPVAL                         R3 0
+       14 GETTABLEKS                       R3 R3 K2 ["createElement"]
+       16 GETUPVAL                         R4 2
+       17 GETTABLEKS                       R4 R4 K3 ["FoundationProvider"]
+       19 DUPTABLE                         R5 K5 [{"theme"}]
+       20 SETTABLEKS                       R1 R5 K4 ["theme"]
+       22 GETTABLEKS                       R6 R0 K6 ["children"]
+       24 CALL                             R3 3 -1
+       25 RETURN                           R3 -1
+
+PROTO_7:
         0 NEWTABLE                         R2 0 0
         2 MOVE                             R3 R0
         3 LOADNIL                          R4
@@ -35,7 +122,7 @@ PROTO_0:
        45 LOADNIL                          R3
        46 RETURN                           R3 1
 
-PROTO_1:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
         2 MOVE                             R4 R1
@@ -57,7 +144,7 @@ PROTO_1:
        25 FORGLOOP                         R4 2 ; [-11]
        27 RETURN                           R3 1
 
-PROTO_2:
+PROTO_9:
         0 LOADNIL                          R1
         1 LOADK                            R2 K0 [∞]
         2 MOVE                             R3 R0
@@ -70,7 +157,7 @@ PROTO_2:
        10 FORGLOOP                         R3 2 ; [-5]
        12 RETURN                           R1 1
 
-PROTO_3:
+PROTO_10:
         0 JUMPIFNOT                        R3 ; [+10]
         1 MOVE                             R4 R0
         2 LOADNIL                          R5
@@ -83,7 +170,7 @@ PROTO_3:
        11 SETTABLE                         R2 R0 R1
        12 RETURN                           R0 0
 
-PROTO_4:
+PROTO_11:
         0 JUMPIFNOT                        R1 ; [+11]
         1 GETTABLEKS                       R3 R0 K0 ["X"]
         3 GETTABLEKS                       R4 R0 K1 ["Y"]
@@ -115,7 +202,7 @@ PROTO_4:
        37 GETTABLEKS                       R3 R3 K6 ["RADIUS_SCALE"]
        39 RETURN                           R3 1
 
-PROTO_5:
+PROTO_12:
         0 NEWTABLE                         R2 0 0
         2 NEWTABLE                         R3 0 0
         4 MOVE                             R4 R0
@@ -175,7 +262,7 @@ PROTO_5:
        84 JUMPBACK                         ; [-62]
        85 RETURN                           R2 1
 
-PROTO_6:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 SETTABLEKS                       R0 R1 K0 ["current"]
         3 GETUPVAL                         R1 1
@@ -183,7 +270,7 @@ PROTO_6:
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
-PROTO_7:
+PROTO_14:
         0 GETUPVAL                         R0 0
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["current"]
@@ -208,7 +295,7 @@ PROTO_7:
        28 CALL                             R0 1 0
        29 RETURN                           R0 0
 
-PROTO_8:
+PROTO_15:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 SETTABLEKS                       R1 R0 K0 ["current"]
@@ -234,7 +321,7 @@ PROTO_8:
        28 CALL                             R0 1 0
        29 RETURN                           R0 0
 
-PROTO_9:
+PROTO_16:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 LOADNIL                          R2
@@ -285,7 +372,7 @@ PROTO_9:
        58 SETTABLEKS                       R2 R1 K0 ["current"]
        60 RETURN                           R0 0
 
-PROTO_10:
+PROTO_17:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["onHoveredJointChanged"]
         3 JUMPIFNOT                        R0 ; [+5]
@@ -295,7 +382,7 @@ PROTO_10:
         8 CALL                             R0 1 0
         9 RETURN                           R0 0
 
-PROTO_11:
+PROTO_18:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["current"]
         3 GETUPVAL                         R3 1
@@ -314,7 +401,7 @@ PROTO_11:
        18 CALL                             R2 0 0
        19 RETURN                           R0 0
 
-PROTO_12:
+PROTO_19:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["current"]
         3 LOADNIL                          R2
@@ -323,7 +410,7 @@ PROTO_12:
         6 CALL                             R1 0 0
         7 RETURN                           R0 0
 
-PROTO_13:
+PROTO_20:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+47]
         2 GETUPVAL                         R0 0
@@ -366,7 +453,7 @@ PROTO_13:
        50 GETTABLEKS                       R0 R0 K7 ["RADIUS_SCALE"]
        52 RETURN                           R0 1
 
-PROTO_14:
+PROTO_21:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["onJointClicked"]
         3 JUMPIF                           R1 ; [+1]
@@ -393,7 +480,7 @@ PROTO_14:
        28 CALL                             R1 1 0
        29 RETURN                           R0 0
 
-PROTO_15:
+PROTO_22:
         0 GETTABLEKS                       R1 R0 K0 ["rigModel"]
         2 GETTABLEKS                       R2 R0 K1 ["rigDescriptor"]
         4 GETTABLEKS                       R3 R0 K2 ["selectedJointInstance"]
@@ -404,184 +491,222 @@ PROTO_15:
        10 MOVE                             R6 R2
        11 GETTABLEKS                       R7 R0 K3 ["overrideLabels"]
        13 CALL                             R5 2 1
-       14 GETTABLEKS                       R6 R5 K4 ["mapped"]
-       16 GETTABLEKS                       R7 R5 K5 ["labelMap"]
-       18 GETTABLEKS                       R8 R5 K6 ["otherMapped"]
-       20 GETUPVAL                         R9 2
-       21 CALL                             R9 0 1
-       22 JUMPIFNOT                        R9 ; [+3]
-       23 GETUPVAL                         R9 3
-       24 MOVE                             R10 R1
-       25 CALL                             R9 1 0
-       26 NEWTABLE                         R9 0 0
-       28 GETUPVAL                         R10 4
-       29 GETTABLEKS                       R10 R10 K7 ["useRef"]
-       31 NEWTABLE                         R11 0 0
-       33 CALL                             R10 1 1
-       34 GETUPVAL                         R11 4
-       35 GETTABLEKS                       R11 R11 K7 ["useRef"]
+       14 GETTABLEKS                       R6 R5 K4 ["labelMap"]
+       16 LOADNIL                          R7
+       17 LOADNIL                          R8
+       18 GETUPVAL                         R9 2
+       19 CALL                             R9 0 1
+       20 JUMPIFNOT                        R9 ; [+25]
+       21 GETTABLEKS                       R9 R0 K5 ["isMappingMode"]
+       23 JUMPIFNOT                        R9 ; [+5]
+       24 GETTABLEKS                       R7 R5 K6 ["mapped"]
+       26 GETTABLEKS                       R8 R5 K7 ["otherMapped"]
+       28 JUMP                             ; [+21]
+       29 GETIMPORT                        R9 K10 [table.clone]
+       31 GETTABLEKS                       R10 R5 K6 ["mapped"]
+       33 CALL                             R9 1 1
+       34 GETTABLEKS                       R10 R5 K7 ["otherMapped"]
+       36 LOADNIL                          R11
        37 LOADNIL                          R12
-       38 CALL                             R11 1 1
-       39 GETUPVAL                         R12 4
-       40 GETTABLEKS                       R12 R12 K7 ["useRef"]
-       42 LOADNIL                          R13
-       43 CALL                             R12 1 1
-       44 GETUPVAL                         R13 4
-       45 GETTABLEKS                       R13 R13 K7 ["useRef"]
-       47 NEWTABLE                         R14 0 0
-       49 CALL                             R13 1 1
-       50 GETUPVAL                         R14 4
-       51 GETTABLEKS                       R14 R14 K8 ["useState"]
-       53 LOADNIL                          R15
-       54 CALL                             R14 1 2
-       55 NEWCLOSURE                       R16 P0
-       56 CAPTURE                          VAL R12
-       57 CAPTURE                          VAL R15
-       58 GETUPVAL                         R17 4
-       59 GETTABLEKS                       R17 R17 K9 ["useEffect"]
-       61 NEWCLOSURE                       R18 P1
-       62 CAPTURE                          VAL R10
-       63 CAPTURE                          UPVAL U5
-       64 CAPTURE                          VAL R11
-       65 CAPTURE                          VAL R12
-       66 CAPTURE                          VAL R15
-       67 NEWTABLE                         R19 0 2
-       69 MOVE                             R20 R1
-       70 MOVE                             R21 R2
-       71 SETLIST                          R19 R20 2 [1]
-       73 CALL                             R17 2 0
-       74 GETUPVAL                         R17 4
-       75 GETTABLEKS                       R17 R17 K10 ["useCallback"]
-       77 NEWCLOSURE                       R18 P2
-       78 CAPTURE                          VAL R10
-       79 CAPTURE                          UPVAL U5
-       80 CAPTURE                          VAL R12
-       81 CAPTURE                          VAL R15
-       82 CAPTURE                          VAL R11
-       83 NEWTABLE                         R19 0 0
-       85 CALL                             R17 2 1
-       86 GETUPVAL                         R18 4
-       87 GETTABLEKS                       R18 R18 K9 ["useEffect"]
-       89 NEWCLOSURE                       R19 P3
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          VAL R14
-       92 NEWTABLE                         R20 0 2
-       94 MOVE                             R21 R14
-       95 GETTABLEKS                       R22 R0 K11 ["onHoveredJointChanged"]
-       97 SETLIST                          R20 R21 2 [1]
-       99 CALL                             R18 2 0
-      100 GETUPVAL                         R18 4
-      101 GETTABLEKS                       R18 R18 K10 ["useCallback"]
-      103 NEWCLOSURE                       R19 P4
-      104 CAPTURE                          VAL R10
-      105 CAPTURE                          UPVAL U2
-      106 CAPTURE                          VAL R17
-      107 NEWTABLE                         R20 0 1
-      109 MOVE                             R21 R17
-      110 SETLIST                          R20 R21 1 [1]
-      112 CALL                             R18 2 1
-      113 GETUPVAL                         R19 4
-      114 GETTABLEKS                       R19 R19 K10 ["useCallback"]
-      116 NEWCLOSURE                       R20 P5
-      117 CAPTURE                          VAL R10
-      118 CAPTURE                          VAL R17
-      119 NEWTABLE                         R21 0 1
-      121 MOVE                             R22 R17
-      122 SETLIST                          R21 R22 1 [1]
-      124 CALL                             R19 2 1
-      125 GETUPVAL                         R20 4
-      126 GETTABLEKS                       R20 R20 K12 ["useMemo"]
-      128 NEWCLOSURE                       R21 P6
-      129 CAPTURE                          VAL R1
-      130 CAPTURE                          UPVAL U2
-      131 CAPTURE                          UPVAL U6
-      132 NEWTABLE                         R22 0 1
-      134 MOVE                             R23 R1
-      135 SETLIST                          R22 R23 1 [1]
-      137 CALL                             R20 2 1
-      138 GETUPVAL                         R21 4
-      139 GETTABLEKS                       R21 R21 K10 ["useCallback"]
-      141 NEWCLOSURE                       R22 P7
-      142 CAPTURE                          VAL R0
-      143 CAPTURE                          UPVAL U5
-      144 CAPTURE                          VAL R12
-      145 CAPTURE                          VAL R13
-      146 NEWTABLE                         R23 0 1
-      148 GETTABLEKS                       R24 R0 K13 ["onJointClicked"]
-      150 SETLIST                          R23 R24 1 [1]
-      152 CALL                             R21 2 1
-      153 GETUPVAL                         R22 7
-      154 MOVE                             R23 R4
-      155 MOVE                             R24 R7
-      156 CALL                             R22 2 1
-      157 GETUPVAL                         R23 5
-      158 CALL                             R23 0 1
-      159 JUMPIFNOT                        R23 ; [+19]
-      160 NEWTABLE                         R23 0 0
-      162 SETTABLEKS                       R23 R13 K14 ["current"]
-      164 MOVE                             R23 R22
-      165 LOADNIL                          R24
-      166 LOADNIL                          R25
-      167 FORGPREP                         R23
-      168 GETTABLEKS                       R28 R13 K14 ["current"]
-      170 GETTABLEKS                       R29 R27 K15 ["jointInstance"]
-      172 GETTABLEKS                       R29 R29 K16 ["Name"]
-      174 GETTABLEKS                       R30 R27 K15 ["jointInstance"]
-      176 SETTABLE                         R30 R28 R29
-      177 FORGLOOP                         R23 2 ; [-10]
-      179 MOVE                             R23 R22
-      180 LOADNIL                          R24
-      181 LOADNIL                          R25
-      182 FORGPREP                         R23
-      183 GETUPVAL                         R28 4
-      184 GETTABLEKS                       R28 R28 K17 ["createElement"]
-      186 GETUPVAL                         R29 8
-      187 DUPTABLE                         R30 K32 [{"jointInstance", "parentJoint", "DEPRECATED_jointLabel", "mappedLookup", "otherMappedLookup", "childJoints", "DEPRECATED_rigDescriptor", "selectedJointInstance", "onJointClicked", "standardRadius", "DEPRECATED_applyTposeAdjustment", "updatePositions", "DEPRECATED_isPlayingAnimation", "globalHoveredJointName", "mannequinHoveredJointName", "onJointHoverEnter", "onJointHoverLeave"}]
-      188 GETTABLEKS                       R31 R27 K15 ["jointInstance"]
-      190 SETTABLEKS                       R31 R30 K15 ["jointInstance"]
-      192 GETTABLEKS                       R31 R27 K18 ["parentJoint"]
-      194 SETTABLEKS                       R31 R30 K18 ["parentJoint"]
-      196 GETTABLEKS                       R31 R27 K33 ["label"]
-      198 SETTABLEKS                       R31 R30 K19 ["DEPRECATED_jointLabel"]
-      200 SETTABLEKS                       R6 R30 K20 ["mappedLookup"]
-      202 SETTABLEKS                       R8 R30 K21 ["otherMappedLookup"]
-      204 GETTABLEKS                       R31 R27 K22 ["childJoints"]
-      206 SETTABLEKS                       R31 R30 K22 ["childJoints"]
-      208 SETTABLEKS                       R2 R30 K23 ["DEPRECATED_rigDescriptor"]
-      210 SETTABLEKS                       R3 R30 K2 ["selectedJointInstance"]
-      212 GETUPVAL                         R32 5
-      213 CALL                             R32 0 1
-      214 JUMPIFNOT                        R32 ; [+2]
-      215 MOVE                             R31 R21
-      216 JUMP                             ; [+2]
-      217 GETTABLEKS                       R31 R0 K13 ["onJointClicked"]
-      219 SETTABLEKS                       R31 R30 K13 ["onJointClicked"]
-      221 SETTABLEKS                       R20 R30 K24 ["standardRadius"]
-      223 GETTABLEKS                       R31 R0 K34 ["applyTposeAdjustment"]
-      225 SETTABLEKS                       R31 R30 K25 ["DEPRECATED_applyTposeAdjustment"]
-      227 GETTABLEKS                       R31 R0 K26 ["updatePositions"]
-      229 SETTABLEKS                       R31 R30 K26 ["updatePositions"]
-      231 GETTABLEKS                       R31 R0 K27 ["DEPRECATED_isPlayingAnimation"]
-      233 SETTABLEKS                       R31 R30 K27 ["DEPRECATED_isPlayingAnimation"]
-      235 SETTABLEKS                       R14 R30 K28 ["globalHoveredJointName"]
-      237 GETTABLEKS                       R31 R0 K29 ["mannequinHoveredJointName"]
-      239 SETTABLEKS                       R31 R30 K29 ["mannequinHoveredJointName"]
-      241 SETTABLEKS                       R18 R30 K30 ["onJointHoverEnter"]
-      243 SETTABLEKS                       R19 R30 K31 ["onJointHoverLeave"]
-      245 CALL                             R28 2 1
-      246 FASTCALL2                        TABLE_INSERT R9 R28 ; [+5]
-      248 MOVE                             R30 R9
-      249 MOVE                             R31 R28
-      250 GETIMPORT                        R29 K37 [table.insert]
-      252 CALL                             R29 2 0
-      253 FORGLOOP                         R23 2 ; [-71]
-      255 GETUPVAL                         R23 4
-      256 GETTABLEKS                       R23 R23 K17 ["createElement"]
-      258 LOADK                            R24 K38 ["Folder"]
-      259 LOADNIL                          R25
-      260 MOVE                             R26 R9
-      261 CALL                             R23 3 -1
-      262 RETURN                           R23 -1
+       38 FORGPREP                         R10
+       39 LOADB                            R15 1
+       40 SETTABLE                         R15 R9 R13
+       41 FORGLOOP                         R10 1 ; [-3]
+       43 MOVE                             R7 R9
+       44 LOADNIL                          R8
+       45 JUMP                             ; [+4]
+       46 GETTABLEKS                       R7 R5 K6 ["mapped"]
+       48 GETTABLEKS                       R8 R5 K7 ["otherMapped"]
+       50 GETUPVAL                         R9 3
+       51 CALL                             R9 0 1
+       52 JUMPIFNOT                        R9 ; [+3]
+       53 GETUPVAL                         R9 4
+       54 MOVE                             R10 R1
+       55 CALL                             R9 1 0
+       56 NEWTABLE                         R9 0 0
+       58 GETUPVAL                         R10 5
+       59 GETTABLEKS                       R10 R10 K11 ["useRef"]
+       61 NEWTABLE                         R11 0 0
+       63 CALL                             R10 1 1
+       64 GETUPVAL                         R11 5
+       65 GETTABLEKS                       R11 R11 K11 ["useRef"]
+       67 LOADNIL                          R12
+       68 CALL                             R11 1 1
+       69 GETUPVAL                         R12 5
+       70 GETTABLEKS                       R12 R12 K11 ["useRef"]
+       72 LOADNIL                          R13
+       73 CALL                             R12 1 1
+       74 GETUPVAL                         R13 5
+       75 GETTABLEKS                       R13 R13 K11 ["useRef"]
+       77 NEWTABLE                         R14 0 0
+       79 CALL                             R13 1 1
+       80 GETUPVAL                         R14 5
+       81 GETTABLEKS                       R14 R14 K12 ["useState"]
+       83 LOADNIL                          R15
+       84 CALL                             R14 1 2
+       85 NEWCLOSURE                       R16 P0
+       86 CAPTURE                          VAL R12
+       87 CAPTURE                          VAL R15
+       88 GETUPVAL                         R17 5
+       89 GETTABLEKS                       R17 R17 K13 ["useEffect"]
+       91 NEWCLOSURE                       R18 P1
+       92 CAPTURE                          VAL R10
+       93 CAPTURE                          UPVAL U6
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R12
+       96 CAPTURE                          VAL R15
+       97 NEWTABLE                         R19 0 2
+       99 MOVE                             R20 R1
+      100 MOVE                             R21 R2
+      101 SETLIST                          R19 R20 2 [1]
+      103 CALL                             R17 2 0
+      104 GETUPVAL                         R17 5
+      105 GETTABLEKS                       R17 R17 K14 ["useCallback"]
+      107 NEWCLOSURE                       R18 P2
+      108 CAPTURE                          VAL R10
+      109 CAPTURE                          UPVAL U6
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R11
+      113 NEWTABLE                         R19 0 0
+      115 CALL                             R17 2 1
+      116 GETUPVAL                         R18 5
+      117 GETTABLEKS                       R18 R18 K13 ["useEffect"]
+      119 NEWCLOSURE                       R19 P3
+      120 CAPTURE                          VAL R0
+      121 CAPTURE                          VAL R14
+      122 NEWTABLE                         R20 0 2
+      124 MOVE                             R21 R14
+      125 GETTABLEKS                       R22 R0 K15 ["onHoveredJointChanged"]
+      127 SETLIST                          R20 R21 2 [1]
+      129 CALL                             R18 2 0
+      130 GETUPVAL                         R18 5
+      131 GETTABLEKS                       R18 R18 K14 ["useCallback"]
+      133 NEWCLOSURE                       R19 P4
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          UPVAL U3
+      136 CAPTURE                          VAL R17
+      137 NEWTABLE                         R20 0 1
+      139 MOVE                             R21 R17
+      140 SETLIST                          R20 R21 1 [1]
+      142 CALL                             R18 2 1
+      143 GETUPVAL                         R19 5
+      144 GETTABLEKS                       R19 R19 K14 ["useCallback"]
+      146 NEWCLOSURE                       R20 P5
+      147 CAPTURE                          VAL R10
+      148 CAPTURE                          VAL R17
+      149 NEWTABLE                         R21 0 1
+      151 MOVE                             R22 R17
+      152 SETLIST                          R21 R22 1 [1]
+      154 CALL                             R19 2 1
+      155 GETUPVAL                         R20 5
+      156 GETTABLEKS                       R20 R20 K16 ["useMemo"]
+      158 NEWCLOSURE                       R21 P6
+      159 CAPTURE                          VAL R1
+      160 CAPTURE                          UPVAL U3
+      161 CAPTURE                          UPVAL U7
+      162 NEWTABLE                         R22 0 1
+      164 MOVE                             R23 R1
+      165 SETLIST                          R22 R23 1 [1]
+      167 CALL                             R20 2 1
+      168 GETUPVAL                         R21 5
+      169 GETTABLEKS                       R21 R21 K14 ["useCallback"]
+      171 NEWCLOSURE                       R22 P7
+      172 CAPTURE                          VAL R0
+      173 CAPTURE                          UPVAL U6
+      174 CAPTURE                          VAL R12
+      175 CAPTURE                          VAL R13
+      176 NEWTABLE                         R23 0 1
+      178 GETTABLEKS                       R24 R0 K17 ["onJointClicked"]
+      180 SETLIST                          R23 R24 1 [1]
+      182 CALL                             R21 2 1
+      183 GETUPVAL                         R22 8
+      184 MOVE                             R23 R4
+      185 MOVE                             R24 R6
+      186 CALL                             R22 2 1
+      187 GETUPVAL                         R23 6
+      188 CALL                             R23 0 1
+      189 JUMPIFNOT                        R23 ; [+19]
+      190 NEWTABLE                         R23 0 0
+      192 SETTABLEKS                       R23 R13 K18 ["current"]
+      194 MOVE                             R23 R22
+      195 LOADNIL                          R24
+      196 LOADNIL                          R25
+      197 FORGPREP                         R23
+      198 GETTABLEKS                       R28 R13 K18 ["current"]
+      200 GETTABLEKS                       R29 R27 K19 ["jointInstance"]
+      202 GETTABLEKS                       R29 R29 K20 ["Name"]
+      204 GETTABLEKS                       R30 R27 K19 ["jointInstance"]
+      206 SETTABLE                         R30 R28 R29
+      207 FORGLOOP                         R23 2 ; [-10]
+      209 MOVE                             R23 R22
+      210 LOADNIL                          R24
+      211 LOADNIL                          R25
+      212 FORGPREP                         R23
+      213 GETUPVAL                         R28 5
+      214 GETTABLEKS                       R28 R28 K21 ["createElement"]
+      216 GETUPVAL                         R29 9
+      217 DUPTABLE                         R30 K36 [{"jointInstance", "parentJoint", "DEPRECATED_jointLabel", "mappedLookup", "otherMappedLookup", "childJoints", "DEPRECATED_rigDescriptor", "selectedJointInstance", "onJointClicked", "standardRadius", "DEPRECATED_applyTposeAdjustment", "updatePositions", "DEPRECATED_isPlayingAnimation", "globalHoveredJointName", "mannequinHoveredJointName", "onJointHoverEnter", "onJointHoverLeave"}]
+      218 GETTABLEKS                       R31 R27 K19 ["jointInstance"]
+      220 SETTABLEKS                       R31 R30 K19 ["jointInstance"]
+      222 GETTABLEKS                       R31 R27 K22 ["parentJoint"]
+      224 SETTABLEKS                       R31 R30 K22 ["parentJoint"]
+      226 GETTABLEKS                       R31 R27 K37 ["label"]
+      228 SETTABLEKS                       R31 R30 K23 ["DEPRECATED_jointLabel"]
+      230 SETTABLEKS                       R7 R30 K24 ["mappedLookup"]
+      232 SETTABLEKS                       R8 R30 K25 ["otherMappedLookup"]
+      234 GETTABLEKS                       R31 R27 K26 ["childJoints"]
+      236 SETTABLEKS                       R31 R30 K26 ["childJoints"]
+      238 SETTABLEKS                       R2 R30 K27 ["DEPRECATED_rigDescriptor"]
+      240 SETTABLEKS                       R3 R30 K2 ["selectedJointInstance"]
+      242 GETUPVAL                         R32 6
+      243 CALL                             R32 0 1
+      244 JUMPIFNOT                        R32 ; [+2]
+      245 MOVE                             R31 R21
+      246 JUMP                             ; [+2]
+      247 GETTABLEKS                       R31 R0 K17 ["onJointClicked"]
+      249 SETTABLEKS                       R31 R30 K17 ["onJointClicked"]
+      251 SETTABLEKS                       R20 R30 K28 ["standardRadius"]
+      253 GETTABLEKS                       R31 R0 K38 ["applyTposeAdjustment"]
+      255 SETTABLEKS                       R31 R30 K29 ["DEPRECATED_applyTposeAdjustment"]
+      257 GETTABLEKS                       R31 R0 K30 ["updatePositions"]
+      259 SETTABLEKS                       R31 R30 K30 ["updatePositions"]
+      261 GETTABLEKS                       R31 R0 K31 ["DEPRECATED_isPlayingAnimation"]
+      263 SETTABLEKS                       R31 R30 K31 ["DEPRECATED_isPlayingAnimation"]
+      265 SETTABLEKS                       R14 R30 K32 ["globalHoveredJointName"]
+      267 GETTABLEKS                       R31 R0 K33 ["mannequinHoveredJointName"]
+      269 SETTABLEKS                       R31 R30 K33 ["mannequinHoveredJointName"]
+      271 SETTABLEKS                       R18 R30 K34 ["onJointHoverEnter"]
+      273 SETTABLEKS                       R19 R30 K35 ["onJointHoverLeave"]
+      275 CALL                             R28 2 1
+      276 FASTCALL2                        TABLE_INSERT R9 R28 ; [+5]
+      278 MOVE                             R30 R9
+      279 MOVE                             R31 R28
+      280 GETIMPORT                        R29 K40 [table.insert]
+      282 CALL                             R29 2 0
+      283 FORGLOOP                         R23 2 ; [-71]
+      285 GETUPVAL                         R24 2
+      286 CALL                             R24 0 1
+      287 JUMPIFNOT                        R24 ; [+15]
+      288 GETUPVAL                         R23 5
+      289 GETTABLEKS                       R23 R23 K21 ["createElement"]
+      291 GETUPVAL                         R24 10
+      292 NEWTABLE                         R25 0 0
+      294 GETUPVAL                         R26 5
+      295 GETTABLEKS                       R26 R26 K21 ["createElement"]
+      297 LOADK                            R27 K41 ["Folder"]
+      298 LOADNIL                          R28
+      299 MOVE                             R29 R9
+      300 CALL                             R26 3 -1
+      301 CALL                             R23 -1 1
+      302 RETURN                           R23 1
+      303 GETUPVAL                         R23 5
+      304 GETTABLEKS                       R23 R23 K21 ["createElement"]
+      306 LOADK                            R24 K41 ["Folder"]
+      307 LOADNIL                          R25
+      308 MOVE                             R26 R9
+      309 CALL                             R23 3 1
+      310 RETURN                           R23 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -594,75 +719,91 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R3 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R3 K9 ["Components"]
-       20 GETTABLEKS                       R3 R3 K10 ["Hooks"]
-       22 GETTABLEKS                       R3 R3 K11 ["useRig"]
-       24 CALL                             R2 1 1
-       25 GETIMPORT                        R3 K5 [require]
-       27 GETTABLEKS                       R4 R0 K8 ["Src"]
-       29 GETTABLEKS                       R4 R4 K9 ["Components"]
-       31 GETTABLEKS                       R4 R4 K12 ["Adornments"]
-       33 GETTABLEKS                       R4 R4 K13 ["JointAdornmentComposite"]
-       35 CALL                             R3 1 1
-       36 GETTABLEKS                       R4 R3 K14 ["Component"]
-       38 GETIMPORT                        R5 K5 [require]
-       40 GETTABLEKS                       R6 R0 K8 ["Src"]
-       42 GETTABLEKS                       R6 R6 K9 ["Components"]
-       44 GETTABLEKS                       R6 R6 K10 ["Hooks"]
-       46 GETTABLEKS                       R6 R6 K15 ["useMappedInstances"]
-       48 CALL                             R5 1 1
-       49 GETIMPORT                        R6 K5 [require]
-       51 GETTABLEKS                       R7 R0 K8 ["Src"]
-       53 GETTABLEKS                       R7 R7 K16 ["Types"]
+       16 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R3 K8 ["Foundation"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R4 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R4 K10 ["Components"]
+       27 GETTABLEKS                       R4 R4 K11 ["Hooks"]
+       29 GETTABLEKS                       R4 R4 K12 ["useRig"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R5 R0 K9 ["Src"]
+       36 GETTABLEKS                       R5 R5 K10 ["Components"]
+       38 GETTABLEKS                       R5 R5 K13 ["Adornments"]
+       40 GETTABLEKS                       R5 R5 K14 ["JointAdornmentComposite"]
+       42 CALL                             R4 1 1
+       43 GETTABLEKS                       R5 R4 K15 ["Component"]
+       45 GETIMPORT                        R6 K5 [require]
+       47 GETTABLEKS                       R7 R0 K9 ["Src"]
+       49 GETTABLEKS                       R7 R7 K10 ["Components"]
+       51 GETTABLEKS                       R7 R7 K11 ["Hooks"]
+       53 GETTABLEKS                       R7 R7 K16 ["useMappedInstances"]
        55 CALL                             R6 1 1
        56 GETIMPORT                        R7 K5 [require]
-       58 GETTABLEKS                       R8 R0 K8 ["Src"]
-       60 GETTABLEKS                       R8 R8 K17 ["Resources"]
-       62 GETTABLEKS                       R8 R8 K18 ["Constants"]
-       64 CALL                             R7 1 1
-       65 GETIMPORT                        R8 K5 [require]
-       67 GETTABLEKS                       R9 R0 K8 ["Src"]
-       69 GETTABLEKS                       R9 R9 K9 ["Components"]
-       71 GETTABLEKS                       R9 R9 K10 ["Hooks"]
-       73 GETTABLEKS                       R9 R9 K19 ["useModelTransparency"]
-       75 CALL                             R8 1 1
-       76 GETIMPORT                        R9 K5 [require]
-       78 GETTABLEKS                       R10 R0 K8 ["Src"]
-       80 GETTABLEKS                       R10 R10 K20 ["Flags"]
-       82 GETTABLEKS                       R10 R10 K21 ["getFFlagAdaptiveAnimationQoL"]
-       84 CALL                             R9 1 1
-       85 GETIMPORT                        R10 K5 [require]
-       87 GETTABLEKS                       R11 R0 K8 ["Src"]
-       89 GETTABLEKS                       R11 R11 K20 ["Flags"]
-       91 GETTABLEKS                       R11 R11 K22 ["getFFlagAdaptiveAnimationHoverFix"]
-       93 CALL                             R10 1 1
-       94 DUPCLOSURE                       R11 K23 [PROTO_0]
-       95 DUPCLOSURE                       R12 K24 [PROTO_1]
-       96 CAPTURE                          VAL R11
-       97 DUPCLOSURE                       R13 K25 [PROTO_2]
-       98 DUPCLOSURE                       R14 K26 [PROTO_3]
-       99 DUPCLOSURE                       R15 K27 [PROTO_4]
-      100 CAPTURE                          VAL R7
-      101 DUPCLOSURE                       R16 K28 [PROTO_5]
-      102 DUPCLOSURE                       R17 K29 [PROTO_15]
-      103 CAPTURE                          VAL R2
-      104 CAPTURE                          VAL R5
-      105 CAPTURE                          VAL R9
-      106 CAPTURE                          VAL R8
-      107 CAPTURE                          VAL R1
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R7
-      110 CAPTURE                          VAL R16
-      111 CAPTURE                          VAL R4
-      112 DUPTABLE                         R18 K33 [{"JointAdornments", "getChildJointNames", "_test"}]
-      113 SETTABLEKS                       R17 R18 K30 ["JointAdornments"]
-      115 SETTABLEKS                       R12 R18 K31 ["getChildJointNames"]
-      117 DUPTABLE                         R19 K39 [{"findNodeByJoint", "findClosestJoint", "processHoverEnter", "calculateStandardRadius", "buildCompositeEntries"}]
-      118 SETTABLEKS                       R11 R19 K34 ["findNodeByJoint"]
-      120 SETTABLEKS                       R13 R19 K35 ["findClosestJoint"]
-      122 SETTABLEKS                       R14 R19 K36 ["processHoverEnter"]
-      124 SETTABLEKS                       R15 R19 K37 ["calculateStandardRadius"]
-      126 SETTABLEKS                       R16 R19 K38 ["buildCompositeEntries"]
-      128 SETTABLEKS                       R19 R18 K32 ["_test"]
-      130 RETURN                           R18 1
+       58 GETTABLEKS                       R8 R0 K9 ["Src"]
+       60 GETTABLEKS                       R8 R8 K17 ["Types"]
+       62 CALL                             R7 1 1
+       63 GETIMPORT                        R8 K5 [require]
+       65 GETTABLEKS                       R9 R0 K9 ["Src"]
+       67 GETTABLEKS                       R9 R9 K18 ["Resources"]
+       69 GETTABLEKS                       R9 R9 K19 ["Constants"]
+       71 CALL                             R8 1 1
+       72 GETIMPORT                        R9 K5 [require]
+       74 GETTABLEKS                       R10 R0 K9 ["Src"]
+       76 GETTABLEKS                       R10 R10 K10 ["Components"]
+       78 GETTABLEKS                       R10 R10 K11 ["Hooks"]
+       80 GETTABLEKS                       R10 R10 K20 ["useModelTransparency"]
+       82 CALL                             R9 1 1
+       83 GETIMPORT                        R10 K5 [require]
+       85 GETTABLEKS                       R11 R0 K9 ["Src"]
+       87 GETTABLEKS                       R11 R11 K21 ["Flags"]
+       89 GETTABLEKS                       R11 R11 K22 ["getFFlagAdaptiveAnimationQoL"]
+       91 CALL                             R10 1 1
+       92 GETIMPORT                        R11 K5 [require]
+       94 GETTABLEKS                       R12 R0 K9 ["Src"]
+       96 GETTABLEKS                       R12 R12 K21 ["Flags"]
+       98 GETTABLEKS                       R12 R12 K23 ["getFFlagAdaptiveAnimationHoverFix"]
+      100 CALL                             R11 1 1
+      101 GETIMPORT                        R12 K5 [require]
+      103 GETTABLEKS                       R13 R0 K9 ["Src"]
+      105 GETTABLEKS                       R13 R13 K21 ["Flags"]
+      107 GETTABLEKS                       R13 R13 K24 ["getFFlagAdaptiveAnimationHandRigQoL"]
+      109 CALL                             R12 1 1
+      110 DUPCLOSURE                       R13 K25 [PROTO_1]
+      111 DUPCLOSURE                       R14 K26 [PROTO_6]
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R13
+      114 CAPTURE                          VAL R2
+      115 DUPCLOSURE                       R15 K27 [PROTO_7]
+      116 DUPCLOSURE                       R16 K28 [PROTO_8]
+      117 CAPTURE                          VAL R15
+      118 DUPCLOSURE                       R17 K29 [PROTO_9]
+      119 DUPCLOSURE                       R18 K30 [PROTO_10]
+      120 DUPCLOSURE                       R19 K31 [PROTO_11]
+      121 CAPTURE                          VAL R8
+      122 DUPCLOSURE                       R20 K32 [PROTO_12]
+      123 DUPCLOSURE                       R21 K33 [PROTO_22]
+      124 CAPTURE                          VAL R3
+      125 CAPTURE                          VAL R6
+      126 CAPTURE                          VAL R12
+      127 CAPTURE                          VAL R10
+      128 CAPTURE                          VAL R9
+      129 CAPTURE                          VAL R1
+      130 CAPTURE                          VAL R11
+      131 CAPTURE                          VAL R8
+      132 CAPTURE                          VAL R20
+      133 CAPTURE                          VAL R5
+      134 CAPTURE                          VAL R14
+      135 DUPTABLE                         R22 K37 [{"JointAdornments", "getChildJointNames", "_test"}]
+      136 SETTABLEKS                       R21 R22 K34 ["JointAdornments"]
+      138 SETTABLEKS                       R16 R22 K35 ["getChildJointNames"]
+      140 DUPTABLE                         R23 K43 [{"findNodeByJoint", "findClosestJoint", "processHoverEnter", "calculateStandardRadius", "buildCompositeEntries"}]
+      141 SETTABLEKS                       R15 R23 K38 ["findNodeByJoint"]
+      143 SETTABLEKS                       R17 R23 K39 ["findClosestJoint"]
+      145 SETTABLEKS                       R18 R23 K40 ["processHoverEnter"]
+      147 SETTABLEKS                       R19 R23 K41 ["calculateStandardRadius"]
+      149 SETTABLEKS                       R20 R23 K42 ["buildCompositeEntries"]
+      151 SETTABLEKS                       R23 R22 K36 ["_test"]
+      153 RETURN                           R22 1

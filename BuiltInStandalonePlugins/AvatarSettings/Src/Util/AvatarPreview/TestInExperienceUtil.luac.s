@@ -1,25 +1,19 @@
 PROTO_0:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 FASTCALL2K                       ASSERT R1 K0 ; [+4]
-        4 LOADK                            R2 K0 ["TestInExperienceUtil.clearTestingAvatars should only be called when FFlagPreviewToolbar is enabled"]
-        5 GETIMPORT                        R0 K2 [assert]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 NAMECALL                         R0 R0 K3 ["GetChildren"]
-       11 CALL                             R0 1 3
-       12 FORGPREP                         R0
-       13 LOADK                            R7 K4 ["RBX_AvatarPreviewer_TestingAvatar_AvatarSettings"]
-       14 NAMECALL                         R5 R4 K5 ["GetAttribute"]
-       16 CALL                             R5 2 1
-       17 JUMPIFNOT                        R5 ; [+3]
-       18 NAMECALL                         R5 R4 K6 ["Destroy"]
-       20 CALL                             R5 1 0
-       21 FORGLOOP                         R0 2 ; [-9]
-       23 GETUPVAL                         R0 2
-       24 GETTABLEKS                       R0 R0 K7 ["_clearTestingAnimateScripts"]
-       26 CALL                             R0 0 0
-       27 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["GetChildren"]
+        3 CALL                             R0 1 3
+        4 FORGPREP                         R0
+        5 LOADK                            R7 K1 ["RBX_AvatarPreviewer_TestingAvatar_AvatarSettings"]
+        6 NAMECALL                         R5 R4 K2 ["GetAttribute"]
+        8 CALL                             R5 2 1
+        9 JUMPIFNOT                        R5 ; [+3]
+       10 NAMECALL                         R5 R4 K3 ["Destroy"]
+       12 CALL                             R5 1 0
+       13 FORGLOOP                         R0 2 ; [-9]
+       15 GETUPVAL                         R0 1
+       16 GETTABLEKS                       R0 R0 K4 ["_clearTestingAnimateScripts"]
+       18 CALL                             R0 0 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -151,119 +145,101 @@ PROTO_4:
        54 RETURN                           R0 0
 
 PROTO_5:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 FASTCALL2K                       ASSERT R1 K0 ; [+4]
-        4 LOADK                            R2 K0 ["TestInExperienceUtil.getValidTestingAvatar should only be called when FFlagPreviewToolbar is enabled"]
-        5 GETIMPORT                        R0 K2 [assert]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETTABLEKS                       R0 R0 K3 ["ActiveInstance"]
-       11 JUMPIFNOT                        R0 ; [+5]
-       12 LOADK                            R3 K4 ["Model"]
-       13 NAMECALL                         R1 R0 K5 ["IsA"]
-       15 CALL                             R1 2 1
-       16 JUMPIF                           R1 ; [+2]
-       17 LOADNIL                          R1
-       18 RETURN                           R1 1
-       19 GETTABLEKS                       R1 R0 K6 ["Parent"]
-       21 JUMPIFNOT                        R1 ; [+7]
-       22 GETUPVAL                         R4 2
-       23 GETTABLEKS                       R4 R4 K7 ["AvatarPreviewFolderTag"]
-       25 NAMECALL                         R2 R1 K8 ["HasTag"]
-       27 CALL                             R2 2 1
-       28 JUMPIF                           R2 ; [+2]
-       29 LOADNIL                          R2
-       30 RETURN                           R2 1
-       31 LOADK                            R4 K9 ["Humanoid"]
-       32 NAMECALL                         R2 R0 K10 ["FindFirstChild"]
-       34 CALL                             R2 2 1
-       35 JUMPIFNOT                        R2 ; [+5]
-       36 LOADK                            R5 K9 ["Humanoid"]
-       37 NAMECALL                         R3 R2 K5 ["IsA"]
-       39 CALL                             R3 2 1
-       40 JUMPIF                           R3 ; [+2]
-       41 LOADNIL                          R3
-       42 RETURN                           R3 1
-       43 RETURN                           R0 1
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["ActiveInstance"]
+        3 JUMPIFNOT                        R0 ; [+5]
+        4 LOADK                            R3 K1 ["Model"]
+        5 NAMECALL                         R1 R0 K2 ["IsA"]
+        7 CALL                             R1 2 1
+        8 JUMPIF                           R1 ; [+2]
+        9 LOADNIL                          R1
+       10 RETURN                           R1 1
+       11 GETTABLEKS                       R1 R0 K3 ["Parent"]
+       13 JUMPIFNOT                        R1 ; [+7]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K4 ["AvatarPreviewFolderTag"]
+       17 NAMECALL                         R2 R1 K5 ["HasTag"]
+       19 CALL                             R2 2 1
+       20 JUMPIF                           R2 ; [+2]
+       21 LOADNIL                          R2
+       22 RETURN                           R2 1
+       23 LOADK                            R4 K6 ["Humanoid"]
+       24 NAMECALL                         R2 R0 K7 ["FindFirstChild"]
+       26 CALL                             R2 2 1
+       27 JUMPIFNOT                        R2 ; [+5]
+       28 LOADK                            R5 K6 ["Humanoid"]
+       29 NAMECALL                         R3 R2 K2 ["IsA"]
+       31 CALL                             R3 2 1
+       32 JUMPIF                           R3 ; [+2]
+       33 LOADNIL                          R3
+       34 RETURN                           R3 1
+       35 RETURN                           R0 1
 
 PROTO_6:
-        0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 FASTCALL2K                       ASSERT R1 K0 ; [+4]
-        4 LOADK                            R2 K0 ["TestInExperienceUtil.test should only be called when FFlagPreviewToolbar is enabled"]
-        5 GETIMPORT                        R0 K2 [assert]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETTABLEKS                       R0 R0 K3 ["getValidTestingAvatar"]
-       11 CALL                             R0 0 1
-       12 JUMPIF                           R0 ; [+1]
-       13 RETURN                           R0 0
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R1 R1 K4 ["clearTestingAvatars"]
-       17 CALL                             R1 0 0
-       18 GETUPVAL                         R1 2
-       19 LOADK                            R3 K5 ["StarterCharacter"]
-       20 NAMECALL                         R1 R1 K6 ["FindFirstChild"]
-       22 CALL                             R1 2 1
-       23 JUMPIFEQKNIL                     R1 ; [+9]
-       25 LOADK                            R2 K7 ["StarterCharacter_Backup_AvatarSettings"]
-       26 SETTABLEKS                       R2 R1 K8 ["Name"]
-       28 LOADK                            R4 K9 ["RBX_AvatarPreview_TestingBackup_AvatarSettings"]
-       29 LOADB                            R5 1
-       30 NAMECALL                         R2 R1 K10 ["SetAttribute"]
-       32 CALL                             R2 3 0
-       33 NAMECALL                         R2 R0 K11 ["Clone"]
-       35 CALL                             R2 1 1
-       36 LOADK                            R5 K12 ["RBX_AvatarPreviewer_TestingAvatar_AvatarSettings"]
-       37 LOADB                            R6 1
-       38 NAMECALL                         R3 R2 K10 ["SetAttribute"]
-       40 CALL                             R3 3 0
-       41 LOADK                            R3 K5 ["StarterCharacter"]
-       42 SETTABLEKS                       R3 R2 K8 ["Name"]
-       44 GETUPVAL                         R3 2
-       45 SETTABLEKS                       R3 R2 K13 ["Parent"]
-       47 LOADK                            R5 K14 ["Humanoid"]
-       48 NAMECALL                         R3 R2 K15 ["FindFirstChildWhichIsA"]
-       50 CALL                             R3 2 1
-       51 JUMPIF                           R3 ; [+4]
-       52 GETIMPORT                        R4 K17 [error]
-       54 LOADK                            R5 K18 ["Selected avatar does not have a Humanoid"]
-       55 CALL                             R4 1 0
-       56 GETUPVAL                         R4 1
-       57 GETTABLEKS                       R4 R4 K19 ["_replaceAnimateScript"]
-       59 MOVE                             R5 R2
-       60 CALL                             R4 1 0
-       61 GETUPVAL                         R6 3
-       62 GETTABLEKS                       R6 R6 K20 ["avatarRules"]
-       64 CALL                             R6 0 -1
-       65 NAMECALL                         R4 R3 K21 ["ApplyAvatarRules"]
-       67 CALL                             R4 -1 0
-       68 GETUPVAL                         R4 4
-       69 GETTABLEKS                       R4 R4 K22 ["setCollisionBoxTransparency"]
-       71 MOVE                             R5 R3
-       72 LOADB                            R6 0
-       73 CALL                             R4 2 0
-       74 GETUPVAL                         R4 5
-       75 GETTABLEKS                       R4 R4 K23 ["StartPlaySolo"]
-       77 CALL                             R4 0 0
-       78 RETURN                           R0 0
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["getValidTestingAvatar"]
+        3 CALL                             R0 0 1
+        4 JUMPIF                           R0 ; [+1]
+        5 RETURN                           R0 0
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R1 R1 K1 ["clearTestingAvatars"]
+        9 CALL                             R1 0 0
+       10 GETUPVAL                         R1 1
+       11 LOADK                            R3 K2 ["StarterCharacter"]
+       12 NAMECALL                         R1 R1 K3 ["FindFirstChild"]
+       14 CALL                             R1 2 1
+       15 JUMPIFEQKNIL                     R1 ; [+9]
+       17 LOADK                            R2 K4 ["StarterCharacter_Backup_AvatarSettings"]
+       18 SETTABLEKS                       R2 R1 K5 ["Name"]
+       20 LOADK                            R4 K6 ["RBX_AvatarPreview_TestingBackup_AvatarSettings"]
+       21 LOADB                            R5 1
+       22 NAMECALL                         R2 R1 K7 ["SetAttribute"]
+       24 CALL                             R2 3 0
+       25 NAMECALL                         R2 R0 K8 ["Clone"]
+       27 CALL                             R2 1 1
+       28 LOADK                            R5 K9 ["RBX_AvatarPreviewer_TestingAvatar_AvatarSettings"]
+       29 LOADB                            R6 1
+       30 NAMECALL                         R3 R2 K7 ["SetAttribute"]
+       32 CALL                             R3 3 0
+       33 LOADK                            R3 K2 ["StarterCharacter"]
+       34 SETTABLEKS                       R3 R2 K5 ["Name"]
+       36 GETUPVAL                         R3 1
+       37 SETTABLEKS                       R3 R2 K10 ["Parent"]
+       39 LOADK                            R5 K11 ["Humanoid"]
+       40 NAMECALL                         R3 R2 K12 ["FindFirstChildWhichIsA"]
+       42 CALL                             R3 2 1
+       43 JUMPIF                           R3 ; [+4]
+       44 GETIMPORT                        R4 K14 [error]
+       46 LOADK                            R5 K15 ["Selected avatar does not have a Humanoid"]
+       47 CALL                             R4 1 0
+       48 GETUPVAL                         R4 0
+       49 GETTABLEKS                       R4 R4 K16 ["_replaceAnimateScript"]
+       51 MOVE                             R5 R2
+       52 CALL                             R4 1 0
+       53 GETUPVAL                         R6 2
+       54 GETTABLEKS                       R6 R6 K17 ["avatarRules"]
+       56 CALL                             R6 0 -1
+       57 NAMECALL                         R4 R3 K18 ["ApplyAvatarRules"]
+       59 CALL                             R4 -1 0
+       60 GETUPVAL                         R4 3
+       61 GETTABLEKS                       R4 R4 K19 ["setCollisionBoxTransparency"]
+       63 MOVE                             R5 R3
+       64 LOADB                            R6 0
+       65 CALL                             R4 2 0
+       66 GETUPVAL                         R4 4
+       67 GETTABLEKS                       R4 R4 K20 ["StartPlaySolo"]
+       69 CALL                             R4 0 0
+       70 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
-        4 LOADK                            R3 K0 ["TestInExperienceUtil.selectTargetInstance should only be called when FFlagPreviewToolbar is enabled"]
-        5 GETIMPORT                        R1 K2 [assert]
-        7 CALL                             R1 2 0
-        8 NEWTABLE                         R1 0 1
-       10 MOVE                             R2 R0
-       11 SETLIST                          R1 R2 1 [1]
-       13 GETUPVAL                         R2 1
-       14 MOVE                             R4 R1
-       15 NAMECALL                         R2 R2 K3 ["Set"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
+        0 NEWTABLE                         R1 0 1
+        2 MOVE                             R2 R0
+        3 SETLIST                          R1 R2 1 [1]
+        5 GETUPVAL                         R2 0
+        6 MOVE                             R4 R1
+        7 NAMECALL                         R2 R2 K0 ["Set"]
+        9 CALL                             R2 2 0
+       10 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -304,45 +280,36 @@ MAIN:
        60 GETTABLEKS                       R7 R7 K19 ["AssetDmFiles"]
        62 GETTABLEKS                       R7 R7 K20 ["assetDmUtils"]
        64 CALL                             R6 1 1
-       65 GETIMPORT                        R7 K10 [require]
-       67 GETTABLEKS                       R8 R0 K11 ["Src"]
-       69 GETTABLEKS                       R8 R8 K21 ["Flags"]
-       71 GETTABLEKS                       R8 R8 K22 ["getFFlagPreviewToolbar"]
-       73 CALL                             R7 1 1
-       74 NEWTABLE                         R8 8 0
-       76 DUPCLOSURE                       R9 K23 [PROTO_0]
+       65 NEWTABLE                         R7 8 0
+       67 DUPCLOSURE                       R8 K21 [PROTO_0]
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          VAL R7
+       70 SETTABLEKS                       R8 R7 K22 ["clearTestingAvatars"]
+       72 DUPCLOSURE                       R8 K23 [PROTO_1]
+       73 CAPTURE                          VAL R2
+       74 SETTABLEKS                       R8 R7 K24 ["_clearTestingAnimateScripts"]
+       76 DUPCLOSURE                       R8 K25 [PROTO_2]
        77 CAPTURE                          VAL R7
        78 CAPTURE                          VAL R2
-       79 CAPTURE                          VAL R8
-       80 SETTABLEKS                       R9 R8 K24 ["clearTestingAvatars"]
-       82 DUPCLOSURE                       R9 K25 [PROTO_1]
-       83 CAPTURE                          VAL R2
-       84 SETTABLEKS                       R9 R8 K26 ["_clearTestingAnimateScripts"]
-       86 DUPCLOSURE                       R9 K27 [PROTO_2]
-       87 CAPTURE                          VAL R8
-       88 CAPTURE                          VAL R2
-       89 SETTABLEKS                       R9 R8 K28 ["reset"]
-       91 DUPCLOSURE                       R9 K29 [PROTO_3]
-       92 CAPTURE                          VAL R2
-       93 SETTABLEKS                       R9 R8 K30 ["_resetAnimateScript"]
-       95 DUPCLOSURE                       R9 K31 [PROTO_4]
+       79 SETTABLEKS                       R8 R7 K26 ["reset"]
+       81 DUPCLOSURE                       R8 K27 [PROTO_3]
+       82 CAPTURE                          VAL R2
+       83 SETTABLEKS                       R8 R7 K28 ["_resetAnimateScript"]
+       85 DUPCLOSURE                       R8 K29 [PROTO_4]
+       86 CAPTURE                          VAL R2
+       87 SETTABLEKS                       R8 R7 K30 ["_replaceAnimateScript"]
+       89 DUPCLOSURE                       R8 K31 [PROTO_5]
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R3
+       92 SETTABLEKS                       R8 R7 K32 ["getValidTestingAvatar"]
+       94 DUPCLOSURE                       R8 K33 [PROTO_6]
+       95 CAPTURE                          VAL R7
        96 CAPTURE                          VAL R2
-       97 SETTABLEKS                       R9 R8 K32 ["_replaceAnimateScript"]
-       99 DUPCLOSURE                       R9 K33 [PROTO_5]
-      100 CAPTURE                          VAL R7
-      101 CAPTURE                          VAL R1
-      102 CAPTURE                          VAL R3
-      103 SETTABLEKS                       R9 R8 K34 ["getValidTestingAvatar"]
-      105 DUPCLOSURE                       R9 K35 [PROTO_6]
-      106 CAPTURE                          VAL R7
-      107 CAPTURE                          VAL R8
-      108 CAPTURE                          VAL R2
-      109 CAPTURE                          VAL R6
-      110 CAPTURE                          VAL R5
-      111 CAPTURE                          VAL R4
-      112 SETTABLEKS                       R9 R8 K36 ["test"]
-      114 DUPCLOSURE                       R9 K37 [PROTO_7]
-      115 CAPTURE                          VAL R7
-      116 CAPTURE                          VAL R1
-      117 SETTABLEKS                       R9 R8 K38 ["selectTargetInstance"]
-      119 RETURN                           R8 1
+       97 CAPTURE                          VAL R6
+       98 CAPTURE                          VAL R5
+       99 CAPTURE                          VAL R4
+      100 SETTABLEKS                       R8 R7 K34 ["test"]
+      102 DUPCLOSURE                       R8 K35 [PROTO_7]
+      103 CAPTURE                          VAL R1
+      104 SETTABLEKS                       R8 R7 K36 ["selectTargetInstance"]
+      106 RETURN                           R7 1

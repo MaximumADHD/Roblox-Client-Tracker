@@ -259,7 +259,7 @@ MAIN:
       330 LOADK                            R18 K114 ["AssetNotFound"]
       331 SETTABLEKS                       R18 R17 K114 ["AssetNotFound"]
       333 SETTABLEKS                       R17 R3 K116 ["ApiPermissionStatus"]
-      335 DUPTABLE                         R18 K123 [{"Test", "QuickShare", "Confirm", "AssetError", "Notification", "Move"}]
+      335 DUPTABLE                         R18 K122 [{"Test", "QuickShare", "Confirm", "AssetError", "Move"}]
       336 LOADK                            R19 K117 ["Test"]
       337 SETTABLEKS                       R19 R18 K117 ["Test"]
       339 LOADK                            R19 K118 ["QuickShare"]
@@ -268,9 +268,7 @@ MAIN:
       343 SETTABLEKS                       R19 R18 K119 ["Confirm"]
       345 LOADK                            R19 K120 ["AssetError"]
       346 SETTABLEKS                       R19 R18 K120 ["AssetError"]
-      348 LOADK                            R19 K121 ["Notification"]
-      349 SETTABLEKS                       R19 R18 K121 ["Notification"]
-      351 LOADK                            R19 K122 ["Move"]
-      352 SETTABLEKS                       R19 R18 K122 ["Move"]
-      354 SETTABLEKS                       R18 R3 K124 ["DialogType"]
-      356 RETURN                           R3 1
+      348 LOADK                            R19 K121 ["Move"]
+      349 SETTABLEKS                       R19 R18 K121 ["Move"]
+      351 SETTABLEKS                       R18 R3 K123 ["DialogType"]
+      353 RETURN                           R3 1

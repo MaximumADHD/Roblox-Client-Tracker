@@ -217,98 +217,120 @@ PROTO_6:
        28 GETTABLEKS                       R5 R5 K7 ["ActionEmphasis"]
        30 GETTABLEKS                       R5 R5 K6 ["Background"]
        32 GETTABLEKS                       R5 R5 K3 ["Color3"]
-       34 GETTABLEKS                       R7 R0 K9 ["WaveformResolution"]
-       36 ORK                              R6 R7 K8 [500]
-       37 GETUPVAL                         R7 1
-       38 GETTABLEKS                       R7 R7 K10 ["useMemo"]
-       40 NEWCLOSURE                       R8 P0
-       41 CAPTURE                          VAL R6
-       42 NEWTABLE                         R9 0 1
-       44 GETTABLEKS                       R10 R0 K9 ["WaveformResolution"]
-       46 SETLIST                          R9 R10 1 [1]
-       48 CALL                             R7 2 1
-       49 GETUPVAL                         R8 1
-       50 GETTABLEKS                       R8 R8 K11 ["useBinding"]
-       52 DUPTABLE                         R9 K14 [{"TimePosition", "HoveredPosition"}]
-       53 GETTABLEKS                       R10 R0 K12 ["TimePosition"]
-       55 SETTABLEKS                       R10 R9 K12 ["TimePosition"]
-       57 GETTABLEKS                       R10 R0 K13 ["HoveredPosition"]
-       59 SETTABLEKS                       R10 R9 K13 ["HoveredPosition"]
-       61 CALL                             R8 1 2
-       62 GETUPVAL                         R10 1
-       63 GETTABLEKS                       R10 R10 K15 ["useEffect"]
-       65 NEWCLOSURE                       R11 P1
-       66 CAPTURE                          VAL R9
-       67 CAPTURE                          VAL R0
-       68 NEWTABLE                         R12 0 2
-       70 GETTABLEKS                       R13 R0 K12 ["TimePosition"]
-       72 GETTABLEKS                       R14 R0 K13 ["HoveredPosition"]
-       74 SETLIST                          R12 R13 2 [1]
-       76 CALL                             R10 2 0
-       77 GETUPVAL                         R10 1
-       78 GETTABLEKS                       R10 R10 K16 ["useState"]
-       80 NEWTABLE                         R11 0 0
-       82 CALL                             R10 1 2
-       83 GETUPVAL                         R12 1
-       84 GETTABLEKS                       R12 R12 K15 ["useEffect"]
-       86 NEWCLOSURE                       R13 P2
-       87 CAPTURE                          VAL R11
-       88 CAPTURE                          VAL R7
-       89 CAPTURE                          VAL R0
-       90 CAPTURE                          UPVAL U2
-       91 CAPTURE                          VAL R6
-       92 NEWTABLE                         R14 0 3
-       94 MOVE                             R15 R7
-       95 GETTABLEKS                       R16 R0 K17 ["AssetId"]
-       97 GETTABLEKS                       R17 R0 K18 ["TimeLength"]
-       99 SETLIST                          R14 R15 3 [1]
-      101 CALL                             R12 2 0
-      102 GETUPVAL                         R12 1
-      103 GETTABLEKS                       R12 R12 K10 ["useMemo"]
-      105 NEWCLOSURE                       R13 P3
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R8
-      109 CAPTURE                          VAL R5
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R2
-      113 CAPTURE                          UPVAL U1
-      114 CAPTURE                          UPVAL U3
-      115 NEWTABLE                         R14 0 3
-      117 MOVE                             R15 R10
-      118 GETTABLEKS                       R16 R0 K18 ["TimeLength"]
-      120 GETTABLEKS                       R17 R0 K19 ["Volume"]
-      122 SETLIST                          R14 R15 3 [1]
-      124 CALL                             R12 2 1
-      125 GETUPVAL                         R13 1
-      126 GETTABLEKS                       R13 R13 K10 ["useMemo"]
-      128 NEWCLOSURE                       R14 P4
-      129 CAPTURE                          VAL R0
-      130 CAPTURE                          VAL R5
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R3
-      133 CAPTURE                          VAL R2
-      134 CAPTURE                          UPVAL U1
-      135 CAPTURE                          UPVAL U4
-      136 NEWTABLE                         R15 0 3
-      138 GETTABLEKS                       R16 R0 K18 ["TimeLength"]
-      140 GETTABLEKS                       R17 R0 K12 ["TimePosition"]
-      142 GETTABLEKS                       R18 R0 K13 ["HoveredPosition"]
-      144 SETLIST                          R15 R16 3 [1]
-      146 CALL                             R13 2 1
-      147 GETUPVAL                         R14 1
-      148 GETTABLEKS                       R14 R14 K20 ["createElement"]
-      150 GETUPVAL                         R15 1
-      151 GETTABLEKS                       R15 R15 K21 ["Fragment"]
-      153 NEWTABLE                         R16 0 0
-      155 GETUPVAL                         R17 5
-      156 GETTABLEKS                       R17 R17 K22 ["join"]
-      158 MOVE                             R18 R12
-      159 MOVE                             R19 R13
-      160 CALL                             R17 2 -1
-      161 CALL                             R14 -1 -1
-      162 RETURN                           R14 -1
+       34 GETIMPORT                        R6 K9 [Color3.new]
+       36 GETTABLEKS                       R8 R5 K10 ["R"]
+       38 LOADN                            R9 1
+       39 LOADK                            R10 K11 [0.3]
+       40 FASTCALL                         MATH_LERP ; [+2]
+       41 GETIMPORT                        R7 K14 [math.lerp]
+       43 CALL                             R7 3 1
+       44 GETTABLEKS                       R9 R5 K15 ["G"]
+       46 LOADN                            R10 1
+       47 LOADK                            R11 K11 [0.3]
+       48 FASTCALL                         MATH_LERP ; [+2]
+       49 GETIMPORT                        R8 K14 [math.lerp]
+       51 CALL                             R8 3 1
+       52 GETTABLEKS                       R10 R5 K16 ["B"]
+       54 LOADN                            R11 1
+       55 LOADK                            R12 K11 [0.3]
+       56 FASTCALL                         MATH_LERP ; [+2]
+       57 GETIMPORT                        R9 K14 [math.lerp]
+       59 CALL                             R9 3 1
+       60 CALL                             R6 3 1
+       61 MOVE                             R4 R6
+       62 GETTABLEKS                       R7 R0 K18 ["WaveformResolution"]
+       64 ORK                              R6 R7 K17 [500]
+       65 GETUPVAL                         R7 1
+       66 GETTABLEKS                       R7 R7 K19 ["useMemo"]
+       68 NEWCLOSURE                       R8 P0
+       69 CAPTURE                          VAL R6
+       70 NEWTABLE                         R9 0 1
+       72 GETTABLEKS                       R10 R0 K18 ["WaveformResolution"]
+       74 SETLIST                          R9 R10 1 [1]
+       76 CALL                             R7 2 1
+       77 GETUPVAL                         R8 1
+       78 GETTABLEKS                       R8 R8 K20 ["useBinding"]
+       80 DUPTABLE                         R9 K23 [{"TimePosition", "HoveredPosition"}]
+       81 GETTABLEKS                       R10 R0 K21 ["TimePosition"]
+       83 SETTABLEKS                       R10 R9 K21 ["TimePosition"]
+       85 GETTABLEKS                       R10 R0 K22 ["HoveredPosition"]
+       87 SETTABLEKS                       R10 R9 K22 ["HoveredPosition"]
+       89 CALL                             R8 1 2
+       90 GETUPVAL                         R10 1
+       91 GETTABLEKS                       R10 R10 K24 ["useEffect"]
+       93 NEWCLOSURE                       R11 P1
+       94 CAPTURE                          VAL R9
+       95 CAPTURE                          VAL R0
+       96 NEWTABLE                         R12 0 2
+       98 GETTABLEKS                       R13 R0 K21 ["TimePosition"]
+      100 GETTABLEKS                       R14 R0 K22 ["HoveredPosition"]
+      102 SETLIST                          R12 R13 2 [1]
+      104 CALL                             R10 2 0
+      105 GETUPVAL                         R10 1
+      106 GETTABLEKS                       R10 R10 K25 ["useState"]
+      108 NEWTABLE                         R11 0 0
+      110 CALL                             R10 1 2
+      111 GETUPVAL                         R12 1
+      112 GETTABLEKS                       R12 R12 K24 ["useEffect"]
+      114 NEWCLOSURE                       R13 P2
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R0
+      118 CAPTURE                          UPVAL U2
+      119 CAPTURE                          VAL R6
+      120 NEWTABLE                         R14 0 3
+      122 MOVE                             R15 R7
+      123 GETTABLEKS                       R16 R0 K26 ["AssetId"]
+      125 GETTABLEKS                       R17 R0 K27 ["TimeLength"]
+      127 SETLIST                          R14 R15 3 [1]
+      129 CALL                             R12 2 0
+      130 GETUPVAL                         R12 1
+      131 GETTABLEKS                       R12 R12 K19 ["useMemo"]
+      133 NEWCLOSURE                       R13 P3
+      134 CAPTURE                          VAL R0
+      135 CAPTURE                          VAL R10
+      136 CAPTURE                          VAL R8
+      137 CAPTURE                          VAL R5
+      138 CAPTURE                          REF R4
+      139 CAPTURE                          VAL R3
+      140 CAPTURE                          VAL R2
+      141 CAPTURE                          UPVAL U1
+      142 CAPTURE                          UPVAL U3
+      143 NEWTABLE                         R14 0 3
+      145 MOVE                             R15 R10
+      146 GETTABLEKS                       R16 R0 K27 ["TimeLength"]
+      148 GETTABLEKS                       R17 R0 K28 ["Volume"]
+      150 SETLIST                          R14 R15 3 [1]
+      152 CALL                             R12 2 1
+      153 GETUPVAL                         R13 1
+      154 GETTABLEKS                       R13 R13 K19 ["useMemo"]
+      156 NEWCLOSURE                       R14 P4
+      157 CAPTURE                          VAL R0
+      158 CAPTURE                          VAL R5
+      159 CAPTURE                          REF R4
+      160 CAPTURE                          VAL R3
+      161 CAPTURE                          VAL R2
+      162 CAPTURE                          UPVAL U1
+      163 CAPTURE                          UPVAL U4
+      164 NEWTABLE                         R15 0 3
+      166 GETTABLEKS                       R16 R0 K27 ["TimeLength"]
+      168 GETTABLEKS                       R17 R0 K21 ["TimePosition"]
+      170 GETTABLEKS                       R18 R0 K22 ["HoveredPosition"]
+      172 SETLIST                          R15 R16 3 [1]
+      174 CALL                             R13 2 1
+      175 GETUPVAL                         R14 1
+      176 GETTABLEKS                       R14 R14 K29 ["createElement"]
+      178 GETUPVAL                         R15 1
+      179 GETTABLEKS                       R15 R15 K30 ["Fragment"]
+      181 NEWTABLE                         R16 0 0
+      183 GETUPVAL                         R17 5
+      184 GETTABLEKS                       R17 R17 K31 ["join"]
+      186 MOVE                             R18 R12
+      187 MOVE                             R19 R13
+      188 CALL                             R17 2 -1
+      189 CALL                             R14 -1 -1
+      190 CLOSEUPVALS                      R4
+      191 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

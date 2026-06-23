@@ -30,17 +30,17 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
-        3 GETTABLEKS                       R0 R0 K1 ["props"]
-        5 GETUPVAL                         R1 1
-        6 GETTABLEKS                       R1 R1 K2 ["onClose"]
-        8 SETTABLEKS                       R1 R0 K2 ["onClose"]
-       10 GETUPVAL                         R1 1
-       11 GETTABLEKS                       R1 R1 K3 ["updateWindowMinSize"]
-       13 SETTABLEKS                       R1 R0 K3 ["updateWindowMinSize"]
-       15 GETUPVAL                         R1 0
-       16 GETTABLEKS                       R1 R1 K0 ["dialogConfig"]
-       18 GETTABLEKS                       R1 R1 K4 ["kind"]
-       20 JUMPIFNOTEQKS                    R1 K5 ["config"] ; [+61]
+        3 GETTABLEKS                       R0 R0 K1 ["kind"]
+        5 JUMPIFNOTEQKS                    R0 K2 ["config"] ; [+86]
+        7 GETUPVAL                         R0 0
+        8 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
+       10 GETTABLEKS                       R0 R0 K3 ["props"]
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K4 ["onClose"]
+       15 SETTABLEKS                       R1 R0 K4 ["onClose"]
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K5 ["updateWindowMinSize"]
+       20 SETTABLEKS                       R1 R0 K5 ["updateWindowMinSize"]
        22 GETUPVAL                         R1 0
        23 GETTABLEKS                       R1 R1 K0 ["dialogConfig"]
        25 GETTABLEKS                       R1 R1 K6 ["class"]
@@ -70,7 +70,7 @@ PROTO_5:
        57 RETURN                           R1 -1
        58 GETUPVAL                         R1 2
        59 GETUPVAL                         R2 5
-       60 DUPTABLE                         R3 K11 [{"errors"}]
+       60 DUPTABLE                         R3 K11 [{"errors", "onClose", "updateWindowMinSize"}]
        61 NEWTABLE                         R4 0 1
        63 DUPTABLE                         R5 K13 [{"message"}]
        64 LOADK                            R7 K14 ["Instance class not supported for reimport: '%*'"]
@@ -83,27 +83,42 @@ PROTO_5:
        74 SETTABLEKS                       R6 R5 K12 ["message"]
        76 SETLIST                          R4 R5 1 [1]
        78 SETTABLEKS                       R4 R3 K10 ["errors"]
-       80 CALL                             R1 2 -1
-       81 RETURN                           R1 -1
-       82 GETUPVAL                         R1 0
-       83 GETTABLEKS                       R1 R1 K0 ["dialogConfig"]
-       85 GETTABLEKS                       R1 R1 K4 ["kind"]
-       87 JUMPIFNOTEQKS                    R1 K16 ["error"] ; [+6]
-       89 GETUPVAL                         R1 2
-       90 GETUPVAL                         R2 5
-       91 MOVE                             R3 R0
-       92 CALL                             R1 2 -1
-       93 RETURN                           R1 -1
-       94 GETIMPORT                        R1 K17 [error]
-       96 LOADK                            R3 K18 ["Unknown dialog kind: $%*"]
-       97 GETUPVAL                         R5 0
-       98 GETTABLEKS                       R5 R5 K0 ["dialogConfig"]
-      100 GETTABLEKS                       R5 R5 K4 ["kind"]
-      102 NAMECALL                         R3 R3 K15 ["format"]
-      104 CALL                             R3 2 1
-      105 MOVE                             R2 R3
-      106 CALL                             R1 1 0
-      107 RETURN                           R0 0
+       80 GETUPVAL                         R4 1
+       81 GETTABLEKS                       R4 R4 K4 ["onClose"]
+       83 SETTABLEKS                       R4 R3 K4 ["onClose"]
+       85 GETUPVAL                         R4 1
+       86 GETTABLEKS                       R4 R4 K5 ["updateWindowMinSize"]
+       88 SETTABLEKS                       R4 R3 K5 ["updateWindowMinSize"]
+       90 CALL                             R1 2 -1
+       91 RETURN                           R1 -1
+       92 GETUPVAL                         R0 0
+       93 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
+       95 GETTABLEKS                       R0 R0 K1 ["kind"]
+       97 JUMPIFNOTEQKS                    R0 K16 ["error"] ; [+21]
+       99 GETUPVAL                         R0 0
+      100 GETTABLEKS                       R0 R0 K0 ["dialogConfig"]
+      102 GETTABLEKS                       R0 R0 K3 ["props"]
+      104 GETUPVAL                         R1 1
+      105 GETTABLEKS                       R1 R1 K4 ["onClose"]
+      107 SETTABLEKS                       R1 R0 K4 ["onClose"]
+      109 GETUPVAL                         R1 1
+      110 GETTABLEKS                       R1 R1 K5 ["updateWindowMinSize"]
+      112 SETTABLEKS                       R1 R0 K5 ["updateWindowMinSize"]
+      114 GETUPVAL                         R1 2
+      115 GETUPVAL                         R2 5
+      116 MOVE                             R3 R0
+      117 CALL                             R1 2 -1
+      118 RETURN                           R1 -1
+      119 GETIMPORT                        R0 K17 [error]
+      121 LOADK                            R2 K18 ["Unknown dialog kind: $%*"]
+      122 GETUPVAL                         R4 0
+      123 GETTABLEKS                       R4 R4 K0 ["dialogConfig"]
+      125 GETTABLEKS                       R4 R4 K1 ["kind"]
+      127 NAMECALL                         R2 R2 K15 ["format"]
+      129 CALL                             R2 2 1
+      130 MOVE                             R1 R2
+      131 CALL                             R0 1 0
+      132 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -302,21 +317,26 @@ MAIN:
        84 GETTABLEKS                       R16 R16 K26 ["Contexts"]
        86 GETTABLEKS                       R16 R16 K27 ["DialogContext"]
        88 CALL                             R15 1 1
-       89 DUPCLOSURE                       R16 K28 [PROTO_6]
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          VAL R0
-       92 CAPTURE                          VAL R2
-       93 CAPTURE                          VAL R8
-       94 CAPTURE                          VAL R9
-       95 CAPTURE                          VAL R14
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R11
-       98 CAPTURE                          VAL R12
-       99 CAPTURE                          VAL R13
-      100 CAPTURE                          VAL R5
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R3
-      105 CAPTURE                          VAL R15
-      106 RETURN                           R16 1
+       89 GETIMPORT                        R16 K5 [require]
+       91 GETTABLEKS                       R17 R0 K19 ["Src"]
+       93 GETTABLEKS                       R17 R17 K20 ["Dialogs"]
+       95 GETTABLEKS                       R17 R17 K28 ["Types"]
+       97 CALL                             R16 1 1
+       98 DUPCLOSURE                       R17 K29 [PROTO_6]
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R0
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R8
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R14
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R12
+      108 CAPTURE                          VAL R13
+      109 CAPTURE                          VAL R5
+      110 CAPTURE                          VAL R6
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R3
+      114 CAPTURE                          VAL R15
+      115 RETURN                           R17 1

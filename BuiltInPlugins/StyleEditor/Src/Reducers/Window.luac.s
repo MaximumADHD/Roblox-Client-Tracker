@@ -127,94 +127,81 @@ MAIN:
        26 GETTABLEKS                       R4 R4 K11 ["Dash"]
        28 CALL                             R3 1 1
        29 GETTABLEKS                       R4 R3 K12 ["join"]
-       31 GETIMPORT                        R5 K8 [require]
-       33 GETTABLEKS                       R6 R1 K13 ["Src"]
-       35 GETTABLEKS                       R6 R6 K14 ["Flags"]
-       37 GETTABLEKS                       R6 R6 K15 ["getFFlagStyleEditorPluginStyleSheets"]
-       39 CALL                             R5 1 1
-       40 CALL                             R5 0 1
-       41 GETTABLEKS                       R6 R1 K13 ["Src"]
-       43 GETTABLEKS                       R6 R6 K16 ["Actions"]
-       45 GETIMPORT                        R7 K8 [require]
-       47 GETTABLEKS                       R8 R6 K17 ["Window"]
-       49 GETTABLEKS                       R8 R8 K18 ["DeselectItem"]
-       51 CALL                             R7 1 1
-       52 GETIMPORT                        R8 K8 [require]
-       54 GETTABLEKS                       R9 R6 K17 ["Window"]
-       56 GETTABLEKS                       R9 R9 K19 ["SelectItem"]
-       58 CALL                             R8 1 1
-       59 GETIMPORT                        R9 K8 [require]
-       61 GETTABLEKS                       R10 R6 K17 ["Window"]
-       63 GETTABLEKS                       R10 R10 K20 ["SetIsDirty"]
-       65 CALL                             R9 1 1
-       66 GETIMPORT                        R10 K8 [require]
-       68 GETTABLEKS                       R11 R6 K17 ["Window"]
-       70 GETTABLEKS                       R11 R11 K21 ["SetItemsExpanded"]
-       72 CALL                             R10 1 1
-       73 GETIMPORT                        R11 K8 [require]
-       75 GETTABLEKS                       R12 R6 K17 ["Window"]
-       77 GETTABLEKS                       R12 R12 K22 ["SetSource"]
-       79 CALL                             R11 1 1
-       80 GETIMPORT                        R12 K8 [require]
-       82 GETTABLEKS                       R13 R6 K17 ["Window"]
-       84 GETTABLEKS                       R13 R13 K23 ["SetRootRoute"]
-       86 CALL                             R12 1 1
-       87 GETIMPORT                        R13 K8 [require]
-       89 GETTABLEKS                       R14 R6 K17 ["Window"]
-       91 GETTABLEKS                       R14 R14 K24 ["SetSearch"]
-       93 CALL                             R13 1 1
-       94 DUPTABLE                         R14 K31 [{"IsDirty", "Source", "SearchTerm", "RootRoute", "SelectedItemId", "ExpandedItems"}]
-       95 LOADN                            R15 0
-       96 SETTABLEKS                       R15 R14 K25 ["IsDirty"]
-       98 JUMPIFNOT                        R5 ; [+2]
-       99 MOVE                             R15 R0
-      100 JUMP                             ; [+1]
-      101 LOADNIL                          R15
-      102 SETTABLEKS                       R15 R14 K26 ["Source"]
-      104 LOADK                            R15 K32 [""]
-      105 SETTABLEKS                       R15 R14 K27 ["SearchTerm"]
-      107 LOADK                            R15 K33 ["Onboarding"]
-      108 SETTABLEKS                       R15 R14 K28 ["RootRoute"]
-      110 LOADNIL                          R15
-      111 SETTABLEKS                       R15 R14 K29 ["SelectedItemId"]
-      113 NEWTABLE                         R15 0 0
-      115 SETTABLEKS                       R15 R14 K30 ["ExpandedItems"]
-      117 GETTABLEKS                       R15 R2 K34 ["createReducer"]
-      119 MOVE                             R16 R14
-      120 NEWTABLE                         R17 8 0
-      122 GETTABLEKS                       R18 R9 K35 ["name"]
-      124 DUPCLOSURE                       R19 K36 [PROTO_0]
-      125 CAPTURE                          VAL R4
-      126 SETTABLE                         R19 R17 R18
-      127 GETTABLEKS                       R18 R11 K35 ["name"]
-      129 JUMPIFNOT                        R5 ; [+4]
-      130 DUPCLOSURE                       R19 K37 [PROTO_1]
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R0
-      133 JUMP                             ; [+1]
-      134 LOADNIL                          R19
-      135 SETTABLE                         R19 R17 R18
-      136 GETTABLEKS                       R18 R13 K35 ["name"]
-      138 DUPCLOSURE                       R19 K38 [PROTO_2]
-      139 CAPTURE                          VAL R4
-      140 SETTABLE                         R19 R17 R18
-      141 GETTABLEKS                       R18 R12 K35 ["name"]
-      143 DUPCLOSURE                       R19 K39 [PROTO_3]
+       31 GETTABLEKS                       R5 R1 K13 ["Src"]
+       33 GETTABLEKS                       R5 R5 K14 ["Actions"]
+       35 GETIMPORT                        R6 K8 [require]
+       37 GETTABLEKS                       R7 R5 K15 ["Window"]
+       39 GETTABLEKS                       R7 R7 K16 ["DeselectItem"]
+       41 CALL                             R6 1 1
+       42 GETIMPORT                        R7 K8 [require]
+       44 GETTABLEKS                       R8 R5 K15 ["Window"]
+       46 GETTABLEKS                       R8 R8 K17 ["SelectItem"]
+       48 CALL                             R7 1 1
+       49 GETIMPORT                        R8 K8 [require]
+       51 GETTABLEKS                       R9 R5 K15 ["Window"]
+       53 GETTABLEKS                       R9 R9 K18 ["SetIsDirty"]
+       55 CALL                             R8 1 1
+       56 GETIMPORT                        R9 K8 [require]
+       58 GETTABLEKS                       R10 R5 K15 ["Window"]
+       60 GETTABLEKS                       R10 R10 K19 ["SetItemsExpanded"]
+       62 CALL                             R9 1 1
+       63 GETIMPORT                        R10 K8 [require]
+       65 GETTABLEKS                       R11 R5 K15 ["Window"]
+       67 GETTABLEKS                       R11 R11 K20 ["SetSource"]
+       69 CALL                             R10 1 1
+       70 GETIMPORT                        R11 K8 [require]
+       72 GETTABLEKS                       R12 R5 K15 ["Window"]
+       74 GETTABLEKS                       R12 R12 K21 ["SetRootRoute"]
+       76 CALL                             R11 1 1
+       77 GETIMPORT                        R12 K8 [require]
+       79 GETTABLEKS                       R13 R5 K15 ["Window"]
+       81 GETTABLEKS                       R13 R13 K22 ["SetSearch"]
+       83 CALL                             R12 1 1
+       84 DUPTABLE                         R13 K29 [{"IsDirty", "Source", "SearchTerm", "RootRoute", "SelectedItemId", "ExpandedItems"}]
+       85 LOADN                            R14 0
+       86 SETTABLEKS                       R14 R13 K23 ["IsDirty"]
+       88 SETTABLEKS                       R0 R13 K24 ["Source"]
+       90 LOADK                            R14 K30 [""]
+       91 SETTABLEKS                       R14 R13 K25 ["SearchTerm"]
+       93 LOADK                            R14 K31 ["Onboarding"]
+       94 SETTABLEKS                       R14 R13 K26 ["RootRoute"]
+       96 LOADNIL                          R14
+       97 SETTABLEKS                       R14 R13 K27 ["SelectedItemId"]
+       99 NEWTABLE                         R14 0 0
+      101 SETTABLEKS                       R14 R13 K28 ["ExpandedItems"]
+      103 GETTABLEKS                       R14 R2 K32 ["createReducer"]
+      105 MOVE                             R15 R13
+      106 NEWTABLE                         R16 8 0
+      108 GETTABLEKS                       R17 R8 K33 ["name"]
+      110 DUPCLOSURE                       R18 K34 [PROTO_0]
+      111 CAPTURE                          VAL R4
+      112 SETTABLE                         R18 R16 R17
+      113 GETTABLEKS                       R17 R10 K33 ["name"]
+      115 DUPCLOSURE                       R18 K35 [PROTO_1]
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R0
+      118 SETTABLE                         R18 R16 R17
+      119 GETTABLEKS                       R17 R12 K33 ["name"]
+      121 DUPCLOSURE                       R18 K36 [PROTO_2]
+      122 CAPTURE                          VAL R4
+      123 SETTABLE                         R18 R16 R17
+      124 GETTABLEKS                       R17 R11 K33 ["name"]
+      126 DUPCLOSURE                       R18 K37 [PROTO_3]
+      127 CAPTURE                          VAL R4
+      128 SETTABLE                         R18 R16 R17
+      129 GETTABLEKS                       R17 R7 K33 ["name"]
+      131 DUPCLOSURE                       R18 K38 [PROTO_4]
+      132 CAPTURE                          VAL R4
+      133 CAPTURE                          VAL R3
+      134 SETTABLE                         R18 R16 R17
+      135 GETTABLEKS                       R17 R6 K33 ["name"]
+      137 DUPCLOSURE                       R18 K39 [PROTO_5]
+      138 CAPTURE                          VAL R4
+      139 CAPTURE                          VAL R3
+      140 SETTABLE                         R18 R16 R17
+      141 GETTABLEKS                       R17 R9 K33 ["name"]
+      143 DUPCLOSURE                       R18 K40 [PROTO_6]
       144 CAPTURE                          VAL R4
-      145 SETTABLE                         R19 R17 R18
-      146 GETTABLEKS                       R18 R8 K35 ["name"]
-      148 DUPCLOSURE                       R19 K40 [PROTO_4]
-      149 CAPTURE                          VAL R4
-      150 CAPTURE                          VAL R3
-      151 SETTABLE                         R19 R17 R18
-      152 GETTABLEKS                       R18 R7 K35 ["name"]
-      154 DUPCLOSURE                       R19 K41 [PROTO_5]
-      155 CAPTURE                          VAL R4
-      156 CAPTURE                          VAL R3
-      157 SETTABLE                         R19 R17 R18
-      158 GETTABLEKS                       R18 R10 K35 ["name"]
-      160 DUPCLOSURE                       R19 K42 [PROTO_6]
-      161 CAPTURE                          VAL R4
-      162 SETTABLE                         R19 R17 R18
-      163 CALL                             R15 2 -1
-      164 RETURN                           R15 -1
+      145 SETTABLE                         R18 R16 R17
+      146 CALL                             R14 2 -1
+      147 RETURN                           R14 -1

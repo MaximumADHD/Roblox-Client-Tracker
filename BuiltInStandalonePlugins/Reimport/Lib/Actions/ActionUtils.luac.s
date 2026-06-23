@@ -16,12 +16,15 @@ PROTO_1:
         1 GETTABLEKS                       R2 R2 K0 ["actionUri"]
         3 MOVE                             R3 R0
         4 CALL                             R2 1 1
-        5 SETTABLEKS                       R2 R1 K1 ["Uri"]
-        7 GETUPVAL                         R3 1
-        8 MOVE                             R5 R1
-        9 NAMECALL                         R3 R3 K2 ["UpdateAsync"]
-       11 CALL                             R3 2 0
-       12 RETURN                           R0 0
+        5 GETIMPORT                        R3 K3 [table.clone]
+        7 MOVE                             R4 R1
+        8 CALL                             R3 1 1
+        9 SETTABLEKS                       R2 R3 K4 ["Uri"]
+       11 GETUPVAL                         R4 1
+       12 MOVE                             R6 R3
+       13 NAMECALL                         R4 R4 K5 ["UpdateAsync"]
+       15 CALL                             R4 2 0
+       16 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

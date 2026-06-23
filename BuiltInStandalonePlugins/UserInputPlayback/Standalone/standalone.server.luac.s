@@ -82,55 +82,52 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K4 ["Parent"]
         9 GETTABLEKS                       R0 R0 K4 ["Parent"]
        11 GETTABLEKS                       R0 R0 K5 ["Common"]
-       13 GETIMPORT                        R1 K7 [require]
-       15 GETTABLEKS                       R2 R0 K8 ["defineLuaFlags"]
-       17 CALL                             R1 1 0
-       18 GETIMPORT                        R1 K10 [pcall]
-       20 DUPCLOSURE                       R2 K11 [PROTO_0]
-       21 CALL                             R1 1 2
-       22 JUMPIFNOT                        R1 ; [+1]
-       23 JUMPIF                           R2 ; [+1]
-       24 RETURN                           R0 0
-       25 GETIMPORT                        R3 K7 [require]
-       27 GETTABLEKS                       R4 R0 K12 ["commonInit"]
-       29 CALL                             R3 1 1
-       30 MOVE                             R4 R3
-       31 CALL                             R4 0 0
-       32 GETIMPORT                        R4 K3 [script]
-       34 GETTABLEKS                       R4 R4 K4 ["Parent"]
-       36 GETTABLEKS                       R4 R4 K4 ["Parent"]
-       38 GETIMPORT                        R5 K7 [require]
-       40 GETTABLEKS                       R6 R4 K13 ["Packages"]
-       42 GETTABLEKS                       R6 R6 K14 ["Roact"]
-       44 CALL                             R5 1 1
-       45 GETIMPORT                        R6 K7 [require]
-       47 GETTABLEKS                       R7 R4 K15 ["Src"]
-       49 GETTABLEKS                       R7 R7 K16 ["MainPlugin"]
-       51 CALL                             R6 1 1
-       52 GETIMPORT                        R7 K7 [require]
-       54 GETTABLEKS                       R8 R4 K15 ["Src"]
-       56 GETTABLEKS                       R8 R8 K17 ["Util"]
-       58 GETTABLEKS                       R8 R8 K18 ["DMBridge"]
-       60 CALL                             R7 1 1
-       61 LOADNIL                          R8
-       62 LOADNIL                          R9
-       63 NEWCLOSURE                       R10 P1
-       64 CAPTURE                          VAL R4
-       65 CAPTURE                          VAL R7
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          REF R8
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          REF R9
-       71 GETIMPORT                        R11 K1 [plugin]
-       73 GETTABLEKS                       R11 R11 K19 ["Unloading"]
-       75 NEWCLOSURE                       R13 P2
-       76 CAPTURE                          REF R9
-       77 CAPTURE                          REF R8
-       78 CAPTURE                          VAL R5
-       79 NAMECALL                         R11 R11 K20 ["Connect"]
-       81 CALL                             R11 2 0
-       82 MOVE                             R11 R10
-       83 CALL                             R11 0 0
-       84 CLOSEUPVALS                      R8
-       85 RETURN                           R0 0
+       13 GETIMPORT                        R1 K7 [pcall]
+       15 DUPCLOSURE                       R2 K8 [PROTO_0]
+       16 CALL                             R1 1 2
+       17 JUMPIFNOT                        R1 ; [+1]
+       18 JUMPIF                           R2 ; [+1]
+       19 RETURN                           R0 0
+       20 GETIMPORT                        R3 K10 [require]
+       22 GETTABLEKS                       R4 R0 K11 ["commonInit"]
+       24 CALL                             R3 1 1
+       25 MOVE                             R4 R3
+       26 CALL                             R4 0 0
+       27 GETIMPORT                        R4 K3 [script]
+       29 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       31 GETTABLEKS                       R4 R4 K4 ["Parent"]
+       33 GETIMPORT                        R5 K10 [require]
+       35 GETTABLEKS                       R6 R4 K12 ["Packages"]
+       37 GETTABLEKS                       R6 R6 K13 ["Roact"]
+       39 CALL                             R5 1 1
+       40 GETIMPORT                        R6 K10 [require]
+       42 GETTABLEKS                       R7 R4 K14 ["Src"]
+       44 GETTABLEKS                       R7 R7 K15 ["MainPlugin"]
+       46 CALL                             R6 1 1
+       47 GETIMPORT                        R7 K10 [require]
+       49 GETTABLEKS                       R8 R4 K14 ["Src"]
+       51 GETTABLEKS                       R8 R8 K16 ["Util"]
+       53 GETTABLEKS                       R8 R8 K17 ["DMBridge"]
+       55 CALL                             R7 1 1
+       56 LOADNIL                          R8
+       57 LOADNIL                          R9
+       58 NEWCLOSURE                       R10 P1
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R7
+       61 CAPTURE                          VAL R5
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          REF R8
+       64 CAPTURE                          VAL R2
+       65 CAPTURE                          REF R9
+       66 GETIMPORT                        R11 K1 [plugin]
+       68 GETTABLEKS                       R11 R11 K18 ["Unloading"]
+       70 NEWCLOSURE                       R13 P2
+       71 CAPTURE                          REF R9
+       72 CAPTURE                          REF R8
+       73 CAPTURE                          VAL R5
+       74 NAMECALL                         R11 R11 K19 ["Connect"]
+       76 CALL                             R11 2 0
+       77 MOVE                             R11 R10
+       78 CALL                             R11 0 0
+       79 CLOSEUPVALS                      R8
+       80 RETURN                           R0 0

@@ -281,39 +281,28 @@ PROTO_10:
        24 RETURN                           R0 0
 
 PROTO_11:
-        0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+8]
-        2 NEWTABLE                         R1 0 3
-        4 LOADK                            R2 K0 ["LayerCollector"]
-        5 LOADK                            R3 K1 ["StarterGui"]
-        6 LOADK                            R4 K2 ["Workspace"]
-        7 SETLIST                          R1 R2 3 [1]
-        9 JUMP                             ; [+10]
-       10 NEWTABLE                         R1 0 6
-       12 LOADK                            R2 K3 ["ScreenGui"]
-       13 LOADK                            R3 K4 ["SurfaceGui"]
-       14 LOADK                            R4 K5 ["BillboardGui"]
-       15 LOADK                            R5 K1 ["StarterGui"]
-       16 LOADK                            R6 K2 ["Workspace"]
-       17 LOADK                            R7 K6 ["PluginGuiService"]
-       18 SETLIST                          R1 R2 6 [1]
-       20 MOVE                             R2 R1
-       21 LOADNIL                          R3
-       22 LOADNIL                          R4
-       23 FORGPREP                         R2
-       24 MOVE                             R9 R6
-       25 NAMECALL                         R7 R0 K7 ["IsA"]
-       27 CALL                             R7 2 1
-       28 JUMPIFNOT                        R7 ; [+1]
-       29 RETURN                           R0 1
-       30 MOVE                             R9 R6
-       31 NAMECALL                         R7 R0 K8 ["FindFirstAncestorWhichIsA"]
-       33 CALL                             R7 2 1
-       34 JUMPIFNOT                        R7 ; [+1]
-       35 RETURN                           R7 1
-       36 FORGLOOP                         R2 2 ; [-13]
-       38 LOADNIL                          R2
-       39 RETURN                           R2 1
+        0 NEWTABLE                         R1 0 3
+        2 LOADK                            R2 K0 ["LayerCollector"]
+        3 LOADK                            R3 K1 ["StarterGui"]
+        4 LOADK                            R4 K2 ["Workspace"]
+        5 SETLIST                          R1 R2 3 [1]
+        7 MOVE                             R2 R1
+        8 LOADNIL                          R3
+        9 LOADNIL                          R4
+       10 FORGPREP                         R2
+       11 MOVE                             R9 R6
+       12 NAMECALL                         R7 R0 K3 ["IsA"]
+       14 CALL                             R7 2 1
+       15 JUMPIFNOT                        R7 ; [+1]
+       16 RETURN                           R0 1
+       17 MOVE                             R9 R6
+       18 NAMECALL                         R7 R0 K4 ["FindFirstAncestorWhichIsA"]
+       20 CALL                             R7 2 1
+       21 JUMPIFNOT                        R7 ; [+1]
+       22 RETURN                           R7 1
+       23 FORGLOOP                         R2 2 ; [-13]
+       25 LOADNIL                          R2
+       26 RETURN                           R2 1
 
 PROTO_12:
         0 MOVE                             R2 R0
@@ -366,52 +355,42 @@ PROTO_13:
        38 MOVE                             R3 R0
        39 CALL                             R2 1 1
        40 GETUPVAL                         R3 0
-       41 JUMPIFNOT                        R3 ; [+36]
+       41 JUMPIFNOT                        R3 ; [+25]
        42 JUMPIF                           R2 ; [+2]
        43 LOADNIL                          R3
        44 RETURN                           R3 1
-       45 LOADNIL                          R3
-       46 GETUPVAL                         R4 2
-       47 JUMPIFNOT                        R4 ; [+8]
-       48 GETUPVAL                         R4 1
-       49 GETTABLEKS                       R4 R4 K6 ["findFirstStyleLinkInHierarchy"]
-       51 MOVE                             R5 R0
-       52 MOVE                             R6 R2
-       53 CALL                             R4 2 1
-       54 MOVE                             R3 R4
-       55 JUMP                             ; [+6]
-       56 LOADK                            R6 K7 ["StyleLink"]
-       57 LOADB                            R7 1
-       58 NAMECALL                         R4 R2 K8 ["FindFirstChildWhichIsA"]
-       60 CALL                             R4 3 1
-       61 MOVE                             R3 R4
-       62 JUMPIFNOT                        R3 ; [+7]
-       63 GETTABLEKS                       R4 R3 K0 ["StyleSheet"]
-       65 JUMPIFNOTEQKNIL                  R4 ; [+3]
-       67 SETTABLEKS                       R1 R3 K0 ["StyleSheet"]
-       69 RETURN                           R3 1
-       70 GETUPVAL                         R4 3
-       71 MOVE                             R5 R2
-       72 MOVE                             R6 R1
-       73 CALL                             R4 2 1
-       74 LOADK                            R5 K7 ["StyleLink"]
-       75 SETTABLEKS                       R5 R4 K9 ["Name"]
-       77 RETURN                           R4 1
-       78 JUMPIFNOT                        R2 ; [+14]
-       79 LOADK                            R5 K7 ["StyleLink"]
-       80 NAMECALL                         R3 R2 K8 ["FindFirstChildWhichIsA"]
-       82 CALL                             R3 2 1
-       83 JUMPIF                           R3 ; [+9]
-       84 JUMPIFNOT                        R1 ; [+8]
-       85 GETUPVAL                         R3 3
-       86 MOVE                             R4 R2
-       87 MOVE                             R5 R1
-       88 CALL                             R3 2 1
-       89 LOADK                            R4 K7 ["StyleLink"]
-       90 SETTABLEKS                       R4 R3 K9 ["Name"]
-       92 RETURN                           R3 1
-       93 LOADNIL                          R3
-       94 RETURN                           R3 1
+       45 GETUPVAL                         R3 1
+       46 GETTABLEKS                       R3 R3 K6 ["findFirstStyleLinkInHierarchy"]
+       48 MOVE                             R4 R0
+       49 MOVE                             R5 R2
+       50 CALL                             R3 2 1
+       51 JUMPIFNOT                        R3 ; [+7]
+       52 GETTABLEKS                       R4 R3 K0 ["StyleSheet"]
+       54 JUMPIFNOTEQKNIL                  R4 ; [+3]
+       56 SETTABLEKS                       R1 R3 K0 ["StyleSheet"]
+       58 RETURN                           R3 1
+       59 GETUPVAL                         R4 2
+       60 MOVE                             R5 R2
+       61 MOVE                             R6 R1
+       62 CALL                             R4 2 1
+       63 LOADK                            R5 K7 ["StyleLink"]
+       64 SETTABLEKS                       R5 R4 K8 ["Name"]
+       66 RETURN                           R4 1
+       67 JUMPIFNOT                        R2 ; [+14]
+       68 LOADK                            R5 K7 ["StyleLink"]
+       69 NAMECALL                         R3 R2 K9 ["FindFirstChildWhichIsA"]
+       71 CALL                             R3 2 1
+       72 JUMPIF                           R3 ; [+9]
+       73 JUMPIFNOT                        R1 ; [+8]
+       74 GETUPVAL                         R3 2
+       75 MOVE                             R4 R2
+       76 MOVE                             R5 R1
+       77 CALL                             R3 2 1
+       78 LOADK                            R4 K7 ["StyleLink"]
+       79 SETTABLEKS                       R4 R3 K8 ["Name"]
+       81 RETURN                           R3 1
+       82 LOADNIL                          R3
+       83 RETURN                           R3 1
 
 PROTO_14:
         0 GETIMPORT                        R0 K1 [ipairs]
@@ -558,81 +537,67 @@ MAIN:
        82 GETTABLEKS                       R12 R12 K24 ["getFFlagStyleEditorStyleLinkInsertWhenNil"]
        84 CALL                             R11 1 1
        85 CALL                             R11 0 1
-       86 GETIMPORT                        R12 K10 [require]
-       88 GETTABLEKS                       R13 R3 K15 ["Src"]
-       90 GETTABLEKS                       R13 R13 K23 ["Flags"]
-       92 GETTABLEKS                       R13 R13 K25 ["getFFlagStyleEditorPluginStyleSheets"]
-       94 CALL                             R12 1 1
-       95 CALL                             R12 0 1
-       96 GETIMPORT                        R13 K10 [require]
-       98 GETTABLEKS                       R14 R3 K15 ["Src"]
-      100 GETTABLEKS                       R14 R14 K23 ["Flags"]
-      102 GETTABLEKS                       R14 R14 K26 ["getFFlagStyleEditorUseHierarchyStyleLink"]
-      104 CALL                             R13 1 1
-      105 CALL                             R13 0 1
-      106 NEWTABLE                         R14 16 0
-      108 DUPTABLE                         R15 K35 [{"Blank", "Child", "Descendant", "GuiState", "Name", "PseudoInstance", "Tag", "Query"}]
-      109 LOADK                            R16 K36 [""]
-      110 SETTABLEKS                       R16 R15 K27 ["Blank"]
-      112 LOADK                            R16 K37 [">"]
-      113 SETTABLEKS                       R16 R15 K28 ["Child"]
-      115 LOADK                            R16 K38 [">>"]
-      116 SETTABLEKS                       R16 R15 K29 ["Descendant"]
-      118 LOADK                            R16 K39 [":"]
-      119 SETTABLEKS                       R16 R15 K30 ["GuiState"]
-      121 LOADK                            R16 K40 ["#"]
-      122 SETTABLEKS                       R16 R15 K31 ["Name"]
-      124 LOADK                            R16 K41 ["::"]
-      125 SETTABLEKS                       R16 R15 K32 ["PseudoInstance"]
-      127 LOADK                            R16 K42 ["."]
-      128 SETTABLEKS                       R16 R15 K33 ["Tag"]
-      130 LOADK                            R16 K43 ["@"]
-      131 SETTABLEKS                       R16 R15 K34 ["Query"]
-      133 SETTABLEKS                       R15 R14 K44 ["SelectorSyntax"]
-      135 DUPCLOSURE                       R15 K45 [PROTO_1]
-      136 CAPTURE                          VAL R10
-      137 CAPTURE                          VAL R6
-      138 CAPTURE                          VAL R14
-      139 SETTABLEKS                       R15 R14 K46 ["isElement"]
-      141 DUPCLOSURE                       R15 K47 [PROTO_2]
-      142 CAPTURE                          VAL R14
-      143 SETTABLEKS                       R15 R14 K48 ["findFirstClassSelector"]
-      145 DUPCLOSURE                       R15 K49 [PROTO_4]
-      146 SETTABLEKS                       R15 R14 K50 ["getSelectorChain"]
-      148 DUPCLOSURE                       R15 K51 [PROTO_6]
-      149 CAPTURE                          VAL R8
-      150 CAPTURE                          VAL R0
-      151 SETTABLEKS                       R15 R14 K52 ["instancesHaveVariant"]
-      153 DUPCLOSURE                       R15 K53 [PROTO_7]
-      154 CAPTURE                          VAL R14
-      155 SETTABLEKS                       R15 R14 K54 ["ruleHasTags"]
-      157 DUPCLOSURE                       R15 K55 [PROTO_8]
-      158 CAPTURE                          VAL R14
-      159 SETTABLEKS                       R15 R14 K56 ["canApplyVariant"]
-      161 DUPCLOSURE                       R15 K57 [PROTO_9]
-      162 CAPTURE                          VAL R14
-      163 SETTABLEKS                       R15 R14 K58 ["applyVariant"]
-      165 DUPCLOSURE                       R15 K59 [PROTO_10]
-      166 CAPTURE                          VAL R14
-      167 SETTABLEKS                       R15 R14 K60 ["removeVariant"]
-      169 DUPCLOSURE                       R15 K61 [PROTO_11]
-      170 CAPTURE                          VAL R12
-      171 SETTABLEKS                       R15 R14 K62 ["getStyleLinkRoot"]
-      173 DUPCLOSURE                       R15 K63 [PROTO_12]
-      174 SETTABLEKS                       R15 R14 K64 ["findFirstStyleLinkInHierarchy"]
-      176 DUPCLOSURE                       R15 K65 [PROTO_13]
-      177 CAPTURE                          VAL R11
-      178 CAPTURE                          VAL R14
-      179 CAPTURE                          VAL R13
-      180 CAPTURE                          VAL R5
-      181 SETTABLEKS                       R15 R14 K66 ["addStyleLinkToRoot"]
-      183 DUPCLOSURE                       R15 K67 [PROTO_15]
-      184 CAPTURE                          VAL R1
-      185 CAPTURE                          VAL R7
-      186 CAPTURE                          VAL R11
-      187 CAPTURE                          VAL R14
-      188 SETTABLEKS                       R15 R14 K68 ["addStyleLinkToSelection"]
-      190 DUPCLOSURE                       R15 K69 [PROTO_16]
-      191 CAPTURE                          VAL R14
-      192 SETTABLEKS                       R15 R14 K70 ["DEPRECATED_isNestedPseudoInstance"]
-      194 RETURN                           R14 1
+       86 NEWTABLE                         R12 16 0
+       88 DUPTABLE                         R13 K33 [{"Blank", "Child", "Descendant", "GuiState", "Name", "PseudoInstance", "Tag", "Query"}]
+       89 LOADK                            R14 K34 [""]
+       90 SETTABLEKS                       R14 R13 K25 ["Blank"]
+       92 LOADK                            R14 K35 [">"]
+       93 SETTABLEKS                       R14 R13 K26 ["Child"]
+       95 LOADK                            R14 K36 [">>"]
+       96 SETTABLEKS                       R14 R13 K27 ["Descendant"]
+       98 LOADK                            R14 K37 [":"]
+       99 SETTABLEKS                       R14 R13 K28 ["GuiState"]
+      101 LOADK                            R14 K38 ["#"]
+      102 SETTABLEKS                       R14 R13 K29 ["Name"]
+      104 LOADK                            R14 K39 ["::"]
+      105 SETTABLEKS                       R14 R13 K30 ["PseudoInstance"]
+      107 LOADK                            R14 K40 ["."]
+      108 SETTABLEKS                       R14 R13 K31 ["Tag"]
+      110 LOADK                            R14 K41 ["@"]
+      111 SETTABLEKS                       R14 R13 K32 ["Query"]
+      113 SETTABLEKS                       R13 R12 K42 ["SelectorSyntax"]
+      115 DUPCLOSURE                       R13 K43 [PROTO_1]
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          VAL R6
+      118 CAPTURE                          VAL R12
+      119 SETTABLEKS                       R13 R12 K44 ["isElement"]
+      121 DUPCLOSURE                       R13 K45 [PROTO_2]
+      122 CAPTURE                          VAL R12
+      123 SETTABLEKS                       R13 R12 K46 ["findFirstClassSelector"]
+      125 DUPCLOSURE                       R13 K47 [PROTO_4]
+      126 SETTABLEKS                       R13 R12 K48 ["getSelectorChain"]
+      128 DUPCLOSURE                       R13 K49 [PROTO_6]
+      129 CAPTURE                          VAL R8
+      130 CAPTURE                          VAL R0
+      131 SETTABLEKS                       R13 R12 K50 ["instancesHaveVariant"]
+      133 DUPCLOSURE                       R13 K51 [PROTO_7]
+      134 CAPTURE                          VAL R12
+      135 SETTABLEKS                       R13 R12 K52 ["ruleHasTags"]
+      137 DUPCLOSURE                       R13 K53 [PROTO_8]
+      138 CAPTURE                          VAL R12
+      139 SETTABLEKS                       R13 R12 K54 ["canApplyVariant"]
+      141 DUPCLOSURE                       R13 K55 [PROTO_9]
+      142 CAPTURE                          VAL R12
+      143 SETTABLEKS                       R13 R12 K56 ["applyVariant"]
+      145 DUPCLOSURE                       R13 K57 [PROTO_10]
+      146 CAPTURE                          VAL R12
+      147 SETTABLEKS                       R13 R12 K58 ["removeVariant"]
+      149 DUPCLOSURE                       R13 K59 [PROTO_11]
+      150 SETTABLEKS                       R13 R12 K60 ["getStyleLinkRoot"]
+      152 DUPCLOSURE                       R13 K61 [PROTO_12]
+      153 SETTABLEKS                       R13 R12 K62 ["findFirstStyleLinkInHierarchy"]
+      155 DUPCLOSURE                       R13 K63 [PROTO_13]
+      156 CAPTURE                          VAL R11
+      157 CAPTURE                          VAL R12
+      158 CAPTURE                          VAL R5
+      159 SETTABLEKS                       R13 R12 K64 ["addStyleLinkToRoot"]
+      161 DUPCLOSURE                       R13 K65 [PROTO_15]
+      162 CAPTURE                          VAL R1
+      163 CAPTURE                          VAL R7
+      164 CAPTURE                          VAL R11
+      165 CAPTURE                          VAL R12
+      166 SETTABLEKS                       R13 R12 K66 ["addStyleLinkToSelection"]
+      168 DUPCLOSURE                       R13 K67 [PROTO_16]
+      169 CAPTURE                          VAL R12
+      170 SETTABLEKS                       R13 R12 K68 ["DEPRECATED_isNestedPseudoInstance"]
+      172 RETURN                           R12 1

@@ -272,95 +272,97 @@ PROTO_10:
       184 LOADNIL                          R4
       185 SETTABLEKS                       R4 R3 K7 ["Archive"]
       187 GETUPVAL                         R5 7
-      188 JUMPIFNOT                        R5 ; [+20]
+      188 JUMPIFNOT                        R5 ; [+23]
       189 GETTABLEKS                       R5 R0 K13 ["Id"]
-      191 JUMPIFNOT                        R5 ; [+17]
+      191 JUMPIFNOT                        R5 ; [+20]
       192 GETTABLEKS                       R5 R0 K25 ["IsTeamCreateEnabled"]
-      194 JUMPIFNOT                        R5 ; [+14]
-      195 DUPTABLE                         R4 K39 [{"Label", "Action"}]
-      196 LOADK                            R7 K19 ["Plugin"]
-      197 LOADK                            R8 K8 ["DisableTeamCreate"]
-      198 NAMECALL                         R5 R2 K20 ["getText"]
-      200 CALL                             R5 3 1
-      201 SETTABLEKS                       R5 R4 K37 ["Label"]
-      203 NEWCLOSURE                       R5 P6
-      204 CAPTURE                          UPVAL U8
-      205 CAPTURE                          VAL R0
-      206 SETTABLEKS                       R5 R4 K38 ["Action"]
-      208 JUMP                             ; [+1]
-      209 LOADNIL                          R4
-      210 SETTABLEKS                       R4 R3 K8 ["DisableTeamCreate"]
-      212 GETTABLEKS                       R5 R0 K13 ["Id"]
-      214 JUMPIFNOT                        R5 ; [+17]
-      215 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
-      216 LOADK                            R5 K40 ["restore-archive"]
-      217 SETTABLEKS                       R5 R4 K14 ["id"]
-      219 LOADK                            R7 K19 ["Plugin"]
-      220 LOADK                            R8 K41 ["Restore"]
-      221 NAMECALL                         R5 R2 K20 ["getText"]
-      223 CALL                             R5 3 1
-      224 SETTABLEKS                       R5 R4 K15 ["text"]
-      226 NEWCLOSURE                       R5 P7
-      227 CAPTURE                          UPVAL U6
-      228 CAPTURE                          VAL R0
-      229 SETTABLEKS                       R5 R4 K16 ["onActivated"]
-      231 JUMP                             ; [+1]
-      232 LOADNIL                          R4
-      233 SETTABLEKS                       R4 R3 K9 ["RestoreArchive"]
-      235 GETTABLEKS                       R5 R0 K13 ["Id"]
-      237 JUMPIFNOT                        R5 ; [+19]
-      238 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
-      239 LOADK                            R5 K42 ["remove-shared"]
-      240 SETTABLEKS                       R5 R4 K14 ["id"]
-      242 LOADK                            R7 K19 ["Plugin"]
-      243 LOADK                            R8 K43 ["Remove"]
-      244 NAMECALL                         R5 R2 K20 ["getText"]
-      246 CALL                             R5 3 1
-      247 SETTABLEKS                       R5 R4 K15 ["text"]
-      249 NEWCLOSURE                       R5 P8
-      250 CAPTURE                          UPVAL U9
-      251 CAPTURE                          VAL R0
-      252 CAPTURE                          UPVAL U10
-      253 CAPTURE                          UPVAL U1
-      254 SETTABLEKS                       R5 R4 K16 ["onActivated"]
-      256 JUMP                             ; [+1]
-      257 LOADNIL                          R4
-      258 SETTABLEKS                       R4 R3 K10 ["RemoveShared"]
-      260 GETTABLEKS                       R5 R0 K13 ["Id"]
-      262 JUMPIF                           R5 ; [+3]
-      263 GETTABLEKS                       R5 R0 K44 ["FilePath"]
-      265 JUMPIFNOT                        R5 ; [+18]
-      266 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
-      267 LOADK                            R5 K45 ["remove-recent"]
-      268 SETTABLEKS                       R5 R4 K14 ["id"]
-      270 LOADK                            R7 K19 ["Plugin"]
-      271 LOADK                            R8 K46 ["RemoveFromList"]
-      272 NAMECALL                         R5 R2 K20 ["getText"]
-      274 CALL                             R5 3 1
-      275 SETTABLEKS                       R5 R4 K15 ["text"]
-      277 NEWCLOSURE                       R5 P9
-      278 CAPTURE                          VAL R0
-      279 CAPTURE                          UPVAL U11
-      280 CAPTURE                          UPVAL U1
-      281 SETTABLEKS                       R5 R4 K16 ["onActivated"]
-      283 JUMP                             ; [+1]
-      284 LOADNIL                          R4
-      285 SETTABLEKS                       R4 R3 K11 ["RemoveRecent"]
-      287 NEWTABLE                         R4 0 0
-      289 MOVE                             R5 R1
-      290 LOADNIL                          R6
-      291 LOADNIL                          R7
-      292 FORGPREP                         R5
-      293 JUMPIFEQKS                       R9 K47 [""] ; [+11]
-      295 GETTABLE                         R10 R3 R9
-      296 JUMPIFEQKNIL                     R10 ; [+8]
-      298 GETTABLE                         R12 R3 R9
-      299 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
-      301 MOVE                             R11 R4
-      302 GETIMPORT                        R10 K50 [table.insert]
-      304 CALL                             R10 2 0
-      305 FORGLOOP                         R5 2 ; [-13]
-      307 RETURN                           R4 1
+      194 JUMPIFNOT                        R5 ; [+17]
+      195 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
+      196 LOADK                            R5 K37 ["disable-team-create"]
+      197 SETTABLEKS                       R5 R4 K14 ["id"]
+      199 LOADK                            R7 K19 ["Plugin"]
+      200 LOADK                            R8 K8 ["DisableTeamCreate"]
+      201 NAMECALL                         R5 R2 K20 ["getText"]
+      203 CALL                             R5 3 1
+      204 SETTABLEKS                       R5 R4 K15 ["text"]
+      206 NEWCLOSURE                       R5 P6
+      207 CAPTURE                          UPVAL U8
+      208 CAPTURE                          VAL R0
+      209 SETTABLEKS                       R5 R4 K16 ["onActivated"]
+      211 JUMP                             ; [+1]
+      212 LOADNIL                          R4
+      213 SETTABLEKS                       R4 R3 K8 ["DisableTeamCreate"]
+      215 GETTABLEKS                       R5 R0 K13 ["Id"]
+      217 JUMPIFNOT                        R5 ; [+17]
+      218 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
+      219 LOADK                            R5 K38 ["restore-archive"]
+      220 SETTABLEKS                       R5 R4 K14 ["id"]
+      222 LOADK                            R7 K19 ["Plugin"]
+      223 LOADK                            R8 K39 ["Restore"]
+      224 NAMECALL                         R5 R2 K20 ["getText"]
+      226 CALL                             R5 3 1
+      227 SETTABLEKS                       R5 R4 K15 ["text"]
+      229 NEWCLOSURE                       R5 P7
+      230 CAPTURE                          UPVAL U6
+      231 CAPTURE                          VAL R0
+      232 SETTABLEKS                       R5 R4 K16 ["onActivated"]
+      234 JUMP                             ; [+1]
+      235 LOADNIL                          R4
+      236 SETTABLEKS                       R4 R3 K9 ["RestoreArchive"]
+      238 GETTABLEKS                       R5 R0 K13 ["Id"]
+      240 JUMPIFNOT                        R5 ; [+19]
+      241 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
+      242 LOADK                            R5 K40 ["remove-shared"]
+      243 SETTABLEKS                       R5 R4 K14 ["id"]
+      245 LOADK                            R7 K19 ["Plugin"]
+      246 LOADK                            R8 K41 ["Remove"]
+      247 NAMECALL                         R5 R2 K20 ["getText"]
+      249 CALL                             R5 3 1
+      250 SETTABLEKS                       R5 R4 K15 ["text"]
+      252 NEWCLOSURE                       R5 P8
+      253 CAPTURE                          UPVAL U9
+      254 CAPTURE                          VAL R0
+      255 CAPTURE                          UPVAL U10
+      256 CAPTURE                          UPVAL U1
+      257 SETTABLEKS                       R5 R4 K16 ["onActivated"]
+      259 JUMP                             ; [+1]
+      260 LOADNIL                          R4
+      261 SETTABLEKS                       R4 R3 K10 ["RemoveShared"]
+      263 GETTABLEKS                       R5 R0 K13 ["Id"]
+      265 JUMPIF                           R5 ; [+3]
+      266 GETTABLEKS                       R5 R0 K42 ["FilePath"]
+      268 JUMPIFNOT                        R5 ; [+18]
+      269 DUPTABLE                         R4 K17 [{"id", "text", "onActivated"}]
+      270 LOADK                            R5 K43 ["remove-recent"]
+      271 SETTABLEKS                       R5 R4 K14 ["id"]
+      273 LOADK                            R7 K19 ["Plugin"]
+      274 LOADK                            R8 K44 ["RemoveFromList"]
+      275 NAMECALL                         R5 R2 K20 ["getText"]
+      277 CALL                             R5 3 1
+      278 SETTABLEKS                       R5 R4 K15 ["text"]
+      280 NEWCLOSURE                       R5 P9
+      281 CAPTURE                          VAL R0
+      282 CAPTURE                          UPVAL U11
+      283 CAPTURE                          UPVAL U1
+      284 SETTABLEKS                       R5 R4 K16 ["onActivated"]
+      286 JUMP                             ; [+1]
+      287 LOADNIL                          R4
+      288 SETTABLEKS                       R4 R3 K11 ["RemoveRecent"]
+      290 NEWTABLE                         R4 0 0
+      292 MOVE                             R5 R1
+      293 LOADNIL                          R6
+      294 LOADNIL                          R7
+      295 FORGPREP                         R5
+      296 JUMPIFEQKS                       R9 K45 [""] ; [+11]
+      298 GETTABLE                         R10 R3 R9
+      299 JUMPIFEQKNIL                     R10 ; [+8]
+      301 GETTABLE                         R12 R3 R9
+      302 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
+      304 MOVE                             R11 R4
+      305 GETIMPORT                        R10 K48 [table.insert]
+      307 CALL                             R10 2 0
+      308 FORGLOOP                         R5 2 ; [-13]
+      310 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

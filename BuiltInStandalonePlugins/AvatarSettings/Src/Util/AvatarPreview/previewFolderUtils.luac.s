@@ -129,7 +129,7 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+39]
+        1 JUMPIFNOT                        R1 ; [+36]
         2 GETUPVAL                         R1 1
         3 LOADNIL                          R2
         4 LOADNIL                          R3
@@ -153,21 +153,18 @@ PROTO_7:
        29 LOADNIL                          R1
        30 SETUPVAL                         R1 0
        31 GETUPVAL                         R1 4
-       32 CALL                             R1 0 1
-       33 JUMPIFNOT                        R1 ; [+7]
-       34 GETUPVAL                         R1 5
-       35 JUMPIFEQKNIL                     R1 ; [+5]
-       37 GETUPVAL                         R1 5
-       38 CALL                             R1 0 0
-       39 LOADNIL                          R1
-       40 SETUPVAL                         R1 5
-       41 JUMPIFNOT                        R0 ; [+8]
-       42 GETUPVAL                         R3 6
-       43 GETTABLEKS                       R3 R3 K8 ["previewDeactivated"]
-       45 GETTABLEKS                       R3 R3 K9 ["fromAssetDm"]
-       47 NAMECALL                         R1 R0 K10 ["Invoke"]
-       49 CALL                             R1 2 0
-       50 RETURN                           R0 0
+       32 JUMPIFEQKNIL                     R1 ; [+5]
+       34 GETUPVAL                         R1 4
+       35 CALL                             R1 0 0
+       36 LOADNIL                          R1
+       37 SETUPVAL                         R1 4
+       38 JUMPIFNOT                        R0 ; [+8]
+       39 GETUPVAL                         R3 5
+       40 GETTABLEKS                       R3 R3 K8 ["previewDeactivated"]
+       42 GETTABLEKS                       R3 R3 K9 ["fromAssetDm"]
+       44 NAMECALL                         R1 R0 K10 ["Invoke"]
+       46 CALL                             R1 2 0
+       47 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -305,50 +302,44 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R1 0
-        1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+7]
-        3 GETUPVAL                         R1 1
-        4 JUMPIFEQKNIL                     R1 ; [+5]
-        6 GETUPVAL                         R1 1
-        7 CALL                             R1 0 0
-        8 LOADNIL                          R1
-        9 SETUPVAL                         R1 1
-       10 GETIMPORT                        R1 K2 [Instance.new]
-       12 LOADK                            R2 K3 ["Folder"]
-       13 CALL                             R1 1 1
-       14 GETUPVAL                         R2 2
-       15 GETTABLEKS                       R2 R2 K4 ["AvatarPreviewFolderName"]
-       17 SETTABLEKS                       R2 R1 K5 ["Name"]
-       19 GETUPVAL                         R4 2
-       20 GETTABLEKS                       R4 R4 K6 ["AvatarPreviewFolderTag"]
-       22 NAMECALL                         R2 R1 K7 ["AddTag"]
-       24 CALL                             R2 2 0
-       25 GETIMPORT                        R2 K9 [workspace]
-       27 GETTABLEKS                       R2 R2 K10 ["CurrentCamera"]
-       29 JUMPIF                           R2 ; [+17]
-       30 GETIMPORT                        R3 K2 [Instance.new]
-       32 LOADK                            R4 K11 ["Camera"]
-       33 CALL                             R3 1 1
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R4 R4 K12 ["ParentCameraName"]
-       37 SETTABLEKS                       R4 R3 K5 ["Name"]
-       39 LOADB                            R4 0
-       40 SETTABLEKS                       R4 R3 K13 ["Archivable"]
-       42 GETIMPORT                        R4 K9 [workspace]
-       44 SETTABLEKS                       R4 R3 K14 ["Parent"]
-       46 MOVE                             R2 R3
-       47 SETTABLEKS                       R2 R1 K14 ["Parent"]
-       49 LOADB                            R3 0
-       50 SETTABLEKS                       R3 R1 K13 ["Archivable"]
-       52 GETUPVAL                         R3 0
-       53 CALL                             R3 0 1
-       54 JUMPIFNOT                        R3 ; [+5]
-       55 GETUPVAL                         R3 3
-       56 MOVE                             R4 R1
-       57 MOVE                             R5 R0
-       58 CALL                             R3 2 1
-       59 SETUPVAL                         R3 1
-       60 RETURN                           R1 1
+        1 JUMPIFEQKNIL                     R1 ; [+5]
+        3 GETUPVAL                         R1 0
+        4 CALL                             R1 0 0
+        5 LOADNIL                          R1
+        6 SETUPVAL                         R1 0
+        7 GETIMPORT                        R1 K2 [Instance.new]
+        9 LOADK                            R2 K3 ["Folder"]
+       10 CALL                             R1 1 1
+       11 GETUPVAL                         R2 1
+       12 GETTABLEKS                       R2 R2 K4 ["AvatarPreviewFolderName"]
+       14 SETTABLEKS                       R2 R1 K5 ["Name"]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K6 ["AvatarPreviewFolderTag"]
+       19 NAMECALL                         R2 R1 K7 ["AddTag"]
+       21 CALL                             R2 2 0
+       22 GETIMPORT                        R2 K9 [workspace]
+       24 GETTABLEKS                       R2 R2 K10 ["CurrentCamera"]
+       26 JUMPIF                           R2 ; [+17]
+       27 GETIMPORT                        R3 K2 [Instance.new]
+       29 LOADK                            R4 K11 ["Camera"]
+       30 CALL                             R3 1 1
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K12 ["ParentCameraName"]
+       34 SETTABLEKS                       R4 R3 K5 ["Name"]
+       36 LOADB                            R4 0
+       37 SETTABLEKS                       R4 R3 K13 ["Archivable"]
+       39 GETIMPORT                        R4 K9 [workspace]
+       41 SETTABLEKS                       R4 R3 K14 ["Parent"]
+       43 MOVE                             R2 R3
+       44 SETTABLEKS                       R2 R1 K14 ["Parent"]
+       46 LOADB                            R3 0
+       47 SETTABLEKS                       R3 R1 K13 ["Archivable"]
+       49 GETUPVAL                         R3 2
+       50 MOVE                             R4 R1
+       51 MOVE                             R5 R0
+       52 CALL                             R3 2 1
+       53 SETUPVAL                         R3 0
+       54 RETURN                           R1 1
 
 PROTO_14:
         0 GETUPVAL                         R1 0
@@ -417,71 +408,64 @@ MAIN:
        61 GETTABLEKS                       R7 R7 K12 ["AvatarPreview"]
        63 GETTABLEKS                       R7 R7 K17 ["previewAnimationManager"]
        65 CALL                             R6 1 1
-       66 GETIMPORT                        R7 K9 [require]
-       68 GETTABLEKS                       R8 R0 K10 ["Src"]
-       70 GETTABLEKS                       R8 R8 K18 ["Flags"]
-       72 GETTABLEKS                       R8 R8 K19 ["getFFlagPreviewToolbar"]
-       74 CALL                             R7 1 1
-       75 DUPTABLE                         R8 K21 [{"originalHumanoidDescription"}]
-       76 NEWTABLE                         R9 0 0
-       78 SETTABLEKS                       R9 R8 K20 ["originalHumanoidDescription"]
-       80 LOADNIL                          R9
-       81 NEWTABLE                         R10 0 0
-       83 LOADB                            R11 0
-       84 LOADNIL                          R12
-       85 DUPCLOSURE                       R13 K22 [PROTO_0]
-       86 CAPTURE                          VAL R8
-       87 SETTABLEKS                       R13 R8 K23 ["addHumanoidToPreviewFolder"]
-       89 DUPCLOSURE                       R13 K24 [PROTO_1]
-       90 CAPTURE                          VAL R6
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R8
-       93 SETTABLEKS                       R13 R8 K25 ["removeHumanoidFromPreviewFolder"]
-       95 NEWCLOSURE                       R13 P2
-       96 CAPTURE                          REF R9
-       97 CAPTURE                          VAL R8
-       98 CAPTURE                          VAL R3
-       99 SETTABLEKS                       R13 R8 K26 ["applyAvatarRulesToAvatar"]
-      101 NEWCLOSURE                       R13 P3
-      102 CAPTURE                          REF R9
-      103 CAPTURE                          VAL R8
-      104 SETTABLEKS                       R13 R8 K27 ["applyAvatarRules"]
-      106 NEWCLOSURE                       R13 P4
-      107 CAPTURE                          REF R11
-      108 CAPTURE                          VAL R8
-      109 SETTABLEKS                       R13 R8 K28 ["applyAvatarRulesWithDebounce"]
-      111 NEWCLOSURE                       R13 P5
-      112 CAPTURE                          REF R9
-      113 SETTABLEKS                       R13 R8 K29 ["getExistingAvatarPreviewFolder"]
-      115 NEWCLOSURE                       R13 P6
-      116 CAPTURE                          REF R9
-      117 CAPTURE                          VAL R10
-      118 CAPTURE                          VAL R8
-      119 CAPTURE                          VAL R6
-      120 CAPTURE                          VAL R7
-      121 CAPTURE                          REF R12
-      122 CAPTURE                          VAL R4
-      123 SETTABLEKS                       R13 R8 K30 ["cleanupPreview"]
-      125 DUPCLOSURE                       R13 K31 [PROTO_8]
-      126 CAPTURE                          VAL R1
-      127 CAPTURE                          VAL R2
-      128 SETTABLEKS                       R13 R8 K32 ["findExistingAvatarPreviewFolder"]
-      130 NEWCLOSURE                       R13 P8
-      131 CAPTURE                          REF R9
-      132 CAPTURE                          VAL R8
-      133 CAPTURE                          VAL R10
-      134 CAPTURE                          VAL R6
-      135 CAPTURE                          VAL R3
-      136 NEWCLOSURE                       R14 P9
-      137 CAPTURE                          VAL R7
-      138 CAPTURE                          REF R12
-      139 CAPTURE                          VAL R2
-      140 CAPTURE                          VAL R5
-      141 NEWCLOSURE                       R15 P10
-      142 CAPTURE                          VAL R8
-      143 CAPTURE                          VAL R14
-      144 CAPTURE                          REF R9
-      145 CAPTURE                          VAL R13
-      146 SETTABLEKS                       R15 R8 K33 ["getAvatarPreviewFolder"]
-      148 CLOSEUPVALS                      R9
-      149 RETURN                           R8 1
+       66 DUPTABLE                         R7 K19 [{"originalHumanoidDescription"}]
+       67 NEWTABLE                         R8 0 0
+       69 SETTABLEKS                       R8 R7 K18 ["originalHumanoidDescription"]
+       71 LOADNIL                          R8
+       72 NEWTABLE                         R9 0 0
+       74 LOADB                            R10 0
+       75 LOADNIL                          R11
+       76 DUPCLOSURE                       R12 K20 [PROTO_0]
+       77 CAPTURE                          VAL R7
+       78 SETTABLEKS                       R12 R7 K21 ["addHumanoidToPreviewFolder"]
+       80 DUPCLOSURE                       R12 K22 [PROTO_1]
+       81 CAPTURE                          VAL R6
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R7
+       84 SETTABLEKS                       R12 R7 K23 ["removeHumanoidFromPreviewFolder"]
+       86 NEWCLOSURE                       R12 P2
+       87 CAPTURE                          REF R8
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R3
+       90 SETTABLEKS                       R12 R7 K24 ["applyAvatarRulesToAvatar"]
+       92 NEWCLOSURE                       R12 P3
+       93 CAPTURE                          REF R8
+       94 CAPTURE                          VAL R7
+       95 SETTABLEKS                       R12 R7 K25 ["applyAvatarRules"]
+       97 NEWCLOSURE                       R12 P4
+       98 CAPTURE                          REF R10
+       99 CAPTURE                          VAL R7
+      100 SETTABLEKS                       R12 R7 K26 ["applyAvatarRulesWithDebounce"]
+      102 NEWCLOSURE                       R12 P5
+      103 CAPTURE                          REF R8
+      104 SETTABLEKS                       R12 R7 K27 ["getExistingAvatarPreviewFolder"]
+      106 NEWCLOSURE                       R12 P6
+      107 CAPTURE                          REF R8
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          VAL R7
+      110 CAPTURE                          VAL R6
+      111 CAPTURE                          REF R11
+      112 CAPTURE                          VAL R4
+      113 SETTABLEKS                       R12 R7 K28 ["cleanupPreview"]
+      115 DUPCLOSURE                       R12 K29 [PROTO_8]
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R2
+      118 SETTABLEKS                       R12 R7 K30 ["findExistingAvatarPreviewFolder"]
+      120 NEWCLOSURE                       R12 P8
+      121 CAPTURE                          REF R8
+      122 CAPTURE                          VAL R7
+      123 CAPTURE                          VAL R9
+      124 CAPTURE                          VAL R6
+      125 CAPTURE                          VAL R3
+      126 NEWCLOSURE                       R13 P9
+      127 CAPTURE                          REF R11
+      128 CAPTURE                          VAL R2
+      129 CAPTURE                          VAL R5
+      130 NEWCLOSURE                       R14 P10
+      131 CAPTURE                          VAL R7
+      132 CAPTURE                          VAL R13
+      133 CAPTURE                          REF R8
+      134 CAPTURE                          VAL R12
+      135 SETTABLEKS                       R14 R7 K31 ["getAvatarPreviewFolder"]
+      137 CLOSEUPVALS                      R8
+      138 RETURN                           R7 1

@@ -66,21 +66,16 @@ PROTO_0:
        81 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
        83 CALL                             R9 2 1
        84 SETTABLEKS                       R9 R8 K16 ["AnimationClipsSection"]
-       86 GETUPVAL                         R10 9
-       87 CALL                             R10 0 1
-       88 JUMPIFNOT                        R10 ; [+9]
-       89 GETUPVAL                         R9 4
-       90 GETUPVAL                         R10 10
-       91 DUPTABLE                         R11 K20 [{"layoutOrder"}]
-       92 MOVE                             R12 R2
-       93 CALL                             R12 0 1
-       94 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
-       96 CALL                             R9 2 1
-       97 JUMP                             ; [+1]
-       98 LOADNIL                          R9
-       99 SETTABLEKS                       R9 R8 K17 ["DefaultAbilitiesSection"]
-      101 CALL                             R5 3 -1
-      102 RETURN                           R5 -1
+       86 GETUPVAL                         R9 4
+       87 GETUPVAL                         R10 9
+       88 DUPTABLE                         R11 K20 [{"layoutOrder"}]
+       89 MOVE                             R12 R2
+       90 CALL                             R12 0 1
+       91 SETTABLEKS                       R12 R11 K19 ["layoutOrder"]
+       93 CALL                             R9 2 1
+       94 SETTABLEKS                       R9 R8 K17 ["DefaultAbilitiesSection"]
+       96 CALL                             R5 3 -1
+       97 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -133,27 +128,21 @@ MAIN:
        83 GETIMPORT                        R9 K5 [require]
        85 GETTABLEKS                       R10 R0 K6 ["Src"]
        87 GETTABLEKS                       R10 R10 K19 ["Flags"]
-       89 GETTABLEKS                       R10 R10 K20 ["getFFlagAvatarSettingsEnableAbilities"]
+       89 GETTABLEKS                       R10 R10 K20 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
        91 CALL                             R9 1 1
-       92 GETIMPORT                        R10 K5 [require]
-       94 GETTABLEKS                       R11 R0 K6 ["Src"]
-       96 GETTABLEKS                       R11 R11 K19 ["Flags"]
-       98 GETTABLEKS                       R11 R11 K21 ["getFFlagAvatarSettingsEnableAbilitiesR6"]
-      100 CALL                             R10 1 1
-      101 GETTABLEKS                       R11 R6 K22 ["UI"]
-      103 GETTABLEKS                       R12 R11 K23 ["Pane"]
-      105 GETTABLEKS                       R13 R8 K24 ["createNextOrder"]
-      107 GETTABLEKS                       R14 R7 K25 ["createElement"]
-      109 DUPCLOSURE                       R15 K26 [PROTO_0]
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R13
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R14
-      115 CAPTURE                          VAL R12
-      116 CAPTURE                          VAL R4
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R1
-      119 CAPTURE                          VAL R9
-      120 CAPTURE                          VAL R5
-      121 RETURN                           R15 1
+       92 GETTABLEKS                       R10 R6 K21 ["UI"]
+       94 GETTABLEKS                       R11 R10 K22 ["Pane"]
+       96 GETTABLEKS                       R12 R8 K23 ["createNextOrder"]
+       98 GETTABLEKS                       R13 R7 K24 ["createElement"]
+      100 DUPCLOSURE                       R14 K25 [PROTO_0]
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R3
+      103 CAPTURE                          VAL R12
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          VAL R13
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R4
+      108 CAPTURE                          VAL R2
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R5
+      111 RETURN                           R14 1

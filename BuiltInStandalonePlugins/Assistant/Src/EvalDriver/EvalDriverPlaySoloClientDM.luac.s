@@ -36,34 +36,54 @@ PROTO_1:
         4 RETURN                           R3 1
 
 PROTO_2:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["startScreenRecording"]
+        3 CALL                             R1 0 -1
+        4 RETURN                           R1 -1
+
+PROTO_3:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["stopScreenRecording"]
+        3 CALL                             R1 0 -1
+        4 RETURN                           R1 -1
+
+PROTO_4:
         0 LOADK                            R3 K0 ["runEvalClient"]
         1 DUPCLOSURE                       R4 K1 [PROTO_1]
         2 CAPTURE                          UPVAL U0
         3 NAMECALL                         R1 R0 K2 ["OnHostInvokeAsync"]
         5 CALL                             R1 3 0
-        6 RETURN                           R0 0
+        6 LOADK                            R3 K3 ["startScreenRecording"]
+        7 DUPCLOSURE                       R4 K4 [PROTO_2]
+        8 CAPTURE                          UPVAL U1
+        9 NAMECALL                         R1 R0 K2 ["OnHostInvokeAsync"]
+       11 CALL                             R1 3 0
+       12 LOADK                            R3 K5 ["stopScreenRecording"]
+       13 DUPCLOSURE                       R4 K6 [PROTO_3]
+       14 CAPTURE                          UPVAL U1
+       15 NAMECALL                         R1 R0 K2 ["OnHostInvokeAsync"]
+       17 CALL                             R1 3 0
+       18 RETURN                           R0 0
 
-PROTO_3:
+PROTO_5:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["installLoadedCode"]
         3 CALL                             R2 0 0
-        4 LOADK                            R4 K1 ["runEvalClient"]
-        5 DUPCLOSURE                       R5 K2 [PROTO_1]
-        6 CAPTURE                          UPVAL U1
-        7 NAMECALL                         R2 R1 K3 ["OnHostInvokeAsync"]
-        9 CALL                             R2 3 0
-       10 LOADK                            R4 K4 ["DataModelStarted"]
-       11 GETUPVAL                         R5 2
-       12 GETTABLEKS                       R5 R5 K5 ["Types"]
-       14 GETTABLEKS                       R5 R5 K6 ["Standalone"]
-       16 GETUPVAL                         R6 2
-       17 GETTABLEKS                       R6 R6 K5 ["Types"]
-       19 GETTABLEKS                       R6 R6 K7 ["Client"]
-       21 NAMECALL                         R2 R1 K8 ["FireGuest"]
-       23 CALL                             R2 4 0
-       24 RETURN                           R0 0
+        4 GETUPVAL                         R2 1
+        5 MOVE                             R3 R1
+        6 CALL                             R2 1 0
+        7 LOADK                            R4 K1 ["DataModelStarted"]
+        8 GETUPVAL                         R5 2
+        9 GETTABLEKS                       R5 R5 K2 ["Types"]
+       11 GETTABLEKS                       R5 R5 K3 ["Standalone"]
+       13 GETUPVAL                         R6 2
+       14 GETTABLEKS                       R6 R6 K2 ["Types"]
+       16 GETTABLEKS                       R6 R6 K4 ["Client"]
+       18 NAMECALL                         R2 R1 K5 ["FireGuest"]
+       20 CALL                             R2 4 0
+       21 RETURN                           R0 0
 
-PROTO_4:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 LOADNIL                          R1
         2 LOADNIL                          R2
@@ -96,24 +116,27 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K10 ["AssistantUI"]
        31 CALL                             R3 1 1
        32 GETTABLEKS                       R4 R3 K11 ["Utils"]
-       34 GETTABLEKS                       R4 R4 K12 ["DataModelType"]
-       36 GETIMPORT                        R5 K1 [require]
-       38 GETTABLEKS                       R6 R2 K9 ["Packages"]
-       40 GETTABLEKS                       R6 R6 K13 ["DMNetworking"]
-       42 CALL                             R5 1 1
-       43 DUPCLOSURE                       R6 K14 [PROTO_0]
-       44 CAPTURE                          VAL R0
-       45 NEWTABLE                         R7 0 0
-       47 DUPCLOSURE                       R8 K15 [PROTO_2]
-       48 CAPTURE                          VAL R6
-       49 DUPCLOSURE                       R9 K16 [PROTO_3]
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          VAL R6
-       52 CAPTURE                          VAL R4
-       53 NEWCLOSURE                       R10 P3
-       54 CAPTURE                          REF R7
-       55 DUPTABLE                         R11 K19 [{"init", "close"}]
-       56 SETTABLEKS                       R9 R11 K17 ["init"]
-       58 SETTABLEKS                       R10 R11 K18 ["close"]
-       60 CLOSEUPVALS                      R7
-       61 RETURN                           R11 1
+       34 GETTABLEKS                       R4 R4 K12 ["TestAutomationUtils"]
+       36 GETTABLEKS                       R5 R3 K11 ["Utils"]
+       38 GETTABLEKS                       R5 R5 K13 ["DataModelType"]
+       40 GETIMPORT                        R6 K1 [require]
+       42 GETTABLEKS                       R7 R2 K9 ["Packages"]
+       44 GETTABLEKS                       R7 R7 K14 ["DMNetworking"]
+       46 CALL                             R6 1 1
+       47 DUPCLOSURE                       R7 K15 [PROTO_0]
+       48 CAPTURE                          VAL R0
+       49 NEWTABLE                         R8 0 0
+       51 DUPCLOSURE                       R9 K16 [PROTO_4]
+       52 CAPTURE                          VAL R7
+       53 CAPTURE                          VAL R4
+       54 DUPCLOSURE                       R10 K17 [PROTO_5]
+       55 CAPTURE                          VAL R0
+       56 CAPTURE                          VAL R9
+       57 CAPTURE                          VAL R5
+       58 NEWCLOSURE                       R11 P3
+       59 CAPTURE                          REF R8
+       60 DUPTABLE                         R12 K20 [{"init", "close"}]
+       61 SETTABLEKS                       R10 R12 K18 ["init"]
+       63 SETTABLEKS                       R11 R12 K19 ["close"]
+       65 CLOSEUPVALS                      R8
+       66 RETURN                           R12 1

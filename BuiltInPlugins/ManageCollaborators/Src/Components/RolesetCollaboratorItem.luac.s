@@ -222,7 +222,7 @@ PROTO_3:
        93 GETUPVAL                         R15 1
        94 GETTABLEKS                       R15 R15 K21 ["createElement"]
        96 GETUPVAL                         R16 2
-       97 DUPTABLE                         R17 K31 [{"LayoutOrder", "Name", "Writable", "Loading", "Removable", "IsRolesetCollaborator", "HideSeparator", "TooltipText", "HidePermissions", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
+       97 DUPTABLE                         R17 K32 [{"LayoutOrder", "Name", "Writable", "Loading", "Removable", "IsRolesetCollaborator", "HideSeparator", "TooltipText", "HidePermissions", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged", "DisableEditPermission"}]
        98 SETTABLEKS                       R2 R17 K1 ["LayoutOrder"]
       100 SETTABLEKS                       R6 R17 K22 ["Name"]
       102 SETTABLEKS                       R14 R17 K4 ["Writable"]
@@ -242,7 +242,7 @@ PROTO_3:
       122 JUMP                             ; [+1]
       123 LOADNIL                          R18
       124 SETTABLEKS                       R18 R17 K27 ["HidePermissions"]
-      126 NAMECALL                         R18 R0 K32 ["getCurrentPermission"]
+      126 NAMECALL                         R18 R0 K33 ["getCurrentPermission"]
       128 CALL                             R18 1 1
       129 SETTABLEKS                       R18 R17 K28 ["CurrentPermission"]
       131 SETTABLEKS                       R10 R17 K29 ["AvailablePermissions"]
@@ -250,8 +250,10 @@ PROTO_3:
       134 CAPTURE                          VAL R9
       135 CAPTURE                          VAL R4
       136 SETTABLEKS                       R18 R17 K30 ["OnPermissionChanged"]
-      138 CALL                             R15 2 -1
-      139 RETURN                           R15 -1
+      138 GETTABLEKS                       R18 R1 K31 ["DisableEditPermission"]
+      140 SETTABLEKS                       R18 R17 K31 ["DisableEditPermission"]
+      142 CALL                             R15 2 -1
+      143 RETURN                           R15 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K3 [{"IsRolesetOwner", "RolesetName", "CurrentPermission"}]

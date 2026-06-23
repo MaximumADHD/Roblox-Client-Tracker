@@ -152,14 +152,23 @@ PROTO_9:
        15 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R4 0
-        1 GETTABLE                         R3 R4 R0
-        2 GETUPVAL                         R5 0
-        3 GETTABLE                         R4 R5 R1
-        4 JUMPIFLT                         R3 R4 ; [+2]
-        6 LOADB                            R2 0 +1
-        7 LOADB                            R2 1
-        8 RETURN                           R2 1
+        0 GETTABLEKS                       R2 R0 K0 ["sortOrder"]
+        2 GETTABLEKS                       R3 R1 K0 ["sortOrder"]
+        4 JUMPIFEQ                         R2 R3 ; [+10]
+        6 GETTABLEKS                       R3 R0 K0 ["sortOrder"]
+        8 GETTABLEKS                       R4 R1 K0 ["sortOrder"]
+       10 JUMPIFLT                         R3 R4 ; [+2]
+       12 LOADB                            R2 0 +1
+       13 LOADB                            R2 1
+       14 RETURN                           R2 1
+       15 GETUPVAL                         R4 0
+       16 GETTABLE                         R3 R4 R0
+       17 GETUPVAL                         R5 0
+       18 GETTABLE                         R4 R5 R1
+       19 JUMPIFLT                         R3 R4 ; [+2]
+       21 LOADB                            R2 0 +1
+       22 LOADB                            R2 1
+       23 RETURN                           R2 1
 
 PROTO_11:
         0 NEWTABLE                         R1 0 0
