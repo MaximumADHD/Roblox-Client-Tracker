@@ -7686,7 +7686,7 @@ Class UIPadding : UIComponent
 	Property UIPadding.PaddingTop: UDim {🚧UI}
 Class UIScale : UIComponent
 	Property UIScale.Scale: number {🚧UI}
-Class UIShadow : UIComponent [NotBrowsable]
+Class UIShadow : UIComponent
 	Property UIShadow.BlurRadius: UDim {🚧UI}
 	Property UIShadow.Color: Color3 {🚧UI}
 	Property UIShadow.Offset: UDim2 {🚧UI}
