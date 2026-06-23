@@ -197,9 +197,9 @@ Class AccessoryDescription : Instance
 	Property AccessoryDescription.IsLayered: boolean {🚧AvatarAppearance}
 	Property AccessoryDescription.Order: number {🚧AvatarAppearance}
 	Property AccessoryDescription.Position: Vector3 {🚧AvatarAppearance}
-	Property AccessoryDescription.Puffiness: number {🚧AvatarAppearance}
 	Property AccessoryDescription.Rotation: Vector3 {🚧AvatarAppearance}
 	Property AccessoryDescription.Scale: Vector3 {🚧AvatarAppearance}
+	Property AccessoryDescription.Puffiness: number {🚧AvatarAppearance} [Deprecated]
 	Function AccessoryDescription:GetAppliedInstance() -> Instance? {🚧AvatarAppearance}
 Class AccountService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function AccountService:DeviceAccessTokenAvailable() -> boolean {🔒RobloxScript}
@@ -333,6 +333,7 @@ Class AnimationRigData : Instance
 	Function AnimationRigData:GetPreTransforms() -> { any } {🚧Animation} {🔒RobloxScript}
 	Function AnimationRigData:GetTransforms() -> { any } {🚧Animation} {🔒RobloxScript}
 	Function AnimationRigData:IsValidR15() -> boolean {🚧Animation} {🔒RobloxScript}
+	Function AnimationRigData:IsValidR15Plus() -> boolean {🚧Animation} {🔒RobloxScript}
 	Function AnimationRigData:LoadFromHumanoid(humanoid: Instance) -> boolean {🚧Animation} {🔒RobloxScript}
 	Function AnimationRigData:LoadFromModel(model: Instance) -> boolean {🚧Animation} {🔒RobloxScript}
 Class AnimationStreamTrack : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
@@ -529,6 +530,7 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 Class AssetQualityService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfData: string, desiredQualityChecks: { any }) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function AssetQualityService:FetchAssetQualitySummaryFromJobIdAsync(jobId: string, desiredQualityChecks: { any }) -> { [string]: any } {🔒RobloxScript} [Yields]
+	Function AssetQualityService:FetchAssetQualityValidationEntriesFromModelsAsync(models: { any }, assetTypeIds: { any }, settings: { [string]: any }) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function AssetQualityService:FetchAssetQualityVisualizationDataFromUrlAsync(visualizationUrl: string) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(uploadModel: Model) -> string {🔒RobloxScript} [Yields]
 Class AssetService : Instance [NotCreatable] [Service]
@@ -682,9 +684,13 @@ Class AudioEcho : Instance
 	Function AudioEcho:Reset() -> () {🚧Audio} {🔒RobloxScript}
 	Event AudioEcho.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioEmitter : Instance
+	Property AudioEmitter.PositionInstance: Instance? {🚧Audio}
+	Property AudioEmitter.PositionType: Enum.EmitterPositionType {🚧Audio}
 	Property AudioEmitter.AudioInteractionGroup: string {🚧Audio}
 	Property AudioEmitter.AcousticSimulationEnabled: boolean {🚧Audio}
-	Property AudioEmitter.PositionOverride: Instance? {🚧Audio} {🔒RobloxEngine} [Hidden]
+	Property AudioEmitter.DiffractionEnabled: Enum.SimulationMode {🚧Audio}
+	Property AudioEmitter.OcclusionEnabled: Enum.SimulationMode {🚧Audio}
+	Property AudioEmitter.ReverbEnabled: Enum.SimulationMode {🚧Audio}
 	Property AudioEmitter.AngleAttenuation: BinaryString {🚧Audio} {🔒RobloxEngine}
 	Property AudioEmitter.DistanceAttenuation: BinaryString {🚧Audio} {🔒RobloxEngine}
 	Property AudioEmitter.SimulationFidelity: Enum.AudioSimulationFidelity {🚧Audio} [Deprecated]
@@ -768,8 +774,12 @@ Class AudioLimiter : Instance
 	Event AudioLimiter.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🚧Audio}
 Class AudioListener : Instance
 	Property AudioListener.AudioInteractionGroup: string {🚧Audio}
+	Property AudioListener.PositionInstance: Instance? {🚧Audio}
+	Property AudioListener.PositionType: Enum.ListenerPositionType {🚧Audio}
 	Property AudioListener.AcousticSimulationEnabled: boolean {🚧Audio}
-	Property AudioListener.PositionOverride: Instance? {🚧Audio} {🔒RobloxEngine} [Hidden]
+	Property AudioListener.DiffractionEnabled: Enum.SimulationMode {🚧Audio}
+	Property AudioListener.OcclusionEnabled: Enum.SimulationMode {🚧Audio}
+	Property AudioListener.ReverbEnabled: Enum.SimulationMode {🚧Audio}
 	Property AudioListener.AngleAttenuation: BinaryString {🚧Audio} {🔒RobloxEngine}
 	Property AudioListener.DistanceAttenuation: BinaryString {🚧Audio} {🔒RobloxEngine}
 	Property AudioListener.SimulationFidelity: Enum.AudioSimulationFidelity {🚧Audio} [Deprecated]
@@ -1326,7 +1336,6 @@ Class WrapDeformer : BaseWrap
 	Function WrapDeformer:SetCageMeshContent(content: Content, cageOrigin: CFrame?) -> () {🚧AvatarAppearance}
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number {🚧AvatarAppearance}
-	Property WrapLayer.Puffiness: number {🚧AvatarAppearance}
 	Property WrapLayer.ReferenceMeshContent: Content {🚧AvatarAppearance} {✏️Plugin}
 	Property WrapLayer.ReferenceMeshId: string {🚧AvatarAppearance} {✏️Plugin}
 	Property WrapLayer.ReferenceOrigin: CFrame {🚧AvatarAppearance} {✏️Plugin}
@@ -1336,13 +1345,14 @@ Class WrapLayer : BaseWrap
 	Property WrapLayer.Color: Color3 {🚧AvatarAppearance} [NotReplicated] [NotScriptable]
 	Property WrapLayer.DebugMode: Enum.WrapLayerDebugMode {🚧AvatarAppearance} [NotReplicated] [NotScriptable]
 	Property WrapLayer.BindOffset: CFrame {🚧AvatarAppearance} {✏️Plugin}
-	Property WrapLayer.ShrinkFactor: number {🚧AvatarAppearance} {✏️Plugin}
+	Property WrapLayer.Puffiness: number {🚧AvatarAppearance} [Deprecated]
 	Property WrapLayer.MaxSize: Vector3 {🚧AvatarAppearance} {🔒RobloxScript} [Hidden]
 	Property WrapLayer.Offset: Vector3 {🚧AvatarAppearance} {🔒RobloxScript} [Hidden]
+	Property WrapLayer.ShrinkFactor: number {🚧AvatarAppearance} {✏️Plugin} [Deprecated]
 Class WrapTarget : BaseWrap
-	Property WrapTarget.Stiffness: number {🚧AvatarAppearance} {✏️Plugin}
 	Property WrapTarget.Color: Color3 {🚧AvatarAppearance} [NotReplicated] [NotScriptable]
 	Property WrapTarget.DebugMode: Enum.WrapTargetDebugMode {🚧AvatarAppearance} [NotReplicated] [NotScriptable]
+	Property WrapTarget.Stiffness: number {🚧AvatarAppearance} {✏️Plugin} [Deprecated]
 Class Beam : Instance
 	Property Beam.Brightness: number {🚧Basic}
 	Property Beam.Color: ColorSequence {🚧Basic}
@@ -3806,8 +3816,8 @@ Class InputAction : Instance
 	Property InputAction.Direction2DState: Vector2 {🚧Input} {🔒RobloxScript} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction3DState: Vector3 {🚧Input} {🔒RobloxScript} [ReadOnly] [NotScriptable]
 	Property InputAction.ViewportPositionState: Vector2 {🚧Input} {🔒RobloxScript} [ReadOnly] [NotScriptable]
-	Function InputAction:Fire(state: any) -> () {🚧Input}
 	Function InputAction:GetState() -> any {🚧Input} {🧬Safe}
+	Function InputAction:Fire(state: any) -> () {🚧Input} [Deprecated]
 	Function InputAction:GetInputBindings() -> { Instance } {🚧Input} {🔒RobloxScript}
 	Event InputAction.Pressed() {🚧Input}
 	Event InputAction.Released() {🚧Input}
@@ -3822,6 +3832,7 @@ Class InputBinding : Instance
 	Property InputBinding.ResponseCurve: number {🚧Input}
 	Property InputBinding.Scale: number {🚧Input}
 	Property InputBinding.SecondaryModifier: Enum.KeyCode {🚧Input}
+	Property InputBinding.Type: Enum.InputBindingType {🚧Input}
 	Property InputBinding.UIButton: GuiButton? {🚧Input}
 	Property InputBinding.UIModifier: GuiButton? {🚧Input}
 	Property InputBinding.Vector2Scale: Vector2 {🚧Input}
@@ -3833,6 +3844,7 @@ Class InputBinding : Instance
 	Property InputBinding.Left: Enum.KeyCode {🚧Input}
 	Property InputBinding.Right: Enum.KeyCode {🚧Input}
 	Property InputBinding.Up: Enum.KeyCode {🚧Input}
+	Function InputBinding:Fire(state: any) -> () {🚧Input}
 Class InputContext : Instance
 	Property InputContext.Enabled: boolean {🚧Input}
 	Property InputContext.Priority: number {🚧Input}
@@ -5268,6 +5280,7 @@ Class Player : Instance
 	Function Player:ClearCachedAvatarAppearance() -> () {🚧AvatarAppearance + Players}
 	Function Player:ClearCharacterAppearance() -> () {🚧Players}
 	Function Player:DistanceFromCharacter(point: Vector3) -> number {🚧Players}
+	Function Player:GetCameraState() -> { [string]: any } {🚧Players} [CustomLuaState] {🧬Safe}
 	Function Player:GetData() -> PlayerData {🚧Players}
 	Function Player:GetFriendsOnlineAsync(maxFriends: number? = 200) -> { any } {🚧Players + Social} [Yields]
 	Function Player:GetFriendsWhoPlayedAsync() -> { any } {🚧Players + Social} [Yields]
@@ -5291,6 +5304,7 @@ Class Player : Instance
 	Function Player:SetSuperSafeChat(value: boolean) -> () {🚧Players} {🔒Plugin}
 	Function Player:AddReplicationFocusPosition(center: Vector3, radius: number) -> () {🚧Players} {🔒RobloxEngine}
 	Function Player:AddToBlockList(userIds: { any }) -> () {🚧Players} {🔒RobloxScript}
+	Function Player:GetBlockListInitialized() -> boolean {🚧Players} {🔒RobloxScript}
 	Function Player:GetCanManageAsync() -> boolean {🚧Players} {🔒RobloxScript} [Yields]
 	Function Player:GetFriendStatus(player: Player) -> Enum.FriendStatus {🚧Players} {🔒RobloxScript}
 	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🚧Players + Social} [Yields] [Deprecated]
@@ -5299,7 +5313,10 @@ Class Player : Instance
 	Function Player:GetRankInGroupAsync(groupId: number) -> number {🚧Groups + Players} [Yields] [Deprecated]
 	Function Player:GetRoleInGroup(groupId: number) -> string {🚧Groups + Players} [Yields] [Deprecated]
 	Function Player:GetRoleInGroupAsync(groupId: number) -> string {🚧Groups + Players} [Yields] [Deprecated]
+	Function Player:GetSeatRequested() -> Instance? {🚧Players} {🔒RobloxScript} {🧬Safe}
+	Function Player:GetToolRequested() -> Instance? {🚧Players} {🔒RobloxScript} {🧬Safe}
 	Function Player:GetUnder13() -> boolean {🚧Players} {🔒RobloxScript}
+	Function Player:HasBlockedPlayer(fromPlayer: number) -> boolean {🚧Players} {🔒RobloxScript}
 	Function Player:IsBestFriendsWith(userId: User) -> boolean {🚧Players} [Yields] [Deprecated]
 	Function Player:IsFriendsWith(userId: User) -> boolean {🚧Players + Social} [Yields] [Deprecated]
 	Function Player:IsInGroup(groupId: number) -> boolean {🚧Groups + Players} [Yields] [Deprecated]
@@ -5318,6 +5335,8 @@ Class Player : Instance
 	Function Player:PromptSecurityChallengeAsync() -> boolean {🚧Players} {🔒RobloxEngine} [Yields]
 	Function Player:RemoveReplicationFocusPosition(center: Vector3, radius: number) -> () {🚧Players} {🔒RobloxEngine}
 	Function Player:RequestFriendship(player: Player) -> () {🚧Players} {🔒RobloxScript}
+	Function Player:RequestSeat(instance: Instance) -> () {🚧Players} {🔒RobloxScript} {🧬Safe}
+	Function Player:RequestTool(instance: Instance) -> () {🚧Players} {🔒RobloxScript} {🧬Safe}
 	Function Player:RevokeFriendship(player: Player) -> () {🚧Players} {🔒RobloxScript}
 	Function Player:SaveBoolean(key: string, value: boolean) -> () {🚧Players} [Deprecated]
 	Function Player:SaveData() -> () {🚧Players} {🔒LocalUser} [Deprecated]
@@ -5352,6 +5371,7 @@ Class Player : Instance
 	Event Player.Idled(time: number) {🚧Players}
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string) {🚧Players + Teleport}
 	Event Player.SimulationRadiusChanged(radius: number) {🚧Players} {🔒LocalUser}
+	Event Player.BlockListChanged() {🚧Players} {🔒RobloxScript}
 	Event Player.CloudEditSelectionChanged(newSelection: { any }) {🚧Players} {🔒RobloxScript}
 	Event Player.FriendStatusChanged(player: Player, friendStatus: Enum.FriendStatus) {🚧Players} {🔒RobloxScript}
 	Event Player.InstancePinned(uniqueIdString: string, depth: number) {🚧Players} {🔒RobloxScript}
@@ -5544,6 +5564,9 @@ Class Plugin : Instance {🔒Plugin} [NotCreatable]
 	Event Plugin.Deactivation() {🔒Plugin}
 	Event Plugin.Unloading() {🔒Plugin}
 	Event Plugin.Ready() {🔒RobloxScript}
+	Event Plugin.ViewportDragDropped(dragData: { [string]: any }) {🔒RobloxScript}
+	Event Plugin.ViewportDragEntered(dragData: { [string]: any }) {🔒RobloxScript}
+	Event Plugin.ViewportDragLeft() {🔒RobloxScript}
 	Callback Plugin.ProcessAssetInsertionDrag(assetId: string, assetTypeId: number, instances: { Instance }) -> { Instance } {🔒RobloxScript} [NoYield]
 	Callback Plugin.ProcessAssetInsertionDrop() -> () {🔒RobloxScript} [NoYield]
 Class PluginAction : Instance {🔒Plugin} [NotReplicated]
@@ -5897,6 +5920,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:UnbindFromRenderStep(name: string) -> () {🚧Basic}
 	Function RunService:GetControlAndVariantRolloutFlags() -> ...any {🚧Basic} {🔒RobloxScript}
 	Function RunService:GetCoreScriptVersion() -> string {🚧Basic} {🔒RobloxScript}
+	Function RunService:GetPhysicsStepId() -> number {🚧Basic} {🔒RobloxScript}
 	Function RunService:GetRobloxClientChannel() -> string {🚧Basic} {🔒RobloxScript}
 	Function RunService:GetRobloxGuiFocused() -> boolean {🚧Basic} {🔒RobloxScript}
 	Function RunService:GetRobloxVersion() -> string {🚧Basic} {🔒RobloxScript}
@@ -6416,9 +6440,12 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Property SoundService.AcousticSimulationEnabled: boolean {🚧Audio}
 	Property SoundService.AmbientReverb: Enum.ReverbType {🚧Audio}
 	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {🚧Audio} {✏️Plugin}
+	Property SoundService.DiffractionEnabled: boolean {🚧Audio}
 	Property SoundService.DistanceFactor: number {🚧Audio}
 	Property SoundService.DopplerScale: number {🚧Audio}
+	Property SoundService.OcclusionEnabled: boolean {🚧Audio}
 	Property SoundService.RespectFilteringEnabled: boolean {🚧Audio}
+	Property SoundService.ReverbEnabled: boolean {🚧Audio}
 	Property SoundService.RolloffScale: number {🚧Audio}
 	Property SoundService.VolumetricAudio: Enum.VolumetricAudio {🚧Audio} [NotScriptable]
 	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {🚧Audio} {🔒Plugin}
@@ -6543,6 +6570,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.GameSettingsScaleRangeHeight: NumberRange {🚧Players} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsScaleRangeProportion: NumberRange {🚧Players} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsScaleRangeWidth: NumberRange {🚧Players} {🔒RobloxScript} [Hidden] [NotReplicated]
+	Property StarterPlayer.PlayerModuleStatus: number {🚧Players} {🔒RobloxScript} [Hidden]
 	Function StarterPlayer:ClearDefaults() -> () {🚧Players} {🔒RobloxScript}
 Class StarterPlayerScripts : Instance [NotCreatable]
 Class StarterCharacterScripts : StarterPlayerScripts [NotCreatable]
@@ -7208,6 +7236,7 @@ Class TextChannel : Instance
 	Function TextChannel:DisplaySystemMessage(systemMessage: string, metadata: string? = "") -> TextChatMessage {🚧Chat}
 	Function TextChannel:SendAsync(message: string, metadata: string? = "") -> TextChatMessage {🚧Chat} [Yields]
 	Function TextChannel:SetDirectChatRequester(requester: Player) -> () {🚧Chat}
+	Function TextChannel:SendDictatedSpeechAsync(message: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChannel:SendInternalAsync(message: string, metadata: string? = "") -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChannel:SendPresetAsync(presetId: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Event TextChannel.MessageReceived(incomingMessage: TextChatMessage) {🚧Chat}
@@ -7337,9 +7366,9 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Property TextChatService.ChatVersion: Enum.ChatVersion {🚧Chat} {✏️RobloxScript}
 	Property TextChatService.CreateDefaultCommands: boolean {🚧Chat} {✏️Plugin}
 	Property TextChatService.CreateDefaultTextChannels: boolean {🚧Chat} {✏️Plugin}
-	Property TextChatService.EnableProtectedChat: Enum.RolloutState {🚧Chat} [NotScriptable]
 	Property TextChatService.ChatTranslationFTUXShown: boolean {🚧Chat} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property TextChatService.ChatTranslationToggleEnabled: boolean {🚧Chat} {🔒RobloxScript} [Hidden] [NotReplicated]
+	Property TextChatService.EnableProtectedChat: Enum.RolloutState {🚧Chat} {🔒RobloxScript}
 	Property TextChatService.HasSeenDeprecationDialog: boolean {🚧Chat} {🔒RobloxScript} [Hidden] [NotReplicated]
 	Property TextChatService.IsLegacyChatDisabled: boolean {🚧Chat} {🔒RobloxScript} [Hidden]
 	Function TextChatService:CanUserChatAsync(userId: User) -> boolean {🚧Chat} [Yields]
@@ -7348,9 +7377,12 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🚧Chat}
 	Function TextChatService:GetChatGroupsAsync(players: { Instance }) -> { any } {🚧Chat} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: User, toUserId: User) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
+	Function TextChatService:GetChatableUserCountAsync(userId: User, context: string) -> number {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:GetPresetsAsync() -> { [string]: any } {🚧Chat} {🔒RobloxScript} [Yields]
+	Function TextChatService:GetTextChannelWindows() -> { any } {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:HasAllocatedUniverseChatContext(context: string) -> boolean {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:OnUserChatSettingUpdateAsync(featureName: string, featureValue: string) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
+	Function TextChatService:SendDictatedSpeechUniverseChatAsync(text: string) -> TextChatMessage {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number, extras: { [string]: any }?) -> () {🚧Chat} {🔒RobloxScript}
@@ -7368,6 +7400,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.SendingUniverseChatMessage(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.TextChannelWindowAdded(textChannelWindow: TextChannelWindow) {🚧Chat} {🔒RobloxScript}
+	Event TextChatService.TextChannelWindowRemoved(textChannelWindow: TextChannelWindow) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UniverseChatChannelAllocated(context: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UniverseChatMessageReceived(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UserMessageIntentSent(userIntentMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
@@ -7840,7 +7873,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UserInputService:GetMouseDelta() -> Vector2 {🚧Input}
 	Function UserInputService:GetMouseLocation() -> Vector2 {🚧Input}
 	Function UserInputService:GetNavigationGamepads() -> { any } {🚧Input}
-	Function UserInputService:GetStringForKeyCode(keyCode: Enum.KeyCode) -> string {🚧Input}
+	Function UserInputService:GetStringForKeyCode(keyCode: Enum.KeyCode, format: Enum.KeyCodeStringFormat? = "Default") -> string {🚧Input}
 	Function UserInputService:GetSupportedGamepadKeyCodes(gamepadNum: Enum.UserInputType) -> { any } {🚧Input}
 	Function UserInputService:IsGamepadButtonDown(gamepadNum: Enum.UserInputType, gamepadKeyCode: Enum.KeyCode) -> boolean {🚧Input}
 	Function UserInputService:IsKeyDown(keyCode: Enum.KeyCode) -> boolean {🚧Input}
@@ -8598,6 +8631,7 @@ Enum AssetType
 	EnumItem AssetType.EyeMakeup : 90
 	EnumItem AssetType.VoxelFragment : 91
 	EnumItem AssetType.AvatarBackground : 92
+	EnumItem AssetType.TextDocument : 93
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -8898,6 +8932,9 @@ Enum CanCollaborateError
 	EnumItem CanCollaborateError.OutsideOwnerAgeBucket : 7
 	EnumItem CanCollaborateError.NotAuthorized : 8
 	EnumItem CanCollaborateError.OutsideAgeBucketTcPc : 9
+	EnumItem CanCollaborateError.OtherCollaboratorSettingsPreventTrust : 10
+	EnumItem CanCollaborateError.AgeVerificationCountryBlocked : 11
+	EnumItem CanCollaborateError.OtherUserCannotCollaborate : 12
 Enum CaptureGalleryPermission
 	EnumItem CaptureGalleryPermission.ReadAndUpload : 0
 Enum CaptureType
@@ -9490,6 +9527,9 @@ Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1
 	EnumItem ElasticBehavior.Never : 2
+Enum EmitterPositionType
+	EnumItem EmitterPositionType.Parent : 0
+	EnumItem EmitterPositionType.Instance : 1
 Enum EngagementLevel
 	EnumItem EngagementLevel.Unknown : 0
 	EnumItem EngagementLevel.Inactive : 1
@@ -10007,6 +10047,9 @@ Enum InputActionType
 	EnumItem InputActionType.Direction2D : 2
 	EnumItem InputActionType.Direction3D : 3
 	EnumItem InputActionType.ViewportPosition : 4
+Enum InputBindingType
+	EnumItem InputBindingType.Automatic : 0
+	EnumItem InputBindingType.Scriptable : 1
 Enum InputSink
 	EnumItem InputSink.None : 0
 	EnumItem InputSink.Activate : 1
@@ -10326,6 +10369,9 @@ Enum KeyCode
 	EnumItem KeyCode.MouseDelta : 1048
 	EnumItem KeyCode.TouchDelta : 1049
 	EnumItem KeyCode.TouchPinch : 1050
+Enum KeyCodeStringFormat
+	EnumItem KeyCodeStringFormat.Default : 0
+	EnumItem KeyCodeStringFormat.Abbreviated : 1
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -10382,6 +10428,9 @@ Enum ListenerLocation
 	EnumItem ListenerLocation.None : 1
 	EnumItem ListenerLocation.Character : 2
 	EnumItem ListenerLocation.Camera : 3
+Enum ListenerPositionType
+	EnumItem ListenerPositionType.Parent : 0
+	EnumItem ListenerPositionType.Instance : 1
 Enum ListenerType
 	EnumItem ListenerType.Camera : 0
 	EnumItem ListenerType.CFrame : 1
@@ -11368,6 +11417,10 @@ Enum SignalBehavior
 	EnumItem SignalBehavior.Immediate : 1
 	EnumItem SignalBehavior.Deferred : 2
 	EnumItem SignalBehavior.AncestryDeferred : 3
+Enum SimulationMode
+	EnumItem SimulationMode.Default : 0
+	EnumItem SimulationMode.Enabled : 1
+	EnumItem SimulationMode.Disabled : 2
 Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
@@ -11450,6 +11503,9 @@ Enum StudioAction
 	EnumItem StudioAction.Redo : 1
 	EnumItem StudioAction.SelectAll : 2
 	EnumItem StudioAction.DeleteSelected : 3
+	EnumItem StudioAction.DuplicateSelection : 4
+	EnumItem StudioAction.ClearSelection : 5
+	EnumItem StudioAction.ZoomExtents : 6
 	EnumItem StudioAction.Copy : 61
 	EnumItem StudioAction.Cut : 62
 	EnumItem StudioAction.Paste : 63
@@ -12208,6 +12264,7 @@ Enum VoiceRccReconnectReason
 	EnumItem VoiceRccReconnectReason.Migration : 1
 	EnumItem VoiceRccReconnectReason.CloseRoom : 2
 	EnumItem VoiceRccReconnectReason.FAEUpdate : 3
+	EnumItem VoiceRccReconnectReason.BlockListChanged : 4
 Enum VolumetricAudio
 	EnumItem VolumetricAudio.Disabled : 0
 	EnumItem VolumetricAudio.Automatic : 1

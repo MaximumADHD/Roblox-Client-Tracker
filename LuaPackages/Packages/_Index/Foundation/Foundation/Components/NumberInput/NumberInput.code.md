@@ -17,6 +17,8 @@ The `isRequired` property should only be used on the inputs that fall in the min
 Non-numerical values are not allowed. Entering anything that can't be parsed to a number won't update the last value - but will show an error state until focus is lost, and invalid values are cleared.
 When input is out of focus the value returned by `formatAsString` is displayed. By default, it shows the same value.
 
+You can pass a `prefix` or `suffix` that render statically alongside the `NumberInput`'s value.
+
 Increase and decrease controls change value by the `step`.
 
 You can limit `minimum` and `maximum` values with the corresponding props.
@@ -35,9 +37,8 @@ local function Component()
 		onChanged = function(v)
 			setValue(v)
 		end,
-		formatAsString = function(value)
-			return value .. "px"
-		end,
+		prefix = "$",
+		suffix = "px",
 		LayoutOrder = 1,
 		value = value,
 	})

@@ -17,9 +17,9 @@ local Button = Foundation.Button
 local InputSize = Foundation.Enums.InputSize
 
 local menuItems = {
-	{ id = "new", icon = "icons/common/add_small", text = "New" },
-	{ id = "edit", icon = "icons/common/edit", text = "Edit" },
-	{ id = "delete", icon = "icons/common/delete", text = "Delete", isDisabled = true },
+	{ id = "new", leading = "icons/common/add_small", text = "New" },
+	{ id = "edit", leading = "icons/common/edit", text = "Edit" },
+	{ id = "delete", leading = "icons/common/delete", text = "Delete", isDisabled = true },
 }
 
 local open, setOpen = React.useState(false)
@@ -59,19 +59,19 @@ local menuItems = {
 	{
 		title = "Actions",
 		items = {
-			{ id = "rename", icon = "pencil-square", text = "Rename" },
-			{ id = "copy", icon = "icons/actions/edit/copy", text = "Copy" },
+			{ id = "rename", leading = "pencil-square", text = "Rename" },
+			{ id = "copy", leading = "icons/actions/edit/copy", text = "Copy" },
 		},
 	},
 	{
 		items = {
-			{ id = "sort-asc", icon = "arrow-small-up", text = "Sort ascending" },
-			{ id = "sort-desc", icon = "arrow-small-down", text = "Sort descending" },
+			{ id = "sort-asc", leading = "arrow-small-up", text = "Sort ascending" },
+			{ id = "sort-desc", leading = "arrow-small-down", text = "Sort descending" },
 		},
 	},
 	{
 		items = {
-			{ id = "delete", icon = "trash-can", text = "Delete" },
+			{ id = "delete", leading = "trash-can", text = "Delete" },
 		},
 	},
 }
@@ -109,37 +109,37 @@ When a leaf item is activated, all ancestor submenus close automatically along w
 local menuItems = {
 	{
 		id = "rename",
-		icon = "pencil-square",
+		leading = "pencil-square",
 		text = "Rename",
 	},
 	{
 		id = "insert",
-		icon = "plus-large",
+		leading = "plus-large",
 		text = "Insert",
 		items = {
 			{
 				id = "insert-row",
-				icon = "plus-small",
+				leading = "plus-small",
 				text = "Row",
 				items = {
-					{ id = "insert-row-above", icon = "arrow-large-up", text = "Above" },
-					{ id = "insert-row-below", icon = "arrow-large-down", text = "Below" },
+					{ id = "insert-row-above", leading = "arrow-large-up", text = "Above" },
+					{ id = "insert-row-below", leading = "arrow-large-down", text = "Below" },
 				},
 			},
 			{
 				id = "insert-col",
-				icon = "plus-small",
+				leading = "plus-small",
 				text = "Column",
 				items = {
-					{ id = "insert-col-left", icon = "arrow-large-left", text = "Left" },
-					{ id = "insert-col-right", icon = "arrow-large-right", text = "Right" },
+					{ id = "insert-col-left", leading = "arrow-large-left", text = "Left" },
+					{ id = "insert-col-right", leading = "arrow-large-right", text = "Right" },
 				},
 			},
 		},
 	},
 	{
 		id = "delete",
-		icon = "trash-can",
+		leading = "trash-can",
 		text = "Delete",
 	},
 }
@@ -154,6 +154,86 @@ return React.createElement(Menu, {
 	end,
 	onActivated = function(id)
 		print("Menu item activated:", id)
+		setOpen(false)
+	end,
+}, {
+	Button = React.createElement(Button, {
+		text = "Open Menu",
+		onActivated = function()
+			setOpen(not open)
+		end,
+	}),
+})
+```
+
+### Leading and trailing accessories
+
+Each item can render an accessory at the start (`leading`) and end (`trailing`) of the row.
+
+`leading` accepts either an icon name as a plain string, or a structured config:
+
+- `{ iconName = "...", iconVariant = ... }` — an icon (equivalent to passing the name directly)
+- `{ type = "Avatar", userId = ... }` — a user avatar
+
+`trailing` accepts a hint (e.g. a keyboard shortcut) or a [[Badge]]:
+
+- `{ type = "Hint", text = "..." }`
+- `{ type = "Badge", text = "...", variant = ... }`
+
+When at least one item has a leading accessory, all sibling items align their title to the same column.
+
+```luau
+local BadgeVariant = Foundation.Enums.BadgeVariant
+
+local menuItems = {
+	{
+		id = "bold",
+		leading = "icons/actions/edit/bold",
+		text = "Bold",
+		trailing = { type = "Hint", text = "⌘B" },
+	},
+	{
+		id = "smart-compose",
+		leading = "wand",
+		text = "Smart compose",
+		trailing = { type = "Badge", text = "New", variant = BadgeVariant.Success },
+	},
+	{
+		id = "switch-user",
+		leading = { type = "Avatar", userId = 24813339 },
+		text = "Switch user",
+	},
+}
+```
+
+### Selection
+
+Mark an item as selected by setting `isChecked = true`. A check icon appears in a dedicated column
+at the start of the row. As soon as any item in the menu is checked, every other item shifts right
+so that titles stay aligned with the checked rows.
+
+```luau
+local sortBy, setSortBy = React.useState("name")
+
+local menuItems = {
+	{
+		title = "Sort by",
+		items = {
+			{ id = "name", text = "Name", isChecked = sortBy == "name" },
+			{ id = "date", text = "Date modified", isChecked = sortBy == "date" },
+			{ id = "size", text = "Size", isChecked = sortBy == "size" },
+		},
+	},
+}
+
+return React.createElement(Menu, {
+	isOpen = open,
+	items = menuItems,
+	onPressedOutside = function()
+		setOpen(false)
+	end,
+	onActivated = function(id)
+		setSortBy(id)
 		setOpen(false)
 	end,
 }, {

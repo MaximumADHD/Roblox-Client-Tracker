@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.1607+20260612"
+ServiceContractsProto = "1.0.1650+20260618"
 Rodux = "1.0"
 RoactRodux = "0.2"
 RoactAppExperiment = "0.4.1"
@@ -20,7 +20,7 @@ llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.10.0"
 AvatarExperienceDeps = "0.0.1"
 UIBlox = "0.2.260"
-Foundation = "1.89.1"
+Foundation = "1.91.0"
 FoundationCloudAssets = "0.4.4"
 FoundationImages = "2.0.0"
 Thumbnailing = "0.6.0"
@@ -31,7 +31,7 @@ enumerate = "1.0.0"
 PolicyProvider = { version = "0.1.5", package = "LuaRoactPolicyProvider" }
 Lumberyak = { version = "0.1.1", package = "lumberyak" }
 StringUtilities = { version = "1.0.0", package = "string-utilities" }
-UrlBuilder = "1.2.20"
+UrlBuilder = "1.2.21"
 FitFrame = { version = "2.0.0", package = "RoactFitComponents" }
 NetworkingFriends = "2.12.1"
 EmojiList = "1.0.0"
@@ -77,7 +77,7 @@ SignalsReact = "0.6.0"
 SignalsRoblox = "0.6.0"
 SignalsExperimental = "0.6.0"
 Motion = "0.0.7"
-BuilderIcons = "0.1.36"
+BuilderIcons = "0.1.37"
 InlineLayout = "0.0.3"
 Markdown = "1.0.0-alpha-2"
 MomentsCreationFlow = "0.1.9"

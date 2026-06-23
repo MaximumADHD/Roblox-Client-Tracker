@@ -4,14 +4,16 @@ category: Display
 
 ## Overview
 
-`StatusIndicator` is a compact, circular indicator used to display status information with optional numeric values. This component is smaller and more compact than [[Badge]], making it ideal for showing notification counts, statuses, or simple numeric indicators.
+`StatusIndicator` is a compact indicator used to display status information with optional numeric values. This component is smaller and more compact than [[Badge]], making it ideal for showing notification counts, statuses, or simple numeric indicators.
 
-There are six status indicator variants defined in [[StatusIndicatorVariant]]: `Success`, `Alert`, `Warning`, `Emphasis`, `Neutral`, and `Standard`.
+There are seven status indicator variants defined in [[StatusIndicatorVariant]]: `Success`, `Alert`, `Warning`, `Emphasis`, `Neutral`, `Standard`, and `Voice`.
 
-The `StatusIndicator` can display in two states:
+The indicator supports three shapes defined in [[StatusIndicatorShape]]: `Circle` (default), `Ring`, and `Square`. The `shape` prop only applies when no `value` is provided — numeric indicators always render as a circle.
 
-- If `value` is not provided, it will show as an empty indicator (no text)
-- If `value` is provided, it will show the number
+The `StatusIndicator` can display in two modes:
+
+- If `value` is not provided, it will show as a dot in the configured shape
+- If `value` is provided, it will show the number in a circular pill
 - If `value` exceeds the optional `max`, it will show the max value followed by a "+" (e.g., "99+")
 
 !!! warning
@@ -22,16 +24,22 @@ The `StatusIndicator` can display in two states:
 
 ## Usage
 
-`StatusIndicator` takes an optional numeric value and displays it in a compact circular container. The component automatically converts the number to a string for display.
+`StatusIndicator` takes an optional numeric value and displays it in a compact container. The component automatically converts the number to a string for display.
 
 ```luau
 local Foundation = require(Packages.Foundation)
 local StatusIndicator = Foundation.StatusIndicator
 local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
+local StatusIndicatorShape = Foundation.Enums.StatusIndicatorShape
 
 -- Empty indicator (no value shown)
 React.createElement(StatusIndicator, {
 	variant = StatusIndicatorVariant.Success,
+})
+
+-- With a shape
+React.createElement(StatusIndicator, {
+	shape = StatusIndicatorShape.Ring,
 })
 
 -- With a numeric value

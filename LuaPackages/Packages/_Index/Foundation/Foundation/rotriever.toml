@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.89.1"
+version = "1.91.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -104,7 +104,7 @@ version = "^3.14.0"
 version = "^0.1.0"
 
 [dev_dependencies.LuauUIEcosystemLints]
-version = "^0.4.0"
+version = "^0.6.0"
 
 [dev_dependencies.ReactTestingLibrary]
 version = "^12.3.4"

@@ -42,3 +42,20 @@ local function Component()
 	})
 end
 ```
+
+---
+
+## Circular variant
+
+Pass `isCircular = true` to swap the container and segment radii to a fully
+circular shape.
+
+```luau
+React.createElement(SegmentedControl, {
+	size = InputSize.Large,
+	segments = segments,
+	value = value,
+	onActivated = setValue,
+	isCircular = true,
+})
+```
