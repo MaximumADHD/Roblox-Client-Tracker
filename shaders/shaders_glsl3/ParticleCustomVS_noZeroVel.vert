@@ -104,7 +104,7 @@ void main()
             }
             else
             {
-                v17 = (v0 + (CB0[8] * dot(v1, v13.xy))) + (CB0[9] * dot(v1, v13.zw));
+                v17 = v0;
             }
             v15 = v17;
         }
