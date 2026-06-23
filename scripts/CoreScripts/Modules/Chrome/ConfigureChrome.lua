@@ -27,6 +27,8 @@ local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagSideSheetSwapGalleryOrder = SharedFlags.FFlagSideSheetSwapGalleryOrder
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
+local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
+local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
 
 local FFlagReverseUnibar = require(Chrome.Flags.FFlagReverseUnibar)
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
@@ -72,7 +74,10 @@ local function configureUnibar()
 		end
 
 		if isConnectUnibarEnabled() then
-			table.insert(v4Ordering, "connect_unibar")
+			table.insert(
+				v4Ordering,
+				if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
+			)
 		end
 
 		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
@@ -89,13 +94,21 @@ local function configureUnibar()
 		end
 
 		if isConnectUnibarEnabled() then
-			table.insert(v4Ordering, 1, "connect_unibar")
+			table.insert(
+				v4Ordering,
+				1,
+				if ArgoPartyExperimentation.getIsRenameEnabled() then "party_entrypoint" else "connect_unibar"
+			)
 		end
 
 		local toggleMicIndex = table.find(v4Ordering, "toggle_mic_mute")
 		if toggleMicIndex then
 			table.insert(v4Ordering, toggleMicIndex + 1, PartyConstants.TOGGLE_MIC_INTEGRATION_ID)
 		end
+	end
+
+	if FFlagAppNavMyStatsTab then
+		table.insert(v4Ordering, 1, "assistant_build")
 	end
 
 	if isInExperienceUIVREnabled and isSpatial() then

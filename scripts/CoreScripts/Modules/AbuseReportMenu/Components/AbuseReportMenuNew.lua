@@ -60,7 +60,7 @@ local IXPFieldWHAM1707 = require(root.Flags.FStringWHAM1707IXPField)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
 local FStringEARReportMenuIXPLayer = SharedFlags.FStringEARReportMenuIXPLayer
-local IXPField = game:DefineFastString("SelectInSceneIXPField", "EnableSelectInScene")
+local FStringSelectInSceneIXPField = SharedFlags.FStringSelectInSceneIXPField
 local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightModePreciseSelectionEnabled
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportTabClearCapturedScreenshotOnCloseFix =
@@ -104,13 +104,13 @@ local function isInSelectInSceneExperiment(): boolean
 	local success, IXPData = pcall(function()
 		return IXPService:GetUserLayerVariables(FStringReportMenuIXPLayer)
 	end)
-	if not success or not IXPData or IXPData[IXPField] == nil then
+	if not success or not IXPData or IXPData[FStringSelectInSceneIXPField] == nil then
 		return false
 	end
 
 	-- Log user layer exposure (enrollment here)
 	IXPService:LogUserLayerExposure(FStringReportMenuIXPLayer)
-	return IXPData[IXPField]
+	return IXPData[FStringSelectInSceneIXPField]
 end
 
 local function isInWHAM1707Experiment(): boolean -- also need engine feature check

@@ -24,7 +24,6 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
-local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 local EngineFeaturePTFBackButtonAlwaysAsButtonB = game:GetEngineFeature("PTFBackButtonAlwaysAsButtonB")
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
@@ -179,7 +178,7 @@ function GamepadConnector.new(): GamepadConnector
 			end)
 		end
 
-		if not FFlagDisableGamepadConnectorInVR or not isSpatial() then
+		if not isSpatial() then
 			local shouldShowTopBar = function()
 				local showTopBar = not self._gamepadActive:get()
 					or self._chromeFocused:get()

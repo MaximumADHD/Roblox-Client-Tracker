@@ -8,6 +8,7 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickRenameUI = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickRenameUI")
+local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 
 local thumbstickAction
 if FFlagUserPlayerScriptsClassicThumbstickUsesIAS then
@@ -94,7 +95,22 @@ function ClassicThumbstick:OnInputEnded()
 	self.thumbstickFrame.Position = self.screenPos
 	self.stickImage.Position = UDim2.new(0, self.thumbstickFrame.Size.X.Offset/2 - self.thumbstickSize/4, 0, self.thumbstickFrame.Size.Y.Offset/2 - self.thumbstickSize/4)
 
-	self.playerData.actions.MoveAction:Fire(Vector2.zero)
+	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+		if binding then
+			local success, result = pcall(function()
+				binding.Type = Enum.InputBindingType.Scriptable
+				binding:Fire(Vector2.zero)
+			end)
+			if not success then
+				self.playerData.actions.MoveAction:Fire(Vector2.zero)
+			end
+		else
+			self.playerData.actions.MoveAction:Fire(Vector2.zero)
+		end
+	else
+		self.playerData.actions.MoveAction:Fire(Vector2.zero)
+	end
 
 	self.isJumping = false
 	self.thumbstickFrame.Position = self.screenPos
@@ -226,7 +242,22 @@ function ClassicThumbstick:Create(parentFrame)
 		end
 
 		currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-		self.playerData.actions.MoveAction:Fire(currentMoveVector)
+		if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			local binding = self.playerData.actions.MoveAction:FindFirstChild("ClassicThumbstickScriptableBinding")
+			if binding then
+				local success, result = pcall(function()
+					binding.Type = Enum.InputBindingType.Scriptable
+					binding:Fire(currentMoveVector)
+				end)
+				if not success then
+					self.playerData.actions.MoveAction:Fire(currentMoveVector)
+				end
+			else
+				self.playerData.actions.MoveAction:Fire(currentMoveVector)
+			end
+		else
+			self.playerData.actions.MoveAction:Fire(currentMoveVector)
+		end
 	end
 
 	local function MoveStick(pos: Vector3)

@@ -28,7 +28,6 @@ local HistoryPage = Traversal.HistoryPage
 local useHistoryItems = Traversal.useHistoryItems
 local FIntMaximumTraversalHistoryItemsFetch = Traversal.Flags.FIntMaximumTraversalHistoryItemsFetch
 local FFlagTraversalExpPagePaddingFixes = Traversal.Flags.FFlagTraversalExpPagePaddingFixes
-local FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes
 local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 
 export type TraversalHistoryPageProps = {}
@@ -81,28 +80,12 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 		return mappedItems
 	end, { historyItems })
 
-	local isLoading, setIsLoading
-	if not FFlagTraversalPerfFixes then
-		isLoading, setIsLoading = React.useState(false)
-		React.useEffect(function()
-			if historyItems ~= nil then
-				setIsLoading(false)
-			end
-		end, { historyItems, setIsLoading } :: { unknown })
-	end
 	local onLoadMoreHistory = React.useCallback(function(requestAmount: number)
-		if FFlagTraversalPerfFixes then
 			if numItems >= #LocalTraversalHistory:getUniverseHistory() then
 				return
 			end
-		else
-			if isLoading then
-				return
-			end
-			setIsLoading(true)
-		end
 		setNumItems(numItems + requestAmount)
-	end, if FFlagTraversalPerfFixes then { numItems, } else { numItems, setNumItems, isLoading, setIsLoading } :: { unknown })
+	end, { numItems, } )
 
 	return next(items) ~= nil and React.createElement(View, {
 		tag = "size-full " .. (if FFlagTraversalExpPagePaddingFixes then "padding-top-medium" else "padding-large")

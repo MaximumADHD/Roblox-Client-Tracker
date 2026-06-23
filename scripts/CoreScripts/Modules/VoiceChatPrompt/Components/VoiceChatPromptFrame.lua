@@ -61,6 +61,7 @@ local FFlagVoiceConnectToastCapturesTrustedFriendsSubtitle =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceConnectToastCapturesTrustedFriendsSubtitle)
 local GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2 = require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2)
 local VoiceNudgeUseNewDACopy = require(script.Parent.Parent.Parent.VoiceChat.Helpers.VoiceNudgeUseNewDACopy)
+local FFlagVoiceNudgeUseNewConfirmButton = game:DefineFastFlag("VoiceNudgeUseNewConfirmButton", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -78,6 +79,8 @@ local DIVIDER = 1
 local TOAST_DURATION = 3
 local EXTRA_PADDING_HEIGHT = 7
 local CLOSE_VOICE_BAN_PROMPT = "CloseVoiceBanPrompt"
+local COLOR_WHITE = Color3.fromRGB(255, 255, 255)
+local COLOR_LIGHT_GRAY = Color3.fromRGB(220, 220, 220)
 
 local VoiceChatPromptFrame = Roact.PureComponent:extend("VoiceChatPromptFrame")
 
@@ -594,6 +597,52 @@ function VoiceChatPromptFrame:render()
 		local selectionBehavior = if GetFFlagSupportGamepadNavInVoiceModals() then Enum.SelectionBehavior.Stop else nil
 		local isSelectable = if GetFFlagSupportGamepadNavInVoiceModals() then true else nil
 
+		local confirmButtonElement
+		if FFlagVoiceNudgeUseNewConfirmButton then
+			confirmButtonElement = Roact.createElement("TextButton", {
+				Size = UDim2.new(1, -5, 0, 48),
+				LayoutOrder = 1,
+				Text = if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() and isUpdatedBanModalBV2 then voiceChatSuspendedUnderstandV2
+					elseif (GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and isNudgeModal and VoiceNudgeUseNewDACopy() and self.state.promptType == PromptType.VoiceToxicityModalV2)
+						then voiceChatSuspendedUnderstandV2
+					elseif isNudgeModal then voiceChatGotIt
+					else voiceChatSuspendedUnderstand,
+				[Roact.Event.Activated] = self.handlePrimayActivated,
+				[Roact.Event.MouseEnter] = function(rbx)
+					rbx.BackgroundColor3 = COLOR_LIGHT_GRAY
+				end,
+				[Roact.Event.MouseLeave] = function(rbx)
+					rbx.BackgroundColor3 = COLOR_WHITE
+				end,
+				Selectable = isSelectable,
+				BackgroundColor3 = COLOR_WHITE,
+				BackgroundTransparency = 0,
+				TextColor3 = Color3.fromRGB(0, 0, 0),
+				BorderSizePixel = 0,
+				AutoButtonColor = false,
+				-- selene: allow(incorrect_standard_library_use)
+				Font = Enum.Font.BuilderSansBold,
+				TextSize = 20,
+			}, {
+				Corner = Roact.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+			})
+		else
+			confirmButtonElement = Roact.createElement(Button, {
+				buttonType = ButtonType.PrimarySystem,
+				layoutOrder = 1,
+				size = UDim2.new(1, -5, 0, 48),
+				text = if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() and isUpdatedBanModalBV2 then voiceChatSuspendedUnderstandV2
+					elseif (GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and isNudgeModal and VoiceNudgeUseNewDACopy() and self.state.promptType == PromptType.VoiceToxicityModalV2)
+						then voiceChatSuspendedUnderstandV2
+					elseif isNudgeModal then voiceChatGotIt
+					else voiceChatSuspendedUnderstand,
+				onActivated = self.handlePrimayActivated,
+				Selectable = isSelectable,
+			})
+		end
+
 		local inGameMenuInformationalDialog = Roact.createElement("ScreenGui", {
 			DisplayOrder = 8,
 			IgnoreGuiInset = true,
@@ -739,20 +788,9 @@ function VoiceChatPromptFrame:render()
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}),
-					ConfirmButton = Roact.createElement(Button, {
-						buttonType = ButtonType.PrimarySystem,
-						layoutOrder = 1,
-						size = UDim2.new(1, -5, 0, 48),
-						text = if GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and VoiceNudgeUseNewDACopy() and isUpdatedBanModalBV2 then voiceChatSuspendedUnderstandV2
-							elseif (GetFFlagVoiceChatDisruptiveVoiceNudgeEnableVariant2() and isNudgeModal and VoiceNudgeUseNewDACopy() and self.state.promptType == PromptType.VoiceToxicityModalV2)
-								then voiceChatSuspendedUnderstandV2
-							elseif isNudgeModal then voiceChatGotIt
-							else voiceChatSuspendedUnderstand,
-						onActivated = self.handlePrimayActivated,
-						Selectable = isSelectable,
-					}),
+					ConfirmButton = confirmButtonElement,
 					SecondaryButton = showSecondaryButton and Roact.createElement(UIBlox.App.Button.LinkButton, {
-						layoutOrder = 1,
+						layoutOrder = if FFlagVoiceNudgeUseNewConfirmButton then 2 else 1,
 						size = UDim2.new(1, -5, 0, BUTTON_CONTAINER_SIZE),
 						text = if showIncorrectNudgeV2 then incorrectNudgeV2 else incorrectNudge,
 						colorStyleDefault = "TextMuted",

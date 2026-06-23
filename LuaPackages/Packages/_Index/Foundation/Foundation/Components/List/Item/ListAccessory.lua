@@ -5,10 +5,10 @@ local React = require(Packages.React)
 
 local BuilderIcons = require(Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
-type IconVariant = BuilderIcons.IconVariant
 
 local Icon = require(Foundation.Components.Icon)
 local Image = require(Foundation.Components.Image)
+local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -27,17 +27,10 @@ local useListAccessoryVariants = require(script.Parent.useListAccessoryVariants)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-type IconConfig = {
-	iconName: string,
-	iconVariant: IconVariant?,
-	type: nil,
-}
-type AvatarConfig = {
-	type: "Avatar",
-	userId: number,
-}
+type IconAccessoryConfig = Types.IconAccessoryConfig
+type AvatarAccessoryConfig = Types.AvatarAccessoryConfig
 
-export type ListAccessory = IconConfig | AvatarConfig
+export type ListAccessory = IconAccessoryConfig | AvatarAccessoryConfig
 
 type Config = string | ListAccessory
 
@@ -63,9 +56,9 @@ local function ListAccessory(accessoryProps: ListAccessoryProps)
 
 	local accessoryType: AccessoryType = if fullConfig.type == AccessoryType.Avatar
 		then AccessoryType.Avatar
-		elseif
-			type(accessoryProps.config) == "string" or isBuilderIconOrMigrated((fullConfig :: IconConfig).iconName)
-		then AccessoryType.Icon
+		elseif type(accessoryProps.config) == "string" or isBuilderIconOrMigrated(
+			(fullConfig :: IconAccessoryConfig).iconName
+		) then AccessoryType.Icon
 		else AccessoryType.Media
 
 	local variants = useListAccessoryVariants(tokens, accessoryProps.size, accessoryType)
@@ -73,7 +66,7 @@ local function ListAccessory(accessoryProps: ListAccessoryProps)
 	local element: React.ReactNode
 	if fullConfig.type == AccessoryType.Avatar then
 		element = React.createElement(Avatar, {
-			userId = (fullConfig :: AvatarConfig).userId,
+			userId = (fullConfig :: AvatarAccessoryConfig).userId,
 			backplateStyle = tokens.Color.Shift.Shift_200,
 			size = accessoryProps.size,
 		})

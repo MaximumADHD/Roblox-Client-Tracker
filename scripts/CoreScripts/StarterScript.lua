@@ -190,6 +190,14 @@ end
 -- In-game notifications script
 ScriptContext:AddCoreScriptLocal("CoreScripts/NotificationScript2", RobloxGui)
 
+-- Channel update prompt for protocol launch (private channel / beta program)
+if game:GetEngineFeature("ProtocolLaunchPrivateChannelUpdateCheckEngineFeature") then
+	local ChannelUpdatePrompt = safeRequire(CoreGuiModules.ChannelUpdatePrompt)
+	if ChannelUpdatePrompt then
+		ChannelUpdatePrompt.init()
+	end
+end
+
 -- Chrome
 if GetFFlagChromeCentralizedConfiguration() then
 	coroutine.wrap(safeRequire)(CoreGuiModules.Chrome.ConfigureChrome)

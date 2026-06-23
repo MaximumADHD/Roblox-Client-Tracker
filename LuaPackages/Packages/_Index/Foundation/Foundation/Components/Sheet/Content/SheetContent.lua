@@ -1,6 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
+local ReactUtils = require(Packages.ReactUtils)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Constants = require(Foundation.Constants)
@@ -15,18 +16,22 @@ local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local isScrollingFrameOverflowingY = require(Foundation.Utility.isScrollingFrameOverflowingY)
 
+local useComposedRef = ReactUtils.useComposedRef
+
 export type SheetContentProps = {
 	isContentFullBleed: boolean?,
 	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 	children: React.ReactNode,
 } & Types.SelectionProps
 
+-- selene: allow(high_cyclomatic_complexity)
 local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 	local sheet = React.useContext(SheetContext)
 
 	local innerScrollingEnabled = sheet.innerScrollingEnabled
 	local setInnerScrollY = sheet.setInnerScrollY
+	local innerScrollingRef = sheet.innerScrollingRef
 	local actionsHeight = sheet.actionsHeight
 	local sheetContentHeight = sheet.sheetContentHeight
 	local setHasActionsDivider = sheet.setHasActionsDivider
@@ -76,10 +81,19 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 		end)
 		else nil
 
+	local scrollingFrameRef = if Flags.FoundationBottomSheetInnerScrollingSync
+		then useComposedRef(
+				innerScrollingRef :: React.Ref<any>,
+				props.scrollingFrameRef :: React.Ref<any>?
+			) :: React.Ref<any>
+		else nil
+
 	return React.createElement(
 		ScrollView,
 		{
-			scrollingFrameRef = props.scrollingFrameRef,
+			scrollingFrameRef = if Flags.FoundationBottomSheetInnerScrollingSync
+				then scrollingFrameRef
+				else props.scrollingFrameRef,
 			ZIndex = 1,
 			selection = {
 				Selectable = selectable,

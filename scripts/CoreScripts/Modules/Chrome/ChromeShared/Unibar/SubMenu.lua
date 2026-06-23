@@ -6,6 +6,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
+local FFlagEnableMenuTrailingBadge = SharedFlags.FFlagEnableMenuTrailingBadge
 local FFlagAvatarSwitcherHamburgerExposure = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false)
 local FStringAvatarSwitcherIXPLayer = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration")
 
@@ -40,6 +41,7 @@ local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 local SubMenuContext = require(Root.Unibar.SubMenuContext)
+local MenuTrailingBadge = if FFlagEnableMenuTrailingBadge then require(Root.Unibar.MenuTrailingBadge) else nil :: never
 local UnibarStyle = ChromePackage.UnibarStyle
 
 local UserInputService = game:GetService("UserInputService")
@@ -130,6 +132,8 @@ function MenuRow(props: IntegrationComponentProps)
 		end
 	end)
 
+	local trailingBadge = if FFlagEnableMenuTrailingBadge then props.integration.menuTrailingBadgeConfig else nil
+
 	local onMenuRowActivated = React.useCallback(function()
 		if FFlagEnableConsoleExpControls then
 			ChromeService:disableFocusNav()
@@ -141,6 +145,45 @@ function MenuRow(props: IntegrationComponentProps)
 			props.activated()
 		end
 	end, { props.id })
+
+	-- When the trailing badge is enabled the label fills remaining row width via
+	-- UIFlexItem(Fill) so the badge takes only its natural width; otherwise it keeps
+	-- the original explicit-width sizing.
+	local styledLabel = React.createElement(StyledTextLabel, {
+		size = if FFlagEnableMenuTrailingBadge
+			then UDim2.fromScale(1, 1)
+			else UDim2.new(1, -iconSize - submenuPaddingLeft - submenuPaddingRight, 1, 0),
+		lineHeight = 1,
+		fontStyle = submenuRowLabelFont,
+		colorStyle = if menuTransition
+			then {
+				Color = theme.TextEmphasis.Color,
+				Transparency = menuTransition:map(function(v)
+					return 1 - v
+				end),
+			}
+			else theme.TextEmphasis,
+		text = props.integration.label,
+		textTruncate = Enum.TextTruncate.AtEnd,
+		textXAlignment = Enum.TextXAlignment.Left,
+		fluidSizing = true,
+		richText = true,
+	})
+
+	-- Wrap the label in a flex(Fill) frame so it shares the row with the trailing
+	-- badge; without the badge the label is used directly with its explicit width.
+	local labelElement = if FFlagEnableMenuTrailingBadge
+		then React.createElement("Frame", {
+			Size = UDim2.fromScale(0, 1),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		}, {
+			UIFlexItem = React.createElement("UIFlexItem", {
+				FlexMode = Enum.UIFlexMode.Fill,
+			}),
+			StyledTextLabel = styledLabel,
+		})
+		else styledLabel
 
 	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
@@ -163,24 +206,14 @@ function MenuRow(props: IntegrationComponentProps)
 			} :: any
 		),
 
-		StyledTextLabel = React.createElement(StyledTextLabel, {
-			size = UDim2.new(1, -iconSize - submenuPaddingLeft - submenuPaddingRight, 1, 0),
-			lineHeight = 1,
-			fontStyle = submenuRowLabelFont,
-			colorStyle = if menuTransition
-				then {
-					Color = theme.TextEmphasis.Color,
-					Transparency = menuTransition:map(function(v)
-						return 1 - v
-					end),
-				}
-				else theme.TextEmphasis,
-			text = props.integration.label,
-			textTruncate = Enum.TextTruncate.AtEnd,
-			textXAlignment = Enum.TextXAlignment.Left,
-			fluidSizing = true,
-			richText = true,
-		}),
+		Label = labelElement,
+
+		TrailingBadge = if FFlagEnableMenuTrailingBadge and trailingBadge
+			then React.createElement(MenuTrailingBadge, {
+				integrationId = props.integration.id,
+				config = trailingBadge,
+			})
+			else nil,
 	})
 	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
 		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()

@@ -6,6 +6,7 @@
 
 local FFlagAllowLuobuFreecamGroup = game:DefineFastFlag("AllowLuobuFreecamGroup", false)
 local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
+local FFlagFreeCameraToIAS = game:DefineFastFlag("FreeCameraToIAS", false) and game:GetEngineFeature("PlayerScriptStatusProperty")
 
 -- Users in the following groups have global Freecam permissions:
 local FREECAM_GROUP_IDS = {
@@ -21,6 +22,7 @@ local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 local PolicyService = game:GetService("PolicyService")
 local RunService = game:GetService("RunService")
+local StarterPlayer = game:GetService("StarterPlayer")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
@@ -41,7 +43,15 @@ local function Install()
 
 	local function AddFreeCamera(player)
 		local playerGui = WaitForChildOfClass(player, "PlayerGui")
-		local originalModule = script.Parent:WaitForChild("FreeCamera")
+		local originalModule
+		if FFlagFreeCameraToIAS then
+			local status = StarterPlayer.PlayerModuleStatus
+			local PlayerScriptsUseInputActionSystemEnabled = status == 1 or status == 2 -- StarterPlayer.PlayerModuleStatus 1=PS2IAS+forked, 2=PS2IAS+default
+			local moduleName = PlayerScriptsUseInputActionSystemEnabled and "FreeCameraIAS" or "FreeCamera"
+			originalModule = script.Parent:WaitForChild(moduleName)
+		else
+			originalModule = script.Parent:WaitForChild("FreeCamera")
+		end
 
 		-- Encapsulate the Freecam script in a LayerCollector to prevent destruction on respawn.
 		local screenGui = Instance.new("ScreenGui")

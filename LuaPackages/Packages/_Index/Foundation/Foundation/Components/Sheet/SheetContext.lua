@@ -27,6 +27,7 @@ return React.createContext({
 	bottomPadding = nil :: number?,
 	innerScrollingEnabled = nil :: React.Binding<boolean>?,
 	innerScrollY = nil :: React.Binding<number>?,
+	innerScrollingRef = nil :: React.Ref<ScrollingFrame>?,
 	setInnerScrollY = function(_: number)
 		error("No SheetContext available")
 	end,
@@ -60,6 +61,7 @@ return React.createContext({
 	bottomPadding: number?,
 	innerScrollingEnabled: React.Binding<boolean>?,
 	innerScrollY: React.Binding<number>?,
+	innerScrollingRef: React.Ref<ScrollingFrame>?,
 	setInnerScrollY: ((number) -> nil)?,
 	hasHeader: React.Binding<boolean>?,
 	setHasHeader: ((boolean) -> nil)?,

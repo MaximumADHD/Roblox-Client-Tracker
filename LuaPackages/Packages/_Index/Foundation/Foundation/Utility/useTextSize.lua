@@ -11,11 +11,17 @@ local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 
 local TextService = require(Foundation.Utility.Wrappers.Services).TextService
 
-local function useTextSize(text: string, fontStyle: FontStyle, frameSize: Vector2?): Vector2
-	local textSize, setTextSize = React.useState(Vector2.new(0, 0))
+local function useTextSize(text: string?, fontStyle: FontStyle, frameSize: Vector2?): Vector2?
+	local textSize: Vector2?, setTextSize: (Vector2?) -> () = React.useState(nil :: Vector2?)
 	local preferredTextSize = usePreferences().preferredTextSize
 
 	React.useEffect(function()
+		-- Skip call to TextService call when no text provided.
+		if text == nil then
+			setTextSize(nil)
+			return
+		end
+
 		setTextSize(
 			TextService:GetTextSize(
 				text,

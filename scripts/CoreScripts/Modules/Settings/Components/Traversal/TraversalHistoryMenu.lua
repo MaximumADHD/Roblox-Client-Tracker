@@ -32,7 +32,6 @@ local useHistoryItems = Traversal.useHistoryItems
 local useTokens = Foundation.Hooks.useTokens
 local FFlagAddTraversalHistoryReactMenuButtons = require(Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FFlagTraversalHistoryMenuFocusNavFix = Traversal.Flags.FFlagTraversalHistoryMenuFocusNavFix
-local FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes
 
 export type TraversalHistoryMenuProps = {
 	anchorParent: GuiObject?,
@@ -61,26 +60,18 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 		anchorRef = props.anchorRef
 	end
 	local historyItems = useHistoryItems()
-	local items
-	if FFlagTraversalPerfFixes then
-		items = React.useMemo(function()
-			return historyToMenuItems(historyItems)
-		end, { historyItems })
-	else
-		items = historyToMenuItems(historyItems)
-	end
+	local items = React.useMemo(function()
+		return historyToMenuItems(historyItems)
+	end, { historyItems })
 	
 	local idleButtonStateIsDown = if props.idleButtonStateIsDown ~= nil then props.idleButtonStateIsDown else TraveralConstants.DEFAULT_CHEVRON_BUTTON_STATE
 	local selectionBehaviorToMenu, setSelectionBehaviorToMenu = React.useBinding(Enum.SelectionBehavior.Stop)
-	local selectionGroup: { [string]: Enum.SelectionBehavior | Foundation.Bindable<Enum.SelectionBehavior> }
-	if FFlagTraversalPerfFixes then
-		selectionGroup = React.useMemo(function()
-			return {
-				SelectionBehaviorUp = if idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
-				SelectionBehaviorDown = if not idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
-			}
-		end, { idleButtonStateIsDown })
-	end
+	local selectionGroup : { [string]: Enum.SelectionBehavior | Foundation.Bindable<Enum.SelectionBehavior> } = React.useMemo(function()
+		return {
+			SelectionBehaviorUp = if idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
+			SelectionBehaviorDown = if not idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
+		}
+	end, { idleButtonStateIsDown })
 	local tokens = useTokens()
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraveralConstants.NO_UNIVERSE_ID)
 	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
@@ -158,7 +149,7 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 		else
 			setSelectionBehaviorToMenu(Enum.SelectionBehavior.Stop)
 		end
-	end, {if FFlagTraversalPerfFixes then nil else setSelectionBehaviorToMenu})
+	end, {})
 
 	local dividerLeftStyle = React.useMemo(function()
 		-- matches button border style
@@ -173,25 +164,19 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 	end, {})
 
 	local isSmallTouchScreen = Utility:IsSmallTouchScreen()
-	local historyButtonTags
-	if FFlagTraversalPerfFixes then
-		historyButtonTags = React.useMemo(function()
-			return {
-				["padding-small"] = isSmallTouchScreen, 
-				["padding-medium"] = not isSmallTouchScreen, 
-			}
-		end, { isSmallTouchScreen })
-	end
+	local historyButtonTags = React.useMemo(function()
+		return {
+			["padding-small"] = isSmallTouchScreen, 
+			["padding-medium"] = not isSmallTouchScreen, 
+		}
+	end, { isSmallTouchScreen })
 
-	local onHistorySelected
-	if FFlagTraversalPerfFixes then
-		onHistorySelected = React.useCallback(function()
-			reactPageSignal.setCurrentReactPage(EnumReactPage.TraversalHistory)
-			if FFlagTraversalHistoryMenuFocusNavFix then
-				setSelectionBehaviorToMenu(Enum.SelectionBehavior.Stop)
-			end
-		end, { reactPageSignal })
-	end
+	local onHistorySelected = React.useCallback(function()
+		reactPageSignal.setCurrentReactPage(EnumReactPage.TraversalHistory)
+		if FFlagTraversalHistoryMenuFocusNavFix then
+			setSelectionBehaviorToMenu(Enum.SelectionBehavior.Stop)
+		end
+	end, { reactPageSignal })
 
 	local shouldMount = React.useMemo(function()
 		return #LocalTraversalHistory:getUniverseHistory() > 0
@@ -200,10 +185,7 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 	-- only render when there are previous places
 	return shouldMount and React.createElement(View, {
 		tag = "auto-xy row align-y-center size-0-full",
-		selectionGroup = if FFlagTraversalPerfFixes then selectionGroup else {
-			SelectionBehaviorUp = if idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
-			SelectionBehaviorDown = if not idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
-		},
+		selectionGroup = selectionGroup ,
 		
 		-- default ref to internal anchor if no external ref provided
 		ref = if FFlagAddTraversalHistoryReactMenuButtons and (not props.anchorRef and not props.anchorParent) then anchorRef else nil,
@@ -213,23 +195,14 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 			backgroundStyle = dividerLeftStyle,
 		}),
 		HistoryMenu = React.createElement(HistoryMenu, {
-			historyButtonTags = if FFlagTraversalPerfFixes then historyButtonTags else {
-				["padding-small"] = isSmallTouchScreen, 
-				["padding-medium"] = not isSmallTouchScreen, 
-			},
+			historyButtonTags = historyButtonTags ,
 			historyItems = items,
-			onHistorySelected = if FFlagTraversalPerfFixes then onHistorySelected else function()
-				reactPageSignal.setCurrentReactPage(EnumReactPage.TraversalHistory)
-				if FFlagTraversalHistoryMenuFocusNavFix then
-					setSelectionBehaviorToMenu(Enum.SelectionBehavior.Stop)
-				end
-			end,
+			onHistorySelected = onHistorySelected ,
 			onMenuItemSelected = openDialog,
 			onMenuToggled = onMenuToggled,
 			forceMenuClose = if FFlagTraversalHistoryMenuFocusNavFix then nil else forceMenuClose,
 			closeMenuConn = if FFlagTraversalHistoryMenuFocusNavFix then closeMenuConn else nil,
-			idleButtonStateIsDown = if FFlagTraversalPerfFixes then nil else idleButtonStateIsDown,
-			menuSide = if FFlagTraversalPerfFixes then props.menuSide else nil,
+			menuSide = props.menuSide ,
 
 			ref = anchorRef,
 		})

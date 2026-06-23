@@ -52,6 +52,7 @@ local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", fa
 local FFlagUserPresenceTokenRccCheckPermissionsLua =
 	require(RobloxGui.Modules.Common.Flags.FFlagUserPresenceTokenRccCheckPermissionsLua)
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
+local FFlagGlobalUserBlockingLuaReadsFromSCMCache = game:DefineFastFlag("GlobalUserBlockingLuaReadsFromSCMCache", false)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
@@ -339,40 +340,80 @@ local function sendPlayerBlockList(player)
 		return
 	end
 
-	local players = Players:GetPlayers()
-	local playerIds = {}
-	for _, otherPlayer in players do
-		if player ~= otherPlayer then
-			local uid = otherPlayer.UserId
-			table.insert(playerIds, uid)
-		end
-	end
-
-	local success, result = fetchBlockList(player, playerIds)
-
-	local blockedUserIds = {}
-	local blockedUserSet = {}
-	if success and result then
-		for _, user in result.users do
-			if user.isBlocked then
-				blockedUserSet[user.userId] = true
-				table.insert(blockedUserIds, user.userId)
+	if FFlagGlobalUserBlockingLuaReadsFromSCMCache then
+		local function scanAndSendBlockList(notifyOthers)
+			if not player.Parent then
+				return
 			end
 
-			if user.isBlockingViewer then
-				local otherPlayer = Players:GetPlayerByUserId(user.userId)
-				otherPlayer:UpdatePlayerBlocked(player.UserId, true)
-				RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
+			local blockedUserSet = {}
+			for _, otherPlayer in Players:GetPlayers() do
+				if otherPlayer == player then
+					continue
+				end
+
+				if player:HasBlockedPlayer(otherPlayer.UserId) then
+					blockedUserSet[otherPlayer.UserId] = true
+				end
+
+				if notifyOthers and otherPlayer:HasBlockedPlayer(player.UserId) then
+					RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
+				end
+			end
+
+			RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
+		end
+
+		local initialNotifyDone = false
+
+		player.BlockListChanged:Connect(function()
+			if not initialNotifyDone then
+				scanAndSendBlockList(true)
+				initialNotifyDone = true
+			else
+				scanAndSendBlockList(false)
+			end
+		end)
+		if player:GetBlockListInitialized() then
+			scanAndSendBlockList(true)
+			initialNotifyDone = true
+		end
+	else
+		local players = Players:GetPlayers()
+		local playerIds = {}
+		for _, otherPlayer in players do
+			if player ~= otherPlayer then
+				local uid = otherPlayer.UserId
+				table.insert(playerIds, uid)
 			end
 		end
-	end
 
-	player:AddToBlockList(blockedUserIds)
-	if game:GetFastFlag("EnableSetUserBlocklistInitialized") then
-		player:SetBlockListInitialized()
-	end
+		local success, result = fetchBlockList(player, playerIds)
 
-	RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
+		local blockedUserIds = {}
+		local blockedUserSet = {}
+		if success and result then
+			for _, user in result.users do
+				if user.isBlocked then
+					blockedUserSet[user.userId] = true
+					table.insert(blockedUserIds, user.userId)
+				end
+
+				if user.isBlockingViewer then
+					local otherPlayer = Players:GetPlayerByUserId(user.userId)
+					otherPlayer:UpdatePlayerBlocked(player.UserId, true)
+					RemoteEvent_UpdateLocalPlayerBlockList:FireClient(otherPlayer, player.UserId, true)
+				end
+			end
+		end
+
+		player:AddToBlockList(blockedUserIds)
+		if game:GetFastFlag("EnableSetUserBlocklistInitialized") then
+			player:SetBlockListInitialized()
+		end
+
+		RemoteEvent_SendPlayerBlockList:FireClient(player, blockedUserSet)
+	end
 end
 
 local function sendPlayerAllInExperienceNameEnabled(player)

@@ -15,6 +15,7 @@ local CharacterUtil = CommonUtils.get("CharacterUtil")
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 local FFlagUserPlayerScriptsRefactor1 = FlagUtil.getUserFlag("UserPlayerScriptsRefactor1")
+local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 
 local Players = game:GetService("Players")
 
@@ -33,7 +34,7 @@ local CONNECTIONS = {
 	HUMANOID_JUMP_POWER = "HUMANOID_JUMP_POWER",
 	HUMANOID_JUMP_HEIGHT = "HUMANOID_JUMP_HEIGHT",
 	HUMANOID = "HUMANOID",
-	MENU_OPENED = "MENU_OPENED",
+	MENU_OPENED = "MENU_OPENED", -- remove with FFlagUserPlayerScriptsFireThroughScriptableBindings
 	ACTIONS_RELOADED = "ACTIONS_RELOADED",
 }
 
@@ -80,10 +81,11 @@ function TouchJump.new(data, playerData)
 end
 
 function TouchJump:_reset()
-	if self.playerData.actions.JumpAction then
-		self.playerData.actions.JumpAction:Fire(false)
+	if not FFlagUserPlayerScriptsFireThroughScriptableBindings then
+		if self.playerData.actions.JumpAction then
+			self.playerData.actions.JumpAction:Fire(false)
+		end
 	end
-
 	if self.jumpButton then
 		local isCCLEnabled = if FFlagUserPlayerScriptsCCLIntegrationB then
 			avatarAbilitiesInterface:isEnabled() else
@@ -110,18 +112,22 @@ function TouchJump:EnableButton(enable)
 		end
 		self.jumpButton.Visible = true
 
-		-- stop jumping on menu open
-		self._connectionUtil:trackConnection(
-			CONNECTIONS.MENU_OPENED,
-			GuiService.MenuOpened:Connect(function()
-				self:_reset()
-			end)
-		)
+		if not FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			-- stop jumping on menu open
+			self._connectionUtil:trackConnection(
+				CONNECTIONS.MENU_OPENED,
+				GuiService.MenuOpened:Connect(function()
+					self:_reset()
+				end)
+			)
+		end
 	else
 		if self.jumpButton then
 			self.jumpButton.Visible = false
 		end
-		self._connectionUtil:disconnect(CONNECTIONS.MENU_OPENED)
+		if not FFlagUserPlayerScriptsFireThroughScriptableBindings then
+			self._connectionUtil:disconnect(CONNECTIONS.MENU_OPENED)
+		end
 	end
 	self:_reset()
 	self._active = enable

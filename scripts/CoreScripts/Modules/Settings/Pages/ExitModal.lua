@@ -39,6 +39,7 @@ local GetFFlagGateEducationalPopupVisibilityViaGUAC = require(SharedFlags).GetFF
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 local FFlagEnableSideSheet = require(SharedFlags).FFlagEnableSideSheet
+local FFlagSurvBloxEventTypeEnabled = require(SharedFlags).FFlagSurvBloxEventTypeEnabled
 local toggleSideSheet
 if FFlagEnableSideSheet then
 	toggleSideSheet = require(CorePackages.Workspace.Packages.InExperienceSideSheet).toggleSideSheet
@@ -51,6 +52,8 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
 local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
+local SurveyEventPublisher = require(CorePackages.Workspace.Packages.OnPlatformSurveys.SurveyEventPublisher)
+local WebViewEventType = require(CorePackages.Workspace.Packages.OnPlatformSurveys.WebViewEventType)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 
 ----------- COMPONENTS --------------
@@ -175,6 +178,7 @@ local function Initialize()
 
 	local localization = Localization.new(LocalizationService.RobloxLocaleId)
 
+	-- lute-lint-ignore(noNestedReactDefinitions)
 	local function ExitModal()
 		localization:SetLocale(LocalizationService.RobloxLocaleId)
 		local localized = {
@@ -225,16 +229,21 @@ local function Initialize()
 						this.DontShowAgain()
 					end
 					this.LeaveGameFunc(false)
-					
-					-- TODO APPEXP-1879: Remove code passing chromeSeenCount/customProps to survey receiver by flagging it off, now that it is unused.
-					local chromeSeenCount = tostring(0)
-					local customProps = { chromeSeenCount = chromeSeenCount }
 
-					local localUserId = tostring(Players.LocalPlayer.UserId)
-					MessageBus.publish(
-						Constants.OnSurveyEventDescriptor,
-						{ eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps }
-					)
+					if FFlagSurvBloxEventTypeEnabled then
+						local localUserId = tostring(Players.LocalPlayer.UserId)
+						SurveyEventPublisher.publishSurveyEvent(WebViewEventType.LeaveButtonClick, localUserId)
+					else
+						-- TODO APPEXP-1879: Remove legacy customProps publish path after migration.
+						local chromeSeenCount = tostring(0)
+						local customProps = { chromeSeenCount = chromeSeenCount }
+
+						local localUserId = tostring(Players.LocalPlayer.UserId)
+						MessageBus.publish(
+							Constants.OnSurveyEventDescriptor,
+							{ eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps }
+						)
+					end
 				end,
 			}),
 		}

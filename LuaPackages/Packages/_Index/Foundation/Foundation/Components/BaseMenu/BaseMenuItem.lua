@@ -2,10 +2,10 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local BuilderIcons = require(Packages.BuilderIcons)
-local React = require(Packages.React)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 local Logger = require(Foundation.Utility.Logger)
+local React = require(Packages.React)
 
 local Constants = require(Foundation.Constants)
 
@@ -35,24 +35,47 @@ type InputSize = InputSize.InputSize
 
 local Flags = require(Foundation.Utility.Flags)
 
+local Accessory = require(script.Parent.BaseMenuItemAccessory)
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
 local useBaseMenuItemVariants = require(script.Parent.useBaseMenuItemVariants)
 local useMenuItemHover = require(script.Parent.useMenuItemHover)
 
+export type LeadingAccessory = Accessory.LeadingAccessory
+export type TrailingAccessory = Accessory.TrailingAccessory
+
+type LeadingAccessoryProp = string | LeadingAccessory
+type TrailingAccessoryProp = TrailingAccessory
+
 export type BaseMenuItemProps = {
 	id: ItemId,
 	icon: string?,
+	leading: LeadingAccessoryProp?,
+	trailing: TrailingAccessoryProp?,
 	isChecked: boolean?,
 	isDisabled: boolean?,
 	text: string,
 	onActivated: OnItemActivated?,
 	size: InputSize?,
 	children: React.ReactNode?,
+	menuHasLeading: boolean?,
+	menuHasCheck: boolean?,
 } & Types.CommonProps
 
 local defaultProps = {
 	isChecked = false,
 }
+
+local function resolveAccessory(
+	prop: (string | LeadingAccessory | TrailingAccessory)?
+): LeadingAccessory | TrailingAccessory | nil
+	if prop == nil then
+		return nil
+	end
+	if type(prop) == "string" then
+		return { iconName = prop }
+	end
+	return prop
+end
 
 -- remove when FoundationGuiObjectInputSinkProperty is cleaned up
 local function getInputSinkAll()
@@ -74,10 +97,29 @@ end
 
 local InputSinkAll = getInputSinkAll()
 
+local function getContainerPadding(container: any, menuHasCheck: boolean): Types.PaddingTable
+	local left = if menuHasCheck then container.paddingLeftWithCheck else container.paddingLeftWithoutCheck
+	return {
+		left = UDim.new(0, left or 0),
+		right = UDim.new(0, container.paddingRight or 0),
+	}
+end
+
+-- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationBaseMenuBeta is cleaned up
 local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(menuItemProps, defaultProps)
 	local context = React.useContext(BaseMenuContext)
-	local hasLeading = context.hasLeading
+
+	local alignmentHasLeading: boolean
+	local menuHasCheck: boolean
+	if Flags.FoundationBaseMenuBeta then
+		alignmentHasLeading = if props.menuHasLeading ~= nil then props.menuHasLeading else context.hasLeading == true
+		menuHasCheck = if props.menuHasCheck ~= nil then props.menuHasCheck else props.isChecked == true
+	else
+		alignmentHasLeading = context.hasLeading == true
+		menuHasCheck = false
+	end
+
 	local tokens = useTokens()
 	local size: InputSize = props.size or context.size
 	local depth = context.depth
@@ -85,20 +127,24 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 	local isSubmenu = props.children ~= nil
 	local isOpen = isSubmenu and context.hoverOpenPath[depth] == props.id
 
+	local resolvedLeading = if Flags.FoundationBaseMenuBeta then resolveAccessory(props.leading or props.icon) else nil
+	local resolvedTrailing = if Flags.FoundationBaseMenuBeta then resolveAccessory(props.trailing) else nil
+
 	local variantProps = useBaseMenuItemVariants(tokens, size, if isSubmenu then false else props.isChecked)
 
 	local itemRef = React.useRef(nil :: GuiObject?)
-
+	local hasCheckedForContext = props.isChecked == true and not isSubmenu
 	local submenuHasLeading, setSubmenuHasLeadingInternal = React.useState(false)
 	local setSubmenuHasLeading = React.useCallback(function()
 		setSubmenuHasLeadingInternal(true)
 	end, {})
 
+	local hasLeadingForContext = if Flags.FoundationBaseMenuBeta then resolvedLeading ~= nil else props.icon ~= nil
 	React.useEffect(function()
-		if props.icon and context.setHasLeading then
+		if hasLeadingForContext and context.setHasLeading then
 			context.setHasLeading()
 		end
-	end, { props.icon, context.setHasLeading } :: { unknown })
+	end, { hasLeadingForContext, context.setHasLeading } :: { unknown })
 
 	useMenuItemHover({
 		itemRef = itemRef,
@@ -172,63 +218,172 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 
 	local combinedRef = useComposedRef(itemRef :: React.Ref<any>, ref :: React.Ref<any>)
 
-	local itemElement = React.createElement(
-		View,
-		withCommonProps(props, {
-			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
-			isDisabled = props.isDisabled,
-			onActivated = onActivated,
-			selection = {
-				Selectable = not props.isDisabled,
-			},
-			cursor = cursor,
-			tag = variantProps.container.tag,
-			ref = combinedRef,
-		}),
-		{
-			Icon = if props.icon or hasLeading
-				then if props.icon and isBuilderIconOrMigrated(props.icon)
-					then React.createElement(View, {
-						LayoutOrder = 1,
-						tag = `align-x-center align-y-center {variantProps.icon.tag}`,
-					}, {
-						Icon = React.createElement(Icon, {
-							name = if migratedIcon then migratedIcon.name else props.icon,
-							style = variantProps.icon.style,
-							size = variantProps.icon.size,
-						}),
-					})
-					else React.createElement(Image, {
-						LayoutOrder = 1,
-						Image = props.icon :: string,
-						tag = variantProps.icon.tag,
-					})
-				else nil,
-			Text = React.createElement(Text, {
-				LayoutOrder = 2,
-				Text = props.text,
-				tag = variantProps.text.tag,
-			}),
-			Chevron = if isSubmenu
-				then React.createElement(Icon, {
-					LayoutOrder = 3,
-					name = BuilderIcons.Icon.ChevronSmallRight,
-					style = variantProps.check.style,
-					size = variantProps.chevron.size,
-					testId = `{props.testId}--chevron`,
-				})
-				else nil,
-			Check = if not isSubmenu and props.isChecked
-				then React.createElement(Icon, {
-					LayoutOrder = 3,
-					name = BuilderIcons.Icon.Check,
-					style = variantProps.check.style,
-					size = variantProps.check.size,
-					testId = `{props.testId}--checkmark`,
-				})
-				else nil,
+	local itemElement: React.ReactNode
+	if Flags.FoundationBaseMenuBeta then
+		local containerPadding = getContainerPadding(variantProps.container, menuHasCheck)
+		local containerLayout = {
+			FillDirection = Enum.FillDirection.Horizontal,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			Padding = UDim.new(0, 0),
+			SortOrder = Enum.SortOrder.LayoutOrder,
 		}
-	)
+		local wrapperGap: number = (variantProps.wrapper and variantProps.wrapper.gap) or 0
+
+		local checkNode: React.ReactNode = nil
+		if menuHasCheck then
+			checkNode = React.createElement(View, {
+				LayoutOrder = 1,
+				tag = `{variantProps.slotAlign.tag} {variantProps.check.tag}`,
+				testId = `{props.testId}--check-column`,
+			}, {
+				Check = if hasCheckedForContext
+					then React.createElement(Icon, {
+						name = BuilderIcons.Icon.Check,
+						style = variantProps.check.style,
+						size = variantProps.check.size,
+						testId = `{props.testId}--checkmark`,
+					})
+					else nil,
+			})
+		end
+
+		local leadingNode: React.ReactNode = nil
+		if resolvedLeading ~= nil then
+			leadingNode = React.createElement(Accessory, {
+				LayoutOrder = 1,
+				accessory = resolvedLeading :: LeadingAccessory,
+				iconVariant = variantProps.icon,
+				size = size,
+				tokens = tokens,
+				testId = `{props.testId}--leading`,
+			})
+		elseif alignmentHasLeading then
+			leadingNode = React.createElement(View, {
+				LayoutOrder = 1,
+				tag = `{variantProps.slotAlign.tag} {variantProps.icon.tag}`,
+			})
+		end
+
+		local titleNode = React.createElement(Text, {
+			LayoutOrder = 2,
+			Text = props.text,
+			tag = variantProps.text.tag,
+		})
+
+		local trailingNode: React.ReactNode = nil
+		if isSubmenu then
+			trailingNode = React.createElement(Icon, {
+				LayoutOrder = 3,
+				name = BuilderIcons.Icon.ChevronSmallRight,
+				style = variantProps.check.style,
+				size = variantProps.chevron.size,
+				testId = `{props.testId}--chevron`,
+			})
+		elseif resolvedTrailing ~= nil then
+			trailingNode = React.createElement(Accessory, {
+				LayoutOrder = 3,
+				accessory = resolvedTrailing :: TrailingAccessory,
+				iconVariant = variantProps.icon,
+				size = size,
+				tokens = tokens,
+				testId = `{props.testId}--trailing`,
+			})
+		end
+
+		itemElement = React.createElement(
+			View,
+			withCommonProps(props, {
+				GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
+				isDisabled = props.isDisabled,
+				onActivated = onActivated,
+				selection = {
+					Selectable = not props.isDisabled,
+				},
+				cursor = cursor,
+				tag = variantProps.container.tag,
+				padding = containerPadding,
+				layout = containerLayout,
+				ref = combinedRef,
+			}),
+			{
+				Check = checkNode,
+				Wrapper = React.createElement(View, {
+					LayoutOrder = 2,
+					tag = "auto-xy",
+					flexItem = { FlexMode = Enum.UIFlexMode.Fill },
+					layout = {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalFlex = Enum.UIFlexAlignment.SpaceBetween,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						Padding = UDim.new(0, wrapperGap),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					},
+				}, {
+					Leading = leadingNode,
+					Title = titleNode,
+					Trailing = trailingNode,
+				}),
+			}
+		)
+	else
+		itemElement = React.createElement(
+			View,
+			withCommonProps(props, {
+				GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
+				isDisabled = props.isDisabled,
+				onActivated = onActivated,
+				selection = {
+					Selectable = not props.isDisabled,
+				},
+				cursor = cursor,
+				tag = variantProps.container.tag,
+				ref = combinedRef,
+			}),
+			{
+				Icon = if props.icon or alignmentHasLeading
+					then if props.icon and isBuilderIconOrMigrated(props.icon)
+						then React.createElement(View, {
+							LayoutOrder = 1,
+							tag = `align-x-center align-y-center {variantProps.icon.tag}`,
+						}, {
+							Icon = React.createElement(Icon, {
+								name = if migratedIcon then migratedIcon.name else props.icon,
+								style = variantProps.icon.style,
+								size = variantProps.icon.size,
+							}),
+						})
+						else React.createElement(Image, {
+							LayoutOrder = 1,
+							Image = props.icon :: string,
+							tag = variantProps.icon.tag,
+						})
+					else nil,
+				Text = React.createElement(Text, {
+					LayoutOrder = 2,
+					Text = props.text,
+					tag = variantProps.text.tag,
+				}),
+				Chevron = if isSubmenu
+					then React.createElement(Icon, {
+						LayoutOrder = 3,
+						name = BuilderIcons.Icon.ChevronSmallRight,
+						style = variantProps.check.style,
+						size = variantProps.chevron.size,
+						testId = `{props.testId}--chevron`,
+					})
+					else nil,
+				Check = if not isSubmenu and props.isChecked
+					then React.createElement(Icon, {
+						LayoutOrder = 3,
+						name = BuilderIcons.Icon.Check,
+						style = variantProps.check.style,
+						size = variantProps.check.size,
+						testId = `{props.testId}--checkmark`,
+					})
+					else nil,
+			}
+		)
+	end
 
 	if not isSubmenu then
 		return itemElement
@@ -259,13 +414,15 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 					},
 					hasArrow = false,
 					onPressedOutside = onSubmenuPressedOutside,
-					backgroundStyle = tokens.Color.Surface.Surface_100,
+					backgroundStyle = if Flags.FoundationBaseMenuBeta
+						then tokens.Color.Surface.Surface_200
+						else tokens.Color.Surface.Surface_100,
 					radius = Radius.Medium,
 				},
 				React.createElement(
 					View,
 					{
-						tag = "col auto-xy stroke-standard stroke-default radius-medium",
+						tag = variantProps.submenuContent.tag,
 						InputSink = InputSinkAll,
 					},
 					React.createElement(BaseMenuContext.Provider, {

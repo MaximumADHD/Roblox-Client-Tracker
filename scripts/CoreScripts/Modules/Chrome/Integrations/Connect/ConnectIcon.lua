@@ -21,6 +21,8 @@ local getAppChatNavbarItemConfig = require(CorePackages.Workspace.Packages.AppCh
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
+local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
+
 local AVATAR_SIZE = 24
 
 local visualConfig = getAppChatNavbarItemConfig()
@@ -115,25 +117,32 @@ local function ConnectIcon(_props: Props): React.ReactElement
 	return React.createElement(Foundation.View, {
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 	}, {
-		Icon = React.createElement(Foundation.Image, {
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.fromScale(0.5, 0.5),
-			Size = icon.size:map(function(value)
-				return UDim2.fromOffset(value, value)
-			end),
-			backgroundStyle = if icon.image.backgroundColor
-				then {
-					Color3 = icon.image.backgroundColor,
-					Transparency = getTransparency(0),
-				}
-				else tokens.Color.None,
-			cornerRadius = UDim.new(0, tokens.Radius.Circle),
-			Image = icon.image.thumbnail,
-			imageStyle = {
-				Color3 = tokens.Color.Content.Emphasis.Color3,
-				Transparency = getTransparency(tokens.Color.Content.Emphasis.Transparency),
-			},
-		}),
+		Icon = if ArgoPartyExperimentation.getIsRenameEnabled()
+			then React.createElement(Foundation.Icon, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				name = visualConfig.icon,
+				variant = if visible then Foundation.Enums.IconVariant.Filled else Foundation.Enums.IconVariant.Regular,
+			})
+			else React.createElement(Foundation.Image, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				Size = icon.size:map(function(value)
+					return UDim2.fromOffset(value, value)
+				end),
+				backgroundStyle = if icon.image.backgroundColor
+					then {
+						Color3 = icon.image.backgroundColor,
+						Transparency = getTransparency(0),
+					}
+					else tokens.Color.None,
+				cornerRadius = UDim.new(0, tokens.Radius.Circle),
+				Image = icon.image.thumbnail,
+				imageStyle = {
+					Color3 = tokens.Color.Content.Emphasis.Color3,
+					Transparency = getTransparency(tokens.Color.Content.Emphasis.Transparency),
+				},
+			}),
 		Badge = if shouldShowBadge
 			then React.createElement(Foundation.View, {
 				Position = UDim2.new(1, -tokens.Stroke.Thicker, 0, tokens.Stroke.Thicker),

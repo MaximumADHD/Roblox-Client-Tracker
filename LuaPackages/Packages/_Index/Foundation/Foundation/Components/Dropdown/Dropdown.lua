@@ -28,9 +28,13 @@ type OnItemActivated = Types.OnItemActivated
 type BaseMenuItem = BaseMenu.BaseMenuItem
 type BaseMenuItems<Item> = BaseMenu.BaseMenuItems<Item>
 type BaseMenuItemGroup<Item> = BaseMenu.BaseMenuItemGroup<Item>
+export type LeadingAccessory = BaseMenu.LeadingAccessory
+export type TrailingAccessory = BaseMenu.TrailingAccessory
 export type DropdownItem = {
 	id: ItemId,
 	icon: string?,
+	leading: (string | LeadingAccessory)?,
+	trailing: TrailingAccessory?,
 	isDisabled: boolean?,
 	isChecked: boolean?,
 	text: string,
@@ -59,10 +63,10 @@ export type DropdownProps = {
 	size: InputSize?,
 	-- Maximum height after which the menu starts scrolling
 	maxHeight: number?,
-	-- Selection behavior
+	-- Selection behavior applied to the open menu's popover surface (focus trap configuration).
 	selection: Types.Selection?,
 	selectionGroup: Types.Bindable<boolean>? | Types.SelectionGroup?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	variant = if Flags.FoundationDropdownVariant then InputVariant.Standard else nil :: never,
@@ -81,6 +85,18 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 	end
 	local isMenuOpen, setIsMenuOpen = React.useState(false)
 	local inputRef = React.useRef(nil :: GuiObject?)
+	local inputInstance, setInputInstance = React.useState(nil :: GuiObject?)
+	local inputRefCallback = React.useCallback(function(instance: GuiObject?)
+		inputRef.current = instance
+		setInputInstance(instance)
+	end, {})
+
+	if Flags.FoundationDropdownSelectionProps then
+		React.useImperativeHandle(ref, function()
+			return inputInstance
+		end, { inputInstance })
+	end
+
 	-- This may cause blinking for UDim.new(1, 0) size if the menu is open from the start. Shouldn't be the case?
 	local absoluteWidth, setAbsoluteWidth = React.useBinding(props.width)
 
@@ -110,7 +126,10 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 
 	return React.createElement(Popover.Root, {
 		isOpen = isMenuOpen,
-		ref = ref,
+		-- TODO: remove with FoundationDropdownSelectionProps. The forwarded ref is now exposed via
+		-- `useImperativeHandle` above so it resolves to the button GuiObject; `Popover.Root` is a context
+		-- provider and ignores `ref` anyway.
+		ref = if Flags.FoundationDropdownSelectionProps then nil else ref,
 	}, {
 		DropdownControl = React.createElement(
 			DropdownControl,
@@ -126,7 +145,20 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				size = props.size,
 				label = props.label,
 				hint = props.hint,
-				inputRef = inputRef,
+				inputRef = if Flags.FoundationDropdownSelectionProps then inputRefCallback else inputRef,
+				Selectable = if Flags.FoundationDropdownSelectionProps then props.Selectable else nil :: never,
+				NextSelectionUp = if Flags.FoundationDropdownSelectionProps
+					then props.NextSelectionUp
+					else nil :: never,
+				NextSelectionDown = if Flags.FoundationDropdownSelectionProps
+					then props.NextSelectionDown
+					else nil :: never,
+				NextSelectionLeft = if Flags.FoundationDropdownSelectionProps
+					then props.NextSelectionLeft
+					else nil :: never,
+				NextSelectionRight = if Flags.FoundationDropdownSelectionProps
+					then props.NextSelectionRight
+					else nil :: never,
 			})
 		),
 		-- Use anchorRef prop instead of children so we get the correct position

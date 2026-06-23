@@ -1,6 +1,7 @@
 local HttpService = game:GetService("HttpService")
 
 local Foundation = script:FindFirstAncestor("Foundation")
+local Flags = require(Foundation.Utility.Flags)
 local StudioUri = require(Foundation.Utility.Plugin.StudioUri)
 local Types = require(script.Parent.Parent.Types)
 
@@ -28,6 +29,7 @@ type Popover = {
 	panel: PluginGui,
 	open: boolean,
 	depth: number,
+	generation: number,
 	parentPopoverId: string?, -- nil for root popovers
 	onClose: (() -> ())?,
 }
@@ -119,30 +121,62 @@ function PopoverManager.openAtAsync(
 	popover.panel.Enabled = true
 	popover.open = true
 
-	local handle: PanelHandle = {
-		container = popover.panel,
-		popoverId = popover.id,
-		setSizeAsync = function(size: Vector2)
-			local width = math.ceil(math.min(MAX_SIZE, size.X))
-			local height = math.ceil(math.min(MAX_SIZE, size.Y))
-			self._panels:SetSizeAsync(popover.uri, Vector2.new(width, height))
-		end,
-		updateAsync = function(newConfig: PanelPosition & { targetWidgetUri: StudioUri })
-			if not popover.uri then
-				return
-			end
+	local handle: PanelHandle
+	if Flags.FoundationPopoverPluginOverlayMeasurement then
+		local generation = popover.generation
+		handle = {
+			container = popover.panel,
+			popoverId = popover.id,
+			setSizeAsync = function(size: Vector2)
+				if popover.generation ~= generation or not popover.open then
+					return
+				end
+				local width = math.ceil(math.min(MAX_SIZE, size.X))
+				local height = math.ceil(math.min(MAX_SIZE, size.Y))
+				self._panels:SetSizeAsync(popover.uri, Vector2.new(width, height))
+			end,
+			updateAsync = function(newConfig: PanelPosition & { targetWidgetUri: StudioUri })
+				if popover.generation ~= generation or not popover.open or not popover.uri then
+					return
+				end
 
-			self._panels:SetAttachmentAsync(popover.uri, {
-				TargetWidgetUri = newConfig.targetWidgetUri,
-				TargetAnchorPoint = newConfig.targetAnchorPoint,
-				SubjectAnchorPoint = newConfig.subjectAnchorPoint,
-				Offset = newConfig.offset,
-			})
-		end,
-		close = function()
-			self:_closePopover(popover, true)
-		end,
-	}
+				self._panels:SetAttachmentAsync(popover.uri, {
+					TargetWidgetUri = newConfig.targetWidgetUri,
+					TargetAnchorPoint = newConfig.targetAnchorPoint,
+					SubjectAnchorPoint = newConfig.subjectAnchorPoint,
+					Offset = newConfig.offset,
+				})
+			end,
+			close = function()
+				self:_closePopover(popover, true, generation)
+			end,
+		}
+	else
+		handle = {
+			container = popover.panel,
+			popoverId = popover.id,
+			setSizeAsync = function(size: Vector2)
+				local width = math.ceil(math.min(MAX_SIZE, size.X))
+				local height = math.ceil(math.min(MAX_SIZE, size.Y))
+				self._panels:SetSizeAsync(popover.uri, Vector2.new(width, height))
+			end,
+			updateAsync = function(newConfig: PanelPosition & { targetWidgetUri: StudioUri })
+				if not popover.uri then
+					return
+				end
+
+				self._panels:SetAttachmentAsync(popover.uri, {
+					TargetWidgetUri = newConfig.targetWidgetUri,
+					TargetAnchorPoint = newConfig.targetAnchorPoint,
+					SubjectAnchorPoint = newConfig.subjectAnchorPoint,
+					Offset = newConfig.offset,
+				})
+			end,
+			close = function()
+				self:_closePopover(popover, true)
+			end,
+		}
+	end
 
 	return handle
 end
@@ -186,12 +220,17 @@ function PopoverManager._createPopoverAsync(self: PopoverManager, id: string, de
 		panel = panel,
 		open = false,
 		depth = depth,
+		generation = 0,
 		parentPopoverId = nil,
 		onClose = nil,
 	}
 
 	bindToClose(panel, function()
-		self:_closePopover(newPopover)
+		if Flags.FoundationPopoverPluginOverlayMeasurement then
+			self:_closePopover(newPopover, false, newPopover.generation)
+		else
+			self:_closePopover(newPopover)
+		end
 	end)
 
 	-- WindowFocused does not fire for QWidgets created with Tooltip = true
@@ -214,6 +253,9 @@ function PopoverManager._activatePopover(
 	onClose: (() -> ())?,
 	parentPopoverId: string?
 )
+	if Flags.FoundationPopoverPluginOverlayMeasurement then
+		popover.generation += 1
+	end
 	popover.onClose = onClose
 	popover.parentPopoverId = parentPopoverId
 	popover.open = false
@@ -317,7 +359,17 @@ end
 	the consumer already knows it is closing and firing onClose would
 	re-enter the menu state machine, cancelling sibling opens.
 ]]
-function PopoverManager._closePopover(self: PopoverManager, popover: Popover, silent: boolean?)
+function PopoverManager._closePopover(
+	self: PopoverManager,
+	popover: Popover,
+	silent: boolean?,
+	expectedGeneration: number?
+)
+	if Flags.FoundationPopoverPluginOverlayMeasurement then
+		if expectedGeneration ~= nil and popover.generation ~= expectedGeneration then
+			return
+		end
+	end
 	if not popover.open then
 		return
 	end

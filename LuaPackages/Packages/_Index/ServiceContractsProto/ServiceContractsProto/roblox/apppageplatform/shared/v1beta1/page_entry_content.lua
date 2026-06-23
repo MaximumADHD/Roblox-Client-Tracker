@@ -89,6 +89,7 @@ type _Messages =
 		UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage,
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
 		SearchResultsFeedInputData_EntryMapEntry: _SearchResultsFeedInputData_EntryMapEntryMessage,
+		ExperienceEmphasisTileInputData: _ExperienceEmphasisTileInputDataMessage,
 		PowerSearchAIOverviewInputData: _PowerSearchAIOverviewInputDataMessage,
 		UserListInputData: _UserListInputDataMessage,
 		UserListInputData_UserItem: _UserListInputData_UserItemMessage,
@@ -102,9 +103,14 @@ type _Messages =
 		TextInputData: _TextInputDataMessage,
 		VerticalFeedInputData: _VerticalFeedInputDataMessage,
 		VerticalFeedInputData_EntryMapEntry: _VerticalFeedInputData_EntryMapEntryMessage,
+		VerticalFeedInputData_EntryOrderMapEntry: _VerticalFeedInputData_EntryOrderMapEntryMessage,
+		VerticalFeedInputData_ContentPoolsEntry: _VerticalFeedInputData_ContentPoolsEntryMessage,
 		PageHeaderInputData: _PageHeaderInputDataMessage,
 		OptionSelectorCarouselInputData: _OptionSelectorCarouselInputDataMessage,
 		SelectorOption: _SelectorOptionMessage,
+		ItemWithLayout: _ItemWithLayoutMessage,
+		ContentPool: _ContentPoolMessage,
+		ItemLayout: _ItemLayoutMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 	}
 local messages: _Messages = {} :: _Messages
@@ -278,6 +284,7 @@ type _PageEntryInputDataFields = {
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
+		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 	)?,
 }
@@ -340,6 +347,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "marketplace_catalog_hero_unit", value: UAMarketplaceCatalogHeroUnitInputData }
 		| { type: "search_results_feed", value: SearchResultsFeedInputData }
 		| { type: "power_search_ai_overview", value: PowerSearchAIOverviewInputData }
+		| { type: "experience_emphasis_tile", value: ExperienceEmphasisTileInputData }
 		| { type: "option_selector_carousel", value: OptionSelectorCarouselInputData }
 	)?,
 }
@@ -1188,6 +1196,7 @@ type _ExperienceCarouselInputDataFields = {
 	is_placeholder: boolean?,
 	primary_sort_id: number?,
 	applied_filters: string?,
+	pool_id: string?,
 }
 
 type _ExperienceCarouselInputDataPartialFields = {
@@ -1203,6 +1212,7 @@ type _ExperienceCarouselInputDataPartialFields = {
 	is_placeholder: boolean?,
 	primary_sort_id: number?,
 	applied_filters: string?,
+	pool_id: string?,
 }
 
 export type ExperienceCarouselInputData = typeof(setmetatable(
@@ -1235,6 +1245,7 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	image_asset_id: string,
 	video_asset_id: string,
 	badge_text: string,
+	player_count: number?,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1248,6 +1259,7 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	image_asset_id: string?,
 	video_asset_id: string?,
 	badge_text: string?,
+	player_count: number?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1756,6 +1768,7 @@ type _BannerInputDataFields = {
 	secondary_text: string,
 	prompt_id: string,
 	prompt_type: string,
+	times_seen: number,
 }
 
 type _BannerInputDataPartialFields = {
@@ -1765,6 +1778,7 @@ type _BannerInputDataPartialFields = {
 	secondary_text: string?,
 	prompt_id: string?,
 	prompt_type: string?,
+	times_seen: number?,
 }
 
 export type BannerInputData = typeof(setmetatable({} :: _BannerInputDataFields, {} :: _BannerInputDataImpl))
@@ -2628,6 +2642,35 @@ type _SearchResultsFeedInputData_EntryMapEntryMessage = proto.Message<
 	_SearchResultsFeedInputData_EntryMapEntryPartialFields
 >
 
+type _ExperienceEmphasisTileInputDataImpl = {
+	__index: _ExperienceEmphasisTileInputDataImpl,
+	new: (fields: _ExperienceEmphasisTileInputDataPartialFields?) -> ExperienceEmphasisTileInputData,
+	encode: (self: ExperienceEmphasisTileInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceEmphasisTileInputData,
+	jsonEncode: (self: ExperienceEmphasisTileInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceEmphasisTileInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceEmphasisTileInputDataFields = {
+	universe_id: string,
+	is_content_locked: boolean,
+}
+
+type _ExperienceEmphasisTileInputDataPartialFields = {
+	universe_id: string?,
+	is_content_locked: boolean?,
+}
+
+export type ExperienceEmphasisTileInputData = typeof(setmetatable(
+	{} :: _ExperienceEmphasisTileInputDataFields,
+	{} :: _ExperienceEmphasisTileInputDataImpl
+))
+type _ExperienceEmphasisTileInputDataMessage = proto.Message<
+	ExperienceEmphasisTileInputData,
+	_ExperienceEmphasisTileInputDataPartialFields
+>
+
 type _PowerSearchAIOverviewInputDataImpl = {
 	__index: _PowerSearchAIOverviewInputDataImpl,
 	new: (fields: _PowerSearchAIOverviewInputDataPartialFields?) -> PowerSearchAIOverviewInputData,
@@ -2947,11 +2990,15 @@ type _VerticalFeedInputDataImpl = {
 type _VerticalFeedInputDataFields = {
 	entry_map: { [string]: FeedEntry },
 	entry_order: { string },
+	entry_order_map: { [string]: EntryOrder },
+	content_pools: { [string]: ContentPool },
 }
 
 type _VerticalFeedInputDataPartialFields = {
 	entry_map: { [string]: FeedEntry }?,
 	entry_order: { string }?,
+	entry_order_map: { [string]: EntryOrder }?,
+	content_pools: { [string]: ContentPool }?,
 }
 
 export type VerticalFeedInputData = typeof(setmetatable(
@@ -2987,6 +3034,64 @@ export type VerticalFeedInputData_EntryMapEntry = typeof(setmetatable(
 type _VerticalFeedInputData_EntryMapEntryMessage = proto.Message<
 	VerticalFeedInputData_EntryMapEntry,
 	_VerticalFeedInputData_EntryMapEntryPartialFields
+>
+
+type _VerticalFeedInputData_EntryOrderMapEntryImpl = {
+	__index: _VerticalFeedInputData_EntryOrderMapEntryImpl,
+	new: (fields: _VerticalFeedInputData_EntryOrderMapEntryPartialFields?) -> VerticalFeedInputData_EntryOrderMapEntry,
+	encode: (self: VerticalFeedInputData_EntryOrderMapEntry) -> buffer,
+	decode: (input: buffer) -> VerticalFeedInputData_EntryOrderMapEntry,
+	jsonEncode: (self: VerticalFeedInputData_EntryOrderMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalFeedInputData_EntryOrderMapEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalFeedInputData_EntryOrderMapEntryFields = {
+	key: string,
+	value: EntryOrder?,
+}
+
+type _VerticalFeedInputData_EntryOrderMapEntryPartialFields = {
+	key: string?,
+	value: EntryOrder?,
+}
+
+export type VerticalFeedInputData_EntryOrderMapEntry = typeof(setmetatable(
+	{} :: _VerticalFeedInputData_EntryOrderMapEntryFields,
+	{} :: _VerticalFeedInputData_EntryOrderMapEntryImpl
+))
+type _VerticalFeedInputData_EntryOrderMapEntryMessage = proto.Message<
+	VerticalFeedInputData_EntryOrderMapEntry,
+	_VerticalFeedInputData_EntryOrderMapEntryPartialFields
+>
+
+type _VerticalFeedInputData_ContentPoolsEntryImpl = {
+	__index: _VerticalFeedInputData_ContentPoolsEntryImpl,
+	new: (fields: _VerticalFeedInputData_ContentPoolsEntryPartialFields?) -> VerticalFeedInputData_ContentPoolsEntry,
+	encode: (self: VerticalFeedInputData_ContentPoolsEntry) -> buffer,
+	decode: (input: buffer) -> VerticalFeedInputData_ContentPoolsEntry,
+	jsonEncode: (self: VerticalFeedInputData_ContentPoolsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalFeedInputData_ContentPoolsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalFeedInputData_ContentPoolsEntryFields = {
+	key: string,
+	value: ContentPool?,
+}
+
+type _VerticalFeedInputData_ContentPoolsEntryPartialFields = {
+	key: string?,
+	value: ContentPool?,
+}
+
+export type VerticalFeedInputData_ContentPoolsEntry = typeof(setmetatable(
+	{} :: _VerticalFeedInputData_ContentPoolsEntryFields,
+	{} :: _VerticalFeedInputData_ContentPoolsEntryImpl
+))
+type _VerticalFeedInputData_ContentPoolsEntryMessage = proto.Message<
+	VerticalFeedInputData_ContentPoolsEntry,
+	_VerticalFeedInputData_ContentPoolsEntryPartialFields
 >
 
 type _PageHeaderInputDataImpl = {
@@ -3069,6 +3174,79 @@ type _SelectorOptionPartialFields = {
 
 export type SelectorOption = typeof(setmetatable({} :: _SelectorOptionFields, {} :: _SelectorOptionImpl))
 type _SelectorOptionMessage = proto.Message<SelectorOption, _SelectorOptionPartialFields>
+
+type _ItemWithLayoutImpl = {
+	__index: _ItemWithLayoutImpl,
+	new: (fields: _ItemWithLayoutPartialFields?) -> ItemWithLayout,
+	encode: (self: ItemWithLayout) -> buffer,
+	decode: (input: buffer) -> ItemWithLayout,
+	jsonEncode: (self: ItemWithLayout) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ItemWithLayout,
+	descriptor: proto.Descriptor,
+}
+
+type _ItemWithLayoutFields = {
+	layout: ItemLayout?,
+	kind: { type: "universe", value: ExperienceCarouselInputData_UniverseItem }?,
+}
+
+type _ItemWithLayoutPartialFields = {
+	layout: ItemLayout?,
+	kind: { type: "universe", value: ExperienceCarouselInputData_UniverseItem }?,
+}
+
+export type ItemWithLayout = typeof(setmetatable({} :: _ItemWithLayoutFields, {} :: _ItemWithLayoutImpl))
+type _ItemWithLayoutMessage = proto.Message<ItemWithLayout, _ItemWithLayoutPartialFields>
+
+type _ContentPoolImpl = {
+	__index: _ContentPoolImpl,
+	new: (fields: _ContentPoolPartialFields?) -> ContentPool,
+	encode: (self: ContentPool) -> buffer,
+	decode: (input: buffer) -> ContentPool,
+	jsonEncode: (self: ContentPool) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ContentPool,
+	descriptor: proto.Descriptor,
+}
+
+type _ContentPoolFields = {
+	items: { ItemWithLayout },
+	collection_item_size: string,
+}
+
+type _ContentPoolPartialFields = {
+	items: { ItemWithLayout }?,
+	collection_item_size: string?,
+}
+
+export type ContentPool = typeof(setmetatable({} :: _ContentPoolFields, {} :: _ContentPoolImpl))
+type _ContentPoolMessage = proto.Message<ContentPool, _ContentPoolPartialFields>
+
+type _ItemLayoutImpl = {
+	__index: _ItemLayoutImpl,
+	new: (fields: _ItemLayoutPartialFields?) -> ItemLayout,
+	encode: (self: ItemLayout) -> buffer,
+	decode: (input: buffer) -> ItemLayout,
+	jsonEncode: (self: ItemLayout) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ItemLayout,
+	descriptor: proto.Descriptor,
+}
+
+type _ItemLayoutFields = {
+	col_span: number,
+	row_span: number,
+	alignment_type: string,
+	min_row_padding: number,
+}
+
+type _ItemLayoutPartialFields = {
+	col_span: number?,
+	row_span: number?,
+	alignment_type: string?,
+	min_row_padding: number?,
+}
+
+export type ItemLayout = typeof(setmetatable({} :: _ItemLayoutFields, {} :: _ItemLayoutImpl))
+type _ItemLayoutMessage = proto.Message<ItemLayout, _ItemLayoutPartialFields>
 
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
 export type PageEntryFormat = "PAGE_ENTRY_FORMAT_INVALID" | "PAGE_ENTRY_FORMAT_UNIVERSAL" | number -- Unknown
@@ -3820,6 +3998,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1001, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_emphasis_tile" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1002, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "option_selector_carousel" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1100, proto.wireTypes.lengthDelimited)
@@ -4202,6 +4384,14 @@ do
 						value = messages.PowerSearchAIOverviewInputData.decode(value),
 					}
 					continue
+				elseif field == 1002 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_emphasis_tile",
+						value = messages.ExperienceEmphasisTileInputData.decode(value),
+					}
+					continue
 				elseif field == 1100 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -4350,6 +4540,8 @@ do
 				output.searchResultsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "power_search_ai_overview" then
 				output.powerSearchAiOverview = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_emphasis_tile" then
+				output.experienceEmphasisTile = self.kind.value:jsonEncode()
 			elseif self.kind.type == "option_selector_carousel" then
 				output.optionSelectorCarousel = self.kind.value:jsonEncode()
 			end
@@ -5026,6 +5218,20 @@ do
 			self.kind = {
 				type = "power_search_ai_overview",
 				value = messages.PowerSearchAIOverviewInputData.jsonDecode(input.powerSearchAiOverview),
+			}
+		end
+
+		if input.experience_emphasis_tile ~= nil then
+			self.kind = {
+				type = "experience_emphasis_tile",
+				value = messages.ExperienceEmphasisTileInputData.jsonDecode(input.experience_emphasis_tile),
+			}
+		end
+
+		if input.experienceEmphasisTile ~= nil then
+			self.kind = {
+				type = "experience_emphasis_tile",
+				value = messages.ExperienceEmphasisTileInputData.jsonDecode(input.experienceEmphasisTile),
 			}
 		end
 
@@ -9040,6 +9246,7 @@ do
 			is_placeholder = if data == nil or data.is_placeholder == nil then nil else data.is_placeholder,
 			primary_sort_id = if data == nil or data.primary_sort_id == nil then nil else data.primary_sort_id,
 			applied_filters = if data == nil or data.applied_filters == nil then nil else data.applied_filters,
+			pool_id = if data == nil or data.pool_id == nil then nil else data.pool_id,
 		}, _ExperienceCarouselInputDataImpl :: _ExperienceCarouselInputDataImpl)
 	end
 
@@ -9108,6 +9315,11 @@ do
 		if self.applied_filters ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.applied_filters)
+		end
+
+		if self.pool_id ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.pool_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9189,6 +9401,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.applied_filters = buffer.tostring(value)
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pool_id = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -9266,6 +9483,10 @@ do
 
 		if self.applied_filters ~= nil then
 			output.appliedFilters = self.applied_filters
+		end
+
+		if self.pool_id ~= nil then
+			output.poolId = self.pool_id
 		end
 
 		return output
@@ -9372,6 +9593,14 @@ do
 			self.applied_filters = input.appliedFilters
 		end
 
+		if input.pool_id ~= nil then
+			self.pool_id = input.pool_id
+		end
+
+		if input.poolId ~= nil then
+			self.pool_id = input.poolId
+		end
+
 		return self
 	end
 
@@ -9403,6 +9632,7 @@ do
 			image_asset_id = if data == nil or data.image_asset_id == nil then "" else data.image_asset_id,
 			video_asset_id = if data == nil or data.video_asset_id == nil then "" else data.video_asset_id,
 			badge_text = if data == nil or data.badge_text == nil then "" else data.badge_text,
+			player_count = if data == nil or data.player_count == nil then nil else data.player_count,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -9462,6 +9692,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.badge_text)
 		end
 
+		if self.player_count ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.player_count)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -9487,6 +9722,11 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_content_locked = value ~= 0
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.player_count = value
 					continue
 				end
 
@@ -9602,6 +9842,10 @@ do
 			output.badgeText = self.badge_text
 		end
 
+		if self.player_count ~= nil then
+			output.playerCount = self.player_count
+		end
+
 		return output
 	end
 
@@ -9680,6 +9924,14 @@ do
 
 		if input.badgeText ~= nil then
 			self.badge_text = input.badgeText
+		end
+
+		if input.player_count ~= nil then
+			self.player_count = input.player_count
+		end
+
+		if input.playerCount ~= nil then
+			self.player_count = input.playerCount
 		end
 
 		return self
@@ -12284,6 +12536,7 @@ do
 			secondary_text = if data == nil or data.secondary_text == nil then "" else data.secondary_text,
 			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
 			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+			times_seen = if data == nil or data.times_seen == nil then 0 else data.times_seen,
 		}, _BannerInputDataImpl :: _BannerInputDataImpl)
 	end
 
@@ -12321,6 +12574,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.prompt_type)
 		end
 
+		if self.times_seen ~= nil and self.times_seen ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.times_seen)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -12335,7 +12593,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 7 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.times_seen = value
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -12421,6 +12684,10 @@ do
 			output.promptType = self.prompt_type
 		end
 
+		if self.times_seen ~= nil and self.times_seen ~= 0 then
+			output.timesSeen = self.times_seen
+		end
+
 		return output
 	end
 
@@ -12465,6 +12732,14 @@ do
 
 		if input.promptType ~= nil then
 			self.prompt_type = input.promptType
+		end
+
+		if input.times_seen ~= nil then
+			self.times_seen = input.times_seen
+		end
+
+		if input.timesSeen ~= nil then
+			self.times_seen = input.timesSeen
 		end
 
 		return self
@@ -16997,6 +17272,132 @@ do
 end
 
 do
+	local _ExperienceEmphasisTileInputDataImpl = {}
+	_ExperienceEmphasisTileInputDataImpl.__index = _ExperienceEmphasisTileInputDataImpl
+
+	function _ExperienceEmphasisTileInputDataImpl.new(
+		data: _ExperienceEmphasisTileInputDataPartialFields?
+	): ExperienceEmphasisTileInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			is_content_locked = if data == nil or data.is_content_locked == nil then false else data.is_content_locked,
+		}, _ExperienceEmphasisTileInputDataImpl :: _ExperienceEmphasisTileInputDataImpl)
+	end
+
+	function _ExperienceEmphasisTileInputDataImpl.encode(self: ExperienceEmphasisTileInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.is_content_locked then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_content_locked then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceEmphasisTileInputDataImpl.decode(input: buffer): ExperienceEmphasisTileInputData
+		local self = _ExperienceEmphasisTileInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_content_locked = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceEmphasisTileInputDataImpl.jsonEncode(self: ExperienceEmphasisTileInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.is_content_locked then
+			output.isContentLocked = self.is_content_locked
+		end
+
+		return output
+	end
+
+	function _ExperienceEmphasisTileInputDataImpl.jsonDecode(input: { [string]: any }): ExperienceEmphasisTileInputData
+		local self = _ExperienceEmphasisTileInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.is_content_locked ~= nil then
+			self.is_content_locked = input.is_content_locked
+		end
+
+		if input.isContentLocked ~= nil then
+			self.is_content_locked = input.isContentLocked
+		end
+
+		return self
+	end
+
+	_ExperienceEmphasisTileInputDataImpl.descriptor = {
+		name = "ExperienceEmphasisTileInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceEmphasisTileInputData",
+	}
+
+	messages.ExperienceEmphasisTileInputData = _ExperienceEmphasisTileInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceEmphasisTileInputData)
+end
+
+do
 	local _PowerSearchAIOverviewInputDataImpl = {}
 	_PowerSearchAIOverviewInputDataImpl.__index = _PowerSearchAIOverviewInputDataImpl
 
@@ -18574,6 +18975,8 @@ do
 		return setmetatable({
 			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
 			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
+			entry_order_map = if data == nil or data.entry_order_map == nil then {} else data.entry_order_map,
+			content_pools = if data == nil or data.content_pools == nil then {} else data.content_pools,
 		}, _VerticalFeedInputDataImpl :: _VerticalFeedInputDataImpl)
 	end
 
@@ -18599,6 +19002,34 @@ do
 			for _, value in self.entry_order do
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		if self.entry_order_map ~= nil and next(self.entry_order_map) ~= nil then
+			for key, value in self.entry_order_map do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.content_pools ~= nil and next(self.content_pools) ~= nil then
+			for key, value in self.content_pools do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
 
@@ -18637,6 +19068,30 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.entry_order, buffer.tostring(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.VerticalFeedInputData_EntryOrderMapEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.EntryOrder.new()
+
+					self.entry_order_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.VerticalFeedInputData_ContentPoolsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.ContentPool.new()
+
+					self.content_pools[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
 					continue
 				end
 
@@ -18681,6 +19136,22 @@ do
 			output.entryOrder = newOutput
 		end
 
+		if self.entry_order_map ~= nil and next(self.entry_order_map) ~= nil then
+			local newOutput = {}
+			for key, value in self.entry_order_map do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.entryOrderMap = newOutput
+		end
+
+		if self.content_pools ~= nil and next(self.content_pools) ~= nil then
+			local newOutput = {}
+			for key, value in self.content_pools do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.contentPools = newOutput
+		end
+
 		return output
 	end
 
@@ -18721,6 +19192,42 @@ do
 			end
 
 			self.entry_order = newOutput
+		end
+
+		if input.entry_order_map ~= nil then
+			local newOutput: { [string]: EntryOrder } = {}
+			for key, value in input.entry_order_map do
+				newOutput[key] = messages.EntryOrder.jsonDecode(value)
+			end
+
+			self.entry_order_map = newOutput
+		end
+
+		if input.entryOrderMap ~= nil then
+			local newOutput: { [string]: EntryOrder } = {}
+			for key, value in input.entryOrderMap do
+				newOutput[key] = messages.EntryOrder.jsonDecode(value)
+			end
+
+			self.entry_order_map = newOutput
+		end
+
+		if input.content_pools ~= nil then
+			local newOutput: { [string]: ContentPool } = {}
+			for key, value in input.content_pools do
+				newOutput[key] = messages.ContentPool.jsonDecode(value)
+			end
+
+			self.content_pools = newOutput
+		end
+
+		if input.contentPools ~= nil then
+			local newOutput: { [string]: ContentPool } = {}
+			for key, value in input.contentPools do
+				newOutput[key] = messages.ContentPool.jsonDecode(value)
+			end
+
+			self.content_pools = newOutput
 		end
 
 		return self
@@ -18855,6 +19362,254 @@ do
 	messages.VerticalFeedInputData_EntryMapEntry = _VerticalFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.VerticalFeedInputData_EntryMapEntry)
+end
+
+do
+	local _VerticalFeedInputData_EntryOrderMapEntryImpl = {}
+	_VerticalFeedInputData_EntryOrderMapEntryImpl.__index = _VerticalFeedInputData_EntryOrderMapEntryImpl
+
+	function _VerticalFeedInputData_EntryOrderMapEntryImpl.new(
+		data: _VerticalFeedInputData_EntryOrderMapEntryPartialFields?
+	): VerticalFeedInputData_EntryOrderMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _VerticalFeedInputData_EntryOrderMapEntryImpl :: _VerticalFeedInputData_EntryOrderMapEntryImpl)
+	end
+
+	function _VerticalFeedInputData_EntryOrderMapEntryImpl.encode(
+		self: VerticalFeedInputData_EntryOrderMapEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalFeedInputData_EntryOrderMapEntryImpl.decode(
+		input: buffer
+	): VerticalFeedInputData_EntryOrderMapEntry
+		local self = _VerticalFeedInputData_EntryOrderMapEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.EntryOrder.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalFeedInputData_EntryOrderMapEntryImpl.jsonEncode(
+		self: VerticalFeedInputData_EntryOrderMapEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VerticalFeedInputData_EntryOrderMapEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): VerticalFeedInputData_EntryOrderMapEntry
+		local self = _VerticalFeedInputData_EntryOrderMapEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.EntryOrder.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_VerticalFeedInputData_EntryOrderMapEntryImpl.descriptor = {
+		name = "VerticalFeedInputData_EntryOrderMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryOrderMapEntry",
+	}
+
+	messages.VerticalFeedInputData_EntryOrderMapEntry = _VerticalFeedInputData_EntryOrderMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalFeedInputData_EntryOrderMapEntry)
+end
+
+do
+	local _VerticalFeedInputData_ContentPoolsEntryImpl = {}
+	_VerticalFeedInputData_ContentPoolsEntryImpl.__index = _VerticalFeedInputData_ContentPoolsEntryImpl
+
+	function _VerticalFeedInputData_ContentPoolsEntryImpl.new(
+		data: _VerticalFeedInputData_ContentPoolsEntryPartialFields?
+	): VerticalFeedInputData_ContentPoolsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _VerticalFeedInputData_ContentPoolsEntryImpl :: _VerticalFeedInputData_ContentPoolsEntryImpl)
+	end
+
+	function _VerticalFeedInputData_ContentPoolsEntryImpl.encode(self: VerticalFeedInputData_ContentPoolsEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalFeedInputData_ContentPoolsEntryImpl.decode(input: buffer): VerticalFeedInputData_ContentPoolsEntry
+		local self = _VerticalFeedInputData_ContentPoolsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.ContentPool.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalFeedInputData_ContentPoolsEntryImpl.jsonEncode(self: VerticalFeedInputData_ContentPoolsEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _VerticalFeedInputData_ContentPoolsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): VerticalFeedInputData_ContentPoolsEntry
+		local self = _VerticalFeedInputData_ContentPoolsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.ContentPool.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_VerticalFeedInputData_ContentPoolsEntryImpl.descriptor = {
+		name = "VerticalFeedInputData_ContentPoolsEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ContentPoolsEntry",
+	}
+
+	messages.VerticalFeedInputData_ContentPoolsEntry = _VerticalFeedInputData_ContentPoolsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalFeedInputData_ContentPoolsEntry)
 end
 
 do
@@ -19313,6 +20068,436 @@ do
 	typeRegistry.default:register(messages.SelectorOption)
 end
 
+do
+	local _ItemWithLayoutImpl = {}
+	_ItemWithLayoutImpl.__index = _ItemWithLayoutImpl
+
+	function _ItemWithLayoutImpl.new(data: _ItemWithLayoutPartialFields?): ItemWithLayout
+		return setmetatable({
+			layout = if data == nil or data.layout == nil then nil else data.layout,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ItemWithLayoutImpl :: _ItemWithLayoutImpl)
+	end
+
+	function _ItemWithLayoutImpl.encode(self: ItemWithLayout): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.layout ~= nil then
+			local encoded = self.layout:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "universe" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ItemWithLayoutImpl.decode(input: buffer): ItemWithLayout
+		local self = _ItemWithLayoutImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.layout = messages.ItemLayout.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "universe", value = messages.ExperienceCarouselInputData_UniverseItem.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ItemWithLayoutImpl.jsonEncode(self: ItemWithLayout): any
+		local output = {}
+
+		if self.layout ~= nil then
+			output.layout = self.layout:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "universe" then
+				output.universe = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ItemWithLayoutImpl.jsonDecode(input: { [string]: any }): ItemWithLayout
+		local self = _ItemWithLayoutImpl.new()
+
+		if input.layout ~= nil then
+			self.layout = messages.ItemLayout.jsonDecode(input.layout)
+		end
+
+		if input.universe ~= nil then
+			self.kind = {
+				type = "universe",
+				value = messages.ExperienceCarouselInputData_UniverseItem.jsonDecode(input.universe),
+			}
+		end
+
+		return self
+	end
+
+	_ItemWithLayoutImpl.descriptor = {
+		name = "ItemWithLayout",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ItemWithLayout",
+	}
+
+	messages.ItemWithLayout = _ItemWithLayoutImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ItemWithLayout)
+end
+
+do
+	local _ContentPoolImpl = {}
+	_ContentPoolImpl.__index = _ContentPoolImpl
+
+	function _ContentPoolImpl.new(data: _ContentPoolPartialFields?): ContentPool
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+			collection_item_size = if data == nil or data.collection_item_size == nil
+				then ""
+				else data.collection_item_size,
+		}, _ContentPoolImpl :: _ContentPoolImpl)
+	end
+
+	function _ContentPoolImpl.encode(self: ContentPool): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.collection_item_size ~= nil and self.collection_item_size ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.collection_item_size)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ContentPoolImpl.decode(input: buffer): ContentPool
+		local self = _ContentPoolImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, messages.ItemWithLayout.decode(value))
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_item_size = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ContentPoolImpl.jsonEncode(self: ContentPool): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		if self.collection_item_size ~= nil and self.collection_item_size ~= "" then
+			output.collectionItemSize = self.collection_item_size
+		end
+
+		return output
+	end
+
+	function _ContentPoolImpl.jsonDecode(input: { [string]: any }): ContentPool
+		local self = _ContentPoolImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { ItemWithLayout } = {}
+			for _, value in input.items do
+				table.insert(newOutput, messages.ItemWithLayout.jsonDecode(value))
+			end
+
+			self.items = newOutput
+		end
+
+		if input.collection_item_size ~= nil then
+			self.collection_item_size = input.collection_item_size
+		end
+
+		if input.collectionItemSize ~= nil then
+			self.collection_item_size = input.collectionItemSize
+		end
+
+		return self
+	end
+
+	_ContentPoolImpl.descriptor = {
+		name = "ContentPool",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ContentPool",
+	}
+
+	messages.ContentPool = _ContentPoolImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ContentPool)
+end
+
+do
+	local _ItemLayoutImpl = {}
+	_ItemLayoutImpl.__index = _ItemLayoutImpl
+
+	function _ItemLayoutImpl.new(data: _ItemLayoutPartialFields?): ItemLayout
+		return setmetatable({
+			col_span = if data == nil or data.col_span == nil then 0 else data.col_span,
+			row_span = if data == nil or data.row_span == nil then 0 else data.row_span,
+			alignment_type = if data == nil or data.alignment_type == nil then "" else data.alignment_type,
+			min_row_padding = if data == nil or data.min_row_padding == nil then 0 else data.min_row_padding,
+		}, _ItemLayoutImpl :: _ItemLayoutImpl)
+	end
+
+	function _ItemLayoutImpl.encode(self: ItemLayout): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.col_span ~= nil and self.col_span ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.col_span)
+		end
+
+		if self.row_span ~= nil and self.row_span ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.row_span)
+		end
+
+		if self.alignment_type ~= nil and self.alignment_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.alignment_type)
+		end
+
+		if self.min_row_padding ~= nil and self.min_row_padding ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.min_row_padding)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ItemLayoutImpl.decode(input: buffer): ItemLayout
+		local self = _ItemLayoutImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.col_span = value
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.row_span = value
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.min_row_padding = value
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.alignment_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ItemLayoutImpl.jsonEncode(self: ItemLayout): any
+		local output = {}
+
+		if self.col_span ~= nil and self.col_span ~= 0 then
+			output.colSpan = self.col_span
+		end
+
+		if self.row_span ~= nil and self.row_span ~= 0 then
+			output.rowSpan = self.row_span
+		end
+
+		if self.alignment_type ~= nil and self.alignment_type ~= "" then
+			output.alignmentType = self.alignment_type
+		end
+
+		if self.min_row_padding ~= nil and self.min_row_padding ~= 0 then
+			output.minRowPadding = self.min_row_padding
+		end
+
+		return output
+	end
+
+	function _ItemLayoutImpl.jsonDecode(input: { [string]: any }): ItemLayout
+		local self = _ItemLayoutImpl.new()
+
+		if input.col_span ~= nil then
+			self.col_span = input.col_span
+		end
+
+		if input.colSpan ~= nil then
+			self.col_span = input.colSpan
+		end
+
+		if input.row_span ~= nil then
+			self.row_span = input.row_span
+		end
+
+		if input.rowSpan ~= nil then
+			self.row_span = input.rowSpan
+		end
+
+		if input.alignment_type ~= nil then
+			self.alignment_type = input.alignment_type
+		end
+
+		if input.alignmentType ~= nil then
+			self.alignment_type = input.alignmentType
+		end
+
+		if input.min_row_padding ~= nil then
+			self.min_row_padding = input.min_row_padding
+		end
+
+		if input.minRowPadding ~= nil then
+			self.min_row_padding = input.minRowPadding
+		end
+
+		return self
+	end
+
+	_ItemLayoutImpl.descriptor = {
+		name = "ItemLayout",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ItemLayout",
+	}
+
+	messages.ItemLayout = _ItemLayoutImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ItemLayout)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -19420,6 +20605,7 @@ return {
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
+	ExperienceEmphasisTileInputData = messages.ExperienceEmphasisTileInputData,
 	PowerSearchAIOverviewInputData = messages.PowerSearchAIOverviewInputData,
 	UserListInputData = messages.UserListInputData,
 	UserListInputData_UserItem = messages.UserListInputData_UserItem,
@@ -19435,5 +20621,8 @@ return {
 	PageHeaderInputData = messages.PageHeaderInputData,
 	OptionSelectorCarouselInputData = messages.OptionSelectorCarouselInputData,
 	SelectorOption = messages.SelectorOption,
+	ItemWithLayout = messages.ItemWithLayout,
+	ContentPool = messages.ContentPool,
+	ItemLayout = messages.ItemLayout,
 	PageEntryFormat = messages.PageEntryFormat,
 }

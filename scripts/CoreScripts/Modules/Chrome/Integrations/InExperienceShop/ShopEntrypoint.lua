@@ -12,15 +12,18 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local ShopChromeWrapper = require(Chrome.Integrations.InExperienceShop.ShopChromeWrapper)
 local ShopIcon = require(Chrome.Integrations.InExperienceShop.ShopIcon)
+local ShopWindowLayout = require(Chrome.Integrations.InExperienceShop.ShopWindowLayout)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
 
 local Shop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableShopPrefetch = Shop.FFlagEnableShopPrefetch
 local FFlagHideShopMenuOnFailure = Shop.FFlagHideShopMenuOnFailure
+local FFlagCenterInExperienceShopWindow = Shop.FFlagCenterInExperienceShopWindow
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
+local FFlagEnableMenuTrailingBadge = SharedFlags.FFlagEnableMenuTrailingBadge
 
 local ShopCoreGuiToggleSupported = game:GetEngineFeature("ShopCoreGuiToggleSupported")
 local EnableOpenShopSignal = game:GetEngineFeature("EnableOpenShopSignal")
@@ -29,10 +32,21 @@ local isActive = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), fu
 	return ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID)
 end)
 
-local MAX_WINDOW_WIDTH = 844
-local MAX_WINDOW_HEIGHT = 754
+local MAX_WINDOW_WIDTH = ShopWindowLayout.MAX_WINDOW_WIDTH
+local MAX_WINDOW_HEIGHT = ShopWindowLayout.MAX_WINDOW_HEIGHT
 
 local windowSize = WindowSizeSignal.new(MAX_WINDOW_WIDTH, MAX_WINDOW_HEIGHT, false, true)
+
+-- AppStorage key for the "New" badge dismissal; persists across sessions so the
+-- badge stops showing once the user has opened the Shop entry. Flag-overridable
+-- (like the FTUX tooltip's storage key) so it can be reset to re-show the badge.
+local FStringInExperienceShopNewBadgeStorageKey =
+	game:DefineFastString("InExperienceShopNewBadgeStorageKey", "InExperienceShopNewBadgeStorageKey")
+-- Max menu opens to show the In-Experience Shop "New" badge before auto-hiding.
+-- `0` means the badge is never shown.
+local FIntNewBadgeDismissalMaxCountInExperienceShop = game:DefineFastInt("NewBadgeDismissalMaxCountInExperienceShop", 5)
+local FFlagEnableNewBadgeInExperienceShop = game:DefineFastFlag("EnableNewBadgeInExperienceShop", false)
+local showNewBadge = FFlagEnableNewBadgeInExperienceShop and FFlagEnableMenuTrailingBadge
 
 -- Tracks CoreGui availability for the In-Experience Shop (set via StarterGui:SetCoreGuiEnabled).
 -- If the engine feature ShopCoreGuiToggleSupported is not enabled the Shop entry is unavailable
@@ -58,6 +72,14 @@ local function getInitialAvailability()
 	return ChromeService.AvailabilitySignal.Available
 end
 
+local function toggleShopWindow()
+	if FFlagCenterInExperienceShopWindow then
+		ShopWindowLayout.toggleInExperienceShopWindow()
+	else
+		ChromeService:toggleWindow(Constants.IN_EXPERIENCE_SHOP_ID)
+	end
+end
+
 local integration = ChromeService:register({
 	initialAvailability = getInitialAvailability(),
 	id = Constants.IN_EXPERIENCE_SHOP_ID,
@@ -66,9 +88,16 @@ local integration = ChromeService:register({
 	cachePosition = true,
 	draggable = true,
 	windowSize = windowSize,
+	startingWindowPosition = ShopWindowLayout.getStartingWindowPosition(),
 	activated = function(_self)
-		ChromeService:toggleWindow(Constants.IN_EXPERIENCE_SHOP_ID)
+		toggleShopWindow()
 	end,
+	menuTrailingBadgeConfig = if showNewBadge
+		then {
+			localStorageKey = FStringInExperienceShopNewBadgeStorageKey,
+			maxViewCount = FIntNewBadgeDismissalMaxCountInExperienceShop,
+		}
+		else nil,
 	isActivated = if FFlagChromeActivatedMappedSignal
 		then isActive
 		else function()
@@ -133,7 +162,7 @@ if EnableOpenShopSignal then
 					return
 				end
 				if not ChromeService:isWindowOpen(Constants.IN_EXPERIENCE_SHOP_ID) then
-					ChromeService:toggleWindow(Constants.IN_EXPERIENCE_SHOP_ID)
+					toggleShopWindow()
 				end
 			end
 		end

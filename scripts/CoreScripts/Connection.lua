@@ -9,6 +9,8 @@ local LocalizationService = game:GetService("LocalizationService")
 local VRService = game:GetService("VRService")
 local CorePackages = game:GetService("CorePackages")
 local TelemetryService = game:GetService("TelemetryService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local HttpService = game:GetService("HttpService")
 
 local FFlagConnectionRemoveLoadingTimeout = game:DefineFastFlag("ConnectionRemoveLoadingTimeout", false)
 
@@ -19,6 +21,7 @@ local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales
 local Logging = require(CorePackages.Workspace.Packages.AppCommonLib).Logging
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local mutedError = require(CorePackages.Workspace.Packages.Loggers).mutedError
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
@@ -110,7 +113,7 @@ local FFlagConnectionAmpParentalApprovalUpsell =
 local FFlagConnectionUpsellAnalytics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
 
-local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError", false) and FFlagConnectionAmpUpsellOnLeave 
+local FFlagAddCollaborationCoreGatedConnectionError = game:DefineFastFlag("AddCollaborationCoreGatedConnectionError2", false)
 local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
 	game:GetEngineFeature("PlacelaunchCollaborationCoreGatedConnectionError")
 
@@ -120,6 +123,23 @@ local EngineFeaturePlacelaunchCollaborationCoreGatedConnectionError =
 local ConnectionAmpUpsellOnLeave
 if FFlagConnectionAmpUpsellOnLeave then
 	ConnectionAmpUpsellOnLeave = require(RobloxGui.Modules.ConnectionAmpUpsellOnLeave)
+end
+
+local function fetchUniverseIdFromPlaceId(placeId)
+	local url = string.format("%suniverses/v1/places/%d/universe", Url.APIS_URL, placeId)
+	local fetchOk, body = pcall(HttpRbxApiService.GetAsyncFullUrl, HttpRbxApiService, url)
+	if not fetchOk or type(body) ~= "string" then
+		return nil
+	end
+	local decodeOk, decoded = pcall(HttpService.JSONDecode, HttpService, body)
+	if not decodeOk or type(decoded) ~= "table" then
+		return nil
+	end
+	local uid = decoded.universeId
+	if type(uid) ~= "number" or uid <= 0 then
+		return nil
+	end
+	return uid
 end
 
 -- The new, supported way to translate strings in the client.
@@ -163,7 +183,7 @@ local ConnectionPromptState = {
 	RECONNECT_DISABLED_CONNECT_FAILURE = 11, -- i.e. Version out of date
 	RECONNECT_AGE_CHECK_REQUIRED = 12, -- Placelaunch blocked by age verification; Leave opens the AMP age-check wizard
 	RECONNECT_PARENT_APPROVAL_REQUIRED = 13, -- Placelaunch blocked by parental approval; Leave opens the AMP CanApproveExperience wizard
-	RECONNECT_COLLABORATION_CORE_GATED = 14, -- Placelaunch blocked by collaboration core gating; Continue opens the AMP FAE wizard
+	RECONNECT_COLLABORATION_CORE_GATED = 14, -- Placelaunch blocked by missing trusted relationships with collaborators; View collaborators opens the collaborators dashboard webpage
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -190,7 +210,7 @@ if FFlagConnectionAmpUpsellOnLeave then
 end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
-	ErrorTitles[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = "Check Your Age"
+	ErrorTitles[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = "Join Error"
 end
 
 local ErrorTitleLocalizationKey = {
@@ -212,7 +232,7 @@ end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
 	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] =
-		"InGame.ConnectionError.Title.CheckYourAge"
+		"InGame.ConnectionError.Title.JoinError"
 end
 
 -- DisplayOrder for the connection-error prompt. Exposed as a local so the
@@ -250,6 +270,42 @@ coroutine.wrap(function()
 end)()
 
 -- Button Callbacks --
+local function openCollaboratorsPageForUniverseId(universeId)
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ViewCollaboratorsOpenUrl"}}, 1.0)
+
+	local url = string.format(
+		"%sdashboard/creations/experiences/%s/safety/collaborators",
+		Url.CREATE_URL,
+		tostring(universeId)
+	)
+	LinkingProtocol.default:openURL(url)
+end
+
+local viewCollaboratorsFunction = function()
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ViewCollaboratorsInitiated"}}, 1.0)
+
+	local universeId = game.GameId
+	if universeId and universeId ~= 0 then
+		openCollaboratorsPageForUniverseId(universeId)
+		return
+	end
+
+	local placeId = game.PlaceId
+	if not placeId or placeId == 0 then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ViewCollaboratorsMissingPlaceId"}}, 1.0)
+		return
+	end
+
+	coroutine.wrap(function()
+		local resolvedUniverseId = fetchUniverseIdFromPlaceId(placeId)
+		if not resolvedUniverseId then
+			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ViewCollaboratorsUniverseIdLookupFailed"}}, 1.0)
+			return
+		end
+		openCollaboratorsPageForUniverseId(resolvedUniverseId)
+	end)()
+end
+
 local reconnectFunction = function()
 	local startTime = tick()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
@@ -550,26 +606,18 @@ if FFlagConnectionAmpParentalApprovalUpsell then
 end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
-	-- Collaboration core gating is cleared via the AMP FAE (Facial Age
-	-- Estimation) flow, which is the same wizard the age-check upsell opens, so
-	-- reuse its Continue callback.
-	local openFaeWizardThenReconnect = ConnectionAmpUpsellOnLeave.createAgeCheckCallback(
-		connectionEventConfig,
-		reconnectViaPlacelaunch,
-		ROBLOX_PROMPT_DISPLAY_ORDER
-	)
 	ButtonList[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = {
 		{
-			Text = "Leave",
-			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			Text = "Ok",
+			LocalizationKey = "InGame.ConnectionError.Action.Ok",
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 		},
 		{
-			Text = ConnectionAmpUpsellOnLeave.PrimaryButtonText,
-			LocalizationKey = ConnectionAmpUpsellOnLeave.PrimaryButtonLocalizationKey,
+			Text = "View collaborators",
+			LocalizationKey = "InGame.ConnectionError.Action.ViewCollaborators",
 			LayoutOrder = 2,
-			Callback = openFaeWizardThenReconnect,
+			Callback = viewCollaboratorsFunction,
 			Primary = true,
 		},
 	}
@@ -648,10 +696,11 @@ if FFlagConnectionAmpUpsellOnLeave then
 end
 
 if FFlagAddCollaborationCoreGatedConnectionError then
-	-- Reuse the placelaunch full-screen effect; the AMP FAE wizard renders above
-	-- the prompt at a higher DisplayOrder, matching the age-check upsell states.
-	updateFullScreenEffect[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] =
-		updateFullScreenEffect[ConnectionPromptState.RECONNECT_PLACELAUNCH]
+	updateFullScreenEffect[ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED] = function()
+		RunService:SetRobloxGuiFocused(false)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 0.3
+	end
 end
 
 local function onEnter(newState)
@@ -754,9 +803,6 @@ local function stateTransit(errorType, errorCode, oldState)
 			end
 			if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCoreGatedEnum and errorCode == PlacelaunchCollaborationCoreGatedEnum then
 				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchCollaborationCoreGated"}}, 1.0)
-				if FFlagConnectionUpsellAnalytics then
-					ConnectionAmpUpsellOnLeave.fireImpressionAgeCheck(connectionEventConfig, game.PlaceId)
-				end
 				return ConnectionPromptState.RECONNECT_COLLABORATION_CORE_GATED
 			end
 			if reconnectDisabledList[errorCode] then
@@ -1002,7 +1048,7 @@ if FFlagAddVipOwnerNotPresentConnectionError then
 end
 
 if FFlagAddCollaborationCoreGatedConnectionError and PlacelaunchCollaborationCoreGatedEnum then
-	enumToLocalizationKey[PlacelaunchCollaborationCoreGatedEnum] = "InGame.ConnectionError.Description.PlaytestAgeCheckRequired"
+	enumToLocalizationKey[PlacelaunchCollaborationCoreGatedEnum] = "InGame.ConnectionError.Description.CollaborationRequiresTrustedFriends"
 end
 
 if FFlagRAKickLogic and supportsRemoteAttestationEnums then

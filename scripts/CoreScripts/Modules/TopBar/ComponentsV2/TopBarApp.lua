@@ -14,16 +14,13 @@ local Constants = require(TopBar.Constants)
 local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 -- Modules
-local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
 local Foundation = require(CorePackages.Packages.Foundation)
 local Display = require(CorePackages.Workspace.Packages.Display)
 local React = require(CorePackages.Packages.React)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
-local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 local Traversal = CoreScriptsRoactCommon.Traversal
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -39,7 +36,6 @@ local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
@@ -47,19 +43,16 @@ local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
+local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 -- Components 
 local View = Foundation.View
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
-local AssistantBuildButton = require(Components.AssistantBuildButton)
-local canShowAssistantBuild = require(Components.canShowAssistantBuild)
 local GamepadConnector = require(Components.GamepadConnector)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HealthBar = CoreGuiCommon.Components.HealthBar
-local HurtOverlay = CoreGuiCommon.Components.HurtOverlay
-local HeadsetDisconnectDialog = CoreGuiCommon.Components.HeadsetDisconnectDialog
 local MenuIcon = require(TopBar.ComponentsV2.MenuIcon)
 local MenuIconContext = require(Components.MenuIconContext)
 local MenuNavigationToggleDialog = require(Presentation.GamepadMenu.MenuNavigationToggleDialog)
@@ -67,7 +60,8 @@ local TraversalBackButton = require(Components.TraversalBackButton)
 local VRBottomBar = if isInExperienceUIVREnabled
 	then require(Components.VRBottomUnibar)
 	else require(Packages.VR.VRBottomBar.VRBottomBar)
-
+local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
+local BuildPillMenu = BuildExperience.BuildPillMenu
 local ChromeAnalytics = if game:GetEngineFeature("InGameChromeSignalAPI") 
 	then require(Chrome.ChromeShared.Analytics) 
 	else nil
@@ -96,6 +90,9 @@ local shopIsActiveMappedSignal = if FFlagEnableExperienceShopGlobalIcon and Chro
 		end
 	)
 	else nil
+local toggleInExperienceShopWindow = if FFlagEnableExperienceShopGlobalIcon
+	then require(Chrome.Integrations.InExperienceShop.ShopWindowLayout).toggleInExperienceShopWindow
+	else nil
 
 type TopBarProps = {}
 
@@ -119,13 +116,22 @@ local function handleShopGlobalIconActivated()
 	if not FFlagEnableExperienceShopGlobalIcon then
 		return
 	end
-	if ChromeService and ChromeConstants then
-		ChromeService:toggleWindow(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+	if FFlagCenterInExperienceShopWindow then
+		if toggleInExperienceShopWindow then
+			toggleInExperienceShopWindow()
+		end
+	else
+		if ChromeService and ChromeConstants then
+			ChromeService:toggleWindow(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+		end
 	end
 end
 
+local function canShowAssistantBuild(): boolean
+	return BuildExperience.BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
+end
+
 local function TopBarApp(props: TopBarProps)
-	local useFoundationTokens = Foundation.Hooks.useTokens
 	local showBadgeOver12 = UniversalAppPolicy.useAppPolicy(function(appPolicy)
 		if FFlagAddTopBarPoliciesToUniversalPolicies then
 			return appPolicy.getShowBadgeOver12()
@@ -164,27 +170,22 @@ local function TopBarApp(props: TopBarProps)
 	local showTopBar, setShowTopBar = React.useBinding(showTopBarSignal:get())
 
 	React.useEffect(function()
-		local vrEnabledConnection
-		if FFlagDisableGamepadConnectorInVR then
-			if not isSpatial() then
-				GamepadConnector:connectToTopbar()
-			end
-			vrEnabledConnection = VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()
-				if isSpatial() then
-					GamepadConnector:disconnectFromTopbar()
-				else
-					GamepadConnector:connectToTopbar()
-				end
-			end)
-		else
+		if not isSpatial() then
 			GamepadConnector:connectToTopbar()
 		end
+		local vrEnabledConnection = VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()
+			if isSpatial() then
+				GamepadConnector:disconnectFromTopbar()
+			else
+				GamepadConnector:connectToTopbar()
+			end
+		end)
 
 		local showTopBarConn = showTopBarSignal:connect(function() 
 			setShowTopBar(showTopBarSignal:get())
 		end)
 		return function() 
-			if FFlagDisableGamepadConnectorInVR and vrEnabledConnection then
+			if vrEnabledConnection then
 				vrEnabledConnection:Disconnect()
 			end
 			GamepadConnector:disconnectFromTopbar()
@@ -269,17 +270,12 @@ local function TopBarApp(props: TopBarProps)
 						menuRef = unibarMenuRef
 					}),
 				}),
-				AssistantBuild = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
-					then React.createElement(AssistantBuildButton, {
-						layoutOrder = 5,
-					})
-					else nil,
 				ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon
 						and shopGlobalIconEnabled
 						and ShopGlobalIcon ~= nil
 					then React.createElement(ShopGlobalIcon, {
 						buttonSize = topBarButtonHeight,
-						layoutOrder = if FFlagAppNavMyStatsTab then 8 else 3,
+						layoutOrder = 3,
 						showStatusIndicator = shopGlobalStatusIndicatorEnabled,
 						onActivated = onShopGlobalIconActivated,
 						isActive = shopGlobalIconIsActive,
@@ -294,6 +290,15 @@ local function TopBarApp(props: TopBarProps)
 				Size = UDim2.fromOffset(0, topBarButtonHeight),
 				Position = UDim2.new(1, -screenSideOffset, 0, topBarTopMargin),
 			}, {
+				BuildPillMenu = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
+					then React.createElement(BuildPillMenu, {
+						target = {
+							universeId = game.GameId,
+							placeId = game.PlaceId,
+							isNewGameTarget = false,
+						},
+					})
+					else nil,
 				HealthBar = React.createElement(HealthBar)
 			})
 		}),

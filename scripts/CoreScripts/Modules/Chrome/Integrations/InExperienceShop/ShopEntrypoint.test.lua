@@ -35,6 +35,7 @@ local Chrome = script:FindFirstAncestor("Chrome")
 
 local CorePackages = game:GetService("CorePackages")
 local StarterGui = game:GetService("StarterGui")
+local React = require(CorePackages.Packages.React)
 
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local describe = JestGlobals.describe
@@ -42,6 +43,7 @@ local it = JestGlobals.it
 local expect = JestGlobals.expect
 local jest = JestGlobals.jest
 local beforeEach = JestGlobals.beforeEach
+local afterEach = JestGlobals.afterEach
 local afterAll = JestGlobals.afterAll
 
 local InExperienceShopPackage = CorePackages.Workspace.Packages.InExperienceShop
@@ -53,6 +55,16 @@ local InExperienceShopPackage = CorePackages.Workspace.Packages.InExperienceShop
 local capturedSetCoreGuiCallback: ((boolean) -> ())? = nil
 local capturedPrefetchOnResult: ((boolean) -> ())? = nil
 local lastIntegration: any = nil
+local lastRegisterProps: any = nil
+local mappedSignalActive = false
+local mockedIsActiveSignal = {
+	get = function()
+		return mappedSignalActive
+	end,
+	connect = function()
+		return { disconnect = function() end }
+	end,
+}
 
 -- Sentinel values for the `availability` enum the fake exposes. Real
 -- ChromeService uses numeric ids; only equality matters for these tests.
@@ -85,6 +97,7 @@ local fakeChromeService = {
 	AvailabilitySignal = AvailabilitySignal,
 	isWindowOpen = jest.fn():mockReturnValue(false),
 	toggleWindow = jest.fn(),
+	updateWindowPosition = jest.fn(),
 	-- `MappedSignal` is constructed from this signal in ShopEntrypoint; a
 	-- minimal connectable shape is all the constructor touches.
 	onIntegrationStatusChanged = function(_self)
@@ -95,8 +108,13 @@ local fakeChromeService = {
 		}
 	end,
 	register = function(_self, props)
+		lastRegisterProps = props
 		local integration = {
 			availability = createFakeAvailability(props.initialAvailability),
+			activated = props.activated,
+			components = props.components,
+			isActivated = props.isActivated,
+			menuTrailingBadgeConfig = props.menuTrailingBadgeConfig,
 		}
 		lastIntegration = integration
 		return integration
@@ -114,14 +132,7 @@ jest.mock(Chrome.ChromeShared.Service.ChromeUtils, function()
 	return {
 		MappedSignal = {
 			new = function()
-				return {
-					get = function()
-						return false
-					end,
-					connect = function()
-						return { disconnect = function() end }
-					end,
-				}
+				return mockedIsActiveSignal
 			end,
 		},
 		setCoreGuiAvailability = function(_integration, _coreGuiType, callback)
@@ -157,26 +168,50 @@ jest.mock(Chrome.ChromeShared.Unibar.Constants, function()
 	}
 end)
 
+local commonIconSpy = jest.fn(function()
+	return function()
+		return nil
+	end
+end)
 jest.mock(Chrome.Integrations.CommonIcon, function()
 	-- Real `CommonIcon` is a factory that returns a render function;
 	-- shape it the same so the `Icon` component definition is callable.
-	return function()
-		return function()
-			return nil
-		end
-	end
+	return commonIconSpy
 end)
 
+local toggleInExperienceShopWindowSpy = jest.fn(function()
+	fakeChromeService.toggleWindow("in_experience_shop")
+end)
+jest.mock(Chrome.Integrations.InExperienceShop.ShopWindowLayout, function()
+	return {
+		MAX_WINDOW_WIDTH = 844,
+		MAX_WINDOW_HEIGHT = 754,
+		getCenteredShopWindowPosition = function()
+			return UDim2.fromOffset(100, 100)
+		end,
+		getStartingWindowPosition = function()
+			return UDim2.fromOffset(100, 100)
+		end,
+		toggleInExperienceShopWindow = toggleInExperienceShopWindowSpy,
+	}
+end)
+
+local shopChromeWrapperSpy = jest.fn()
+local shopChromeWrapperComponent = function(props)
+	shopChromeWrapperSpy(props)
+	return nil
+end
 jest.mock(Chrome.Integrations.InExperienceShop.ShopChromeWrapper, function()
-	return function()
-		return nil
-	end
+	return shopChromeWrapperComponent
 end)
 
+local shopIconSpy = jest.fn()
+local shopIconComponent = function(props)
+	shopIconSpy(props)
+	return nil
+end
 jest.mock(Chrome.Integrations.InExperienceShop.ShopIcon, function()
-	return function()
-		return nil
-	end
+	return shopIconComponent
 end)
 
 -- Prefetch helper is captured here so tests can inspect what was passed
@@ -195,16 +230,24 @@ jest.mock(InExperienceShopPackage.prefetchShopDataOnGameJoin, function()
 	return prefetchWrapper
 end)
 
+local mockSharedFlags = {
+	FFlagAddIGMToSideSheet = false,
+	FFlagChromeActivatedMappedSignal = false,
+	FFlagEnableMenuTrailingBadge = false,
+}
 jest.mock(CorePackages.Workspace.Packages.SharedFlags, function()
-	return {
-		FFlagAddIGMToSideSheet = false,
-	}
+	return mockSharedFlags
 end)
 
 -- `ShopCoreGuiToggleSupported` is required for the CoreGui listener to
 -- be wired at all. The tests below that assert on the listener will
 -- self-skip via `if capturedSetCoreGuiCallback ~= nil then` if the
 -- engine feature happens to be off in the test build.
+-- Lua-only fast flag read at ShopEntrypoint require time; all-on configs may
+-- flip it to true, so badge assertions must respect the live value.
+local function isNewBadgeInExperienceShopEnabled(): boolean
+	return game:GetFastFlag("EnableNewBadgeInExperienceShop")
+end
 local ShopCoreGuiToggleSupported = game:GetEngineFeature("ShopCoreGuiToggleSupported")
 
 type LoadOpts = {
@@ -214,6 +257,10 @@ type LoadOpts = {
 	-- ShopEntrypoint is required. Falls back to `true` to match the
 	-- engine default (developer hasn't disabled).
 	coreGuiShopEnabled: boolean?,
+	centerEnabled: boolean?,
+	addIGMToSideSheet: boolean?,
+	chromeActivatedMappedSignal: boolean?,
+	menuTrailingBadgeFlag: boolean?,
 }
 
 -- Re-requires `ShopEntrypoint` under the scenario flags. Returns the
@@ -224,9 +271,20 @@ local function loadShopEntrypoint(opts: LoadOpts): any
 	capturedSetCoreGuiCallback = nil
 	capturedPrefetchOnResult = nil
 	lastIntegration = nil
+	lastRegisterProps = nil
+	mappedSignalActive = false
 	prefetchSpy:mockClear()
 	fakeChromeService.isWindowOpen:mockClear()
+	fakeChromeService.isWindowOpen:mockReturnValue(false)
 	fakeChromeService.toggleWindow:mockClear()
+	toggleInExperienceShopWindowSpy:mockClear()
+	commonIconSpy:mockClear()
+	shopIconSpy:mockClear()
+	shopChromeWrapperSpy:mockClear()
+
+	mockSharedFlags.FFlagAddIGMToSideSheet = opts.addIGMToSideSheet == true
+	mockSharedFlags.FFlagChromeActivatedMappedSignal = opts.chromeActivatedMappedSignal == true
+	mockSharedFlags.FFlagEnableMenuTrailingBadge = opts.menuTrailingBadgeFlag == true
 
 	-- Seed the real `StarterGui` state ShopEntrypoint reads at module
 	-- load. `Enum.CoreGuiType.All=false` keeps the OR in `getInitial-
@@ -241,6 +299,7 @@ local function loadShopEntrypoint(opts: LoadOpts): any
 			return {
 				FFlagEnableShopPrefetch = opts.prefetchEnabled,
 				FFlagHideShopMenuOnFailure = opts.hideEnabled,
+				FFlagCenterInExperienceShopWindow = opts.centerEnabled == true,
 			}
 		end)
 		-- Re-pin the prefetch helper inside isolation so the freshly
@@ -261,6 +320,14 @@ describe("ShopEntrypoint", function()
 		capturedSetCoreGuiCallback = nil
 		capturedPrefetchOnResult = nil
 		lastIntegration = nil
+		lastRegisterProps = nil
+		mappedSignalActive = false
+	end)
+
+	afterEach(function()
+		mockSharedFlags.FFlagAddIGMToSideSheet = false
+		mockSharedFlags.FFlagChromeActivatedMappedSignal = false
+		mockSharedFlags.FFlagEnableMenuTrailingBadge = false
 	end)
 
 	afterAll(function()
@@ -441,6 +508,37 @@ describe("ShopEntrypoint", function()
 		end)
 	end)
 
+	describe("activated toggle", function()
+		it("SHOULD call ChromeService:toggleWindow directly when Center flag is off", function()
+			local integration = loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				centerEnabled = false,
+			})
+			local activated = integration.activated
+			activated(integration)
+
+			expect(fakeChromeService.toggleWindow).toHaveBeenCalledTimes(1)
+			expect(fakeChromeService.toggleWindow).toHaveBeenCalledWith(fakeChromeService, "in_experience_shop")
+			expect(toggleInExperienceShopWindowSpy).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD call ShopWindowLayout.toggleInExperienceShopWindow when Center flag is on", function()
+			local integration = loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				centerEnabled = true,
+			})
+			local activated = integration.activated
+			activated(integration)
+
+			expect(toggleInExperienceShopWindowSpy).toHaveBeenCalledTimes(1)
+			expect(fakeChromeService.toggleWindow).toHaveBeenCalledTimes(1)
+		end)
+	end)
+
 	describe("mid-session CoreGui toggle", function()
 		it("SHOULD transition Available -> Unavailable on CoreGui disable (Hide off)", function()
 			local integration = loadShopEntrypoint({
@@ -534,7 +632,6 @@ describe("ShopEntrypoint", function()
 			-- Mid-session disable wins over a successful prefetch: the
 			-- entry should hide and a currently-open window should be
 			-- closed.
-			fakeChromeService.isWindowOpen:mockReturnValue(true)
 			local integration = loadShopEntrypoint({
 				prefetchEnabled = true,
 				hideEnabled = true,
@@ -542,18 +639,165 @@ describe("ShopEntrypoint", function()
 			})
 
 			if capturedSetCoreGuiCallback == nil then
-				fakeChromeService.isWindowOpen:mockReturnValue(false)
 				return
 			end
 
 			(capturedPrefetchOnResult :: any)(true)
-			expect(integration.availability:get()).toBe(AvailabilitySignal.Available);
+			expect(integration.availability:get()).toBe(AvailabilitySignal.Available)
 
+			fakeChromeService.isWindowOpen:mockReturnValue(true);
 			(capturedSetCoreGuiCallback :: any)(false)
 
 			expect(integration.availability:get()).toBe(AvailabilitySignal.Unavailable)
 			expect(fakeChromeService.toggleWindow).toHaveBeenCalledTimes(1)
 			fakeChromeService.isWindowOpen:mockReturnValue(false)
+		end)
+
+		it("SHOULD NOT call toggleWindow on CoreGui disable when the shop window is not open", function()
+			if game:GetEngineFeature("EnableOpenShopSignal") then
+				-- all-on can fire `OpenShopRequested` when CoreGui flips; that
+				-- handler calls `toggleShopWindow` when the window is closed,
+				-- which is indistinguishable from `updateShopAvailability` here.
+				return
+			end
+			local integration = loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+			})
+
+			if capturedSetCoreGuiCallback == nil then
+				return
+			end
+
+			expect(integration.availability:get()).toBe(AvailabilitySignal.Available)
+			fakeChromeService.isWindowOpen:mockReturnValue(false)
+			fakeChromeService.toggleWindow:mockClear();
+			(capturedSetCoreGuiCallback :: any)(false)
+
+			expect(integration.availability:get()).toBe(AvailabilitySignal.Unavailable)
+			expect(fakeChromeService.toggleWindow).never.toHaveBeenCalled()
+		end)
+	end)
+
+	describe("register props", function()
+		it("SHOULD NOT register menuTrailingBadge when new-badge flags are disabled", function()
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				menuTrailingBadgeFlag = false,
+			})
+
+			expect(lastRegisterProps.menuTrailingBadgeConfig).toBeNil()
+		end)
+
+		it(
+			"SHOULD NOT register menuTrailingBadge when MenuTrailingBadge is on but EnableNewBadgeInExperienceShop is off",
+			function()
+				if isNewBadgeInExperienceShopEnabled() then
+					return
+				end
+				-- `FFlagEnableNewBadgeInExperienceShop` is `DefineFastFlag(...) and
+				-- FFlagEnableMenuTrailingBadge`; both must be true for the badge.
+				loadShopEntrypoint({
+					prefetchEnabled = false,
+					hideEnabled = false,
+					coreGuiShopEnabled = true,
+					menuTrailingBadgeFlag = true,
+				})
+
+				expect(lastRegisterProps.menuTrailingBadgeConfig).toBeNil()
+			end
+		)
+
+		it("SHOULD register menuTrailingBadge when new-badge flags are enabled", function()
+			if not isNewBadgeInExperienceShopEnabled() then
+				return
+			end
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				menuTrailingBadgeFlag = true,
+			})
+
+			expect(lastRegisterProps.menuTrailingBadgeConfig).toEqual({
+				localStorageKey = game:GetFastString("InExperienceShopNewBadgeStorageKey"),
+				maxViewCount = game:GetFastInt("NewBadgeDismissalMaxCountInExperienceShop"),
+			})
+		end)
+
+		it("SHOULD register isActivated as the MappedSignal when ChromeActivatedMappedSignal is on", function()
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				chromeActivatedMappedSignal = true,
+			})
+
+			expect(lastRegisterProps.isActivated).toBe(mockedIsActiveSignal)
+		end)
+
+		it("SHOULD register isActivated as a getter function when ChromeActivatedMappedSignal is off", function()
+			loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				chromeActivatedMappedSignal = false,
+			})
+
+			expect(lastRegisterProps.isActivated).toEqual(expect.any("function"))
+			expect(lastRegisterProps.isActivated()).toBe(false)
+
+			mappedSignalActive = true
+			expect(lastRegisterProps.isActivated()).toBe(true)
+		end)
+	end)
+
+	describe("components", function()
+		it("SHOULD use CommonIcon for the Icon component when AddIGMToSideSheet is on", function()
+			local integration = loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				addIGMToSideSheet = true,
+			})
+
+			integration.components.Icon()
+
+			expect(commonIconSpy).toHaveBeenCalledTimes(1)
+			expect(commonIconSpy).toHaveBeenCalledWith("BuildingStore", nil, mockedIsActiveSignal)
+			expect(shopIconSpy).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD use ShopIcon for the Icon component when AddIGMToSideSheet is off", function()
+			local integration = loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+				addIGMToSideSheet = false,
+			})
+
+			local iconElement = integration.components.Icon()
+
+			expect(iconElement.type).toBe(shopIconComponent)
+			expect(iconElement.props.isActive).toBe(mockedIsActiveSignal)
+			expect(commonIconSpy).never.toHaveBeenCalled()
+		end)
+
+		it("SHOULD render ShopChromeWrapper from the Window component", function()
+			local integration = loadShopEntrypoint({
+				prefetchEnabled = false,
+				hideEnabled = false,
+				coreGuiShopEnabled = true,
+			})
+
+			local windowElement = integration.components.Window()
+
+			expect(windowElement.type).toBe(shopChromeWrapperComponent)
+			expect(windowElement.props.maxWindowWidth).toBe(844)
+			expect(windowElement.props.maxWindowHeight).toBe(754)
 		end)
 	end)
 end)

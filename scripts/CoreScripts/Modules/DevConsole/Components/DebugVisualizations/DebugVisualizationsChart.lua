@@ -27,8 +27,28 @@ local CELL_PADDING = DebugVisualizationsFormatting.CellPadding
 local MIN_FRAME_WIDTH = DebugVisualizationsFormatting.MinFrameWidth
 local LEARN_MORE_WIDTH = DebugVisualizationsFormatting.LearnMoreWidth
 
+local DESCRIPTION_TEXT_SIZE = Constants.DefaultFontSize.MainWindow
+local DESCRIPTION_FONT = Constants.Font.MainWindow
+
 local NON_FOUND_ENTRIES_STR = "No DebugVisualizations Found"
-local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole2", false)
+local TextService = FFlagSlimDevConsole and game:GetService("TextService") or nil
+
+local function getDescriptionWidth(width, learnMoreUrl)
+	return if learnMoreUrl ~= nil
+		then width - LEARN_MORE_WIDTH - CELL_PADDING * 2
+		else width - CELL_PADDING * 2
+end
+
+local function getDescriptionHeight(description, descriptionWidth)
+	local textSize = TextService:GetTextSize(
+		description,
+		DESCRIPTION_TEXT_SIZE,
+		DESCRIPTION_FONT,
+		Vector2.new(descriptionWidth, math.huge)
+	)
+	return math.max(textSize.Y, ENTRY_HEIGHT)
+end
 
 -- create table of offsets and sizes for each cell
 local totalCellWidth = 0
@@ -125,7 +145,7 @@ local function constructHeader(onSortChanged, width)
 	}, header)
 end
 
-local function constructEntry(entry, width, frameHeight, layoutOrder, isExpanded, expandCallback, learnMoreCallback)
+local function constructEntry(entry, width, frameHeight, descriptionHeight, layoutOrder, isExpanded, expandCallback, learnMoreCallback)
 	local name = entry.name
 	local settingInfo = entry.settingInfo
 
@@ -204,6 +224,21 @@ local function constructEntry(entry, width, frameHeight, layoutOrder, isExpanded
 		BorderSizePixel = 0,
 	})
 
+	local learnMoreUrl
+	local showLearnMore
+	local descriptionTextSize
+
+	if FFlagSlimDevConsole then
+		learnMoreUrl = settingInfo["LearnMoreUrl"]
+
+		showLearnMore = learnMoreUrl ~= nil
+		local descriptionWidth = getDescriptionWidth(width, learnMoreUrl)
+		descriptionTextSize = UDim2.new(0, descriptionWidth, 0, descriptionHeight)
+	else
+		showLearnMore = true
+		descriptionTextSize = UDim2.new(0, width - LEARN_MORE_WIDTH - CELL_PADDING * 2, 0, ENTRY_HEIGHT)
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, width, 0, frameHeight),
 		BackgroundTransparency = 1,
@@ -219,14 +254,14 @@ local function constructEntry(entry, width, frameHeight, layoutOrder, isExpanded
 
 		DescriptionText = isExpanded and Roact.createElement(CellLabel, {
 			pos = UDim2.new(0, CELL_PADDING, 0, ENTRY_HEIGHT + CELL_PADDING),
-			size = UDim2.new(0, width - LEARN_MORE_WIDTH - CELL_PADDING * 2, 0, ENTRY_HEIGHT),
+			size = descriptionTextSize,
 			text = tostring(settingInfo["Description"]),
 		}),
-		LearnMoreButton = isExpanded and Roact.createElement(BoxButton, {
+		LearnMoreButton = isExpanded and showLearnMore and Roact.createElement(BoxButton, {
 			text = "Learn More",
 			size = UDim2.new(0, LEARN_MORE_WIDTH, 0, ENTRY_HEIGHT),
 			pos = UDim2.new(0, width - LEARN_MORE_WIDTH - CELL_PADDING, 0, ENTRY_HEIGHT + CELL_PADDING),
-			onClicked = learnMoreCallback(name),
+			onClicked = if FFlagSlimDevConsole then learnMoreCallback(name, learnMoreUrl) else learnMoreCallback(name),
 		}),
 	})
 end
@@ -291,7 +326,24 @@ function populateEntries(
 
 			if not searchTerm or foundTerm then
 				local isExpanded = expandedEntry == entry.name
-				local frameHeight = isExpanded and ENTRY_HEIGHT * 2 + CELL_PADDING * 2 or ENTRY_HEIGHT
+				local frameHeight
+				local descriptionHeight = ENTRY_HEIGHT
+				if FFlagSlimDevConsole then
+					if isExpanded then
+						local learnMoreUrl = entry.settingInfo["LearnMoreUrl"]
+						local descriptionWidth = getDescriptionWidth(frameWidth, learnMoreUrl)
+						descriptionHeight = getDescriptionHeight(
+							tostring(entry.settingInfo["Description"]),
+							descriptionWidth
+						)
+						frameHeight = ENTRY_HEIGHT + descriptionHeight + CELL_PADDING * 2
+					else
+						frameHeight = ENTRY_HEIGHT
+					end
+				else
+					frameHeight = isExpanded and ENTRY_HEIGHT * 2 + CELL_PADDING * 2 or ENTRY_HEIGHT
+				end
+
 				if canvasHeight + ENTRY_HEIGHT >= canvasPos.Y then
 					if usedFrameSpace < absScrollSize.Y then
 						local entryLayoutOrder = reverseSort and (totalEntries - ind) or ind
@@ -299,6 +351,7 @@ function populateEntries(
 							entry,
 							frameWidth,
 							frameHeight,
+							descriptionHeight,
 							entryLayoutOrder + 1,
 							isExpanded,
 							getOnButtonPress,
@@ -348,11 +401,11 @@ function DebugVisualizationsChart:init(props)
 		end
 	end
 
-	self.getLearnMorePress = function(name)
+	self.getLearnMorePress = function(name, learnMoreUrl)
 		return function(rbx, input)
 			local linking = LinkingProtocol.default
 			local baseurl = "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#"
-			local fullurl = baseurl .. name
+			local fullurl = if FFlagSlimDevConsole then learnMoreUrl else baseurl .. name
 			linking:openURL(fullurl)
 		end
 	end

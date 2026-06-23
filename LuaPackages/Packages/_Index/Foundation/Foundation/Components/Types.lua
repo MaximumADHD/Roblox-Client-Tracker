@@ -1,6 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local BuilderIcons = require(Packages.BuilderIcons)
+type IconVariant = BuilderIcons.IconVariant
+
+local BadgeVariant = require(Foundation.Enums.BadgeVariant)
+type BadgeVariant = BadgeVariant.BadgeVariant
+
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 type StateLayerAffordance = StateLayerAffordance.StateLayerAffordance
 
@@ -25,6 +31,29 @@ type InputSize = InputSize.InputSize
 
 local InputVariant = require(Foundation.Enums.InputVariant)
 type InputVariant = InputVariant.InputVariant
+
+export type IconAccessoryConfig = {
+	type: nil,
+	iconName: string,
+	iconVariant: IconVariant?,
+}
+
+export type AvatarAccessoryConfig = {
+	type: "Avatar",
+	userId: number,
+}
+
+export type HintAccessoryConfig = {
+	type: "Hint",
+	text: string,
+}
+
+export type BadgeAccessoryConfig = {
+	type: "Badge",
+	text: string?,
+	icon: string?,
+	variant: BadgeVariant?,
+}
 
 export type ActionProps = {
 	onActivated: () -> (),
@@ -224,6 +253,8 @@ export type TextInputCommonProps = {
 	onFocusGained: (() -> ())?,
 	-- Ran when textbox focus is lost. The InputObject that caused focus to be lost is passed if available.
 	onFocusLost: ((inputObject: InputObject?) -> ())?,
+	-- Ref to the outermost container element of the internal text input
+	inputRef: React.Ref<GuiObject>?,
 }
 
 export type AspectRatioTable = {
@@ -284,6 +315,10 @@ export type TextInputRef = {
 	getIsFocused: () -> boolean,
 	focus: () -> (),
 	releaseFocus: () -> (),
+	getSelectionStart: () -> number,
+	getCursorPosition: () -> number,
+	setSelectionStart: (position: number) -> (),
+	setCursorPosition: (position: number) -> (),
 }
 
 export type PopoverAnchor = GuiObject | MeasurableObject

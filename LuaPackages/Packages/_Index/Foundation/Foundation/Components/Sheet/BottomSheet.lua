@@ -141,6 +141,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local outerScrollY = React.useRef(0)
 	local outerScrollingRef = React.useRef(nil :: ScrollingFrame?)
 	local innerScrollY, setInnerScrollY = React.useBinding(0)
+	local innerScrollingRef = if Flags.FoundationBottomSheetInnerScrollingSync
+		then React.useRef(nil :: ScrollingFrame?)
+		else nil :: never
 	local innerScrollingEnabled, setInnerScrollingEnabled = React.useBinding(false)
 
 	local inputActive = React.useRef(false)
@@ -272,8 +275,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			>= if Flags.FoundationBottomSheetImproveSpring
 				then math.floor(maxSheetHeight + safeAreaPadding)
 				else math.round(maxSheetHeight + safeAreaPadding)
+		local isCollapsing = not isAtMaxOfOuterScroll and scrollVelocity.current < 0
 
-		if scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current then
+		if
+			(Flags.FoundationBottomSheetInnerScrollingSync and isCollapsing)
+			or (scrollVelocity.current > 0 and isAtTopOfInnerScroll and inputActive.current)
+		then
 			setInnerScrollingEnabled(false)
 		elseif
 			(scrollVelocity.current < 0 or (Flags.FoundationBottomSheetImproveSpring and scrollVelocity.current == 0))
@@ -333,7 +340,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				local isAtMaxSnapPoint = if Flags.FoundationBottomSheetCapToOverlayHeight
 					then snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) >= maxSheetHeight
 					else snapValueToPixels(snapPoints[props.defaultSnapPointIndex]) == maxSheetHeight
-				if isAtMaxSnapPoint then
+				if Flags.FoundationBottomSheetInnerScrollingSync then
+					setInnerScrollingEnabled(isAtMaxSnapPoint)
+				elseif isAtMaxSnapPoint then
 					setInnerScrollingEnabled(true)
 				end
 			end
@@ -443,6 +452,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				bottomPadding = BOTTOM_PADDING,
 				innerScrollingEnabled = innerScrollingEnabled,
 				innerScrollY = innerScrollY,
+				innerScrollingRef = if Flags.FoundationBottomSheetInnerScrollingSync then innerScrollingRef else nil,
 				setInnerScrollY = function(value: number)
 					setInnerScrollY(value)
 					updateInnerScrolling()
@@ -492,6 +502,11 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			onActivated = function()
 				-- Cancel input ended if the gripper is pressed
 				inputActive.current = false
+				if Flags.FoundationBottomSheetInnerScrollingSync and innerScrollingRef.current then
+					setInnerScrollY(0)
+					innerScrollingRef.current.CanvasPosition = Vector2.new(0, 0)
+					innerScrollingRef.current:ResetScrollVelocity()
+				end
 				if #snapPoints > 1 then
 					local nextIndex = currentSnapIndex.current % #snapPoints + 1
 					if reducedMotion then
@@ -502,7 +517,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 					local isAtMaxSnapPoint = if Flags.FoundationBottomSheetCapToOverlayHeight
 						then snapValueToPixels(snapPoints[nextIndex]) >= maxSheetHeight
 						else snapValueToPixels(snapPoints[nextIndex]) == maxSheetHeight
-					if isAtMaxSnapPoint then
+					if Flags.FoundationBottomSheetInnerScrollingSync then
+						setInnerScrollingEnabled(isAtMaxSnapPoint)
+					elseif isAtMaxSnapPoint then
 						setInnerScrollingEnabled(true)
 					end
 				else

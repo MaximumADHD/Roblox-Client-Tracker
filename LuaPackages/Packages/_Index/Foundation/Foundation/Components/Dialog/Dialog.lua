@@ -71,8 +71,15 @@ local function Dialog(dialogProps: DialogInternalProps)
 	local props = Dash.assign({}, dialogProps, { LayoutOrder = 1 })
 	local variants = useDialogVariants()
 	local maxWidth = useScaledValue(variants.inner.maxWidth)
-	local dialogBodyRef = React.useRef(nil)
-	local dialogSizeBinding = useDialogSize(dialogBodyRef)
+
+	local dialogBodyRef = if not Flags.FoundationDialogAnimation then React.useRef(nil) else nil :: never
+	local dialogSizeBinding, setDialogSize
+	if Flags.FoundationDialogAnimation then
+		dialogSizeBinding, setDialogSize = React.useBinding(Vector2.new(0, 0))
+	else
+		dialogSizeBinding = useDialogSize(dialogBodyRef)
+	end
+
 	local overlay = useOverlay()
 	local elevation = useElevation(ElevationLayer.Dialog, { stackAboveOwner = false })
 	local dialogContext = useDialog()
@@ -107,9 +114,14 @@ local function Dialog(dialogProps: DialogInternalProps)
 	local bottomPosition, setBottomPositionGoal
 	if Flags.FoundationDialogAnimation then
 		bottomPosition, setBottomPositionGoal = useAnimatedBinding(animationOffset, function()
-			setAnimating(false)
-			if closing.current and props.onClose then
-				props.onClose(closeReason.current)
+			if closing.current then
+				-- Keep `animating` true through unmount so GroupTransparency stays bound to the
+				-- fully-faded value, avoiding a one-frame opaque flash before `onClose` tears the dialog down.
+				if props.onClose then
+					props.onClose(closeReason.current)
+				end
+			else
+				setAnimating(false)
 			end
 		end)
 	end
@@ -212,10 +224,12 @@ local function Dialog(dialogProps: DialogInternalProps)
 		tag = variants.container.tag,
 		ZIndex = 3,
 	}, {
-		DialogFlexStart = React.createElement(View, {
-			tag = "fill",
-			LayoutOrder = 0,
-		}),
+		DialogFlexStart = if Flags.FoundationDialogAnimation
+			then nil
+			else React.createElement(View, {
+				tag = "fill",
+				LayoutOrder = 0,
+			}),
 		DialogInner = React.createElement(
 			View,
 			withCommonProps(props, {
@@ -250,15 +264,25 @@ local function Dialog(dialogProps: DialogInternalProps)
 					else nil,
 				DialogBody = React.createElement(View, {
 					tag = variants.body.tag,
-					ref = dialogBodyRef,
+					ref = if not Flags.FoundationDialogAnimation then dialogBodyRef else nil,
+					onAbsoluteSizeChanged = if Flags.FoundationDialogAnimation
+						then function(rbx: GuiObject)
+							local size = rbx.AbsoluteSize
+							if size.X > 0 and size.Y > 0 then
+								setDialogSize(size)
+							end
+						end
+						else nil,
 					testId = `{props.testId}--body`,
 				}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 			}
 		),
-		DialogFlexEnd = React.createElement(View, {
-			tag = "fill",
-			LayoutOrder = 2,
-		}),
+		DialogFlexEnd = if Flags.FoundationDialogAnimation
+			then nil
+			else React.createElement(View, {
+				tag = "fill",
+				LayoutOrder = 2,
+			}),
 	})
 
 	local content = React.createElement(View, {
@@ -312,7 +336,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 					end)
 					else nil,
 				sizeConstraint = if Flags.FoundationDialogAnimation and not reducedMotion
-					then { MaxSize = Vector2.new(maxWidth, math.huge) }
+					then { MaxSize = Vector2.new(maxWidth + SHADOW_SIZE * 2, math.huge) }
 					else nil,
 				tag = {
 					["anchor-center-center size-full"] = Flags.FoundationDialogAnimation and not reducedMotion,

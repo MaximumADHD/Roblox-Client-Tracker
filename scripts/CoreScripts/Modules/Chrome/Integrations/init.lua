@@ -5,6 +5,7 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTraversalHistoryInSideSheet
@@ -12,10 +13,15 @@ local FFlagIntegrateTraversalHistoryInSideSheet = SharedFlags.FFlagIntegrateTrav
 local Traversal = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).Traversal
 local FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory
 
+local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
+
 return {
 	OverflowMenu = require(script.OverflowMenu),
+	AssistantBuild = if FFlagAppNavMyStatsTab then require(script.AssistantBuild) else nil,
 	Chat = require(script.ExpChat.ChatChromeIntegration),
-	ConnectUnibar = require(script.Connect.ConnectIconUnibar),
+	ConnectUnibar = if ArgoPartyExperimentation.getIsRenameEnabled()
+		then nil
+		else require(script.Connect.ConnectIconUnibar),
 	ConnectDropdown = require(script.Connect.ConnectIconDropdown),
 	TrustAndSafety = require(script.TrustAndSafety),
 	DummyWindow = require(script.DummyWindow),
@@ -28,6 +34,9 @@ return {
 		then require(script.AvatarSwitcher.AvatarSwitcherEntrypoint)
 		else nil,
 	MusicEntrypoint = require(script.MusicUtility.MusicEntrypoint),
+	PartyEntrypoint = if ArgoPartyExperimentation.getIsRenameEnabled()
+		then require(script.Party.PartyEntrypoint)
+		else nil,
 	PartyMic = require(script.Party.PartyMic),
 	VRToggleButton = if isInExperienceUIVREnabled and isSpatial() then require(script.VRToggleButton) else nil :: never,
 	VRSafeBubble = if isInExperienceUIVREnabled and isSpatial() then require(script.VRSafeBubble) else nil :: never,

@@ -31,6 +31,8 @@ export type SegmentedControlProps = {
 	value: Types.ItemId,
 	onActivated: (id: Types.ItemId) -> (),
 	size: InputSize?,
+	-- When true, the container and segments use a fully circular radius
+	isCircular: boolean?,
 } & Types.CommonProps
 
 local defaultProps = {
@@ -43,7 +45,11 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 	local props = withDefaults(segmentedControlProps, defaultProps)
 
 	local tokens = useTokens()
-	local variantProps = useSegmentedControlVariants(tokens, props.size)
+	local variantProps = useSegmentedControlVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationSegmentedControlCircular then props.isCircular else nil
+	)
 
 	local containerRef
 	local overlayData
@@ -110,36 +116,20 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 
 	return React.createElement(
 		View,
-		if Flags.FoundationFixNoCommonPropsOnComponentParents
-			then withCommonProps(props, {
-				Size = hiddenContainerSize:map(function(value: Vector2)
-					return UDim2.fromOffset(value.X, value.Y)
-				end),
-			})
-			else {
-				Size = hiddenContainerSize:map(function(value: Vector2)
-					return UDim2.fromOffset(value.X, value.Y)
-				end),
-				testId = "--foundation-segmented-control-container",
-			},
+		withCommonProps(props, {
+			Size = hiddenContainerSize:map(function(value: Vector2)
+				return UDim2.fromOffset(value.X, value.Y)
+			end),
+		}),
 		{
 			SegmentsContainer = React.createElement(
 				View,
-				withDefaults(
-					if Flags.FoundationFixNoCommonPropsOnComponentParents
-						then {
-							tag = variantProps.container.tag,
-							ref = ref or containerRef,
-						}
-						else withCommonProps(props, {
-							tag = variantProps.container.tag,
-							ref = ref or containerRef,
-							testId = "--foundation-segmented-control",
-						}),
-					{
-						onAbsoluteSizeChanged = onAbsoluteSizeChanged,
-					}
-				),
+				withDefaults({
+					tag = variantProps.container.tag,
+					ref = ref or containerRef,
+				}, {
+					onAbsoluteSizeChanged = onAbsoluteSizeChanged,
+				}),
 				Dash.map(props.segments, function(segment: Segment, index: number)
 					local segmentOrder = (index - 1) * 2 + 1
 					return React.createElement(React.Fragment, {
@@ -148,6 +138,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 						Segment = React.createElement(Segment, {
 							id = segment.id,
 							size = props.size,
+							isCircular = if Flags.FoundationSegmentedControlCircular then props.isCircular else nil,
 							text = segment.text,
 							icon = segment.icon,
 							isActive = segment.id == props.value,

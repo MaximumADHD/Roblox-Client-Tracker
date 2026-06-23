@@ -1,10 +1,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 local Button = require(Foundation.Components.Button)
 local Coachmark = require(Foundation.Components.Coachmark)
+local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
@@ -20,6 +23,7 @@ type IconSize = IconSize.IconSize
 type InputSize = InputSize.InputSize
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign
+type BadgeVariant = BadgeVariant.BadgeVariant
 
 local SAMPLE_MENU_ITEMS: { MenuItem } = {
 	{ id = "new", icon = "icons/actions/edit/add", text = "New" },
@@ -55,6 +59,9 @@ type Props = {
 		side: PopoverSide,
 		align: PopoverAlign,
 		maxDepth: number,
+		leading: string?,
+		trailing: string?,
+		firstItemText: string,
 	},
 }
 
@@ -235,6 +242,162 @@ end
 return {
 	summary = "Menu - A popover-based menu component that combines Popover with InternalMenu",
 	stories = {
+		{
+			name = "Playground",
+			story = function(props: Props)
+				local isOpen, setIsOpen = React.useState(false)
+				local selectedId, setSelectedId = React.useState(nil :: string?)
+
+				local recursionDepth = props.controls.maxDepth
+				local leadingMode = props.controls.leading or "Icon"
+				local trailingMode = props.controls.trailing or "None"
+				local firstItemText = props.controls.firstItemText
+
+				local leadingIconPalette = {
+					BuilderIcons.Icon.Pencil,
+					BuilderIcons.Icon.ClipboardPencil,
+					BuilderIcons.Icon.TextBBold,
+					"icons/actions/share",
+					"icons/actions/edit/copy",
+					BuilderIcons.Icon.TrashCan,
+				}
+				local function leadingFor(index: number, currentDepth: number): any
+					if leadingMode == "None" then
+						return nil
+					end
+					if leadingMode == "Avatar" then
+						return { type = "Avatar", userId = 24813339 } :: any
+					end
+					if leadingMode == "Mixed" then
+						-- alternate icon → avatar → none → repeat
+						local r = (index - 1) % 3
+						if r == 1 then
+							return { type = "Avatar", userId = 24813339 } :: any
+						elseif r == 2 then
+							return nil
+						end
+					end
+					-- Fall through to icon for "Icon" + the icon arm of "Mixed".
+					return leadingIconPalette[((index - 1 + currentDepth) % #leadingIconPalette) + 1]
+				end
+
+				local hintPalette = { "⌘B", "⌘I", "⌘C", "⌘V", "⌘S", "⌘Z" }
+				local badgePalette: { { text: string, variant: BadgeVariant } } = {
+					{ text = "New", variant = BadgeVariant.Success },
+					{ text = "Beta", variant = BadgeVariant.Warning },
+					{ text = "Pro", variant = BadgeVariant.Contrast },
+					{ text = "Soon", variant = BadgeVariant.Neutral },
+				}
+				local function trailingFor(index: number, isSubmenu: boolean): any
+					if isSubmenu or trailingMode == "None" then
+						return nil
+					end
+					if trailingMode == "Hint" then
+						return { type = "Hint", text = hintPalette[((index - 1) % #hintPalette) + 1] } :: any
+					end
+					if trailingMode == "Badge" then
+						local b = badgePalette[((index - 1) % #badgePalette) + 1]
+						return { type = "Badge", text = b.text, variant = b.variant } :: any
+					end
+					-- Mixed: hint on odd indices, badge on even.
+					if index % 2 == 1 then
+						return { type = "Hint", text = hintPalette[((index - 1) % #hintPalette) + 1] } :: any
+					end
+					local b = badgePalette[((index - 1) % #badgePalette) + 1]
+					return { type = "Badge", text = b.text, variant = b.variant } :: any
+				end
+
+				local itemTexts: { [string]: string } = {}
+
+				local function buildMenu(currentDepth: number, prefix: string, isTopLevel: boolean): MenuItems
+					local hasNested = currentDepth > 1
+					local function buildItem(
+						itemPrefix: string,
+						label: string,
+						index: number,
+						isSubmenuTrigger: boolean,
+						isFirstOverall: boolean
+					): MenuItem
+						local id = `{itemPrefix}-{index}`
+						local resolvedText = if isFirstOverall and firstItemText ~= "" then firstItemText else label
+						itemTexts[id] = resolvedText
+						local item: MenuItem = {
+							id = id,
+							text = resolvedText,
+							leading = leadingFor(index, currentDepth),
+							trailing = trailingFor(index, isSubmenuTrigger),
+							isChecked = if isSubmenuTrigger then nil else selectedId == id,
+						}
+						if isSubmenuTrigger then
+							item.items = buildMenu(currentDepth - 1, `{id}-sub`, false)
+						end
+						return item
+					end
+
+					local groupA = {
+						title = "Group A",
+						items = {
+							buildItem(`{prefix}-a`, "Action one", 1, false, isTopLevel),
+							buildItem(`{prefix}-a`, "Action two", 2, false, false),
+							buildItem(
+								`{prefix}-a`,
+								if hasNested then "More actions" else "Action three",
+								3,
+								hasNested,
+								false
+							),
+						},
+					}
+					local groupB = {
+						title = "Group B",
+						items = {
+							buildItem(`{prefix}-b`, "Other one", 4, false, false),
+							buildItem(`{prefix}-b`, "Other two", 5, false, false),
+							buildItem(
+								`{prefix}-b`,
+								if hasNested then "More options" else "Other three",
+								6,
+								hasNested,
+								false
+							),
+						},
+					}
+					return { groupA, groupB }
+				end
+
+				local items = buildMenu(recursionDepth, "p", true)
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 480),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = items,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							local key = tostring(id)
+							print(`Menu: "{itemTexts[key] or key}" activated`)
+							setSelectedId(key)
+							setIsOpen(false)
+						end,
+					}, {
+						Button = React.createElement(Button, {
+							text = "Open Playground",
+							size = InputSize.Medium,
+							onActivated = function()
+								setIsOpen(not isOpen)
+							end,
+						}),
+					}),
+				})
+			end,
+		},
 		{
 			name = "Always Open",
 			story = function(props: Props)
@@ -796,6 +959,9 @@ return {
 		size = Dash.values(InputSize),
 		side = { PopoverSide.Bottom, PopoverSide.Top, PopoverSide.Left, PopoverSide.Right } :: { PopoverSide },
 		align = Dash.values(PopoverAlign),
-		maxDepth = { 3, 4, 5 },
+		maxDepth = { 3, 4, 5, 2, 1 },
+		firstItemText = "Action one",
+		leading = if Flags.FoundationBaseMenuBeta then { "Icon", "Avatar", "Mixed", "None" } else nil,
+		trailing = if Flags.FoundationBaseMenuBeta then { "Hint", "Badge", "Mixed", "None" } else nil,
 	},
 }

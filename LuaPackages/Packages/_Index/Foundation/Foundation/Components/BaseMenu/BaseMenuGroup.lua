@@ -20,6 +20,8 @@ export type BaseMenuGroupProps = {
 	title: string?,
 	children: React.ReactNode,
 	LayoutOrder: number,
+	menuHasLeading: boolean?,
+	menuHasCheck: boolean?,
 }
 
 local function BaseMenuGroup(props: BaseMenuGroupProps)
@@ -34,7 +36,12 @@ local function BaseMenuGroup(props: BaseMenuGroupProps)
 			tag = `col gap-xxsmall size-full-0 auto-y {SIZE_TO_PADDING[context.size]}`,
 		}, {
 			Title = if props.title
-				then React.createElement(BaseMenuTitleItem, { text = props.title, size = context.size })
+				then React.createElement(BaseMenuTitleItem, {
+					text = props.title,
+					size = context.size,
+					menuHasLeading = props.menuHasLeading,
+					menuHasCheck = props.menuHasCheck,
+				})
 				else nil,
 			Items = React.createElement(React.Fragment, nil, props.children),
 		}),

@@ -69,8 +69,6 @@ local GetFIntDebounceAIRephraseSettingDelay = require(RobloxGui.Modules.Flags.Ge
 local GetFIntDebounceChatSummariesSettingDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceChatSummariesSettingDelay)
 local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
-local GetFFlagVoiceChatLogConnectionSource = SharedFlags.GetFFlagVoiceChatLogConnectionSource
-local GetFFlagVoiceChatLogDisconnectReason = SharedFlags.GetFFlagVoiceChatLogDisconnectReason
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
@@ -3600,15 +3598,11 @@ local function Initialize()
 			end
 
 			if newIndex == connectedIndex then
-				if GetFFlagVoiceChatLogConnectionSource() then
-					VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
-				end
+				VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
 				VoiceChatServiceManager:JoinVoice()
 			else
 				if not VoiceChatServiceManager:VoiceChatEnded() then
-					if GetFFlagVoiceChatLogDisconnectReason() then
-						VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
-					end
+					VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
 					VoiceChatServiceManager:Leave()
 				end
 			end
@@ -3740,9 +3734,7 @@ local function Initialize()
 						)
 					end
 				end
-				if GetFFlagVoiceChatLogConnectionSource() then
-					VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
-				end
+				VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
 				VoiceChatServiceManager:JoinVoice()
 			end
 
@@ -3751,9 +3743,7 @@ local function Initialize()
 					"clicked",
 					VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
 				)
-				if GetFFlagVoiceChatLogDisconnectReason() then
-					VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
-				end
+				VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
 				VoiceChatServiceManager:Leave()
 			end
 

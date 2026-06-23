@@ -39,9 +39,7 @@ return function()
 	table.insert(allowList, "ShowPlayerJoinedFriendsToast")
 	table.insert(allowList, "ShowFriendJoinedPlayerToast")
 	table.insert(allowList, "CreateOrJoinParty")
-	if game:DefineFastFlag("RemoteAllowListAddSocial", false) then
-		table.insert(allowList, "RequestPlayerProfileSettings")
-	end
+	table.insert(allowList, "RequestPlayerProfileSettings")
 	if FFlagEnableModerateChatRemoteEvent then
 		table.insert(allowList, "ModerateChatSettingUpdated")
 	end
@@ -72,9 +70,7 @@ return function()
 	table.insert(allowList, "SetUserActive")
 
 	-- content/scripts/CoreScripts/Modules/Server/VR/VRAvatarGesturesServer.lua
-	if game:DefineFastFlag("RemoteAllowListAddVR", false) then
-		table.insert(allowList, "AvatarGesturesVRPlayer")
-	end
+	table.insert(allowList, "AvatarGesturesVRPlayer")
 
 	networkPeer:InitializeRemoteAllowList(allowList)
 end

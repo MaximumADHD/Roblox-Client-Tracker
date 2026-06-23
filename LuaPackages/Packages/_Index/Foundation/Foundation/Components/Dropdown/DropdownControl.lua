@@ -52,12 +52,15 @@ type Props = {
 	label: string,
 	hint: string?,
 	inputRef: React.Ref<GuiObject>?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	variant = if Flags.FoundationDropdownVariant then InputVariant.Standard else nil :: never,
 	isMenuOpen = false,
 	placeholder = "",
+	-- Default the button to selectable when the new flag is on so that consumers don't have to opt in explicitly.
+	-- TODO: clean up with FoundationDropdownSelectionProps
+	Selectable = if Flags.FoundationDropdownSelectionProps then true else nil :: never,
 }
 
 local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiObject>?)
@@ -104,7 +107,21 @@ local function DropdownControl(dropdownControlProps: Props, ref: React.Ref<GuiOb
 					isDisabled = props.isDisabled,
 					onActivated = props.onActivated,
 					selection = {
-						Selectable = not props.isDisabled,
+						Selectable = (if Flags.FoundationDropdownSelectionProps
+							then (if props.isDisabled then false else props.Selectable)
+							else not props.isDisabled),
+						NextSelectionUp = (if Flags.FoundationDropdownSelectionProps
+							then props.NextSelectionUp
+							else nil) :: any,
+						NextSelectionDown = (if Flags.FoundationDropdownSelectionProps
+							then props.NextSelectionDown
+							else nil) :: any,
+						NextSelectionLeft = (if Flags.FoundationDropdownSelectionProps
+							then props.NextSelectionLeft
+							else nil) :: any,
+						NextSelectionRight = (if Flags.FoundationDropdownSelectionProps
+							then props.NextSelectionRight
+							else nil) :: any,
 					},
 					cursor = cursor,
 					stateLayer = { affordance = StateLayerAffordance.None },

@@ -54,6 +54,7 @@ local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?
 			isRequired = props.isRequired,
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
+					inputRef = props.inputRef,
 					size = props.size,
 					variant = props.variant,
 					numLines = props.numLines,

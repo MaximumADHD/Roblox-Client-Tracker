@@ -47,8 +47,13 @@ type InternalTextInputRef = Types.InternalTextInputRef
 type Padding = Types.Padding
 type Bindable<T> = Types.Bindable<T>
 type HorizontalPadding = {
+	-- Outer container left padding
 	left: Bindable<UDim>?,
+	-- Outer container right padding
 	right: Bindable<UDim>?,
+	-- Internal text box padding (between text and adjacent elements)
+	innerLeft: Bindable<UDim>?,
+	innerRight: Bindable<UDim>?,
 }
 
 type TextInputProps = {
@@ -83,6 +88,8 @@ type TextInputProps = {
 	onDragStarted: ((inputObject: InputObject, position: Vector2) -> ())?,
 	onDrag: ((inputObject: InputObject, position: Vector2) -> ())?,
 	onDragEnded: ((inputObject: InputObject, position: Vector2) -> ())?,
+	-- Ref to the outermost container element
+	inputRef: React.Ref<GuiObject>?,
 	-- Placeholder text for input
 	placeholder: string?,
 	-- Background gradient for the input
@@ -120,6 +127,7 @@ type TextBoxProps = {
 	tag: string?,
 	children: React.Node?,
 }
+
 local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: React.Ref<TextBox>?)
 	local isBoundsChecker = props.isBoundsChecker
 	local isMultiLine = props.isMultiLine or isBoundsChecker
@@ -537,6 +545,15 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		} :: { unknown }
 	)
 
+	local textBoxWrapperInsetPadding = if Flags.FoundationSupportPrefixSuffixNumberInput
+		then React.useMemo(function()
+			return {
+				left = if props.horizontalPadding then props.horizontalPadding.innerLeft else nil,
+				right = if props.horizontalPadding then props.horizontalPadding.innerRight else nil,
+			}
+		end, { props.horizontalPadding })
+		else nil :: never
+
 	local textBoxVerticalPadding = textBoxWrapperPadding.bottom.Offset + textBoxWrapperPadding.top.Offset
 	local textBoxSizeFullHeight = UDim2.new(1, 0, 0, textBoxViewportHeight + textBoxVerticalPadding)
 
@@ -657,6 +674,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	return React.createElement(
 		View,
 		withCommonProps(props, {
+			ref = props.inputRef,
 			Size = UDim2.new(1, 0, 0, borderFrameHeight),
 			selection = {
 				Selectable = if Flags.FoundationInputSelectionProps
@@ -732,7 +750,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				layout = scrollViewLayout,
 				onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
 				scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
+				padding = if Flags.FoundationSupportPrefixSuffixNumberInput then textBoxWrapperInsetPadding else nil,
 				tag = "fill size-full clip",
+				testId = `{props.testId}--textbox-wrapper`,
 			}, {
 				TextBox = if not isTouchFocused
 					then React.createElement(TextBox, {

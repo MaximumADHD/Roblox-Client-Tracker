@@ -51,8 +51,28 @@ type StoryProps = {
 	}?,
 }
 
-local AvatarBG = "component_assets/avatarBG_dark"
-local Pictogram = "pictograms/avatar_setup"
+local MEDIA_OPTIONS = {
+	"rbxassetid://103403748802347",
+	"rbxassetid://88076582911570",
+	"pictograms/celebrate",
+	"pictograms/gift",
+	"pictograms/trusted_connections_2",
+	"pictograms/two_people",
+	"pictograms/heart",
+	"pictograms/badge",
+	"pictograms/notifications",
+	"pictograms/voice_chat",
+	"pictograms/robux",
+	"pictograms/protection_shield",
+}
+
+local function isPictogram(media: string?): boolean
+	return media ~= nil and string.match(media, "^pictograms/") ~= nil
+end
+
+-- Each story might render the dialog inline (disablePortal), so give it a fixed-height viewport to
+-- center within. Without it the dialog overflows the auto-sized story slot and gets clipped.
+local STORY_VIEWPORT_HEIGHT = 700
 
 local function Story(props: StoryProps)
 	local children = props.children or { DialogMedia = nil, DialogContent = nil, DialogTitle = nil }
@@ -62,7 +82,9 @@ local function Story(props: StoryProps)
 		setIsOpen(not isOpen)
 	end
 
-	return React.createElement(React.Fragment, nil, {
+	return React.createElement(View, {
+		Size = UDim2.new(1, 0, 0, STORY_VIEWPORT_HEIGHT),
+	}, {
 		ToggleButton = React.createElement(Button, {
 			text = if isOpen then "Close Dialog" else "Open Dialog",
 			onActivated = toggleDialog,
@@ -118,7 +140,7 @@ function CustomMedia(props: {
 	}, {
 		Image = React.createElement(Image, {
 			tag = {
-				["content-emphasis"] = props.media == Pictogram,
+				["content-emphasis"] = isPictogram(props.media),
 			},
 			aspectRatio = props.aspectRatio,
 			Image = props.media,
@@ -183,7 +205,7 @@ return {
 					}),
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
-						mediaStyle = if props.controls.media == Pictogram then tokens.Color.Content.Emphasis else nil,
+						mediaStyle = if isPictogram(props.controls.media) then tokens.Color.Content.Emphasis else nil,
 						backgroundStyle = if props.controls.heroMediaBackgroundStyle
 							then tokens.Color.ActionSoftEmphasis.Background
 							else nil,
@@ -231,7 +253,7 @@ return {
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
-						mediaStyle = if props.controls.media == Pictogram then tokens.Color.Content.Emphasis else nil,
+						mediaStyle = if isPictogram(props.controls.media) then tokens.Color.Content.Emphasis else nil,
 						backgroundStyle = if props.controls.heroMediaBackgroundStyle
 							then tokens.Color.ActionSoftEmphasis.Background
 							else nil,
@@ -261,7 +283,7 @@ return {
 				return React.createElement(Story, props, {
 					DialogMedia = React.createElement(Dialog.HeroMedia, {
 						media = props.controls.media :: string,
-						mediaStyle = if props.controls.media == Pictogram then tokens.Color.Content.Emphasis else nil,
+						mediaStyle = if isPictogram(props.controls.media) then tokens.Color.Content.Emphasis else nil,
 						backgroundStyle = if props.controls.heroMediaBackgroundStyle
 							then tokens.Color.ActionSoftEmphasis.Background
 							else nil,
@@ -447,7 +469,7 @@ return {
 		hasActions = true,
 		disablePortal = false,
 		hasBackdrop = true,
-		media = { Pictogram, AvatarBG },
+		media = MEDIA_OPTIONS,
 		mediaSizeScaleX = 1,
 		mediaSizeScaleY = 0,
 		mediaSizeOffsetX = 0,

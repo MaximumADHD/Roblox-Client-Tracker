@@ -31,6 +31,8 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagChromeActivatedMappedSignal = SharedFlags.FFlagChromeActivatedMappedSignal
 local GetFFlagIsSquadEnabled = SharedFlags.GetFFlagIsSquadEnabled
 
+local ArgoPartyExperimentation = require(CorePackages.Workspace.Packages.SocialExperiments).ArgoPartyExperimentation
+
 local connectVisibilitySignal = if FFlagChromeActivatedMappedSignal
 	then MappedSignal.new(InExperienceAppChatModal.default.visibilitySignal.Event, function()
 		return InExperienceAppChatModal:getVisible()
@@ -43,9 +45,13 @@ return function(id: string, initialAvailability: number)
 	local integration = ChromeService:register({
 		id = id,
 		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.Vertical,
-		label = if GetFFlagIsSquadEnabled()
-			then "Feature.Squads.Label.Party" -- translated in some languages
-			else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch
+		label = if ArgoPartyExperimentation.getIsRenameEnabled()
+			then if SharedFlags.FFlagEnableSideSheet
+				then "Feature.Chat.Title.FriendsChat"
+				else "CommonUI.Features.Label.Chat"
+			else if GetFFlagIsSquadEnabled()
+				then "Feature.Squads.Label.Party" -- translated in some languages
+				else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch
 		activated = function()
 			if InExperienceAppChatModal:getVisible() then
 				InExperienceAppChatModal.default:setVisible(false)

@@ -28,6 +28,7 @@ local ScriptProfiler = require(Components.ScriptProfiler.MainViewScriptProfiler)
 local DebugVisualizations = require(Components.DebugVisualizations.MainViewDebugVisualizations)
 local LuauHeap = require(Components.LuauHeap.MainViewLuauHeap)
 local VoiceChat = require(Components.VoiceChat.MainViewVoiceChat)
+local RequestOrchestrator = require(Components.RequestOrchestrator.MainViewRequestOrchestrator)
 
 local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
 local getClientReplicator = require(DevConsole.Util.getClientReplicator)
@@ -45,6 +46,9 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
+
+local FFlagDevConsoleRequestOrchestratorTab = game:DefineFastFlag("DevConsoleRequestOrchestratorTab", false)
+local FFlagDevConsoleAdminSeesDevTabs = game:DefineFastFlag("DevConsoleAdminSeesDevTabs", false)
 
 local VoiceChatServiceManager = require(CoreGui.RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
@@ -123,11 +127,14 @@ local ADMIN_TAB_LIST = {
 		tab = LuauHeap,
 		layoutOrder = 4,
 	},
-	VoiceChat = if game:GetEngineFeature("VoiceChatDevConsoleTabEnabled") and VoiceChatServiceManager and VoiceChatServiceManager:canUseService()
-	then {
-		tab = VoiceChat,
-		layoutOrder = 5,
-	} else nil,
+	VoiceChat = if game:GetEngineFeature("VoiceChatDevConsoleTabEnabled")
+			and VoiceChatServiceManager
+			and VoiceChatServiceManager:canUseService()
+		then {
+			tab = VoiceChat,
+			layoutOrder = 5,
+		}
+		else nil,
 }
 
 local PLAYER_TAB_LIST = {
@@ -138,6 +145,29 @@ local PLAYER_TAB_LIST = {
 	Memory = {
 		tab = Memory,
 		layoutOrder = 2,
+	},
+}
+
+-- Admin/employee-only tabs appended to DEV_TAB_LIST for admins (see getAdminTabList).
+-- To expose a new admin-only tab, add an entry here; isEnabled is optional and gates
+-- the tab at call-time (omit for an always-on tab). layoutOrder values sit above the
+-- developer tabs (which occupy 1–12) so admin tabs render after them.
+local NEW_ADMIN_TABS = {
+	VoiceChat = {
+		tab = VoiceChat,
+		layoutOrder = 13,
+		isEnabled = function()
+			return game:GetEngineFeature("VoiceChatDevConsoleTabEnabled")
+				and VoiceChatServiceManager ~= nil
+				and VoiceChatServiceManager:canUseService()
+		end,
+	},
+	RequestOrchestrator = {
+		tab = RequestOrchestrator,
+		layoutOrder = 100,
+		isEnabled = function()
+			return FFlagDevConsoleRequestOrchestratorTab
+		end,
 	},
 }
 
@@ -171,6 +201,24 @@ local function isAdminAsync()
 	return PlayerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
 end
 
+-- Admins/employees see the developer tabs PLUS the admin-only tabs in NEW_ADMIN_TABS,
+-- regardless of whether they own the experience. Built from DEV_TAB_LIST so admins gain
+-- the full developer tab set on any game.
+local function getAdminTabList()
+	local merged = table.clone(DEV_TAB_LIST)
+
+	for name, adminTab in pairs(NEW_ADMIN_TABS) do
+		if adminTab.isEnabled == nil or adminTab.isEnabled() then
+			merged[name] = {
+				tab = adminTab.tab,
+				layoutOrder = adminTab.layoutOrder,
+			}
+		end
+	end
+
+	return merged
+end
+
 function DevConsoleMaster.new()
 	local self = {}
 	setmetatable(self, DevConsoleMaster)
@@ -178,6 +226,7 @@ function DevConsoleMaster.new()
 	self.init = false
 
 	self.isDeveloperTabListActive = false
+	self.isEmployee = false
 
 	self.waitForStart = true
 	self.waitForStartBindable = Instance.new("BindableEvent")
@@ -239,6 +288,17 @@ end
 
 local master = DevConsoleMaster.new()
 
+-- The employee and developer-access signals resolve asynchronously and can land in
+-- either order, so derive the tab list from current state rather than branching on
+-- arrival order. Idempotent: once isEmployee is true this always yields the union.
+function DevConsoleMaster:refreshTabList()
+	if self.isEmployee then
+		self.store:dispatch(SetTabList(getAdminTabList(), "Log", true))
+	elseif self.isDeveloperTabListActive then
+		self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
+	end
+end
+
 function DevConsoleMaster:Start()
 	if not self.init then
 		if self.waitForStart then
@@ -250,9 +310,16 @@ function DevConsoleMaster:Start()
 
 		-- Because the request is async, we spawn it as a separate task
 		task.spawn(function()
-			-- Switch to Admin tab list if we didn't already switch to the developer list
-			if isAdminAsync() and not self.isDeveloperTabListActive then
-				self.store:dispatch(SetTabList(ADMIN_TAB_LIST, "Log", false))
+			if FFlagDevConsoleAdminSeesDevTabs then
+				if isAdminAsync() then
+					self.isEmployee = true
+					self:refreshTabList()
+				end
+			else
+				-- Switch to Admin tab list if we didn't already switch to the developer list
+				if isAdminAsync() and not self.isDeveloperTabListActive then
+					self.store:dispatch(SetTabList(ADMIN_TAB_LIST, "Log", false))
+				end
 			end
 		end)
 
@@ -266,9 +333,13 @@ function DevConsoleMaster:Start()
 
 				self.isDeveloperTabListActive = true
 
-				self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
+				if FFlagDevConsoleAdminSeesDevTabs then
+					self:refreshTabList()
+				else
+					self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
+				end
 			end)
-			
+
 			self:SetServerStatsConnection(true)
 		end
 	end

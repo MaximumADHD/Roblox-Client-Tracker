@@ -28,13 +28,18 @@ local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Components.Icon)
 local InputField = require(Components.InputField)
 local InternalTextInput = require(Components.InternalTextInput)
+local Text = require(Components.Text)
 local Types = require(Components.Types)
 local View = require(Components.View)
 local getBindableValue = require(Foundation.Utility.getBindableValue)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
+local getMultiLineTextHeight = require(Foundation.Utility.getMultiLineTextHeight)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
 local joinBindables = require(Foundation.Utility.joinBindables)
 local mapBindable = require(Foundation.Utility.mapBindable)
+local useIconSize = require(Foundation.Utility.useIconSize)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
+local useTextSize = require(Foundation.Utility.useTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local NumberInputControls = require(script.Parent.NumberInputControls)
@@ -79,6 +84,10 @@ export type NumberInputProps = {
 	width: UDim?,
 	-- Image before the input
 	leadingIcon: string?,
+	-- The prefix to display before the input (e.g. $ or €)
+	prefix: string?,
+	-- The suffix to display after the input (e.g. % or px)
+	suffix: string?,
 	-- Value that will be added/subtracted every time you press increment/decrement controls
 	step: number?,
 	-- Maximum value input may reach via increment
@@ -93,6 +102,8 @@ export type NumberInputProps = {
 	isScrubbable: boolean?,
 	-- Behavior of the text input when focused. Mobile does not yet support Highlight behavior.
 	focusBehavior: InputFocusBehavior?,
+	-- Ref to the outermost container element of the internal text input
+	inputRef: React.Ref<GuiObject>?,
 } & Types.SelectionProps & Types.CommonProps
 
 local function defaultFormatAsString(value: number)
@@ -132,6 +143,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		hint: string?,
 		width: UDim?,
 		leadingIcon: string?,
+		prefix: string?,
+		suffix: string?,
 		isScrubbable: boolean?,
 		testId: string,
 		-- Partial TextBox ref exposed via imperative handle
@@ -140,6 +153,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		-- Called when focus is lost. The InputObject that caused focus to be lost is passed if available.
 		onFocusLost: ((inputObject: InputObject?) -> ())?,
 		onReturnPressed: (() -> ())?,
+		-- Ref to the outermost container element of the internal text input
+		inputRef: React.Ref<GuiObject>?,
 	} & Types.SelectionProps & Types.CommonProps
 
 	local tokens = useTokens()
@@ -210,6 +225,68 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local textInput, setTextInput =
 		React.useBinding(props.formatAsString(constrainValue(getBindableValue(props.value))))
+
+	local hasUnits
+	local prefixText
+	local prefixTextSize
+	local unitsPadding
+	if Flags.FoundationSupportPrefixSuffixNumberInput then
+		local textBoxFontStyle = variantProps.textBox.fontStyle
+		local textBoxFontSize = textBoxFontStyle.FontSize :: number
+
+		hasUnits = (props.prefix and props.prefix ~= "") or (props.suffix and props.suffix ~= "")
+
+		prefixText = if props.prefix then props.prefix .. " " else nil
+
+		-- Floor FontSize before measuring: the engine floors TextSize on render,
+		-- so fractional token sizes (e.g. BodyMedium = 17.64) overestimate width.
+		local prefixFontStyle = React.useMemo(function()
+			return {
+				Font = textBoxFontStyle.Font,
+				FontSize = math.floor(textBoxFontSize),
+				LineHeight = textBoxFontStyle.LineHeight,
+			}
+		end, { textBoxFontStyle, textBoxFontSize } :: { unknown })
+		prefixTextSize = useTextSize(prefixText, prefixFontStyle)
+
+		local leadingIconSize = useIconSize(variantProps.icon.size, isBuilderIcon(props.leadingIcon))
+		local leadingIconWidth = if props.leadingIcon then (leadingIconSize :: UDim2).X.Offset else 0
+		local containerGap = if props.size == InputSize.XSmall
+			then tokens.Gap.Small
+			elseif props.size == InputSize.Small then tokens.Gap.Medium
+			else tokens.Gap.Large
+		local leadingIconGap = if props.leadingIcon then containerGap else 0
+
+		-- Mirror InternalTextInput's textBoxWrapperPadding formula plus the 1px
+		-- stroke inset so the overlay's text baseline matches the textbox's.
+		unitsPadding = React.useMemo(
+			function()
+				local textHeight = getMultiLineTextHeight(textBoxFontSize, 1, textBoxFontStyle.LineHeight :: number)
+				local outerBorderOffset = 2
+				local containerPaddingY = math.round(
+					(variantProps.container.minHeight - outerBorderOffset - textHeight) * 2
+				) / 2
+				local strokeInset = 1
+				return {
+					left = UDim.new(
+						0,
+						variantProps.container.horizontalPadding.Offset + leadingIconWidth + leadingIconGap
+					),
+					right = variantProps.container.horizontalPadding,
+					top = UDim.new(0, math.floor(containerPaddingY / 2) + strokeInset),
+					bottom = UDim.new(0, math.ceil(containerPaddingY / 2) + strokeInset),
+				}
+			end,
+			{
+				variantProps.container.minHeight,
+				variantProps.container.horizontalPadding,
+				textBoxFontStyle,
+				leadingIconWidth,
+				leadingIconGap,
+				textBoxFontSize,
+			} :: { unknown }
+		)
+	end
 
 	local width = if props.width
 		then props.width :: UDim
@@ -391,6 +468,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 				local isSplitVariant = controlsVariant == NumberInputControlsVariant.Split
 
 				local input = React.createElement(InternalTextInput, {
+					inputRef = props.inputRef,
 					text = joinBindables({
 						text = textInput,
 						value = props.value,
@@ -419,6 +497,9 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						) :: any,
 					horizontalPadding = {
 						left = variantProps.container.horizontalPadding,
+						innerLeft = if Flags.FoundationSupportPrefixSuffixNumberInput
+							then if prefixTextSize and prefixTextSize.X > 0 then UDim.new(0, prefixTextSize.X) else nil
+							else nil,
 					},
 					focusBehavior = numberInputProps.focusBehavior,
 					onChanged = onTextChanged,
@@ -451,6 +532,31 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					isDisabled = props.isDisabled,
 					testId = `{props.testId}--field`,
 				})
+
+				local unitsOverlay = if Flags.FoundationSupportPrefixSuffixNumberInput and hasUnits
+					then React.createElement(Text, {
+						tag = "size-full text-align-x-left text-align-y-center content-muted",
+						fontStyle = variantProps.textBox.fontStyle,
+						Text = textInput:map(function(value)
+							return `{if props.prefix then props.prefix .. " " else ""}<font transparency="1">{value}</font>{if props.suffix
+								then " " .. props.suffix
+								else ""}`
+						end),
+						RichText = true,
+						ClipsDescendants = true,
+						-- Use `padding` prop, not a child UIPadding: Text emits its own
+						-- UIPadding for line-height which would conflict with a sibling.
+						padding = unitsPadding,
+						testId = `{props.testId}--units`,
+					})
+					else nil
+
+				if Flags.FoundationSupportPrefixSuffixNumberInput then
+					input = React.createElement(View, { tag = "size-full-0 auto-y" }, {
+						Input = input,
+						Units = unitsOverlay,
+					}) :: any
+				end
 
 				return if isSplitVariant
 					then React.createElement(View, {

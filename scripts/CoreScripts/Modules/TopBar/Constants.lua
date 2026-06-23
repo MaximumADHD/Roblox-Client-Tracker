@@ -92,7 +92,6 @@ return {
 	ChatIconKeepOutAreaId = "chat-icon",
 	BackIconKeepOutAreaId = "back-icon",
 	VoiceBetaBadgeKeepOutAreaId = "badge-voice-beta",
-	AssistantBuildKeepOutAreaId = "assistant-build",
 
 	TopBarKeepOutAreaId = "roblox-topbar",
 

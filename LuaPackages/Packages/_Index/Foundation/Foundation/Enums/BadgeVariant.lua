@@ -1,4 +1,13 @@
-export type BadgeVariant = "Primary" | "Secondary" | "Alert" | "Success" | "Warning" | "Neutral" | "Contrast" | "OverMedia"
+export type BadgeVariant =
+	"Primary"
+	| "Secondary"
+	| "Alert"
+	| "Success"
+	| "Warning"
+	| "Neutral"
+	| "Contrast"
+	| "OverMedia"
+	| "Emphasis"
 
 local BadgeVariantEnum = {
 	Neutral = "Neutral" :: "Neutral",
@@ -7,6 +16,7 @@ local BadgeVariantEnum = {
 	Success = "Success" :: "Success",
 	Warning = "Warning" :: "Warning",
 	OverMedia = "OverMedia" :: "OverMedia",
+	Emphasis = "Emphasis" :: "Emphasis",
 
 	-- DEPRECATED Scheduled for removal in the next major release (2.0)
 	Primary = "Primary" :: "Primary",

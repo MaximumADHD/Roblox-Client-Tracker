@@ -69,6 +69,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 			input = function(inputRef)
 				return React.createElement(InternalTextInput, {
 					ref = inputRef,
+					inputRef = props.inputRef,
 					hasError = props.hasError,
 					isDisabled = props.isDisabled,
 					hasClearButton = props.hasClearButton,

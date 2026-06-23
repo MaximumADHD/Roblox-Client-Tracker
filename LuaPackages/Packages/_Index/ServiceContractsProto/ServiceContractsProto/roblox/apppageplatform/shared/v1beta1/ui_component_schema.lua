@@ -101,6 +101,8 @@ type _Messages =
 		CollectionCarouselPlaceholderSchema_Props: _CollectionCarouselPlaceholderSchema_PropsMessage,
 		VariableItemWidthCarouselSchema: _VariableItemWidthCarouselSchemaMessage,
 		VariableItemWidthCarouselSchema_Props: _VariableItemWidthCarouselSchema_PropsMessage,
+		OptionSelectorCollectionSchema: _OptionSelectorCollectionSchemaMessage,
+		OptionSelectorCollectionSchema_Props: _OptionSelectorCollectionSchema_PropsMessage,
 		CollectionGridSchema: _CollectionGridSchemaMessage,
 		CollectionGridSchema_Props: _CollectionGridSchema_PropsMessage,
 		SingleItemCollectionSchema: _SingleItemCollectionSchemaMessage,
@@ -1208,20 +1210,26 @@ type _LazyNestedComponentListProp_ComponentListImpl = {
 
 type _LazyNestedComponentListProp_ComponentListFields = {
 	source: (
-		{ type: "literal", value: LazyNestedComponentListProp_ItemList } | { type: "binding_path", value: string }
+		{ type: "literal", value: LazyNestedComponentListProp_ItemList }
+		| { type: "binding_path", value: string }
+		| { type: "pool", value: boolean }
 	)?,
 	default_item: LazyNestedComponentListProp_Item?,
 	ordered_identifiers: StringArrayProp?,
 	item_overrides: { [string]: LazyNestedComponentListProp_Item },
+	pool_path: string,
 }
 
 type _LazyNestedComponentListProp_ComponentListPartialFields = {
 	source: (
-		{ type: "literal", value: LazyNestedComponentListProp_ItemList } | { type: "binding_path", value: string }
+		{ type: "literal", value: LazyNestedComponentListProp_ItemList }
+		| { type: "binding_path", value: string }
+		| { type: "pool", value: boolean }
 	)?,
 	default_item: LazyNestedComponentListProp_Item?,
 	ordered_identifiers: StringArrayProp?,
 	item_overrides: { [string]: LazyNestedComponentListProp_Item }?,
+	pool_path: string?,
 }
 
 export type LazyNestedComponentListProp_ComponentList = typeof(setmetatable(
@@ -3705,6 +3713,84 @@ export type VariableItemWidthCarouselSchema_Props = typeof(setmetatable(
 type _VariableItemWidthCarouselSchema_PropsMessage = proto.Message<
 	VariableItemWidthCarouselSchema_Props,
 	_VariableItemWidthCarouselSchema_PropsPartialFields
+>
+
+type _OptionSelectorCollectionSchemaImpl = {
+	__index: _OptionSelectorCollectionSchemaImpl,
+	new: (fields: _OptionSelectorCollectionSchemaPartialFields?) -> OptionSelectorCollectionSchema,
+	encode: (self: OptionSelectorCollectionSchema) -> buffer,
+	decode: (input: buffer) -> OptionSelectorCollectionSchema,
+	jsonEncode: (self: OptionSelectorCollectionSchema) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OptionSelectorCollectionSchema,
+	descriptor: proto.Descriptor,
+}
+
+type _OptionSelectorCollectionSchemaFields = {
+	props: OptionSelectorCollectionSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+type _OptionSelectorCollectionSchemaPartialFields = {
+	props: OptionSelectorCollectionSchema_Props?,
+	shared: _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared?,
+}
+
+export type OptionSelectorCollectionSchema = typeof(setmetatable(
+	{} :: _OptionSelectorCollectionSchemaFields,
+	{} :: _OptionSelectorCollectionSchemaImpl
+))
+type _OptionSelectorCollectionSchemaMessage = proto.Message<
+	OptionSelectorCollectionSchema,
+	_OptionSelectorCollectionSchemaPartialFields
+>
+
+type _OptionSelectorCollectionSchema_PropsImpl = {
+	__index: _OptionSelectorCollectionSchema_PropsImpl,
+	new: (fields: _OptionSelectorCollectionSchema_PropsPartialFields?) -> OptionSelectorCollectionSchema_Props,
+	encode: (self: OptionSelectorCollectionSchema_Props) -> buffer,
+	decode: (input: buffer) -> OptionSelectorCollectionSchema_Props,
+	jsonEncode: (self: OptionSelectorCollectionSchema_Props) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OptionSelectorCollectionSchema_Props,
+	descriptor: proto.Descriptor,
+}
+
+type _OptionSelectorCollectionSchema_PropsFields = {
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	on_option_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	collection_component: NestedComponentProp?,
+	placeholder_collection_component: NestedComponentProp?,
+	placeholder_transition_duration_seconds: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	option_item_configs: LazyNestedComponentListProp?,
+	options_data: _roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfStructProp?,
+	item_height: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	item_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_buttons_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	padding_between_option_selector_and_collection: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+type _OptionSelectorCollectionSchema_PropsPartialFields = {
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	on_option_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	collection_component: NestedComponentProp?,
+	placeholder_collection_component: NestedComponentProp?,
+	placeholder_transition_duration_seconds: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	option_item_configs: LazyNestedComponentListProp?,
+	options_data: _roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfStructProp?,
+	item_height: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	item_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	scroll_buttons_enabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	padding_between_option_selector_and_collection: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+}
+
+export type OptionSelectorCollectionSchema_Props = typeof(setmetatable(
+	{} :: _OptionSelectorCollectionSchema_PropsFields,
+	{} :: _OptionSelectorCollectionSchema_PropsImpl
+))
+type _OptionSelectorCollectionSchema_PropsMessage = proto.Message<
+	OptionSelectorCollectionSchema_Props,
+	_OptionSelectorCollectionSchema_PropsPartialFields
 >
 
 type _CollectionGridSchemaImpl = {
@@ -9367,6 +9453,7 @@ type _UiComponentSchemaFields = {
 		| { type: "reveal_text", value: RevealTextSchema }
 		| { type: "shimmer_text", value: ShimmerTextSchema }
 		| { type: "variable_item_width_carousel", value: VariableItemWidthCarouselSchema }
+		| { type: "option_selector_collection", value: OptionSelectorCollectionSchema }
 	)?,
 }
 
@@ -9446,6 +9533,7 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "reveal_text", value: RevealTextSchema }
 		| { type: "shimmer_text", value: ShimmerTextSchema }
 		| { type: "variable_item_width_carousel", value: VariableItemWidthCarouselSchema }
+		| { type: "option_selector_collection", value: OptionSelectorCollectionSchema }
 	)?,
 }
 
@@ -13734,6 +13822,7 @@ do
 				then nil
 				else data.ordered_identifiers,
 			item_overrides = if data == nil or data.item_overrides == nil then {} else data.item_overrides,
+			pool_path = if data == nil or data.pool_path == nil then "" else data.pool_path,
 		}, _LazyNestedComponentListProp_ComponentListImpl :: _LazyNestedComponentListProp_ComponentListImpl)
 	end
 
@@ -13751,6 +13840,9 @@ do
 			elseif self.source.type == "binding_path" then
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.source.value)
+			elseif self.source.type == "pool" then
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(output, cursor, if self.source.value then 1 else 0)
 			end
 		end
 
@@ -13780,6 +13872,11 @@ do
 			end
 		end
 
+		if self.pool_path ~= nil and self.pool_path ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.pool_path)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -13796,7 +13893,12 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 6 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.source = { type = "pool", value = value ~= 0 }
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -13834,6 +13936,11 @@ do
 					self.item_overrides[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pool_path = buffer.tostring(value)
+					continue
 				end
 
 				local length
@@ -13868,6 +13975,8 @@ do
 				output.literal = self.source.value:jsonEncode()
 			elseif self.source.type == "binding_path" then
 				output.bindingPath = self.source.value
+			elseif self.source.type == "pool" then
+				output.pool = self.source.value
 			end
 		end
 
@@ -13885,6 +13994,10 @@ do
 				newOutput[key] = (value :: any):jsonEncode()
 			end
 			output.itemOverrides = newOutput
+		end
+
+		if self.pool_path ~= nil and self.pool_path ~= "" then
+			output.poolPath = self.pool_path
 		end
 
 		return output
@@ -13906,6 +14019,10 @@ do
 
 		if input.bindingPath ~= nil then
 			self.source = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.pool ~= nil then
+			self.source = { type = "pool", value = input.pool }
 		end
 
 		if input.default_item ~= nil then
@@ -13940,6 +14057,14 @@ do
 			end
 
 			self.item_overrides = newOutput
+		end
+
+		if input.pool_path ~= nil then
+			self.pool_path = input.pool_path
+		end
+
+		if input.poolPath ~= nil then
+			self.pool_path = input.poolPath
 		end
 
 		return self
@@ -32575,6 +32700,538 @@ do
 	messages.VariableItemWidthCarouselSchema_Props = _VariableItemWidthCarouselSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.VariableItemWidthCarouselSchema_Props)
+end
+
+do
+	local _OptionSelectorCollectionSchemaImpl = {}
+	_OptionSelectorCollectionSchemaImpl.__index = _OptionSelectorCollectionSchemaImpl
+
+	function _OptionSelectorCollectionSchemaImpl.new(
+		data: _OptionSelectorCollectionSchemaPartialFields?
+	): OptionSelectorCollectionSchema
+		return setmetatable({
+			props = if data == nil or data.props == nil then nil else data.props,
+			shared = if data == nil or data.shared == nil then nil else data.shared,
+		}, _OptionSelectorCollectionSchemaImpl :: _OptionSelectorCollectionSchemaImpl)
+	end
+
+	function _OptionSelectorCollectionSchemaImpl.encode(self: OptionSelectorCollectionSchema): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.props ~= nil then
+			local encoded = self.props:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.shared ~= nil then
+			local encoded = self.shared:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OptionSelectorCollectionSchemaImpl.decode(input: buffer): OptionSelectorCollectionSchema
+		local self = _OptionSelectorCollectionSchemaImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.props = messages.OptionSelectorCollectionSchema_Props.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.shared = _roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OptionSelectorCollectionSchemaImpl.jsonEncode(self: OptionSelectorCollectionSchema): any
+		local output = {}
+
+		if self.props ~= nil then
+			output.props = self.props:jsonEncode()
+		end
+
+		if self.shared ~= nil then
+			output.shared = self.shared:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OptionSelectorCollectionSchemaImpl.jsonDecode(input: { [string]: any }): OptionSelectorCollectionSchema
+		local self = _OptionSelectorCollectionSchemaImpl.new()
+
+		if input.props ~= nil then
+			self.props = messages.OptionSelectorCollectionSchema_Props.jsonDecode(input.props)
+		end
+
+		if input.shared ~= nil then
+			self.shared =
+				_roblox_apppageplatform_shared_v1beta1_component_shared.ComponentShared.jsonDecode(input.shared)
+		end
+
+		return self
+	end
+
+	_OptionSelectorCollectionSchemaImpl.descriptor = {
+		name = "OptionSelectorCollectionSchema",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OptionSelectorCollectionSchema",
+	}
+
+	messages.OptionSelectorCollectionSchema = _OptionSelectorCollectionSchemaImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OptionSelectorCollectionSchema)
+end
+
+do
+	local _OptionSelectorCollectionSchema_PropsImpl = {}
+	_OptionSelectorCollectionSchema_PropsImpl.__index = _OptionSelectorCollectionSchema_PropsImpl
+
+	function _OptionSelectorCollectionSchema_PropsImpl.new(
+		data: _OptionSelectorCollectionSchema_PropsPartialFields?
+	): OptionSelectorCollectionSchema_Props
+		return setmetatable({
+			title = if data == nil or data.title == nil then nil else data.title,
+			selected_option = if data == nil or data.selected_option == nil then nil else data.selected_option,
+			on_option_activated = if data == nil or data.on_option_activated == nil
+				then nil
+				else data.on_option_activated,
+			collection_component = if data == nil or data.collection_component == nil
+				then nil
+				else data.collection_component,
+			placeholder_collection_component = if data == nil or data.placeholder_collection_component == nil
+				then nil
+				else data.placeholder_collection_component,
+			placeholder_transition_duration_seconds = if data == nil
+					or data.placeholder_transition_duration_seconds == nil
+				then nil
+				else data.placeholder_transition_duration_seconds,
+			option_item_configs = if data == nil or data.option_item_configs == nil
+				then nil
+				else data.option_item_configs,
+			options_data = if data == nil or data.options_data == nil then nil else data.options_data,
+			item_height = if data == nil or data.item_height == nil then nil else data.item_height,
+			item_padding = if data == nil or data.item_padding == nil then nil else data.item_padding,
+			scroll_buttons_enabled = if data == nil or data.scroll_buttons_enabled == nil
+				then nil
+				else data.scroll_buttons_enabled,
+			padding_between_option_selector_and_collection = if data == nil
+					or data.padding_between_option_selector_and_collection == nil
+				then nil
+				else data.padding_between_option_selector_and_collection,
+		}, _OptionSelectorCollectionSchema_PropsImpl :: _OptionSelectorCollectionSchema_PropsImpl)
+	end
+
+	function _OptionSelectorCollectionSchema_PropsImpl.encode(self: OptionSelectorCollectionSchema_Props): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.title ~= nil then
+			local encoded = self.title:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selected_option ~= nil then
+			local encoded = self.selected_option:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_option_activated ~= nil then
+			local encoded = self.on_option_activated:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.collection_component ~= nil then
+			local encoded = self.collection_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.placeholder_collection_component ~= nil then
+			local encoded = self.placeholder_collection_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.placeholder_transition_duration_seconds ~= nil then
+			local encoded = self.placeholder_transition_duration_seconds:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.option_item_configs ~= nil then
+			local encoded = self.option_item_configs:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.options_data ~= nil then
+			local encoded = self.options_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_height ~= nil then
+			local encoded = self.item_height:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_padding ~= nil then
+			local encoded = self.item_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scroll_buttons_enabled ~= nil then
+			local encoded = self.scroll_buttons_enabled:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.padding_between_option_selector_and_collection ~= nil then
+			local encoded = self.padding_between_option_selector_and_collection:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OptionSelectorCollectionSchema_PropsImpl.decode(input: buffer): OptionSelectorCollectionSchema_Props
+		local self = _OptionSelectorCollectionSchema_PropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_option_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.collection_component = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.placeholder_collection_component = messages.NestedComponentProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.placeholder_transition_duration_seconds =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.option_item_configs = messages.LazyNestedComponentListProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.options_data =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfStructProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_height = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.item_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scroll_buttons_enabled =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.padding_between_option_selector_and_collection =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OptionSelectorCollectionSchema_PropsImpl.jsonEncode(self: OptionSelectorCollectionSchema_Props): any
+		local output = {}
+
+		if self.title ~= nil then
+			output.title = self.title:jsonEncode()
+		end
+
+		if self.selected_option ~= nil then
+			output.selectedOption = self.selected_option:jsonEncode()
+		end
+
+		if self.on_option_activated ~= nil then
+			output.onOptionActivated = self.on_option_activated:jsonEncode()
+		end
+
+		if self.collection_component ~= nil then
+			output.collectionComponent = self.collection_component:jsonEncode()
+		end
+
+		if self.placeholder_collection_component ~= nil then
+			output.placeholderCollectionComponent = self.placeholder_collection_component:jsonEncode()
+		end
+
+		if self.placeholder_transition_duration_seconds ~= nil then
+			output.placeholderTransitionDurationSeconds = self.placeholder_transition_duration_seconds:jsonEncode()
+		end
+
+		if self.option_item_configs ~= nil then
+			output.optionItemConfigs = self.option_item_configs:jsonEncode()
+		end
+
+		if self.options_data ~= nil then
+			output.optionsData = self.options_data:jsonEncode()
+		end
+
+		if self.item_height ~= nil then
+			output.itemHeight = self.item_height:jsonEncode()
+		end
+
+		if self.item_padding ~= nil then
+			output.itemPadding = self.item_padding:jsonEncode()
+		end
+
+		if self.scroll_buttons_enabled ~= nil then
+			output.scrollButtonsEnabled = self.scroll_buttons_enabled:jsonEncode()
+		end
+
+		if self.padding_between_option_selector_and_collection ~= nil then
+			output.paddingBetweenOptionSelectorAndCollection =
+				self.padding_between_option_selector_and_collection:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OptionSelectorCollectionSchema_PropsImpl.jsonDecode(
+		input: { [string]: any }
+	): OptionSelectorCollectionSchema_Props
+		local self = _OptionSelectorCollectionSchema_PropsImpl.new()
+
+		if input.title ~= nil then
+			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.selected_option ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selected_option)
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selectedOption)
+		end
+
+		if input.on_option_activated ~= nil then
+			self.on_option_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_option_activated)
+		end
+
+		if input.onOptionActivated ~= nil then
+			self.on_option_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onOptionActivated)
+		end
+
+		if input.collection_component ~= nil then
+			self.collection_component = messages.NestedComponentProp.jsonDecode(input.collection_component)
+		end
+
+		if input.collectionComponent ~= nil then
+			self.collection_component = messages.NestedComponentProp.jsonDecode(input.collectionComponent)
+		end
+
+		if input.placeholder_collection_component ~= nil then
+			self.placeholder_collection_component =
+				messages.NestedComponentProp.jsonDecode(input.placeholder_collection_component)
+		end
+
+		if input.placeholderCollectionComponent ~= nil then
+			self.placeholder_collection_component =
+				messages.NestedComponentProp.jsonDecode(input.placeholderCollectionComponent)
+		end
+
+		if input.placeholder_transition_duration_seconds ~= nil then
+			self.placeholder_transition_duration_seconds =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+					input.placeholder_transition_duration_seconds
+				)
+		end
+
+		if input.placeholderTransitionDurationSeconds ~= nil then
+			self.placeholder_transition_duration_seconds =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+					input.placeholderTransitionDurationSeconds
+				)
+		end
+
+		if input.option_item_configs ~= nil then
+			self.option_item_configs = messages.LazyNestedComponentListProp.jsonDecode(input.option_item_configs)
+		end
+
+		if input.optionItemConfigs ~= nil then
+			self.option_item_configs = messages.LazyNestedComponentListProp.jsonDecode(input.optionItemConfigs)
+		end
+
+		if input.options_data ~= nil then
+			self.options_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfStructProp.jsonDecode(input.options_data)
+		end
+
+		if input.optionsData ~= nil then
+			self.options_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ArrayOfStructProp.jsonDecode(input.optionsData)
+		end
+
+		if input.item_height ~= nil then
+			self.item_height = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.item_height)
+		end
+
+		if input.itemHeight ~= nil then
+			self.item_height = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.itemHeight)
+		end
+
+		if input.item_padding ~= nil then
+			self.item_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.item_padding)
+		end
+
+		if input.itemPadding ~= nil then
+			self.item_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.itemPadding)
+		end
+
+		if input.scroll_buttons_enabled ~= nil then
+			self.scroll_buttons_enabled =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.scroll_buttons_enabled)
+		end
+
+		if input.scrollButtonsEnabled ~= nil then
+			self.scroll_buttons_enabled =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.scrollButtonsEnabled)
+		end
+
+		if input.padding_between_option_selector_and_collection ~= nil then
+			self.padding_between_option_selector_and_collection =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+					input.padding_between_option_selector_and_collection
+				)
+		end
+
+		if input.paddingBetweenOptionSelectorAndCollection ~= nil then
+			self.padding_between_option_selector_and_collection =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(
+					input.paddingBetweenOptionSelectorAndCollection
+				)
+		end
+
+		return self
+	end
+
+	_OptionSelectorCollectionSchema_PropsImpl.descriptor = {
+		name = "OptionSelectorCollectionSchema_Props",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Props",
+	}
+
+	messages.OptionSelectorCollectionSchema_Props = _OptionSelectorCollectionSchema_PropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OptionSelectorCollectionSchema_Props)
 end
 
 do
@@ -65320,6 +65977,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 74, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "option_selector_collection" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 75, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -65741,6 +66402,14 @@ do
 						value = messages.VariableItemWidthCarouselSchema.decode(value),
 					}
 					continue
+				elseif field == 75 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "option_selector_collection",
+						value = messages.OptionSelectorCollectionSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -65917,6 +66586,8 @@ do
 				output.shimmerText = self.kind.value:jsonEncode()
 			elseif self.kind.type == "variable_item_width_carousel" then
 				output.variableItemWidthCarousel = self.kind.value:jsonEncode()
+			elseif self.kind.type == "option_selector_collection" then
+				output.optionSelectorCollection = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -66588,6 +67259,20 @@ do
 			}
 		end
 
+		if input.option_selector_collection ~= nil then
+			self.kind = {
+				type = "option_selector_collection",
+				value = messages.OptionSelectorCollectionSchema.jsonDecode(input.option_selector_collection),
+			}
+		end
+
+		if input.optionSelectorCollection ~= nil then
+			self.kind = {
+				type = "option_selector_collection",
+				value = messages.OptionSelectorCollectionSchema.jsonDecode(input.optionSelectorCollection),
+			}
+		end
+
 		return self
 	end
 
@@ -66689,6 +67374,8 @@ return {
 	CollectionCarouselPlaceholderSchema_Props = messages.CollectionCarouselPlaceholderSchema_Props,
 	VariableItemWidthCarouselSchema = messages.VariableItemWidthCarouselSchema,
 	VariableItemWidthCarouselSchema_Props = messages.VariableItemWidthCarouselSchema_Props,
+	OptionSelectorCollectionSchema = messages.OptionSelectorCollectionSchema,
+	OptionSelectorCollectionSchema_Props = messages.OptionSelectorCollectionSchema_Props,
 	CollectionGridSchema = messages.CollectionGridSchema,
 	CollectionGridSchema_Props = messages.CollectionGridSchema_Props,
 	SingleItemCollectionSchema = messages.SingleItemCollectionSchema,

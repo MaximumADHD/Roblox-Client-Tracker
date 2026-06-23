@@ -1,26 +1,22 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local StaticRules = require(Foundation.StyleSheet.Rules.staticRules)
 local Tokens = require(Foundation.Providers.Style.Tokens)
+local attributeRules = require(Foundation.StyleSheet.Rules.attributeRules)
 local formatTokens = require(Foundation.StyleSheet.formatTokens)
 
--- Extract layout tag names from static rules
+-- Extract every UIListLayout-pseudo tag from the rules pipeline.
 local function getLayoutTags(): { [string]: boolean }
 	local layoutTags = {}
 
-	-- Get tokens and format them using the existing function. Token values may change
-	-- based on parameters, but the keys used to generate the rules are constant.
-	local formattedTokens = formatTokens(Tokens.defaultTokens)
+	local tokens = Tokens.defaultTokens
+	local formattedTokens = formatTokens(tokens)
+	-- Only the `size` bucket contains UIListLayout pseudo rules (from
+	-- ListLayoutRules and ListLayoutSpacingRules); `common` and `theme` never do.
+	local _common, size = attributeRules.rulesGenerator(tokens, formattedTokens)
 
-	-- Get all rules related to UIListLayouts
-	local listLayoutRules = StaticRules.rules.ListLayoutRules()
-	local spacingRules = StaticRules.rules.ListLayoutSpacingRules(formattedTokens.gaps, formattedTokens.gutters)
-
-	for _, rules in { listLayoutRules, spacingRules } do
-		for _, rule in rules do
-			if rule.pseudo == "UIListLayout" and rule.tag then
-				layoutTags[rule.tag] = true
-			end
+	for _, rule in size do
+		if rule.pseudo == "UIListLayout" and rule.tag then
+			layoutTags[rule.tag] = true
 		end
 	end
 

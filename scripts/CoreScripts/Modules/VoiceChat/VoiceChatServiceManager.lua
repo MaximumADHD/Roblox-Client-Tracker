@@ -33,10 +33,6 @@ local GetFFlagUpdateVoiceConnectionToasts = require(script.Parent.Flags.GetFFlag
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagVoiceChatLogConnectionSource =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogConnectionSource
-local GetFFlagVoiceChatLogDisconnectReason =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogDisconnectReason
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat = VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat
@@ -532,13 +528,12 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnStateChanged", function(oldState, newState)
 		MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
 
-		if GetFFlagVoiceChatLogConnectionSource() and (newState == (Enum :: any).VoiceChatState.Ended or newState == (Enum :: any).VoiceChatState.Failed) then
+		if newState == (Enum :: any).VoiceChatState.Ended or newState == (Enum :: any).VoiceChatState.Failed then
 			self.voiceConnectEventReportedForActiveSession = false
 		end
 
 		if
-			GetFFlagVoiceChatLogConnectionSource()
-			and newState == (Enum :: any).VoiceChatState.Joined
+			newState == (Enum :: any).VoiceChatState.Joined
 			and self:GetVoiceJoinProgress() == VOICE_JOIN_PROGRESS.Idle
 			and not self.voiceConnectEventReportedForActiveSession
 		then
@@ -551,7 +546,7 @@ function VoiceChatServiceManager.new(
 			attemptVoiceRejoinConnection:Disconnect()
 		end
 		local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
-		if inEndedState and GetFFlagVoiceChatLogDisconnectReason() then
+		if inEndedState then
 			local reasonData = self:GetConnectDisconnectAnalyticsData()
 			reasonData.disconnectReason = self.pendingDisconnectReason or VoiceConstants.VOICE_DISCONNECT_REASON.SYSTEM
 			self.Analytics:reportConnectDisconnectEvents("voiceDisconnectReasonEvent", reasonData)
@@ -596,9 +591,7 @@ function VoiceChatServiceManager.new(
 		self:InitialJoinFailedPrompt()
 	end)
 	self.coreVoiceManager:subscribe("OnPlayerModerated", function()
-		if GetFFlagVoiceChatLogDisconnectReason() then
-			self.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.MODERATED
-		end
+		self.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.MODERATED
 		self:ShowPlayerModeratedMessage()
 	end)
 
@@ -695,14 +688,10 @@ function VoiceChatServiceManager.new(
 
 		if shouldSendConnectDisconnectAnalytics then
 			local connectData = self:GetConnectDisconnectAnalyticsData()
-			if GetFFlagVoiceChatLogConnectionSource() then
-				connectData.connectionSource = self.pendingConnectionSource
-				self.pendingConnectionSource = nil
-			end
+			connectData.connectionSource = self.pendingConnectionSource
+			self.pendingConnectionSource = nil
 			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
-			if GetFFlagVoiceChatLogConnectionSource() then
-				self.voiceConnectEventReportedForActiveSession = true
-			end
+			self.voiceConnectEventReportedForActiveSession = true
 			shouldSendConnectDisconnectAnalytics = false
 			attemptVoiceRejoinConnection:Disconnect()
 		end
@@ -1082,7 +1071,7 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 			PostPhoneUpsellDisplayed(bind(self, "PostRequest"), layerName, os.time(), false)
 		end,
 		onSuccess = function()
-			if GetFFlagVoiceChatLogConnectionSource() and self.pendingConnectionSource == nil then
+			if self.pendingConnectionSource == nil then
 				self.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
 			end
 			self:EnableVoice()
@@ -1392,7 +1381,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self.inExpUpsellEntrypoint,
 						self:GetInExpUpsellAnalyticsData()
 					)
-					if GetFFlagVoiceChatLogConnectionSource() and self.pendingConnectionSource == nil then
+					if self.pendingConnectionSource == nil then
 						self.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
 					end
 					self:EnableVoice()
@@ -1844,7 +1833,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FAE_UPSELL
 		end
-		if GetFFlagVoiceChatLogConnectionSource() and self.pendingConnectionSource == nil then
+		if self.pendingConnectionSource == nil then
 			self.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
 		end
 		self.coreVoiceManager:OptUserToJoinVoice() -- User has opted in to voice chat, so when FAE finishes, join the voice call
@@ -2133,14 +2122,10 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 		if GetFFlagVoiceChatClientRewriteMasterLua() then
 			self.coreVoiceManager:RejoinVoice()
 			local connectData = self:GetConnectDisconnectAnalyticsData()
-			if GetFFlagVoiceChatLogConnectionSource() then
-				connectData.connectionSource = self.pendingConnectionSource
-				self.pendingConnectionSource = nil
-			end
+			connectData.connectionSource = self.pendingConnectionSource
+			self.pendingConnectionSource = nil
 			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
-			if GetFFlagVoiceChatLogConnectionSource() then
-				self.voiceConnectEventReportedForActiveSession = true
-			end
+			self.voiceConnectEventReportedForActiveSession = true
 		else
 			if groupId and groupId ~= "" then
 				self.service:Leave()
@@ -2149,14 +2134,10 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 					self:InitialJoinFailedPrompt()
 				else
 					local connectData = self:GetConnectDisconnectAnalyticsData()
-					if GetFFlagVoiceChatLogConnectionSource() then
-						connectData.connectionSource = self.pendingConnectionSource
-						self.pendingConnectionSource = nil
-					end
+					connectData.connectionSource = self.pendingConnectionSource
+					self.pendingConnectionSource = nil
 					self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
-					if GetFFlagVoiceChatLogConnectionSource() then
-						self.voiceConnectEventReportedForActiveSession = true
-					end
+					self.voiceConnectEventReportedForActiveSession = true
 				end
 			end
 		end

@@ -38,11 +38,16 @@ type SegmentProps = Segment & {
 	isActive: boolean,
 	onActivated: (id: Types.ItemId) -> (),
 	size: InputSize,
+	isCircular: boolean?,
 } & Types.CommonProps
 
 local function Segment(props: SegmentProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
-	local variantProps = useSegmentedControlVariants(tokens, props.size)
+	local variantProps = useSegmentedControlVariants(
+		tokens,
+		props.size,
+		if Flags.FoundationSegmentedControlCircular then props.isCircular else nil
+	)
 
 	if _G.__DEV__ == true then
 		assert(

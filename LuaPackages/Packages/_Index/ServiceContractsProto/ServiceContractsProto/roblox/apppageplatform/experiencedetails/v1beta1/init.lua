@@ -9,6 +9,7 @@ export type TypeRegistry = proto.TypeRegistry
 local experience_details_page = require(script.experience_details_page)
 
 -- Exported types
+export type ExperienceDetailsPageRequest = experience_details_page.ExperienceDetailsPageRequest
 export type ExperienceDetailsPageResponse = experience_details_page.ExperienceDetailsPageResponse
 
 return {

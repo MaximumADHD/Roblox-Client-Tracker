@@ -31,6 +31,7 @@ local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
 local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
+local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
@@ -154,7 +155,22 @@ function DynamicThumbstick:OnInputEnded()
 	else
 		self.moveTouchObject = nil
 	end
-	self.playerData.actions.MoveAction:Fire(Vector2.zero)
+	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+		if binding then
+			local success, result = pcall(function()
+				binding.Type = Enum.InputBindingType.Scriptable
+				binding:Fire(Vector2.zero)
+			end)
+			if not success then
+				self.playerData.actions.MoveAction:Fire(Vector2.zero)
+			end
+		else
+			self.playerData.actions.MoveAction:Fire(Vector2.zero)
+		end
+	else
+		self.playerData.actions.MoveAction:Fire(Vector2.zero)
+	end
 	self:FadeThumbstick(false)
 end
 
@@ -257,7 +273,22 @@ function DynamicThumbstick:DoMove(direction: Vector2)
 	end
 
 	currentMoveVector = Vector2.new(currentMoveVector.X, -currentMoveVector.Y)
-	self.playerData.actions.MoveAction:Fire(currentMoveVector)
+	if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+		local binding = self.playerData.actions.MoveAction:FindFirstChild("DynamicThumbstickScriptableBinding")
+		if binding then
+			local success, result = pcall(function()
+				binding.Type = Enum.InputBindingType.Scriptable
+				binding:Fire(currentMoveVector)
+			end)
+			if not success then
+				self.playerData.actions.MoveAction:Fire(currentMoveVector)
+			end
+		else
+			self.playerData.actions.MoveAction:Fire(currentMoveVector)
+		end
+	else
+		self.playerData.actions.MoveAction:Fire(currentMoveVector)
+	end
 end
 
 function DynamicThumbstick:LayoutMiddleImages(startPos: Vector3, endPos: Vector3)

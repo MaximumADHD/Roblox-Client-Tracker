@@ -67,7 +67,6 @@ local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 local FFlagConnectionsToFriendsRename = SharedFlags.FFlagConnectionsToFriendsRename
-local GetFFlagVoiceChatLogConnectionSource = SharedFlags.GetFFlagVoiceChatLogConnectionSource
 
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 
@@ -1355,9 +1354,7 @@ local function Initialize()
 			utility:MakeFocusState(frame, renderName)
 
 			frame.Activated:Connect(function()
-				if GetFFlagVoiceChatLogConnectionSource() then
-					VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
-				end
+				VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
 				VoiceChatServiceManager:JoinVoice()
 			end)
 

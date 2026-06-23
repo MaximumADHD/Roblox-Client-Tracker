@@ -21,7 +21,6 @@ local ChromeService = require(Root.Service)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local FFlagDisableGamepadConnectorInVR = ChromePackage.Flags.FFlagDisableGamepadConnectorInVR
 local FFlagGamepadIconSupportCheck = SharedFlags.FFlagGamepadIconSupportCheck
 
 type ShortcutProps = ChromePackage.ShortcutProps
@@ -72,7 +71,7 @@ function ChromeShortcutBar(props)
 			UserInputService.LastInputTypeChanged:Connect(updateShortcuts)
 		end
 
-		if not FFlagDisableGamepadConnectorInVR or not isSpatial() then
+		if not isSpatial() then
 			local showTopBar = GamepadConnector:getShowTopBar()
 			local gamepadActive = GamepadConnector:getGamepadActive()
 

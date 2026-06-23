@@ -160,7 +160,6 @@ local Flags = {
 
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
-	FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes,
 
 	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
 	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
@@ -411,12 +410,9 @@ local function CreateSettingsHub()
 	-- remove utility CreateSignal upon removing this flag
 	this.SettingsShowSignal = if Flags.GetFFlagPackagifySettingsShowSignal() then SettingsShowSignal else utility:CreateSignal()
 	this.CurrentPageSignal = if Flags.GetFFlagPackagifySettingsShowSignal() then SettingsUtility.CreateSignal() else utility:CreateSignal()
-	local showBottomBarSignal, setShowBottomBarSignal
-	if Flags.FFlagTraversalPerfFixes then
-		showBottomBarSignal, setShowBottomBarSignal = createSignal(false)
-		this.showBottomBarSignal = showBottomBarSignal
-		this.setShowBottomBarSignal = setShowBottomBarSignal
-	end
+	local showBottomBarSignal, setShowBottomBarSignal = createSignal(false)
+	this.showBottomBarSignal = showBottomBarSignal
+	this.setShowBottomBarSignal = setShowBottomBarSignal
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 	if Flags.FFlagRelocateMobileMenuButtons then
@@ -1928,12 +1924,9 @@ local function CreateSettingsHub()
 			SelectionBehaviorRight = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
 			SelectionBehaviorDown = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
 		};
-
-		if Flags.FFlagTraversalPerfFixes then
-			this.BottomButtonFrame:GetPropertyChangedSignal("Visible"):Connect(function()
-				this.setShowBottomBarSignal(this.BottomButtonFrame.Visible)
-			end)
-		end
+		this.BottomButtonFrame:GetPropertyChangedSignal("Visible"):Connect(function()
+			this.setShowBottomBarSignal(this.BottomButtonFrame.Visible)
+		end)
 
 		local resumeFunc = function(source)
 			if Flags.FFlagAddUILessMode then
@@ -4232,9 +4225,7 @@ local function CreateSettingsHub()
 			leaveGameButton = this["LeaveGameButton"]
 		end
 
-		local TraversalHistoryMenuContainer
-		if Flags.FFlagTraversalPerfFixes then
-			TraversalHistoryMenuContainer = function(props)
+		local TraversalHistoryMenuContainer = function(props)
 				local mounted, setMounted = React.useState(props.showSignal(false) and this.Visible)
 				React.useEffect(function()
 					local disposeShowSignal = Signals.createEffect(function(scope)
@@ -4261,7 +4252,6 @@ local function CreateSettingsHub()
 					}),
 				})
 			end
-		end
 
 		local InExperienceMenuReactRoot = ReactRoblox.createRoot(this.InExperienceMenuReact)
 		InExperienceMenuReactRoot:render(React.createElement(InExperienceMenuReact, nil, {
@@ -4273,38 +4263,20 @@ local function CreateSettingsHub()
 				end,
 				mountTo = this.ReactPage :: GuiObject,
 			}),
-			TraversalHistoryMenuBottomBar = if Flags.FFlagTraversalPerfFixes then React.createElement(TraversalHistoryMenuContainer, {
+			TraversalHistoryMenuBottomBar = React.createElement(TraversalHistoryMenuContainer, {
 				showSignal = this.showBottomBarSignal,
 				parent = leaveGameButton,
 				menuSide = Foundation.Enums.PopoverSide.Top,
 				currentPageChangeSignal = this.CurrentPageSignal,
-			}) else Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveGameButton
-				and React.createElement(PortalWithFoundationStylelink, {
-					parent = leaveGameButton,
-				}, {
-					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
-						anchorParent = leaveGameButton,
-						idleButtonStateIsDown = true,
-						currentPageChangeSignal = this.CurrentPageSignal,
-					}),
-				}),
-			TraversalHistoryMenuMobileButton = if Flags.FFlagTraversalPerfFixes then React.createElement(TraversalHistoryMenuContainer, {
+			}) ,
+			TraversalHistoryMenuMobileButton = React.createElement(TraversalHistoryMenuContainer, {
 				showSignal = Signals.createComputed(function(scope)
 					return not this.showBottomBarSignal(scope)
 				end),
 				parent = leaveButtonMobile,
 				menuSide = Foundation.Enums.PopoverSide.Bottom,
 				currentPageChangeSignal = this.CurrentPageSignal,
-			}) else Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveButtonMobile
-				and React.createElement(PortalWithFoundationStylelink, {
-				parent = leaveButtonMobile,
-			}, {
-				TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
-					anchorParent = leaveButtonMobile,
-					idleButtonStateIsDown = true ,
-					currentPageChangeSignal = this.CurrentPageSignal,
-				}),
-			}),
+			}) ,
 		}))
 	end
 

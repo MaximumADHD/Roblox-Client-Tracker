@@ -2,6 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Constants = require(Foundation.Constants)
+local Dash = require(Packages.Dash)
 local Image = require(Foundation.Components.Image)
 local PopoverContext = require(script.Parent.Parent.PopoverContext)
 local View = require(Foundation.Components.View)
@@ -42,6 +43,8 @@ export type PopoverContentProps = {
 	align: AlignConfig?,
 	-- Whether the popover should have an arrow.
 	hasArrow: boolean?,
+	-- Temporary opt-in for flagged input sinking. This will be removed when the behavior is finalized.
+	DO_NOT_USE_hasContentInputSink: boolean?,
 	-- Callback for when the backdrop is pressed. Does not swallow the press event.
 	onPressedOutside: () -> ()?,
 	-- Selection behavior
@@ -212,8 +215,11 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 					affordance = StateLayerAffordance.None,
 				},
 				ZIndex = 4,
-				-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
-				onActivated = if props.onPressedOutside then function() end else nil,
+				-- Prevent content presses from propagating to the backdrop or underlying UI
+				onActivated = if props.onPressedOutside
+						or (Flags.FoundationCoachmarkInteractionFixes and props.DO_NOT_USE_hasContentInputSink)
+					then Dash.noop
+					else nil,
 				backgroundStyle = backgroundStyle,
 				tag = `auto-xy {radiusToTag[props.radius]}`,
 				ref = setContentInstance,

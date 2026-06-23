@@ -10,6 +10,7 @@ local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local ColorMode = require(Foundation.Enums.ColorMode)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
 local Logger = require(Foundation.Utility.Logger)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
@@ -127,6 +128,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 			{
 				hasArrow = true,
 				align = props.align,
+				DO_NOT_USE_hasContentInputSink = Flags.FoundationCoachmarkInteractionFixes,
 				side = {
 					position = props.side,
 					offset = tokens.Size.Size_200,
@@ -154,6 +156,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObjec
 								variant = CloseAffordanceVariant.Utility,
 								Position = UDim2.new(1, -tokens.Padding.Small, 0, tokens.Padding.Small),
 								AnchorPoint = Vector2.new(1, 0), -- Top-right anchor
+								ZIndex = if Flags.FoundationCoachmarkInteractionFixes then 2 else nil,
 								testId = `{props.testId}--close-affordance`,
 							}),
 						})

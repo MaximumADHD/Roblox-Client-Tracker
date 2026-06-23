@@ -132,7 +132,9 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Medium] = computeProps({
 			radius = tokens.Radius.Medium,
 			containerTag = "size-full-1000 gap-large",
-			horizontalPadding = tokens.Padding.Small,
+			horizontalPadding = if Flags.FoundationSupportPrefixSuffixNumberInput
+				then tokens.Padding.Medium
+				else tokens.Padding.Small,
 			typography = tokens.Typography.BodyMedium,
 			iconSize = IconSize.Small,
 			minContainerHeight = tokens.Size.Size_1000,

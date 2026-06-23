@@ -1,3 +1,4 @@
+-- This file will be deleted once we clean up ArgoPartyExperimentation
 local CorePackages = game:GetService("CorePackages")
 local Chrome = script:FindFirstAncestor("Chrome")
 
@@ -10,7 +11,6 @@ local isConnectUnibarEnabled = require(script.Parent.isConnectUnibarEnabled)
 local isConnectDropdownEnabled = require(script.Parent.isConnectDropdownEnabled)
 
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
-local FFlagIsSquadEnabledAMP = require(CorePackages.Workspace.Packages.SharedFlags).FFlagIsSquadEnabledAMP
 local FIntSideSheetVariant = require(CorePackages.Workspace.Packages.SharedFlags).FIntSideSheetVariant
 local FFlagEnableSideSheet = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSideSheet
 
@@ -21,9 +21,7 @@ local ConnectIconDropdown = require(script.Parent.ConnectIconDropdown)
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local PolicyProvider = require(CorePackages.Packages.PolicyProvider)
 
-local impl = if FFlagIsSquadEnabledAMP
-	then PolicyProvider.GetPolicyImplementations.MemStorageService("app-policy")
-	else nil
+local impl = PolicyProvider.GetPolicyImplementations.MemStorageService("app-policy")
 
 local function canAccessParty()
 	return UniversalAppPolicy.getAppFeaturePolicies().getCanAccessParty()
@@ -96,50 +94,8 @@ local function handlePolicyUpdate()
 end
 
 if isConnectUnibarEnabled() then
-	if FFlagIsSquadEnabledAMP then
-		handlePolicyUpdate()
-		impl.onPolicyChanged(handlePolicyUpdate)
-	else
-		-- Note: when connect_unibar is added, there are 2 scenarios
-		-- s1, AppChat launches unibar entrypoint: no need to hide and show connect_unibar,
-		--   it will be initialAvailability will be pinned, no-opt here
-		-- s2, AppChat launches dropdown entrypoint: need to hide and show connect_unibar
-		--   see logic below
-
-		local currentIntegrationSoleyForParty = GetFFlagIsSquadEnabled() and isConnectDropdownEnabled()
-		integration = registerConnectIntegration(
-			"connect_unibar",
-			if currentIntegrationSoleyForParty
-				then ChromeService.AvailabilitySignal.Unavailable
-				else ChromeService.AvailabilitySignal.Pinned
-		)
-
-		-- s2
-		if currentIntegrationSoleyForParty then
-			-- active squad initial value
-			local hasActiveSquad = InExperienceAppChatModal.default.currentSquadId ~= ""
-			if hasActiveSquad then
-				integration.availability:pinned()
-				if shouldHideDropdown then
-					ConnectIconDropdown.availability:unavailable()
-				end
-			end
-
-			InExperienceAppChatModal.default.currentSquadIdSignal.Event:Connect(function(currentSquadId)
-				if currentSquadId == "" then
-					integration.availability:unavailable()
-					if shouldHideDropdown then
-						ConnectIconDropdown.availability:available()
-					end
-				else
-					integration.availability:pinned()
-					if shouldHideDropdown then
-						ConnectIconDropdown.availability:unavailable()
-					end
-				end
-			end)
-		end
-	end
+	handlePolicyUpdate()
+	impl.onPolicyChanged(handlePolicyUpdate)
 end
 
 return integration

@@ -4,6 +4,8 @@ local Flags = require(Foundation.Utility.Flags)
 
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
+local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
+type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
 
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
@@ -17,18 +19,25 @@ type Tokens = Tokens.Tokens
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local isDevMode = _G.__DEV__ == true
 
+local Constants = require(Foundation.Constants)
+
 type StatusIndicatorVariantProps = {
-	container: { tag: string },
-	content: { tag: string, style: ColorStyleValue },
+	container: { tag: string, backgroundStyle: ColorStyleValue? }, -- only populated if bg tag is non-compliant },
+	content: { tag: string, style: ColorStyleValue?, font: Font },
+	ring: { tag: string }?,
 }
+
+-- To-Do: Remove and use tag when BuilderSansSemiBold is supported as token / tag
+local BuilderSansSemiBold = Font.new(Constants.BUILDER_SANS_FONT_ASSET, Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
 
 function variantsFactory(tokens: Tokens)
 	local common = {
-		container = {
-			tag = "radius-circle",
-		},
 		content = {
-			tag = "auto-xy text-caption-small text-align-x-left",
+			tag = if Flags.FoundationStatusIndicatorBeta
+				then "auto-xy text-align-x-left"
+				else "auto-xy text-caption-small text-align-x-left",
+			-- To-Do: Use tag for font when BuilderSansSemiBold is supported as token / tag
+			font = if Flags.FoundationStatusIndicatorBeta then BuilderSansSemiBold else nil,
 		},
 	}
 
@@ -98,17 +107,43 @@ function variantsFactory(tokens: Tokens)
 				style = tokens.Inverse.Content.Emphasis,
 			},
 		},
+		[StatusIndicatorVariant.Voice] = {
+			container = {
+				-- To-Do: Update to use a tag once system-voice tokens are added
+				backgroundStyle = tokens.Color.Extended.Orange.Orange_600,
+			},
+		},
 	}
 
 	local hasValue: { [boolean]: any } = {
 		[false] = { container = { tag = "size-200-200" } },
-		[true] = { container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" } },
+		[true] = {
+			container = { tag = "row align-x-center align-y-center size-400-400 auto-x padding-xsmall" },
+		},
 	}
 
-	return { common = common, variants = variants, hasValue = hasValue }
+	local shape: { [StatusIndicatorShape]: any } = {
+		[StatusIndicatorShape.Circle] = {
+			container = { tag = "radius-circle" },
+		},
+		[StatusIndicatorShape.Ring] = {
+			container = { tag = "align-x-center align-y-center radius-circle" },
+			ring = { tag = "size-100-100 radius-circle bg-surface-100" },
+		},
+		[StatusIndicatorShape.Square] = {
+			container = { tag = "radius-none" },
+		},
+	}
+
+	return { common = common, variants = variants, hasValue = hasValue, shape = shape }
 end
 
-return function(tokens: Tokens, variant: StatusIndicatorVariant, hasValue: boolean): StatusIndicatorVariantProps
+return function(
+	tokens: Tokens,
+	variant: StatusIndicatorVariant,
+	hasValue: boolean,
+	shape: StatusIndicatorShape
+): StatusIndicatorVariantProps
 	if not Flags.FoundationStatusIndicatorVariantExperiment and isDevMode then
 		if variant == StatusIndicatorVariant.Contrast_Experiment then
 			error("Contrast is not a supported StatusIndicator variant.")
@@ -117,6 +152,7 @@ return function(tokens: Tokens, variant: StatusIndicatorVariant, hasValue: boole
 			error("Alert is not a supported numeric StatusIndicator variant.")
 		end
 	end
+
 	local props = VariantsContext.useVariants("StatusIndicator", variantsFactory, tokens)
-	return composeStyleVariant(props.common, props.variants[variant], props.hasValue[hasValue])
+	return composeStyleVariant(props.common, props.variants[variant], props.hasValue[hasValue], props.shape[shape])
 end

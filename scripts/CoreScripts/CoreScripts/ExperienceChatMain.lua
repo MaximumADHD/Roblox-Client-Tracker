@@ -109,7 +109,7 @@ else
 		and TextChatService.CreateDefaultTextChannels
 end
 
-if game:DefineFastFlag("DebugExpChatTextChannelWindow", false) then
+if game:GetEngineFeature("TextChatServiceProtectedChatEnabled") and game:DefineFastFlag("DebugExpChatTextChannelWindow", false) then
 	local TextChannelWindow = require(CorePackages.Workspace.Packages.TextChannelWindow)
 	TextChannelWindow.start()
 end

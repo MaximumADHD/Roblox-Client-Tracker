@@ -14,12 +14,15 @@ local Players = game:GetService("Players")
 -------------- Flags ----------------------------------------------------------
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableGameLeftMessage = SharedFlags.FFlagEnableGameLeftMessage
+local FFlagSurvBloxEventTypeEnabled = SharedFlags.FFlagSurvBloxEventTypeEnabled
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local Cryo = require(CorePackages.Packages.Cryo)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+local SurveyEventPublisher = require(CorePackages.Workspace.Packages.OnPlatformSurveys.SurveyEventPublisher)
+local WebViewEventType = require(CorePackages.Workspace.Packages.OnPlatformSurveys.WebViewEventType)
 local coreGuiFinalStateAnalytics = require(script:FindFirstAncestor("Settings").Analytics.CoreGuiFinalStateAnalytics).new()
 
 ------------ Variables -------------------
@@ -76,12 +79,20 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     )
 
     if publishSurveyMessage then
-        -- TODO APPEXP-1879: Remove code passing chromeSeenCount/customProps to survey receiver by flagging it off, now that it is unused.
-        local chromeSeenCount = tostring(0)
-        local customProps = { chromeSeenCount = chromeSeenCount }
+        if FFlagSurvBloxEventTypeEnabled then
+            local localUserId = tostring(Players.LocalPlayer.UserId)
+			SurveyEventPublisher.publishSurveyEvent(WebViewEventType.LeaveButtonClick, localUserId)
+        else
+            -- TODO APPEXP-1879: Remove legacy customProps publish path after migration.
+            local chromeSeenCount = tostring(0)
+            local customProps = { chromeSeenCount = chromeSeenCount }
 
-        local localUserId = tostring(Players.LocalPlayer.UserId)
-        MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})
+            local localUserId = tostring(Players.LocalPlayer.UserId)
+            MessageBus.publish(
+                Constants.OnSurveyEventDescriptor,
+                { eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps }
+            )
+        end
     end
 	
 	coreGuiFinalStateAnalytics:sendCoreGuiFinalAnalytic()

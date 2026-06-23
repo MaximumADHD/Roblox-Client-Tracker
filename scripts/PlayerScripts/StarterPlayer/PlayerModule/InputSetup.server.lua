@@ -15,6 +15,7 @@ local FFlagUserPlayerScriptsTapToMoveUsesIAS2 = FlagUtil.getUserFlag("UserPlayer
 local FFlagUserPlayerScriptsCameraTouchUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsCameraTouchUsesIAS")
 local FFlagUserPlayerScriptsDynamicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsDynamicThumbstickUsesIAS")
 local FFlagUserPlayerScriptsClassicThumbstickUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClassicThumbstickUsesIAS")
+local FFlagUserPlayerScriptsUseScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsUseScriptableBindings")
 
 local AvatarAbilitiesInterface = if FFlagUserPlayerScriptsCCLIntegrationB
 	then require(script.Parent:WaitForChild("ControlModule"):WaitForChild("AvatarAbilitiesInterface"))
@@ -82,6 +83,51 @@ if FFlagUserPlayerScriptsDynamicThumbstickUsesIAS or FFlagUserPlayerScriptsClass
 	thumbstickAction.Parent = characterContext
 end
 
+if FFlagUserPlayerScriptsUseScriptableBindings then
+	local characterContext = StarterPlayer.PlayerModule.InputContexts.CharacterContext
+	local cameraContext = StarterPlayer.PlayerModule.InputContexts.CameraContext
+	local moveAction = characterContext:FindFirstChild("MoveAction")
+	local jumpAction = characterContext:FindFirstChild("JumpAction")
+	local cameraAction = cameraContext:FindFirstChild("CameraAction")
+	local rotationAction = characterContext:FindFirstChild("RotationAction")
+
+	if moveAction and not moveAction:FindFirstChild("DynamicThumbstickScriptableBinding") then
+		local dynamicThumbstickBinding = Instance.new("InputBinding")
+		dynamicThumbstickBinding.Name = "DynamicThumbstickScriptableBinding"
+		dynamicThumbstickBinding.Parent = moveAction
+	end
+
+	if moveAction and not moveAction:FindFirstChild("ClassicThumbstickScriptableBinding") then
+		local classicThumbstickBinding = Instance.new("InputBinding")
+		classicThumbstickBinding.Name = "ClassicThumbstickScriptableBinding"
+		classicThumbstickBinding.Parent = moveAction
+	end
+
+	if moveAction and not moveAction:FindFirstChild("ClickToMoveScriptableBinding") then
+		local clickToMoveBinding = Instance.new("InputBinding")
+		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
+		clickToMoveBinding.Parent = moveAction
+	end
+
+	if jumpAction and not jumpAction:FindFirstChild("ClickToMoveScriptableBinding") then
+		local clickToMoveBinding = Instance.new("InputBinding")
+		clickToMoveBinding.Name = "ClickToMoveScriptableBinding"
+		clickToMoveBinding.Parent = jumpAction
+	end
+
+	if cameraAction and not cameraAction:FindFirstChild("CameraScriptableBinding") then
+		local cameraScriptableBinding = Instance.new("InputBinding")
+		cameraScriptableBinding.Name = "CameraScriptableBinding"
+		cameraScriptableBinding.Parent = cameraAction
+	end
+
+	if rotationAction and not rotationAction:FindFirstChild("RotationScriptableBinding") then
+		local rotationScriptableBinding = Instance.new("InputBinding")
+		rotationScriptableBinding.Name = "RotationScriptableBinding"
+		rotationScriptableBinding.Parent = rotationAction
+	end
+end
+
 local function attemptCreateActionsIfAbsent(player: Player)
 	local avatarAbilitiesInterface = AvatarAbilitiesInterface.get(player)
 
@@ -93,6 +139,11 @@ local function attemptCreateActionsIfAbsent(player: Player)
 
 		local action = Instance.new("InputAction")
 		action.Name = abilityName .. "Action"
+		if FFlagUserPlayerScriptsUseScriptableBindings then
+			local scriptableBinding = Instance.new("InputBinding")
+			scriptableBinding.Name = "ScriptableBinding"
+			scriptableBinding.Parent = action
+		end
 		action.Parent = characterContext
 	end
 

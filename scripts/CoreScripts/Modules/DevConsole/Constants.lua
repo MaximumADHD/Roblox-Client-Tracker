@@ -1,5 +1,5 @@
 local FFlagDevConsoleDownArrowIconFix = game:DefineFastFlag("DevConsoleDownArrowIconFix", false)
-local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole2", false)
 
 local Constants = {
 	MainWindowInit = {

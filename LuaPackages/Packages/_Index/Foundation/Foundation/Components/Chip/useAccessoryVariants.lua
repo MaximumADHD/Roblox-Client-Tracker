@@ -1,5 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Flags = require(Foundation.Utility.Flags)
+
 local ChipSize = require(Foundation.Enums.ChipSize)
 type ChipSize = ChipSize.ChipSize
 
@@ -64,8 +66,11 @@ end
 
 return function(tokens: Tokens, size: ChipSize, isLeading: boolean, isCircular: boolean)
 	local props = VariantsContext.useVariants("ChipAccessory", variantsFactory, tokens)
+
 	local style: Style = if isCircular then "Circular" else "Default"
-	local position: Position = if isCircular then "Leading" else "Trailing"
+	local position: Position = if if Flags.FoundationChipBeta then isLeading else isCircular
+		then "Leading"
+		else "Trailing"
 
 	return composeStyleVariant({
 		accessory = {

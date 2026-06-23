@@ -26,12 +26,6 @@ type FormatAsStringEntry = {
 }
 local FORMAT_AS_STRING_CALLBACKS: { FormatAsStringEntry } = {
 	{
-		name = "pixels",
-		callback = function(numValue)
-			return `{numValue}px`
-		end,
-	},
-	{
 		name = "none",
 		callback = nil,
 	},
@@ -42,9 +36,22 @@ local FORMAT_AS_STRING_CALLBACKS: { FormatAsStringEntry } = {
 		end,
 	},
 	{
-		name = "currency",
+		name = "punctuation",
 		callback = function(numValue)
-			return `${numValue}`
+			local withPunctuation = ""
+			local numString = tostring(numValue)
+			local s, e = math.max(#numString - 2, 1), #numString
+			while e >= 1 do
+				local nextThreeChars = string.sub(numString, s, e)
+				e = s - 1
+				s = math.max(e - 2, 1)
+				if e >= 1 then
+					withPunctuation = "," .. nextThreeChars .. withPunctuation
+				else
+					withPunctuation = nextThreeChars .. withPunctuation
+				end
+			end
+			return withPunctuation
 		end,
 	},
 }
@@ -93,6 +100,8 @@ local function DefaultStory(props)
 					precision = controls.precision,
 					leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
 					isScrubbable = controls.isScrubbable,
+					prefix = if controls.prefix == "" then nil else controls.prefix,
+					suffix = if controls.suffix == "" then nil else controls.suffix,
 					focusBehavior = controls.focusBehavior,
 				})
 			end
@@ -259,6 +268,8 @@ return {
 		minimum = -5,
 		step = 0.2,
 		precision = 2,
+		prefix = "",
+		suffix = "",
 		width = 0,
 		isScrubbable = false,
 		leadingIcon = {

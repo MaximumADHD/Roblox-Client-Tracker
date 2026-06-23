@@ -1,6 +1,7 @@
 local MarketplaceService = game:GetService("MarketplaceService")
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
@@ -8,12 +9,16 @@ local MediaType = require(Foundation.Enums.MediaType)
 local Theme = require(Foundation.Enums.Theme)
 local Tile = require(Foundation.Components.Tile)
 
+local Badge = require(Foundation.Components.Badge.Badge)
+local BadgeShape = require(Foundation.Enums.BadgeShape)
+local BadgeSize = require(Foundation.Enums.BadgeSize)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
-local Badge_DEPRECATED = require(Foundation.Components.Badge.Badge_DEPRECATED)
-local Badge_NEW = require(Foundation.Components.Badge.Badge)
+local IconPosition = require(Foundation.Enums.IconPosition)
+local Icons = BuilderIcons.Icon
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 type BadgeVariant = BadgeVariant.BadgeVariant
+type BadgeShape = BadgeShape.BadgeShape
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
@@ -32,7 +37,6 @@ return {
 			name = "Base",
 			story = function(props): React.Node
 				local tokens = useTokens()
-				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 
 				local item, setItem = React.useState({} :: { Name: string?, PriceText: string? })
 				React.useEffect(function()
@@ -75,10 +79,13 @@ return {
 							}),
 							Badge = React.createElement(Badge, {
 								text = props.controls.text,
-								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+								icon = if props.controls.icon ~= ""
+									then { name = props.controls.icon, position = props.controls.iconPosition }
+									else nil,
 								size = props.controls.size,
 								isDisabled = props.controls.isDisabled,
 								variant = props.controls.variant,
+								shape = props.controls.shape,
 							}),
 						}),
 						TileContent = React.createElement(Tile.Content, {}, {
@@ -103,34 +110,75 @@ return {
 
 				return React.createElement(Badge, {
 					text = props.controls.text,
-					icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+					icon = if props.controls.icon ~= ""
+						then { name = props.controls.icon, position = props.controls.iconPosition }
+						else nil,
 					size = props.controls.size,
 					isDisabled = props.controls.isDisabled,
 					variant = props.controls.variant,
+					shape = props.controls.shape,
 				})
 			end,
 		} :: unknown,
 		{
 			name = "All variants",
 			story = function(props)
-				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 				return React.createElement(
 					View,
 					{ tag = "row wrap gap-xxlarge auto-xy" },
-					Dash.map(nonDeprecatedVariants, function(variant)
+					Dash.map(nonDeprecatedVariants, function(variant, index)
 						return React.createElement(
 							View,
-							{ tag = "col align-x-center gap-small auto-xy" },
-							React.createElement(
-								Text,
-								{ tag = "auto-xy text-caption-small text-align-x-center", Text = variant }
-							),
+							{
+								tag = "col align-x-center gap-small auto-xy",
+								LayoutOrder = index,
+							},
+							React.createElement(Text, {
+								tag = "auto-xy text-caption-small text-align-x-center",
+								Text = variant,
+								LayoutOrder = 1,
+							}),
 							React.createElement(Badge, {
 								text = props.controls.text,
-								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+								icon = if props.controls.icon ~= ""
+									then { name = props.controls.icon, position = props.controls.iconPosition }
+									else nil,
 								size = props.controls.size,
 								isDisabled = props.controls.isDisabled,
 								variant = variant :: BadgeVariant,
+								shape = props.controls.shape,
+								LayoutOrder = 2,
+							})
+						)
+					end)
+				)
+			end,
+		},
+		{
+			name = "All shapes",
+			story = function(props)
+				return React.createElement(
+					View,
+					{ tag = "row wrap gap-xxlarge auto-xy" },
+					Dash.map(Dash.values(BadgeShape), function(shape, index)
+						return React.createElement(
+							View,
+							{ tag = "col align-x-center gap-small auto-xy", LayoutOrder = index },
+							React.createElement(Text, {
+								tag = "auto-xy text-caption-small text-align-x-center",
+								Text = shape,
+								LayoutOrder = 1,
+							}),
+							React.createElement(Badge, {
+								text = props.controls.text,
+								icon = if props.controls.icon ~= ""
+									then { name = props.controls.icon, position = props.controls.iconPosition }
+									else nil,
+								size = props.controls.size,
+								isDisabled = props.controls.isDisabled,
+								variant = props.controls.variant,
+								shape = shape :: BadgeShape,
+								LayoutOrder = 2,
 							})
 						)
 					end)
@@ -140,24 +188,28 @@ return {
 		{
 			name = "Deprecated variants",
 			story = function(props)
-				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 				return React.createElement(
 					View,
 					{ tag = "row wrap gap-xxlarge auto-xy" },
-					Dash.map({ BadgeVariant.Primary :: BadgeVariant, BadgeVariant.Secondary }, function(variant)
+					Dash.map({ BadgeVariant.Primary :: BadgeVariant, BadgeVariant.Secondary }, function(variant, index)
 						return React.createElement(
 							View,
-							{ tag = "col align-x-center gap-small auto-xy" },
-							React.createElement(
-								Text,
-								{ tag = "auto-xy text-caption-small text-align-x-center", Text = variant }
-							),
+							{ tag = "col align-x-center gap-small auto-xy", LayoutOrder = index },
+							React.createElement(Text, {
+								tag = "auto-xy text-caption-small text-align-x-center",
+								Text = variant,
+								LayoutOrder = 1,
+							}),
 							React.createElement(Badge, {
 								text = props.controls.text,
-								icon = if props.controls.icon ~= "" then props.controls.icon else nil,
+								icon = if props.controls.icon ~= ""
+									then { name = props.controls.icon, position = props.controls.iconPosition }
+									else nil,
 								size = props.controls.size,
 								isDisabled = props.controls.isDisabled,
 								variant = variant :: BadgeVariant,
+								shape = props.controls.shape,
+								LayoutOrder = 2,
 							})
 						)
 					end)
@@ -168,13 +220,18 @@ return {
 	controls = {
 		text = "Label",
 		icon = {
-			"diamond-simplified",
-			"house",
+			Icons.CirclePlus,
+			Icons.Diamond,
+			Icons.DiamondSimplified,
+			Icons.House,
 			"icons/placeholder/placeholderOn_small",
 			"icons/menu/clothing/limited_on",
 			"",
 		},
 		variant = nonDeprecatedVariants,
+		shape = Dash.values(BadgeShape),
+		iconPosition = Dash.values(IconPosition),
+		size = Dash.values(BadgeSize),
 		onTile = false,
 	},
 }

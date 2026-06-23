@@ -73,6 +73,8 @@ type _Messages =
 		OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
 		RefreshFromApiAction: _RefreshFromApiActionMessage,
 		RefreshFromApiAction_Params: _RefreshFromApiAction_ParamsMessage,
+		RefreshOmniRecommendationFeedItemAction: _RefreshOmniRecommendationFeedItemActionMessage,
+		RefreshOmniRecommendationFeedItemAction_Params: _RefreshOmniRecommendationFeedItemAction_ParamsMessage,
 		RsvpToEventAction: _RsvpToEventActionMessage,
 		RsvpToEventAction_Params: _RsvpToEventAction_ParamsMessage,
 		OpenEventDetailsAction: _OpenEventDetailsActionMessage,
@@ -89,6 +91,8 @@ type _Messages =
 		RefreshPlayabilityAction_Params: _RefreshPlayabilityAction_ParamsMessage,
 		RefreshDeveloperProductsAction: _RefreshDeveloperProductsActionMessage,
 		RefreshDeveloperProductsAction_Params: _RefreshDeveloperProductsAction_ParamsMessage,
+		OpenFaeTrialUpsellAction: _OpenFaeTrialUpsellActionMessage,
+		OpenFaeTrialUpsellAction_Params: _OpenFaeTrialUpsellAction_ParamsMessage,
 		OpenSduiOverlayAction: _OpenSduiOverlayActionMessage,
 		OpenSduiOverlayAction_Params: _OpenSduiOverlayAction_ParamsMessage,
 		ApplyChartsFilterAction: _ApplyChartsFilterActionMessage,
@@ -1994,6 +1998,70 @@ type _RefreshFromApiAction_ParamsMessage = proto.Message<
 	_RefreshFromApiAction_ParamsPartialFields
 >
 
+type _RefreshOmniRecommendationFeedItemActionImpl = {
+	__index: _RefreshOmniRecommendationFeedItemActionImpl,
+	new: (fields: _RefreshOmniRecommendationFeedItemActionPartialFields?) -> RefreshOmniRecommendationFeedItemAction,
+	encode: (self: RefreshOmniRecommendationFeedItemAction) -> buffer,
+	decode: (input: buffer) -> RefreshOmniRecommendationFeedItemAction,
+	jsonEncode: (self: RefreshOmniRecommendationFeedItemAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshOmniRecommendationFeedItemAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshOmniRecommendationFeedItemActionFields = {
+	action_type: ActionType,
+	action_params: RefreshOmniRecommendationFeedItemAction_Params?,
+}
+
+type _RefreshOmniRecommendationFeedItemActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RefreshOmniRecommendationFeedItemAction_Params?,
+}
+
+export type RefreshOmniRecommendationFeedItemAction = typeof(setmetatable(
+	{} :: _RefreshOmniRecommendationFeedItemActionFields,
+	{} :: _RefreshOmniRecommendationFeedItemActionImpl
+))
+type _RefreshOmniRecommendationFeedItemActionMessage = proto.Message<
+	RefreshOmniRecommendationFeedItemAction,
+	_RefreshOmniRecommendationFeedItemActionPartialFields
+>
+
+type _RefreshOmniRecommendationFeedItemAction_ParamsImpl = {
+	__index: _RefreshOmniRecommendationFeedItemAction_ParamsImpl,
+	new: (
+		fields: _RefreshOmniRecommendationFeedItemAction_ParamsPartialFields?
+	) -> RefreshOmniRecommendationFeedItemAction_Params,
+	encode: (self: RefreshOmniRecommendationFeedItemAction_Params) -> buffer,
+	decode: (input: buffer) -> RefreshOmniRecommendationFeedItemAction_Params,
+	jsonEncode: (self: RefreshOmniRecommendationFeedItemAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RefreshOmniRecommendationFeedItemAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RefreshOmniRecommendationFeedItemAction_ParamsFields = {
+	topic_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	request_intent: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	feed_item_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RefreshOmniRecommendationFeedItemAction_ParamsPartialFields = {
+	topic_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	selected_option: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	request_intent: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	feed_item_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RefreshOmniRecommendationFeedItemAction_Params = typeof(setmetatable(
+	{} :: _RefreshOmniRecommendationFeedItemAction_ParamsFields,
+	{} :: _RefreshOmniRecommendationFeedItemAction_ParamsImpl
+))
+type _RefreshOmniRecommendationFeedItemAction_ParamsMessage = proto.Message<
+	RefreshOmniRecommendationFeedItemAction_Params,
+	_RefreshOmniRecommendationFeedItemAction_ParamsPartialFields
+>
+
 type _RsvpToEventActionImpl = {
 	__index: _RsvpToEventActionImpl,
 	new: (fields: _RsvpToEventActionPartialFields?) -> RsvpToEventAction,
@@ -2449,6 +2517,59 @@ export type RefreshDeveloperProductsAction_Params = typeof(setmetatable(
 type _RefreshDeveloperProductsAction_ParamsMessage = proto.Message<
 	RefreshDeveloperProductsAction_Params,
 	_RefreshDeveloperProductsAction_ParamsPartialFields
+>
+
+type _OpenFaeTrialUpsellActionImpl = {
+	__index: _OpenFaeTrialUpsellActionImpl,
+	new: (fields: _OpenFaeTrialUpsellActionPartialFields?) -> OpenFaeTrialUpsellAction,
+	encode: (self: OpenFaeTrialUpsellAction) -> buffer,
+	decode: (input: buffer) -> OpenFaeTrialUpsellAction,
+	jsonEncode: (self: OpenFaeTrialUpsellAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenFaeTrialUpsellAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenFaeTrialUpsellActionFields = {
+	action_type: ActionType,
+	action_params: OpenFaeTrialUpsellAction_Params?,
+}
+
+type _OpenFaeTrialUpsellActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenFaeTrialUpsellAction_Params?,
+}
+
+export type OpenFaeTrialUpsellAction = typeof(setmetatable(
+	{} :: _OpenFaeTrialUpsellActionFields,
+	{} :: _OpenFaeTrialUpsellActionImpl
+))
+type _OpenFaeTrialUpsellActionMessage = proto.Message<OpenFaeTrialUpsellAction, _OpenFaeTrialUpsellActionPartialFields>
+
+type _OpenFaeTrialUpsellAction_ParamsImpl = {
+	__index: _OpenFaeTrialUpsellAction_ParamsImpl,
+	new: (fields: _OpenFaeTrialUpsellAction_ParamsPartialFields?) -> OpenFaeTrialUpsellAction_Params,
+	encode: (self: OpenFaeTrialUpsellAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenFaeTrialUpsellAction_Params,
+	jsonEncode: (self: OpenFaeTrialUpsellAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenFaeTrialUpsellAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenFaeTrialUpsellAction_ParamsFields = {
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenFaeTrialUpsellAction_ParamsPartialFields = {
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenFaeTrialUpsellAction_Params = typeof(setmetatable(
+	{} :: _OpenFaeTrialUpsellAction_ParamsFields,
+	{} :: _OpenFaeTrialUpsellAction_ParamsImpl
+))
+type _OpenFaeTrialUpsellAction_ParamsMessage = proto.Message<
+	OpenFaeTrialUpsellAction_Params,
+	_OpenFaeTrialUpsellAction_ParamsPartialFields
 >
 
 type _OpenSduiOverlayActionImpl = {
@@ -4054,6 +4175,8 @@ type _ActionFields = {
 		| { type: "dismiss_prompt_action", value: DismissPromptAction }
 		| { type: "request_friendship_action", value: RequestFriendshipAction }
 		| { type: "refresh_developer_products_action", value: RefreshDeveloperProductsAction }
+		| { type: "open_fae_trial_upsell_action", value: OpenFaeTrialUpsellAction }
+		| { type: "refresh_omni_recommendation_feed_item_action", value: RefreshOmniRecommendationFeedItemAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4121,6 +4244,8 @@ type _ActionPartialFields = {
 		| { type: "dismiss_prompt_action", value: DismissPromptAction }
 		| { type: "request_friendship_action", value: RequestFriendshipAction }
 		| { type: "refresh_developer_products_action", value: RefreshDeveloperProductsAction }
+		| { type: "open_fae_trial_upsell_action", value: OpenFaeTrialUpsellAction }
+		| { type: "refresh_omni_recommendation_feed_item_action", value: RefreshOmniRecommendationFeedItemAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
@@ -4445,6 +4570,8 @@ export type ActionType =
 	| "ACTION_TYPE_DISMISS_PROMPT"
 	| "ACTION_TYPE_REQUEST_FRIENDSHIP"
 	| "ACTION_TYPE_REFRESH_DEVELOPER_PRODUCTS"
+	| "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL"
+	| "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM"
 	| number -- Unknown
 
 do
@@ -13896,6 +14023,345 @@ do
 end
 
 do
+	local _RefreshOmniRecommendationFeedItemActionImpl = {}
+	_RefreshOmniRecommendationFeedItemActionImpl.__index = _RefreshOmniRecommendationFeedItemActionImpl
+
+	function _RefreshOmniRecommendationFeedItemActionImpl.new(
+		data: _RefreshOmniRecommendationFeedItemActionPartialFields?
+	): RefreshOmniRecommendationFeedItemAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RefreshOmniRecommendationFeedItemActionImpl :: _RefreshOmniRecommendationFeedItemActionImpl)
+	end
+
+	function _RefreshOmniRecommendationFeedItemActionImpl.encode(self: RefreshOmniRecommendationFeedItemAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshOmniRecommendationFeedItemActionImpl.decode(input: buffer): RefreshOmniRecommendationFeedItemAction
+		local self = _RefreshOmniRecommendationFeedItemActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RefreshOmniRecommendationFeedItemAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshOmniRecommendationFeedItemActionImpl.jsonEncode(self: RefreshOmniRecommendationFeedItemAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshOmniRecommendationFeedItemActionImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshOmniRecommendationFeedItemAction
+		local self = _RefreshOmniRecommendationFeedItemActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RefreshOmniRecommendationFeedItemAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RefreshOmniRecommendationFeedItemAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RefreshOmniRecommendationFeedItemActionImpl.descriptor = {
+		name = "RefreshOmniRecommendationFeedItemAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RefreshOmniRecommendationFeedItemAction",
+	}
+
+	messages.RefreshOmniRecommendationFeedItemAction = _RefreshOmniRecommendationFeedItemActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshOmniRecommendationFeedItemAction)
+end
+
+do
+	local _RefreshOmniRecommendationFeedItemAction_ParamsImpl = {}
+	_RefreshOmniRecommendationFeedItemAction_ParamsImpl.__index = _RefreshOmniRecommendationFeedItemAction_ParamsImpl
+
+	function _RefreshOmniRecommendationFeedItemAction_ParamsImpl.new(
+		data: _RefreshOmniRecommendationFeedItemAction_ParamsPartialFields?
+	): RefreshOmniRecommendationFeedItemAction_Params
+		return setmetatable({
+			topic_id = if data == nil or data.topic_id == nil then nil else data.topic_id,
+			selected_option = if data == nil or data.selected_option == nil then nil else data.selected_option,
+			request_intent = if data == nil or data.request_intent == nil then nil else data.request_intent,
+			feed_item_key = if data == nil or data.feed_item_key == nil then nil else data.feed_item_key,
+		}, _RefreshOmniRecommendationFeedItemAction_ParamsImpl :: _RefreshOmniRecommendationFeedItemAction_ParamsImpl)
+	end
+
+	function _RefreshOmniRecommendationFeedItemAction_ParamsImpl.encode(
+		self: RefreshOmniRecommendationFeedItemAction_Params
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.topic_id ~= nil then
+			local encoded = self.topic_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selected_option ~= nil then
+			local encoded = self.selected_option:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.request_intent ~= nil then
+			local encoded = self.request_intent:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.feed_item_key ~= nil then
+			local encoded = self.feed_item_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RefreshOmniRecommendationFeedItemAction_ParamsImpl.decode(
+		input: buffer
+	): RefreshOmniRecommendationFeedItemAction_Params
+		local self = _RefreshOmniRecommendationFeedItemAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.topic_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selected_option = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.request_intent = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.feed_item_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RefreshOmniRecommendationFeedItemAction_ParamsImpl.jsonEncode(
+		self: RefreshOmniRecommendationFeedItemAction_Params
+	): any
+		local output = {}
+
+		if self.topic_id ~= nil then
+			output.topicId = self.topic_id:jsonEncode()
+		end
+
+		if self.selected_option ~= nil then
+			output.selectedOption = self.selected_option:jsonEncode()
+		end
+
+		if self.request_intent ~= nil then
+			output.requestIntent = self.request_intent:jsonEncode()
+		end
+
+		if self.feed_item_key ~= nil then
+			output.feedItemKey = self.feed_item_key:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RefreshOmniRecommendationFeedItemAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RefreshOmniRecommendationFeedItemAction_Params
+		local self = _RefreshOmniRecommendationFeedItemAction_ParamsImpl.new()
+
+		if input.topic_id ~= nil then
+			self.topic_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.topic_id)
+		end
+
+		if input.topicId ~= nil then
+			self.topic_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.topicId)
+		end
+
+		if input.selected_option ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selected_option)
+		end
+
+		if input.selectedOption ~= nil then
+			self.selected_option =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.selectedOption)
+		end
+
+		if input.request_intent ~= nil then
+			self.request_intent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.request_intent)
+		end
+
+		if input.requestIntent ~= nil then
+			self.request_intent =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.requestIntent)
+		end
+
+		if input.feed_item_key ~= nil then
+			self.feed_item_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.feed_item_key)
+		end
+
+		if input.feedItemKey ~= nil then
+			self.feed_item_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.feedItemKey)
+		end
+
+		return self
+	end
+
+	_RefreshOmniRecommendationFeedItemAction_ParamsImpl.descriptor = {
+		name = "RefreshOmniRecommendationFeedItemAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RefreshOmniRecommendationFeedItemAction_Params = _RefreshOmniRecommendationFeedItemAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RefreshOmniRecommendationFeedItemAction_Params)
+end
+
+do
 	local _RsvpToEventActionImpl = {}
 	_RsvpToEventActionImpl.__index = _RsvpToEventActionImpl
 
@@ -16263,6 +16729,251 @@ do
 	messages.RefreshDeveloperProductsAction_Params = _RefreshDeveloperProductsAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.RefreshDeveloperProductsAction_Params)
+end
+
+do
+	local _OpenFaeTrialUpsellActionImpl = {}
+	_OpenFaeTrialUpsellActionImpl.__index = _OpenFaeTrialUpsellActionImpl
+
+	function _OpenFaeTrialUpsellActionImpl.new(data: _OpenFaeTrialUpsellActionPartialFields?): OpenFaeTrialUpsellAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenFaeTrialUpsellActionImpl :: _OpenFaeTrialUpsellActionImpl)
+	end
+
+	function _OpenFaeTrialUpsellActionImpl.encode(self: OpenFaeTrialUpsellAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenFaeTrialUpsellActionImpl.decode(input: buffer): OpenFaeTrialUpsellAction
+		local self = _OpenFaeTrialUpsellActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenFaeTrialUpsellAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenFaeTrialUpsellActionImpl.jsonEncode(self: OpenFaeTrialUpsellAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenFaeTrialUpsellActionImpl.jsonDecode(input: { [string]: any }): OpenFaeTrialUpsellAction
+		local self = _OpenFaeTrialUpsellActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenFaeTrialUpsellAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenFaeTrialUpsellAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenFaeTrialUpsellActionImpl.descriptor = {
+		name = "OpenFaeTrialUpsellAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenFaeTrialUpsellAction",
+	}
+
+	messages.OpenFaeTrialUpsellAction = _OpenFaeTrialUpsellActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenFaeTrialUpsellAction)
+end
+
+do
+	local _OpenFaeTrialUpsellAction_ParamsImpl = {}
+	_OpenFaeTrialUpsellAction_ParamsImpl.__index = _OpenFaeTrialUpsellAction_ParamsImpl
+
+	function _OpenFaeTrialUpsellAction_ParamsImpl.new(
+		data: _OpenFaeTrialUpsellAction_ParamsPartialFields?
+	): OpenFaeTrialUpsellAction_Params
+		return setmetatable({
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _OpenFaeTrialUpsellAction_ParamsImpl :: _OpenFaeTrialUpsellAction_ParamsImpl)
+	end
+
+	function _OpenFaeTrialUpsellAction_ParamsImpl.encode(self: OpenFaeTrialUpsellAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenFaeTrialUpsellAction_ParamsImpl.decode(input: buffer): OpenFaeTrialUpsellAction_Params
+		local self = _OpenFaeTrialUpsellAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenFaeTrialUpsellAction_ParamsImpl.jsonEncode(self: OpenFaeTrialUpsellAction_Params): any
+		local output = {}
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenFaeTrialUpsellAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenFaeTrialUpsellAction_Params
+		local self = _OpenFaeTrialUpsellAction_ParamsImpl.new()
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_OpenFaeTrialUpsellAction_ParamsImpl.descriptor = {
+		name = "OpenFaeTrialUpsellAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenFaeTrialUpsellAction_Params = _OpenFaeTrialUpsellAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenFaeTrialUpsellAction_Params)
 end
 
 do
@@ -24373,6 +25084,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 60, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_fae_trial_upsell_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 61, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "refresh_omni_recommendation_feed_item_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 62, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -24817,6 +25536,22 @@ do
 						value = messages.RefreshDeveloperProductsAction.decode(value),
 					}
 					continue
+				elseif field == 61 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_fae_trial_upsell_action",
+						value = messages.OpenFaeTrialUpsellAction.decode(value),
+					}
+					continue
+				elseif field == 62 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "refresh_omni_recommendation_feed_item_action",
+						value = messages.RefreshOmniRecommendationFeedItemAction.decode(value),
+					}
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -24976,6 +25711,10 @@ do
 				output.requestFriendshipAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "refresh_developer_products_action" then
 				output.refreshDeveloperProductsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_fae_trial_upsell_action" then
+				output.openFaeTrialUpsellAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "refresh_omni_recommendation_feed_item_action" then
+				output.refreshOmniRecommendationFeedItemAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -25832,6 +26571,38 @@ do
 			self.kind = {
 				type = "refresh_developer_products_action",
 				value = messages.RefreshDeveloperProductsAction.jsonDecode(input.refreshDeveloperProductsAction),
+			}
+		end
+
+		if input.open_fae_trial_upsell_action ~= nil then
+			self.kind = {
+				type = "open_fae_trial_upsell_action",
+				value = messages.OpenFaeTrialUpsellAction.jsonDecode(input.open_fae_trial_upsell_action),
+			}
+		end
+
+		if input.openFaeTrialUpsellAction ~= nil then
+			self.kind = {
+				type = "open_fae_trial_upsell_action",
+				value = messages.OpenFaeTrialUpsellAction.jsonDecode(input.openFaeTrialUpsellAction),
+			}
+		end
+
+		if input.refresh_omni_recommendation_feed_item_action ~= nil then
+			self.kind = {
+				type = "refresh_omni_recommendation_feed_item_action",
+				value = messages.RefreshOmniRecommendationFeedItemAction.jsonDecode(
+					input.refresh_omni_recommendation_feed_item_action
+				),
+			}
+		end
+
+		if input.refreshOmniRecommendationFeedItemAction ~= nil then
+			self.kind = {
+				type = "refresh_omni_recommendation_feed_item_action",
+				value = messages.RefreshOmniRecommendationFeedItemAction.jsonDecode(
+					input.refreshOmniRecommendationFeedItemAction
+				),
 			}
 		end
 
@@ -27169,6 +27940,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_REQUEST_FRIENDSHIP"
 		elseif value == 60 then
 			return "ACTION_TYPE_REFRESH_DEVELOPER_PRODUCTS"
+		elseif value == 61 then
+			return "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL"
+		elseif value == 62 then
+			return "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM"
 		else
 			return nil
 		end
@@ -27297,6 +28072,10 @@ messages.ActionType = {
 			return 59
 		elseif self == "ACTION_TYPE_REFRESH_DEVELOPER_PRODUCTS" then
 			return 60
+		elseif self == "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL" then
+			return 61
+		elseif self == "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM" then
+			return 62
 		else
 			return self
 		end
@@ -27425,6 +28204,10 @@ messages.ActionType = {
 			return "ACTION_TYPE_REQUEST_FRIENDSHIP"
 		elseif name == "ACTION_TYPE_REFRESH_DEVELOPER_PRODUCTS" then
 			return "ACTION_TYPE_REFRESH_DEVELOPER_PRODUCTS"
+		elseif name == "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL" then
+			return "ACTION_TYPE_OPEN_FAE_TRIAL_UPSELL"
+		elseif name == "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM" then
+			return "ACTION_TYPE_REFRESH_OMNI_RECOMMENDATION_FEED_ITEM"
 		else
 			return nil
 		end
@@ -27497,6 +28280,8 @@ return {
 	OpenMarketplaceCatalogFilters_Params = messages.OpenMarketplaceCatalogFilters_Params,
 	RefreshFromApiAction = messages.RefreshFromApiAction,
 	RefreshFromApiAction_Params = messages.RefreshFromApiAction_Params,
+	RefreshOmniRecommendationFeedItemAction = messages.RefreshOmniRecommendationFeedItemAction,
+	RefreshOmniRecommendationFeedItemAction_Params = messages.RefreshOmniRecommendationFeedItemAction_Params,
 	RsvpToEventAction = messages.RsvpToEventAction,
 	RsvpToEventAction_Params = messages.RsvpToEventAction_Params,
 	OpenEventDetailsAction = messages.OpenEventDetailsAction,
@@ -27513,6 +28298,8 @@ return {
 	RefreshPlayabilityAction_Params = messages.RefreshPlayabilityAction_Params,
 	RefreshDeveloperProductsAction = messages.RefreshDeveloperProductsAction,
 	RefreshDeveloperProductsAction_Params = messages.RefreshDeveloperProductsAction_Params,
+	OpenFaeTrialUpsellAction = messages.OpenFaeTrialUpsellAction,
+	OpenFaeTrialUpsellAction_Params = messages.OpenFaeTrialUpsellAction_Params,
 	OpenSduiOverlayAction = messages.OpenSduiOverlayAction,
 	OpenSduiOverlayAction_Params = messages.OpenSduiOverlayAction_Params,
 	ApplyChartsFilterAction = messages.ApplyChartsFilterAction,

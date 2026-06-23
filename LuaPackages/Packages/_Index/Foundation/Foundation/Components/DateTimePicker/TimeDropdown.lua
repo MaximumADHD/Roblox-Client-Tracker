@@ -41,7 +41,7 @@ local function TimeSelector(passedProps: Props)
 	local maxHeight = useScaledValue(MAX_HEIGHT)
 
 	local getTimeOptions = function()
-		local items = {}
+		local items: { Dropdown.DropdownItem } = {}
 		local shouldAddCustomItem = localDateTime.Minute % 30 ~= 0
 
 		-- Loop 48 times to get every 30-minute increment in a day

@@ -8,89 +8,122 @@ local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
+local StatusIndicatorShape = require(Foundation.Enums.StatusIndicatorShape)
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
 local Text = require(Foundation.Components.Text)
+local ValidNumericVariants = require(Foundation.Components.StatusIndicator.ValidNumericVariants)
 local View = require(Foundation.Components.View)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
+type StatusIndicatorShape = StatusIndicatorShape.StatusIndicatorShape
+
+type Controls = {
+	variant: StatusIndicatorVariant,
+	shape: StatusIndicatorShape,
+	value: number,
+	max: number,
+}
+
+local function getVariants(): { StatusIndicatorVariant }
+	local variants: { StatusIndicatorVariant } = {}
+	for _, variant in StatusIndicatorVariant do
+		if
+			not Flags.FoundationStatusIndicatorVariantExperiment
+			and variant == StatusIndicatorVariant.Contrast_Experiment
+		then
+			continue
+		end
+		table.insert(variants, variant :: StatusIndicatorVariant)
+	end
+	return variants
+end
+
+local function PlaygroundStory(props: { controls: Controls }): React.ReactNode
+	local controls = props.controls
+	return React.createElement(View, {
+		tag = "col gap-large size-full-0 auto-y",
+	}, {
+		Indicator = React.createElement(
+			StatusIndicator,
+			{
+				variant = controls.variant,
+				shape = controls.shape,
+				value = if controls.value > 0 then controls.value else nil,
+				max = controls.max,
+			} :: any
+		),
+	})
+end
+
+local shapes: { StatusIndicatorShape } =
+	{ StatusIndicatorShape.Circle, StatusIndicatorShape.Ring, StatusIndicatorShape.Square }
+
+local function AllVariantsStory(): React.ReactNode
+	local order = 0
+	local children: { [string]: React.ReactNode } = {}
+
+	for _, variant: StatusIndicatorVariant in getVariants() do
+		order += 1
+		children[variant .. "_label"] = React.createElement(Text, {
+			Text = variant :: string,
+			tag = "auto-xy text-label-medium content-muted",
+			LayoutOrder = order,
+		})
+
+		local indicators = Dash.map(shapes, function(shape, i)
+			return React.createElement(StatusIndicator, {
+				variant = variant :: StatusIndicatorVariant,
+				shape = shape :: StatusIndicatorShape,
+				LayoutOrder = i,
+			})
+		end)
+
+		if ValidNumericVariants[variant] then
+			table.insert(
+				indicators,
+				React.createElement(
+					StatusIndicator,
+					{
+						variant = variant,
+						value = 5,
+						LayoutOrder = #indicators + 1,
+					} :: any
+				)
+			)
+		end
+
+		order += 1
+		children[variant .. "_row"] = React.createElement(View, {
+			tag = "row align-y-center gap-medium auto-xy",
+			LayoutOrder = order,
+		}, indicators)
+	end
+
+	return React.createElement(View, {
+		tag = "col gap-small size-full-0 auto-y",
+	}, children)
+end
 
 return {
 	summary = "StatusIndicator",
 	stories = {
 		{
-			name = "Default",
-			summary = "Standard status indicator",
-			story = function()
-				return React.createElement(
-					View,
-					{
-						tag = "row align-x-left align-y-center gap-xxlarge size-full-0 auto-y",
-					},
-					Dash.map(StatusIndicatorVariant, function(variant)
-						if
-							not Flags.FoundationStatusIndicatorVariantExperiment
-							and variant == StatusIndicatorVariant.Contrast_Experiment
-						then
-							return React.createElement(React.Fragment)
-						end
-						return React.createElement(View, {
-							tag = "col align-x-center gap-small size-0-0 auto-xy",
-						}, {
-							Label = React.createElement(Text, {
-								tag = "auto-xy text-caption-small text-align-x-center",
-								Text = variant,
-							}),
-							Indicator = React.createElement(StatusIndicator, {
-								variant = variant :: StatusIndicatorVariant,
-							}),
-						})
-					end)
-				)
-			end,
-		} :: unknown,
+			name = "Playground",
+			story = PlaygroundStory,
+		},
 		{
-			name = "Numeric",
-			summary = "Indicator with a numeric value",
-			story = function(props)
-				return React.createElement(
-					View,
-					{
-						tag = "row align-x-left align-y-center gap-xxlarge size-full-0 auto-y",
-					},
-					Dash.map({
-						StatusIndicatorVariant.Standard :: StatusIndicatorVariant,
-						StatusIndicatorVariant.Emphasis,
-						StatusIndicatorVariant.Alert,
-						StatusIndicatorVariant.Contrast_Experiment,
-					}, function(variant)
-						if
-							not Flags.FoundationStatusIndicatorVariantExperiment
-							and (
-								variant == StatusIndicatorVariant.Contrast_Experiment
-								or variant == StatusIndicatorVariant.Alert
-							)
-						then
-							return {}
-						end
-						return React.createElement(View, {
-							tag = "col align-x-center gap-small size-0-0 auto-xy",
-						}, {
-							Label = React.createElement(Text, {
-								tag = "auto-xy text-caption-small text-align-x-center",
-								Text = variant,
-							}),
-							Indicator = React.createElement(StatusIndicator, {
-								value = props.controls.value,
-								variant = variant :: StatusIndicatorVariant,
-								max = props.controls.max,
-							}),
-						})
-					end)
-				)
-			end,
+			name = "All Variants",
+			summary = "All variant × shape permutations, plus numeric where supported",
+			story = AllVariantsStory,
 		},
 	},
 	controls = {
-		value = 5,
+		variant = Dash.values(StatusIndicatorVariant) :: { StatusIndicatorVariant },
+		shape = {
+			StatusIndicatorShape.Circle,
+			StatusIndicatorShape.Ring,
+			StatusIndicatorShape.Square,
+		} :: { StatusIndicatorShape },
+		value = 0,
 		max = 99,
 	},
 }

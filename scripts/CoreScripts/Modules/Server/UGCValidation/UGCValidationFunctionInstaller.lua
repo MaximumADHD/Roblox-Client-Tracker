@@ -4,7 +4,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local UGCValidation = require(CorePackages.Packages.UGCValidation)
 local EngineFeatureUGCValidationWithContextEntrypoint =
 	game:GetEngineFeature("UGCValidationWithContextEntrypointFeature")
-local FFlagUGCValidateMigrateSchemaProperties = game:DefineFastFlag("UGCValidateMigrateSchemaProperties", false)
+local FFlagUGCValidateMigrateSchemaProperties = game:DefineFastFlag("UGCValidateMigrateSchemaProperties2", false)
 
 local function UGCValidationFunction(args)
 	local objectInstances = args["instances"]

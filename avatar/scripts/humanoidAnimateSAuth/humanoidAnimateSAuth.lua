@@ -679,15 +679,17 @@ function module.setupAnimation(character)
 		local handle = if tool then tool:FindFirstChild("Handle") else nil
 
 		if tool and handle then
-			local handleState = handle:GetAttribute("State") or ""
-
-			if handleState ~= "" then
+			local handleState = handle:GetAttribute("State") or "None"
+			if animState.previousToolState ~= handleState then
 				debugPrint("Tool state changed from ", animState.previousToolState, " to ", handleState)
 
-				animState.toolAnimationTimeRemaining = 0
+				if handleState ~= "None" then
+					-- Tool action animations should happen immediately, so we interrupt the current animation
+					animState.toolAnimationTimeRemaining = 0
+				end
 				animState.queuedToolAnimName = TOOL_ANIM_MAP[handleState]
-
-				handle:SetAttribute("State", "")
+				animState.previousToolState = handleState
+				handle:SetAttribute("State", "None")
 			end
 
 			if animState.toolAnimationTimeRemaining > 0 then
@@ -699,20 +701,13 @@ function module.setupAnimation(character)
 			end
 
 			local nextToolName = animState.queuedToolAnimName
-
 			if nextToolName ~= "" then
 				transitionToNextToolAnimation(animState, nextToolName)
-
-				if nextToolName == "toolnone" then
-					animState.queuedToolAnimName = ""
-				else
-					-- Go back to idle once we're done playing the tool
-					animState.queuedToolAnimName = "toolnone"
-				end
 			end
 		else
 			stopToolAnimations()
 			animState.toolAnimationTimeRemaining = 0
+			animState.previousToolState = ""
 		end
 	end
 

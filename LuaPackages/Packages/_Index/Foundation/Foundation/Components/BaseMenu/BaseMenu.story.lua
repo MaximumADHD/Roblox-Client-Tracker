@@ -10,6 +10,7 @@ local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 type ItemId = Types.ItemId
 local BaseMenu = require(Foundation.Components.BaseMenu)
 local InputSize = require(Foundation.Enums.InputSize)
+local TextInput = require(Foundation.Components.TextInput)
 local View = require(Foundation.Components.View)
 
 type InputSize = InputSize.InputSize
@@ -274,6 +275,36 @@ return {
 					items = items,
 					maxHeight = 500,
 					onActivated = Dash.noop(),
+				})
+			end,
+		},
+		{
+			name = "Dynamically Sizing",
+			story = function(_props)
+				local searchContent, setSearchContent = React.useState("")
+
+				return React.createElement(View, { tag = "col gap-large" }, {
+					Input = React.createElement(TextInput, {
+						onChanged = function(text: string)
+							setSearchContent(text)
+						end,
+						label = "Search",
+						text = searchContent,
+						LayoutOrder = 1,
+					}),
+					Menu = React.createElement(BaseMenu.Root, {
+						label = "Icons",
+						items = Dash.map(
+							Dash.filter(BuilderIcons.Icon, function(icon)
+								return string.find(icon, searchContent, nil, true) ~= nil
+							end),
+							function(item)
+								return { id = item, icon = item, text = item }
+							end
+						),
+						maxHeight = 600,
+						LayoutOrder = 2,
+					}),
 				})
 			end,
 		},

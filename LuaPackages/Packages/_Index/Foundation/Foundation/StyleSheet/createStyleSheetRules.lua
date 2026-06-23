@@ -54,18 +54,12 @@ local function updateRuleAttributes(
 	scale = if Flags.FoundationDisableTokenScaling then 1 else scale or 1
 
 	for _, attribute in attributes :: { StyleAttribute<unknown> } do
-		if Flags.FoundationUseAttributeTokens then
-			local overrideValue = if overrideAttributes then overrideAttributes[attribute.name] else nil
-			local rawValue = if overrideValue ~= nil then overrideValue else attribute.value
-			local scaledValue = scaleValue(rawValue, scale)
-			if attributesCache[attribute.name] ~= scaledValue then
-				sheet:SetAttribute(attribute.name, scaledValue)
-				attributesCache[attribute.name] = scaledValue
-			end
-		elseif attributesCache[attribute.name] ~= scale then
-			local scaledValue = scaleValue(attribute.value, scale)
+		local overrideValue = if overrideAttributes then overrideAttributes[attribute.name] else nil
+		local rawValue = if overrideValue ~= nil then overrideValue else attribute.value
+		local scaledValue = scaleValue(rawValue, scale)
+		if attributesCache[attribute.name] ~= scaledValue then
 			sheet:SetAttribute(attribute.name, scaledValue)
-			attributesCache[attribute.name] = scale
+			attributesCache[attribute.name] = scaledValue
 		end
 	end
 end

@@ -4,7 +4,7 @@
 
 -- This can be replaced if we eventually overhaul the settings API to provide arbitrary metadata.
 
-local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole2", false)
 
 local content = {
 	["AreCollisionCostsShown"] = {
@@ -88,9 +88,20 @@ local content = {
 }
 
 if FFlagSlimDevConsole then
+	local PHYSICS_LEARN_MORE_BASE_URL = "https://create.roblox.com/docs/reference/engine/classes/PhysicsSettings#"
+	for name, entry in pairs(content) do
+		entry.learnMoreUrl = PHYSICS_LEARN_MORE_BASE_URL .. name
+	end
+
 	content["SlimTintMode"] = {
 		name = "SlimTintMode",
-		description = "Controls the SLIM debug tint mode.",
+		description = [[
+None - No tint will be applied.
+LOD - Distinct colors for each LOD. Blue is always the lowest.
+Meshes - Distinct colors for each mesh.
+MeshResourcePtr - Distinct colors for each shared Mesh Resource.
+ContentId - Distinct colors based on Content Id.
+Zone - Green for HL zone (datamodel is present), Yellow for LL zone (datamodel is absent).]],
 		tags = {"Performance"},
 		type = "Tint",
 		kind = "Dropdown",

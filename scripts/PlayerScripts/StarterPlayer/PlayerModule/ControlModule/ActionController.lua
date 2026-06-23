@@ -6,6 +6,7 @@ local RunService = game:GetService("RunService")
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserPlayerScriptsCCLIntegrationB = FlagUtil.getUserFlag("UserPlayerScriptsCCLIntegrationB")
+local FFlagUserPlayerScriptsFireThroughScriptableBindings = FlagUtil.getUserFlag("UserPlayerScriptsFireThroughScriptableBindings")
 
 local InputReplication
 local avatarAbilitiesInterface
@@ -139,7 +140,22 @@ function ActionController.setupSlotActions(data, playerData)
 			abilityAction.StateChanged:Connect(function(value)
 				local actionInSlot = getAbilityAction(slotMap[slot])
 				if actionInSlot then
-					actionInSlot:Fire(value)
+					if FFlagUserPlayerScriptsFireThroughScriptableBindings then
+						local binding = actionInSlot:FindFirstChild("ScriptableBinding")
+						if binding then
+							local success, result = pcall(function()
+								binding.Type = Enum.InputBindingType.Scriptable
+								binding:Fire(value)
+							end)
+							if not success then
+								actionInSlot:Fire(value)
+							end
+						else
+							actionInSlot:Fire(value)
+						end
+					else
+						actionInSlot:Fire(value)
+					end
 				end
 			end)
 		end

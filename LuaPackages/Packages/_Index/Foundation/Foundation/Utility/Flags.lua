@@ -25,7 +25,6 @@ local SafeFlags = require(Packages.SafeFlags)
 ]]
 
 local FoundationDisableStyleProviderDerives = SafeFlags.createGetFFlag("FoundationDisableStyleProviderDerives")()
-local FoundationUseAttributeTokens = SafeFlags.createGetFFlag("FoundationUseAttributeTokens")()
 local FoundationPopoverPluginDepthPool = SafeFlags.createGetFFlag("FoundationPopoverPluginDepthPool")()
 local FoundationPopoverPluginPrewarmDepthPool = SafeFlags.createGetFFlag("FoundationPopoverPluginPrewarmDepthPool")()
 local FoundationDropdownVariant = SafeFlags.createGetFFlag("FoundationDropdownVariant")()
@@ -65,12 +64,8 @@ return {
 	FoundationBottomSheetImproveSpring = SafeFlags.createGetFFlag("FoundationBottomSheetImproveSpring2")(),
 	FoundationDialogTitleEmphasisFix = SafeFlags.createGetFFlag("FoundationDialogTitleEmphasisFix")(),
 	FoundationGuiObjectInputSinkProperty = SafeFlags.createGetFFlag("FoundationGuiObjectInputSinkProperty")(),
-	FoundationSystemBannerUseSharedAlertActions = SafeFlags.createGetFFlag(
-		"FoundationSystemBannerUseSharedAlertActions"
-	)(),
 
 	-- Foundation@1.78.0
-	FoundationDialogAnimation = SafeFlags.createGetFFlag("FoundationDialogAnimation")(),
 	FoundationDisableStyleProviderDerives = FoundationDisableStyleProviderDerives,
 	FoundationDisableTokenScaling = SafeFlags.createGetFFlag("FoundationDisableTokenScaling2")(),
 	FoundationPopoverPluginSupport = SafeFlags.createGetFFlag("FoundationPopoverPluginSupport")(),
@@ -94,8 +89,6 @@ return {
 	-- Foundation@1.83.0
 	FoundationPopoverPluginSecurityGate = SafeFlags.createGetFFlag("FoundationPopoverPluginSecurityGate")(),
 	FoundationSegmentedControlIconSupport = SafeFlags.createGetFFlag("FoundationSegmentedControlIconSupport")(),
-	FoundationTokenOverrides = FoundationUseAttributeTokens and SafeFlags.createGetFFlag("FoundationTokenOverrides2")(),
-	FoundationUseAttributeTokens = FoundationUseAttributeTokens,
 
 	-- Foundation@1.84.0
 	FoundationActionEmphasisStatusIndicator = SafeFlags.createGetFFlag("FoundationActionEmphasisStatusIndicator")(),
@@ -108,11 +101,8 @@ return {
 	FoundationSystemBannerOptionalTitle = SafeFlags.createGetFFlag("FoundationSystemBannerOptionalTitle")(),
 
 	-- Foundation@1.86.0
-	FoundationFixNoCommonPropsOnComponentParents = SafeFlags.createGetFFlag(
-		"FoundationFixNoCommonPropsOnComponentParents"
-	)(),
-	FoundationPopoverPluginVirtualAnchor = SafeFlags.createGetFFlag("FoundationPopoverPluginVirtualAnchor")(),
 	FoundationTextInputHighlightFix = SafeFlags.createGetFFlag("FoundationTextInputHighlightFix")(),
+	FoundationTokenOverrides = SafeFlags.createGetFFlag("FoundationTokenOverrides2")(),
 
 	-- Foundation@1.87.0
 	FoundationButtonFillBehaviorEqualSize = SafeFlags.createGetFFlag("FoundationButtonFillBehaviorEqualSize")(),
@@ -138,6 +128,22 @@ return {
 	FoundationFixStaleAnimatedHighlightRefs = SafeFlags.createGetFFlag("FoundationFixStaleAnimatedHighlightRefs")(),
 	FoundationPopoverClipAwareVisibility = SafeFlags.createGetFFlag("FoundationPopoverClipAwareVisibility")(),
 	FoundationTabsInlineSizeFull = SafeFlags.createGetFFlag("FoundationTabsInlineSizeFull")(),
+
+	-- Foundation@1.90.0
+	FoundationBadgeBetaUpdate = SafeFlags.createGetFFlag("FoundationBadgeBetaUpdate")(),
+	FoundationBaseMenuAutoYCanvasSizing = SafeFlags.createGetFFlag("FoundationBaseMenuAutoYCanvasSizing")(),
+	FoundationBaseMenuBeta = SafeFlags.createGetFFlag("FoundationBaseMenuBeta")(),
+	FoundationBottomSheetInnerScrollingSync = SafeFlags.createGetFFlag("FoundationBottomSheetInnerScrollingSync")(),
+	FoundationChipBeta = SafeFlags.createGetFFlag("FoundationChipBeta")(),
+	FoundationDialogAnimation = SafeFlags.createGetFFlag("FoundationDialogAnimation2")(),
+	FoundationDropdownSelectionProps = SafeFlags.createGetFFlag("FoundationDropdownSelectionProps")(),
+	FoundationPopoverPluginOverlayMeasurement = SafeFlags.createGetFFlag("FoundationPopoverPluginOverlayMeasurement")(),
+	FoundationSegmentedControlCircular = SafeFlags.createGetFFlag("FoundationSegmentedControlCircular")(),
+	FoundationStatusIndicatorBeta = SafeFlags.createGetFFlag("FoundationStatusIndicatorBeta2")(),
+
+	-- Foundation@1.91.0
+	FoundationCoachmarkInteractionFixes = SafeFlags.createGetFFlag("FoundationCoachmarkInteractionFixes")(),
+	FoundationSupportPrefixSuffixNumberInput = SafeFlags.createGetFFlag("FoundationSupportPrefixSuffixNumberInput")(),
 
 	-- Unreleased flags
 }

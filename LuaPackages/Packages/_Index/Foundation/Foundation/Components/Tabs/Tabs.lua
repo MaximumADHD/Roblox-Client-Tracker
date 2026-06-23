@@ -101,29 +101,18 @@ local function Tabs(tabsProps: TabsProps, ref: React.Ref<GuiObject>?)
 
 	return React.createElement(
 		View,
-		if Flags.FoundationFixNoCommonPropsOnComponentParents
-			then withCommonProps(
-				props,
-				if Flags.FoundationTabsInlineSizeFull
-					then { tag = "auto-y clip", Size = UDim2.fromScale(1, 0) }
-					else { tag = "size-full-0 auto-y clip" }
-			)
-			else if Flags.FoundationTabsInlineSizeFull
+		withCommonProps(
+			props,
+			if Flags.FoundationTabsInlineSizeFull
 				then { tag = "auto-y clip", Size = UDim2.fromScale(1, 0) }
-				else { tag = "size-full-0 auto-y clip" },
+				else { tag = "size-full-0 auto-y clip" }
+		),
 		{
 			Tabs = React.createElement(
 				View,
-				if Flags.FoundationFixNoCommonPropsOnComponentParents
-					then if Flags.FoundationTabsInlineSizeFull
-						then { ref = ref or containerRef, tag = "col auto-y", Size = UDim2.fromScale(1, 0) }
-						else { ref = ref or containerRef, tag = "col size-full-0 auto-y" }
-					else withCommonProps(
-						props,
-						if Flags.FoundationTabsInlineSizeFull
-							then { ref = ref or containerRef, tag = "col auto-y", Size = UDim2.fromScale(1, 0) }
-							else { ref = ref or containerRef, tag = "col size-full-0 auto-y" }
-					),
+				if Flags.FoundationTabsInlineSizeFull
+					then { ref = ref or containerRef, tag = "col auto-y", Size = UDim2.fromScale(1, 0) }
+					else { ref = ref or containerRef, tag = "col size-full-0 auto-y" },
 				{
 					Wrapper = React.createElement(
 						View,

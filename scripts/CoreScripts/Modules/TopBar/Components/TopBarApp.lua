@@ -31,6 +31,7 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
+local BuildExperience = require(CorePackages.Workspace.Packages.BuildExperience)
 local Songbird = require(CorePackages.Workspace.Packages.Songbird)
 
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
@@ -45,8 +46,7 @@ local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 
 local Presentation = script.Parent.Presentation
-local AssistantBuildButton = require(script.Parent.AssistantBuildButton)
-local canShowAssistantBuild = require(script.Parent.canShowAssistantBuild)
+local BuildPillMenu = BuildExperience.BuildPillMenu
 local MenuIcon = require(Presentation.MenuIcon)
 local ChatIcon = require(Presentation.ChatIcon)
 local MoreMenu = require(Presentation.MoreMenu)
@@ -66,9 +66,9 @@ local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableUISelector = CoreGuiCommon.Flags.FFlagEnableUISelector
 
+local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
-local FFlagAppNavMyStatsTab = SharedFlags.FFlagAppNavMyStatsTab
 
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
@@ -82,6 +82,7 @@ local FFlagUseNewHeadsetDisconnectDialog = game:DefineFastFlag("UseNewHeadsetDis
 local InExperienceShop = require(CorePackages.Workspace.Packages.InExperienceShop)
 local FFlagEnableInExperienceShop = SharedFlags.FFlagEnableInExperienceShop
 local FFlagEnableExperienceShopGlobalIcon = InExperienceShop.FFlagEnableExperienceShopGlobalIcon and FFlagEnableInExperienceShop
+local FFlagCenterInExperienceShopWindow = InExperienceShop.FFlagCenterInExperienceShopWindow
 local ShopGlobalIcon = InExperienceShop.ShopGlobalIcon
 
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
@@ -90,7 +91,6 @@ local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 
 local Unibar
 local KeepOutAreasHandler
@@ -172,6 +172,10 @@ local VRBottomBar = if isInExperienceUIVREnabled and ChromeEnabled()
 
 local function selectMenuOpen(state)
 	return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
+end
+
+local function canShowAssistantBuild(): boolean
+	return BuildExperience.BuildModeLaunch:hasBuildMode() and not VRService.VREnabled
 end
 
 local NUM_EXPERIENCES_USER_SEEN_UI_LESS_TOOLTIP_KEY = "NumExperiencesUserSeenUILessTooltipKey2"
@@ -337,7 +341,11 @@ function TopBarApp:init()
 				})
 			end)
 			self.onShopGlobalIconActivated = function()
-				ChromeService:toggleWindow(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+				if FFlagCenterInExperienceShopWindow then
+					require(Chrome.Integrations.InExperienceShop.ShopWindowLayout).toggleInExperienceShopWindow()
+				else
+					ChromeService:toggleWindow(ChromeConstants.IN_EXPERIENCE_SHOP_ID)
+				end
 			end
 			self.shopGlobalIconCleanup = InExperienceShop.initShopGlobalIcon and InExperienceShop.initShopGlobalIcon()
 				if FFlagAddIGMToSideSheet then
@@ -385,20 +393,16 @@ function TopBarApp:didMount()
 		end
 
 		if FFlagEnableConsoleExpControls then
-			if FFlagDisableGamepadConnectorInVR then
-				if not isSpatial() then
-					self.GamepadConnector:connectToTopbar()
-				end
-				self.vrEnabledConnection = VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()
-					if isSpatial() then
-						self.GamepadConnector:disconnectFromTopbar()
-					else
-						self.GamepadConnector:connectToTopbar()
-					end
-				end)
-			else
+			if not isSpatial() then
 				self.GamepadConnector:connectToTopbar()
 			end
+			self.vrEnabledConnection = VRService:GetPropertyChangedSignal("VREnabled"):Connect(function()
+				if isSpatial() then
+					self.GamepadConnector:disconnectFromTopbar()
+				else
+					self.GamepadConnector:connectToTopbar()
+				end
+			end)
 		end
 	end
 end
@@ -411,11 +415,9 @@ function TopBarApp:willUnmount()
 		end
 
 		if FFlagEnableConsoleExpControls then
-			if FFlagDisableGamepadConnectorInVR then
-				if self.vrEnabledConnection then
-					self.vrEnabledConnection:Disconnect()
-					self.vrEnabledConnection = nil
-				end
+			if self.vrEnabledConnection then
+				self.vrEnabledConnection:Disconnect()
+				self.vrEnabledConnection = nil
 			end
 			self.GamepadConnector:disconnectFromTopbar()
 		end
@@ -838,6 +840,18 @@ function TopBarApp:renderWithStyle(style)
 
 					HealthBar = if UseUpdatedHealthBar then Roact.createElement(HealthBar, {}) else nil,
 
+					AssistantBuildPillMenu = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
+						then React.createElement(BuildPillMenu, {
+							target = {
+								universeId = game.GameId,
+								placeId = game.PlaceId,
+								isNewGameTarget = false,
+							},
+							position = UDim2.new(1, 0, 0, 0),
+							anchorPoint = Vector2.new(1, 0),
+						})
+						else nil,
+
 					StackedElements = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,
 						Position = self.unibarRightSidePosition,
@@ -854,19 +868,10 @@ function TopBarApp:renderWithStyle(style)
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
 
-						AssistantBuild = if FFlagAppNavMyStatsTab and canShowAssistantBuild()
-							then React.createElement(AssistantBuildButton, {
-								layoutOrder = 5,
-								setKeepOutArea = if FFlagTopBarSignalizeKeepOutAreas
-									then self.keepOutAreasStore.setKeepOutArea
-									else self.props.setKeepOutArea,
-							})
-							else nil,
-
 						ShopGlobalIcon = if FFlagEnableExperienceShopGlobalIcon and self.state.shopGlobalIconEnabled
 							then Roact.createElement(ShopGlobalIcon, {
 								buttonSize = Constants.TopBarButtonHeight * self.state.UiScale,
-								layoutOrder = if FFlagAppNavMyStatsTab then 8 else 1,
+								layoutOrder = 1,
 								leftGap = topBarPadding,
 								showStatusIndicator = self.state.shopGlobalStatusIndicatorEnabled,
 								onActivated = self.onShopGlobalIconActivated,

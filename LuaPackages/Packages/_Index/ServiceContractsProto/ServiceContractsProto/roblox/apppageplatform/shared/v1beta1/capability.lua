@@ -14,6 +14,7 @@ local messages: _Messages = {} :: _Messages
 type _CapabilityMessage = proto.Enum<Capability>
 export type Capability =
 	"CAPABILITY_INVALID"
+	| "CAPABILITY_SUPPORTS_EDP_PERSISTENT_ACTION_BAR_PLAY_BUTTON"
 	| "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION"
 	| number -- Unknown
 
@@ -21,6 +22,8 @@ messages.Capability = {
 	fromNumber = function(value: number): Capability?
 		if value == 0 then
 			return "CAPABILITY_INVALID"
+		elseif value == 2000 then
+			return "CAPABILITY_SUPPORTS_EDP_PERSISTENT_ACTION_BAR_PLAY_BUTTON"
 		elseif value == 3000 then
 			return "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION"
 		else
@@ -31,6 +34,8 @@ messages.Capability = {
 	toNumber = function(self: Capability): number
 		if self == "CAPABILITY_INVALID" then
 			return 0
+		elseif self == "CAPABILITY_SUPPORTS_EDP_PERSISTENT_ACTION_BAR_PLAY_BUTTON" then
+			return 2000
 		elseif self == "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION" then
 			return 3000
 		else
@@ -41,6 +46,8 @@ messages.Capability = {
 	fromName = function(name: string): Capability?
 		if name == "CAPABILITY_INVALID" then
 			return "CAPABILITY_INVALID"
+		elseif name == "CAPABILITY_SUPPORTS_EDP_PERSISTENT_ACTION_BAR_PLAY_BUTTON" then
+			return "CAPABILITY_SUPPORTS_EDP_PERSISTENT_ACTION_BAR_PLAY_BUTTON"
 		elseif name == "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION" then
 			return "CAPABILITY_SUPPORTS_OPEN_EXPERIENCE_STORE_SEE_ALL_WITH_WEBVIEW_FALLBACK_ACTION"
 		else

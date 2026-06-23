@@ -8,6 +8,9 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local FFlagUserProfileStoreQueryRefetch = SharedFlags.FFlagUserProfileStoreQueryRefetch
 
+local FFlagFixCharacterNameHandlerNilProfileCrash =
+	game:DefineFastFlag("FixCharacterNameHandlerNilProfileCrash", false)
+
 local playerConnections = {}
 
 local Connections = {
@@ -84,6 +87,9 @@ local function setCurrentPlayersNames()
 		if status == "success" then
 			for _, profile in profiles do
 				local player = playersFormatted[profile.userId]
+				if FFlagFixCharacterNameHandlerNilProfileCrash and (not player or profile.names == nil) then
+					continue
+				end
 				setNameOnCharacterAdded(player, {
 					names = {
 						inExperienceCombinedName = profile.names.getInExperienceCombinedName(false),
@@ -98,7 +104,10 @@ end
 local function onPlayerAdded(player: Player)
 	UserProfileStore.get().fetchNamesByUserIds({ tostring(player.UserId) }, function(result)
 			local status, profiles = result.status, result.data
-			if status == "success" then
+			local hasValidProfile = if FFlagFixCharacterNameHandlerNilProfileCrash
+				then #profiles > 0 and profiles[1].names ~= nil
+				else true
+			if status == "success" and hasValidProfile then
 				local profile = profiles[1]
 				setNameOnCharacterAdded(player, {
 					names = {

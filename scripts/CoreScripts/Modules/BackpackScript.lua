@@ -30,6 +30,7 @@ local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 local FFlagBackpackResponsiveUnits = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBackpackResponsiveUnits
 local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
 local featureDeprecateOldGuiObjectProperties = game:GetEngineFeature("DeprecateOldGuiObjectProperties")
+local FFlagBackpackRequestToolEquip = game:DefineFastFlag("BackpackRequestToolEquipLuauFlag", false) and game:GetEngineFeature("BackpackRequestToolEquipEngineFeature")
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
@@ -330,6 +331,10 @@ local function EquipNewTool(tool) --NOTE: HopperBin
 		SlotsByTool[tool]:UpdateEquipView()
 		ActiveHopper = tool
 	else
+		if FFlagBackpackRequestToolEquip then
+			Player:RequestTool(tool)
+		end
+
 		--Humanoid:EquipTool(tool) --NOTE: This would also unequip current Tool
 		tool.Parent = Character --TODO: Switch back to above line after EquipTool is fixed!
 	end
@@ -584,6 +589,9 @@ local function MakeSlot(parent, index)
 		local tool = slot.Tool
 		if tool then
 			if IsEquipped(tool) then --NOTE: HopperBin
+				if FFlagBackpackRequestToolEquip and not tool:IsA('HopperBin') then
+					Player:RequestTool(nil)
+				end
 				UnequipAllTools()
 			elseif tool.Parent == Backpack then
 				EquipNewTool(tool)

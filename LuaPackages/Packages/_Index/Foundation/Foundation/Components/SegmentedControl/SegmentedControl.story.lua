@@ -69,12 +69,14 @@ local function Story(props)
 	local value, setValue = React.useState(segments[1].id)
 	local iconValue, setIconValue = React.useState(iconSegments[1].id)
 	local mixedValue, setMixedValue = React.useState(mixedSegments[1].id)
+	local tabsValue, setTabsValue = React.useState(segments[1].id)
 
 	return React.createElement(View, {
 		tag = "col auto-xy gap-small",
 	}, {
 		TextSegments = React.createElement(SegmentedControl, {
 			size = props.controls.size,
+			isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
 			segments = segments,
 			value = value,
 			onActivated = setValue,
@@ -83,6 +85,7 @@ local function Story(props)
 		IconSegments = if Flags.FoundationSegmentedControlIconSupport
 			then React.createElement(SegmentedControl, {
 				size = props.controls.size,
+				isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
 				segments = iconSegments,
 				value = iconValue,
 				onActivated = setIconValue,
@@ -92,6 +95,7 @@ local function Story(props)
 		MixedSegments = if Flags.FoundationSegmentedControlIconSupport
 			then React.createElement(SegmentedControl, {
 				size = props.controls.size,
+				isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
 				segments = mixedSegments,
 				value = mixedValue,
 				onActivated = setMixedValue,
@@ -109,9 +113,10 @@ local function Story(props)
 			TabsComponent = React.createElement(SegmentedControl, {
 				LayoutOrder = 2,
 				size = props.controls.size,
+				isCircular = if Flags.FoundationSegmentedControlCircular then props.controls.isCircular else nil,
 				segments = segments,
-				value = mixedValue,
-				onActivated = setMixedValue,
+				value = tabsValue,
+				onActivated = setTabsValue,
 			}),
 			Last = React.createElement(Text, {
 				LayoutOrder = 3,
@@ -127,5 +132,6 @@ return {
 	story = Story,
 	controls = {
 		size = Dash.values(InputSize),
+		isCircular = false,
 	},
 }

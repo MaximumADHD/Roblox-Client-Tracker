@@ -62,4 +62,5 @@ return {
 	},
 	COLOR_MODE_TO_STATE_LAYER_MODE = ColorModeToStateLayerMode,
 	INPUT_PLACEMENT_TO_LABEL_ALIGNMENT = INPUT_PLACEMENT_TO_LABEL_ALIGNMENT,
+	BUILDER_SANS_FONT_ASSET = "rbxasset://fonts/families/BuilderSans.json",
 }

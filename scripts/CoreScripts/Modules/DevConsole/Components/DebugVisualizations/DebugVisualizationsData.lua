@@ -5,7 +5,7 @@ local Constants = require(script.Parent.Parent.Parent.Constants)
 local HEADER_NAMES = Constants.DebugVisualizationsFormatting.ChartHeaderNames
 
 local DebugVisualizationsContent = require(script.Parent.DebugVisualizationsStaticContent)
-local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole", false)
+local FFlagSlimDevConsole = game:DefineFastFlag("SlimDevConsole2", false)
 
 local SORT_COMPARATOR = {
 	[HEADER_NAMES[1]] = function(a, b) -- "Name"
@@ -168,6 +168,7 @@ function _constructInfo(name, info)
 		Tags = info.tags,
 		Tagstring = tagstring,
 		Description = info.description,
+		LearnMoreUrl = if FFlagSlimDevConsole then info.learnMoreUrl else nil,
 	}
 
 	if FFlagSlimDevConsole and info.kind == "Dropdown" then
