@@ -6,7 +6,7 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETTABLEKS                       R0 R0 K3 ["_Index"]
        11 GETIMPORT                        R1 K5 [require]
-       13 GETTABLEKS                       R3 R0 K6 ["Signals"]
+       13 GETTABLEKS                       R3 R0 K7 ["Signals-31ab8d40-0.6.0"]
        15 GETTABLEKS                       R2 R3 K6 ["Signals"]
        17 CALL                             R1 1 1
        18 RETURN                           R1 1
