@@ -7801,6 +7801,7 @@
 [C++] FFlagUseAvatarUnificationV22
 [C++] FFlagUseBigStackSizeTaskForRbxmToCacheJobs
 [C++] FFlagUseBlockingCallForRbxmToCacheJobs
+[C++] FFlagUseBundledCJKFallbackOniOS
 [Lua] FFlagUseCameraDevicesListener
 [C++] FFlagUseContextInfoToPopulateNewTelemetryFields2
 [C++] FFlagUseContextInfoToReplaceExistingTelemetryFields2

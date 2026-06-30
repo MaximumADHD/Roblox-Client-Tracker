@@ -75399,6 +75399,7 @@ UseBestFitParticleAllocation
 UseBigStackSizeTaskForRbxmToCacheJobs
 UseBlockingCallForRbxmToCacheJobs
 UseBottomBar
+UseBundledCJKFallbackOniOS
 UseByteLossRate
 UseCandidatesInRemoteDescription
 UseClaimedTimeForRestartFilter
